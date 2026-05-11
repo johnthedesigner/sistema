@@ -7,7 +7,7 @@ status: latest
 version_label: "M3"
 retrieved: 2026-05-11
 source_url: https://material-web.dev/about/quick-start/
-tags: [web, npm, cdn, installation, @material/web, theming]
+tags: [web, npm, cdn, installation, "@material/web", theming]
 ---
 
 # Material Design 3 — Web Implementation: Getting Started

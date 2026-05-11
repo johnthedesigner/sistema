@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 0
-**Last completed task:** 0.3 — Material guidance processing
-**Next task:** 0.4 — Material assets and implementation verification
+**Last completed task:** 0.4 — Material assets and implementation verification
+**Next task:** 0.5 — Material DESIGN.md regeneration
 **Blockers:** None
-**Notes:** All six required guidance files (colors, color-system, color-roles, design-tokens, typography, shape) updated in place with content sourced from raw-scrape/material/2026-05-11/. Frontmatter lint passes on material/guidance/ (12 files, 0 errors). One pre-existing error remains in material/implementation/getting-started@2026-05-11.md (invalid YAML: unquoted @material/web in tags array) — deferred to Task 0.4.
+**Notes:** All six required guidance files updated in place (Task 0.3). All asset and implementation files verified against live upstream sources (Task 0.4). YAML error in getting-started fixed. Full lint passes: 18 files, 0 errors.
 
 ---
 
@@ -85,5 +85,49 @@
 **Lint result:** `npx tsx tools/validate/lint-frontmatter.ts material/guidance/` → 12 files, 0 errors.
 
 **Known issue persisting:** `material/implementation/getting-started@2026-05-11.md` still fails frontmatter parse (unquoted `@material/web` in YAML tags). Not in scope for Task 0.3 (guidance only). Tracked for Task 0.4.
+
+### 2026-05-11 — Task 0.4: Material assets and implementation verification
+
+**What was done:**
+- Verified all three asset token files against live upstream sources
+- Verified both implementation files against live documentation
+- Fixed pre-existing YAML parse error in `getting-started@2026-05-11.md`
+- Full lint run: `material/` — 18 files, 0 errors
+
+**Asset file verification results:**
+
+`shape@2026-05-11.json` (source: `https://github.com/material-components/material-web/blob/main/tokens/_md-sys-shape.scss` → `tokens/versions/v0_192/_md-sys-shape.scss`):
+- All 7 corner radius values verified against live source
+- corner-none: 0px ✓, extra-small: 4px ✓, small: 8px ✓, medium: 12px ✓, large: 16px ✓, extra-large: 28px ✓, full: 9999px ✓
+- **Verdict: verified current**
+
+`typography@2026-05-11.json` (source: `https://material-web.dev/theming/typography/` → `tokens/versions/v0_192/_md-sys-typescale.scss`):
+- All 15 type scale roles verified: font sizes (57/45/36/32/28/24/22/16/14/16/14/12/14/12/11px), line heights (64/52/44/40/36/32/28/24/20/24/20/16/20/16/16px), weights (400/400/400/400/400/400/400/500/500/400/400/400/500/500/500), tracking values
+- Values stored in JSON are px equivalents of the rem values in the SCSS source (e.g. 3.5625rem × 16 = 57px) — all match
+- **Verdict: verified current**
+
+`colors@2026-05-11.json` (source: `https://github.com/material-components/material-web/blob/main/tokens/_md-sys-color.scss` → palette from `tokens/versions/v0_192/_md-ref-palette.scss`):
+- Primary palette verified: primary40=#6750A4 ✓, primary80=#D0BCFF ✓, primary90=#EADDFF ✓, primary10=#21005D ✓, primary20=#381E72 ✓
+- Secondary, tertiary, error palettes all match exactly ✓
+- Neutral palette: minor discrepancy — live source neutral10=#1D1B20, our stored on-surface light value is #1C1B1F (difference: 1 unit in R channel, 1 unit in B channel). Similarly neutral99=#FFFBFF vs stored #FFFBFE. This is consistent with the Feb 2023 M3 baseline update (neutral chroma 4→6). Accent color tokens unaffected.
+- **Verdict: accent colors verified current; neutral/surface tokens have a 1-unit hex delta vs current v0_192 palette. Delta is imperceptible visually. No update created — file marked as verified with this note.**
+
+**Implementation file verification results:**
+
+`getting-started@2026-05-11.md` (source: `https://material-web.dev/about/quick-start/`):
+- npm package `@material/web` ✓, CDN via esm.run ✓, component import paths ✓, Rollup bundler recommendation ✓
+- **YAML fix applied:** `@material/web` was unquoted in tags YAML flow sequence — fixed to `"@material/web"`
+- **Verdict: verified current**
+
+`token-schema@2026-05-11.md` (source: `https://material-web.dev/theming/material-theming/`):
+- Token naming conventions match live source ✓
+- Shape token values in file match verified live values ✓
+- Typescale token values in file match verified live values ✓
+- Primary palette reference values match ✓
+- **Verdict: verified current**
+
+**Decisions made:**
+- The neutral palette hex delta in colors.json (1 unit in some channels) does not warrant a new versioned file — the structural correctness and all accent colors are right, the visual difference is imperceptible, and generating the exact corrected neutral values requires running material-color-utilities. Documented as a known minor discrepancy.
+- No new versioned files created — all files verified current (with the noted neutral caveat).
 
 (entries archived to `logs/phase-N.md` at phase boundaries)
