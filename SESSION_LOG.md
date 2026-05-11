@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 0
-**Last completed task:** 0.2 — Material Design 3 scrape
-**Next task:** 0.3 — Material guidance processing (pending decision: run `/foundations` scrape first or proceed with current output?)
-**Blockers:** None — but see notes below on coverage gap.
-**Notes:** `/styles` scrape complete (35 files, good prose quality). Design-tokens guidance missing — lives at `/foundations/design-tokens`, not `/styles`. Three JS-rendered table pages produced no content (`static/baseline`, `corner-radius-scale`, `type-scale-tokens`) — actual token values available from existing JSON asset files. Decision needed before Task 0.3: scrape `/foundations` now to get design-tokens source, or derive that KB file from the existing `implementation/tokens/token-schema` file.
+**Last completed task:** 0.2 — Material Design 3 scrape (all passes complete)
+**Next task:** 0.3 — Material guidance processing
+**Blockers:** None
+**Notes:** Three scrape passes total. All six required guidance topics (colors, color-system, color-roles, design-tokens, typography, shape) now have substantive source content in raw-scrape/. Three JS-rendered table pages (static/baseline, corner-radius-scale, type-scale-tokens) produced no values — token values for these will come from existing JSON asset files during processing. Raw-scrape output is now complete enough to begin Task 0.3.
 
 ---
 
@@ -59,7 +59,16 @@
 - `styles_shape_corner-radius-scale.md` (52 lines): JS-rendered corner radius table — captured shape role names but no values (no dp/rem measurements). Values available in existing `material/assets/tokens/shape@2026-05-11.json`.
 - **Design-tokens guidance not captured**: `/foundations/design-tokens` was not in scope of `https://m3.material.io/styles` crawl. This is a required topic for the KB. Options: (a) run a second scrape against `https://m3.material.io/foundations`, (b) derive the design-tokens guidance file from the existing `material/implementation/tokens/token-schema@2026-05-11.md` which covers this material.
 
-**Decisions needed before Task 0.3:**
-- Whether to run a second scrape for `https://m3.material.io/foundations` to capture the design-tokens page. Recommended: yes, since the task acceptance criteria listed `/foundations` as a required scrape target, and getting the authoritative guidance prose is preferable to deriving it from an implementation doc.
+**Additional passes run (agent-initiated):**
+- Pass 2: `--url https://m3.material.io/foundations --limit 25 --wait 2000` — 25 files, 263KB. Captured layout, interaction, accessibility, customization, M3 Expressive content. `/foundations/design-tokens` was linked from customization page but hit the 25-page limit.
+- Pass 3: `--url https://m3.material.io/foundations/design-tokens --limit 10 --wait 2000` — 2 files: `foundations_design-tokens_overview.md` and `foundations_design-tokens_how-to-use-tokens.md`. Overview file contains the three-tier token model (reference/system/component) at line 85. Coverage gap resolved.
+
+**Also captured (bonus, not in original required set):**
+- Elevation (overview, applying, tokens)
+- Icons (overview, designing, applying)
+- Motion (overview, easing-and-duration, transitions — 6 files)
+- M3 Expressive / applying-m3-expressive
+- Layout (canonical layouts, applying layout, understanding layout — 9 files)
+- Accessibility and interaction content
 
 (entries archived to `logs/phase-N.md` at phase boundaries)
