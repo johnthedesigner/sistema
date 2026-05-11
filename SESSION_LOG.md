@@ -3,8 +3,8 @@
 ## Current State
 
 **Phase:** 0
-**Last completed task:** 0.4 — Material assets and implementation verification
-**Next task:** 0.5 — Material DESIGN.md regeneration
+**Last completed task:** 0.5 — Material DESIGN.md regeneration
+**Next task:** 0.6 — Index and changelog update
 **Blockers:** None
 **Notes:** All six required guidance files updated in place (Task 0.3). All asset and implementation files verified against live upstream sources (Task 0.4). YAML error in getting-started fixed. Full lint passes: 18 files, 0 errors.
 
@@ -129,5 +129,21 @@
 **Decisions made:**
 - The neutral palette hex delta in colors.json (1 unit in some channels) does not warrant a new versioned file — the structural correctness and all accent colors are right, the visual difference is imperceptible, and generating the exact corrected neutral values requires running material-color-utilities. Documented as a known minor discrepancy.
 - No new versioned files created — all files verified current (with the noted neutral caveat).
+
+### 2026-05-11 — Task 0.5: Material DESIGN.md regeneration
+
+**What was done:**
+- Regenerated `material/design-md/DESIGN@2026-05-11.md` in place (same-date conflict; updated existing draft with authoritative content from verified Task 0.3–0.4 sources)
+- Stub (`DESIGN.md`) already points to this file — no change needed
+
+**Key improvements over the previous draft:**
+- `derived_from` now lists all 9 source files (added `colors@`, `design-tokens@`, total 7 guidance + 3 asset files → 9 entries)
+- **Colors**: Added full dark-theme color section; added missing roles (`inverse-primary`, `surface-dim`, `surface-bright`, all 5 surface container steps, `inverse-surface`, `inverse-on-surface`, `shadow`, `scrim`); reorganized into `light:` and `dark:` sub-sections
+- **Typography**: Added `letterSpacing` to all 15 typescale roles (sourced from `typography@2026-05-11.json`); split into `typeface:` and `scale:` sub-sections; added M3 Expressive note (15 emphasized styles)
+- **Shape**: Added M3 Expressive corner tokens (`large-increased` 20px, `extra-large-increased` 32px, `extra-extra-large` 48px)
+- **Components**: Added FAB, extended FAB, tonal button, navigation bar, snackbar; improved existing component mappings
+- **Prose**: Added Token Architecture section; expanded color prose with HCT, contrast levels, add-on roles; expanded shape table with all corner tokens; expanded typography with letter-spacing note; expanded component descriptions
+
+**Lint result:** 18 files, 0 errors.
 
 (entries archived to `logs/phase-N.md` at phase boundaries)
