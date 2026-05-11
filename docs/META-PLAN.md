@@ -98,14 +98,12 @@ sistema/
 | Phase | Layer | Goal |
 |---|---|---|
 | 0 | KB | Tools scaffold; Material Design 3 re-scrape and processing |
-| 1 | KB | Carbon and Atlassian capture; exemplars for top plays |
-| 2 | KB | Additional systems (Primer, Radix); component documentation |
-| 3 | App | Next.js foundation; KB data layer; landing page |
-| 4 | App | System browser; KB content pages; playbook browser with copy button |
-| 5 | App + KB | Interactive playbook fields; polish; search; SEO |
-| 6 | Launch | Vercel deployment; custom domain; analytics; launch checklist |
+| 1 | KB + App | Carbon capture; app foundation (Next.js, KB data layer, landing page) |
+| 2 | App + KB | App core features; Atlassian capture; exemplars |
+| 3 | App + KB | Interactive playbooks; Primer/Radix capture; component docs |
+| 4 | Launch | Polish; SEO; Vercel deployment; custom domain; launch checklist |
 
-KB and app phases are intentionally sequential so the KB has enough content to make the app worth building before the app work begins. Once Phase 3 starts, some KB and app work may run in parallel where they don't interfere.
+**Rationale for front-loading app work:** The app can launch with M3 + Carbon as its initial KB content. Additional systems are added as the app is already live. This avoids a long pre-launch period of KB-only work and gets the product in front of users earlier. Phase 1 runs KB and app work in sequence within the same phase (Carbon first, then app foundation) since they are independent tracks.
 
 ---
 
@@ -125,136 +123,95 @@ Review and commit the task file before running any Claude Code sessions.
 
 - **0.1 — Tools scaffold:** Initialize `tools/package.json` with Firecrawl SDK, Playwright, gray-matter, zod, prettier, TypeScript. Create `tools/tsconfig.json`, `tools/.env.example`. Create `tools/scrape/firecrawl-guidance.ts` (accepts URL + system slug, writes raw output to `raw-scrape/[slug]/[date]/`, never to KB directories). Create `tools/validate/lint-frontmatter.ts` (validates frontmatter on all `.md` files in a system directory against `_meta/SCHEMA.md`). Run npm install. Verify clean.
 
-- **0.2 — Material Design 3 scrape:** Run the Firecrawl scraper against `https://m3.material.io/styles` (and other M3 sections as needed). Inspect raw output — confirm pages are fully rendered prose, not empty JS shells. Document coverage gaps.
+- **0.2 — Material Design 3 scrape:** The agent runs scrape commands directly via Bash. Scrape M3 in targeted section passes (never more than `--limit 25` per call, 60+ seconds between calls). Inspect raw output after each pass — confirm pages contain real prose, not empty JS shells. Decide autonomously whether additional passes are needed and run them. Document all passes and coverage gaps in `SESSION_LOG.md`.
 
 - **0.3 — Material guidance processing:** Process raw scrape output into KB files following Procedure B in `_meta/MAINTENANCE.md`. New versioned files for each topic. Existing draft files marked `legacy`. Stubs updated. Run frontmatter lint. Verify all acceptance criteria.
 
 - **0.4 — Phase 0 housekeeping:** Archive session log entries, compress task file, update `AGENTS.md` patterns, preview Phase 1 task file for issues.
 
-### Phase 1 — KB expansion: Carbon and Atlassian
+### Phase 1 — Carbon KB capture + App foundation
 
-**Goal:** Add two high-priority systems (Carbon IBM and Atlassian Design System), making the KB cross-system and dramatically more useful. Create exemplars for the most important generative plays.
+**Goal:** Add Carbon (IBM) as the second KB system, then build the Next.js app foundation. By end of phase the app builds and deploys with M3 and Carbon content available.
 
-**Generate `tasks/phase-1.md` before starting** (same process as Phase 0).
-
-**Key tasks in this phase:**
-
-- **1.1 — Carbon capture:** Full Procedure A from `_meta/MAINTENANCE.md` for Carbon. Priority: foundations (color, typography, spacing), getting-started, token assets. Frontmatter lint must pass.
-
-- **1.2 — Atlassian capture:** Full Procedure A for Atlassian. Priority: same foundations set.
-
-- **1.3 — DESIGN.md generation:** Generate DESIGN.md files for Carbon and Atlassian, derived from their newly captured guidance and asset files. Follow Procedure A Step 7.
-
-- **1.4 — Exemplars:** Create at least two vetted exemplars: one for play 1.2 (Generate a Color Token Set) and one for play 6.1 (Generate a DESIGN.md). These are the plays most likely to be featured prominently on the app. Exemplars must include the worked example output plus annotations per `_meta/SCHEMA.md` Section 5.2.
-
-- **1.5 — Phase 1 housekeeping**
-
-### Phase 2 — KB expansion: Additional systems and component documentation
-
-**Goal:** Expand coverage to Primer and Radix. Add component-level documentation for Material and Carbon. The KB should be substantive enough across multiple systems that the app has real depth to surface.
-
-**Generate `tasks/phase-2.md` before starting.**
+**Generate `tasks/phase-1.md` before starting.**
 
 **Key tasks in this phase:**
 
-- **2.1 — Primer (GitHub) capture:** Procedure A. Priority: color system (Primer has a notably clean semantic token model), typography, component docs for Button and Form elements.
+- **1.1 — Carbon KB capture:** Full Procedure A from `_meta/MAINTENANCE.md` for Carbon. Agent runs all scrapes via Bash. Priority: foundations (color, typography, spacing), getting-started, token assets. Scrape in targeted section passes (`--limit 25`). Frontmatter lint must pass.
 
-- **2.2 — Radix capture:** Procedure A. Priority: design philosophy, component guidance for the most commonly used primitives.
+- **1.2 — Carbon DESIGN.md generation:** Generate DESIGN.md for Carbon, derived from the guidance and asset files captured in 1.1.
 
-- **2.3 — Material component documentation:** Add component-level guidance for Material (Button, Form elements, Navigation, Dialog). Update `_meta/INDEX.md`.
+- **1.3 — Next.js initialization:** Add Next.js App Router with TypeScript and Tailwind to the root `package.json`. Configure `tsconfig.json` and `tailwind.config.ts`. Confirm `tools/` remains its own separate package and does not conflict. Commit a working build that deploys cleanly to Vercel (preview URL).
 
-- **2.4 — Carbon component documentation:** Same set for Carbon.
+- **1.4 — KB data layer:** Build `src/lib/kb.ts` — utilities for reading KB content files at build time using Node `fs`. Functions needed: list available systems, list files for a system, read a content file (parse frontmatter + body), follow a stub to its versioned target. All reads happen at build time; no runtime filesystem access.
 
-- **2.5 — Additional exemplars:** Exemplars for plays 3.1 (Compare component across systems) and 4.2 (Generate a multi-tier token architecture). Both are prominently featured plays.
+- **1.5 — Core routing and landing page:** Define the URL scheme. Build the landing page and the skeleton routing structure. At minimum: `/`, `/systems`, `/systems/[slug]`, `/playbooks`.
+
+- **1.6 — AGENTS.md update:** Add the app's architectural rules and directory structure.
+
+- **1.7 — Phase 1 housekeeping**
+
+### Phase 2 — App core features + Atlassian KB
+
+**Goal:** Build the system browser, KB content pages, and playbook browser. Add Atlassian as the third KB system. By end of phase the app is genuinely usable.
+
+**Key tasks in this phase:**
+
+- **2.1 — System browser:** `/systems` index and per-system pages showing content inventory, status, and source map.
+
+- **2.2 — KB content pages:** Pages at `/systems/[slug]/[category]/[topic]` that render KB markdown files as styled HTML. Must follow stubs, display frontmatter metadata, render markdown body, and link to GitHub source.
+
+- **2.3 — Playbook browser:** `/playbooks` index listing all plays from `_meta/TASK_PLAYBOOKS.md` by category with tier classification. Per-play pages with full play content and a **copy prompt button** that inserts KB URLs for available systems.
+
+- **2.4 — Atlassian KB capture:** Full Procedure A for Atlassian. Agent runs all scrapes. Priority: color system, typography, component foundations.
+
+- **2.5 — Exemplars (top plays):** Create vetted exemplars for plays 1.2 (Generate a Color Token Set) and 6.1 (Generate a DESIGN.md). These anchor output quality for the most-used plays on the site.
 
 - **2.6 — Phase 2 housekeeping**
 
----
+### Phase 3 — Interactive playbooks + KB expansion
 
-## App phases
-
-### Phase 3 — App foundation
-
-**Goal:** Add Next.js to the repository. Build the data layer that reads KB content at build time. Create the landing page and core routing structure.
-
-**This is the first phase that modifies the repository structure significantly.** Before running any Phase 3 session, review the repo structure section above and confirm you understand how Next.js and KB content will coexist.
-
-**Generate `tasks/phase-3.md` before starting.** Note: the task generation prompt for app phases should reference this document's app section rather than the KB procedures.
+**Goal:** Add interactive fields to the most-used playbooks. Expand KB with Primer and component-level documentation. Add exemplar previews to playbook pages.
 
 **Key tasks in this phase:**
 
-- **3.1 — Next.js initialization:** Add Next.js App Router with TypeScript and Tailwind to the root `package.json`. Configure `tsconfig.json` and `tailwind.config.ts`. Confirm `tools/` remains its own separate package and does not conflict. Commit a working "Hello World" build that deploys cleanly.
+- **3.1 — Interactive playbook fields:** For Tier 2/3 plays, define a template variable syntax (`{{accent_color}}`, `{{product_type}}`). Build form UI that renders input fields and a copy button that substitutes all variables. Start with color token generation, DESIGN.md generation, and token migration plays.
 
-- **3.2 — KB data layer:** Build `src/lib/kb.ts` — utilities for reading KB content files at build time using Node `fs`. Functions needed: list available systems (from `_meta/INDEX.md`), list files for a system, read a content file (parse frontmatter + body), follow a stub to its current versioned file. All reads happen at build time; no runtime filesystem access.
+- **3.2 — Exemplar previews:** Render associated exemplar inline (collapsible) on playbook pages.
 
-- **3.3 — Core routing structure:** Define the URL scheme for all content types. Recommended structure:
-  - `/` — landing page
-  - `/systems` — all available design systems
-  - `/systems/[slug]` — per-system overview
-  - `/systems/[slug]/[category]/[topic]` — individual KB content file
-  - `/playbooks` — playbook browser index
-  - `/playbooks/[category]/[play-id]` — individual playbook page
+- **3.3 — Primer (GitHub) KB capture:** Procedure A. Priority: color system (notably clean semantic token model), typography, component docs for Button and Form elements.
 
-- **3.4 — Landing page:** Build the landing page. It should clearly explain what Sistema is (a structured KB of design system documentation for AI coding agents), why it exists, and how to use it. Include entry points to the system browser and playbook browser. No filler — every sentence earns its place.
+- **3.4 — Material and Carbon component documentation:** Add component-level guidance for both systems (Button, Form, Navigation, Dialog). Update indexes.
 
-- **3.5 — AGENTS.md update:** Add the app's architectural rules and directory structure to `AGENTS.md` so all future sessions understand both layers.
+- **3.5 — "How to use this" guide:** Educational content explaining how to use Sistema in a Claude Code / Cursor session — where to put DESIGN.md, how to reference KB URLs in prompts, how to run playbooks.
 
-### Phase 4 — Core app features
+- **3.6 — Phase 3 housekeeping**
 
-**Goal:** Build the system browser, KB content pages, and the playbook browser with copy functionality. This is the first phase where the app is genuinely usable.
+### Phase 4 — Launch
+
+**Goal:** Polish, SEO, deploy to production, ship.
 
 **Key tasks in this phase:**
 
-- **4.1 — System browser:** `/systems` index page listing all available systems with their status, last updated date, and content coverage summary (pulled from `_meta/INDEX.md`). Per-system page at `/systems/[slug]` showing the system overview, source map, and a navigable content inventory.
+- **4.1 — SEO and metadata:** `<title>`, `<meta description>`, OpenGraph tags on every page. Sitemap. Ensure KB content pages are fully indexable.
 
-- **4.2 — KB content pages:** Pages at `/systems/[slug]/[category]/[topic]` that render individual KB markdown files as styled HTML. Must handle stubs (follow `points_to` and render the target), display frontmatter metadata (system, content type, status, retrieved date, source URL), and render the markdown body. Include a link back to the system index and a "View source" link to the raw file on GitHub.
+- **4.2 — Search:** Client-side search index over systems, topics, and playbooks. Upgrade to Algolia/Orama if needed.
 
-- **4.3 — Playbook browser index:** `/playbooks` page listing all plays from `_meta/TASK_PLAYBOOKS.md`, organized by category, with tier classification (Tier 1/2/3) and a brief description of each. This requires parsing the TASK_PLAYBOOKS.md document into structured data — build a parser or define a structured intermediate format in `src/lib/`.
+- **4.3 — Accessibility and performance:** Lighthouse audit on key pages. Fix critical issues. Ensure copy button is keyboard accessible. Mobile rendering check.
 
-- **4.4 — Individual playbook pages:** `/playbooks/[category]/[play-id]` page showing the full play: trigger phrases, required content types, retrieval sequence, reasoning strategy, and the prompt text. Include a **copy prompt button** that copies the prompt text (with any KB URLs filled in based on currently available systems) to the clipboard. Show a link to the exemplar if one exists.
+- **4.4 — Vercel production deployment:** Connect repo to Vercel. Custom domain + DNS. Confirm HTTPS. Update any hardcoded domain references. Set up analytics (Vercel Analytics).
 
-### Phase 5 — Interactive playbooks, polish, and SEO
+- **4.5 — Final content review:** Read every page. Spot-check five KB content pages for accuracy. Confirm all exemplars render. Run link checker.
 
-**Goal:** Add interactive fields to complex playbooks. Polish the app to a shippable standard. Prepare for search indexing.
-
-**Key tasks in this phase:**
-
-- **5.1 — Interactive playbook fields:** For Tier 2 and Tier 3 plays, define a template variable syntax in the playbook data (e.g. `{{accent_color}}`, `{{product_type}}`). Build a form UI that renders input fields for each variable. The copy button generates the completed prompt with all variables substituted. Start with the two or three plays most likely to be used interactively (color token generation, DESIGN.md generation, token migration).
-
-- **5.2 — Exemplar previews:** On individual playbook pages, render the associated exemplar inline (collapsible) so users can see what a good output looks like before running the play. Pull exemplar content from `_meta/exemplars/`.
-
-- **5.3 — Search:** Add search across systems, topics, and playbooks. Start with a simple client-side search index built at build time from all KB content summaries and playbook descriptions. Upgrade to a proper search service (Algolia, Orama) if needed.
-
-- **5.4 — "How to use this" documentation:** A short guide explaining how to use Sistema in a Claude Code or Cursor session: where to put the DESIGN.md file, how to reference KB URLs in prompts, how to use playbooks effectively. This is educational content, not marketing copy.
-
-- **5.5 — SEO and metadata:** Add `<title>`, `<meta description>`, and OpenGraph tags to every page. Generate OpenGraph images for key pages. Submit sitemap. Ensure KB content pages are fully indexable.
-
-- **5.6 — Accessibility and performance audit:** Run Lighthouse on key pages. Fix any critical issues. Ensure the playbook copy button is keyboard accessible.
-
-### Phase 6 — Launch
-
-**Goal:** Deploy to production with a custom domain. Set up analytics. Confirm everything works end to end. Ship it.
-
-**Key tasks in this phase:**
-
-- **6.1 — Vercel deployment setup:** Connect the repository to Vercel. Configure build settings. Confirm the build completes cleanly and KB content is rendered correctly. Set up preview deployments for future PRs.
-
-- **6.2 — Custom domain:** Attach the production domain. Configure DNS. Confirm HTTPS. Update any hardcoded URLs in the codebase (KB prompt templates, etc.) to use the production domain.
-
-- **6.3 — Analytics:** Add Vercel Analytics (already included with Vercel). Confirm events are flowing. Set up a baseline for launch traffic.
-
-- **6.4 — Final content review:** Read every page of the app. Check every playbook. Confirm all exemplars are present and render correctly. Spot-check five KB content pages for accuracy and rendering quality. Fix anything broken.
-
-- **6.5 — Launch checklist sign-off:**
-  - [ ] All Phase 0–5 phase transition checklists complete
+- **4.6 — Launch checklist sign-off:**
   - [ ] Vercel deployment live on production domain
   - [ ] All KB systems have `status: latest` files with passing frontmatter lint
   - [ ] All stubs point to existing files
   - [ ] Playbook browser renders all plays from `TASK_PLAYBOOKS.md`
   - [ ] Copy button works on at least the top 5 plays
   - [ ] Interactive fields work on at least the top 2 Tier 2 plays
-  - [ ] Landing page, system browser, playbook browser all render correctly on mobile
-  - [ ] No broken links (run a link checker)
+  - [ ] Landing page, system browser, and playbook browser render correctly on mobile
+  - [ ] No broken links
   - [ ] Analytics confirming data
   - [ ] `robots.txt` and sitemap live
 

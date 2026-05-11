@@ -50,4 +50,15 @@ logs/           — Archived session logs
 
 ## Patterns established
 
-(populated as sessions proceed)
+### Scraping is agent-executable
+The agent runs scrape commands directly via Bash — the human does not need to run them. When a scraping task begins, the agent: (1) identifies the target URLs, (2) runs `npx tsx tools/scrape/firecrawl-guidance.ts --url <url> --slug <slug>` from the repo root, (3) inspects raw output for content quality and coverage gaps, (4) decides autonomously whether additional targeted passes are needed and runs them without waiting for human direction. The agent documents all passes and findings in `SESSION_LOG.md`.
+
+### Firecrawl concurrency: always use `--limit 25` or lower
+Firecrawl's free/lower tiers have a browser concurrency limit. A single large crawl with `--limit 200` will trigger it. Rules:
+- Default `--limit` is 25 — never exceed this without explicit reason
+- Scrape subsections separately rather than one large root crawl (e.g. `m3.material.io/styles/color` and `m3.material.io/styles/typography` as separate calls, not `m3.material.io/styles` with a high limit)
+- Wait at least 60 seconds between sequential scrape calls in the same session
+- JS-heavy pages benefit from `--wait 2000` (2 second render wait); use for SPAs like m3.material.io
+
+### JS-rendered tables require asset files
+Several M3 documentation pages render their token tables entirely in JavaScript — Firecrawl captures the shape names or role names but not the actual values. For these pages, the actual token values must come from the JSON asset files sourced from GitHub. Do not attempt to infer or estimate values from page labels.

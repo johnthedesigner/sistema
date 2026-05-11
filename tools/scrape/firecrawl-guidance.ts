@@ -7,18 +7,43 @@ import * as dotenv from 'dotenv';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: join(__dirname, '..', '.env') });
 
-function parseArgs(): { url: string; slug: string } {
-  const args = process.argv.slice(2);
-  const urlIdx = args.indexOf('--url');
-  const slugIdx = args.indexOf('--slug');
+// Conservative default to stay within Firecrawl's browser concurrency limit.
+// Run multiple targeted passes against subsections rather than one large crawl.
+const DEFAULT_LIMIT = 25;
+const DEFAULT_WAIT_MS = 1500;
 
-  if (urlIdx === -1 || !args[urlIdx + 1] || slugIdx === -1 || !args[slugIdx + 1]) {
-    console.error('Usage: tsx scrape/firecrawl-guidance.ts --url <url> --slug <slug>');
-    console.error('Example: tsx scrape/firecrawl-guidance.ts --url https://m3.material.io/styles --slug material');
+function parseArgs(): { url: string; slug: string; limit: number; waitMs: number } {
+  const args = process.argv.slice(2);
+
+  function flag(name: string): string | undefined {
+    const idx = args.indexOf(name);
+    return idx !== -1 ? args[idx + 1] : undefined;
+  }
+
+  const url = flag('--url');
+  const slug = flag('--slug');
+
+  if (!url || !slug) {
+    console.error('Usage: tsx scrape/firecrawl-guidance.ts --url <url> --slug <slug> [--limit N] [--wait N]');
+    console.error('');
+    console.error('  --url    URL to crawl (crawls this page and its children within the same path)');
+    console.error('  --slug   System slug, e.g. "material" — determines output directory');
+    console.error(`  --limit  Max pages per crawl call (default: ${DEFAULT_LIMIT}). Keep ≤25 to avoid concurrency limits.`);
+    console.error(`  --wait   MS to wait for JS rendering per page (default: ${DEFAULT_WAIT_MS})`);
+    console.error('');
+    console.error('Example (single section):');
+    console.error('  tsx scrape/firecrawl-guidance.ts --url https://m3.material.io/styles/color --slug material');
     process.exit(1);
   }
 
-  return { url: args[urlIdx + 1], slug: args[slugIdx + 1] };
+  const limit = flag('--limit') ? parseInt(flag('--limit')!, 10) : DEFAULT_LIMIT;
+  const waitMs = flag('--wait') ? parseInt(flag('--wait')!, 10) : DEFAULT_WAIT_MS;
+
+  if (limit > 25) {
+    console.warn(`Warning: --limit ${limit} exceeds recommended maximum of 25. This may hit Firecrawl browser concurrency limits.`);
+  }
+
+  return { url, slug, limit, waitMs };
 }
 
 function urlToFilename(sourceUrl: string): string {
@@ -39,7 +64,7 @@ function topSection(sourceUrl: string): string {
   }
 }
 
-const { url, slug } = parseArgs();
+const { url, slug, limit, waitMs } = parseArgs();
 
 const apiKey = process.env.FIRECRAWL_API_KEY;
 if (!apiKey) {
@@ -55,14 +80,17 @@ const outputDir = join(repoRoot, 'raw-scrape', slug, today);
 mkdirSync(outputDir, { recursive: true });
 console.log(`Target:  ${url}`);
 console.log(`Slug:    ${slug}`);
+console.log(`Limit:   ${limit} pages`);
+console.log(`Wait:    ${waitMs}ms per page`);
 console.log(`Output:  ${outputDir}\n`);
 
 const app = new FirecrawlApp({ apiKey });
 
 const result = await app.crawlUrl(url, {
-  limit: 200,
+  limit,
   scrapeOptions: {
     formats: ['markdown'],
+    waitFor: waitMs,
   },
 });
 
