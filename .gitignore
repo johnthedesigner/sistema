@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+.env.local
+coverage/
+playwright-report/
+.DS_Store
+*.log
+raw-scrape/

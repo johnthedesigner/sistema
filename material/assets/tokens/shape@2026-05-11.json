@@ -1,0 +1,42 @@
+{
+  "_meta": {
+    "system": "material",
+    "topic": "shape-tokens",
+    "content_type": "asset",
+    "status": "latest",
+    "version_label": "M3",
+    "retrieved": "2026-05-11",
+    "source_url": "https://material-web.dev/theming/material-theming/",
+    "notes": "M3 shape scale. All values are uniform corner radii (border-radius). The 'full' value uses a large pixel value to achieve a pill shape reliably across varying container sizes."
+  },
+
+  "system_shape": {
+    "--md-sys-shape-corner-none":        "0px",
+    "--md-sys-shape-corner-extra-small": "4px",
+    "--md-sys-shape-corner-small":       "8px",
+    "--md-sys-shape-corner-medium":      "12px",
+    "--md-sys-shape-corner-large":       "16px",
+    "--md-sys-shape-corner-extra-large": "28px",
+    "--md-sys-shape-corner-full":        "9999px"
+  },
+
+  "component_defaults": {
+    "md-filled-button":          "var(--md-sys-shape-corner-full)",
+    "md-outlined-button":        "var(--md-sys-shape-corner-full)",
+    "md-text-button":            "var(--md-sys-shape-corner-full)",
+    "md-elevated-button":        "var(--md-sys-shape-corner-full)",
+    "md-tonal-button":           "var(--md-sys-shape-corner-full)",
+    "md-fab":                    "var(--md-sys-shape-corner-large)",
+    "md-extended-fab":           "var(--md-sys-shape-corner-extra-large)",
+    "md-card":                   "var(--md-sys-shape-corner-medium)",
+    "md-dialog":                 "var(--md-sys-shape-corner-extra-large)",
+    "md-menu":                   "var(--md-sys-shape-corner-extra-small)",
+    "md-chip":                   "var(--md-sys-shape-corner-small)",
+    "md-filled-text-field":      "var(--md-sys-shape-corner-extra-small)",
+    "md-outlined-text-field":    "var(--md-sys-shape-corner-extra-small)",
+    "md-navigation-drawer":      "var(--md-sys-shape-corner-large)",
+    "md-bottom-sheet":           "var(--md-sys-shape-corner-extra-large)",
+    "md-snackbar":               "var(--md-sys-shape-corner-extra-small)",
+    "md-tooltip":                "var(--md-sys-shape-corner-extra-small)"
+  }
+}
