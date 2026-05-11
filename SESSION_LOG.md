@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 0
-**Last completed task:** 0.2 — Material Design 3 scrape (all passes complete)
-**Next task:** 0.3 — Material guidance processing
+**Last completed task:** 0.3 — Material guidance processing
+**Next task:** 0.4 — Material assets and implementation verification
 **Blockers:** None
-**Notes:** Three scrape passes total. All six required guidance topics (colors, color-system, color-roles, design-tokens, typography, shape) now have substantive source content in raw-scrape/. Three JS-rendered table pages (static/baseline, corner-radius-scale, type-scale-tokens) produced no values — token values for these will come from existing JSON asset files during processing. Raw-scrape output is now complete enough to begin Task 0.3.
+**Notes:** All six required guidance files (colors, color-system, color-roles, design-tokens, typography, shape) updated in place with content sourced from raw-scrape/material/2026-05-11/. Frontmatter lint passes on material/guidance/ (12 files, 0 errors). One pre-existing error remains in material/implementation/getting-started@2026-05-11.md (invalid YAML: unquoted @material/web in tags array) — deferred to Task 0.4.
 
 ---
 
@@ -70,5 +70,20 @@
 - M3 Expressive / applying-m3-expressive
 - Layout (canonical layouts, applying layout, understanding layout — 9 files)
 - Accessibility and interaction content
+
+### 2026-05-11 — Task 0.3: Material guidance processing
+
+**What was done:**
+- Updated all six required guidance files in place (same-date conflict; existing `@2026-05-11.md` drafts updated with authoritative scraped content):
+  - `colors@2026-05-11.md`: removed stale `notes:` draft field. Content was already high-quality.
+  - `color-system@2026-05-11.md`: added HCT Color Space section (hue 0–360, chroma 0–120, tone 0–100 definitions); added Contrast Levels section (standard/medium 3:1/high 7:1) sourced from `styles_color_system_how-the-system-works.md`
+  - `color-roles@2026-05-11.md`: added Inverse Family table; added full Pairing and Layering Rules section with do/don't guidance; added Add-on Color Roles section covering fixed accent colors, on-fixed accent colors, and bright/dim surface roles — sourced from `styles_color_roles.md` (685 lines)
+  - `design-tokens@2026-05-11.md`: added Contexts section (light/dark/form-factor context model) sourced from `foundations_design-tokens_overview.md`
+  - `typography@2026-05-11.md`: added M3 Expressive Update section (30 styles = 15 baseline + 15 emphasized, emphasized token naming, variable font callout) sourced from `styles_typography_overview.md`
+  - `shape@2026-05-11.md`: added M3 Expressive Update section (35 abstract shapes, 3 new corner radius tokens: large-increased 20dp, extra-large-increased 32dp, extra-extra-large 48dp); added Shape Principles section (harmony with type, morphing, tension, not semantic, use sparingly) sourced from `styles_shape_overview-principles.md`
+
+**Lint result:** `npx tsx tools/validate/lint-frontmatter.ts material/guidance/` → 12 files, 0 errors.
+
+**Known issue persisting:** `material/implementation/getting-started@2026-05-11.md` still fails frontmatter parse (unquoted `@material/web` in YAML tags). Not in scope for Task 0.3 (guidance only). Tracked for Task 0.4.
 
 (entries archived to `logs/phase-N.md` at phase boundaries)

@@ -124,6 +124,22 @@ The token system enables theming at multiple granularities:
 
 ---
 
+## Contexts
+
+Tokens can resolve to different values depending on conditions called **contexts**. The most common contexts are light theme and dark theme, but contexts can also include device form factors, dense layouts, right-to-left writing systems, or contrast levels.
+
+A context acts as a tag on a token value: if a token value is tagged with `dark theme`, it overrides the default value whenever the dark-theme context is active.
+
+```
+md.sys.color.background
+  └─ light theme → md.ref.palette.neutral98
+  └─ dark theme  → md.ref.palette.neutral6
+```
+
+This is how a single set of token names (`--md-sys-color-primary`, `--md-sys-color-background`, etc.) works for both light and dark themes: the token name is constant, the context determines which reference value it resolves to.
+
+---
+
 ## Sources
 
 - Design Tokens Overview: https://m3.material.io/foundations/design-tokens

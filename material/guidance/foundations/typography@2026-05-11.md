@@ -18,6 +18,22 @@ M3's typography system is built around two concepts: the **typeface** (font fami
 
 ---
 
+## M3 Expressive Update (May 2025)
+
+The M3 type scale now includes **30 type styles**: 15 **baseline** styles (unchanged) and 15 new **emphasized** styles.
+
+Emphasized styles add expressive weight to highlighted moments within a layout — they are not replacements for the baseline styles but additive options for greater typographic contrast and hierarchy.
+
+Emphasized style tokens follow the pattern `--md-sys-typescale-<role>-<size>-emphasized-<property>`. For example:
+- `--md-sys-typescale-display-large-emphasized-weight`
+- `--md-sys-typescale-headline-medium-emphasized-size`
+
+**Platform availability:** Emphasized styles are available in Jetpack Compose, MDC-Android, and Flutter. Web support is not yet available (as of May 2025).
+
+**Variable fonts:** Roboto Flex can express a wide range of emotional states through its variable axes (weight, width, grade, slant, optical size), but is not yet part of the formal M3 typescale.
+
+---
+
 ## Typefaces
 
 M3 distinguishes two typeface roles:

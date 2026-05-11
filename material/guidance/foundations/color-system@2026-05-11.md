@@ -103,6 +103,36 @@ For products that don't use dynamic color, a static scheme generated once from a
 
 ---
 
+## The HCT Color Space
+
+Material 3 uses **HCT** (Hue, Chroma, Tone) — a perceptually accurate color space that makes algorithmic accessibility guarantees possible.
+
+**Hue** — The perceived color identity (red, orange, yellow, green, blue, violet, etc.). Quantified 0–360 on a circular spectrum; values 0 and 360 are the same hue.
+
+**Chroma** — How colorful vs. neutral a color appears. Ranges from 0 (completely grey/black/white) to roughly 120 at maximum vibrancy. Different hues and tones have different maximum chroma values due to physical and perceptual limits.
+
+**Tone** — How light or dark a color appears (also called luminance). Ranges from 0 (pure black) to 100 (pure white). Tone is the dimension that determines contrast — colors with a greater tone difference produce higher contrast.
+
+The system pairs accessible tones by keeping tone differences large enough to guarantee contrast ratios:
+- Tone difference for **3:1 contrast** (medium) → tones ~50 and ~98
+- Tone difference for **7:1 contrast** (high) → tones ~30 and ~98
+
+---
+
+## Contrast Levels
+
+Color roles support three levels of contrast, allowing users to select the setting that best suits their vision needs:
+
+| Level | Contrast Ratio | Description |
+|---|---|---|
+| **Standard** | Default | Mixed levels of contrast to reduce cognitive load |
+| **Medium** | ≥ 3:1 | For users who need more contrast but may experience visual discomfort at higher contrasts (e.g. halation effects) |
+| **High** | 7:1 | Reduces visual distractions; emphasizes essential content |
+
+Contrast levels apply automatically to both light and dark themes. Custom components support contrast levels by using the appropriate container role pairings (e.g. `primary-container` / `on-primary-container`).
+
+---
+
 ## Theming Support
 
 Material 3 officially supports three theme variants:

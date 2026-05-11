@@ -93,6 +93,16 @@ Drives backgrounds and UI planes. Derived from the neutral palette.
 | `outline` | Borders for interactive components (text fields, outlined buttons) |
 | `outline-variant` | Decorative borders, dividers — lower emphasis |
 
+### Inverse Family
+
+Inverse roles are applied selectively to components to achieve colors that are the reverse of those in the surrounding UI, creating a contrasting effect.
+
+| Role | Purpose |
+|---|---|
+| `inverse-surface` | Background fills for elements that contrast against surface (e.g. snackbars, tooltips) |
+| `inverse-on-surface` | Text and icons against `inverse-surface` |
+| `inverse-primary` | Actionable elements (e.g. text buttons) against `inverse-surface` |
+
 ### Shadow and Scrim
 
 | Role | Purpose |
@@ -137,6 +147,57 @@ Higher-numbered containers appear slightly more tinted with the primary color, w
 - `surface-container`: Cards, dialogs
 - `surface-container-high`: Modal sheets, text field fills
 - `surface-container-highest`: Filled text fields, highest-elevation modals
+
+---
+
+## Pairing and Layering Rules
+
+Apply colors only in their intended pairs. Improper pairings break accessible contrast, especially when colors shift with dynamic color or user-controlled contrast levels.
+
+**Do:** Pair `primary` with `on-primary`, `secondary-container` with `on-secondary-container`, etc. These pairs maintain legibility across all three contrast levels (standard, medium, high).
+
+**Don't:** Mix roles from different families (e.g. `primary` background with `primary-container` text, or `on-surface` text on a `secondary-container` background). These combinations may appear fine at default contrast but break at medium or high contrast.
+
+---
+
+## Add-on Color Roles
+
+Most products don't need these. Add-on roles provide greater flexibility for specific use cases — if you're unsure whether you need them, you probably don't.
+
+### Fixed Accent Colors
+
+Fixed colors maintain the same tone in both light and dark themes (unlike regular container colors, which shift between themes). Use them where theme-independent color is required.
+
+| Role | Purpose |
+|---|---|
+| `primary-fixed` | Fill color against surface; same tone in light and dark |
+| `primary-fixed-dim` | A deeper, more emphasized version of `primary-fixed` |
+| `secondary-fixed` | Fixed secondary fill |
+| `secondary-fixed-dim` | Deeper fixed secondary fill |
+| `tertiary-fixed` | Fixed tertiary fill |
+| `tertiary-fixed-dim` | Deeper fixed tertiary fill |
+
+**Don't** use fixed colors where contrast matters — they don't adapt to theme context and will likely cause contrast failures.
+
+### On-Fixed Accent Colors
+
+| Role | Purpose |
+|---|---|
+| `on-primary-fixed` | Text and icons on `primary-fixed` |
+| `on-primary-fixed-variant` | Lower-emphasis text and icons on `primary-fixed` |
+| `on-secondary-fixed` | Text and icons on `secondary-fixed` |
+| `on-secondary-fixed-variant` | Lower-emphasis text and icons on `secondary-fixed` |
+| `on-tertiary-fixed` | Text and icons on `tertiary-fixed` |
+| `on-tertiary-fixed-variant` | Lower-emphasis text and icons on `tertiary-fixed` |
+
+### Bright and Dim Surface Roles
+
+| Role | Purpose |
+|---|---|
+| `surface-dim` | Dimmest surface in both light and dark themes |
+| `surface-bright` | Brightest surface in both light and dark themes |
+
+Unlike the default `surface` role (which is lightest in light theme and flips to darkest in dark theme), `surface-bright` and `surface-dim` preserve their relative brightness across both themes. Use them where you need a consistently brighter or dimmer area regardless of theme — for example, a navigation rail (`surface-dim`) alongside a content panel (`surface-bright`).
 
 ---
 
