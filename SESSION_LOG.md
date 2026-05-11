@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 0
-**Last completed task:** 0.1 — Tools scaffold
-**Next task:** 0.2 — Material Design 3 scrape
-**Blockers:** Firecrawl API key required before Task 0.2 can run. Copy `tools/.env.example` to `tools/.env` and add key.
-**Notes:** Draft `material/` guidance content remains. Lint currently reports 1 error: `getting-started@2026-05-11.md` fails frontmatter parse due to `@material/web` in an unquoted YAML tags array. Will be resolved in Task 0.3 when content is reprocessed from authoritative scrape.
+**Last completed task:** 0.2 — Material Design 3 scrape
+**Next task:** 0.3 — Material guidance processing (pending decision: run `/foundations` scrape first or proceed with current output?)
+**Blockers:** None — but see notes below on coverage gap.
+**Notes:** `/styles` scrape complete (35 files, good prose quality). Design-tokens guidance missing — lives at `/foundations/design-tokens`, not `/styles`. Three JS-rendered table pages produced no content (`static/baseline`, `corner-radius-scale`, `type-scale-tokens`) — actual token values available from existing JSON asset files. Decision needed before Task 0.3: scrape `/foundations` now to get design-tokens source, or derive that KB file from the existing `implementation/tokens/token-schema` file.
 
 ---
 
@@ -32,5 +32,34 @@
 **Known issues / deferred:**
 - `material/implementation/getting-started@2026-05-11.md` fails frontmatter parse: `@material/web` in an unquoted YAML flow sequence (`tags: [...]`) is invalid YAML. Will be fixed in Task 0.3 when content is reprocessed.
 - Firecrawl API key not yet set — Task 0.2 cannot run until `tools/.env` is populated.
+
+### 2026-05-11 — Task 0.2: Material Design 3 scrape
+
+**What was done:**
+- Ran `npx tsx tools/scrape/firecrawl-guidance.ts --url https://m3.material.io/styles --slug material` from repo root
+- Output: `raw-scrape/material/2026-05-11/` — 35 files
+
+**Coverage captured:**
+- **Color** (14 files): color system overview, how-it-works, color roles (717 lines), choosing-a-scheme, static custom-brand, dynamic (all three subpages), advanced (all four subpages), resources
+- **Elevation** (3 files): overview, applying-elevation, tokens
+- **Icons** (3 files): overview, designing-icons, applying-icons
+- **Motion** (6 files): overview/how-it-works, specs, easing-and-duration/applying + tokens-specs, transitions/applying + patterns
+- **Shape** (3 files): overview-principles, corner-radius-scale, shape-morph
+- **Typography** (5 files): overview, fonts, type-scale-tokens, applying-type, editorial-treatments
+- **Styles index** (1 file)
+
+**Content quality — spot-checked:**
+- `styles_color_system_how-the-system-works.md`: 592 lines of real prose — Dynamic Color model, tonal palettes, color roles terminology, Essential terms section. High quality.
+- `styles_color_roles.md`: 717 lines — comprehensive color roles catalogue with semantic role descriptions. High quality.
+- `styles_typography_applying-type.md`: 496 lines of real content.
+
+**Known gaps and empty/thin files:**
+- `styles_color_static_baseline.md` (8 lines): JS-rendered color scheme table — only captured navigation labels. Baseline color values available in existing `material/assets/tokens/colors@2026-05-11.json`.
+- `styles_typography_type-scale-tokens.md` (10 lines): JS-rendered type scale table — only captured navigation labels. Token values available in existing `material/assets/tokens/typography@2026-05-11.json`.
+- `styles_shape_corner-radius-scale.md` (52 lines): JS-rendered corner radius table — captured shape role names but no values (no dp/rem measurements). Values available in existing `material/assets/tokens/shape@2026-05-11.json`.
+- **Design-tokens guidance not captured**: `/foundations/design-tokens` was not in scope of `https://m3.material.io/styles` crawl. This is a required topic for the KB. Options: (a) run a second scrape against `https://m3.material.io/foundations`, (b) derive the design-tokens guidance file from the existing `material/implementation/tokens/token-schema@2026-05-11.md` which covers this material.
+
+**Decisions needed before Task 0.3:**
+- Whether to run a second scrape for `https://m3.material.io/foundations` to capture the design-tokens page. Recommended: yes, since the task acceptance criteria listed `/foundations` as a required scrape target, and getting the authoritative guidance prose is preferable to deriving it from an implementation doc.
 
 (entries archived to `logs/phase-N.md` at phase boundaries)

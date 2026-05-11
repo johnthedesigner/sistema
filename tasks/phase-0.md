@@ -45,9 +45,9 @@ Initializes the `tools/` directory as a standalone Node/TypeScript package with 
 
 ## Task 0.2 — Material Design 3 scrape
 
-**Status:** not started
+**Status:** complete (with noted gap — see session log)
 **Phase:** 0
-**Session log entry:** (link after completion)
+**Session log entry:** SESSION_LOG.md — 2026-05-11, Task 0.2
 
 ### What this task implements
 
