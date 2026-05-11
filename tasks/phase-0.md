@@ -9,9 +9,9 @@
 
 ## Task 0.1 — Tools scaffold
 
-**Status:** not started
+**Status:** complete
 **Phase:** 0
-**Session log entry:** (link after completion)
+**Session log entry:** SESSION_LOG.md — 2026-05-11, Task 0.1
 
 ### What this task implements
 
