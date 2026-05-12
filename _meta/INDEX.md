@@ -33,22 +33,22 @@ For instructions on how to update this index when content is added, see `MAINTEN
 
 Google's current design system. Best reference for: three-tier token architecture, Dynamic Color, tonal surface elevation, accessibility-first color design, cross-platform (Android/Flutter/Web) targets.
 
-- System index: `material/_index.md`
-- Guidance: `material/guidance/foundations/` (color-system, color-roles, typography, shape, design-tokens)
-- Implementation: `material/implementation/` (getting-started, tokens/token-schema)
-- Assets: `material/assets/tokens/` (colors, typography, shape)
-- DESIGN.md: `material/design-md/DESIGN.md` *(community-generated, unofficial)*
+- System index: `kb/design-systems/material/_index.md`
+- Guidance: `kb/design-systems/material/guidance/foundations/` (color-system, color-roles, typography, shape, design-tokens)
+- Implementation: `kb/design-systems/material/implementation/` (getting-started, tokens/token-schema)
+- Assets: `kb/design-systems/material/assets/tokens/` (colors, typography, shape)
+- DESIGN.md: `kb/design-systems/material/design-md/DESIGN.md` *(community-generated, unofficial)*
 
 ### Atlassian Design System
 **Slug:** `atlassian` | **Status:** Active | **Last updated:** 2026-05-12
 
 Atlassian's enterprise product design system (Atlaskit). Best reference for: all-semantic token architecture (no primitive tier exposed), role + emphasis + state token naming (`color.background.brand.bold.hovered`), 10 color roles with multi-level emphasis, full-coverage token vocabulary (color, spacing, radius, elevation, motion, border), dark mode via `setGlobalTheme()`.
 
-- System index: `atlassian/_index.md`
-- Guidance: `atlassian/guidance/foundations/` (color, typography, design-tokens)
-- Implementation: `atlassian/implementation/` (getting-started)
-- Assets: `atlassian/assets/tokens/` (colors)
-- DESIGN.md: `atlassian/design-md/DESIGN.md`
+- System index: `kb/design-systems/atlassian/_index.md`
+- Guidance: `kb/design-systems/atlassian/guidance/foundations/` (color, typography, design-tokens)
+- Implementation: `kb/design-systems/atlassian/implementation/` (getting-started)
+- Assets: `kb/design-systems/atlassian/assets/tokens/` (colors)
+- DESIGN.md: `kb/design-systems/atlassian/design-md/DESIGN.md`
 
 ---
 
@@ -57,11 +57,11 @@ Atlassian's enterprise product design system (Atlaskit). Best reference for: all
 
 IBM's enterprise design system. Best reference for: neutral-first flat color palette, two-tier token architecture (primitive + semantic, no component tier), four built-in light/dark themes, productive/expressive type split on IBM Plex, enterprise React component library.
 
-- System index: `carbon/_index.md`
-- Guidance: `carbon/guidance/foundations/` (color-system, typography, themes)
-- Implementation: `carbon/implementation/` (getting-started)
-- Assets: `carbon/assets/tokens/` (colors, white-theme)
-- DESIGN.md: `carbon/design-md/DESIGN.md`
+- System index: `kb/design-systems/carbon/_index.md`
+- Guidance: `kb/design-systems/carbon/guidance/foundations/` (color-system, typography, themes)
+- Implementation: `kb/design-systems/carbon/implementation/` (getting-started)
+- Assets: `kb/design-systems/carbon/assets/tokens/` (colors, white-theme)
+- DESIGN.md: `kb/design-systems/carbon/design-md/DESIGN.md`
 
 ---
 
@@ -73,26 +73,26 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 
 | System | File | Content Type | Status | Retrieved |
 |---|---|---|---|---|
-| Material | `material/guidance/foundations/colors.md` | guidance | latest | 2026-05-11 |
-| Material | `material/guidance/foundations/color-system.md` | guidance | latest | 2026-05-11 |
-| Material | `material/guidance/foundations/color-roles.md` | guidance | latest | 2026-05-11 |
-| Material | `material/assets/tokens/colors.json` | asset | latest | 2026-05-11 |
-| Carbon | `carbon/guidance/foundations/color-system.md` | guidance | latest | 2026-05-12 |
-| Carbon | `carbon/guidance/foundations/themes.md` | guidance | latest | 2026-05-12 |
-| Carbon | `carbon/assets/tokens/colors.json` | asset | latest | 2026-05-12 |
-| Carbon | `carbon/assets/tokens/white-theme.json` | asset | latest | 2026-05-12 |
-| Atlassian | `atlassian/guidance/foundations/color.md` | guidance | latest | 2026-05-12 |
-| Atlassian | `atlassian/guidance/foundations/design-tokens.md` | guidance | latest | 2026-05-12 |
-| Atlassian | `atlassian/assets/tokens/colors.json` | asset | latest | 2026-05-12 |
+| Material | `kb/design-systems/material/guidance/foundations/colors.md` | guidance | latest | 2026-05-11 |
+| Material | `kb/design-systems/material/guidance/foundations/color-system.md` | guidance | latest | 2026-05-11 |
+| Material | `kb/design-systems/material/guidance/foundations/color-roles.md` | guidance | latest | 2026-05-11 |
+| Material | `kb/design-systems/material/assets/tokens/colors.json` | asset | latest | 2026-05-11 |
+| Carbon | `kb/design-systems/carbon/guidance/foundations/color-system.md` | guidance | latest | 2026-05-12 |
+| Carbon | `kb/design-systems/carbon/guidance/foundations/themes.md` | guidance | latest | 2026-05-12 |
+| Carbon | `kb/design-systems/carbon/assets/tokens/colors.json` | asset | latest | 2026-05-12 |
+| Carbon | `kb/design-systems/carbon/assets/tokens/white-theme.json` | asset | latest | 2026-05-12 |
+| Atlassian | `kb/design-systems/atlassian/guidance/foundations/color.md` | guidance | latest | 2026-05-12 |
+| Atlassian | `kb/design-systems/atlassian/guidance/foundations/design-tokens.md` | guidance | latest | 2026-05-12 |
+| Atlassian | `kb/design-systems/atlassian/assets/tokens/colors.json` | asset | latest | 2026-05-12 |
 
 ### 2.2 Typography
 
 | System | File | Content Type | Status | Retrieved |
 |---|---|---|---|---|
-| Material | `material/guidance/foundations/typography.md` | guidance | latest | 2026-05-11 |
-| Material | `material/assets/tokens/typography.json` | asset | latest | 2026-05-11 |
-| Carbon | `carbon/guidance/foundations/typography.md` | guidance | latest | 2026-05-12 |
-| Atlassian | `atlassian/guidance/foundations/typography.md` | guidance | latest | 2026-05-12 |
+| Material | `kb/design-systems/material/guidance/foundations/typography.md` | guidance | latest | 2026-05-11 |
+| Material | `kb/design-systems/material/assets/tokens/typography.json` | asset | latest | 2026-05-11 |
+| Carbon | `kb/design-systems/carbon/guidance/foundations/typography.md` | guidance | latest | 2026-05-12 |
+| Atlassian | `kb/design-systems/atlassian/guidance/foundations/typography.md` | guidance | latest | 2026-05-12 |
 
 ### 2.3 Spacing and Layout
 
@@ -104,7 +104,7 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 
 | System | File | Content Type | Status | Retrieved |
 |---|---|---|---|---|
-| *(see Material color-roles — surface container tonal elevation)* | `material/guidance/foundations/color-roles.md` | guidance | latest | 2026-05-11 |
+| *(see Material color-roles — surface container tonal elevation)* | `kb/design-systems/material/guidance/foundations/color-roles.md` | guidance | latest | 2026-05-11 |
 
 ### 2.5 Motion and Animation
 
@@ -164,14 +164,14 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 
 | System | File | Content Type | Status | Retrieved |
 |---|---|---|---|---|
-| Material | `material/assets/tokens/colors.json` | asset | latest | 2026-05-11 |
-| Material | `material/implementation/tokens/token-schema.md` | implementation | latest | 2026-05-11 |
+| Material | `kb/design-systems/material/assets/tokens/colors.json` | asset | latest | 2026-05-11 |
+| Material | `kb/design-systems/material/implementation/tokens/token-schema.md` | implementation | latest | 2026-05-11 |
 
 ### 2.15 Tokens — Typography
 
 | System | File | Content Type | Status | Retrieved |
 |---|---|---|---|---|
-| Material | `material/assets/tokens/typography.json` | asset | latest | 2026-05-11 |
+| Material | `kb/design-systems/material/assets/tokens/typography.json` | asset | latest | 2026-05-11 |
 
 ### 2.16 Tokens — Spacing
 
@@ -183,30 +183,30 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 
 | System | File | Content Type | Status | Retrieved |
 |---|---|---|---|---|
-| Material | `material/implementation/getting-started.md` | implementation | latest | 2026-05-11 |
-| Carbon | `carbon/implementation/getting-started.md` | implementation | latest | 2026-05-12 |
-| Atlassian | `atlassian/implementation/getting-started.md` | implementation | latest | 2026-05-12 |
+| Material | `kb/design-systems/material/implementation/getting-started.md` | implementation | latest | 2026-05-11 |
+| Carbon | `kb/design-systems/carbon/implementation/getting-started.md` | implementation | latest | 2026-05-12 |
+| Atlassian | `kb/design-systems/atlassian/implementation/getting-started.md` | implementation | latest | 2026-05-12 |
 
 ### 2.18 Design System Shape
 
 | System | File | Content Type | Status | Retrieved |
 |---|---|---|---|---|
-| Material | `material/guidance/foundations/shape.md` | guidance | latest | 2026-05-11 |
-| Material | `material/assets/tokens/shape.json` | asset | latest | 2026-05-11 |
+| Material | `kb/design-systems/material/guidance/foundations/shape.md` | guidance | latest | 2026-05-11 |
+| Material | `kb/design-systems/material/assets/tokens/shape.json` | asset | latest | 2026-05-11 |
 
 ### 2.19 Design Tokens — Architecture
 
 | System | File | Content Type | Status | Retrieved |
 |---|---|---|---|---|
-| Material | `material/guidance/foundations/design-tokens.md` | guidance | latest | 2026-05-11 |
+| Material | `kb/design-systems/material/guidance/foundations/design-tokens.md` | guidance | latest | 2026-05-11 |
 
 ### 2.20 DESIGN.md Files
 
 | System | File | Status | Retrieved | Notes |
 |---|---|---|---|---|
-| Material | `material/design-md/DESIGN.md` | latest | 2026-05-11 | Community-generated, unofficial |
-| Carbon | `carbon/design-md/DESIGN.md` | latest | 2026-05-12 | Community-generated, unofficial |
-| Atlassian | `atlassian/design-md/DESIGN.md` | latest | 2026-05-12 | Community-generated, unofficial |
+| Material | `kb/design-systems/material/design-md/DESIGN.md` | latest | 2026-05-11 | Community-generated, unofficial |
+| Carbon | `kb/design-systems/carbon/design-md/DESIGN.md` | latest | 2026-05-12 | Community-generated, unofficial |
+| Atlassian | `kb/design-systems/atlassian/design-md/DESIGN.md` | latest | 2026-05-12 | Community-generated, unofficial |
 
 ---
 

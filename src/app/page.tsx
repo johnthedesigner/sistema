@@ -39,10 +39,10 @@ export default function Home() {
             Open playbook
           </Link>
           <Link
-            href="/systems"
+            href="/kb"
             className="inline-flex items-center px-5 py-2.5 rounded-md border border-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors"
           >
-            Browse systems
+            Browse knowledge base
           </Link>
         </div>
       </section>
@@ -103,7 +103,7 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {/* Systems card */}
           <Link
-            href="/systems"
+            href="/kb"
             className="group border border-gray-100 rounded-lg p-6 hover:border-gray-300 hover:bg-gray-50 transition-colors"
           >
             <div className="flex items-baseline justify-between mb-4">

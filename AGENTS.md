@@ -13,11 +13,15 @@ project scope, development phases, and session management process.
 src/            — Next.js app source (App Router, components, lib utilities)
 public/         — Static assets for the app
 _meta/          — KB schema, maintenance procedures, usage guide, playbooks, index, changelog
-[system]/       — One directory per design system (material/, carbon/, etc.)
-  guidance/     — Human-facing design documentation (sourced from doc sites)
-  implementation/ — Developer-facing technical docs (sourced from GitHub)
-  assets/       — Raw token files (JSON, SCSS, CSS)
-  design-md/    — Community-generated DESIGN.md files
+kb/             — All knowledge base content
+  design-systems/ — One directory per design system (material/, carbon/, atlassian/, etc.)
+    [system]/     — System directory; each contains:
+      guidance/       — Human-facing design documentation (sourced from doc sites)
+      implementation/ — Developer-facing technical docs (sourced from GitHub)
+      assets/         — Raw token files (JSON, SCSS, CSS)
+      design-md/      — Community-generated DESIGN.md files
+  standards/    — Normative standards (WCAG, ARIA APG, APCA) — planned
+  foundations/  — Color science, typography, spacing theory — planned
 tools/          — Scripts for scraping, processing, and validating KB content
   scrape/       — Firecrawl and Playwright scrapers
   validate/     — Frontmatter linting and stub verification

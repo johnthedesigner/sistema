@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { listSystems, readSystemIndex, listStubsForSystem } from '@/lib/kb'
+import { listSystems, readSystemIndex, listStubsForSystem, KB_CATEGORIES, type KBCategory } from '@/lib/kb'
 import { MarkdownBody } from '@/components/kb/MarkdownBody'
 
 function extractSystemName(body: string): string {
   const match = body.match(/^# (.+)$/m)
-  if (!match) return 'Unknown System'
+  if (!match) return 'Unknown'
   return match[1].replace(/ — System Index$/, '').trim()
 }
 
@@ -29,25 +29,41 @@ const TYPE_LABELS: Record<string, string> = {
   'design-md': 'DESIGN.md',
 }
 
+const CATEGORY_LABELS: Record<KBCategory, string> = {
+  'design-systems': 'Design Systems',
+  'standards': 'Standards',
+  'foundations': 'Foundations',
+}
+
 export async function generateStaticParams() {
-  return listSystems().map(slug => ({ slug }))
+  const params: { category: string; slug: string }[] = []
+  for (const category of KB_CATEGORIES) {
+    for (const slug of listSystems(category)) {
+      params.push({ category, slug })
+    }
+  }
+  return params
 }
 
 export default async function SystemPage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ category: string; slug: string }>
 }) {
-  const { slug } = await params
-  const systems = listSystems()
+  const { category, slug } = await params
+  if (!KB_CATEGORIES.includes(category as KBCategory)) notFound()
+
+  const cat = category as KBCategory
+  const systems = listSystems(cat)
   if (!systems.includes(slug)) notFound()
 
-  const index = readSystemIndex(slug)
-  const stubs = listStubsForSystem(slug)
+  const index = readSystemIndex(slug, cat)
+  const stubs = listStubsForSystem(slug, cat)
 
   const systemName = extractSystemName(index.body)
   const overview = extractSection(index.body, 'Overview')
   const sourceMap = extractSection(index.body, 'Source Map')
+  const categoryLabel = CATEGORY_LABELS[cat]
 
   const grouped = stubs.reduce<Record<string, string[][]>>((acc, parts) => {
     const type = parts[0]
@@ -62,7 +78,9 @@ export default async function SystemPage({
   return (
     <main className="max-w-5xl mx-auto px-6 py-12">
       <nav className="text-sm text-gray-500 mb-8">
-        <Link href="/systems" className="hover:text-gray-900">Systems</Link>
+        <Link href="/kb" className="hover:text-gray-900">Knowledge Base</Link>
+        <span className="mx-2">/</span>
+        <Link href={`/kb/${category}`} className="hover:text-gray-900">{categoryLabel}</Link>
         <span className="mx-2">/</span>
         <span className="text-gray-900">{systemName}</span>
       </nav>
@@ -100,7 +118,7 @@ export default async function SystemPage({
                   {grouped[type].map(parts => (
                     <li key={parts.join('/')}>
                       <Link
-                        href={`/systems/${slug}/${parts.join('/')}`}
+                        href={`/kb/${category}/${slug}/${parts.join('/')}.md`}
                         className="text-sm text-blue-600 hover:text-blue-800 hover:underline"
                       >
                         {formatTopicName(parts)}

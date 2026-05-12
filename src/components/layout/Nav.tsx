@@ -8,8 +8,8 @@ export function Nav() {
           Sistema
         </Link>
         <nav className="flex items-center gap-6 text-sm text-gray-600">
-          <Link href="/systems" className="hover:text-gray-900 transition-colors">
-            Systems
+          <Link href="/kb" className="hover:text-gray-900 transition-colors">
+            Knowledge Base
           </Link>
           <Link href="/playbooks" className="hover:text-gray-900 transition-colors">
             Playbooks

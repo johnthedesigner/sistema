@@ -4,18 +4,24 @@ import matter from 'gray-matter'
 import type { ContentFile, ContentFrontmatter, StubFrontmatter, SystemIndex } from './types'
 
 const KB_ROOT = process.cwd()
+const KB_BASE = path.join(KB_ROOT, 'kb')
+
+export const KB_CATEGORIES = ['design-systems', 'standards', 'foundations'] as const
+export type KBCategory = typeof KB_CATEGORIES[number]
 
 /**
- * Returns slugs for all design systems in the KB.
- * A valid system directory contains an _index.md file.
+ * Returns slugs for all entries in a KB category.
+ * A valid entry directory contains an _index.md file.
  */
-export function listSystems(): string[] {
-  const entries = fs.readdirSync(KB_ROOT, { withFileTypes: true })
+export function listSystems(category: KBCategory = 'design-systems'): string[] {
+  const categoryDir = path.join(KB_BASE, category)
+  if (!fs.existsSync(categoryDir)) return []
+  const entries = fs.readdirSync(categoryDir, { withFileTypes: true })
   return entries
     .filter(e => {
       if (!e.isDirectory()) return false
       if (e.name.startsWith('_') || e.name.startsWith('.')) return false
-      const indexPath = path.join(KB_ROOT, e.name, '_index.md')
+      const indexPath = path.join(categoryDir, e.name, '_index.md')
       return fs.existsSync(indexPath)
     })
     .map(e => e.name)
@@ -24,12 +30,11 @@ export function listSystems(): string[] {
 
 /**
  * Reads and returns the raw markdown body of a system's _index.md.
- * The _index.md files are plain markdown with no YAML frontmatter.
  */
-export function readSystemIndex(slug: string): SystemIndex {
-  const indexPath = path.join(KB_ROOT, slug, '_index.md')
+export function readSystemIndex(slug: string, category: KBCategory = 'design-systems'): SystemIndex {
+  const indexPath = path.join(KB_BASE, category, slug, '_index.md')
   if (!fs.existsSync(indexPath)) {
-    throw new Error(`System index not found: ${slug}/_index.md`)
+    throw new Error(`System index not found: ${category}/${slug}/_index.md`)
   }
   const body = fs.readFileSync(indexPath, 'utf-8')
   return { body, slug }
@@ -37,8 +42,8 @@ export function readSystemIndex(slug: string): SystemIndex {
 
 /**
  * Reads a stub file and returns the path to its versioned target.
- * stubPath is relative to KB_ROOT without extension.
- * Checks for .md stub first, then .json (asset stubs use .json extension).
+ * stubPath is relative to KB_ROOT without extension,
+ * e.g. "kb/design-systems/material/guidance/foundations/color-system"
  */
 function readStubTarget(stubPath: string): string {
   const mdPath = path.join(KB_ROOT, `${stubPath}.md`)
@@ -63,7 +68,7 @@ function readStubTarget(stubPath: string): string {
 /**
  * Follows a stub to its versioned file and returns parsed frontmatter + body.
  * stubPath is relative to KB_ROOT without the .md extension,
- * e.g. "material/guidance/foundations/color-system"
+ * e.g. "kb/design-systems/material/guidance/foundations/color-system"
  */
 export function resolveStub(stubPath: string): ContentFile {
   const versionedPath = readStubTarget(stubPath)
@@ -96,14 +101,14 @@ export function resolveStub(stubPath: string): ContentFile {
 }
 
 /**
- * Returns all stub paths for a given system, as arrays of path segments.
+ * Returns all stub paths for a given system as arrays of path segments.
  * Used to generate static params for the content page catch-all route.
  * Example: ['guidance', 'foundations', 'color-system']
  */
-export function listStubsForSystem(slug: string): string[][] {
-  const systemDir = path.join(KB_ROOT, slug)
+export function listStubsForSystem(slug: string, category: KBCategory = 'design-systems'): string[][] {
+  const systemDir = path.join(KB_BASE, category, slug)
   if (!fs.existsSync(systemDir)) {
-    throw new Error(`System directory not found: ${slug}`)
+    throw new Error(`System directory not found: ${category}/${slug}`)
   }
 
   const stubs: string[][] = []
@@ -125,4 +130,19 @@ export function listStubsForSystem(slug: string): string[][] {
 
   walk(systemDir, [])
   return stubs
+}
+
+/**
+ * Reads the raw content of a versioned KB file by stub path.
+ * Used by the raw markdown endpoint to serve text/plain responses.
+ * Returns null if the stub cannot be resolved.
+ */
+export function readRawContent(stubPath: string): string | null {
+  try {
+    const versionedPath = readStubTarget(stubPath)
+    if (!fs.existsSync(versionedPath)) return null
+    return fs.readFileSync(versionedPath, 'utf-8')
+  } catch {
+    return null
+  }
 }
