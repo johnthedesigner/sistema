@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 3
-**Last completed task:** 2b.5 — Phase 2b housekeeping
-**Next task:** 3.1 — Interactive playbook fields
+**Last completed task:** 3.2 — Exemplar content creation
+**Next task:** 3.3 — Exemplar previews on play pages
 **Blockers:** None
-**Notes:** Phase 2b complete. KB at `kb/design-systems/`, `kb/standards/`, `kb/foundations/`. Raw endpoint at `/raw/`, bundle at `/bundle/`. DESIGN.md panel on system overview pages. All 30 play URLs point to `/raw/` or `/bundle/`. Build: 49 pages.
+**Notes:** Two exemplars created: Meridian DESIGN.md (527 lines, B2B SaaS, blue primary) and color scheme (189 lines, light + dark). Also completed 3.1 (interactive fields) and NEXT_PUBLIC_SITE_URL env var + dev:tunnel tooling (not in phase-3 task file). Build: 49 pages.
 
 ---
 
@@ -16,6 +16,19 @@
 *Phase 1 session entries archived to `logs/phase-1.md`.*
 *Phase 2 session entries archived to `logs/phase-2.md`.*
 *Phase 2b session entries archived to `logs/phase-2b.md`.*
+
+### 2026-05-12 — Task 3.2: Exemplar content creation
+
+**What was done:**
+- Created `_meta/exemplars/design-md-files/generate-design-md-example.md` — 527 lines; "Meridian" B2B analytics SaaS; blue-60 primary; Inter typeface; covers color (primitive palette + light/dark semantic roles), typography scale, spacing, shape, elevation, motion, interactive states, component notes (Button, Input, Data table, Badge, Nav sidebar, Dialog), data viz palette
+- Created `_meta/exemplars/semantic-token-systems/generate-color-scheme-example.md` — 189 lines; same Meridian system; full CSS custom property output; light + dark themes; all M3 role families plus non-M3 warning/success additions; inline annotations on non-obvious decisions (dark primary tone, surface-container-lowest as pure white, outline values)
+- Both files have valid frontmatter (`play_slug`, `stage`, `created`, `quality_notes`)
+
+**Content quality notes:** Color values in both exemplars are internally consistent — the DESIGN.md primitive palette matches the color scheme semantic tokens. Dark mode follows M3 tonal logic throughout. Non-M3 additions (warning, success) annotated with rationale. No gaps identified.
+
+**Build:** 49 pages, passing
+
+---
 
 ### 2026-05-12 — Task 2b.5: Phase 2b housekeeping
 
