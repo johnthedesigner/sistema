@@ -97,13 +97,13 @@ sistema/
 
 | Phase | Layer | Goal |
 |---|---|---|
-| 0 | KB | Tools scaffold; Material Design 3 re-scrape and processing |
-| 1 | KB + App | Carbon capture; app foundation (Next.js, KB data layer, landing page) |
-| 2 | App + KB | App core features; Atlassian capture; exemplars |
-| 3 | App + KB | Interactive playbooks; Primer/Radix capture; component docs |
-| 4 | Launch | Polish; SEO; Vercel deployment; custom domain; launch checklist |
+| 0 | KB | Tools scaffold; Material Design 3 scrape and processing |
+| 1 | App | Full app with Material content: system browser, content pages, playbook browser, landing page |
+| 2 | App + KB | Carbon KB capture; wire into working app; Atlassian capture |
+| 3 | App + KB | Interactive playbooks; Primer/Radix capture; component docs; exemplars |
+| 4 | Launch | Polish; SEO; Vercel production deployment; custom domain; launch checklist |
 
-**Rationale for front-loading app work:** The app can launch with M3 + Carbon as its initial KB content. Additional systems are added as the app is already live. This avoids a long pre-launch period of KB-only work and gets the product in front of users earlier. Phase 1 runs KB and app work in sequence within the same phase (Carbon first, then app foundation) since they are independent tracks.
+**Rationale for app-first Phase 1:** Building the full app loop with the Material KB content already in hand lets you see the complete product — browse a system, read content, copy a playbook prompt — before investing more time in KB capture. If anything about the product concept needs adjustment, you'll see it with one system rather than discovering it after three. Carbon and additional systems are added in Phase 2, wiring into an already-working app.
 
 ---
 
@@ -129,41 +129,41 @@ Review and commit the task file before running any implementation sessions.
 
 - **0.4 — Phase 0 housekeeping:** Archive session log entries, compress task file, update `AGENTS.md` patterns, preview Phase 1 task file for issues.
 
-### Phase 1 — Carbon KB capture + App foundation
+### Phase 1 — App foundation with Material content
 
-**Goal:** Add Carbon (IBM) as the second KB system, then build the Next.js app foundation. By end of phase the app builds and deploys with M3 and Carbon content available.
+**Goal:** Build the complete Next.js app using the Material Design 3 KB already captured in Phase 0. By end of phase: a deployed app where you can browse the system, read KB content pages, and copy playbook prompts. No new KB systems are added this phase.
 
 **Generate `tasks/phase-1.md` before starting any implementation tasks.**
 
 **Key tasks in this phase:**
 
-- **1.1 — Carbon KB capture:** Full Procedure A from `_meta/MAINTENANCE.md` for Carbon. Agent runs all scrapes via Bash. Priority: foundations (color, typography, spacing), getting-started, token assets. Scrape in targeted section passes (`--limit 25`). Frontmatter lint must pass.
+- **1.1 — Next.js initialization:** Add Next.js App Router with TypeScript and Tailwind to the root `package.json`. Configure `tsconfig.json` and `tailwind.config.ts`. Confirm `tools/` remains its own separate package and does not conflict. Commit a working build that deploys cleanly to Vercel (preview URL).
 
-- **1.2 — Carbon DESIGN.md generation:** Generate DESIGN.md for Carbon, derived from the guidance and asset files captured in 1.1.
+- **1.2 — KB data layer:** Build `src/lib/kb.ts` — utilities for reading KB content files at build time using Node `fs`. Functions: list available systems, read system index, follow a stub to its versioned target, return parsed frontmatter and body. Also build `src/lib/playbooks.ts` to parse `_meta/TASK_PLAYBOOKS.md` into structured play objects.
 
-- **1.3 — Next.js initialization:** Add Next.js App Router with TypeScript and Tailwind to the root `package.json`. Configure `tsconfig.json` and `tailwind.config.ts`. Confirm `tools/` remains its own separate package and does not conflict. Commit a working build that deploys cleanly to Vercel (preview URL).
+- **1.3 — System browser:** Build `/systems` index and `/systems/[slug]` per-system pages. Data from `_index.md` via KB data layer. Content topic links point to content page paths.
 
-- **1.4 — KB data layer:** Build `src/lib/kb.ts` — utilities for reading KB content files at build time using Node `fs`. Functions needed: list available systems, list files for a system, read a content file (parse frontmatter + body), follow a stub to its versioned target. All reads happen at build time; no runtime filesystem access.
+- **1.4 — KB content pages:** Build `/systems/[slug]/[...path]` catch-all route. Maps URL path to a KB stub, follows `points_to` to versioned file, renders frontmatter metadata and markdown body. All 12 Material content files must render correctly.
 
-- **1.5 — Core routing and landing page:** Define the URL scheme. Build the landing page and the skeleton routing structure. At minimum: `/`, `/systems`, `/systems/[slug]`, `/playbooks`.
+- **1.5 — Playbook browser:** Build `/playbooks` index grouped by category with tier badges, and `/playbooks/[id]` per-play pages with a working copy-to-clipboard button.
 
-- **1.6 — AGENTS.md update:** Add the app's architectural rules and directory structure.
+- **1.6 — Landing page:** Replace placeholder with real landing page: what Sistema is, how to use KB content in an AI coding session, links into system browser and playbook browser.
 
-- **1.7 — Phase 1 housekeeping**
+- **1.7 — Phase 1 housekeeping:** Archive session log, compress task entries, update `AGENTS.md` for app layer, write phase retrospective, generate `tasks/phase-2.md`.
 
-### Phase 2 — App core features + Atlassian KB
+### Phase 2 — Carbon KB + additional systems
 
-**Goal:** Build the system browser, KB content pages, and playbook browser. Add Atlassian as the third KB system. By end of phase the app is genuinely usable.
+**Goal:** Add Carbon (IBM) as the second KB system into the working app, then add Atlassian. By end of phase the system browser shows multiple systems with full content, and the app is genuinely useful as a multi-system reference.
 
 **Key tasks in this phase:**
 
-- **2.1 — System browser:** `/systems` index and per-system pages showing content inventory, status, and source map.
+- **2.1 — Carbon KB capture:** Full Procedure A from `_meta/MAINTENANCE.md` for Carbon. Agent runs all scrapes via Bash. Priority: foundations (color, typography, spacing), getting-started, token assets. Frontmatter lint must pass.
 
-- **2.2 — KB content pages:** Pages at `/systems/[slug]/[category]/[topic]` that render KB markdown files as styled HTML. Must follow stubs, display frontmatter metadata, render markdown body, and link to GitHub source.
+- **2.2 — Carbon DESIGN.md generation:** Generate DESIGN.md for Carbon, derived from 2.1 guidance and asset files.
 
-- **2.3 — Playbook browser:** `/playbooks` index listing all plays from `_meta/TASK_PLAYBOOKS.md` by category with tier classification. Per-play pages with full play content and a **copy prompt button** that inserts KB URLs for available systems.
+- **2.3 — Wire Carbon into app:** Confirm system browser shows both Material and Carbon. All Carbon content pages render. `generateStaticParams` covers both systems. `npm run build` passes.
 
-- **2.4 — Atlassian KB capture:** Full Procedure A for Atlassian. Agent runs all scrapes. Priority: color system, typography, component foundations.
+- **2.4 — Atlassian KB capture:** Full Procedure A for Atlassian. Priority: color system, typography, component foundations.
 
 - **2.5 — Exemplars (top plays):** Create vetted exemplars for plays 1.2 (Generate a Color Token Set) and 6.1 (Generate a DESIGN.md). These anchor output quality for the most-used plays on the site.
 

@@ -1,13 +1,13 @@
 # Phase 1 Task File
 
-**Phase goal:** Add Carbon (IBM) as the second KB system following Procedure A in `_meta/MAINTENANCE.md`, then build the Next.js app foundation. By end of phase: Carbon KB is captured and validated, the app builds and deploys cleanly, the landing page is live, and the KB data layer reads both Material and Carbon content.
+**Phase goal:** Build the Next.js app and make it fully functional with the existing Material Design 3 content. By end of phase: a deployed app where you can browse the system, read KB content, and copy playbook prompts. Carbon and additional systems are added in Phase 2.
 
-**Systems touched:** `carbon/` (new), `material/` (index updates only)
-**App:** Next.js App Router initialized at root; `src/` created
+**Systems touched:** `material/` (read-only; no KB content changes)
+**App:** `src/` created; root `package.json` added
 
 ---
 
-## Task 1.1 — Carbon KB capture
+## Task 1.1 — Next.js initialization
 
 **Status:** not started
 **Phase:** 1
@@ -15,132 +15,35 @@
 
 ### What this task implements
 
-Adds Carbon (IBM Design System) as the second KB system following Procedure A in `_meta/MAINTENANCE.md`. The agent runs all scrapes directly via Bash. Priority foundations: color, typography, spacing/layout, and the token architecture. Component coverage: Button, Form elements, and Navigation are the minimum. All scraping uses `--limit 25` with 60+ second gaps between passes; JS-rendered pages fall back to GitHub source files for token values.
-
-**Sources:**
-- Guidance: `https://carbondesignsystem.com` (foundations, components)
-- Implementation: `https://github.com/carbon-design-system/carbon`
-- Tokens: `https://github.com/carbon-design-system/carbon/tree/main/packages/themes/src` (colors), `https://github.com/carbon-design-system/carbon/tree/main/packages/layout/src` (spacing), `https://github.com/carbon-design-system/carbon/tree/main/packages/type/src` (typography)
+Initializes the Next.js App Router application at the repository root. Adds root-level `package.json`, `next.config.ts`, `tsconfig.json`, and `tailwind.config.ts`. Creates the `src/app/` skeleton with a minimal root layout and placeholder home page. Verifies that `tools/` retains its own `package.json` and does not conflict. Ends with `next build` passing and a working Vercel preview deployment.
 
 ### Files created or modified
 
-- `carbon/_index.md` — system overview, source map, content inventory, version history
-- `carbon/guidance/foundations/color@[date].md` — color token system, themes, roles
-- `carbon/guidance/foundations/color.md` — stub
-- `carbon/guidance/foundations/typography@[date].md` — type scale, typeface, usage
-- `carbon/guidance/foundations/typography.md` — stub
-- `carbon/guidance/foundations/spacing@[date].md` — spacing scale, grid, layout
-- `carbon/guidance/foundations/spacing.md` — stub
-- `carbon/guidance/foundations/design-tokens@[date].md` — Carbon token architecture (v11 structure)
-- `carbon/guidance/foundations/design-tokens.md` — stub
-- `carbon/implementation/getting-started@[date].md` — installation, package overview
-- `carbon/implementation/getting-started.md` — stub
-- `carbon/implementation/tokens/token-schema@[date].md` — CSS custom properties, Sass vars, JS tokens
-- `carbon/implementation/tokens/token-schema.md` — stub
-- `carbon/assets/tokens/colors@[date].json` — color tokens (white theme + g10 + g90 + g100)
-- `carbon/assets/tokens/colors.json` — stub
-- `carbon/assets/tokens/typography@[date].json` — type scale tokens
-- `carbon/assets/tokens/typography.json` — stub
-- `carbon/assets/tokens/spacing@[date].json` — spacing scale tokens
-- `carbon/assets/tokens/spacing.json` — stub
-- `_meta/INDEX.md` — Carbon added to all relevant sections; system count and file count updated
-
-### Acceptance criteria
-
-- [ ] `carbon/` directory structure created: `guidance/foundations/`, `guidance/components/`, `guidance/patterns/`, `implementation/`, `implementation/tokens/`, `assets/tokens/`
-- [ ] `carbon/_index.md` written with: system overview, "when to reference" note, source map table, content inventory table (complete at task end), version history initial entry
-- [ ] Scrape documented in `SESSION_LOG.md`: passes run, URLs targeted, file counts, quality spot-checks, any gaps
-- [ ] All scrape passes use `--limit 25` or lower; no single call targets a root URL expected to have 100+ pages
-- [ ] Guidance files exist for: `color`, `typography`, `spacing`, `design-tokens` — all with `status: latest`, `content_type: guidance`, complete frontmatter
-- [ ] Spot-check: `color@[date].md` and `typography@[date].md` each contain at minimum 400 words of substantive prose (not stubs, not frontmatter, not navigation chrome)
-- [ ] Specific values in guidance files preserved exactly: token names, spacing scale values, type size values are not rounded or paraphrased
-- [ ] Implementation files exist: `getting-started@[date].md`, `token-schema@[date].md` — both with correct frontmatter
-- [ ] Asset files exist: `colors@[date].json`, `typography@[date].json`, `spacing@[date].json` — all with `_meta` blocks per `_meta/SCHEMA.md` Section 3.3
-- [ ] Asset file spot-check: at minimum 5 token values per file verified against live GitHub source; results logged in `SESSION_LOG.md`
-- [ ] All versioned files have corresponding redirect stubs; all stubs have valid `points_to` targets
-- [ ] `npx tsx tools/validate/lint-frontmatter.ts carbon/` reports **zero errors**
-- [ ] `_meta/INDEX.md` updated: Carbon added to "By System" section, all files listed in appropriate "By Category" sections, system count updated to 2, file count updated
-- [ ] `_meta/CHANGELOG.md` updated with Carbon capture session entry
-- [ ] `SESSION_LOG.md` updated with full task entry
-- [ ] Commit created: `"Phase 1, Task 1.1 — Carbon KB capture"`
-
----
-
-## Task 1.2 — Carbon DESIGN.md generation
-
-**Status:** not started
-**Phase:** 1
-**Session log entry:** (link after completion)
-
-### What this task implements
-
-Generates a community DESIGN.md for Carbon, following Procedure A Step 7 in `_meta/MAINTENANCE.md`. All token values in the YAML front matter are drawn directly from the asset files captured in Task 1.1. All prose sections are derived from the guidance files, not generated cold. The generated file must follow the same spec as `material/design-md/DESIGN@2026-05-11.md`.
-
-### Files created or modified
-
-- `carbon/design-md/DESIGN@[date].md` — community DESIGN.md derived from Task 1.1 files
-- `carbon/design-md/DESIGN.md` — redirect stub
-- `carbon/_index.md` — Content Inventory updated with DESIGN.md row
-
-### Acceptance criteria
-
-- [ ] `carbon/design-md/DESIGN@[date].md` exists with `content_type: design-md`, `unofficial: true`, `design_md_spec_version` present in frontmatter
-- [ ] `derived_from` frontmatter field lists every source file used — at minimum: color, typography, spacing guidance + color, typography, spacing asset files
-- [ ] YAML front matter token values (color scheme, type scale, spacing scale) sourced directly from Task 1.1 asset files — no invented or estimated values
-- [ ] Mandatory disclaimer present in document body: *"This is a community-generated DESIGN.md derived from Carbon's public documentation. It is not an official document published by the Carbon Design System team."*
-- [ ] Prose sections (color rationale, typography rationale, spacing rationale) use language and specifics from the Task 1.1 guidance files, not generic descriptions
-- [ ] `carbon/design-md/DESIGN.md` stub exists with correct `points_to` target
-- [ ] `carbon/_index.md` Content Inventory includes DESIGN.md row
-- [ ] `npx tsx tools/validate/lint-frontmatter.ts carbon/` reports **zero errors**
-- [ ] `_meta/CHANGELOG.md` updated
-- [ ] `SESSION_LOG.md` updated with full task entry
-- [ ] Commit created: `"Phase 1, Task 1.2 — Carbon DESIGN.md generation"`
-
----
-
-## Task 1.3 — Next.js initialization
-
-**Status:** not started
-**Phase:** 1
-**Session log entry:** (link after completion)
-
-### What this task implements
-
-Initializes the Next.js App Router application at the repository root. Adds root-level `package.json`, `next.config.ts`, `tsconfig.json`, and `tailwind.config.ts`. Creates the `src/app/` directory skeleton with a minimal root layout and placeholder home page. Verifies that `tools/` retains its own `package.json` and does not conflict with the root package. Ends with `next build` passing and a working Vercel preview deployment.
-
-**Important:** The root `package.json` must not interfere with `tools/package.json`. The tools package is a separate Node package and runs independently. Confirm that running `npm install` at the root does not affect `tools/node_modules` and that the linter still runs correctly from the repo root after this task.
-
-### Files created or modified
-
-- `package.json` — root Next.js app package (Next.js, React, TypeScript, Tailwind, ESLint)
-- `next.config.ts` — Next.js config (TypeScript, App Router)
+- `package.json` — root Next.js app package
+- `next.config.ts` — Next.js config (App Router, TypeScript)
 - `tsconfig.json` — root TypeScript config (separate from `tools/tsconfig.json`)
 - `tailwind.config.ts` — Tailwind CSS configuration
-- `postcss.config.js` — PostCSS config for Tailwind
-- `.eslintrc.json` (or `eslint.config.mjs`) — ESLint config
-- `src/app/layout.tsx` — root layout with `<html>` and `<body>`
-- `src/app/page.tsx` — placeholder home page (text-only; no content or design yet)
+- `postcss.config.js` — PostCSS for Tailwind
+- `src/app/layout.tsx` — root layout (`<html>`, `<body>`, global styles)
+- `src/app/page.tsx` — placeholder home page
 - `src/styles/globals.css` — global CSS with Tailwind directives
 
 ### Acceptance criteria
 
-- [ ] `package.json` exists at repo root with Next.js 15+, React 19+, TypeScript, Tailwind CSS, ESLint as dependencies
-- [ ] `next.config.ts` is TypeScript and enables App Router (no `pages/` directory)
-- [ ] `tsconfig.json` at root does not reference or include `tools/` — the tools package remains independent
-- [ ] `src/app/layout.tsx` exists with valid root layout (html + body wrappers, Tailwind base applied)
-- [ ] `src/app/page.tsx` exists and renders without errors (placeholder content acceptable)
-- [ ] Running `npm install` at repo root completes without errors
-- [ ] Running `npm run build` (i.e. `next build`) at repo root completes with **zero errors**
-- [ ] Running `npx tsx tools/validate/lint-frontmatter.ts material/` still passes from repo root after root `package.json` is added (tools package unaffected)
-- [ ] `npm run dev` starts the development server; home page renders in a browser at `localhost:3000` (or default port)
-- [ ] App deployed to Vercel as a preview; preview URL accessible and home page renders correctly
-- [ ] No hardcoded `localhost` URLs anywhere in source files
-- [ ] `SESSION_LOG.md` updated with full task entry (including Vercel preview URL)
-- [ ] Commit created: `"Phase 1, Task 1.3 — Next.js initialization"`
+- [ ] `package.json` at repo root includes Next.js 15+, React 19+, TypeScript, Tailwind CSS
+- [ ] `next.config.ts` is TypeScript; App Router used (no `pages/` directory)
+- [ ] `tsconfig.json` at root does not reference or include `tools/`
+- [ ] `npm run build` at repo root completes with **zero errors**
+- [ ] `npx tsx tools/validate/lint-frontmatter.ts material/` still passes after root `package.json` is added — tools package unaffected
+- [ ] `npm run dev` starts the dev server; home page renders at `localhost:3000` (placeholder text acceptable)
+- [ ] App deployed to Vercel; preview URL accessible; placeholder page renders
+- [ ] No hardcoded `localhost` URLs in any source files
+- [ ] `SESSION_LOG.md` updated with full task entry (Vercel preview URL recorded)
+- [ ] Commit created: `"Phase 1, Task 1.1 — Next.js initialization"`
 
 ---
 
-## Task 1.4 — KB data layer
+## Task 1.2 — KB data layer
 
 **Status:** not started
 **Phase:** 1
@@ -148,33 +51,35 @@ Initializes the Next.js App Router application at the repository root. Adds root
 
 ### What this task implements
 
-Builds `src/lib/kb.ts` — the build-time utilities for reading KB content from the filesystem. All reads happen at build time (in `generateStaticParams` or `getStaticProps` contexts); no runtime filesystem access. Functions must follow the stub system: when reading a topic, they follow `points_to` to the current versioned file rather than requiring callers to know versioned filenames. Returns parsed frontmatter and body separately.
+Builds `src/lib/kb.ts` — build-time utilities for reading KB content from the filesystem. All reads happen at build time (in `generateStaticParams` or page-level data functions); no runtime filesystem access. Functions follow the stub system: callers pass a stub path, the function follows `points_to` to the versioned file and returns parsed frontmatter and body. Also builds a utility that parses `_meta/TASK_PLAYBOOKS.md` into a structured list of plays for the playbook browser.
 
 ### Files created or modified
 
-- `src/lib/kb.ts` — KB reading utilities
-- `src/lib/types.ts` — TypeScript types for KB content, frontmatter, system index
+- `src/lib/kb.ts` — KB filesystem utilities
+- `src/lib/playbooks.ts` — parses `_meta/TASK_PLAYBOOKS.md` into structured play objects
+- `src/lib/types.ts` — TypeScript types for all KB and playbook data
 
 ### Acceptance criteria
 
-- [ ] `src/lib/kb.ts` exports the following functions (names may vary but functionality required):
-  - `listSystems()` — returns array of system slug strings (e.g. `['material', 'carbon']`) by reading top-level directories that contain `_index.md`
-  - `readSystemIndex(slug)` — reads and returns parsed `[slug]/_index.md` content (frontmatter + body)
-  - `readStub(stubPath)` — reads a stub file and returns its `points_to` target path
-  - `readContent(versionedPath)` — reads a versioned content file, returns `{ frontmatter, body }` with frontmatter parsed as a typed object
-  - `resolveStub(stubPath)` — follows a stub to its versioned file and returns the parsed content (combines `readStub` + `readContent`)
-- [ ] All file reads use Node `fs` (synchronous or via `fs/promises` with async/await) — no `fetch`, no `require`
-- [ ] `src/lib/types.ts` defines TypeScript interfaces for: `ContentFrontmatter` (all standard frontmatter fields), `SystemIndex` (parsed `_index.md`), `ContentFile` (frontmatter + body)
-- [ ] `listSystems()` returns both `material` and `carbon` when called (confirming Tasks 1.1 is visible at build time)
-- [ ] `resolveStub('material/guidance/foundations/color-system')` (or equivalent path) returns parsed content from `color-system@2026-05-11.md` (follows stub chain correctly)
-- [ ] `npm run build` passes after this file is added
-- [ ] A minimal test or build-time usage is present — e.g. `generateStaticParams` in a placeholder route that calls `listSystems()` — confirming the functions work in the Next.js build pipeline
+- [ ] `src/lib/kb.ts` exports:
+  - `listSystems()` → string[] of system slugs (reads directories containing `_index.md`)
+  - `readSystemIndex(slug)` → parsed `[slug]/_index.md` (frontmatter + body)
+  - `resolveStub(stubPath)` → reads stub, follows `points_to`, returns `{ frontmatter, body }` of versioned file
+  - `listStubsForSystem(slug)` → all stub paths for a given system (for generating static params)
+- [ ] `src/lib/playbooks.ts` exports:
+  - `loadPlaybooks()` → array of play objects, each with: `id` (e.g. `1.1`), `title`, `category`, `tier`, `triggerPhrases`, `prompt` (the full play content as a string)
+- [ ] All filesystem reads use Node `fs` — no `fetch`, no dynamic `require`
+- [ ] `listSystems()` returns `['material']` when called in the current repo state
+- [ ] `resolveStub('material/guidance/foundations/color-system')` returns parsed content of `color-system@2026-05-11.md` (stub chain followed correctly)
+- [ ] `loadPlaybooks()` returns at least 5 play objects parsed from `_meta/TASK_PLAYBOOKS.md`
+- [ ] `src/lib/types.ts` defines: `ContentFrontmatter`, `SystemIndex`, `ContentFile`, `Play`
+- [ ] `npm run build` passes after this task
 - [ ] `SESSION_LOG.md` updated with full task entry
-- [ ] Commit created: `"Phase 1, Task 1.4 — KB data layer"`
+- [ ] Commit created: `"Phase 1, Task 1.2 — KB data layer"`
 
 ---
 
-## Task 1.5 — Core routing and landing page
+## Task 1.3 — System browser
 
 **Status:** not started
 **Phase:** 1
@@ -182,41 +87,31 @@ Builds `src/lib/kb.ts` — the build-time utilities for reading KB content from 
 
 ### What this task implements
 
-Defines the URL scheme and builds the landing page plus skeleton routing. The landing page introduces Sistema: what it is, why it exists, and how to use KB content in an AI coding session. The skeleton routes define the URL structure that Phase 2 will fill in with full content. All routes must render without errors in both dev and production builds.
-
-**URL scheme:**
-- `/` — landing page
-- `/systems` — system browser index (Phase 2 content; placeholder in this task)
-- `/systems/[slug]` — per-system page (Phase 2 content; placeholder in this task)
-- `/playbooks` — playbook browser (Phase 2 content; placeholder in this task)
+Builds the system browser: a `/systems` index page listing all available design systems, and a `/systems/[slug]` per-system page that shows the system overview, source map, and content inventory. All data comes from `_index.md` via the KB data layer. Design is functional but not polished — that happens in Phase 4.
 
 ### Files created or modified
 
-- `src/app/page.tsx` — landing page (replaces placeholder from Task 1.3)
-- `src/app/systems/page.tsx` — systems index (skeleton: renders system names only)
-- `src/app/systems/[slug]/page.tsx` — per-system page (skeleton: renders slug and system index frontmatter)
-- `src/app/playbooks/page.tsx` — playbooks index (skeleton: placeholder heading)
-- `src/components/` — shared layout components as needed (navigation, footer)
+- `src/app/systems/page.tsx` — system index (list of available systems)
+- `src/app/systems/[slug]/page.tsx` — per-system overview page
+- `src/app/systems/[slug]/generateStaticParams` (inside above) — generates `material` slug
+- `src/components/layout/Navigation.tsx` — top-level navigation component (if not already present)
 
 ### Acceptance criteria
 
-- [ ] Landing page at `/` communicates: what Sistema is, what the KB contains, how to use a DESIGN.md file in an AI coding session; minimum 3 sections with real copy (not Lorem Ipsum)
-- [ ] `/systems` renders a list of available systems read via `listSystems()` from Task 1.4 — both Material Design 3 and Carbon appear by name
-- [ ] `/systems/material` and `/systems/carbon` both render without errors; each displays the system name and a brief description drawn from `_index.md`
-- [ ] `/playbooks` renders without errors (placeholder heading acceptable — full content in Phase 2)
-- [ ] All four routes generate static pages (`next build` produces HTML for each)
-- [ ] No route renders a Next.js default 404 or error page
-- [ ] Navigation links between `/`, `/systems`, and `/playbooks` are present and functional
-- [ ] `npm run build` passes with **zero errors**
-- [ ] All four routes tested in a browser (dev server): pages render, navigation works, no console errors
-- [ ] No hardcoded design system names or file paths in page components — system data comes from KB data layer
-- [ ] Vercel preview updated and accessible
-- [ ] `SESSION_LOG.md` updated with full task entry
-- [ ] Commit created: `"Phase 1, Task 1.5 — Core routing and landing page"`
+- [ ] `/systems` renders a list of all systems from `listSystems()` — Material Design 3 appears by name with a link to `/systems/material`
+- [ ] `/systems/material` renders: system name, overview text, "when to reference" guidance, source map table, and a browsable list of content topics linked to their content pages
+- [ ] System overview text and source map data come from `_index.md` — no hardcoded strings
+- [ ] Content topic links on `/systems/material` point to correct content page paths (Task 1.4 will build those pages, but the links should already be correct)
+- [ ] `generateStaticParams` generates routes for all systems returned by `listSystems()`
+- [ ] `/systems/nonexistent` returns a Next.js 404 (not a blank page or error)
+- [ ] `npm run build` passes; both `/systems` and `/systems/material` appear in build output as static pages
+- [ ] Both pages tested in browser: content renders, links are correct, no console errors
+- [ ] `SESSION_LOG.md` updated
+- [ ] Commit created: `"Phase 1, Task 1.3 — System browser"`
 
 ---
 
-## Task 1.6 — AGENTS.md update
+## Task 1.4 — KB content pages
 
 **Status:** not started
 **Phase:** 1
@@ -224,20 +119,102 @@ Defines the URL scheme and builds the landing page plus skeleton routing. The la
 
 ### What this task implements
 
-Updates `AGENTS.md` to reflect the app layer introduced in Phase 1. Adds the app's directory structure to the repository structure block and confirms that the existing architectural rules (Rules 7–10) accurately describe the app as built. Adds any new patterns established during Phase 1 app tasks. No code written in this task.
+Builds per-topic content pages at `/systems/[slug]/[...path]`. The catch-all path corresponds to a stub file path in the KB: e.g. `/systems/material/guidance/foundations/color-system` maps to the stub at `material/guidance/foundations/color-system.md`, which the data layer follows to the versioned file. Renders the file's frontmatter metadata (retrieved date, source URL, status) and its markdown body as styled HTML.
 
 ### Files created or modified
 
-- `AGENTS.md` — repository structure updated; app patterns added if needed
+- `src/app/systems/[slug]/[...path]/page.tsx` — content page (stub-following, markdown render)
+- `src/components/kb/ContentMeta.tsx` — frontmatter metadata display (retrieved date, source URL, version label)
+- `src/components/kb/MarkdownBody.tsx` — markdown-to-HTML renderer
 
 ### Acceptance criteria
 
-- [ ] `AGENTS.md` repository structure block reflects the `src/` directory as introduced in Task 1.3 (app router, components, lib, styles)
-- [ ] Architectural Rules 7–10 (app layer rules) verified to accurately describe the app as built in Tasks 1.3–1.5; any inaccuracies corrected
-- [ ] Any patterns established during Phase 1 app tasks that are not yet in the Patterns section are added (e.g. how the KB data layer is structured, how routes use static generation)
-- [ ] No architectural rules added without a concrete reason from Phase 1 work
-- [ ] `SESSION_LOG.md` updated with full task entry
-- [ ] Commit created: `"Phase 1, Task 1.6 — AGENTS.md update"`
+- [ ] `/systems/material/guidance/foundations/color-system` renders the content of `color-system@2026-05-11.md` — not the stub file itself
+- [ ] All 12 Material KB stub paths resolve and render without errors:
+  - `guidance/foundations/colors`
+  - `guidance/foundations/color-system`
+  - `guidance/foundations/color-roles`
+  - `guidance/foundations/design-tokens`
+  - `guidance/foundations/typography`
+  - `guidance/foundations/shape`
+  - `implementation/getting-started`
+  - `implementation/tokens/token-schema`
+  - `assets/tokens/colors` (JSON asset rendered as fenced code block or structured view)
+  - `assets/tokens/typography`
+  - `assets/tokens/shape`
+  - `design-md/DESIGN`
+- [ ] Each content page displays: retrieved date, source URL (as a link), version label, content type, and status from frontmatter
+- [ ] Markdown body renders correctly: headings, paragraphs, lists, tables, fenced code blocks all styled
+- [ ] A path with no corresponding stub (e.g. `/systems/material/guidance/foundations/nonexistent`) returns a 404
+- [ ] `generateStaticParams` generates all 12 Material content routes
+- [ ] `npm run build` passes; all 12 content pages appear in build output
+- [ ] All 12 pages tested in browser by navigating from the system browser: content is readable, tables render, code blocks are formatted
+- [ ] `SESSION_LOG.md` updated
+- [ ] Commit created: `"Phase 1, Task 1.4 — KB content pages"`
+
+---
+
+## Task 1.5 — Playbook browser
+
+**Status:** not started
+**Phase:** 1
+**Session log entry:** (link after completion)
+
+### What this task implements
+
+Builds the playbook browser at `/playbooks`. The index lists all plays from `_meta/TASK_PLAYBOOKS.md` organized by category, with tier badges. Each play has its own page at `/playbooks/[play-id]` that renders the full play content and a **copy prompt button** that copies the play's prompt text to the clipboard. No interactive variable substitution yet (Phase 3) — the prompt is copied as-is.
+
+### Files created or modified
+
+- `src/app/playbooks/page.tsx` — playbook index grouped by category
+- `src/app/playbooks/[id]/page.tsx` — individual play page with copy button
+- `src/components/playbooks/TierBadge.tsx` — tier 1/2/3 badge component
+- `src/components/playbooks/CopyButton.tsx` — clipboard copy button (client component)
+
+### Acceptance criteria
+
+- [ ] `/playbooks` lists all plays from `loadPlaybooks()`, grouped by category (Category 1: Color System Tasks, etc.)
+- [ ] Each play entry on the index shows: play ID, title, tier badge, and a link to the play's detail page
+- [ ] `/playbooks/1.1` (and equivalents for all plays) renders: title, tier, trigger phrases, and the full play prompt text
+- [ ] Copy button on each play page copies the full prompt text to the clipboard
+- [ ] Copy button tested in browser: clicking it copies the text; pasting elsewhere confirms the correct content was copied
+- [ ] Tier badge visually distinguishes Tier 1, 2, and 3 (different color or label is sufficient)
+- [ ] `/playbooks/nonexistent` returns a 404
+- [ ] `generateStaticParams` generates routes for all plays
+- [ ] `npm run build` passes; playbook pages appear in build output
+- [ ] All playbook index and at least 3 detail pages tested in browser: content renders, copy button works
+- [ ] `SESSION_LOG.md` updated
+- [ ] Commit created: `"Phase 1, Task 1.5 — Playbook browser"`
+
+---
+
+## Task 1.6 — Landing page
+
+**Status:** not started
+**Phase:** 1
+**Session log entry:** (link after completion)
+
+### What this task implements
+
+Builds the real landing page at `/`, replacing the Task 1.1 placeholder. The landing page introduces Sistema: what it is, what the KB contains, and how to use KB content in an AI coding session. It links into the working system browser and playbook browser. Design is functional; visual polish is Phase 4.
+
+### Files created or modified
+
+- `src/app/page.tsx` — full landing page (replaces placeholder)
+
+### Acceptance criteria
+
+- [ ] Landing page has at minimum three sections with real copy (no Lorem Ipsum):
+  1. **Hero / what it is** — introduces Sistema and the KB concept
+  2. **How to use it** — explains how to incorporate a DESIGN.md or KB file into an AI coding session (concrete example)
+  3. **What's available** — links into the system browser and playbook browser
+- [ ] Links to `/systems` and `/playbooks` are present and navigate correctly
+- [ ] Page renders correctly on mobile (375px viewport) and desktop (1280px) — no layout breakage
+- [ ] `npm run build` passes
+- [ ] Page reviewed in browser: copy reads well, links work, no console errors
+- [ ] Vercel preview updated; landing page accessible at preview URL
+- [ ] `SESSION_LOG.md` updated
+- [ ] Commit created: `"Phase 1, Task 1.6 — Landing page"`
 
 ---
 
@@ -249,25 +226,25 @@ Updates `AGENTS.md` to reflect the app layer introduced in Phase 1. Adds the app
 
 ### What this task implements
 
-End-of-phase housekeeping following the same pattern as Task 0.7. Compresses completed task entries in this file, archives Phase 1 session log entries, updates `AGENTS.md` patterns if any remain, writes the Phase 1 retrospective, and reviews the Phase 2 task file.
+End-of-phase housekeeping. Compresses completed task entries in this file, archives Phase 1 session log entries, updates `AGENTS.md` to reflect the app layer, writes the Phase 1 retrospective, and generates and reviews `tasks/phase-2.md`.
 
 ### Files created or modified
 
 - `tasks/phase-1.md` — all task entries compressed to summary form
-- `tasks/phase-2.md` — generated and reviewed (flagged if issues found)
-- `SESSION_LOG.md` — Phase 1 entries removed; pointer to archive added; Current State updated
+- `tasks/phase-2.md` — generated and reviewed
+- `SESSION_LOG.md` — Phase 1 entries removed; pointer to archive; Current State updated
 - `logs/phase-1.md` — Phase 1 session entries archived here
-- `AGENTS.md` — Patterns section updated if any Phase 1 patterns are missing
-- `docs/phase-1-retro.md` — brief retrospective written
+- `AGENTS.md` — Patterns section and repo structure updated for app layer
+- `docs/phase-1-retro.md` — brief retrospective
 
 ### Acceptance criteria
 
-- [ ] All completed task entries in `tasks/phase-1.md` compressed: status line, one-sentence output, key decisions, session log pointer
+- [ ] All completed task entries in `tasks/phase-1.md` compressed: status, one-sentence output, key decisions, session log pointer
 - [ ] All Phase 1 session entries moved from `SESSION_LOG.md` to `logs/phase-1.md`
-- [ ] `SESSION_LOG.md` contains pointer to `logs/phase-1.md` and Current State block showing Phase 2 pending, first Phase 2 task identified
-- [ ] `AGENTS.md` Patterns section updated with any Phase 1 patterns not yet recorded
-- [ ] `docs/phase-1-retro.md` written with: what went smoothly, what was harder than expected, decisions not documented elsewhere, what to do differently in Phase 2
-- [ ] `tasks/phase-2.md` generated and reviewed; any tasks that look wrong, depend on unbuilt prerequisites, or have unclear acceptance criteria flagged in `SESSION_LOG.md` (file not edited — only reviewed)
-- [ ] `npx tsx tools/validate/lint-frontmatter.ts carbon/` and `npx tsx tools/validate/lint-frontmatter.ts material/` both report **zero errors**
+- [ ] `SESSION_LOG.md` contains pointer to `logs/phase-1.md` and Current State showing Phase 2 pending
+- [ ] `AGENTS.md` repository structure block reflects `src/` as built; any app patterns from Phase 1 added to Patterns section
+- [ ] `docs/phase-1-retro.md` written: what went smoothly, what was harder than expected, decisions not documented elsewhere, what to do differently in Phase 2
+- [ ] `tasks/phase-2.md` generated; any issues flagged in `SESSION_LOG.md`
+- [ ] `npx tsx tools/validate/lint-frontmatter.ts material/` reports **zero errors**
 - [ ] `npm run build` passes before housekeeping commit
 - [ ] Commit created: `"Phase 1, Task 1.7 — housekeeping and phase close"`
