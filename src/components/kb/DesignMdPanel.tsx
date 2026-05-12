@@ -35,8 +35,10 @@ export function DesignMdPanel({
   rawPath: string
   systemName: string
 }) {
-  const [origin, setOrigin] = useState('')
-  useEffect(() => { setOrigin(window.location.origin) }, [])
+  const [origin, setOrigin] = useState(process.env.NEXT_PUBLIC_SITE_URL ?? '')
+  useEffect(() => {
+    if (!process.env.NEXT_PUBLIC_SITE_URL) setOrigin(window.location.origin)
+  }, [])
 
   const [contentState, runContent] = useCopy()
   const [urlState, runUrl] = useCopy()
@@ -52,13 +54,13 @@ export function DesignMdPanel({
 
   function copyUrl() {
     runUrl(async () => {
-      await navigator.clipboard.writeText(`${window.location.origin}${rawPath}`)
+      await navigator.clipboard.writeText(`${origin}${rawPath}`)
     })
   }
 
   function copyPrompt() {
     runPrompt(async () => {
-      const url = `${window.location.origin}${rawPath}`
+      const url = `${origin}${rawPath}`
       await navigator.clipboard.writeText(
         `Fetch ${url} and use it as the design foundation for this project.`
       )
