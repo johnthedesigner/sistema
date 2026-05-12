@@ -27,9 +27,9 @@ Plays reference content from the Sistema knowledge base using `{{sistema_url}}` 
 You are helping me create a `DESIGN.md` file — a concise specification document that describes a design system's visual language for use with AI coding tools.
 
 Before generating anything, read the following reference from the Sistema knowledge base:
-- DESIGN.md format reference: {{sistema_url}}/raw/design-systems/material/design-md/DESIGN.md
+- Material Design System — full context bundle (guidance + DESIGN.md): {{sistema_url}}/bundle/design-systems/material
 
-That page shows the full DESIGN.md format used by a production design system. Read it carefully — note which sections are present, how specific the values are, and how it describes token usage for components.
+That bundle contains Material Design 3's complete guidance documentation and its DESIGN.md. Read it carefully — note which sections the DESIGN.md contains, how specific the values are, how token usage is described for components, and how the guidance files inform each section.
 
 Now generate a `DESIGN.md` for my design system. My project context:
 
@@ -51,12 +51,10 @@ Rules for generating:
 
 You are helping me plan the token architecture for a new design system before writing any actual token values.
 
-Before proposing anything, read the following references from the Sistema knowledge base:
-- Token design principles: {{sistema_url}}/raw/design-systems/material/guidance/foundations/design-tokens.md
-- Color system structure: {{sistema_url}}/raw/design-systems/material/guidance/foundations/color-system.md
-- Token schema implementation: {{sistema_url}}/raw/design-systems/material/implementation/tokens/token-schema.md
+Before proposing anything, read the following reference from the Sistema knowledge base:
+- Material token architecture bundle: {{sistema_url}}/bundle/design-systems/material?topics=guidance/foundations/design-tokens,guidance/foundations/color-system,implementation/tokens/token-schema
 
-Read all three before responding. Pay attention to: how many tiers the token system uses, how naming conventions differ between tiers, what categories of tokens are defined, and how the system is organized for compilation.
+Read all three files in that bundle before responding. Pay attention to: how many tiers the token system uses, how naming conventions differ between tiers, what categories of tokens are defined, and how the system is organized for compilation.
 
 Based on these references, propose a token architecture for my design system. The architecture should define:
 

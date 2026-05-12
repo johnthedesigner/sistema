@@ -110,5 +110,17 @@ This format is identical to `.md` stubs — the file extension does not change t
 ### Atlassian token sourcing: Bitbucket and CDN, not GitHub
 Atlassian's design system source is on Bitbucket (`bitbucket.org/atlassian/atlassian-frontend-mirror`), not GitHub. All GitHub URL attempts return 404. For published token values, use the jsDelivr CDN: `cdn.jsdelivr.net/npm/@atlaskit/tokens@<version>/dist/cjs/artifacts/token-default-values.js`. Check `cdn.jsdelivr.net/npm/@atlaskit/tokens/` first to identify the current package version and browse available files.
 
+### Bundle URLs for multi-file play context
+When a play needs an agent to read more than one KB file from the same system, use a single `/bundle/` URL rather than listing multiple `/raw/` URLs. One fetch call, not several — reduces the risk of an agent skipping reference material.
+
+URL format: `{{sistema_url}}/bundle/[category]/[slug]?topics=[comma-separated-paths]`
+
+Example for a play that needs color and typography context:
+```
+{{sistema_url}}/bundle/design-systems/material?topics=guidance/foundations/color-system,guidance/foundations/typography,design-md/DESIGN
+```
+
+Without `?topics=`, the bundle returns all guidance files + DESIGN.md for the system — useful for plays that need full system context (e.g. `generate-design-md`). Topic paths are the same path segments used in `/kb/` and `/raw/` URLs, without the `.md` extension. Missing topics are skipped with a comment at the top of the response; no 500 errors.
+
 ### Zero-page Firecrawl result: fall back to npm CDN
 When Firecrawl returns 0 pages from a design system documentation page (fully JS-rendered SPA with no crawlable content), source token values directly from the npm CDN package. Use jsDelivr (`cdn.jsdelivr.net/npm/<package>@<version>/`) to browse available package files and fetch the relevant artifact. This is the standard fallback for any design system that publishes a `@<org>/tokens` package — the CDN exposes the compiled output regardless of whether the doc site renders server-side.

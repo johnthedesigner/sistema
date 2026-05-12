@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 2b
-**Last completed task:** 2b.3 — DESIGN.md prominence and quick start
-**Next task:** 2b.4 — Bundle endpoint
+**Last completed task:** 2b.4 — Bundle endpoint
+**Next task:** 2b.5 — Phase 2b housekeeping
 **Blockers:** None
-**Notes:** DesignMdPanel live on all three design system overview pages. Copy DESIGN.md, Copy raw URL, Copy quick-start prompt. Panel absent on standards/foundations (no DESIGN.md). Build: 49 pages.
+**Notes:** `/bundle/[category]/[slug]` live. Default returns all guidance + DESIGN.md; `?topics=` selects specific files. AGENTS.md documents pattern. 2 plays updated to use bundle URLs. Build: 49 pages.
 
 ---
 
@@ -15,6 +15,19 @@
 *Phase 0 session entries archived to `logs/phase-0.md`.*
 *Phase 1 session entries archived to `logs/phase-1.md`.*
 *Phase 2 session entries archived to `logs/phase-2.md`.*
+
+### 2026-05-12 — Task 2b.4: Bundle endpoint
+
+**What was done:**
+- Created `src/app/bundle/[category]/[slug]/route.ts` — GET handler; reads `?topics=` param (comma-separated stub path suffixes); default returns all guidance stubs (ordered) then design-md/DESIGN; resolves each via `readRawContent`; concatenates with `## [topic]` H2 headers and `---` separators; skips missing stubs with HTML comment at top; 404 for unknown system; returns `text/plain`
+- Updated `AGENTS.md` — "Bundle URLs for multi-file play context" pattern with URL format, example, and default behavior documented
+- Updated `generate-design-md` play — single `/raw/` reference replaced with default bundle URL (guidance + DESIGN.md in one fetch)
+- Updated `plan-token-architecture` play — three `/raw/` references replaced with a `?topics=` bundle (design-tokens, color-system, token-schema)
+- Verified: default bundle returns guidance files before DESIGN.md; `?topics=` returns exactly requested files; missing topics skipped with comment; 404 for nonexistent system
+
+**Build:** 49 pages; `/bundle/[category]/[slug]` is dynamic route handler (ƒ)
+
+---
 
 ### 2026-05-12 — Task 2b.3: DESIGN.md prominence and quick start
 
