@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 1
-**Last completed task:** 1.3 — System browser
-**Next task:** 1.4 — KB content pages
+**Last completed task:** 1.5 — Playbook browser
+**Next task:** 1.6 — Landing page
 **Blockers:** None
-**Notes:** `/systems` and `/systems/material` statically generated. `/systems/nonexistent` → 404. Nav present on all pages.
+**Notes:** 35 static pages generated. `/playbooks` lists all 16 plays across 8 categories. `/playbooks/1.1` renders play content with copy button. `/playbooks/nonexistent` → 404.
 
 ---
 
@@ -30,6 +30,39 @@
 - Next.js auto-added `"target": "ES2017"` to tsconfig during build — left in place
 
 **Vercel deployment:** Not yet connected — requires pushing to a Vercel-linked repo or connecting via Vercel dashboard.
+
+### 2026-05-11 — Task 1.5: Playbook browser
+
+**What was done:**
+- Created `src/app/playbooks/page.tsx` — index page listing all plays grouped by category; each play shows ID, title, tier badge, and links to detail page
+- Created `src/app/playbooks/[id]/page.tsx` — per-play page with breadcrumb, category label, tier badge, copy button, and `<MarkdownBody>` rendering; `notFound()` for unknown IDs
+- Created `src/components/playbooks/TierBadge.tsx` — color-coded tier badge (Tier 1 = emerald, Tier 2 = amber, Tier 3 = purple) with tooltip showing full tier name
+- Created `src/components/playbooks/CopyButton.tsx` — client component; uses `navigator.clipboard.writeText`; shows "Copied!" for 2s after click
+- `generateStaticParams` produces routes for all 16 plays
+
+**Decisions made:**
+- Play `body` field contains the full play markdown including the `### N.M — Title` heading line — copied as-is per Task 1.2 decision
+- Plays without a tier (Category 8 — "Full System Design") receive no badge rather than a default
+- Copy button copies the full `play.body` (everything from the `###` heading through the end of the play entry)
+
+---
+
+### 2026-05-11 — Task 1.4: KB content pages
+
+**What was done:**
+- Created `src/app/systems/[slug]/[...path]/page.tsx` — catch-all content page with breadcrumb, `<ContentMeta>`, and `<MarkdownBody>` or JSON `<pre><code>` rendering; `notFound()` on missing stubs
+- Created `src/components/kb/ContentMeta.tsx` — frontmatter metadata pills (content_type, status, version_label, retrieved date, source URL link, derived_from count)
+- Updated `resolveStub` to detect `.json` versioned files by extension; parses `_meta` as frontmatter, serializes remainder as body; sets `isJson: true`
+- Updated `listStubsForSystem` to include `.json` stub files (asset tokens); updated `readStubTarget` to try `.md` first, then `.json`
+- Made `category` optional in `ContentFrontmatter` — JSON asset `_meta` blocks omit it
+- Build produces 18 static pages: `/` + `/_not-found` + `/systems` + `/systems/material` + 12 content pages (6 guidance + 2 implementation + 3 assets + 1 design-md)
+
+**Decisions made:**
+- JSON asset files rendered as `<pre><code>` with a brief "Token values as CSS custom properties" label — no attempt to parse or format the JSON structure further
+- Breadcrumb omits intermediate path segments as links (only system slug is linked); full segment chain shown
+- `formatSegment` used for h1 title — slugified names capitalized word-by-word
+
+---
 
 ### 2026-05-11 — Task 1.3: System browser
 
