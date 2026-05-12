@@ -62,3 +62,12 @@ Firecrawl's free/lower tiers have a browser concurrency limit. A single large cr
 
 ### JS-rendered tables require asset files
 Several M3 documentation pages render their token tables entirely in JavaScript — Firecrawl captures the shape names or role names but not the actual values. For these pages, the actual token values must come from the JSON asset files sourced from GitHub. Do not attempt to infer or estimate values from page labels.
+
+### Same-date versioning conflict: update in place
+When a new versioned file would have the same filename as an existing file (because the retrieval date matches the existing file's date), update the existing file's content in place rather than creating a naming conflict. This is acceptable when the content is substantively improved. Document the in-place update explicitly in the session log entry. Do not use this pattern to silently fix minor errors without logging the change.
+
+### Navigation chrome stripping in Firecrawl output
+Firecrawl output from documentation SPAs consistently contains navigation chrome before the first H1 (a list of navigation links, breadcrumbs, and icon labels) and a "Previous / Next" footer section at the end. When processing raw scrape output into KB files: strip all content before the first H1, and strip from the first `[arrow_left_alt Previous...]` or equivalent icon-text footer marker onward. Never include navigation link lists in KB files. A file under ~80 lines from a content-rich page is a likely JS-render shell — flag it rather than processing.
+
+### GitHub material-web SCSS token file delegation
+The top-level SCSS files in material-web's `tokens/` directory (e.g. `_md-sys-color.scss`, `_md-sys-typescale.scss`) use `@forward` to delegate to versioned modules in `tokens/versions/[version]/`. Fetching the top-level file returns no actual token values. To read specific values: browse the `tokens/versions/` directory to identify the current version (e.g. `v0_192`), then fetch the specific file within that directory (e.g. `_md-ref-palette.scss` for reference colors, `_md-sys-typescale.scss` for typescale values). File names use underscore prefix — paths without underscore (e.g. `md-sys-color.scss`) will 404.

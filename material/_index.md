@@ -70,3 +70,4 @@ Beyond color, M3 is characterized by:
 | Date | Action |
 |---|---|
 | 2026-05-11 | Initial capture — 12 content files added across guidance (6), implementation (2), assets (3), and design-md (1) |
+| 2026-05-11 | Phase 0 enrichment — all 6 guidance files updated with authoritative scraped content (HCT color space, M3 Expressive additions, inverse color family, add-on color roles, shape principles, emphasized type styles); asset tokens verified against live upstream (v0_192); YAML error in getting-started fixed; DESIGN.md regenerated with full light/dark color data (28 roles each), letter-spacing on all 15 typescale entries, M3 Expressive shape tokens, and 5 new component mappings |

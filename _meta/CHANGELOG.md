@@ -28,6 +28,56 @@ Each session entry follows this structure:
 
 ## Log
 
+### 2026-05-11 — Phase 0, Tasks 0.1–0.2: Tools scaffold and Material Design 3 scrape
+**Operator:** LLM-assisted
+**Systems affected:** meta only (tools); material (raw data)
+**Summary:** Created the `tools/` directory with Firecrawl scraper and frontmatter linter. Three-pass scrape of m3.material.io and material-web.dev captured 62 raw files covering all six required guidance topics plus bonus coverage (elevation, icons, motion, layout, M3 Expressive, design-tokens foundations).
+
+| Action | File | Notes |
+|---|---|---|
+| created | tools/package.json | Dependencies: firecrawl-js, dotenv, gray-matter, playwright, prettier, zod |
+| created | tools/tsconfig.json | Strict mode, ESNext, bundler module resolution |
+| created | tools/.env.example | FIRECRAWL_API_KEY= placeholder |
+| created | tools/scrape/firecrawl-guidance.ts | Firecrawl scraper; --url / --slug / --limit / --wait CLI args; writes to raw-scrape/ |
+| created | tools/validate/lint-frontmatter.ts | Frontmatter linter; design-md special handling; skips _index.md |
+| created | raw-scrape/material/2026-05-11/ | 62 raw markdown files from three-pass scrape |
+
+---
+
+### 2026-05-11 — Phase 0, Tasks 0.3–0.5: Guidance enrichment, verification, and DESIGN.md regeneration
+**Operator:** LLM-assisted
+**Systems affected:** material
+**Summary:** All six guidance files updated in-place with authoritative scraped content. All three asset token files and both implementation files verified against live upstream sources (GitHub material-web v0_192 SCSS). YAML parse error in getting-started fixed. DESIGN.md regenerated from all nine verified sources. Full lint: 18 files, 0 errors.
+
+| Action | File | Notes |
+|---|---|---|
+| updated | material/guidance/foundations/colors@2026-05-11.md | Removed stale notes: draft field from frontmatter |
+| updated | material/guidance/foundations/color-system@2026-05-11.md | Added HCT color space section; added Contrast Levels section (standard/medium/high) |
+| updated | material/guidance/foundations/color-roles@2026-05-11.md | Added Inverse Family table; Pairing and Layering Rules; Add-on Color Roles (fixed accent, bright/dim surface) |
+| updated | material/guidance/foundations/design-tokens@2026-05-11.md | Added Contexts section (light/dark/form-factor context model) |
+| updated | material/guidance/foundations/typography@2026-05-11.md | Added M3 Expressive Update section (30 styles, emphasized token naming, platform availability) |
+| updated | material/guidance/foundations/shape@2026-05-11.md | Added M3 Expressive Update (35 shapes, 3 new corner tokens); added Shape Principles section |
+| updated | material/implementation/getting-started@2026-05-11.md | Fixed YAML parse error: @material/web quoted in tags flow sequence |
+| updated | material/design-md/DESIGN@2026-05-11.md | Full regeneration: nested light/dark color sections (28 roles each), letter-spacing on all 15 typescale entries, Expressive shape tokens, 5 new component mappings, Token Architecture prose |
+| verified | material/assets/tokens/shape@2026-05-11.json | All 7 corner radius values match live v0_192 |
+| verified | material/assets/tokens/typography@2026-05-11.json | All 15 typescale roles verified against live SCSS |
+| verified | material/assets/tokens/colors@2026-05-11.json | Accent colors verified; neutral palette has documented 1-unit hex delta (imperceptible) |
+| verified | material/implementation/tokens/token-schema@2026-05-11.md | Token naming and values verified against material-web.dev |
+
+---
+
+### 2026-05-11 — Phase 0, Task 0.6: Index and changelog update
+**Operator:** LLM-assisted
+**Systems affected:** material; meta only
+**Summary:** Updated material/_index.md Version History with Phase 0 enrichment entry. Added Phase 0 task entries to this changelog. _meta/INDEX.md header counts and coverage matrix verified accurate (no changes required).
+
+| Action | File | Notes |
+|---|---|---|
+| updated | material/_index.md | Added Phase 0 enrichment row to Version History |
+| updated | _meta/CHANGELOG.md | Added Phase 0 Tasks 0.1–0.2, 0.3–0.5, and 0.6 entries |
+
+---
+
 ### 2026-05-11 — Material Design 3: initial capture
 **Operator:** LLM-assisted
 **Systems affected:** material
