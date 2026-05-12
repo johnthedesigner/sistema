@@ -5,9 +5,10 @@
 **Systems touched:** `primer/` (new), `material/` + `carbon/` (component additions)
 **App:** Interactive form fields in playbook UI; exemplar preview rendering; "How to use" guide page
 
-**Context from Phase 2:**
-- 3 design systems: Material, Carbon, Atlassian — all fully functional in browser
-- 46 static pages; frontmatter lint passing; Vercel deployed at https://sistema-bay-seven.vercel.app
+**Context from Phase 2b:**
+- 3 design systems: Material, Carbon, Atlassian — all at `kb/design-systems/`; routes at `/kb/design-systems/[slug]`
+- 49 static pages; raw endpoint at `/raw/`; bundle endpoint at `/bundle/`; frontmatter lint passing
+- Vercel deployed at https://sistema-bay-seven.vercel.app
 - Exemplars not yet created (deferred from Phase 2 — must be created before 3.2 UI work)
 - Playwright available in `tools/` but not yet used — preferred over CDN fallback for JS-heavy pages
 
@@ -118,23 +119,23 @@ Use Playwright instead of Firecrawl for any pages that may be JS-rendered. The `
 
 ### Files created or modified
 
-- `primer/_index.md` — system index
-- `primer/guidance/foundations/color-system@2026-05-12.md` + stub — color roles, semantic naming, functional colors
-- `primer/guidance/foundations/typography@2026-05-12.md` + stub — typeface, typescale tokens
-- `primer/guidance/components/button@2026-05-12.md` + stub — button variants, sizes, states, tokens
-- `primer/assets/tokens/colors@2026-05-12.json` + stub — semantic color token values (light theme)
-- `primer/design-md/DESIGN@2026-05-12.md` + stub — DESIGN.md for Primer
+- `kb/design-systems/primer/_index.md` — system index
+- `kb/design-systems/primer/guidance/foundations/color-system@2026-05-12.md` + stub — color roles, semantic naming, functional colors
+- `kb/design-systems/primer/guidance/foundations/typography@2026-05-12.md` + stub — typeface, typescale tokens
+- `kb/design-systems/primer/guidance/components/button@2026-05-12.md` + stub — button variants, sizes, states, tokens
+- `kb/design-systems/primer/assets/tokens/colors@2026-05-12.json` + stub — semantic color token values (light theme)
+- `kb/design-systems/primer/design-md/DESIGN@2026-05-12.md` + stub — DESIGN.md for Primer
 - `_meta/INDEX.md` — updated
 - `_meta/CHANGELOG.md` — updated
 
 ### Acceptance criteria
 
-- [ ] `primer/_index.md` exists with complete Overview, Source Map, and Content Inventory sections
+- [ ] `kb/design-systems/primer/_index.md` exists with complete Overview, Source Map, and Content Inventory sections
 - [ ] At minimum 3 content files present (color guidance, typography, and one component)
-- [ ] `primer/assets/tokens/colors.json` contains real token values (not empty; at least 20 semantic color roles)
-- [ ] `primer/design-md/DESIGN.md` stub exists pointing to generated DESIGN.md
-- [ ] `npx tsx tools/validate/lint-frontmatter.ts primer/` reports zero errors
-- [ ] `/systems/primer` renders in the app; content pages reachable
+- [ ] `kb/design-systems/primer/assets/tokens/colors.json` contains real token values (not empty; at least 20 semantic color roles)
+- [ ] `kb/design-systems/primer/design-md/DESIGN.md` stub exists pointing to generated DESIGN.md
+- [ ] `npx tsx tools/validate/lint-frontmatter.ts kb/design-systems/primer/` reports zero errors
+- [ ] `/kb/design-systems/primer` renders in the app; content pages reachable
 - [ ] `npm run build` passes; Primer routes appear in build output
 - [ ] `_meta/INDEX.md` and `_meta/CHANGELOG.md` updated
 - [ ] `SESSION_LOG.md` updated with scrape passes, coverage gaps, content decisions
@@ -154,18 +155,18 @@ Adds component-level guidance for four components across Material and Carbon: Bu
 ### Files created or modified
 
 **Material:**
-- `material/guidance/components/button@2026-05-12.md` + stub
-- `material/guidance/components/text-field@2026-05-12.md` + stub
-- `material/guidance/components/navigation@2026-05-12.md` + stub
-- `material/guidance/components/dialog@2026-05-12.md` + stub
-- `material/_index.md` — Content Inventory updated
+- `kb/design-systems/material/guidance/components/button@2026-05-12.md` + stub
+- `kb/design-systems/material/guidance/components/text-field@2026-05-12.md` + stub
+- `kb/design-systems/material/guidance/components/navigation@2026-05-12.md` + stub
+- `kb/design-systems/material/guidance/components/dialog@2026-05-12.md` + stub
+- `kb/design-systems/material/_index.md` — Content Inventory updated
 
 **Carbon:**
-- `carbon/guidance/components/button@2026-05-12.md` + stub
-- `carbon/guidance/components/text-input@2026-05-12.md` + stub
-- `carbon/guidance/components/navigation@2026-05-12.md` + stub
-- `carbon/guidance/components/modal@2026-05-12.md` + stub
-- `carbon/_index.md` — Content Inventory updated
+- `kb/design-systems/carbon/guidance/components/button@2026-05-12.md` + stub
+- `kb/design-systems/carbon/guidance/components/text-input@2026-05-12.md` + stub
+- `kb/design-systems/carbon/guidance/components/navigation@2026-05-12.md` + stub
+- `kb/design-systems/carbon/guidance/components/modal@2026-05-12.md` + stub
+- `kb/design-systems/carbon/_index.md` — Content Inventory updated
 
 **Meta:**
 - `_meta/INDEX.md` — Sections 2.7–2.10 (component categories) populated
@@ -175,7 +176,7 @@ Adds component-level guidance for four components across Material and Carbon: Bu
 
 - [ ] All 8 component files exist and have valid frontmatter (lint passing)
 - [ ] Each file covers: variants, sizes or emphasis levels, interaction states, relevant tokens (by name, not value), and at minimum one accessibility note
-- [ ] `npx tsx tools/validate/lint-frontmatter.ts material/ carbon/` reports zero errors
+- [ ] `npx tsx tools/validate/lint-frontmatter.ts kb/design-systems/material/ kb/design-systems/carbon/` reports zero errors
 - [ ] Component content pages render in browser for both systems
 - [ ] `_meta/INDEX.md` Sections 2.7–2.10 each have at least one row (no more `*(none yet)*` placeholders for Button, Form, Navigation, Dialog)
 - [ ] `npm run build` passes
@@ -241,6 +242,6 @@ End-of-phase housekeeping. Compresses task file, archives session log entries, u
 - [ ] `AGENTS.md` updated with any new patterns
 - [ ] `docs/phase-3-retro.md` written
 - [ ] `tasks/phase-4.md` generated and any issues flagged
-- [ ] `npx tsx tools/validate/lint-frontmatter.ts material/ carbon/ atlassian/ primer/` passes
+- [ ] `npx tsx tools/validate/lint-frontmatter.ts kb/design-systems/material/ kb/design-systems/carbon/ kb/design-systems/atlassian/ kb/design-systems/primer/` passes
 - [ ] `npm run build` passes
 - [ ] Commit created
