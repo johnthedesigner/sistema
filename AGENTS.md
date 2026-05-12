@@ -124,3 +124,18 @@ Without `?topics=`, the bundle returns all guidance files + DESIGN.md for the sy
 
 ### Zero-page Firecrawl result: fall back to npm CDN
 When Firecrawl returns 0 pages from a design system documentation page (fully JS-rendered SPA with no crawlable content), source token values directly from the npm CDN package. Use jsDelivr (`cdn.jsdelivr.net/npm/<package>@<version>/`) to browse available package files and fetch the relevant artifact. This is the standard fallback for any design system that publishes a `@<org>/tokens` package — the CDN exposes the compiled output regardless of whether the doc site renders server-side.
+
+### GitHub raw URL sourcing for fully JS-rendered doc sites
+When a design system's documentation site is a fully JS-rendered SPA (Firecrawl returns 0 pages), fetch MDX/markdown source files directly from the GitHub repository via raw.githubusercontent.com. This is the correct pattern for Primer (primer.style → `primer/design` MDX) and similar systems. The MDX sources are typically cleaner and more complete than any scraped output would be. No Playwright needed — the raw file content is immediately usable as KB guidance content with minimal transformation.
+
+### `content_type` valid values
+The frontmatter linter (`tools/validate/lint-frontmatter.ts`) accepts only four `content_type` values: `guidance`, `implementation`, `asset`, `design-md`. The value `component` is not valid even for component documentation files — those use `content_type: guidance` and live in `guidance/components/`. Always verify against this list before writing new KB files.
+
+### `{{variable_name}}` interactive playbook fields
+To add a user-fillable field to a play, include `{{variable_name}}` in the play body text. The `PlayForm` client component in `src/components/playbooks/PlayForm.tsx` detects all `{{...}}` tokens (excluding `{{sistema_url}}`), renders a labeled textarea per variable, and substitutes filled values at copy time. Unfilled variables are preserved as `{{variable_name}}` in the copied text — not silently dropped. Variable labels are auto-generated from the snake_case name (e.g. `{{accent_color}}` → "Accent Color"). No registration or config is needed — detection is fully automatic at render time.
+
+### Exemplar file format
+Exemplar output files live in `_meta/exemplars/[category]/[filename].md`. Required frontmatter fields: `play_slug` (must exactly match the play's slug), `stage` (integer), `created` (ISO date), `quality_notes` (string). The body is the actual example output. `loadExemplar(playSlug)` in `src/lib/exemplars.ts` walks the directory and matches by `play_slug` — not by filename. A play page automatically renders a collapsible `<details>` exemplar section if `loadExemplar` returns a non-null result.
+
+### Storybook MDX component files often lack prose content
+Several `*.mdx` files in Carbon's React component source (`packages/react/src/components/*/`) are Storybook template shells — they delegate documentation to `<ArgTypes />` and external links rather than containing prose. Fetching these files returns little usable KB content. For Carbon component documentation, prefer carbondesignsystem.com (Firecrawl with `--wait 2000`) or usage.md files in the same directory, over the primary MDX file.

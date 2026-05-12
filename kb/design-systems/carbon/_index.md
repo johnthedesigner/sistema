@@ -55,9 +55,13 @@ Key characteristics:
 | implementation/getting-started@2026-05-12.md | React installation, components, styles, icons | implementation | latest | 2026-05-12 |
 | assets/tokens/colors@2026-05-12.json | IBM Design Language color palette (all hues, steps 10–100) | asset | latest | 2026-05-12 |
 | assets/tokens/white-theme@2026-05-12.json | White theme semantic token assignments | asset | latest | 2026-05-12 |
+| guidance/components/button@2026-05-12.md | Button — kinds, sizes, icon usage, accessibility | guidance | latest | 2026-05-12 |
+| guidance/components/text-input@2026-05-12.md | Text input — variants, states, layers, password, accessibility | guidance | latest | 2026-05-12 |
+| guidance/components/modal@2026-05-12.md | Modal — variants, sizes, anatomy, focus management, accessibility | guidance | latest | 2026-05-12 |
+| guidance/components/ui-shell@2026-05-12.md | UI Shell — header, side nav, responsive, theming, accessibility | guidance | latest | 2026-05-12 |
 | design-md/DESIGN@2026-05-12.md | DESIGN.md reference for Carbon | design-md | latest | 2026-05-12 |
 
-**Total files:** 7 versioned content files + 7 redirect stubs
+**Total files:** 11 versioned content files + 11 redirect stubs
 
 ---
 
@@ -66,3 +70,4 @@ Key characteristics:
 | Date | Action |
 |---|---|
 | 2026-05-12 | Initial capture — 7 content files added across guidance (3), implementation (1), assets (2), and design-md (1) |
+| 2026-05-12 | Task 3.5 — Component documentation added: button, text-input, modal, ui-shell (4 content files + 4 stubs) |

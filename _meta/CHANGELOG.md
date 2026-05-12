@@ -28,6 +28,35 @@ Each session entry follows this structure:
 
 ## Log
 
+### 2026-05-12 — Task 3.5: Component documentation — Material and Carbon
+**Operator:** LLM-assisted
+**Systems affected:** material; carbon; meta
+**Summary:** Added component-level guidance for four components across Material Design 3 and Carbon. Material sources: m3.material.io scrape (buttons, text-fields, dialogs, navigation-bar). Carbon sources: GitHub MDX files for Button and Modal; carbondesignsystem.com for TextInput and UIShell. 8 versioned content files + 8 stubs created. Both system `_index.md` files updated. `_meta/INDEX.md` updated to v1.5 (38 content files); coverage matrix updated for Button, Form Elements, Navigation, Modals/Dialogs.
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/design-systems/material/guidance/components/button@2026-05-12.md | 5 variants, M3 Expressive sizes, token reference, states |
+| created | kb/design-systems/material/guidance/components/button.md | Stub |
+| created | kb/design-systems/material/guidance/components/text-field@2026-05-12.md | Filled/outlined variants, states table, anatomy, error rules |
+| created | kb/design-systems/material/guidance/components/text-field.md | Stub |
+| created | kb/design-systems/material/guidance/components/dialog@2026-05-12.md | Basic/full-screen, anatomy, action rules, focus behavior |
+| created | kb/design-systems/material/guidance/components/dialog.md | Stub |
+| created | kb/design-systems/material/guidance/components/navigation-bar@2026-05-12.md | Flexible/baseline variants, tokens, responsive pattern |
+| created | kb/design-systems/material/guidance/components/navigation-bar.md | Stub |
+| created | kb/design-systems/carbon/guidance/components/button@2026-05-12.md | 7 kinds, 6 sizes, icon usage, ButtonSet, accessibility |
+| created | kb/design-systems/carbon/guidance/components/button.md | Stub |
+| created | kb/design-systems/carbon/guidance/components/text-input@2026-05-12.md | Variants, states, layer-aware bg, password, accessibility |
+| created | kb/design-systems/carbon/guidance/components/text-input.md | Stub |
+| created | kb/design-systems/carbon/guidance/components/modal@2026-05-12.md | 4 variants, sizes, anatomy, focus management, floating menus |
+| created | kb/design-systems/carbon/guidance/components/modal.md | Stub |
+| created | kb/design-systems/carbon/guidance/components/ui-shell@2026-05-12.md | Header, SideNav (rail/full), responsive, theming, accessibility |
+| created | kb/design-systems/carbon/guidance/components/ui-shell.md | Stub |
+| updated | kb/design-systems/material/_index.md | 12 → 16 versioned files; component rows added |
+| updated | kb/design-systems/carbon/_index.md | 7 → 11 versioned files; component rows added |
+| updated | _meta/INDEX.md | v1.4 → v1.5; 30 → 38 content files; sections 2.7–2.10 populated; coverage matrix updated |
+
+---
+
 ### 2026-05-12 — Task 2.5: Atlassian Design System initial capture
 **Operator:** LLM-assisted
 **Systems affected:** atlassian; meta

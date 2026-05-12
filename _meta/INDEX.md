@@ -1,11 +1,11 @@
 # INDEX.md
 # Design System Knowledge Base — Master Index
 
-**Version:** 1.4
+**Version:** 1.5
 **Created:** 2026-05-11
 **Last Updated:** 2026-05-12
 **Systems Indexed:** 4
-**Total Content Files:** 30
+**Total Content Files:** 38
 
 This is the master index for the design system knowledge base. It provides two cross-referenced views of all content: by design system, and by category. Use this file as your first navigation stop in any LLM session before retrieving specific content.
 
@@ -123,25 +123,29 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 
 | System | File | Content Type | Status | Retrieved |
 |---|---|---|---|---|
-| *(none yet)* | | | | |
+| Material | `kb/design-systems/material/guidance/components/text-field.md` | guidance | latest | 2026-05-12 |
+| Carbon | `kb/design-systems/carbon/guidance/components/text-input.md` | guidance | latest | 2026-05-12 |
 
 ### 2.8 Components — Navigation
 
 | System | File | Content Type | Status | Retrieved |
 |---|---|---|---|---|
-| *(none yet)* | | | | |
+| Material | `kb/design-systems/material/guidance/components/navigation-bar.md` | guidance | latest | 2026-05-12 |
+| Carbon | `kb/design-systems/carbon/guidance/components/ui-shell.md` | guidance | latest | 2026-05-12 |
 
 ### 2.9 Components — Buttons and Actions
 
 | System | File | Content Type | Status | Retrieved |
 |---|---|---|---|---|
-| *(none yet)* | | | | |
+| Material | `kb/design-systems/material/guidance/components/button.md` | guidance | latest | 2026-05-12 |
+| Carbon | `kb/design-systems/carbon/guidance/components/button.md` | guidance | latest | 2026-05-12 |
 
 ### 2.10 Components — Overlays and Dialogs
 
 | System | File | Content Type | Status | Retrieved |
 |---|---|---|---|---|
-| *(none yet)* | | | | |
+| Material | `kb/design-systems/material/guidance/components/dialog.md` | guidance | latest | 2026-05-12 |
+| Carbon | `kb/design-systems/carbon/guidance/components/modal.md` | guidance | latest | 2026-05-12 |
 
 ### 2.11 Components — Data Display
 
@@ -227,10 +231,10 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 | Design Token Architecture | ✓ | ✓ | ✓ | — | — | — | — |
 | Motion | — | — | — | — | — | — | — |
 | Iconography | — | — | — | — | — | — | — |
-| Button | — | — | — | — | — | — | — |
-| Form Elements | — | — | — | — | — | — | — |
-| Navigation | — | — | — | — | — | — | — |
-| Modals / Dialogs | — | — | — | — | — | — | — |
+| Button | ✓ | ✓ | — | — | — | — | — |
+| Form Elements | ✓ | ✓ | — | — | — | — | — |
+| Navigation | ✓ | ✓ | — | — | — | — | — |
+| Modals / Dialogs | ✓ | ✓ | — | — | — | — | — |
 | Data Display | — | — | — | — | — | — | — |
 | Layout Patterns | — | — | — | — | — | — | — |
 | State Patterns | — | — | — | — | — | — | — |

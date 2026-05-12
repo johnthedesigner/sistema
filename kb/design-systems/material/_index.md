@@ -59,9 +59,13 @@ Beyond color, M3 is characterized by:
 | assets/tokens/colors@2026-05-11.json | Color tokens (CSS custom properties) | asset | latest | 2026-05-11 |
 | assets/tokens/typography@2026-05-11.json | Typography tokens (CSS custom properties) | asset | latest | 2026-05-11 |
 | assets/tokens/shape@2026-05-11.json | Shape tokens (CSS custom properties) | asset | latest | 2026-05-11 |
+| guidance/components/button@2026-05-12.md | Button — variants, sizes, tokens, states, accessibility | guidance | latest | 2026-05-12 |
+| guidance/components/text-field@2026-05-12.md | Text field — filled/outlined variants, states, anatomy | guidance | latest | 2026-05-12 |
+| guidance/components/dialog@2026-05-12.md | Dialog — basic/full-screen, anatomy, behavior, accessibility | guidance | latest | 2026-05-12 |
+| guidance/components/navigation-bar@2026-05-12.md | Navigation bar — variants, tokens, responsive, accessibility | guidance | latest | 2026-05-12 |
 | design-md/DESIGN@2026-05-11.md | Community DESIGN.md | design-md | latest | 2026-05-11 |
 
-**Total files:** 12 versioned content files + 12 redirect stubs
+**Total files:** 16 versioned content files + 16 redirect stubs
 
 ---
 
@@ -71,3 +75,4 @@ Beyond color, M3 is characterized by:
 |---|---|
 | 2026-05-11 | Initial capture — 12 content files added across guidance (6), implementation (2), assets (3), and design-md (1) |
 | 2026-05-11 | Phase 0 enrichment — all 6 guidance files updated with authoritative scraped content (HCT color space, M3 Expressive additions, inverse color family, add-on color roles, shape principles, emphasized type styles); asset tokens verified against live upstream (v0_192); YAML error in getting-started fixed; DESIGN.md regenerated with full light/dark color data (28 roles each), letter-spacing on all 15 typescale entries, M3 Expressive shape tokens, and 5 new component mappings |
+| 2026-05-12 | Task 3.5 — Component documentation added: button, text-field, dialog, navigation-bar (4 content files + 4 stubs) |
