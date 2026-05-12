@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 2
-**Last completed task:** 2.4 — Wire Carbon into app
-**Next task:** 2.5 — Atlassian KB capture
+**Last completed task:** 2.5 — Atlassian KB capture
+**Next task:** 2.6 — Phase 2 housekeeping
 **Blockers:** None
-**Notes:** Carbon routes confirmed working. Bug fixed: asset stub files (colors.json, white-theme.json) were plain JSON — gray-matter can't parse them. Fixed to YAML frontmatter inside .json files (same as Material). No code changes to src/ required.
+**Notes:** Atlassian DS added. 3 systems now in KB (Material, Carbon, Atlassian). 46 static pages. Lint: 10 atlassian files, 0 errors. Token source: @atlaskit/tokens@13.0.4 via CDN (design-tokens page was JS-rendered, 0 pages from Firecrawl).
 
 ---
 
@@ -14,6 +14,23 @@
 
 *Phase 0 session entries archived to `logs/phase-0.md`.*
 *Phase 1 session entries archived to `logs/phase-1.md`.*
+
+### 2026-05-12 — Task 2.5: Atlassian KB capture
+
+**Scrapes:** Color (5 pages) + Typography (3 pages). Design-tokens page returned 0 results (JS-rendered SPA with no crawlable pages).
+**Token assets:** Fetched from `@atlaskit/tokens@13.0.4` via jsDelivr CDN — `dist/cjs/artifacts/token-default-values.js` contained complete light-theme token values (380+ tokens).
+**Token source note:** Atlassian's repository is on Bitbucket (not GitHub). GitHub 404. The CDN package at `@atlaskit/tokens` was the right path.
+**Files created:** 6 versioned content files + 6 redirect stubs + atlassian/_index.md
+**Lint:** 10 files, 0 errors
+**Build:** 46 pages (up from 39); /systems/atlassian and 5 sub-routes confirmed
+
+**Content decisions:**
+- color guidance: captures the 10-role system, emphasis levels (subtlest→bold), and interaction state encoding
+- design-tokens guidance: covers all non-color token categories (spacing, radius, elevation, border) since these are all in the Atlassian token package and well-documented
+- Token asset: light theme only (dark theme values not captured; would need additional CDN fetch for dark theme variant)
+- DESIGN.md synthesis emphasizes all-semantic architecture contrast vs. Material/Carbon
+
+---
 
 ### 2026-05-12 — Task 2.4: Wire Carbon into app
 

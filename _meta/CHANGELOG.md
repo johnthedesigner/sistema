@@ -28,6 +28,26 @@ Each session entry follows this structure:
 
 ## Log
 
+### 2026-05-12 — Task 2.5: Atlassian Design System initial capture
+**Operator:** LLM-assisted
+**Systems affected:** atlassian; meta
+**Summary:** Atlassian Design System (Atlaskit) added as the third KB system. Three Firecrawl scrapes (color, typography; design-tokens page returned 0 pages — JS-rendered). Token values sourced from `@atlaskit/tokens@13.0.4` CDN package. 6 versioned content files created across guidance (3), implementation (1), assets (1), and design-md (1). `_meta/INDEX.md` updated to v1.3 (3 systems, 25 content files).
+
+| Action | File | Notes |
+|---|---|---|
+| created | atlassian/_index.md | System overview, source map, content inventory |
+| created | atlassian/guidance/foundations/color@2026-05-12.md | Color roles, emphasis levels, interaction states, accessibility |
+| created | atlassian/guidance/foundations/typography@2026-05-12.md | Atlassian Sans/Mono, type scale tokens, rem system |
+| created | atlassian/guidance/foundations/design-tokens@2026-05-12.md | Token categories, naming convention, spacing scale, elevation, border, radius |
+| created | atlassian/implementation/getting-started@2026-05-12.md | @atlaskit/tokens + @atlaskit/primitives installation and usage |
+| created | atlassian/assets/tokens/colors@2026-05-12.json | Light-theme color + elevation token values (text, icon, border, link, background, elevation, blanket, skeleton) |
+| created | atlassian/design-md/DESIGN@2026-05-12.md | DESIGN.md reference for Atlassian DS |
+| created | redirect stubs (×6) | Unversioned stub files for all content files above |
+| updated | _meta/INDEX.md | Atlassian added to all relevant sections; coverage matrix updated; version bumped to 1.3 |
+| updated | _meta/CHANGELOG.md | This entry |
+
+---
+
 ### 2026-05-12 — Task 2.3: Carbon Design System initial capture
 **Operator:** LLM-assisted
 **Systems affected:** carbon; meta

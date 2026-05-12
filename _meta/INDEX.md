@@ -1,11 +1,11 @@
 # INDEX.md
 # Design System Knowledge Base — Master Index
 
-**Version:** 1.2
+**Version:** 1.3
 **Created:** 2026-05-11
 **Last Updated:** 2026-05-12
-**Systems Indexed:** 2
-**Total Content Files:** 19
+**Systems Indexed:** 3
+**Total Content Files:** 25
 
 This is the master index for the design system knowledge base. It provides two cross-referenced views of all content: by design system, and by category. Use this file as your first navigation stop in any LLM session before retrieving specific content.
 
@@ -20,6 +20,7 @@ For instructions on how to update this index when content is added, see `MAINTEN
 |---|---|---|---|---|---|---|---|
 | Material Design 3 | `material` | active | ✓ | ✓ | ✓ | ✓ | 2026-05-11 |
 | Carbon Design System | `carbon` | active | ✓ | ✓ | ✓ | ✓ | 2026-05-12 |
+| Atlassian Design System | `atlassian` | active | ✓ | ✓ | ✓ | ✓ | 2026-05-12 |
 
 **Legend:** ✓ = content available · ◑ = partial · — = not yet captured · ⚠ = deprecated
 
@@ -37,6 +38,19 @@ Google's current design system. Best reference for: three-tier token architectur
 - Implementation: `material/implementation/` (getting-started, tokens/token-schema)
 - Assets: `material/assets/tokens/` (colors, typography, shape)
 - DESIGN.md: `material/design-md/DESIGN.md` *(community-generated, unofficial)*
+
+### Atlassian Design System
+**Slug:** `atlassian` | **Status:** Active | **Last updated:** 2026-05-12
+
+Atlassian's enterprise product design system (Atlaskit). Best reference for: all-semantic token architecture (no primitive tier exposed), role + emphasis + state token naming (`color.background.brand.bold.hovered`), 10 color roles with multi-level emphasis, full-coverage token vocabulary (color, spacing, radius, elevation, motion, border), dark mode via `setGlobalTheme()`.
+
+- System index: `atlassian/_index.md`
+- Guidance: `atlassian/guidance/foundations/` (color, typography, design-tokens)
+- Implementation: `atlassian/implementation/` (getting-started)
+- Assets: `atlassian/assets/tokens/` (colors)
+- DESIGN.md: `atlassian/design-md/DESIGN.md`
+
+---
 
 ### Carbon Design System
 **Slug:** `carbon` | **Status:** Active | **Last updated:** 2026-05-12
@@ -67,6 +81,9 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 | Carbon | `carbon/guidance/foundations/themes.md` | guidance | latest | 2026-05-12 |
 | Carbon | `carbon/assets/tokens/colors.json` | asset | latest | 2026-05-12 |
 | Carbon | `carbon/assets/tokens/white-theme.json` | asset | latest | 2026-05-12 |
+| Atlassian | `atlassian/guidance/foundations/color.md` | guidance | latest | 2026-05-12 |
+| Atlassian | `atlassian/guidance/foundations/design-tokens.md` | guidance | latest | 2026-05-12 |
+| Atlassian | `atlassian/assets/tokens/colors.json` | asset | latest | 2026-05-12 |
 
 ### 2.2 Typography
 
@@ -75,6 +92,7 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 | Material | `material/guidance/foundations/typography.md` | guidance | latest | 2026-05-11 |
 | Material | `material/assets/tokens/typography.json` | asset | latest | 2026-05-11 |
 | Carbon | `carbon/guidance/foundations/typography.md` | guidance | latest | 2026-05-12 |
+| Atlassian | `atlassian/guidance/foundations/typography.md` | guidance | latest | 2026-05-12 |
 
 ### 2.3 Spacing and Layout
 
@@ -167,6 +185,7 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 |---|---|---|---|---|
 | Material | `material/implementation/getting-started.md` | implementation | latest | 2026-05-11 |
 | Carbon | `carbon/implementation/getting-started.md` | implementation | latest | 2026-05-12 |
+| Atlassian | `atlassian/implementation/getting-started.md` | implementation | latest | 2026-05-12 |
 
 ### 2.18 Design System Shape
 
@@ -187,6 +206,7 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 |---|---|---|---|---|
 | Material | `material/design-md/DESIGN.md` | latest | 2026-05-11 | Community-generated, unofficial |
 | Carbon | `carbon/design-md/DESIGN.md` | latest | 2026-05-12 | Community-generated, unofficial |
+| Atlassian | `atlassian/design-md/DESIGN.md` | latest | 2026-05-12 | Community-generated, unofficial |
 
 ---
 
@@ -196,14 +216,14 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 
 | Topic | Material | Carbon | Atlassian | Ant Design | Primer | Radix | Lightning |
 |---|---|---|---|---|---|---|---|
-| Color — Guidance | ✓ | ✓ | — | — | — | — | — |
-| Color — Tokens | ◎ | ◎ | — | — | — | — | — |
-| Typography — Guidance | ✓ | ✓ | — | — | — | — | — |
+| Color — Guidance | ✓ | ✓ | ✓ | — | — | — | — |
+| Color — Tokens | ◎ | ◎ | ◎ | — | — | — | — |
+| Typography — Guidance | ✓ | ✓ | ✓ | — | — | — | — |
 | Typography — Tokens | ◎ | — | — | — | — | — | — |
-| Spacing — Guidance | — | — | — | — | — | — | — |
-| Spacing — Tokens | — | — | — | — | — | — | — |
-| Shape / Elevation | ✓◎ | — | — | — | — | — | — |
-| Design Token Architecture | ✓ | ✓ | — | — | — | — | — |
+| Spacing — Guidance | — | — | ✓ | — | — | — | — |
+| Spacing — Tokens | — | — | ◎ | — | — | — | — |
+| Shape / Elevation | ✓◎ | — | ✓◎ | — | — | — | — |
+| Design Token Architecture | ✓ | ✓ | ✓ | — | — | — | — |
 | Motion | — | — | — | — | — | — | — |
 | Iconography | — | — | — | — | — | — | — |
 | Button | — | — | — | — | — | — | — |
@@ -213,8 +233,8 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 | Data Display | — | — | — | — | — | — | — |
 | Layout Patterns | — | — | — | — | — | — | — |
 | State Patterns | — | — | — | — | — | — | — |
-| Getting Started | ⚙ | ⚙ | — | — | — | — | — |
-| DESIGN.md | ✓ | ✓ | — | — | — | — | — |
+| Getting Started | ⚙ | ⚙ | ⚙ | — | — | — | — |
+| DESIGN.md | ✓ | ✓ | ✓ | — | — | — | — |
 
 **Legend:** ✓ guidance · ⚙ implementation · ◎ assets · ✓⚙◎ all three · — not captured
 
@@ -229,7 +249,7 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 | System | Priority | Notes |
 |---|---|---|
 | ~~Carbon (IBM)~~ | ~~High~~ | *Captured 2026-05-12* |
-| Atlassian Design System | High | Strong component depth; good rationale documentation |
+| ~~Atlassian Design System~~ | ~~High~~ | *Captured 2026-05-12* |
 | Ant Design | Medium | Large component surface; different design philosophy |
 | Primer (GitHub) | Medium | Clean and opinionated; strong color system |
 | Radix / Radix Themes | Medium | Modern primitive-first approach; headless-friendly |
