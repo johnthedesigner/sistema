@@ -3,7 +3,7 @@ export type ContentStatus = 'latest' | 'legacy' | 'draft' | 'deprecated'
 
 export interface ContentFrontmatter {
   system: string
-  category: string
+  category?: string
   topic: string
   content_type: ContentType
   status: ContentStatus
@@ -32,6 +32,8 @@ export interface ContentFile {
   filePath: string
   /** Stub-relative path used to reach this file, e.g. "material/guidance/foundations/color-system" */
   stubPath: string
+  /** True when the source file is JSON (asset files) — body is a formatted JSON string */
+  isJson: boolean
 }
 
 export interface SystemIndex {

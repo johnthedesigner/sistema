@@ -37,22 +37,26 @@ export function readSystemIndex(slug: string): SystemIndex {
 
 /**
  * Reads a stub file and returns the path to its versioned target.
- * stubPath is relative to KB_ROOT without the .md extension,
- * e.g. "material/guidance/foundations/color-system"
+ * stubPath is relative to KB_ROOT without extension.
+ * Checks for .md stub first, then .json (asset stubs use .json extension).
  */
 function readStubTarget(stubPath: string): string {
-  const stubFilePath = path.join(KB_ROOT, `${stubPath}.md`)
-  if (!fs.existsSync(stubFilePath)) {
-    throw new Error(`Stub not found: ${stubPath}.md`)
+  const mdPath = path.join(KB_ROOT, `${stubPath}.md`)
+  const jsonPath = path.join(KB_ROOT, `${stubPath}.json`)
+  const stubFilePath = fs.existsSync(mdPath) ? mdPath
+    : fs.existsSync(jsonPath) ? jsonPath
+    : null
+
+  if (!stubFilePath) {
+    throw new Error(`Stub not found: ${stubPath} (tried .md and .json)`)
   }
   const raw = fs.readFileSync(stubFilePath, 'utf-8')
   const { data } = matter(raw)
   const stub = data as StubFrontmatter
   if (stub.type !== 'stub' || !stub.points_to) {
-    throw new Error(`Not a valid stub file: ${stubPath}.md`)
+    throw new Error(`Not a valid stub file: ${stubFilePath}`)
   }
-  // points_to is relative to the stub file's directory
-  const stubDir = path.dirname(path.join(KB_ROOT, `${stubPath}.md`))
+  const stubDir = path.dirname(stubFilePath)
   return path.join(stubDir, stub.points_to)
 }
 
@@ -66,6 +70,20 @@ export function resolveStub(stubPath: string): ContentFile {
   if (!fs.existsSync(versionedPath)) {
     throw new Error(`Versioned file not found: ${versionedPath} (from stub ${stubPath})`)
   }
+
+  if (versionedPath.endsWith('.json')) {
+    const raw = fs.readFileSync(versionedPath, 'utf-8')
+    const json = JSON.parse(raw)
+    const { _meta, ...rest } = json
+    return {
+      frontmatter: _meta as ContentFrontmatter,
+      body: JSON.stringify(rest, null, 2),
+      filePath: versionedPath,
+      stubPath,
+      isJson: true,
+    }
+  }
+
   const raw = fs.readFileSync(versionedPath, 'utf-8')
   const { data, content } = matter(raw)
   return {
@@ -73,6 +91,7 @@ export function resolveStub(stubPath: string): ContentFile {
     body: content,
     filePath: versionedPath,
     stubPath,
+    isJson: false,
   }
 }
 
@@ -95,11 +114,11 @@ export function listStubsForSystem(slug: string): string[][] {
       if (entry.isDirectory()) {
         walk(path.join(dir, entry.name), [...relParts, entry.name])
       } else if (
-        entry.name.endsWith('.md') &&
         !entry.name.includes('@') &&
-        entry.name !== '_index.md'
+        entry.name !== '_index.md' &&
+        (entry.name.endsWith('.md') || entry.name.endsWith('.json'))
       ) {
-        stubs.push([...relParts, entry.name.slice(0, -3)])
+        stubs.push([...relParts, entry.name.replace(/\.(md|json)$/, '')])
       }
     }
   }
