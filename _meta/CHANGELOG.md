@@ -28,6 +28,27 @@ Each session entry follows this structure:
 
 ## Log
 
+### 2026-05-12 — Task 2.3: Carbon Design System initial capture
+**Operator:** LLM-assisted
+**Systems affected:** carbon; meta
+**Summary:** Carbon v11 added as the second design system in the KB. Four Firecrawl scrapes (color, typography, themes, React getting-started), two GitHub token fetches (IBM color palette, White theme). 7 versioned content files created across guidance (3), implementation (1), assets (2), and design-md (1). All files have corresponding redirect stubs. `_meta/INDEX.md` updated to v1.2 (2 systems, 19 content files).
+
+| Action | File | Notes |
+|---|---|---|
+| created | carbon/_index.md | System overview, source map, content inventory |
+| created | carbon/guidance/foundations/color-system@2026-05-12.md | Color system — themes, layering model, token groups, interaction states |
+| created | carbon/guidance/foundations/typography@2026-05-12.md | IBM Plex typeface, productive/expressive type sets, token categories |
+| created | carbon/guidance/foundations/themes@2026-05-12.md | 4 built-in themes, token categories, customization via Sass |
+| created | carbon/implementation/getting-started@2026-05-12.md | React installation, components, styles, icons, theming |
+| created | carbon/assets/tokens/colors@2026-05-12.json | IBM Design Language palette — all hues (10 colors) with 10 steps each |
+| created | carbon/assets/tokens/white-theme@2026-05-12.json | White theme semantic token assignments (background, layer, field, border, text, link, icon, support, focus, misc, skeleton) |
+| created | carbon/design-md/DESIGN@2026-05-12.md | DESIGN.md reference for Carbon |
+| created | redirect stubs (×7) | Unversioned stub files for all content files above |
+| updated | _meta/INDEX.md | Carbon added to all relevant sections; coverage matrix updated; version bumped to 1.2 |
+| updated | _meta/CHANGELOG.md | This entry |
+
+---
+
 ### 2026-05-11 — Phase 0, Tasks 0.1–0.2: Tools scaffold and Material Design 3 scrape
 **Operator:** LLM-assisted
 **Systems affected:** meta only (tools); material (raw data)

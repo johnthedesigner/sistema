@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 2
-**Last completed task:** 2.2 — Play testing
-**Next task:** 2.3 — Carbon KB capture
+**Last completed task:** 2.3 — Carbon KB capture
+**Next task:** 2.4 — Wire Carbon into app
 **Blockers:** None
-**Notes:** All 6 play reference URLs resolve on Vercel. 4 plays tested; 4 issues found and fixed. Key fix: generate-primitive-colors renamed to generate-color-scheme (reference showed semantic tokens, not primitives — play intent and reference were mismatched).
+**Notes:** Carbon v11 captured. 7 content files + 7 stubs. 39 static pages (up from 31). Lint: 10 files, 0 errors. Raw scrapes in raw-scrape/carbon/2026-05-12/ (4 files). Carbon routes live at /systems/carbon in build.
 
 ---
 
@@ -14,6 +14,22 @@
 
 *Phase 0 session entries archived to `logs/phase-0.md`.*
 *Phase 1 session entries archived to `logs/phase-1.md`.*
+
+### 2026-05-12 — Task 2.3: Carbon KB capture
+
+**Scrapes:** 4 pages (color overview, typography overview, themes overview, React getting-started)
+**Token assets:** IBM color palette (all hues 10–100, from packages/colors/src/colors.ts) + White theme semantic tokens (from packages/themes/src/white.js)
+**Files created:** 7 versioned content files + 7 redirect stubs + carbon/_index.md
+**Lint:** 10 files, 0 errors
+**Build:** 39 pages (up from 31); /systems/carbon and 8 sub-routes confirmed
+
+**Content decisions:**
+- Color scrape consolidated into color-system.md (token architecture + themes + layering + interaction states)
+- Themes scrape filed as separate themes.md (4 built-in themes, Sass customization pattern)
+- White theme token file organized by token group (background, layer, field, border, text, link, icon, support, focus, misc, skeleton)
+- DESIGN.md written as a synthesis of all 6 source files; includes spacing scale, shape model note (Carbon has no named shape token system), and full installation guidance
+
+---
 
 ### 2026-05-11 — Task 2.2: Play testing
 

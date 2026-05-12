@@ -1,11 +1,11 @@
 # INDEX.md
 # Design System Knowledge Base — Master Index
 
-**Version:** 1.1
+**Version:** 1.2
 **Created:** 2026-05-11
-**Last Updated:** 2026-05-11
-**Systems Indexed:** 1
-**Total Content Files:** 12
+**Last Updated:** 2026-05-12
+**Systems Indexed:** 2
+**Total Content Files:** 19
 
 This is the master index for the design system knowledge base. It provides two cross-referenced views of all content: by design system, and by category. Use this file as your first navigation stop in any LLM session before retrieving specific content.
 
@@ -19,6 +19,7 @@ For instructions on how to update this index when content is added, see `MAINTEN
 | System | Slug | Status | Guidance | Implementation | Assets | DESIGN.md | Last Updated |
 |---|---|---|---|---|---|---|---|
 | Material Design 3 | `material` | active | ✓ | ✓ | ✓ | ✓ | 2026-05-11 |
+| Carbon Design System | `carbon` | active | ✓ | ✓ | ✓ | ✓ | 2026-05-12 |
 
 **Legend:** ✓ = content available · ◑ = partial · — = not yet captured · ⚠ = deprecated
 
@@ -37,6 +38,17 @@ Google's current design system. Best reference for: three-tier token architectur
 - Assets: `material/assets/tokens/` (colors, typography, shape)
 - DESIGN.md: `material/design-md/DESIGN.md` *(community-generated, unofficial)*
 
+### Carbon Design System
+**Slug:** `carbon` | **Status:** Active | **Last updated:** 2026-05-12
+
+IBM's enterprise design system. Best reference for: neutral-first flat color palette, two-tier token architecture (primitive + semantic, no component tier), four built-in light/dark themes, productive/expressive type split on IBM Plex, enterprise React component library.
+
+- System index: `carbon/_index.md`
+- Guidance: `carbon/guidance/foundations/` (color-system, typography, themes)
+- Implementation: `carbon/implementation/` (getting-started)
+- Assets: `carbon/assets/tokens/` (colors, white-theme)
+- DESIGN.md: `carbon/design-md/DESIGN.md`
+
 ---
 
 ## Section 2: By Category
@@ -51,6 +63,10 @@ Google's current design system. Best reference for: three-tier token architectur
 | Material | `material/guidance/foundations/color-system.md` | guidance | latest | 2026-05-11 |
 | Material | `material/guidance/foundations/color-roles.md` | guidance | latest | 2026-05-11 |
 | Material | `material/assets/tokens/colors.json` | asset | latest | 2026-05-11 |
+| Carbon | `carbon/guidance/foundations/color-system.md` | guidance | latest | 2026-05-12 |
+| Carbon | `carbon/guidance/foundations/themes.md` | guidance | latest | 2026-05-12 |
+| Carbon | `carbon/assets/tokens/colors.json` | asset | latest | 2026-05-12 |
+| Carbon | `carbon/assets/tokens/white-theme.json` | asset | latest | 2026-05-12 |
 
 ### 2.2 Typography
 
@@ -58,6 +74,7 @@ Google's current design system. Best reference for: three-tier token architectur
 |---|---|---|---|---|
 | Material | `material/guidance/foundations/typography.md` | guidance | latest | 2026-05-11 |
 | Material | `material/assets/tokens/typography.json` | asset | latest | 2026-05-11 |
+| Carbon | `carbon/guidance/foundations/typography.md` | guidance | latest | 2026-05-12 |
 
 ### 2.3 Spacing and Layout
 
@@ -149,6 +166,7 @@ Google's current design system. Best reference for: three-tier token architectur
 | System | File | Content Type | Status | Retrieved |
 |---|---|---|---|---|
 | Material | `material/implementation/getting-started.md` | implementation | latest | 2026-05-11 |
+| Carbon | `carbon/implementation/getting-started.md` | implementation | latest | 2026-05-12 |
 
 ### 2.18 Design System Shape
 
@@ -168,6 +186,7 @@ Google's current design system. Best reference for: three-tier token architectur
 | System | File | Status | Retrieved | Notes |
 |---|---|---|---|---|
 | Material | `material/design-md/DESIGN.md` | latest | 2026-05-11 | Community-generated, unofficial |
+| Carbon | `carbon/design-md/DESIGN.md` | latest | 2026-05-12 | Community-generated, unofficial |
 
 ---
 
@@ -177,14 +196,14 @@ Google's current design system. Best reference for: three-tier token architectur
 
 | Topic | Material | Carbon | Atlassian | Ant Design | Primer | Radix | Lightning |
 |---|---|---|---|---|---|---|---|
-| Color — Guidance | ✓ | — | — | — | — | — | — |
-| Color — Tokens | ◎ | — | — | — | — | — | — |
-| Typography — Guidance | ✓ | — | — | — | — | — | — |
+| Color — Guidance | ✓ | ✓ | — | — | — | — | — |
+| Color — Tokens | ◎ | ◎ | — | — | — | — | — |
+| Typography — Guidance | ✓ | ✓ | — | — | — | — | — |
 | Typography — Tokens | ◎ | — | — | — | — | — | — |
 | Spacing — Guidance | — | — | — | — | — | — | — |
 | Spacing — Tokens | — | — | — | — | — | — | — |
 | Shape / Elevation | ✓◎ | — | — | — | — | — | — |
-| Design Token Architecture | ✓ | — | — | — | — | — | — |
+| Design Token Architecture | ✓ | ✓ | — | — | — | — | — |
 | Motion | — | — | — | — | — | — | — |
 | Iconography | — | — | — | — | — | — | — |
 | Button | — | — | — | — | — | — | — |
@@ -194,8 +213,8 @@ Google's current design system. Best reference for: three-tier token architectur
 | Data Display | — | — | — | — | — | — | — |
 | Layout Patterns | — | — | — | — | — | — | — |
 | State Patterns | — | — | — | — | — | — | — |
-| Getting Started | ⚙ | — | — | — | — | — | — |
-| DESIGN.md | ✓ | — | — | — | — | — | — |
+| Getting Started | ⚙ | ⚙ | — | — | — | — | — |
+| DESIGN.md | ✓ | ✓ | — | — | — | — | — |
 
 **Legend:** ✓ guidance · ⚙ implementation · ◎ assets · ✓⚙◎ all three · — not captured
 
@@ -209,7 +228,7 @@ Google's current design system. Best reference for: three-tier token architectur
 
 | System | Priority | Notes |
 |---|---|---|
-| Carbon (IBM) | High | Enterprise benchmark; complete and well-documented |
+| ~~Carbon (IBM)~~ | ~~High~~ | *Captured 2026-05-12* |
 | Atlassian Design System | High | Strong component depth; good rationale documentation |
 | Ant Design | Medium | Large component surface; different design philosophy |
 | Primer (GitHub) | Medium | Clean and opinionated; strong color system |

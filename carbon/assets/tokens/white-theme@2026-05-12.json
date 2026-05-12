@@ -1,0 +1,127 @@
+{
+  "_meta": {
+    "system": "carbon",
+    "content_type": "asset",
+    "topic": "white-theme-tokens",
+    "version_label": "v11",
+    "retrieved": "2026-05-12",
+    "source_url": "https://raw.githubusercontent.com/carbon-design-system/carbon/main/packages/themes/src/white.js",
+    "description": "Carbon White theme — semantic token assignments. Tokens reference IBM Design Language palette values. This is the default theme in @carbon/react."
+  },
+  "colorScheme": "light",
+  "background": {
+    "background": "white (#ffffff)",
+    "backgroundInverse": "gray-80 (#393939)",
+    "backgroundBrand": "blue-60 (#0f62fe)",
+    "backgroundActive": "gray-50 @ 50% opacity",
+    "backgroundHover": "gray-50 @ 12% opacity",
+    "backgroundInverseHover": "gray-80-hover (#474747)",
+    "backgroundSelected": "gray-50 @ 20% opacity",
+    "backgroundSelectedHover": "gray-50 @ 32% opacity"
+  },
+  "layer": {
+    "layer01": "gray-10 (#f4f4f4)",
+    "layerActive01": "gray-30 (#c6c6c6)",
+    "layerBackground01": "white (#ffffff)",
+    "layerHover01": "gray-10-hover (#e8e8e8)",
+    "layerSelected01": "gray-20 (#e0e0e0)",
+    "layerSelectedHover01": "gray-20-hover (#d1d1d1)",
+    "layer02": "white (#ffffff)",
+    "layerActive02": "gray-30 (#c6c6c6)",
+    "layerBackground02": "gray-10 (#f4f4f4)",
+    "layerHover02": "white-hover (#e8e8e8)",
+    "layerSelected02": "gray-20 (#e0e0e0)",
+    "layerSelectedHover02": "gray-20-hover (#d1d1d1)",
+    "layer03": "gray-10 (#f4f4f4)",
+    "layerActive03": "gray-30 (#c6c6c6)",
+    "layerBackground03": "white (#ffffff)",
+    "layerHover03": "gray-10-hover (#e8e8e8)",
+    "layerSelected03": "gray-20 (#e0e0e0)",
+    "layerSelectedHover03": "gray-20-hover (#d1d1d1)",
+    "layerSelectedInverse": "gray-100 (#161616)",
+    "layerSelectedDisabled": "gray-50 (#8d8d8d)"
+  },
+  "layerAccent": {
+    "layerAccent01": "gray-20 (#e0e0e0)",
+    "layerAccentActive01": "gray-40 (#a8a8a8)",
+    "layerAccentHover01": "gray-20-hover (#d1d1d1)"
+  },
+  "field": {
+    "field01": "gray-10 (#f4f4f4)",
+    "fieldHover01": "gray-10-hover (#e8e8e8)",
+    "field02": "white (#ffffff)",
+    "fieldHover02": "white-hover (#e8e8e8)"
+  },
+  "border": {
+    "borderSubtle00": "gray-20 (#e0e0e0)",
+    "borderSubtle01": "gray-30 (#c6c6c6)",
+    "borderSubtleSelected01": "gray-30 (#c6c6c6)",
+    "borderSubtle02": "gray-20 (#e0e0e0)",
+    "borderSubtle03": "gray-30 (#c6c6c6)",
+    "borderStrong01": "gray-50 (#8d8d8d)",
+    "borderStrong02": "gray-50 (#8d8d8d)",
+    "borderStrong03": "gray-50 (#8d8d8d)",
+    "borderTile01": "gray-30 (#c6c6c6)",
+    "borderTile02": "gray-40 (#a8a8a8)",
+    "borderInverse": "gray-100 (#161616)",
+    "borderInteractive": "blue-60 (#0f62fe)",
+    "borderDisabled": "gray-30 (#c6c6c6)"
+  },
+  "text": {
+    "textPrimary": "gray-100 (#161616)",
+    "textSecondary": "gray-70 (#525252)",
+    "textPlaceholder": "gray-100 @ 40% opacity",
+    "textHelper": "gray-60 (#6f6f6f)",
+    "textError": "red-60 (#da1e28)",
+    "textInverse": "white (#ffffff)",
+    "textOnColor": "white (#ffffff)",
+    "textOnColorDisabled": "gray-50 (#8d8d8d)",
+    "textDisabled": "gray-100 @ 25% opacity"
+  },
+  "link": {
+    "linkPrimary": "blue-60 (#0f62fe)",
+    "linkPrimaryHover": "blue-70 (#0043ce)",
+    "linkSecondary": "blue-70 (#0043ce)",
+    "linkInverse": "blue-40 (#78a9ff)",
+    "linkVisited": "purple-60 (#8a3ffc)",
+    "linkInverseVisited": "purple-40 (#be95ff)"
+  },
+  "icon": {
+    "iconPrimary": "gray-100 (#161616)",
+    "iconSecondary": "gray-70 (#525252)",
+    "iconInverse": "white (#ffffff)",
+    "iconOnColor": "white (#ffffff)",
+    "iconOnColorDisabled": "gray-50 (#8d8d8d)",
+    "iconDisabled": "gray-100 @ 25% opacity",
+    "iconInteractive": "blue-60 (#0f62fe)"
+  },
+  "support": {
+    "supportError": "red-60 (#da1e28)",
+    "supportSuccess": "green-50 (#24a148)",
+    "supportWarning": "yellow-30 (#f1c21b)",
+    "supportInfo": "blue-70 (#0043ce)",
+    "supportErrorInverse": "red-50 (#fa4d56)",
+    "supportSuccessInverse": "green-40 (#42be65)",
+    "supportWarningInverse": "yellow-30 (#f1c21b)",
+    "supportInfoInverse": "blue-50 (#4589ff)",
+    "supportCautionMinor": "yellow-30 (#f1c21b)",
+    "supportCautionMajor": "orange-40 (#ff832b)",
+    "supportCautionUndefined": "purple-60 (#8a3ffc)"
+  },
+  "focus": {
+    "focus": "blue-60 (#0f62fe)",
+    "focusInset": "white (#ffffff)",
+    "focusInverse": "white (#ffffff)"
+  },
+  "misc": {
+    "interactive": "blue-60 (#0f62fe)",
+    "highlight": "blue-20 (#d0e2ff)",
+    "overlay": "black @ 60% opacity",
+    "toggleOff": "gray-50 (#8d8d8d)",
+    "shadow": "rgba(0, 0, 0, 0.3)"
+  },
+  "skeleton": {
+    "skeletonBackground": "white-hover (#e8e8e8)",
+    "skeletonElement": "gray-30 (#c6c6c6)"
+  }
+}
