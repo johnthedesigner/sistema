@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 2
-**Last completed task:** 1.7 — Phase 1 housekeeping
-**Next task:** 2.1 — Vercel deployment
+**Last completed task:** 2.1 — Vercel deployment
+**Next task:** 2.2 — Play testing
 **Blockers:** None
-**Notes:** Phase 1 complete. 31 static pages; lint passes; build passes. Phase 1 session entries archived to `logs/phase-1.md`. Vercel deployment deferred from Phase 1 — must happen early in Phase 2 before play testing (plays reference `{{sistema_url}}` which needs a live origin).
+**Notes:** Deployed at https://sistema-bay-seven.vercel.app — play testing now unblocked.
 
 ---
 
@@ -14,6 +14,15 @@
 
 *Phase 0 session entries archived to `logs/phase-0.md`.*
 *Phase 1 session entries archived to `logs/phase-1.md`.*
+
+### 2026-05-11 — Task 2.1: Vercel deployment
+
+**What was done:**
+- Connected repository to Vercel via dashboard
+- Deployed at https://sistema-bay-seven.vercel.app
+- Play testing (Task 2.2) is now unblocked — `{{sistema_url}}` will resolve to `https://sistema-bay-seven.vercel.app` when plays are copied
+
+---
 
 ### 2026-05-11 — Task 1.7: Phase 1 housekeeping
 
