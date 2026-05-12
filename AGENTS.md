@@ -89,3 +89,22 @@ Validate play quality by running them end-to-end: copy the play from the deploye
 
 ### GitHub material-web SCSS token file delegation
 The top-level SCSS files in material-web's `tokens/` directory (e.g. `_md-sys-color.scss`, `_md-sys-typescale.scss`) use `@forward` to delegate to versioned modules in `tokens/versions/[version]/`. Fetching the top-level file returns no actual token values. To read specific values: browse the `tokens/versions/` directory to identify the current version (e.g. `v0_192`), then fetch the specific file within that directory (e.g. `_md-ref-palette.scss` for reference colors, `_md-sys-typescale.scss` for typescale values). File names use underscore prefix — paths without underscore (e.g. `md-sys-color.scss`) will 404.
+
+### JSON asset stub files require YAML frontmatter, not plain JSON
+Asset token stubs (`.json` files in `assets/tokens/`) must use YAML frontmatter format — not plain JSON objects. `gray-matter` cannot parse plain JSON as frontmatter: it returns `data: {}`, which causes the `stub.type !== 'stub'` check in `resolveStub` to throw, resulting in a 404. Always write `.json` stub files with the standard YAML header:
+```
+---
+type: stub
+points_to: colors@2026-05-12.json
+updated: 2026-05-12
+---
+This file is a redirect stub. The current version of this content is:
+[colors@2026-05-12.json](./colors@2026-05-12.json)
+```
+This format is identical to `.md` stubs — the file extension does not change the frontmatter syntax.
+
+### Atlassian token sourcing: Bitbucket and CDN, not GitHub
+Atlassian's design system source is on Bitbucket (`bitbucket.org/atlassian/atlassian-frontend-mirror`), not GitHub. All GitHub URL attempts return 404. For published token values, use the jsDelivr CDN: `cdn.jsdelivr.net/npm/@atlaskit/tokens@<version>/dist/cjs/artifacts/token-default-values.js`. Check `cdn.jsdelivr.net/npm/@atlaskit/tokens/` first to identify the current package version and browse available files.
+
+### Zero-page Firecrawl result: fall back to npm CDN
+When Firecrawl returns 0 pages from a design system documentation page (fully JS-rendered SPA with no crawlable content), source token values directly from the npm CDN package. Use jsDelivr (`cdn.jsdelivr.net/npm/<package>@<version>/`) to browse available package files and fetch the relevant artifact. This is the standard fallback for any design system that publishes a `@<org>/tokens` package — the CDN exposes the compiled output regardless of whether the doc site renders server-side.
