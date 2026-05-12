@@ -133,6 +133,15 @@ export function listStubsForSystem(slug: string, category: KBCategory = 'design-
 }
 
 /**
+ * Returns the raw URL path for a system's DESIGN.md, or null if none exists.
+ * e.g. "/raw/design-systems/material/design-md/DESIGN.md"
+ */
+export function findDesignMd(slug: string, category: KBCategory = 'design-systems'): string | null {
+  const stubPath = path.join(KB_BASE, category, slug, 'design-md', 'DESIGN.md')
+  return fs.existsSync(stubPath) ? `/raw/${category}/${slug}/design-md/DESIGN.md` : null
+}
+
+/**
  * Reads the raw content of a versioned KB file by stub path.
  * Used by the raw markdown endpoint to serve text/plain responses.
  * Returns null if the stub cannot be resolved.

@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { listSystems, readSystemIndex, listStubsForSystem, KB_CATEGORIES, type KBCategory } from '@/lib/kb'
+import { listSystems, readSystemIndex, listStubsForSystem, findDesignMd, KB_CATEGORIES, type KBCategory } from '@/lib/kb'
 import { MarkdownBody } from '@/components/kb/MarkdownBody'
+import { DesignMdPanel } from '@/components/kb/DesignMdPanel'
 
 function extractSystemName(body: string): string {
   const match = body.match(/^# (.+)$/m)
@@ -64,6 +65,7 @@ export default async function SystemPage({
   const overview = extractSection(index.body, 'Overview')
   const sourceMap = extractSection(index.body, 'Source Map')
   const categoryLabel = CATEGORY_LABELS[cat]
+  const designMdPath = findDesignMd(slug, cat)
 
   const grouped = stubs.reduce<Record<string, string[][]>>((acc, parts) => {
     const type = parts[0]
@@ -85,7 +87,11 @@ export default async function SystemPage({
         <span className="text-gray-900">{systemName}</span>
       </nav>
 
-      <h1 className="text-3xl font-bold mb-10">{systemName}</h1>
+      <h1 className="text-3xl font-bold mb-8">{systemName}</h1>
+
+      {designMdPath && (
+        <DesignMdPanel rawPath={designMdPath} systemName={systemName} />
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* Main content */}

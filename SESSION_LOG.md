@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 2b
-**Last completed task:** 2b.2 — Raw markdown endpoint
-**Next task:** 2b.3 — DESIGN.md prominence and quick start
+**Last completed task:** 2b.3 — DESIGN.md prominence and quick start
+**Next task:** 2b.4 — Bundle endpoint
 **Blockers:** None
-**Notes:** `/raw/[category]/[slug]/[...path].md` live. Copy markdown button on all content pages. All 30 play URLs updated to `/raw/design-systems/material/` with `.md`. Build: 49 pages.
+**Notes:** DesignMdPanel live on all three design system overview pages. Copy DESIGN.md, Copy raw URL, Copy quick-start prompt. Panel absent on standards/foundations (no DESIGN.md). Build: 49 pages.
 
 ---
 
@@ -15,6 +15,18 @@
 *Phase 0 session entries archived to `logs/phase-0.md`.*
 *Phase 1 session entries archived to `logs/phase-1.md`.*
 *Phase 2 session entries archived to `logs/phase-2.md`.*
+
+### 2026-05-12 — Task 2b.3: DESIGN.md prominence and quick start
+
+**What was done:**
+- Added `findDesignMd(slug, category)` to `src/lib/kb.ts` — checks if `design-md/DESIGN.md` stub exists; returns the `/raw/` URL path or null
+- Created `src/components/kb/DesignMdPanel.tsx` — client component with three copy actions: "Copy DESIGN.md" (fetches raw URL, copies markdown), "Copy raw URL" (copies full URL with `window.location.origin`), "Copy" quick-start prompt (`Fetch [url] and use it as the design foundation for this project.`); uses `useEffect` to hydrate origin client-side; three independent copy-state machines
+- Updated `src/app/kb/[category]/[slug]/page.tsx` — calls `findDesignMd`, mounts `<DesignMdPanel>` between h1 and content grid when present
+- Verified: panel renders on material, carbon, atlassian; absent on standards and foundations (no DESIGN.md stubs)
+
+**Build:** 49 pages, passing
+
+---
 
 ### 2026-05-12 — Task 2b.2: Raw markdown endpoint
 
