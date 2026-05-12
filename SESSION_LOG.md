@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 2
-**Last completed task:** 2.3 — Carbon KB capture
-**Next task:** 2.4 — Wire Carbon into app
+**Last completed task:** 2.4 — Wire Carbon into app
+**Next task:** 2.5 — Atlassian KB capture
 **Blockers:** None
-**Notes:** Carbon v11 captured. 7 content files + 7 stubs. 39 static pages (up from 31). Lint: 10 files, 0 errors. Raw scrapes in raw-scrape/carbon/2026-05-12/ (4 files). Carbon routes live at /systems/carbon in build.
+**Notes:** Carbon routes confirmed working. Bug fixed: asset stub files (colors.json, white-theme.json) were plain JSON — gray-matter can't parse them. Fixed to YAML frontmatter inside .json files (same as Material). No code changes to src/ required.
 
 ---
 
@@ -14,6 +14,16 @@
 
 *Phase 0 session entries archived to `logs/phase-0.md`.*
 *Phase 1 session entries archived to `logs/phase-1.md`.*
+
+### 2026-05-12 — Task 2.4: Wire Carbon into app
+
+**Verification results:** All Carbon routes return 200. `/systems` lists both Material and Carbon. `/systems/carbon` renders overview, sources, and content links from `_index.md`. All 7 content stub paths render correctly. 404 confirmed for non-existent paths. Build: 39 pages.
+
+**Bug found and fixed:** Carbon asset stub files (`colors.json`, `white-theme.json`) were plain JSON objects. `gray-matter` cannot parse plain JSON as frontmatter — stubs returned 404. Fixed by switching to YAML frontmatter format inside `.json` files (same convention as Material asset stubs).
+
+**No `src/` code changes required.** The app's dynamic routing handled Carbon automatically once the stubs were in the correct format.
+
+---
 
 ### 2026-05-12 — Task 2.3: Carbon KB capture
 
