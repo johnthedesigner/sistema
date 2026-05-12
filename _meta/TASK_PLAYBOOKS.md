@@ -1,385 +1,332 @@
 # TASK_PLAYBOOKS.md
 # Design System Knowledge Base — Task Playbooks
 
-**Version:** 1.0
-**Created:** 2026-05-11
-**Purpose:** This document provides task-specific instructions for an LLM operating with this knowledge base. Each playbook defines what files to retrieve, in what order, and how to reason over them to complete a particular type of task. These playbooks grow over time as new task types are identified.
+**Version:** 2.0
+**Updated:** 2026-05-11
+**Purpose:** Copyable prompt starters for agentic design system work. Each play is a complete prompt you can paste into a coding agent. Plays are ordered by the stage of design system building they belong to — earlier plays produce the foundations that later plays build on.
 
-Read `USAGE_GUIDE.md` before this document if you have not already.
-
----
-
-## How to Use This Document
-
-Find the playbook that matches your current task. If no exact match exists, identify the closest analogous playbook and adapt its retrieval strategy. If you complete a task type that is not covered here and warrants a new playbook, note it for a future maintenance session.
-
-Playbooks are organized by task category. Each entry includes:
-- **Trigger** — phrases or scenarios that indicate this playbook applies
-- **Tier** — the generative complexity tier of this play (see below)
-- **Content types needed** — which of `guidance`, `implementation`, `asset`, `design-md`, `exemplar` to retrieve
-- **Retrieval sequence** — the order and logic of file retrieval
-- **Reasoning strategy** — how to synthesize what you retrieve into a useful output
-- **Output notes** — format, caveats, or quality standards specific to this task
+Plays reference content from the Sistema knowledge base using `{{sistema_url}}` — this is substituted with the live app URL when you copy.
 
 ---
 
-## Generative Play Tiers
+## Stages
 
-Plays are classified into three tiers based on their generative complexity. The tier determines how much of the work is retrieval-and-synthesis versus novel generation.
-
-**Tier 1 — Reference-grounded generation.** The knowledge base provides the structural grammar; the user provides specific inputs (brand color, product type, etc.). Output is new content that follows patterns drawn directly from the knowledge base. These plays are reliable and produce consistently high quality when the relevant source files are loaded. *Examples: generate a token set for a new system, create a DESIGN.md from scratch.*
-
-**Tier 2 — Analysis-then-generate.** The LLM must first analyze user-provided content (a codebase, an existing token file, a design spec), then apply knowledge base patterns to transform or extend it. Context comes from two sources: the user's material and the knowledge base. These plays require more care in prompting because the analysis step must precede and inform the generation step. *Examples: migrate a Tailwind color config to semantic tokens, audit a component against a system's guidance.*
-
-**Tier 3 — Generative workflow.** Multi-step or open-ended generation tasks where the knowledge base informs approach and standards but the output is substantially novel. These plays shade into agentic territory — they may require multiple LLM calls, intermediate review steps, or tool use. On the playbook website, Tier 3 plays are presented as guided workflows rather than single copyable prompts. *Examples: design a complete token architecture from a brief, generate a full component specification suite.*
+1. **System definition** — Establish structure and principles before any values exist
+2. **Primitive tokens** — Generate raw color, type, shape, and spacing values
+3. **Semantic layer** — Map primitives to roles; generate theme variants; set up build tooling
+4. **Components** — Specify and implement components that consume the token system
+5. **Migration and adoption** — Transform existing codebases to work with a design system
 
 ---
 
-## Category 1: Color System Tasks
+## generate-design-md — Generate a DESIGN.md
 
-### 1.1 — Analyze or Describe a Design System's Color Model
+**Stage:** 1
+**Tags:** design-md, foundations, planning
 
-**Trigger:** "How does [system] handle color?", "Explain [system]'s color system", "What color tokens does [system] use?"
+You are helping me create a `DESIGN.md` file — a concise specification document that describes a design system's visual language for use with AI coding tools.
 
-**Content types needed:** `guidance` (primary), `asset` (supplementary)
+Before generating anything, read the following reference from the Sistema knowledge base:
+- DESIGN.md format reference: {{sistema_url}}/systems/material/design-md/DESIGN
 
-**Retrieval sequence:**
-1. Read the target system's `_index.md` to confirm color content is available
-2. Retrieve `guidance/foundations/colors` stub → follow to latest file
-3. Retrieve `assets/tokens/colors` stub → follow to latest file
-4. If dark mode or theming is mentioned in guidance, retrieve theme asset files as well
+That page shows the full DESIGN.md format used by a production design system. Read it carefully — pay attention to which sections are present, how specific the values are, and how it describes token usage for components.
 
-**Reasoning strategy:**
-- Lead with the conceptual model (how the system thinks about color: roles, tiers, semantic vs. primitive tokens)
-- Follow with the structural overview (how many tiers, naming convention, key role names)
-- Ground specifics in the asset file values — do not invent or estimate token values
-- Note any notable characteristics (e.g. Carbon's use of themes vs. Material's dynamic color model)
+Now generate a `DESIGN.md` for my design system using the same format. Here is my project context:
 
-**Output notes:** Always note the retrieval date of the files used. If the user is evaluating this system for adoption, note the system's `_index.md` "when to reference" guidance.
+[Describe your product, brand, and any existing design decisions — colors, typefaces, component preferences, etc.]
+
+The output should be a complete, ready-to-commit `DESIGN.md` file. Do not leave placeholder sections — if I have not specified something, make a reasonable default decision and note it as a default so I can review it.
 
 ---
 
-### 1.2 — Generate a Color Token Set for a New Design System
+## plan-token-architecture — Plan a Token Architecture
 
-**Trigger:** "Create a color token structure for my design system", "Generate a color palette with tokens", "Help me define my color system"
+**Stage:** 1
+**Tags:** tokens, architecture, foundations, planning
 
-**Content types needed:** `guidance` (for principles), `asset` (for structural templates)
+You are helping me plan the token architecture for a new design system before writing any actual token values.
 
-**Retrieval sequence:**
-1. Read `_meta/INDEX.md` → identify 2–3 systems with complete color asset files
-2. Retrieve `guidance/foundations/colors` (latest) for 2–3 reference systems
-3. Retrieve `assets/tokens/colors` (latest) for the same systems
-4. If the user has specified a design direction (enterprise, consumer, etc.), select reference systems accordingly using `_index.md` "when to reference" notes
+Before proposing anything, read the following references from the Sistema knowledge base:
+- Token design principles: {{sistema_url}}/systems/material/guidance/foundations/design-tokens
+- Color system structure: {{sistema_url}}/systems/material/guidance/foundations/color-system
+- Token schema implementation: {{sistema_url}}/systems/material/implementation/tokens/token-schema
 
-**Reasoning strategy:**
-- Survey the structural approaches across reference systems: how many tiers (primitive → semantic → component)? What naming conventions? What roles are defined?
-- Identify consensus patterns (most systems separate primitive palette from semantic roles; most define interactive, destructive, and neutral as role categories)
-- Propose a token structure that reflects consensus patterns; note where the user might deviate based on their specific context
-- Generate a draft token schema as structured JSON or markdown table — do not present it as final; frame as a starting point for review
+Read all three before responding. Pay attention to: how many tiers the token system uses, how naming conventions differ between tiers, what categories of tokens are defined, and how the system is organized for compilation.
 
-**Output notes:** Make explicit which reference systems influenced which decisions. The user should be able to trace every structural choice to a rationale.
+Based on these references, propose a token architecture for my design system. The architecture should define:
 
----
+1. How many tiers the token system will have (e.g. primitive → semantic → component)
+2. What naming conventions to use at each tier
+3. Which token categories to define (color, typography, spacing, shape, elevation, motion?)
+4. What file structure to use in the repository
 
-## Category 2: Typography Tasks
+My project context:
+[Describe your tech stack (React, Vue, etc.), styling approach (CSS vars, Tailwind, CSS-in-JS), and any constraints or conventions already in place.]
 
-### 2.1 — Analyze a Design System's Typography Scale
-
-**Trigger:** "How does [system] handle type?", "What's [system]'s type scale?", "Explain the typography system in [system]"
-
-**Content types needed:** `guidance` (primary), `asset` (supplementary)
-
-**Retrieval sequence:**
-1. Retrieve `guidance/foundations/typography` stub → follow to latest
-2. Retrieve `assets/tokens/typography` if available
-3. If the system uses fluid/responsive type, check for any patterns documentation referencing layout and type together
-
-**Reasoning strategy:**
-- Lead with the type scale model (fixed scale? modular scale? fluid/clamp?)
-- Cover typeface choices and the rationale given (if documented)
-- Describe usage roles (display, heading, body, caption, code) and the values assigned to each
-- Note any responsive behavior
+Output a structured proposal — not actual token values, just the architecture. Include a sample naming pattern for each tier and a proposed file tree.
 
 ---
 
-### 2.2 — Generate a Typography Scale for a New Design System
+## generate-primitive-colors — Generate a Primitive Color Palette
 
-**Trigger:** "Create a type scale", "Define typography tokens", "Help me set up typography for my design system"
+**Stage:** 2
+**Tags:** tokens, color, primitives
 
-**Content types needed:** `guidance`, `asset`
+You are helping me generate a primitive color palette — the raw color values that form the foundation of my design system's token architecture.
 
-**Retrieval sequence:**
-1. Retrieve typography guidance and asset files for 2–3 reference systems (prefer systems whose audience matches the user's context)
-2. If the user has specified a typeface, note whether it appears in any reference system for context
+Before generating anything, read the following references from the Sistema knowledge base:
+- Color system overview: {{sistema_url}}/systems/material/guidance/foundations/color-system
+- Material's primitive color token values: {{sistema_url}}/systems/material/assets/tokens/colors
 
-**Reasoning strategy:**
-- Compare scale structures: how many steps? What ratio? What base size?
-- Identify consensus on role naming (most systems define some version of: display, headline, title, body, label, caption)
-- Propose a scale and token schema, citing the reference structures it draws from
-- Flag decisions that are context-dependent (e.g. a data-dense enterprise app may need more granularity at small sizes than a marketing site)
+Read both before responding. Pay attention to: how many steps the palette has per hue, how neutrals and neutral-variants are structured, and how the JSON is named and organized.
 
----
+Now generate a primitive color palette for my design system following the same structural approach.
 
-## Category 3: Component Tasks
+My color direction:
+[Provide your primary brand color (hex), any secondary colors, and any preferences — e.g. "warm neutrals", "high contrast", "pastel range".]
 
-### 3.1 — Research How Multiple Systems Handle a Component
-
-**Trigger:** "How do different design systems implement [component]?", "Compare [component] across systems", "What are the standard patterns for [component]?"
-
-**Content types needed:** `guidance` (primary), `implementation` (supplementary)
-
-**Retrieval sequence:**
-1. Check `_meta/INDEX.md` "By Category → Components" to identify which systems have documentation for this component
-2. For each available system, retrieve `guidance/components/[component]` stub → follow to latest
-3. If implementation details are requested, also retrieve `implementation/components/[component]` for relevant systems
-
-**Reasoning strategy:**
-- Identify consensus patterns: what variants do most systems define? What are the universal accessibility requirements? What usage rules are shared?
-- Surface meaningful differences: where do systems diverge in naming, variants, or guidance?
-- Note outliers with a brief rationale for why one system might take a different approach
-- Do not flatten differences — they are often meaningful and worth surfacing
-
-**Output notes:** Distinguish clearly between guidance-level observations ("most systems recommend...") and implementation-level specifics ("Carbon names this prop `kind`; Material uses `variant`").
+Output the palette as JSON in the same format as the Material reference. Include at minimum: primary, secondary, neutral, neutral-variant, error, and their full step range. Do not invent steps — use the same scale density as the reference.
 
 ---
 
-### 3.2 — Specify a Component for a New Design System
+## generate-type-scale — Generate a Primitive Type Scale
 
-**Trigger:** "Define a [component] for my design system", "Write a component spec for [component]", "What should I include in my [component] documentation?"
+**Stage:** 2
+**Tags:** tokens, typography, primitives
 
-**Content types needed:** `guidance` (primary), `implementation` (secondary)
+You are helping me generate a typography token set for my design system.
 
-**Retrieval sequence:**
-1. As in 3.1 — retrieve guidance for the component across 2–3 systems
-2. Additionally retrieve implementation docs to understand how component APIs are typically structured
-3. If the user has a stated design direction, weight the selection of reference systems accordingly
+Before generating anything, read the following references from the Sistema knowledge base:
+- Typography guidance: {{sistema_url}}/systems/material/guidance/foundations/typography
+- Material's typography token values: {{sistema_url}}/systems/material/assets/tokens/typography
 
-**Reasoning strategy:**
-- Synthesize a component specification covering: purpose, variants, states, anatomy, usage guidance, accessibility requirements, and open questions
-- Ground each section in what reference systems document; note consensus vs. system-specific choices
-- Frame the output as a draft spec, not a final document — the user will need to adapt it to their context
+Read both before responding. Pay attention to: the role names (display, headline, title, body, label), which properties are defined per role (font, size, weight, line-height, letter-spacing), and how roles map to usage contexts (when to use display vs. headline, etc.).
 
----
+Now generate a typography token set for my design system.
 
-## Category 4: Token and Theming Tasks
+My typography direction:
+[Provide your typeface choices if known, any size or contrast preferences, and your target platform — web, mobile, or both.]
 
-### 4.1 — Understand a System's Token Architecture
-
-**Trigger:** "How are [system]'s tokens structured?", "Explain the token model in [system]", "What's the difference between primitive and semantic tokens in [system]?"
-
-**Content types needed:** `implementation` (primary), `asset` (primary), `guidance` (supplementary)
-
-**Retrieval sequence:**
-1. Retrieve `implementation/tokens/token-schema` stub → follow to latest
-2. Retrieve `assets/tokens/colors` and `assets/tokens/spacing` to ground the explanation in actual examples
-3. Retrieve `guidance/foundations/colors` if the conceptual rationale is needed
+Output the token set in the same format as the Material reference. Define the same role categories and adjust values to suit your typeface and scale preferences. Include a brief rationale for any non-obvious decisions.
 
 ---
 
-### 4.2 — Generate a Multi-Tier Token Architecture
+## generate-shape-tokens — Generate Shape Tokens
 
-**Trigger:** "Design a token system", "Help me structure my design tokens", "Create a primitive/semantic/component token hierarchy"
+**Stage:** 2
+**Tags:** tokens, shape, primitives
 
-**Content types needed:** `asset` (primary), `implementation` (secondary), `guidance` (secondary)
+You are helping me generate shape (border-radius) tokens for my design system.
 
-**Retrieval sequence:**
-1. Retrieve token asset files and token schema documentation for 2–3 systems that exemplify different token models
-2. Good choices for this task: Material (sophisticated multi-tier model), Carbon (well-documented SCSS token system), Primer (clean semantic model)
+Before generating anything, read the following references from the Sistema knowledge base:
+- Shape guidance: {{sistema_url}}/systems/material/guidance/foundations/shape
+- Material's shape token values: {{sistema_url}}/systems/material/assets/tokens/shape
 
-**Reasoning strategy:**
-- Explain the multi-tier model using reference systems as examples
-- Propose a structural template: primitive layer (raw values) → semantic layer (role assignments) → component layer (component-scoped aliases)
-- Generate an example schema in JSON or SCSS as appropriate
-- Make theming strategy explicit: how do tokens support light/dark or brand themes?
+Read both before responding. Pay attention to: the shape scale categories (none, extra-small, small, medium, large, extra-large, full), the values at each step, how components map to shape roles, and the rationale for using a role-based shape system rather than raw values.
 
----
+Now generate a shape token set for my design system.
 
-## Category 5: Research and Planning Tasks
+My shape direction:
+[Describe the visual feel you are going for — e.g. "sharp and minimal", "friendly and rounded", "pill-shaped CTAs but square cards". If you have existing border-radius values in use, list them.]
 
-### 5.1 — Evaluate Design Systems for Adoption
-
-**Trigger:** "Which design system should I use?", "Compare [system A] and [system B] for my use case", "What are the strengths and weaknesses of [system]?"
-
-**Content types needed:** `_index.md` files (primary), `guidance` (secondary)
-
-**Retrieval sequence:**
-1. Read `_meta/INDEX.md` to understand available systems
-2. Read `_index.md` for each system under consideration — specifically the overview and "when to reference" sections
-3. Retrieve 1–2 guidance files per system to get a feel for documentation quality and depth
-
-**Reasoning strategy:**
-- Frame the evaluation around the user's stated use case, not abstract quality metrics
-- Use `_index.md` "when to reference" notes as the starting point for fit assessment
-- Note documentation completeness and maintenance status
-- Avoid declaring a single "winner" unless the user's constraints strongly point to one — present trade-offs instead
+Output the token set in the same format as the Material reference. Map your values to the standard shape roles so components can consume them by role name, not raw value.
 
 ---
 
-### 5.2 — Audit a Design System for Gaps or Opportunities
+## generate-color-roles — Generate Semantic Color Roles
 
-**Trigger:** "What's missing from this design system?", "How does [system] compare to best practices?", "Where could [system] be improved?"
+**Stage:** 3
+**Tags:** tokens, color, semantic
 
-**Content types needed:** `guidance` (primary), `asset` (secondary)
+You are helping me map my primitive color palette to semantic color roles — the named values that components and surfaces will actually consume.
 
-**Retrieval sequence:**
-1. Read the target system's `_index.md` Content Inventory to understand what is and isn't documented
-2. Retrieve guidance files for the areas being audited
-3. Retrieve equivalent guidance from 1–2 comparison systems for benchmarking
+Before generating anything, read the following references from the Sistema knowledge base:
+- Color roles guidance: {{sistema_url}}/systems/material/guidance/foundations/color-roles
+- Color system overview: {{sistema_url}}/systems/material/guidance/foundations/color-system
+- Material's color token values (structural reference): {{sistema_url}}/systems/material/assets/tokens/colors
 
-**Reasoning strategy:**
-- Distinguish between gaps in *the knowledge base* (content not yet captured) vs. gaps in *the upstream design system* (things the system genuinely doesn't address)
-- Be specific: name the missing topic, the systems that do address it, and why it matters
+Read all three before responding. Pay attention to: which semantic roles are defined (primary, on-primary, primary-container, surface, on-surface, etc.), how "on-" roles work, how surface roles are structured, and how light and dark mode variants relate to the same palette.
 
----
+Now generate a semantic color role mapping for my design system using my primitive palette.
 
-## Category 6: DESIGN.md Tasks
+My primitive palette:
+[Paste your primitive color token JSON here, or describe your palette — primary hue, secondary hue, neutral tone, and approximate step values.]
 
-### 6.1 — Generate a DESIGN.md for a New Design System
-
-**Trigger:** "Create a DESIGN.md for my design system", "Generate a DESIGN.md with these brand values", "I need a DESIGN.md for a [descriptor] product"
-
-**Tier:** 1
-
-**Content types needed:** `exemplar` (primary), `guidance` (secondary), `asset` (secondary)
-
-**Retrieval sequence:**
-1. Retrieve `_meta/exemplars/design-md-files/` stub → follow to the latest well-formed exemplar
-2. Based on the user's described product type and aesthetic direction, select 1–2 reference systems whose design philosophy is the closest match (use `_index.md` "when to reference" notes)
-3. Retrieve `guidance/foundations/colors` and `guidance/foundations/typography` for the selected reference systems — for structural and rationale patterns, not values
-4. Retrieve `assets/tokens/colors` for one reference system — as a structural template for the YAML front matter
-
-**Reasoning strategy:**
-- The exemplar defines quality and format; use it as the output template
-- Reference system guidance informs the prose rationale sections — what kinds of things to say about color roles, type hierarchy, spacing intent
-- Reference system assets inform token structure — how many tiers, what role names, how to handle neutrals and semantic aliases
-- The user's stated inputs (brand accent color, aesthetic direction, product type) drive the actual values and prose tone
-- Generate the full DESIGN.md in one pass: YAML front matter first (tokens), then each prose section in order per the spec
-
-**Output notes:** Remind the user this file is ready to drop into a project root and reference from their CLAUDE.md, AGENTS.md, or equivalent. Suggest running `npx @google/design.md lint` to validate token references and contrast ratios.
+Output a complete semantic color role map for light mode. Include the standard surface, primary, secondary, tertiary, error, and neutral roles. Use the same naming conventions as the Material reference so components built against either system share a compatible vocabulary.
 
 ---
 
-### 6.2 — Generate a DESIGN.md for a Known Open-Source Design System
+## generate-dark-mode — Generate Dark Mode Token Values
 
-**Trigger:** "Create a DESIGN.md for Carbon / Material / Atlassian / [known system]", "I want to use Carbon's design language in my AI coding agent"
+**Stage:** 3
+**Tags:** tokens, color, semantic, dark-mode
 
-**Tier:** 1
+You are helping me generate dark mode color token values for my design system.
 
-**Content types needed:** `design-md` (primary — if already exists), `guidance` + `asset` (if generating fresh)
+Before generating anything, read the following references from the Sistema knowledge base:
+- Color roles guidance (covers both light and dark mode): {{sistema_url}}/systems/material/guidance/foundations/color-roles
+- Color system overview: {{sistema_url}}/systems/material/guidance/foundations/color-system
 
-**Retrieval sequence:**
-1. Check the target system's `design-md/DESIGN.md` stub — if it exists and is `latest`, retrieve it and present it directly (no generation needed)
-2. If it does not exist or is `legacy`, retrieve the system's `guidance/foundations/` files and `assets/tokens/` files and generate following play 6.1's strategy
-3. Always apply the `unofficial: true` disclaimer — these are community-generated representations, not files published by the system maintainers
+Read both before responding. Pay close attention to how Material handles dark mode — it is not a simple inversion. Dark mode remaps roles to different points on the same palette, typically pulling surface values from the very dark end of the neutral scale and role colors from the 60–80 range of each hue.
 
-**Output notes:** If presenting an existing DESIGN.md from the knowledge base, note the retrieval date and recommend verifying against the current upstream source if the token values are being used for production work.
+Now generate dark mode color values for my design system.
 
----
+My existing tokens:
+[Paste your primitive color palette and your light mode semantic role mapping here. If you only have a light mode role map, include that.]
 
-### 6.3 — Adapt or Extend an Existing DESIGN.md
-
-**Trigger:** "Take this DESIGN.md and add dark mode tokens", "Modify this DESIGN.md to use my brand color instead of the default", "Extend this DESIGN.md with component-level tokens"
-
-**Tier:** 2
-
-**Content types needed:** User-provided DESIGN.md (primary), `guidance` (secondary), `exemplar` (secondary)
-
-**Retrieval sequence:**
-1. Receive the user's DESIGN.md as input — parse its existing token structure and prose sections
-2. Identify the gap or modification being requested
-3. For dark mode: retrieve color guidance for 1–2 reference systems that document dark mode token strategies
-4. For component tokens: retrieve implementation/tokens for a reference system with strong component token documentation (Material or Carbon)
-5. Retrieve the exemplar if the modification type is covered
-
-**Reasoning strategy:**
-- Treat the user's existing file as the base; make surgical additions rather than regenerating
-- Clearly mark any new tokens you add with comments indicating they were added in this session
-- Validate that new token references are internally consistent (no broken references)
+Output a complete dark mode role mapping that follows the same structural logic as Material's — surface values drawn from dark steps of the neutral scale, role colors drawn from the lighter portion of each hue to maintain contrast. Explain any decisions that differ from a naive inversion, and flag any roles where contrast may need manual review.
 
 ---
 
-## Category 7: Token and Code Migration Tasks
+## generate-style-dictionary — Generate a Style Dictionary Config
 
-### 7.1 — Migrate a Tailwind Color Config to a Semantic Token System
+**Stage:** 3
+**Tags:** tokens, tooling, build, style-dictionary
 
-**Trigger:** "Replace my Tailwind colors with semantic tokens", "Refactor my color config to use design tokens", "Help me theme my app properly"
+You are helping me set up Style Dictionary to compile my design tokens into CSS custom properties, JavaScript modules, and other platform outputs.
 
-**Tier:** 2
+Before generating anything, read the following reference from the Sistema knowledge base:
+- Token schema implementation: {{sistema_url}}/systems/material/implementation/tokens/token-schema
 
-**Content types needed:** User-provided code (primary), `asset` (secondary), `exemplar` (secondary)
+Read this before responding. Pay attention to how the token files are structured as input, what the naming hierarchy looks like in JSON, and how the system is organized for multi-platform output.
 
-**Retrieval sequence:**
-1. Receive the user's Tailwind config or CSS as input — identify all color values currently defined
-2. Retrieve `_meta/exemplars/token-migrations/tailwind-to-semantic` stub → follow to latest exemplar
-3. Retrieve `assets/tokens/colors` for 1–2 reference systems (Primer and Material are strong choices for this task — both have clean semantic layering)
-4. Retrieve `implementation/tokens/token-schema` for the same systems to understand how they name and structure semantic aliases
+Now generate a Style Dictionary v3 configuration for my design system.
 
-**Reasoning strategy:**
-- Analysis step first: categorize the user's existing colors into primitives (raw values) and identify any implicit semantic roles already present (e.g. a `brand-primary` already exists vs. everything is a raw hex)
-- Map the user's colors to a proposed semantic layer using reference systems' role naming as a guide
-- Generate a two-layer output: a primitive token file (all raw values) and a semantic token file (role aliases pointing to primitives)
-- Frame the output as CSS custom properties or a JSON token file based on the user's apparent stack
-- Show a before/after diff of how one representative component would change
+My setup:
+[Describe your repository structure, what output formats you need (CSS vars, JS ESM, JSON, SCSS?), and any existing file organization I should work around.]
 
-**Output notes:** Emphasize that this is a structural refactor proposal — the user should review role assignments (especially anything labeled `interactive`, `destructive`, or `disabled`) before committing. Flag any colors in the input that don't fit cleanly into standard semantic roles.
+Output:
+1. A `style-dictionary.config.js` file ready to run
+2. The expected input file structure (where token JSON files should live)
+3. Example npm scripts to run the build
+4. A brief explanation of how to add a new token category without breaking existing outputs
 
----
-
-### 7.2 — Audit an Existing Token System for Gaps or Anti-Patterns
-
-**Trigger:** "Review my token system", "What's wrong with this token structure?", "Is this a good token architecture?"
-
-**Tier:** 2
-
-**Content types needed:** User-provided tokens (primary), `asset` + `implementation/tokens` (secondary), `exemplar` (secondary)
-
-**Retrieval sequence:**
-1. Receive the user's token file(s) as input
-2. Retrieve `implementation/tokens/token-schema` for 2 reference systems (Carbon and Material cover contrasting approaches well)
-3. Retrieve `_meta/exemplars/semantic-token-systems/` stub → follow to latest exemplar for comparison
-
-**Reasoning strategy:**
-- Evaluate on four dimensions: *completeness* (are standard role categories present?), *layering* (are primitives and semantics properly separated?), *naming consistency* (are naming conventions followed throughout?), *extensibility* (can themes or modes be added without restructuring?)
-- Be specific: name the exact tokens or patterns that are problematic and explain why
-- Offer a prioritized list of improvements rather than a complete rewrite recommendation unless the structure is fundamentally broken
+The output should be complete enough to copy into a repository and run with `npx style-dictionary build`.
 
 ---
 
-## Category 8: Full System Design Tasks
+## specify-component — Write a Component Specification
 
-### 8.1 — Design a Complete Token Architecture from a Brief
+**Stage:** 4
+**Tags:** components, specification, design
 
-**Trigger:** "Design a token system for my product", "Help me build a design system from scratch", "I'm starting a new design system — where do I begin with tokens?"
+You are helping me write a component specification — a complete design and behavior description that my team can implement consistently against our design system.
 
-**Tier:** 3
+Before generating anything, read the following references from the Sistema knowledge base:
+- Color roles (for interactive state colors): {{sistema_url}}/systems/material/guidance/foundations/color-roles
+- Shape tokens (for component shape): {{sistema_url}}/systems/material/guidance/foundations/shape
+- Typography roles (for text within components): {{sistema_url}}/systems/material/guidance/foundations/typography
 
-**Content types needed:** `guidance` (foundations, across 2–3 systems), `asset` (across 2–3 systems), `exemplar`
+Read all three before responding. These define the token vocabulary your spec should reference — do not hardcode values, reference role names.
 
-**Retrieval sequence:**
-1. Read the user's brief carefully — note product type, audience, aesthetic direction, tech stack, and any stated constraints
-2. Select 2–3 reference systems based on fit (use `_index.md` "when to reference" notes)
-3. Retrieve `guidance/foundations/` (colors, typography, spacing) for all selected systems
-4. Retrieve `assets/tokens/` (colors, spacing, typography) for all selected systems
-5. Retrieve `_meta/exemplars/semantic-token-systems/` stub → follow to latest exemplar
+Now write a component specification for the following component:
 
-**Reasoning strategy:**
-- This is a multi-step workflow. Structure the output in phases: (1) token layer architecture decision, (2) color system, (3) typography scale, (4) spacing scale, (5) semantic role definitions, (6) component-level token strategy
-- At each phase, cite the reference system patterns you're drawing from and explain deviations
-- Generate a complete proposed token schema in JSON or CSS custom properties
-- Close with a `DESIGN.md` stub that references the generated token set — this becomes the agent-readable version of the system
+Component: [e.g. Button, Text Input, Card, Modal, Chip, Badge]
 
-**Output notes:** This play is best run as a multi-turn conversation rather than a single prompt. The first response should confirm the architecture decisions before generating values. If the user is on the playbook website, this play is presented as a guided workflow with checkpoints, not a single copyable prompt.
+My design system context:
+[List the semantic token names available in your system — color roles, shape roles, typography roles — or paste your token files. The spec should reference these by name.]
 
-As the number of playbooks grows, this file may become long enough to impose an unnecessary token cost when only a single task category is needed. If this file exceeds roughly 10 task categories, consider splitting it into per-category files (e.g. `PLAYBOOKS_COLOR.md`, `PLAYBOOKS_COMPONENTS.md`) with a thin routing stub at the top of this file that lists categories and their file locations. The routing stub would be the only file loaded at session start; specific playbook files would be retrieved on demand. Until that threshold is reached, a single file is preferable for simplicity.
+The specification should cover:
+- Visual variants (e.g. filled, outlined, ghost/text)
+- Size variants if applicable
+- Interactive states: default, hover, focus, active, disabled
+- Token usage for each state (which color role, shape role, type role)
+- Accessibility requirements: ARIA role, keyboard interaction, focus indicator
+- Any behavior notes: animation, loading state, icon support
+
+Output as a structured markdown document suitable for committing to the repository alongside the component.
 
 ---
 
-## Adding New Playbooks
+## implement-component — Implement a Component
 
-When a new task type is encountered that warrants a playbook:
+**Stage:** 4
+**Tags:** components, code, implementation
 
-1. Complete the task first using best judgment and `USAGE_GUIDE.md` principles
-2. Note the task type, the retrieval strategy used, and what worked well
-3. Draft a new playbook entry following the structure above
-4. Add it to the appropriate category, or create a new category if needed
-5. Flag it in the maintenance session log in `MAINTENANCE.md`
+You are helping me implement a UI component that consumes my design system's token system.
+
+Before generating anything, read the following references from the Sistema knowledge base:
+- Implementation overview: {{sistema_url}}/systems/material/implementation/getting-started
+- Color token values (for understanding token structure): {{sistema_url}}/systems/material/assets/tokens/colors
+- Shape token values: {{sistema_url}}/systems/material/assets/tokens/shape
+- Typography token values: {{sistema_url}}/systems/material/assets/tokens/typography
+
+Read all four before responding. Pay attention to the naming conventions used in the token files — your implementation should reference tokens by these names via CSS custom properties.
+
+Now implement the following component:
+
+Component: [e.g. Button, Text Input, Card]
+Framework: [React / Vue / Svelte / Web Components]
+Styling: [CSS custom properties / Tailwind / CSS Modules / styled-components]
+
+My token setup:
+[Describe your CSS custom property naming (e.g. `--color-primary`, `--color-on-primary`, `--shape-small`) or paste the relevant token names. If using Tailwind, paste your theme config.]
+
+Component requirements:
+[Describe the variants, states, and any behavior from your component spec. If you have a spec document, paste it here.]
+
+Output production-ready component code. Use semantic token names throughout — no hardcoded hex values or raw px values for anything that belongs in the token system. Include prop types, ARIA attributes, and a brief usage example.
+
+---
+
+## migrate-tailwind-tokens — Migrate a Tailwind Config to Semantic Tokens
+
+**Stage:** 5
+**Tags:** migration, tokens, color, tailwind
+
+You are helping me migrate an existing Tailwind CSS color configuration to a structured two-tier token system (primitive + semantic).
+
+Before generating anything, read the following references from the Sistema knowledge base:
+- Color system overview: {{sistema_url}}/systems/material/guidance/foundations/color-system
+- Color roles guidance: {{sistema_url}}/systems/material/guidance/foundations/color-roles
+- Token schema implementation: {{sistema_url}}/systems/material/implementation/tokens/token-schema
+
+Read all three before responding. Pay attention to the distinction between primitive colors (raw values organized by hue and step) and semantic roles (how those values are used by components and surfaces).
+
+My existing Tailwind config — paste the `theme.colors` section:
+
+[Paste your tailwind.config.js colors object here.]
+
+Perform the migration in two steps:
+
+**Step 1 — Extract primitives.** Reorganize the raw color values from the Tailwind config as primitive tokens using a consistent step scale (e.g. `primary-10` through `primary-99`). Do not change any values, only rename and restructure.
+
+**Step 2 — Define semantic roles.** Map those primitives to semantic roles (primary, on-primary, surface, on-surface, etc.) following the role model from the color-roles reference.
+
+Output:
+- A `tokens/primitive/colors.json` file with the extracted and restructured primitives
+- A `tokens/semantic/colors.json` file with the role mapping
+- A Tailwind `theme.extend` config that reads from CSS custom properties so existing Tailwind utility classes continue to work after migration
+
+---
+
+## audit-component — Audit a Component Against System Standards
+
+**Stage:** 5
+**Tags:** audit, components, code, tokens
+
+You are helping me audit an existing UI component against my design system's standards and identify gaps before we scale the pattern.
+
+Before auditing anything, read the following references from the Sistema knowledge base:
+- Color roles (correct state color usage): {{sistema_url}}/systems/material/guidance/foundations/color-roles
+- Shape tokens: {{sistema_url}}/systems/material/guidance/foundations/shape
+- Typography roles: {{sistema_url}}/systems/material/guidance/foundations/typography
+- Implementation overview: {{sistema_url}}/systems/material/implementation/getting-started
+
+Read all four before responding. These define what correct token usage looks like — the audit measures the component against this standard.
+
+Component to audit:
+
+[Paste your component code here.]
+
+Evaluate against these criteria:
+
+1. **Token usage** — Does the component use semantic token names (via CSS vars or a theme system), or are there hardcoded hex values, px sizes, or raw font names?
+2. **Interactive states** — Are hover, focus, active, and disabled states present? Do they use the correct color roles for each state?
+3. **Accessibility** — Correct ARIA role, keyboard interaction model, visible focus indicator, sufficient color contrast?
+4. **API design** — Are prop names predictable? Is the component API minimal without being inflexible?
+
+Output a structured audit report:
+- Summary verdict (ready to scale / needs work / significant gaps)
+- Specific issues, each with a line reference and severity (blocking / recommended / minor)
+- Prioritized list of changes to make before using this component as a pattern

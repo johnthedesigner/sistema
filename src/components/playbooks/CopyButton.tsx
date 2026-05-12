@@ -6,7 +6,8 @@ export function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false)
 
   async function handleCopy() {
-    await navigator.clipboard.writeText(text)
+    const resolved = text.replace(/\{\{sistema_url\}\}/g, window.location.origin)
+    await navigator.clipboard.writeText(resolved)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }

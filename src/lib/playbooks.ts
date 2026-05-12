@@ -4,63 +4,68 @@ import type { Play } from './types'
 
 const PLAYBOOKS_PATH = path.join(process.cwd(), '_meta', 'TASK_PLAYBOOKS.md')
 
+export const STAGE_LABELS: Record<number, string> = {
+  1: 'System definition',
+  2: 'Primitive tokens',
+  3: 'Semantic layer',
+  4: 'Components',
+  5: 'Migration and adoption',
+}
+
 /**
  * Parses TASK_PLAYBOOKS.md into structured Play objects.
- * Each play captures its id, title, category, tier, and full markdown body.
+ *
+ * Expected format per play:
+ *   ## slug — Title
+ *   **Stage:** N
+ *   **Tags:** tag1, tag2
+ *
+ *   [body text...]
  */
 export function loadPlaybooks(): Play[] {
   const content = fs.readFileSync(PLAYBOOKS_PATH, 'utf-8')
   const plays: Play[] = []
 
-  // Split on category headings (## Category N: ...)
-  const categorySections = content.split(/(?=^## Category \d)/m)
+  // Each play starts with a ## heading matching "slug — Title"
+  const sections = content.split(/(?=^## [\w-]+ —)/m)
 
-  for (const section of categorySections) {
-    const catMatch = section.match(/^## Category (\d+): (.+)$/m)
-    if (!catMatch) continue
+  for (const section of sections) {
+    const headingMatch = section.match(/^## ([\w-]+) — (.+)$/m)
+    if (!headingMatch) continue
 
-    const categoryNumber = parseInt(catMatch[1], 10)
-    const category = catMatch[2].trim()
+    const slug = headingMatch[1]
+    const title = headingMatch[2].trim()
 
-    // Split on play headings (### N.M — ...) within this category
-    const playSections = section.split(/(?=^### [\d.]+)/m).slice(1)
+    const stageMatch = section.match(/^\*\*Stage:\*\*\s*(\d)/m)
+    const tagsMatch = section.match(/^\*\*Tags:\*\*\s*(.+)$/m)
 
-    for (const playSection of playSections) {
-      const playMatch = playSection.match(/^### ([\d.]+) — (.+)$/m)
-      if (!playMatch) continue
+    const stage = stageMatch ? (parseInt(stageMatch[1], 10) as 1 | 2 | 3 | 4 | 5) : 1
+    const tags = tagsMatch ? tagsMatch[1].split(',').map(t => t.trim()) : []
 
-      const id = playMatch[1]
-      const title = playMatch[2].trim()
+    // Body is everything after the Tags line (and following blank line)
+    const tagsIdx = section.indexOf('**Tags:**')
+    const afterTags = section.slice(tagsIdx)
+    const bodyStart = afterTags.indexOf('\n\n')
+    const body = bodyStart >= 0 ? afterTags.slice(bodyStart).trim() : ''
 
-      const tierMatch = playSection.match(/\*\*Tier:\*\*\s*(\d)/)
-      const tier = tierMatch ? (parseInt(tierMatch[1], 10) as 1 | 2 | 3) : undefined
-
-      plays.push({
-        id,
-        title,
-        category,
-        categoryNumber,
-        tier,
-        body: playSection.trim(),
-      })
-    }
+    plays.push({ slug, title, stage, tags, body })
   }
 
-  return plays
+  return plays.sort((a, b) => a.stage - b.stage)
 }
 
 /**
- * Returns all unique play categories in order.
+ * Returns all unique stages present in the playbook, in order.
  */
-export function loadCategories(): Array<{ number: number; name: string }> {
+export function loadStages(): Array<{ stage: 1 | 2 | 3 | 4 | 5; label: string }> {
   const plays = loadPlaybooks()
   const seen = new Set<number>()
-  const categories: Array<{ number: number; name: string }> = []
+  const stages: Array<{ stage: 1 | 2 | 3 | 4 | 5; label: string }> = []
   for (const play of plays) {
-    if (!seen.has(play.categoryNumber)) {
-      seen.add(play.categoryNumber)
-      categories.push({ number: play.categoryNumber, name: play.category })
+    if (!seen.has(play.stage)) {
+      seen.add(play.stage)
+      stages.push({ stage: play.stage, label: STAGE_LABELS[play.stage] ?? `Stage ${play.stage}` })
     }
   }
-  return categories
+  return stages
 }

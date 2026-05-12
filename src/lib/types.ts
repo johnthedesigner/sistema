@@ -43,11 +43,11 @@ export interface SystemIndex {
 }
 
 export interface Play {
-  id: string
+  slug: string
   title: string
-  category: string
-  categoryNumber: number
-  tier?: 1 | 2 | 3
-  /** Full markdown body of this play entry, used as the copyable prompt */
+  /** 1=System definition, 2=Primitive tokens, 3=Semantic layer, 4=Components, 5=Migration */
+  stage: 1 | 2 | 3 | 4 | 5
+  tags: string[]
+  /** Copyable prompt text. May contain {{sistema_url}} placeholder. */
   body: string
 }
