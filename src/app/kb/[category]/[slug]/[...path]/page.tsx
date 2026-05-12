@@ -3,6 +3,7 @@ import { notFound, redirect } from 'next/navigation'
 import { listSystems, listStubsForSystem, resolveStub, readSystemIndex, KB_CATEGORIES, type KBCategory } from '@/lib/kb'
 import { MarkdownBody } from '@/components/kb/MarkdownBody'
 import { ContentMeta } from '@/components/kb/ContentMeta'
+import { CopyRawButton } from '@/components/kb/CopyRawButton'
 
 function extractSystemName(body: string): string {
   const match = body.match(/^# (.+)$/m)
@@ -89,14 +90,17 @@ export default async function ContentPage({
 
       <div className="flex items-start justify-between gap-4 mb-6">
         <h1 className="text-3xl font-bold">{topicName}</h1>
-        <a
-          href={rawUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex-shrink-0 mt-1.5 text-xs text-gray-400 hover:text-gray-600 border border-gray-200 rounded px-2 py-1 hover:border-gray-400 transition-colors font-mono"
-        >
-          Raw
-        </a>
+        <div className="flex items-center gap-2 flex-shrink-0 mt-1.5">
+          <CopyRawButton rawUrl={rawUrl} />
+          <a
+            href={rawUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-gray-400 hover:text-gray-600 border border-gray-200 rounded px-2 py-1 hover:border-gray-400 transition-colors font-mono"
+          >
+            Raw
+          </a>
+        </div>
       </div>
 
       <ContentMeta frontmatter={file.frontmatter} />

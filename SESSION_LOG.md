@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 2b
-**Last completed task:** 2b.1 — KB directory restructure
-**Next task:** 2b.2 — Raw markdown endpoint
+**Last completed task:** 2b.2 — Raw markdown endpoint
+**Next task:** 2b.3 — DESIGN.md prominence and quick start
 **Blockers:** None
-**Notes:** KB moved to `kb/design-systems/`. Routes now at `/kb/[category]/[slug]/[...path].md`. 49 static pages. Lint: 38 files, 0 errors.
+**Notes:** `/raw/[category]/[slug]/[...path].md` live. Copy markdown button on all content pages. All 30 play URLs updated to `/raw/design-systems/material/` with `.md`. Build: 49 pages.
 
 ---
 
@@ -15,6 +15,19 @@
 *Phase 0 session entries archived to `logs/phase-0.md`.*
 *Phase 1 session entries archived to `logs/phase-1.md`.*
 *Phase 2 session entries archived to `logs/phase-2.md`.*
+
+### 2026-05-12 — Task 2b.2: Raw markdown endpoint
+
+**What was done:**
+- Created `src/app/raw/[category]/[slug]/[...path]/route.ts` — GET handler; strips `.md` from last segment; calls `readRawContent(stubPath)`; returns `text/plain; charset=utf-8`; 404 for missing stubs
+- Created `src/components/kb/CopyRawButton.tsx` — client component; fetches raw URL; copies text to clipboard; idle/copying/copied/error states
+- Updated `src/app/kb/[category]/[slug]/[...path]/page.tsx` — added `CopyRawButton` + "Raw" link in a flex row beside the page title
+- Updated `_meta/TASK_PLAYBOOKS.md` — all 30 `{{sistema_url}}` URL references changed from `/systems/material/PATH` to `/raw/design-systems/material/PATH.md` so agents fetch clean text/plain, not HTML
+- Verified: `GET /raw/design-systems/material/guidance/foundations/color-system.md` → 200, `text/plain`, YAML frontmatter + markdown body; `GET /raw/.../nonexistent.md` → 404; JSON asset via `.md` URL → 200
+
+**Build:** 49 pages; `/raw/[category]/[slug]/[...path]` appears as dynamic route handler (ƒ)
+
+---
 
 ### 2026-05-12 — Task 2b.1: KB directory restructure
 

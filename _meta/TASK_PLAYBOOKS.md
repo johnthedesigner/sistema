@@ -27,7 +27,7 @@ Plays reference content from the Sistema knowledge base using `{{sistema_url}}` 
 You are helping me create a `DESIGN.md` file — a concise specification document that describes a design system's visual language for use with AI coding tools.
 
 Before generating anything, read the following reference from the Sistema knowledge base:
-- DESIGN.md format reference: {{sistema_url}}/systems/material/design-md/DESIGN
+- DESIGN.md format reference: {{sistema_url}}/raw/design-systems/material/design-md/DESIGN.md
 
 That page shows the full DESIGN.md format used by a production design system. Read it carefully — note which sections are present, how specific the values are, and how it describes token usage for components.
 
@@ -52,9 +52,9 @@ Rules for generating:
 You are helping me plan the token architecture for a new design system before writing any actual token values.
 
 Before proposing anything, read the following references from the Sistema knowledge base:
-- Token design principles: {{sistema_url}}/systems/material/guidance/foundations/design-tokens
-- Color system structure: {{sistema_url}}/systems/material/guidance/foundations/color-system
-- Token schema implementation: {{sistema_url}}/systems/material/implementation/tokens/token-schema
+- Token design principles: {{sistema_url}}/raw/design-systems/material/guidance/foundations/design-tokens.md
+- Color system structure: {{sistema_url}}/raw/design-systems/material/guidance/foundations/color-system.md
+- Token schema implementation: {{sistema_url}}/raw/design-systems/material/implementation/tokens/token-schema.md
 
 Read all three before responding. Pay attention to: how many tiers the token system uses, how naming conventions differ between tiers, what categories of tokens are defined, and how the system is organized for compilation.
 
@@ -80,9 +80,9 @@ Output a structured proposal — not actual token values, just the architecture.
 You are helping me generate a complete color scheme for my design system — semantic color role tokens for both light and dark themes, as CSS custom properties ready to ship.
 
 Before generating anything, read the following references from the Sistema knowledge base:
-- Color system overview (explains the tonal model and role structure): {{sistema_url}}/systems/material/guidance/foundations/color-system
-- Color roles (explains what each role is for): {{sistema_url}}/systems/material/guidance/foundations/color-roles
-- Material's color token values (use this as your output format reference): {{sistema_url}}/systems/material/assets/tokens/colors
+- Color system overview (explains the tonal model and role structure): {{sistema_url}}/raw/design-systems/material/guidance/foundations/color-system.md
+- Color roles (explains what each role is for): {{sistema_url}}/raw/design-systems/material/guidance/foundations/color-roles.md
+- Material's color token values (use this as your output format reference): {{sistema_url}}/raw/design-systems/material/assets/tokens/colors.md
 
 Read all three before responding. The asset file shows the exact CSS custom property format and the full list of roles to define — match that structure.
 
@@ -114,8 +114,8 @@ Note any roles where you made a non-obvious decision so I can review them.
 You are helping me generate a typography token set for my design system.
 
 Before generating anything, read the following references from the Sistema knowledge base:
-- Typography guidance: {{sistema_url}}/systems/material/guidance/foundations/typography
-- Material's typography token values: {{sistema_url}}/systems/material/assets/tokens/typography
+- Typography guidance: {{sistema_url}}/raw/design-systems/material/guidance/foundations/typography.md
+- Material's typography token values: {{sistema_url}}/raw/design-systems/material/assets/tokens/typography.md
 
 Read both before responding. Pay attention to: the role names (display, headline, title, body, label), which properties are defined per role (font, size, weight, line-height, letter-spacing), and how roles map to usage contexts (when to use display vs. headline, etc.).
 
@@ -136,8 +136,8 @@ Output the token set in the same format as the Material reference. Define the sa
 You are helping me generate shape (border-radius) tokens for my design system.
 
 Before generating anything, read the following references from the Sistema knowledge base:
-- Shape guidance: {{sistema_url}}/systems/material/guidance/foundations/shape
-- Material's shape token values: {{sistema_url}}/systems/material/assets/tokens/shape
+- Shape guidance: {{sistema_url}}/raw/design-systems/material/guidance/foundations/shape.md
+- Material's shape token values: {{sistema_url}}/raw/design-systems/material/assets/tokens/shape.md
 
 Read both before responding. Pay attention to: the shape scale categories (none, extra-small, small, medium, large, extra-large, full), the values at each step, how components map to shape roles, and the rationale for using a role-based shape system rather than raw values.
 
@@ -160,8 +160,8 @@ Use this play when you already have a set of color values — from a brand palet
 If you are starting from a single seed color with no existing palette, use `generate-color-scheme` instead — it handles the full generation in one step.
 
 Before generating anything, read the following references from the Sistema knowledge base:
-- Color roles guidance: {{sistema_url}}/systems/material/guidance/foundations/color-roles
-- Color system overview: {{sistema_url}}/systems/material/guidance/foundations/color-system
+- Color roles guidance: {{sistema_url}}/raw/design-systems/material/guidance/foundations/color-roles.md
+- Color system overview: {{sistema_url}}/raw/design-systems/material/guidance/foundations/color-system.md
 
 Read both before responding. Pay attention to: which semantic roles exist, what each role is for (the "on-" pattern, container vs. non-container, the surface tonal family), and how light and dark theme variants differ.
 
@@ -184,8 +184,8 @@ Custom prefix (optional): [e.g. --my-app-color-*, or leave blank to use --md-sys
 You are helping me generate dark mode color token values for my design system.
 
 Before generating anything, read the following references from the Sistema knowledge base:
-- Color roles guidance (covers both light and dark mode): {{sistema_url}}/systems/material/guidance/foundations/color-roles
-- Color system overview: {{sistema_url}}/systems/material/guidance/foundations/color-system
+- Color roles guidance (covers both light and dark mode): {{sistema_url}}/raw/design-systems/material/guidance/foundations/color-roles.md
+- Color system overview: {{sistema_url}}/raw/design-systems/material/guidance/foundations/color-system.md
 
 Read both before responding. Pay close attention to how Material handles dark mode — it is not a simple inversion. Dark mode remaps roles to different points on the same palette, typically pulling surface values from the very dark end of the neutral scale and role colors from the 60–80 range of each hue.
 
@@ -206,7 +206,7 @@ Output a complete dark mode role mapping that follows the same structural logic 
 You are helping me set up Style Dictionary to compile my design tokens into CSS custom properties, JavaScript modules, and other platform outputs.
 
 Before generating anything, read the following reference from the Sistema knowledge base:
-- Token schema implementation: {{sistema_url}}/systems/material/implementation/tokens/token-schema
+- Token schema implementation: {{sistema_url}}/raw/design-systems/material/implementation/tokens/token-schema.md
 
 Read this before responding. Pay attention to how the token files are structured as input, what the naming hierarchy looks like in JSON, and how the system is organized for multi-platform output.
 
@@ -233,9 +233,9 @@ The output should be complete enough to copy into a repository and run with `npx
 You are helping me write a component specification — a complete design and behavior description that my team can implement consistently against our design system.
 
 Before generating anything, read the following references from the Sistema knowledge base:
-- Color roles (for interactive state colors): {{sistema_url}}/systems/material/guidance/foundations/color-roles
-- Shape tokens (for component shape): {{sistema_url}}/systems/material/guidance/foundations/shape
-- Typography roles (for text within components): {{sistema_url}}/systems/material/guidance/foundations/typography
+- Color roles (for interactive state colors): {{sistema_url}}/raw/design-systems/material/guidance/foundations/color-roles.md
+- Shape tokens (for component shape): {{sistema_url}}/raw/design-systems/material/guidance/foundations/shape.md
+- Typography roles (for text within components): {{sistema_url}}/raw/design-systems/material/guidance/foundations/typography.md
 
 Read all three before responding. These define the token vocabulary your spec should reference — do not hardcode values, reference role names.
 
@@ -288,10 +288,10 @@ Output only the specification document — no prose explanation around it. Token
 You are helping me implement a UI component that consumes my design system's token system.
 
 Before generating anything, read the following references from the Sistema knowledge base:
-- Implementation overview: {{sistema_url}}/systems/material/implementation/getting-started
-- Color token values (for understanding token structure): {{sistema_url}}/systems/material/assets/tokens/colors
-- Shape token values: {{sistema_url}}/systems/material/assets/tokens/shape
-- Typography token values: {{sistema_url}}/systems/material/assets/tokens/typography
+- Implementation overview: {{sistema_url}}/raw/design-systems/material/implementation/getting-started.md
+- Color token values (for understanding token structure): {{sistema_url}}/raw/design-systems/material/assets/tokens/colors.md
+- Shape token values: {{sistema_url}}/raw/design-systems/material/assets/tokens/shape.md
+- Typography token values: {{sistema_url}}/raw/design-systems/material/assets/tokens/typography.md
 
 Read all four before responding. Pay attention to the naming conventions used in the token files — your implementation should reference tokens by these names via CSS custom properties.
 
@@ -319,9 +319,9 @@ Output production-ready component code. Use semantic token names throughout — 
 You are helping me migrate an existing Tailwind CSS color configuration to a structured two-tier token system (primitive + semantic).
 
 Before generating anything, read the following references from the Sistema knowledge base:
-- Color system overview: {{sistema_url}}/systems/material/guidance/foundations/color-system
-- Color roles guidance: {{sistema_url}}/systems/material/guidance/foundations/color-roles
-- Token schema implementation: {{sistema_url}}/systems/material/implementation/tokens/token-schema
+- Color system overview: {{sistema_url}}/raw/design-systems/material/guidance/foundations/color-system.md
+- Color roles guidance: {{sistema_url}}/raw/design-systems/material/guidance/foundations/color-roles.md
+- Token schema implementation: {{sistema_url}}/raw/design-systems/material/implementation/tokens/token-schema.md
 
 Read all three before responding. Pay attention to the distinction between primitive colors (raw values organized by hue and step) and semantic roles (how those values are used by components and surfaces).
 
@@ -350,10 +350,10 @@ Output:
 You are helping me audit an existing UI component against my design system's standards and identify gaps before we scale the pattern.
 
 Before auditing anything, read the following references from the Sistema knowledge base:
-- Color roles (correct state color usage): {{sistema_url}}/systems/material/guidance/foundations/color-roles
-- Shape tokens: {{sistema_url}}/systems/material/guidance/foundations/shape
-- Typography roles: {{sistema_url}}/systems/material/guidance/foundations/typography
-- Implementation overview: {{sistema_url}}/systems/material/implementation/getting-started
+- Color roles (correct state color usage): {{sistema_url}}/raw/design-systems/material/guidance/foundations/color-roles.md
+- Shape tokens: {{sistema_url}}/raw/design-systems/material/guidance/foundations/shape.md
+- Typography roles: {{sistema_url}}/raw/design-systems/material/guidance/foundations/typography.md
+- Implementation overview: {{sistema_url}}/raw/design-systems/material/implementation/getting-started.md
 
 Read all four before responding. These define what correct token usage looks like — the audit measures the component against this standard.
 
