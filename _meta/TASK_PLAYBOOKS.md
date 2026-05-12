@@ -29,13 +29,18 @@ You are helping me create a `DESIGN.md` file — a concise specification documen
 Before generating anything, read the following reference from the Sistema knowledge base:
 - DESIGN.md format reference: {{sistema_url}}/systems/material/design-md/DESIGN
 
-That page shows the full DESIGN.md format used by a production design system. Read it carefully — pay attention to which sections are present, how specific the values are, and how it describes token usage for components.
+That page shows the full DESIGN.md format used by a production design system. Read it carefully — note which sections are present, how specific the values are, and how it describes token usage for components.
 
-Now generate a `DESIGN.md` for my design system using the same format. Here is my project context:
+Now generate a `DESIGN.md` for my design system. My project context:
 
-[Describe your product, brand, and any existing design decisions — colors, typefaces, component preferences, etc.]
+[Describe your product, brand, and any existing design decisions — colors, typefaces, shape preferences, what kinds of components you'll build, etc. The more specific you are, the better the output.]
 
-The output should be a complete, ready-to-commit `DESIGN.md` file. Do not leave placeholder sections — if I have not specified something, make a reasonable default decision and note it as a default so I can review it.
+Rules for generating:
+- Use the Material reference as a format template only — do not copy M3-specific values or technology choices (HCT color space, Roboto, etc.) unless they actually apply to my system
+- Adapt every section to reflect my system's actual decisions, not M3's
+- Omit sections that genuinely don't apply to my system rather than leaving them vague
+- If I haven't specified something and it matters, make a concrete decision and mark it `[default — review]`
+- Output raw markdown only — no prose explanation around the file, no code fences wrapping the whole document
 
 ---
 
@@ -67,25 +72,37 @@ Output a structured proposal — not actual token values, just the architecture.
 
 ---
 
-## generate-primitive-colors — Generate a Primitive Color Palette
+## generate-color-scheme — Generate a Color Scheme
 
 **Stage:** 2
-**Tags:** tokens, color, primitives
+**Tags:** tokens, color, semantic
 
-You are helping me generate a primitive color palette — the raw color values that form the foundation of my design system's token architecture.
+You are helping me generate a complete color scheme for my design system — semantic color role tokens for both light and dark themes, as CSS custom properties ready to ship.
 
 Before generating anything, read the following references from the Sistema knowledge base:
-- Color system overview: {{sistema_url}}/systems/material/guidance/foundations/color-system
-- Material's primitive color token values: {{sistema_url}}/systems/material/assets/tokens/colors
+- Color system overview (explains the tonal model and role structure): {{sistema_url}}/systems/material/guidance/foundations/color-system
+- Color roles (explains what each role is for): {{sistema_url}}/systems/material/guidance/foundations/color-roles
+- Material's color token values (use this as your output format reference): {{sistema_url}}/systems/material/assets/tokens/colors
 
-Read both before responding. Pay attention to: how many steps the palette has per hue, how neutrals and neutral-variants are structured, and how the JSON is named and organized.
+Read all three before responding. The asset file shows the exact CSS custom property format and the full list of roles to define — match that structure.
 
-Now generate a primitive color palette for my design system following the same structural approach.
+Now generate a color scheme for my design system.
 
 My color direction:
-[Provide your primary brand color (hex), any secondary colors, and any preferences — e.g. "warm neutrals", "high contrast", "pastel range".]
+[Provide your primary brand color (hex), any secondary colors, and any preferences — e.g. "warm neutrals", "high contrast", "muted palette". If you only have a primary brand color, that's enough to start.]
 
-Output the palette as JSON in the same format as the Material reference. Include at minimum: primary, secondary, neutral, neutral-variant, error, and their full step range. Do not invent steps — use the same scale density as the reference.
+Generate both a light theme and a dark theme. For each theme, produce the full set of semantic role tokens in the same CSS custom property format as the Material reference:
+- Primary family (primary, on-primary, primary-container, on-primary-container, inverse-primary)
+- Secondary family
+- Tertiary family
+- Error family
+- Surface family (surface, on-surface, surface-variant, on-surface-variant, surface-dim, surface-bright, surface-container-lowest through highest, inverse-surface, inverse-on-surface)
+- Outline family (outline, outline-variant)
+- Utility (shadow, scrim)
+
+Use the M3 tonal logic for dark mode: do not simply invert light values. Surface roles in dark mode draw from the dark end of the neutral palette; accent roles draw from the 70–80 tone range of their hue for adequate contrast.
+
+Note any roles where you made a non-obvious decision so I can review them.
 
 ---
 
@@ -133,26 +150,29 @@ Output the token set in the same format as the Material reference. Map your valu
 
 ---
 
-## generate-color-roles — Generate Semantic Color Roles
+## generate-color-roles — Map an Existing Palette to Semantic Roles
 
 **Stage:** 3
 **Tags:** tokens, color, semantic
 
-You are helping me map my primitive color palette to semantic color roles — the named values that components and surfaces will actually consume.
+Use this play when you already have a set of color values — from a brand palette, a Figma file, or an existing design system — and you want to map them to semantic roles that components can consume.
+
+If you are starting from a single seed color with no existing palette, use `generate-color-scheme` instead — it handles the full generation in one step.
 
 Before generating anything, read the following references from the Sistema knowledge base:
 - Color roles guidance: {{sistema_url}}/systems/material/guidance/foundations/color-roles
 - Color system overview: {{sistema_url}}/systems/material/guidance/foundations/color-system
-- Material's color token values (structural reference): {{sistema_url}}/systems/material/assets/tokens/colors
 
-Read all three before responding. Pay attention to: which semantic roles are defined (primary, on-primary, primary-container, surface, on-surface, etc.), how "on-" roles work, how surface roles are structured, and how light and dark mode variants relate to the same palette.
+Read both before responding. Pay attention to: which semantic roles exist, what each role is for (the "on-" pattern, container vs. non-container, the surface tonal family), and how light and dark theme variants differ.
 
-Now generate a semantic color role mapping for my design system using my primitive palette.
+My existing palette:
+[Paste your color values here — hex values, a Figma swatch export, a Tailwind color config, or whatever format you have. Include any neutrals and grays.]
 
-My primitive palette:
-[Paste your primitive color token JSON here, or describe your palette — primary hue, secondary hue, neutral tone, and approximate step values.]
+Map my palette to the full set of M3-compatible semantic roles. For each role, note which palette value you assigned and why — especially for non-obvious choices. Flag any gaps where my palette doesn't have a good value for a required role.
 
-Output a complete semantic color role map for light mode. Include the standard surface, primary, secondary, tertiary, error, and neutral roles. Use the same naming conventions as the Material reference so components built against either system share a compatible vocabulary.
+Output as CSS custom properties for light mode first, then dark mode. Use the standard M3 role names (--md-sys-color-* prefix, or a custom prefix I specify below).
+
+Custom prefix (optional): [e.g. --my-app-color-*, or leave blank to use --md-sys-color-*]
 
 ---
 
@@ -223,18 +243,40 @@ Now write a component specification for the following component:
 
 Component: [e.g. Button, Text Input, Card, Modal, Chip, Badge]
 
-My design system context:
-[List the semantic token names available in your system — color roles, shape roles, typography roles — or paste your token files. The spec should reference these by name.]
+My token context:
+[If you are using M3 tokens directly, write "using standard M3 tokens" and the agent will reference them by name. If you have a custom token system, paste the relevant token names — color roles, shape roles, typography roles — that the spec should reference.]
 
-The specification should cover:
-- Visual variants (e.g. filled, outlined, ghost/text)
-- Size variants if applicable
-- Interactive states: default, hover, focus, active, disabled
-- Token usage for each state (which color role, shape role, type role)
-- Accessibility requirements: ARIA role, keyboard interaction, focus indicator
-- Any behavior notes: animation, loading state, icon support
+Use this exact document structure for the specification:
 
-Output as a structured markdown document suitable for committing to the repository alongside the component.
+```
+# [Component Name] Specification
+
+## Variants
+[Table: variant name | description | when to use]
+
+## Sizes
+[Table or "single size" if applicable]
+
+## States
+[Table: state | visual change | token used]
+Include: default, hover, focus, active, disabled. Note state layer opacity if applicable.
+
+## Token Map
+[List every token the component consumes: property → token name]
+Group by: container, text/label, border, shape, typography.
+
+## Accessibility
+- ARIA role and attributes
+- Keyboard interaction (tab, space, enter, escape)
+- Focus indicator: color, width, offset
+- Minimum touch target
+- Any screen reader considerations
+
+## Behavior
+[Animation, loading states, icon support, edge cases]
+```
+
+Output only the specification document — no prose explanation around it. Token references must use names from my token system, not hardcoded hex values.
 
 ---
 
