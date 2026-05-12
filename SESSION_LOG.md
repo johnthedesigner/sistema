@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 1
-**Last completed task:** 1.5 — Playbook browser
-**Next task:** 1.6 — Landing page
+**Last completed task:** 1.6 — Landing page
+**Next task:** 1.7 — Phase 1 housekeeping
 **Blockers:** None
-**Notes:** 35 static pages generated. `/playbooks` lists all 16 plays across 8 categories. `/playbooks/1.1` renders play content with copy button. `/playbooks/nonexistent` → 404.
+**Notes:** 31 static pages. Landing page has hero, 3-step how-to with concrete example, and dynamic systems/playbook cards. Playbook reworked: 12 generative plays, slug IDs, stage ordering, agent-ready prompts with {{sistema_url}} substitution at copy time.
 
 ---
 
@@ -31,19 +31,34 @@
 
 **Vercel deployment:** Not yet connected — requires pushing to a Vercel-linked repo or connecting via Vercel dashboard.
 
-### 2026-05-11 — Task 1.5: Playbook browser
+### 2026-05-11 — Task 1.6: Landing page
 
 **What was done:**
-- Created `src/app/playbooks/page.tsx` — index page listing all plays grouped by category; each play shows ID, title, tier badge, and links to detail page
-- Created `src/app/playbooks/[id]/page.tsx` — per-play page with breadcrumb, category label, tier badge, copy button, and `<MarkdownBody>` rendering; `notFound()` for unknown IDs
-- Created `src/components/playbooks/TierBadge.tsx` — color-coded tier badge (Tier 1 = emerald, Tier 2 = amber, Tier 3 = purple) with tooltip showing full tier name
-- Created `src/components/playbooks/CopyButton.tsx` — client component; uses `navigator.clipboard.writeText`; shows "Copied!" for 2s after click
-- `generateStaticParams` produces routes for all 16 plays
+- Replaced placeholder `src/app/page.tsx` with three-section landing page
+- Hero: headline, two-paragraph value prop, "Open playbook" and "Browse systems" CTAs
+- How to use it: three numbered steps with a concrete example callout (Generate a Primitive Color Palette flow)
+- What's available: two linked cards (knowledge base + playbook) with live counts from `listSystems()`, `loadPlaybooks()`, `loadStages()`
 
 **Decisions made:**
-- Play `body` field contains the full play markdown including the `### N.M — Title` heading line — copied as-is per Task 1.2 decision
-- Plays without a tier (Category 8 — "Full System Design") receive no badge rather than a default
-- Copy button copies the full `play.body` (everything from the `###` heading through the end of the play entry)
+- System names in the knowledge base card pulled dynamically via `readSystemIndex()` — no hardcoded strings
+- Stage list in the playbook card uses `loadStages()` so it stays in sync as plays are added
+
+---
+
+### 2026-05-11 — Task 1.5: Playbook browser (revised after playbook rethink)
+
+**What was done (initial build):**
+- Created `/playbooks` index and `/playbooks/[id]` per-play pages with tier badges and copy button (16 plays, numeric IDs, category grouping)
+
+**Revised (same session):**
+- Rewrote `_meta/TASK_PLAYBOOKS.md` with 12 generative plays in new format (`## slug — Title / **Stage:** N / **Tags:** ...`)
+- Dropped all pure-research plays; all plays are now generative or transformative
+- Play bodies are complete agent-ready prompts with `{{sistema_url}}` placeholders substituted at copy time
+- Updated `Play` type: `slug`, `stage`, `tags`; removed `id`, `categoryNumber`, `category`, `tier`
+- Rewrote `playbooks.ts` parser; added `loadStages()` and `STAGE_LABELS` export
+- Renamed `[id]` → `[slug]` route; playbook index groups by stage with stage number + label
+- `CopyButton` resolves `{{sistema_url}}` with `window.location.origin` before clipboard write
+- Removed `TierBadge` component
 
 ---
 
