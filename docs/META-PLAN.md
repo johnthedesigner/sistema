@@ -113,11 +113,11 @@ sistema/
 
 **Goal:** Build the scraping and validation tooling. Replace the draft Material Design 3 guidance content with a full authoritative scrape.
 
-**Before running any Phase 0 session:** Generate `tasks/phase-0.md` in a regular Claude chat session (not Claude Code) using this prompt:
+**Before running any Phase 0 session:** Generate `tasks/phase-0.md` using this prompt:
 
 > "Read `docs/META-PLAN.md` — specifically the project overview and Phase 0 goal. Read `tasks/TEMPLATE.md` and `AGENTS.md`. Generate `tasks/phase-0.md`: a complete, sequenced task list for Phase 0. Phase 0 goal: scaffold the `tools/` directory and complete a full, authoritative scrape of Material Design 3, replacing the current draft `material/` guidance content. Every task must have specific, verifiable acceptance criteria. Do not write any code."
 
-Review and commit the task file before running any Claude Code sessions.
+Review and commit the task file before running any implementation sessions.
 
 **Key tasks in this phase:**
 
@@ -133,7 +133,7 @@ Review and commit the task file before running any Claude Code sessions.
 
 **Goal:** Add Carbon (IBM) as the second KB system, then build the Next.js app foundation. By end of phase the app builds and deploys with M3 and Carbon content available.
 
-**Generate `tasks/phase-1.md` before starting.**
+**Generate `tasks/phase-1.md` before starting any implementation tasks.**
 
 **Key tasks in this phase:**
 
@@ -219,7 +219,7 @@ Review and commit the task file before running any Claude Code sessions.
 
 ## Generating task files before each phase
 
-Before starting development on any phase, generate its task file. Use this prompt in a separate Claude chat session (not Claude Code):
+Before starting development on any phase, generate its task file using this prompt:
 
 > "Read `AGENTS.md`, `_meta/SCHEMA.md`, `_meta/MAINTENANCE.md`, and `docs/META-PLAN.md` (focus on the phase you're generating for). Read `tasks/TEMPLATE.md`. Generate `tasks/phase-N.md` — a complete, sequenced task list for Phase N using the format in the template. Every task must have specific, verifiable acceptance criteria. Do not write any code."
 
