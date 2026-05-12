@@ -1,8 +1,10 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { loadPlaybooks, STAGE_LABELS } from '@/lib/playbooks'
+import { loadExemplar } from '@/lib/exemplars'
 import { CopyButton } from '@/components/playbooks/CopyButton'
 import { PlayForm } from '@/components/playbooks/PlayForm'
+import { ExemplarPreview } from '@/components/playbooks/ExemplarPreview'
 import { MarkdownBody } from '@/components/kb/MarkdownBody'
 
 export async function generateStaticParams() {
@@ -27,6 +29,7 @@ export default async function PlayPage({
     ? play.body.replace(/\{\{sistema_url\}\}/g, siteUrl)
     : play.body
   const hasVariables = /\{\{(?!sistema_url\}\})[^}]+\}\}/.test(play.body)
+  const exemplar = loadExemplar(slug)
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-12">
@@ -68,6 +71,8 @@ export default async function PlayPage({
       <div className="border border-gray-100 rounded-lg p-6 bg-gray-50">
         <MarkdownBody>{displayBody}</MarkdownBody>
       </div>
+
+      {exemplar && <ExemplarPreview exemplar={exemplar} />}
     </main>
   )
 }
