@@ -33,7 +33,7 @@ That bundle contains Material Design 3's complete guidance documentation and its
 
 Now generate a `DESIGN.md` for my design system. My project context:
 
-[Describe your product, brand, and any existing design decisions — colors, typefaces, shape preferences, what kinds of components you'll build, etc. The more specific you are, the better the output.]
+{{project_context}}
 
 Rules for generating:
 - Use the Material reference as a format template only — do not copy M3-specific values or technology choices (HCT color space, Roboto, etc.) unless they actually apply to my system
@@ -87,7 +87,7 @@ Read all three before responding. The asset file shows the exact CSS custom prop
 Now generate a color scheme for my design system.
 
 My color direction:
-[Provide your primary brand color (hex), any secondary colors, and any preferences — e.g. "warm neutrals", "high contrast", "muted palette". If you only have a primary brand color, that's enough to start.]
+{{color_direction}}
 
 Generate both a light theme and a dark theme. For each theme, produce the full set of semantic role tokens in the same CSS custom property format as the Material reference:
 - Primary family (primary, on-primary, primary-container, on-primary-container, inverse-primary)
@@ -325,7 +325,7 @@ Read all three before responding. Pay attention to the distinction between primi
 
 My existing Tailwind config — paste the `theme.colors` section:
 
-[Paste your tailwind.config.js colors object here.]
+{{tailwind_colors}}
 
 Perform the migration in two steps:
 

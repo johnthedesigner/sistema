@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { loadPlaybooks, STAGE_LABELS } from '@/lib/playbooks'
 import { CopyButton } from '@/components/playbooks/CopyButton'
+import { PlayForm } from '@/components/playbooks/PlayForm'
 import { MarkdownBody } from '@/components/kb/MarkdownBody'
 
 export async function generateStaticParams() {
@@ -21,6 +22,11 @@ export default async function PlayPage({
   if (!play) notFound()
 
   const stageLabel = STAGE_LABELS[play.stage]
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  const displayBody = siteUrl
+    ? play.body.replace(/\{\{sistema_url\}\}/g, siteUrl)
+    : play.body
+  const hasVariables = /\{\{(?!sistema_url\}\})[^}]+\}\}/.test(play.body)
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-12">
@@ -51,12 +57,16 @@ export default async function PlayPage({
         )}
       </div>
 
-      <div className="mb-6">
-        <CopyButton text={play.body} />
-      </div>
+      {hasVariables ? (
+        <PlayForm body={play.body} />
+      ) : (
+        <div className="mb-6">
+          <CopyButton text={play.body} />
+        </div>
+      )}
 
       <div className="border border-gray-100 rounded-lg p-6 bg-gray-50">
-        <MarkdownBody>{play.body}</MarkdownBody>
+        <MarkdownBody>{displayBody}</MarkdownBody>
       </div>
     </main>
   )
