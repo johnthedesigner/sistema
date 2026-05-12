@@ -181,6 +181,28 @@ Each session entry follows this structure:
 
 ---
 
+### 2026-05-12 — Primer (GitHub) initial capture
+**Operator:** LLM-assisted
+**Systems affected:** primer
+**Summary:** Full initial capture of Primer Design System. Source: primer/design GitHub repo (MDX) and primer/primitives token JSON5 files. The primer.style doc site is fully JS-rendered (Firecrawl returned 0 pages); all content sourced directly from GitHub raw URLs.
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/design-systems/primer/_index.md | System index with overview, source map, content inventory |
+| created | kb/design-systems/primer/guidance/foundations/color-system@2026-05-12.md | Three-tier token model, neutral tokens, semantic roles, base scales |
+| created | kb/design-systems/primer/guidance/foundations/color-system.md | Stub |
+| created | kb/design-systems/primer/guidance/foundations/typography@2026-05-12.md | Type scale, weights, font stacks, best practices |
+| created | kb/design-systems/primer/guidance/foundations/typography.md | Stub |
+| created | kb/design-systems/primer/guidance/components/button@2026-05-12.md | Variants, sizing, anatomy, states, accessibility |
+| created | kb/design-systems/primer/guidance/components/button.md | Stub |
+| created | kb/design-systems/primer/assets/tokens/colors@2026-05-12.json | Functional color token reference (fgColor, bgColor, borderColor, shadow) |
+| created | kb/design-systems/primer/assets/tokens/colors.json | Stub |
+| created | kb/design-systems/primer/design-md/DESIGN@2026-05-12.md | Visual language spec for AI coding tools |
+| created | kb/design-systems/primer/design-md/DESIGN.md | Stub |
+| updated | _meta/INDEX.md | Primer added to quick reference; planned systems list updated |
+
+---
+
 ### 2026-05-11 — Initial meta layer created
 **Operator:** LLM-assisted
 **Systems affected:** meta only

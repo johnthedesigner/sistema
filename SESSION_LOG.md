@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 3
-**Last completed task:** 3.2 — Exemplar content creation
-**Next task:** 3.3 — Exemplar previews on play pages
+**Last completed task:** 3.4 — Primer (GitHub) KB capture
+**Next task:** 3.5 — Component documentation: Material and Carbon
 **Blockers:** None
-**Notes:** Two exemplars created: Meridian DESIGN.md (527 lines, B2B SaaS, blue primary) and color scheme (189 lines, light + dark). Also completed 3.1 (interactive fields) and NEXT_PUBLIC_SITE_URL env var + dev:tunnel tooling (not in phase-3 task file). Build: 49 pages.
+**Notes:** Primer captured. 8 files, 0 lint errors. 5 content files: color-system, typography, button, functional color tokens, DESIGN.md. Build: 55 pages (up from 49).
 
 ---
 
@@ -16,6 +16,25 @@
 *Phase 1 session entries archived to `logs/phase-1.md`.*
 *Phase 2 session entries archived to `logs/phase-2.md`.*
 *Phase 2b session entries archived to `logs/phase-2b.md`.*
+
+### 2026-05-12 — Task 3.4: Primer (GitHub) KB capture
+
+**What was done:**
+- Confirmed primer.style doc site is fully JS-rendered (Firecrawl: 0 pages); all content sourced from GitHub raw URLs
+- Fetched `primer/design` MDX source files: `content/foundations/color/overview.mdx`, `content/foundations/typography.mdx`, `content/components/button.mdx`, `content/foundations/color/base-scales.mdx`
+- Fetched `primer/primitives` token source: `src/tokens/functional/color/fgColor.json5`, `bgColor.json5`, and base typography token values
+- Created `kb/design-systems/primer/` directory structure with 5 content files + 5 stubs + `_index.md`
+- Content: color-system (three-tier token model, all semantic roles), typography (scale, weights, best practices), button (variants, sizing, accessibility), functional color token reference, DESIGN.md
+- Updated `_meta/INDEX.md` (v1.3 → v1.4, 3 → 4 systems, 25 → 30 files) and `_meta/CHANGELOG.md`
+- Lint: 8 files, 0 errors (fixed: `design-md` missing `derived_from` field)
+
+**Scrape notes:** primer.style is a fully JS-rendered SPA. GitHub raw file approach is the correct sourcing method for Primer going forward. No Playwright needed — the MDX sources are clean and directly usable.
+
+**Coverage gaps:** Implementation docs not captured (React component API, CSS utility classes). Token values are described by role name; actual hex/HSL values not included (those require compiled output from `primer/primitives` dist files, which are available via jsDelivr if needed).
+
+**Build:** 55 pages (up from 49 — 6 new Primer routes added)
+
+---
 
 ### 2026-05-12 — Task 3.2: Exemplar content creation
 

@@ -1,11 +1,11 @@
 # INDEX.md
 # Design System Knowledge Base — Master Index
 
-**Version:** 1.3
+**Version:** 1.4
 **Created:** 2026-05-11
 **Last Updated:** 2026-05-12
-**Systems Indexed:** 3
-**Total Content Files:** 25
+**Systems Indexed:** 4
+**Total Content Files:** 30
 
 This is the master index for the design system knowledge base. It provides two cross-referenced views of all content: by design system, and by category. Use this file as your first navigation stop in any LLM session before retrieving specific content.
 
@@ -21,6 +21,7 @@ For instructions on how to update this index when content is added, see `MAINTEN
 | Material Design 3 | `material` | active | ✓ | ✓ | ✓ | ✓ | 2026-05-11 |
 | Carbon Design System | `carbon` | active | ✓ | ✓ | ✓ | ✓ | 2026-05-12 |
 | Atlassian Design System | `atlassian` | active | ✓ | ✓ | ✓ | ✓ | 2026-05-12 |
+| Primer (GitHub) | `primer` | active | ✓ | — | ✓ | ✓ | 2026-05-12 |
 
 **Legend:** ✓ = content available · ◑ = partial · — = not yet captured · ⚠ = deprecated
 
@@ -251,6 +252,6 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 | ~~Carbon (IBM)~~ | ~~High~~ | *Captured 2026-05-12* |
 | ~~Atlassian Design System~~ | ~~High~~ | *Captured 2026-05-12* |
 | Ant Design | Medium | Large component surface; different design philosophy |
-| Primer (GitHub) | Medium | Clean and opinionated; strong color system |
+| ~~Primer (GitHub)~~ | ~~Medium~~ | *Captured 2026-05-12 — see `kb/design-systems/primer/`* |
 | Radix / Radix Themes | Medium | Modern primitive-first approach; headless-friendly |
 | Lightning (Salesforce) | Medium | Enterprise CRM context; very thorough |

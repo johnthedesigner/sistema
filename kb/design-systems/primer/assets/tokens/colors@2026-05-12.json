@@ -1,0 +1,124 @@
+---
+system: primer
+category: tokens
+topic: colors
+content_type: asset
+status: latest
+version_label: "current"
+retrieved: 2026-05-12
+source_url: https://github.com/primer/primitives/tree/main/src/tokens/functional/color
+tags: [color, tokens, functional, semantic, css-variables]
+---
+
+# Primer — Functional Color Tokens
+
+Sourced from `primer/primitives` `src/tokens/functional/color/`. Values shown are the light theme defaults; dark theme overrides are noted where they differ significantly.
+
+Token names correspond to CSS variables: `fgColor-default` → `var(--fgColor-default)`.
+
+---
+
+## Foreground (`fgColor`)
+
+| Token | Light value | Dark override | Description |
+|---|---|---|---|
+| `fgColor-default` | `neutral.13` (near-black) | `neutral.12` | Primary text — headings, body, labels |
+| `fgColor-muted` | `neutral.9` (mid-gray) | — | Secondary text — timestamps, metadata, helper text |
+| `fgColor-onEmphasis` | `neutral.0` (white) | `neutral.13` | Text on emphasis backgrounds |
+| `fgColor-onInverse` | `neutral.0` (white) | — | Text on inverse backgrounds |
+| `fgColor-link` | `accent` blue | — | Interactive link text |
+| `fgColor-disabled` | — | — | Disabled text and icons |
+| `fgColor-accent` | Blue | — | Accent foreground for links and active states |
+| `fgColor-success` | Green | — | Success state text and icons |
+| `fgColor-attention` | Yellow/amber | — | Warning state text and icons |
+| `fgColor-danger` | Red | — | Error/danger text and icons |
+| `fgColor-open` | Green | — | Open PR/issue state |
+| `fgColor-closed` | Red | — | Closed PR/issue state |
+| `fgColor-done` | Purple | — | Completed/merged state |
+| `fgColor-sponsors` | Magenta/pink | — | GitHub Sponsors context |
+
+---
+
+## Background (`bgColor`)
+
+| Token | Light value | Dark override | Description |
+|---|---|---|---|
+| `bgColor-default` | `neutral.0` (white) | `neutral.1` | Primary page background |
+| `bgColor-muted` | `neutral.1` (off-white) | `neutral.2` | Secondary areas — code blocks, table headers, sidebars |
+| `bgColor-inset` | Alias of `bgColor-muted` | `neutral.0` | Recessed areas — wells, input backgrounds |
+| `bgColor-emphasis` | `neutral.12` (near-black) | `neutral.7` | High-emphasis bg for tooltips, badges; pair with `fgColor-onEmphasis` |
+| `bgColor-inverse` | `neutral.12` | `neutral.13` | Opposite-theme element; pair with `fgColor-onInverse` |
+| `bgColor-accent-muted` | Light blue tint | — | Subtle accent highlight |
+| `bgColor-accent-emphasis` | Blue | — | Strong accent bg; pair with `fgColor-onEmphasis` |
+| `bgColor-success-muted` | Light green tint | — | Success callout bg |
+| `bgColor-success-emphasis` | Green | — | Primary button bg; pair with `fgColor-onEmphasis` |
+| `bgColor-attention-muted` | Light yellow tint | — | Warning callout bg |
+| `bgColor-attention-emphasis` | Amber | — | Warning badge bg |
+| `bgColor-danger-muted` | Light red tint | — | Error callout bg |
+| `bgColor-danger-emphasis` | Red | — | Danger button bg; pair with `fgColor-onEmphasis` |
+| `bgColor-open-muted` | Light green tint | — | Open state subtle bg |
+| `bgColor-open-emphasis` | Green | — | Open state strong bg |
+| `bgColor-closed-muted` | Light red/orange tint | — | Closed state subtle bg |
+| `bgColor-closed-emphasis` | Red/orange | — | Closed state strong bg |
+| `bgColor-done-muted` | Light purple tint | — | Done state subtle bg |
+| `bgColor-done-emphasis` | Purple | — | Done/merged state strong bg |
+| `bgColor-sponsors-muted` | Light pink tint | — | Sponsors subtle bg |
+| `bgColor-sponsors-emphasis` | Magenta/pink | — | Sponsors strong bg |
+
+---
+
+## Border (`borderColor`)
+
+| Token | Description |
+|---|---|
+| `borderColor-default` | Standard borders — cards, inputs, dropdowns |
+| `borderColor-muted` | Subtle dividers within components |
+| `borderColor-emphasis` | High-contrast borders |
+| `borderColor-accent-muted` | Subtle accent border |
+| `borderColor-accent-emphasis` | Strong accent border (e.g. focus ring for accent elements) |
+| `borderColor-success-muted` | Subtle success border |
+| `borderColor-success-emphasis` | Strong success border |
+| `borderColor-attention-muted` | Subtle warning border |
+| `borderColor-attention-emphasis` | Strong warning border |
+| `borderColor-danger-muted` | Subtle error border |
+| `borderColor-danger-emphasis` | Strong error border |
+| `borderColor-open-emphasis` | Open state strong border |
+| `borderColor-closed-emphasis` | Closed state strong border |
+| `borderColor-done-emphasis` | Done state strong border |
+
+---
+
+## Shadow
+
+| Token | Description |
+|---|---|
+| `shadow-resting-xsmall` | Cards and resting surfaces |
+| `shadow-resting-small` | Slightly elevated surfaces |
+| `shadow-resting-medium` | Elevated panels |
+| `shadow-floating-small` | Small floating elements (tooltips, dropdowns) |
+| `shadow-floating-medium` | Medium floating elements |
+| `shadow-floating-large` | Large floating elements (dialogs, drawers) |
+| `shadow-floating-xlarge` | Extra-large floating surfaces |
+| `shadow-inset` | Inset/sunken elements, active input states |
+
+---
+
+## Component token patterns
+
+Component tokens follow this naming convention:
+`{component}-{property}-{variant}`
+
+Examples:
+- `control-borderColor-default` — default border for form controls
+- `control-borderColor-danger` — error border for form controls
+- `focus-outlineColor` — focus ring color (accent color in all themes)
+- `selection-bgColor` — selected text background
+
+---
+
+## Usage notes
+
+- **Never use base tokens directly** (`color-scale-blue-5`). Always use functional or component tokens.
+- **`fgColor-onEmphasis` is mandatory** when text appears on any `bgColor-*.emphasis` background.
+- **Semantic role tokens** (`fgColor-success`, `bgColor-danger-muted`, etc.) automatically adapt to the active theme — use them instead of hue-specific tokens.
+- **Nine themes** share the same token names; values are compiled per theme at build time.
