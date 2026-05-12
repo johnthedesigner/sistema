@@ -69,5 +69,23 @@ When a new versioned file would have the same filename as an existing file (beca
 ### Navigation chrome stripping in Firecrawl output
 Firecrawl output from documentation SPAs consistently contains navigation chrome before the first H1 (a list of navigation links, breadcrumbs, and icon labels) and a "Previous / Next" footer section at the end. When processing raw scrape output into KB files: strip all content before the first H1, and strip from the first `[arrow_left_alt Previous...]` or equivalent icon-text footer marker onward. Never include navigation link lists in KB files. A file under ~80 lines from a content-rich page is a likely JS-render shell — flag it rather than processing.
 
+### Playbook play format
+Plays in `_meta/TASK_PLAYBOOKS.md` follow this format:
+```
+## slug — Title
+
+**Stage:** N
+**Tags:** tag1, tag2
+
+[body — the actual copyable prompt text]
+```
+Each play is separated by `---`. Slugs are kebab-case and stable (URL-safe). Stage (1–5) determines presentation order in the UI. Body text contains `{{sistema_url}}` wherever the deployed app URL is needed — the `CopyButton` client component substitutes `window.location.origin` at copy time, so no URL is ever hardcoded in play content.
+
+### `{{sistema_url}}` template substitution
+Play prompt bodies use `{{sistema_url}}` as a placeholder for the deployed app origin. `CopyButton` in `src/components/playbooks/CopyButton.tsx` calls `text.replace(/\{\{sistema_url\}\}/g, window.location.origin)` before writing to the clipboard. This means plays work correctly in any environment (local dev, Vercel preview, production) without any code change. Never hardcode a domain in play body text.
+
+### Play testing approach
+Validate play quality by running them end-to-end: copy the play from the deployed app (or local dev server), paste into a coding agent (Claude Code, Cursor, etc.) in a scratch repository, and inspect the quality of the generated output. This requires the app to be accessible at a live URL — play testing should happen after Vercel deployment, not before. Document findings in `SESSION_LOG.md` and update play body text based on observed output quality. Play testing is a Phase 2 activity.
+
 ### GitHub material-web SCSS token file delegation
 The top-level SCSS files in material-web's `tokens/` directory (e.g. `_md-sys-color.scss`, `_md-sys-typescale.scss`) use `@forward` to delegate to versioned modules in `tokens/versions/[version]/`. Fetching the top-level file returns no actual token values. To read specific values: browse the `tokens/versions/` directory to identify the current version (e.g. `v0_192`), then fetch the specific file within that directory (e.g. `_md-ref-palette.scss` for reference colors, `_md-sys-typescale.scss` for typescale values). File names use underscore prefix — paths without underscore (e.g. `md-sys-color.scss`) will 404.
