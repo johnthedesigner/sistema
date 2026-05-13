@@ -6,22 +6,39 @@ import type { ContentFile, ContentFrontmatter, StubFrontmatter, SystemIndex } fr
 const KB_ROOT = process.cwd()
 const KB_BASE = path.join(KB_ROOT, 'kb')
 
-export const KB_CATEGORIES = ['design-systems', 'standards', 'foundations'] as const
+const REFERENCE_CATEGORIES = ['design-systems', 'standards', 'foundations'] as const
+const REFERENCE_CATEGORY_SET = new Set(REFERENCE_CATEGORIES as readonly string[])
+
+export const KB_CATEGORIES = [...REFERENCE_CATEGORIES, 'principles'] as const
 export type KBCategory = typeof KB_CATEGORIES[number]
+
+function getCategoryDir(category: KBCategory): string {
+  if (REFERENCE_CATEGORY_SET.has(category)) return path.join('reference', category)
+  return category
+}
+
+function resolveKBPath(kbPath: string): string {
+  for (const cat of REFERENCE_CATEGORIES) {
+    if (kbPath.startsWith(`kb/${cat}/`) || kbPath === `kb/${cat}`) {
+      return kbPath.replace(`kb/${cat}`, `kb/reference/${cat}`)
+    }
+  }
+  return kbPath
+}
 
 /**
  * Returns slugs for all entries in a KB category.
  * A valid entry directory contains an _index.md file.
  */
 export function listSystems(category: KBCategory = 'design-systems'): string[] {
-  const categoryDir = path.join(KB_BASE, category)
+  const categoryDir = path.join(KB_BASE, getCategoryDir(category))
   if (!fs.existsSync(categoryDir)) return []
   const entries = fs.readdirSync(categoryDir, { withFileTypes: true })
   return entries
     .filter(e => {
       if (!e.isDirectory()) return false
       if (e.name.startsWith('_') || e.name.startsWith('.')) return false
-      const indexPath = path.join(categoryDir, e.name, '_index.md')
+      const indexPath = path.join(KB_BASE, getCategoryDir(category), e.name, '_index.md')
       return fs.existsSync(indexPath)
     })
     .map(e => e.name)
@@ -32,7 +49,7 @@ export function listSystems(category: KBCategory = 'design-systems'): string[] {
  * Reads and returns the raw markdown body of a system's _index.md.
  */
 export function readSystemIndex(slug: string, category: KBCategory = 'design-systems'): SystemIndex {
-  const indexPath = path.join(KB_BASE, category, slug, '_index.md')
+  const indexPath = path.join(KB_BASE, getCategoryDir(category), slug, '_index.md')
   if (!fs.existsSync(indexPath)) {
     throw new Error(`System index not found: ${category}/${slug}/_index.md`)
   }
@@ -46,14 +63,15 @@ export function readSystemIndex(slug: string, category: KBCategory = 'design-sys
  * e.g. "kb/design-systems/material/guidance/foundations/color-system"
  */
 function readStubTarget(stubPath: string): string {
-  const mdPath = path.join(KB_ROOT, `${stubPath}.md`)
-  const jsonPath = path.join(KB_ROOT, `${stubPath}.json`)
+  const resolvedPath = resolveKBPath(stubPath)
+  const mdPath = path.join(KB_ROOT, `${resolvedPath}.md`)
+  const jsonPath = path.join(KB_ROOT, `${resolvedPath}.json`)
   const stubFilePath = fs.existsSync(mdPath) ? mdPath
     : fs.existsSync(jsonPath) ? jsonPath
     : null
 
   if (!stubFilePath) {
-    throw new Error(`Stub not found: ${stubPath} (tried .md and .json)`)
+    throw new Error(`Stub not found: ${resolvedPath} (tried .md and .json)`)
   }
   const raw = fs.readFileSync(stubFilePath, 'utf-8')
   const { data } = matter(raw)
@@ -106,7 +124,7 @@ export function resolveStub(stubPath: string): ContentFile {
  * Example: ['guidance', 'foundations', 'color-system']
  */
 export function listStubsForSystem(slug: string, category: KBCategory = 'design-systems'): string[][] {
-  const systemDir = path.join(KB_BASE, category, slug)
+  const systemDir = path.join(KB_BASE, getCategoryDir(category), slug)
   if (!fs.existsSync(systemDir)) {
     throw new Error(`System directory not found: ${category}/${slug}`)
   }
@@ -137,7 +155,7 @@ export function listStubsForSystem(slug: string, category: KBCategory = 'design-
  * e.g. "/raw/design-systems/material/design-md/DESIGN.md"
  */
 export function findDesignMd(slug: string, category: KBCategory = 'design-systems'): string | null {
-  const stubPath = path.join(KB_BASE, category, slug, 'design-md', 'DESIGN.md')
+  const stubPath = path.join(KB_BASE, getCategoryDir(category), slug, 'design-md', 'DESIGN.md')
   return fs.existsSync(stubPath) ? `/raw/${category}/${slug}/design-md/DESIGN.md` : null
 }
 

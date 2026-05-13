@@ -28,6 +28,198 @@ Each session entry follows this structure:
 
 ## Log
 
+### 2026-05-13 — Task 6.5: Synthesis — Accessibility floor
+**Operator:** LLM-assisted
+**Systems affected:** kb/principles (new: accessibility/)
+**Summary:** Created accessibility floor synthesis document. Structured as a constraint checklist with verification methods for every requirement. Sections: color contrast (1.4.3 normal text 4.5:1 / large 3:1; 1.4.11 UI components 3:1; dark mode as separate verification pass + APCA supplemental; no raw color values in components); keyboard navigation (2.1.1 all interactive elements reachable; 2.1.2 no keyboard traps; tab order matches visual order); focus visibility (2.4.7 always visible with `:focus-visible` pattern; 3:1 ring contrast; 2.4.11 focused element not entirely hidden with scroll-padding-top fix); touch targets (2.5.8 24×24 CSS px AA minimum; 2.5.5 44×44 industry standard with padding implementation); semantic HTML and ARIA (semantic elements first table; accessible name sources in priority order; dynamic state ARIA attributes table); motion (prefers-reduced-motion with CSS pattern; cross-reference to motion synthesis); text readability (16px body minimum; 90-char maximum line length; 1.5 line height minimum). Sources: all three WCAG KB files + foundations color/contrast-and-accessibility.
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/principles/accessibility/floor@2026-05-13.md | Accessibility floor synthesis |
+| created | kb/principles/accessibility/floor.md | Stub |
+| created | kb/principles/accessibility/_index.md | Section index with source map |
+| updated | _meta/INDEX.md | Added accessibility floor to Section 1d; v2.9 → v3.0 |
+
+---
+
+### 2026-05-13 — Task 6.4: Synthesis — Spacing, shape, depth, motion
+**Operator:** LLM-assisted
+**Systems affected:** kb/principles (new: spacing/, shape/, depth/, motion/)
+**Summary:** Created four synthesis documents. Spacing/layout: base unit selection, unified scale across three levels, density axis, content-first breakpoints, responsive approaches, never-arbitrary rule. Shape: radius as personality signal, three scale approaches (named/numeric/global-factor), component consistency rules, pill usage. Depth: two elevation models (shadow vs. tonal), hybrid approach for dual-mode products, layering rules, z-index scale pattern. Motion: prefers-reduced-motion as non-negotiable, easing semantics (enter/exit/move), duration guidelines, functional vs. expressive stance, composite token structure.
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/principles/spacing/layout@2026-05-13.md | Spacing synthesis |
+| created | kb/principles/spacing/layout.md | Stub |
+| created | kb/principles/spacing/_index.md | Section index |
+| created | kb/principles/shape/architecture@2026-05-13.md | Shape synthesis |
+| created | kb/principles/shape/architecture.md | Stub |
+| created | kb/principles/shape/_index.md | Section index |
+| created | kb/principles/depth/architecture@2026-05-13.md | Depth synthesis |
+| created | kb/principles/depth/architecture.md | Stub |
+| created | kb/principles/depth/_index.md | Section index |
+| created | kb/principles/motion/architecture@2026-05-13.md | Motion synthesis |
+| created | kb/principles/motion/architecture.md | Stub |
+| created | kb/principles/motion/_index.md | Section index |
+| updated | _meta/INDEX.md | Added 4 new entries to Section 1d; v2.8 → v2.9 |
+
+---
+
+### 2026-05-13 — Task 6.3: Synthesis — Typography architecture
+**Operator:** LLM-assisted
+**Systems affected:** kb/principles (new: typography/)
+**Summary:** Created typography architecture synthesis document. Covers density axis (established before any scale decision), modular vs. hand-tuned scale construction with ratio selection guide, named roles vs. numeric steps decision framework, non-negotiable legibility constraints (line height per role, measure 45–90 chars, letter-spacing direction by size, x-height and apparent size), variable font decision framework, and how typography interacts with the spacing system. Sourced from all six design system typography KB files and both foundations typography files.
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/principles/typography/architecture@2026-05-13.md | Typography architecture synthesis |
+| created | kb/principles/typography/architecture.md | Stub |
+| created | kb/principles/typography/_index.md | Section index with source map |
+| updated | _meta/INDEX.md | Added typography architecture to Section 1d; v2.7 → v2.8 |
+
+---
+
+### 2026-05-13 — Task 6.2: Synthesis — Color architecture
+**Operator:** LLM-assisted
+**Systems affected:** kb/principles (new: color/)
+**Summary:** Created color architecture synthesis document. Covers the four major architectural models (tonal palettes, step scales, named palettes, contextual/layered tokens) with "use when" framing for each; a three-question decision framework mapping product context to architecture; the non-negotiable floor (contrast minimums, defined foreground pairs, no raw values in components, reserved feedback colors); dark mode tonal shift logic (mirroring vs. inversion); and neutral palette chroma decisions. Sources: all five design system color KB files + both foundations color files + WCAG standards.
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/principles/color/architecture@2026-05-13.md | Color architecture synthesis |
+| created | kb/principles/color/architecture.md | Stub |
+| created | kb/principles/color/_index.md | Section index with source map |
+| updated | _meta/INDEX.md | Added color architecture to Section 1d; v2.6 → v2.7 |
+
+---
+
+### 2026-05-13 — Task 6.1: Synthesis — Token architecture
+**Operator:** LLM-assisted
+**Systems affected:** kb/principles (new)
+**Summary:** Created first synthesis document in `kb/principles/`. Token architecture synthesis covers the tier model (primitive → semantic → component) with rationale for each tier, naming principles (role vs. value), dark mode at the token level (three CSS approaches with tradeoffs), required vs. optional token categories, common failure modes, and a decision framework. Sourced from Material, Atlassian, Radix, and Ant Design token KB files.
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/principles/tokens/architecture@2026-05-13.md | Token architecture synthesis |
+| created | kb/principles/tokens/architecture.md | Stub |
+| created | kb/principles/tokens/_index.md | Section index with source map |
+| updated | _meta/INDEX.md | Added Section 1d (Principles), token architecture entry; v2.5 → v2.6 |
+
+---
+
+### 2026-05-13 — Task 6.0: KB restructure
+**Operator:** LLM-assisted
+**Systems affected:** meta only (filesystem + app)
+**Summary:** Moved `kb/design-systems/`, `kb/standards/`, and `kb/foundations/` under `kb/reference/`. Added `principles` as a new KB category. App URLs unchanged — `reference/` is transparent to the router. Updated `src/lib/kb.ts` with `getCategoryDir` and `resolveKBPath` helpers. Added `principles` to all CATEGORY_LABELS and CATEGORY_META records. Updated INDEX.md paths.
+
+| Action | File | Notes |
+|---|---|---|
+| moved | kb/design-systems/ → kb/reference/design-systems/ | git mv |
+| moved | kb/standards/ → kb/reference/standards/ | git mv |
+| moved | kb/foundations/ → kb/reference/foundations/ | git mv |
+| updated | src/lib/kb.ts | Added getCategoryDir, resolveKBPath, principles category |
+| updated | src/app/kb/page.tsx | Added principles to CATEGORY_META |
+| updated | src/app/kb/[category]/page.tsx | Added principles to CATEGORY_LABELS |
+| updated | src/app/kb/[category]/[slug]/page.tsx | Added principles to CATEGORY_LABELS |
+| updated | src/app/kb/[category]/[slug]/[...path]/page.tsx | Added principles to CATEGORY_LABELS |
+| updated | _meta/INDEX.md | Updated all file paths to reference/ prefix; v2.4 → v2.5 |
+
+---
+
+### 2026-05-13 — Task 5.4: End-to-end play testing
+**Operator:** LLM-assisted
+**Systems affected:** meta (exemplars only)
+**Summary:** Tested two Stage 1–2 plays end-to-end. Play 1 (`generate-design-md`): generated a complete DESIGN.md for "Helix" telemedicine platform using forest-teal primary; passed all 4 evaluation criteria (format match, internal consistency, no M3-specific copy, no unresolved variables). Play 2 (`generate-color-scheme`): generated a full light + dark CSS token scheme for "Verdant" sustainability platform using forest-green primary, olive secondary, amber tertiary, and green-tinted neutral; passed all 4 criteria.
+
+| Action | File | Notes |
+|---|---|---|
+| created | _meta/exemplars/design-md-files/generate-design-md-helix.md | Play 1 output — Helix telemedicine DESIGN.md |
+| created | _meta/exemplars/semantic-token-systems/generate-color-scheme-verdant.md | Play 2 output — Verdant green color scheme |
+
+---
+
+### 2026-05-13 — Task 5.3: Foundations KB — Typography science
+**Operator:** LLM-assisted
+**Systems affected:** foundations (typography); meta
+**Summary:** Added typography science to `kb/foundations/`. Two content files: type-scales (modular scale mathematics, musical interval basis, classical scale from Bringhurst, 13-ratio comparison table, optical scaling, productive/expressive split, design system scale comparison across 5 systems) and legibility (legibility vs. readability distinction, x-height and UPM mechanics, line height mathematics including 120–145% rule and why unitless CSS values are correct, optimal measure, the four body-text variables). Sources: spencermortensen.com/articles/typographic-scale/, practicaltypography.com. `_meta/INDEX.md` updated to v2.4.
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/foundations/typography/_index.md | Section index |
+| created | kb/foundations/typography/type-scales@2026-05-13.md | Scale ratio math, musical interval table, classical scale, optical scaling, productive/expressive split, design system comparison |
+| created | kb/foundations/typography/type-scales.md | Stub |
+| created | kb/foundations/typography/legibility@2026-05-13.md | x-height, cap-height, UPM, line height math (120–145% rule, unitless CSS), measure, four body-text variables |
+| created | kb/foundations/typography/legibility.md | Stub |
+| updated | _meta/INDEX.md | v2.3 → v2.4; Typography Science added to Section 1c Foundations; Section 2.21 added |
+| updated | _meta/CHANGELOG.md | This entry |
+
+---
+
+### 2026-05-13 — Task 5.2: Ant Design capture
+**Operator:** LLM-assisted
+**Systems affected:** design-systems (ant-design); meta
+**Summary:** Added Ant Design 5.x as the seventh design system. Scraped 4 pages from ant.design via WebFetch (design values, color system, typography, token customization). Wrote 4 guidance KB files covering: design values (Natural/Certain/Meaningful/Growing philosophy and enterprise context), color system (HSB model, 12-color × 10-step palette, functional and neutral tokens, alpha-based neutral strategy), typography (system font stack with Noto Sans for CJK, 14px base, weight guidance for Chinese text), and design token architecture (3-layer Seed→Map→Alias, ConfigProvider, preset algorithms, full token vocabulary). Community DESIGN.md generated. `_meta/INDEX.md` updated to v2.3 (7 systems).
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/design-systems/ant-design/_index.md | System index |
+| created | kb/design-systems/ant-design/guidance/foundations/design-values@2026-05-13.md | Natural/Certain/Meaningful/Growing; enterprise context; contrast with other systems |
+| created | kb/design-systems/ant-design/guidance/foundations/design-values.md | Stub |
+| created | kb/design-systems/ant-design/guidance/foundations/color-system@2026-05-13.md | HSB model, 12-palette × 10-step, brand #1677ff, functional colors, alpha neutral tokens |
+| created | kb/design-systems/ant-design/guidance/foundations/color-system.md | Stub |
+| created | kb/design-systems/ant-design/guidance/foundations/typography@2026-05-13.md | System font stack + Noto Sans, 14px base, weight table, CJK weight guidance, alpha text tokens |
+| created | kb/design-systems/ant-design/guidance/foundations/typography.md | Stub |
+| created | kb/design-systems/ant-design/guidance/foundations/design-tokens@2026-05-13.md | 3-layer architecture, ConfigProvider, algorithms, full token vocabulary tables |
+| created | kb/design-systems/ant-design/guidance/foundations/design-tokens.md | Stub |
+| created | kb/design-systems/ant-design/design-md/DESIGN@2026-05-13.md | Community DESIGN.md — all 8 sections including design values context |
+| created | kb/design-systems/ant-design/design-md/DESIGN.md | Stub |
+| updated | _meta/INDEX.md | v2.2 → v2.3; 7 systems; Ant Design added to Section 1, Quick Reference, coverage matrix, Section 2 cross-refs |
+| updated | _meta/CHANGELOG.md | This entry |
+
+---
+
+### 2026-05-13 — Task 5.1 continued: Radix spacing + radius capture
+**Operator:** LLM-assisted
+**Systems affected:** design-systems (radix); meta
+**Summary:** Completed Radix Themes capture with spacing and radius pages that couldn't be scraped in the previous session due to rate limits. Scraped radix-ui.com/themes/docs/theme/spacing and /radius via WebFetch; wrote two new guidance KB files; regenerated DESIGN.md (v2) incorporating all six topic areas (color, typography, design tokens, spacing, radius, getting started). `_meta/INDEX.md` updated to reflect full Radix coverage.
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/design-systems/radix/guidance/foundations/spacing@2026-05-13.md | 9-step 4px-grid scale, CSS variable tokens, layout props, responsive breakpoints, global scaling |
+| created | kb/design-systems/radix/guidance/foundations/spacing.md | Stub |
+| created | kb/design-systems/radix/guidance/foundations/radius@2026-05-13.md | Global radius prop, CSS variable tokens (--radius-1 to --radius-6), component-level overrides |
+| created | kb/design-systems/radix/guidance/foundations/radius.md | Stub |
+| created | kb/design-systems/radix/design-md/DESIGN@2026-05-13.md | Updated DESIGN.md v2 — adds spacing scale, radius tokens, expanded Do's/Don'ts |
+| updated | kb/design-systems/radix/design-md/DESIGN.md | Stub updated: points to DESIGN@2026-05-13.md |
+| updated | kb/design-systems/radix/_index.md | Added spacing + radius to Content Inventory and Source Map; version history updated |
+| updated | _meta/INDEX.md | Radix section updated to 2026-05-13; Radix coverage matrix filled in; 2.3 Spacing section populated |
+| updated | _meta/CHANGELOG.md | This entry |
+
+---
+
+### 2026-05-12 — Task 5.1: Radix / Radix Themes design system capture
+**Operator:** LLM-assisted
+**Systems affected:** design-systems (radix); meta
+**Summary:** Added Radix Themes 3.x as the sixth design system. Scraped four pages from radix-ui.com/themes/docs via Firecrawl (free tier — 3 req/min limit). Wrote four guidance/implementation files covering the two-axis color model (accent × gray), 12-step semantic scales, config-first `<Theme>` component props, cross-component variant vocabulary (classic/solid/soft/surface/outline/ghost), 9-step typography scale, and installation/setup. Community-generated DESIGN.md file generated from KB content. `_meta/INDEX.md` updated to v2.2 (60 content files; 6 systems); Primer and Radix sections added to Section 1.
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/design-systems/radix/_index.md | System index with Source Map and Content Inventory |
+| created | kb/design-systems/radix/guidance/foundations/color-system@2026-05-12.md | 12-step scales, two-axis model, CSS variable tokens, alpha variants, customization |
+| created | kb/design-systems/radix/guidance/foundations/color-system.md | Stub |
+| created | kb/design-systems/radix/guidance/foundations/typography@2026-05-12.md | 9-step scale (12px–60px), font weights, system font stack, next/font integration |
+| created | kb/design-systems/radix/guidance/foundations/typography.md | Stub |
+| created | kb/design-systems/radix/guidance/foundations/design-tokens@2026-05-12.md | Theme props, variant system, dark mode, CSS variable categories |
+| created | kb/design-systems/radix/guidance/foundations/design-tokens.md | Stub |
+| created | kb/design-systems/radix/implementation/getting-started@2026-05-12.md | Installation, setup, Theme props table, Primitives vs Themes comparison |
+| created | kb/design-systems/radix/implementation/getting-started.md | Stub |
+| created | kb/design-systems/radix/design-md/DESIGN@2026-05-12.md | Community-generated DESIGN.md — KB frontmatter + disclaimer + YAML spec + 8 sections |
+| created | kb/design-systems/radix/design-md/DESIGN.md | Stub pointing to DESIGN@2026-05-12.md |
+| updated | _meta/INDEX.md | v2.1 → v2.2; 51 → 60 content files; Primer + Radix sections added to Section 1 |
+| updated | _meta/CHANGELOG.md | This entry |
+
+---
+
 ### 2026-05-12 — Task 4.3: Color science foundations
 **Operator:** LLM-assisted
 **Systems affected:** foundations; meta

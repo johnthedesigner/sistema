@@ -14,14 +14,18 @@ src/            — Next.js app source (App Router, components, lib utilities)
 public/         — Static assets for the app
 _meta/          — KB schema, maintenance procedures, usage guide, playbooks, index, changelog
 kb/             — All knowledge base content
-  design-systems/ — One directory per design system (material/, carbon/, atlassian/, etc.)
-    [system]/     — System directory; each contains:
-      guidance/       — Human-facing design documentation (sourced from doc sites)
-      implementation/ — Developer-facing technical docs (sourced from GitHub)
-      assets/         — Raw token files (JSON, SCSS, CSS)
-      design-md/      — Community-generated DESIGN.md files
-  standards/    — Normative standards (WCAG, ARIA APG, APCA) — planned
-  foundations/  — Color science, typography, spacing theory — planned
+  reference/    — Source documentation from external systems (Phase 6 restructure target)
+    design-systems/ — One directory per design system (material/, carbon/, atlassian/, etc.)
+      [system]/     — System directory; each contains:
+        guidance/       — Human-facing design documentation (sourced from doc sites)
+        implementation/ — Developer-facing technical docs (sourced from GitHub)
+        assets/         — Raw token files (JSON, SCSS, CSS)
+        design-md/      — Community-generated DESIGN.md files
+    standards/    — Normative standards (WCAG, ARIA APG, APCA, DESIGN.md spec)
+    foundations/  — Scientific underpinnings: perceptual color models, typography science
+  principles/   — Cross-system synthesis: distilled wisdom for building new design systems (Phase 6+)
+                  Organized by concern: color/, typography/, tokens/, accessibility/, spacing/, ai/
+                  NOT "what system X does" — synthesis of what good looks like across all of them
 tools/          — Scripts for scraping, processing, and validating KB content
   scrape/       — Firecrawl and Playwright scrapers
   validate/     — Frontmatter linting and stub verification
@@ -29,6 +33,8 @@ docs/           — Process documentation
 tasks/          — Phase task files
 logs/           — Archived session logs
 ```
+
+**Current state vs. planned:** Until Phase 6 Task 6.0 completes the migration, `kb/design-systems/`, `kb/standards/`, and `kb/foundations/` remain at the top level. Do not create content under `kb/reference/` until that migration runs. New principles content goes in `kb/principles/` once Task 6.0 creates the directory.
 
 ## Architectural rules — Knowledge Base
 
@@ -71,6 +77,26 @@ The KB has three top-level categories. The full definitions are in `_meta/SCHEMA
 ### Step 1: Identify the primary source
 
 Every KB entry must trace to an official primary source — the design system's own documentation site, official GitHub repository, or official published package. The correct source URL must be confirmed before any content is written.
+
+### Step 1b: Verify source licensing before writing any KB content
+
+Before scraping or writing, confirm the source falls into one of the three permitted tiers. Document the tier in the system's `_index.md` Source Map.
+
+**Tier 1 — Explicitly licensed (preferred):**
+Creative Commons (CC-BY, CC-BY-SA, CC0), MIT, Apache 2.0, W3C Document License, or other OSI-approved open license. Use freely; record the license name in the Source Map.
+
+**Tier 2 — Official public documentation, no explicit license:**
+Documentation published openly by the design system's own maintainers (their official doc site or official GitHub repo), where the intent to inform developers and designers is clear, but no Creative Commons or open source license is stated. Permitted for synthesis (not verbatim reproduction); record as "public, no explicit license" in the Source Map. This covers most major design systems.
+
+**Tier 3 — Public research or articles, no explicit license:**
+Publicly accessible scientific articles, personal research posts, or blog content where the underlying research is sound and the synthesis adds distinct value. Permitted only for synthesis with full attribution. Record as "synthesized, no explicit license — pending license audit" in the Source Map. Flag the entry for the next license compliance audit task.
+
+**Not permitted:**
+- Paywalled content
+- Content explicitly marked "no commercial use," "no reproduction," or similar restrictions
+- Content from unofficial third-party aggregators — always prefer the canonical source
+
+If a source's license status cannot be determined and it does not fit Tier 2, stop and report to the user before proceeding. Do not assume permissiveness.
 
 ### Step 2: Attempt Firecrawl first
 
@@ -190,3 +216,9 @@ Exemplar output files live in `_meta/exemplars/[category]/[filename].md`. Requir
 
 ### Storybook MDX component files often lack prose content
 Several `*.mdx` files in Carbon's React component source (`packages/react/src/components/*/`) are Storybook template shells — they delegate documentation to `<ArgTypes />` and external links rather than containing prose. Fetching these files returns little usable KB content. For Carbon component documentation, prefer carbondesignsystem.com (Firecrawl with `--wait 2000`) or usage.md files in the same directory, over the primary MDX file.
+
+### Play testing can run in-session, not just against a live Vercel URL
+Earlier guidance stated that play testing requires the app deployed to a live URL. In practice, plays can be tested end-to-end within a Claude session: the agent reads the play prompt from `_meta/TASK_PLAYBOOKS.md`, substitutes `{{sistema_url}}` with the actual running URL (localhost or Vercel preview), and executes the play. The output is evaluated against the same 4 criteria (format match, internal consistency, no reference-system-specific copy, no unresolved variables) and saved to `_meta/exemplars/`. This approach is valid and does not require a production deployment to be meaningful.
+
+### `kb/principles/` content is synthesis, not documentation
+Files in `kb/principles/` are not documentation of what any one design system does. They are original synthesis documents that distill collective wisdom from `kb/reference/` content (design systems, standards, foundations) into system-independent guidance for building new design systems. The key distinctions: (1) never attribute a pattern to a specific system ("Material does X") — state the principle directly; (2) document the *decision framework* (when approach A vs. B is appropriate), not just the approaches; (3) non-negotiable constraints (from WCAG, APCA, perceptual science) must be clearly distinguished from recommended practices. Plays reference `kb/principles/` for craft knowledge and a project's own living brief for project-state knowledge — never the reverse.

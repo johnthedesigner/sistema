@@ -29,6 +29,12 @@ const CATEGORY_META: Record<KBCategory, {
     purpose: 'Scientific and theoretical underpinnings of design: perceptual color models, typography science, spacing theory. Use these when you need to reason from first principles about why design systems are structured the way they are.',
     href: '/kb/foundations',
   },
+  'principles': {
+    title: 'Principles',
+    description: 'For building something new.',
+    purpose: 'Cross-system synthesis documents that distill what good looks like across all reference systems. Use these as the foundation for building original, professional-quality design systems — not as templates to copy.',
+    href: '/kb/principles',
+  },
 }
 
 export default function KBLandingPage() {
@@ -37,7 +43,7 @@ export default function KBLandingPage() {
       <h1 className="text-3xl font-bold mb-3">Knowledge Base</h1>
       <p className="text-gray-500 mb-12 max-w-2xl">
         Structured reference material for building design systems with AI coding tools.
-        Three sections — each with a different relationship to the material.
+        Four sections — each with a different relationship to the material.
       </p>
 
       <div className="space-y-4">

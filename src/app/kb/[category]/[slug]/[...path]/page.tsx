@@ -31,6 +31,7 @@ const CATEGORY_LABELS: Record<KBCategory, string> = {
   'design-systems': 'Design Systems',
   'standards': 'Standards',
   'foundations': 'Foundations',
+  'principles': 'Principles',
 }
 
 export async function generateStaticParams() {
