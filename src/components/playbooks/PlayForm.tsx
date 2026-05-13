@@ -12,6 +12,16 @@ function formatLabel(varName: string): string {
   return varName.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
 }
 
+const PLACEHOLDERS: Record<string, string> = {
+  project_context: 'e.g. "B2B analytics tool for enterprise finance teams — should feel calm, professional, and trustworthy"',
+  color_direction: 'e.g. "deep blue primary with warm amber accents" or paste a hex value like #2563EB',
+  tailwind_colors: 'Paste the colors section from your tailwind.config, e.g. blue, indigo, slate',
+}
+
+function getPlaceholder(varName: string): string {
+  return PLACEHOLDERS[varName] ?? `Enter ${formatLabel(varName).toLowerCase()}…`
+}
+
 export function PlayForm({ body }: { body: string }) {
   const variables = extractVariables(body)
   const [values, setValues] = useState<Record<string, string>>(
@@ -49,7 +59,7 @@ export function PlayForm({ body }: { body: string }) {
             id={`var-${v}`}
             value={values[v]}
             onChange={e => setValues(prev => ({ ...prev, [v]: e.target.value }))}
-            placeholder={`Enter ${formatLabel(v).toLowerCase()}…`}
+            placeholder={getPlaceholder(v)}
             rows={3}
             className="w-full text-sm border border-gray-200 rounded-md px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 resize-y"
           />

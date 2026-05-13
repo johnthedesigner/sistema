@@ -1,11 +1,11 @@
 # INDEX.md
 # Design System Knowledge Base — Master Index
 
-**Version:** 1.5
+**Version:** 2.0
 **Created:** 2026-05-11
 **Last Updated:** 2026-05-12
 **Systems Indexed:** 4
-**Total Content Files:** 38
+**Total Content Files:** 46
 
 This is the master index for the design system knowledge base. It provides two cross-referenced views of all content: by design system, and by category. Use this file as your first navigation stop in any LLM session before retrieving specific content.
 
@@ -63,6 +63,48 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 - Implementation: `kb/design-systems/carbon/implementation/` (getting-started)
 - Assets: `kb/design-systems/carbon/assets/tokens/` (colors, white-theme)
 - DESIGN.md: `kb/design-systems/carbon/design-md/DESIGN.md`
+
+---
+
+## Section 1b: Standards
+
+*Authoritative format specifications and normative standards you conform to. See `_meta/SCHEMA.md` Section 0 for full category definitions.*
+
+### WCAG 2.2
+**Slug:** `wcag` | **Status:** Active | **Last updated:** 2026-05-12
+
+W3C normative accessibility standard (October 2023). Covers the criteria most relevant to UI component implementation.
+
+- System index: `kb/standards/wcag/_index.md`
+- Color contrast: `kb/standards/wcag/color-contrast@2026-05-12.md` — 1.4.3 (4.5:1/3:1), 1.4.6 (7:1/4.5:1), 1.4.11 (3:1 UI components)
+- Keyboard and focus: `kb/standards/wcag/keyboard-and-focus@2026-05-12.md` — 2.1.1 (keyboard), 2.1.2 (no trap), 2.4.7 (focus visible), 2.4.11 (focus not obscured)
+- Components: `kb/standards/wcag/components@2026-05-12.md` — 2.5.5 (44×44px), 2.5.8 (24×24px), 4.1.2 (name/role/value)
+
+---
+
+### DESIGN.md Format Specification
+**Slug:** `design-md` | **Status:** Active | **Last updated:** 2026-05-12
+
+Google Stitch's specification for a plain-text format that encodes a product's visual language for AI coding agents. Two-layer format: YAML front matter (machine-readable tokens) + markdown body (human-readable rationale). 8 canonical sections with defined conformance behavior.
+
+- System index: `kb/standards/design-md/_index.md`
+- Overview: `kb/standards/design-md/overview@2026-05-12.md` — what DESIGN.md is, philosophy, creation paths, minimal example
+- Spec: `kb/standards/design-md/spec@2026-05-12.md` — YAML token schema, 8 sections, type system, consumer behavior
+
+---
+
+## Section 1c: Foundations
+
+*Scientific and theoretical underpinnings of design — the why behind design decisions. See `_meta/SCHEMA.md` Section 0 for full category definitions.*
+
+### Color Science
+**Slug:** `color` | **Status:** Active | **Last updated:** 2026-05-12
+
+Perceptual color models and contrast algorithms — the scientific basis for why design systems structure color the way they do.
+
+- Section index: `kb/foundations/color/_index.md`
+- Perceptual models: `kb/foundations/color/perceptual-models@2026-05-12.md` — HSL, CIELAB, CAM16-UCS, HCT, OKLab; perceptual uniformity; which models CSS, Material, and image tools use
+- Contrast and accessibility: `kb/foundations/color/contrast-and-accessibility@2026-05-12.md` — WCAG relative luminance formula, APCA Lc values, tonal palette design for accessibility
 
 ---
 
@@ -255,6 +297,8 @@ IBM's enterprise design system. Best reference for: neutral-first flat color pal
 |---|---|---|
 | ~~Carbon (IBM)~~ | ~~High~~ | *Captured 2026-05-12* |
 | ~~Atlassian Design System~~ | ~~High~~ | *Captured 2026-05-12* |
+| Google Stitch | High | Created the DESIGN.md format; native AI-first design system; spec at stitch.withgoogle.com |
+| Claude Design | High | Anthropic's design language; directly relevant to Claude Code / AI tool UI patterns |
 | Ant Design | Medium | Large component surface; different design philosophy |
 | ~~Primer (GitHub)~~ | ~~Medium~~ | *Captured 2026-05-12 — see `kb/design-systems/primer/`* |
 | Radix / Radix Themes | Medium | Modern primitive-first approach; headless-friendly |

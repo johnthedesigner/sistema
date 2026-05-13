@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { DesignMdCallout } from '@/components/shared/DesignMdCallout'
 
 export const metadata: Metadata = {
   title: 'How to use Sistema',
@@ -89,9 +90,13 @@ export default function GuidePage() {
       {/* ── Section 1 ── */}
       <section className="mb-14">
         <h2 className="text-xl font-semibold text-gray-900 mb-1">Adding a DESIGN.md to your project</h2>
-        <p className="text-gray-500 mb-6">
+        <p className="text-gray-500 mb-4">
           A DESIGN.md file is a short, structured description of your product&apos;s visual language — written specifically for AI coding tools to read before generating design system artifacts. It lives at the root of your repository alongside CLAUDE.md or similar agent context files.
         </p>
+
+        <div className="mb-6">
+          <DesignMdCallout />
+        </div>
 
         <div className="space-y-5">
           <div className="flex gap-4">

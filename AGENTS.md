@@ -52,7 +52,58 @@ logs/           — Archived session logs
    Never hardcode localhost or preview URLs in prompt copy text.
 10. `next build` must complete without errors before any app task is marked complete.
 
+## KB category definitions
+
+The KB has three top-level categories. The full definitions are in `_meta/SCHEMA.md` Section 0 and must be consulted when placing new content.
+
+- **`design-systems/`** — Documentation for specific named design systems (Material, Carbon, Atlassian, Primer, etc.). Source: each system's own documentation site and official repositories.
+- **`standards/`** — Authoritative format specifications and normative standards: WCAG, ARIA APG, APCA, DESIGN.md spec. Content you conform to, not interpret. Source: the canonical documentation site for each standard.
+- **`foundations/`** — Scientific and theoretical underpinnings: perceptual color models, typography science, spacing theory. The *why* behind design decisions, applicable across all systems.
+
+**Before creating any KB file, identify which category it belongs in and confirm the primary source URL is from the canonical authority for that category.**
+
+---
+
+## KB content intake — mandatory process
+
+**This section defines the required process for adding any content to the KB. Deviating from it without explicit user approval is not permitted.**
+
+### Step 1: Identify the primary source
+
+Every KB entry must trace to an official primary source — the design system's own documentation site, official GitHub repository, or official published package. The correct source URL must be confirmed before any content is written.
+
+### Step 2: Attempt Firecrawl first
+
+Run `npm run scrape -- --url <url> --slug <slug>` from the `tools/` directory. Firecrawl handles JS-rendered SPAs. If Firecrawl returns a near-empty result (just a page title, under ~80 lines from a content-rich page), try with `--wait 2000` before declaring failure.
+
+### Step 3: If Firecrawl fails, try GitHub raw or npm CDN
+
+For design systems with GitHub-hosted MDX docs: fetch raw content via `raw.githubusercontent.com`. For token files: use the jsDelivr CDN (`cdn.jsdelivr.net/npm/<package>/`). Both are acceptable fallbacks to Firecrawl as long as they point to the official source repository or package.
+
+### Step 4: If all prepared tools fail — STOP and report
+
+If Firecrawl, GitHub raw, and npm CDN are all ineffective against the official primary source: **stop and report the failure to the user.** Do not proceed. You may additionally report the existence of secondary or community sources as options for the user to vet — but do not use them without explicit user approval. Never decide autonomously to fall back on unofficial, community-generated, or reconstructed content.
+
+**The failure report must include:**
+- What primary source was attempted
+- What tools were tried and what each returned
+- Any secondary sources found, with their nature clearly identified (community, unofficial, reconstructed, etc.)
+
+---
+
 ## Patterns established
+
+### Foundations and standards stubs use a flat directory structure
+Unlike design-systems entries (which have `guidance/`, `implementation/`, `assets/` subdirectories), foundations and standards stubs live directly in the category subdirectory — e.g. `kb/foundations/color/perceptual-models.md`, not `kb/foundations/color/guidance/perceptual-models.md`. The app's stub listing logic detects single-segment paths (`parts.length === 1`) and groups them under a `'content'` key for sidebar display. When adding foundations or standards content, do not introduce type subdirectories unless there is a genuine content-type distinction to make.
+
+### KB landing page counts all categories
+`src/app/kb/page.tsx` uses `listSystems(category)` to count entries for all three categories. Any time a new category or sub-entry is added, verify that the page shows a non-zero count by running `npm run build` and checking the rendered output. The count drives whether the category card shows "X entries" vs "Coming soon".
+
+### Cross-system See Also links use last-segment matching
+The content page (`src/app/kb/[category]/[slug]/[...path]/page.tsx`) finds cross-system links by matching the last path segment of the current stub against all stubs in all other systems. This works well for consistently-named topics (`color-system`, `typography`, `button`) but produces no matches when naming differs across systems (`color` vs `colors`). No manual tagging or registry is needed — the match is purely structural.
+
+### Playbook stage pages at `/playbooks/stage/[n]`
+The playbook index (`/playbooks`) shows stage cards linking to `/playbooks/stage/[n]`, which lists all plays for that stage. Individual play pages are at `/playbooks/[slug]`. Stage descriptions are in `STAGE_DESCRIPTIONS` in `src/lib/playbooks.ts`. When adding a new stage, add its label to `STAGE_LABELS` and its description to `STAGE_DESCRIPTIONS`.
 
 ### Scraping is agent-executable
 The agent runs scrape commands directly via Bash — the human does not need to run them. When a scraping task begins, the agent: (1) identifies the target URLs, (2) runs `npx tsx tools/scrape/firecrawl-guidance.ts --url <url> --slug <slug>` from the repo root, (3) inspects raw output for content quality and coverage gaps, (4) decides autonomously whether additional targeted passes are needed and runs them without waiting for human direction. The agent documents all passes and findings in `SESSION_LOG.md`.

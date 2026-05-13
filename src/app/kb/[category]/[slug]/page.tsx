@@ -24,6 +24,7 @@ function formatTopicName(parts: string[]): string {
 }
 
 const TYPE_LABELS: Record<string, string> = {
+  content: 'Content',
   guidance: 'Guidance',
   implementation: 'Implementation',
   assets: 'Assets',
@@ -68,13 +69,13 @@ export default async function SystemPage({
   const designMdPath = findDesignMd(slug, cat)
 
   const grouped = stubs.reduce<Record<string, string[][]>>((acc, parts) => {
-    const type = parts[0]
+    const type = parts.length === 1 ? 'content' : parts[0]
     if (!acc[type]) acc[type] = []
     acc[type].push(parts)
     return acc
   }, {})
 
-  const typeOrder = ['guidance', 'implementation', 'assets', 'design-md']
+  const typeOrder = ['content', 'guidance', 'implementation', 'assets', 'design-md']
   const sortedTypes = typeOrder.filter(t => grouped[t])
 
   return (

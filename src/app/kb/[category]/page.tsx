@@ -9,9 +9,9 @@ function extractSystemName(body: string): string {
 }
 
 function extractFirstParagraph(body: string): string {
-  const overviewMatch = body.match(/## Overview\n\n([\s\S]+?)(?=\n\n---|\n\n##)/)
-  if (!overviewMatch) return ''
-  const first = overviewMatch[1].split('\n\n')[0]
+  const sectionMatch = body.match(/^##[^\n]*\n\n([\s\S]+?)(?=\n\n---|\n\n##)/m)
+  if (!sectionMatch) return ''
+  const first = sectionMatch[1].split('\n\n')[0]
   return first.replace(/\*\*(.+?)\*\*/g, '$1').replace(/\*(.+?)\*/g, '$1').trim()
 }
 

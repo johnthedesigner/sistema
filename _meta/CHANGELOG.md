@@ -28,6 +28,78 @@ Each session entry follows this structure:
 
 ## Log
 
+### 2026-05-12 — Task 4.3: Color science foundations
+**Operator:** LLM-assisted
+**Systems affected:** foundations; meta
+**Summary:** Added first foundations KB content: color science. Two content files covering perceptual color models (HSL, CIELAB, CAM16-UCS, HCT, OKLab) and contrast algorithms (WCAG 2.x relative luminance formula, APCA Lc values and use-case ranges, tonal palette design for accessibility). Sources: Björn Ottosson's OKLab post (bottosson.github.io/posts/oklab/), Material HCT color science article (material.io/blog/science-of-color-design), APCA Easy Intro (git.apcacontrast.com), WCAG 2.2 spec (already scraped for Task 4.2). `_meta/INDEX.md` updated to v2.0 (46 content files); foundations section filled in.
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/foundations/color/_index.md | Sub-directory index |
+| created | kb/foundations/color/perceptual-models@2026-05-12.md | HSL/CIELAB/CAM16-UCS/HCT/OKLab — why perceptual uniformity matters, model comparison, practical implications |
+| created | kb/foundations/color/perceptual-models.md | Stub |
+| created | kb/foundations/color/contrast-and-accessibility@2026-05-12.md | WCAG luminance formula, APCA Lc ranges, HCT tone differences for AA compliance |
+| created | kb/foundations/color/contrast-and-accessibility.md | Stub |
+| updated | _meta/INDEX.md | v1.9 → v2.0; 44 → 46 content files; foundations section populated |
+| updated | _meta/CHANGELOG.md | This entry |
+
+---
+
+### 2026-05-12 — Task 4.2: WCAG 2.2 accessibility reference
+**Operator:** LLM-assisted
+**Systems affected:** standards; meta
+**Summary:** Added WCAG 2.2 accessibility reference as the first standards content for `kb/standards/wcag/`. Full spec scraped from www.w3.org/TR/WCAG22/ via Firecrawl (4511-line document). Extracted 9 success criteria covering the most relevant requirements for UI component implementation: color contrast (1.4.3, 1.4.6, 1.4.11), keyboard operability (2.1.1, 2.1.2), focus visibility (2.4.7, 2.4.11), touch targets (2.5.5, 2.5.8), and name/role/value (4.1.2). Structured as three decision-oriented files with concrete pass/fail values and implementation notes rather than verbatim spec transcription. `_meta/INDEX.md` updated to v1.9 (44 content files).
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/standards/wcag/_index.md | Sub-directory index with conformance level overview |
+| created | kb/standards/wcag/color-contrast@2026-05-12.md | 1.4.3 (4.5:1/3:1), 1.4.6 (7:1), 1.4.11 (3:1 UI), luminance formula, reference values |
+| created | kb/standards/wcag/color-contrast.md | Stub |
+| created | kb/standards/wcag/keyboard-and-focus@2026-05-12.md | 2.1.1, 2.1.2, 2.4.7, 2.4.11 with implementation patterns and CSS |
+| created | kb/standards/wcag/keyboard-and-focus.md | Stub |
+| created | kb/standards/wcag/components@2026-05-12.md | 2.5.5 (44px), 2.5.8 (24px), 4.1.2 (accessible name, roles, state table) |
+| created | kb/standards/wcag/components.md | Stub |
+| updated | _meta/INDEX.md | v1.8 → v1.9; 41 → 44 content files; WCAG section added to Standards |
+| updated | _meta/CHANGELOG.md | This entry |
+
+---
+
+### 2026-05-12 — KB structure: category definitions + DESIGN.md reclassified to standards
+**Operator:** LLM-assisted
+**Systems affected:** standards; foundations; meta; app
+**Summary:** Established formal definitions for all three KB categories (design-systems, standards, foundations) in `_meta/SCHEMA.md` Section 0 and `AGENTS.md`. DESIGN.md spec content moved from `kb/foundations/design-md/` to `kb/standards/design-md/` — it is a format specification, not design theory. The `examples@` file (sourced from community awesome-design-md) removed entirely; no unofficial sources without explicit user approval. App KB index page descriptions updated. `foundations/` is now empty pending Task 4.3 (color science).
+
+| Action | File | Notes |
+|---|---|---|
+| created | _meta/SCHEMA.md Section 0 | Canonical definitions for all three KB categories |
+| updated | AGENTS.md | Added KB category definitions section + mandatory intake process |
+| moved | kb/foundations/design-md/ → kb/standards/design-md/ | DESIGN.md is a format spec, not design theory |
+| deleted | kb/foundations/design-md/examples@2026-05-12.md | Community source; not appropriate without user vetting |
+| updated | src/app/kb/page.tsx | Updated CATEGORY_META descriptions for standards and foundations |
+| updated | _meta/INDEX.md | v1.7 → v1.8; Section 1b renamed Standards; Section 1c (Foundations, empty) added |
+| updated | _meta/CHANGELOG.md | This entry |
+
+---
+
+### 2026-05-12 — Task 4.1: DESIGN.md specification capture
+**Operator:** LLM-assisted
+**Systems affected:** foundations; meta
+**Summary:** Added the DESIGN.md format specification as the first foundations KB entry. Overview and spec scraped from stitch.withgoogle.com via Firecrawl. Key format details: YAML front matter (machine-readable tokens) + markdown body (rationale); 8 canonical sections; explicit type system (Color, Dimension, Token Reference, Typography); token reference syntax `{path.to.token}`; component variants as separate keyed entries. Examples file sourced from awesome-design-md community collection — user-vetted secondary source. `_meta/INDEX.md` updated to v1.7 (41 content files); Section 1b (Foundations) added.
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/foundations/design-md/_index.md | Sub-directory index |
+| created | kb/foundations/design-md/overview@2026-05-12.md | From stitch.withgoogle.com/docs/design-md/overview |
+| created | kb/foundations/design-md/overview.md | Stub |
+| created | kb/foundations/design-md/spec@2026-05-12.md | From stitch.withgoogle.com/docs/design-md/specification |
+| created | kb/foundations/design-md/spec.md | Stub |
+| created | kb/foundations/design-md/examples@2026-05-12.md | awesome-design-md community collection — user-vetted secondary source |
+| created | kb/foundations/design-md/examples.md | Stub |
+| updated | _meta/INDEX.md | v1.5 → v1.7; 38 → 41 content files; Section 1b (Foundations) added |
+| updated | _meta/CHANGELOG.md | This entry |
+
+---
+
 ### 2026-05-12 — Task 3.5: Component documentation — Material and Carbon
 **Operator:** LLM-assisted
 **Systems affected:** material; carbon; meta

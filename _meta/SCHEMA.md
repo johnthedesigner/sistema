@@ -1,10 +1,50 @@
 # SCHEMA.md
 # Design System Knowledge Base — File & Structure Conventions
 
-**Version:** 1.1
+**Version:** 1.2
 **Created:** 2026-05-11
-**Last Updated:** 2026-05-11
+**Last Updated:** 2026-05-12
 **Purpose:** This document defines the canonical structure, naming conventions, frontmatter schema, and content classification rules for all files in this knowledge base. All contributors and LLM-assisted maintenance sessions must follow these conventions to ensure consistency.
+
+---
+
+## 0. Knowledge Base Category Definitions
+
+The KB is divided into three top-level categories under `kb/`. Every piece of content belongs in exactly one. When adding new content, identify the correct category before creating any files.
+
+### `kb/design-systems/` — Design Systems
+
+**What belongs here:** Documentation sets for specific named design systems. Each entry covers one system's guidance (color, typography, spacing, components), implementation details (getting-started, token schemas), and raw token assets.
+
+**How to identify it:** The content is about a specific named system — Material, Carbon, Atlassian, Primer, Radix, etc. The primary source is that system's own documentation site and official repositories.
+
+**Examples:** Material Design 3 color guidance, Carbon button component docs, Atlassian token schema.
+
+**Does not include:** General theory about why color works (→ foundations), normative standards the system follows (→ standards).
+
+---
+
+### `kb/standards/` — Standards
+
+**What belongs here:** Authoritative format specifications and normative standards maintained by their creators. These define rules, criteria, or conformance behavior that other work must satisfy or conform to.
+
+**How to identify it:** The content defines *what conformance looks like* — pass/fail criteria, required fields, specified behaviors. It is maintained by a single authoritative body and has a canonical URL. You cite it; you don't interpret it.
+
+**Examples:** WCAG 2.2 (accessibility criteria), ARIA Authoring Practices Guide (interaction patterns), DESIGN.md spec (format for encoding design systems for AI agents), APCA (contrast algorithm).
+
+**Does not include:** One design system's implementation of a standard (→ design-systems), theory explaining why the standard works the way it does (→ foundations).
+
+---
+
+### `kb/foundations/` — Foundations
+
+**What belongs here:** Scientific and theoretical underpinnings of design — the *why* behind design decisions. Content that helps an agent reason from first principles rather than pattern-match from examples.
+
+**How to identify it:** The content explains mechanisms, models, or principles that apply across many design systems — not rules for any specific system or format. It would be true regardless of which design system you're using.
+
+**Examples:** Perceptual color models (HCT, OKLab, HSL) and why they produce visually uniform palettes, typography science (optical sizing, x-height relationships), spacing theory (why 8px grids work), contrast algorithms and how they map to human perception.
+
+**Does not include:** Any specific design system's color palette (→ design-systems), the WCAG contrast threshold values themselves (→ standards).
 
 ---
 

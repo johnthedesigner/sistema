@@ -12,6 +12,14 @@ export const STAGE_LABELS: Record<number, string> = {
   5: 'Migration and adoption',
 }
 
+export const STAGE_DESCRIPTIONS: Record<number, string> = {
+  1: 'Define what your system is for — product context, visual character, and the DESIGN.md spec that encodes your decisions for AI tools.',
+  2: 'Generate primitive token sets — color palettes, type scales, shape ramps — using perceptual models and major design systems as references.',
+  3: 'Build the semantic layer — role-based tokens, light/dark mode, and state colors — on top of your primitive foundation.',
+  4: 'Specify and generate accessible component tokens and CSS for individual UI components.',
+  5: 'Migrate existing color systems, audit token coverage, and adopt the token architecture incrementally.',
+}
+
 /**
  * Parses TASK_PLAYBOOKS.md into structured Play objects.
  *

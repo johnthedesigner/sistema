@@ -1,6 +1,10 @@
 import Link from 'next/link'
 import { listSystems, KB_CATEGORIES, type KBCategory } from '@/lib/kb'
 
+function countEntries(category: KBCategory): number {
+  return listSystems(category).length
+}
+
 const CATEGORY_META: Record<KBCategory, {
   title: string
   description: string
@@ -15,21 +19,19 @@ const CATEGORY_META: Record<KBCategory, {
   },
   'standards': {
     title: 'Standards',
-    description: 'For compliance.',
-    purpose: 'Normative reference material you cite rather than interpret: WCAG 2.2, ARIA Authoring Practices, APCA. Use these when your output needs to satisfy a published specification.',
+    description: 'For conformance.',
+    purpose: 'Authoritative format specifications and normative standards you conform to: WCAG 2.2, ARIA Authoring Practices, APCA, DESIGN.md. Use these when your output needs to satisfy a published specification or format.',
     href: '/kb/standards',
   },
   'foundations': {
     title: 'Foundations',
     description: 'For first-principles reasoning.',
-    purpose: 'Conceptual and scientific background explaining why design tokens work the way they do — color science, typography fundamentals, spacing theory. Use these when you need to reason from first principles, not just copy a pattern.',
+    purpose: 'Scientific and theoretical underpinnings of design: perceptual color models, typography science, spacing theory. Use these when you need to reason from first principles about why design systems are structured the way they are.',
     href: '/kb/foundations',
   },
 }
 
 export default function KBLandingPage() {
-  const designSystemCount = listSystems('design-systems').length
-
   return (
     <main className="max-w-5xl mx-auto px-6 py-12">
       <h1 className="text-3xl font-bold mb-3">Knowledge Base</h1>
@@ -41,7 +43,7 @@ export default function KBLandingPage() {
       <div className="space-y-4">
         {KB_CATEGORIES.map(category => {
           const meta = CATEGORY_META[category]
-          const count = category === 'design-systems' ? designSystemCount : 0
+          const count = countEntries(category)
           const isEmpty = count === 0
 
           return (

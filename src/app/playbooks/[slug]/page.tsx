@@ -6,6 +6,7 @@ import { CopyButton } from '@/components/playbooks/CopyButton'
 import { PlayForm } from '@/components/playbooks/PlayForm'
 import { ExemplarPreview } from '@/components/playbooks/ExemplarPreview'
 import { MarkdownBody } from '@/components/kb/MarkdownBody'
+import { DesignMdCallout } from '@/components/shared/DesignMdCallout'
 
 export async function generateStaticParams() {
   const plays = loadPlaybooks()
@@ -36,7 +37,7 @@ export default async function PlayPage({
       <nav className="text-sm text-gray-500 mb-8 flex items-center gap-1.5">
         <Link href="/playbooks" className="hover:text-gray-900">Playbook</Link>
         <span>/</span>
-        <span className="text-gray-400">Stage {play.stage}: {stageLabel}</span>
+        <Link href={`/playbooks/stage/${play.stage}`} className="hover:text-gray-900">Stage {play.stage}: {stageLabel}</Link>
         <span>/</span>
         <span className="text-gray-900">{play.title}</span>
       </nav>
@@ -60,6 +61,12 @@ export default async function PlayPage({
         )}
       </div>
 
+      {play.tags.includes('design-md') && (
+        <div className="mb-6">
+          <DesignMdCallout />
+        </div>
+      )}
+
       {hasVariables ? (
         <PlayForm body={play.body} />
       ) : (
@@ -68,11 +75,22 @@ export default async function PlayPage({
         </div>
       )}
 
-      <div className="border border-gray-100 rounded-lg p-6 bg-gray-50">
-        <MarkdownBody>{displayBody}</MarkdownBody>
-      </div>
-
-      {exemplar && <ExemplarPreview exemplar={exemplar} />}
+      {exemplar ? (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2">
+            <div className="border border-gray-100 rounded-lg p-6 bg-gray-50">
+              <MarkdownBody>{displayBody}</MarkdownBody>
+            </div>
+          </div>
+          <div className="lg:col-span-1">
+            <ExemplarPreview exemplar={exemplar} inline />
+          </div>
+        </div>
+      ) : (
+        <div className="border border-gray-100 rounded-lg p-6 bg-gray-50">
+          <MarkdownBody>{displayBody}</MarkdownBody>
+        </div>
+      )}
     </main>
   )
 }
