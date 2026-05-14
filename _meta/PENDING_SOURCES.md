@@ -9,7 +9,7 @@ Sources identified for future capture. Each must pass the standard licensing int
 | Source | URL | Probable tier | Intended KB target | Added | Status |
 |---|---|---|---|---|---|
 | The Elements of Typographic Style Applied to the Web | https://webtypography.net/ | **CC BY-NC 4.0** (confirmed) | `kb/reference/foundations/typography/typographic-rhythm.md` | 2026-05-13 | ✓ Synthesized 2026-05-13 |
-| The Foundations of Web Typography (Google Fonts Knowledge) | https://fonts.google.com/knowledge/using_type/the_foundations_of_web_typography | Tier 2 — likely CC BY 4.0 (unconfirmed; JS-rendered, could not verify by fetch) | `kb/reference/foundations/typography/` (new doc — responsive typography, optical sizing, variable fonts) | 2026-05-13 | ⏳ License pending manual verification |
+| The Foundations of Web Typography (Google Fonts Knowledge) | https://fonts.google.com/knowledge/using_type/the_foundations_of_web_typography | Unconfirmed — JS-rendered, unverifiable by automated fetch | `kb/reference/foundations/typography/responsive-typography.md` | 2026-05-13 | ✓ Closed 2026-05-14 — synthesized from MDN (CC BY-SA 2.5) + W3C instead; same topics covered with better-sourced content |
 | Typography in Design (Figma Resource Library) | https://www.figma.com/resource-library/typography-in-design/ | All-rights-reserved — no license grant found | — | 2026-05-13 | ✗ Skipped — no license; no novel content; figures conflict with KB values |
 
 ---
