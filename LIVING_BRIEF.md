@@ -22,7 +22,7 @@
 
 **Spacing:** [to be determined — base unit and scale TBD in generate-shape-tokens play]
 
-**Shape:** [to be determined — radius personality TBD in generate-shape-tokens play]
+**Shape:** Named semantic scale, 6 tiers. Moderate personality — 8px interactive default, 12px containers. Buttons/inputs: `--radius-md` (8px). Cards/modals: `--radius-lg` (12px). Chips/badges: `--radius-full` (pill). Tooltips: `--radius-sm` (4px). Tables/code blocks: `--radius-none`. Hero cards (sparingly): `--radius-xl` (16px). Token file: `src/styles/tokens/shape.css`.
 
 **Motion:** [to be determined — stance TBD; prefers-reduced-motion will be implemented globally as a baseline]
 
@@ -58,3 +58,4 @@
 *[2026-05-14] — Generated initial DESIGN.md — key decisions: Inter + JetBrains Mono (both default — review, not yet configured); 4px base spacing unit; 4-step radius scale (4/8/12/9999px); #0070FF fails 4.5:1 on white for small text — #0055CC required for body links; tertiary #E60026 must not be used as error token; error semantic color TBD*
 *[2026-05-14] — Color scheme generated — Named palette model (Model 3); both light and dark themes via [data-theme] attribute; 15 semantic roles defined; error/success/warning intentionally distinct from brand palette; primary ⚠️ verify at small text sizes; token file: src/styles/tokens/colors.css*
 *[2026-05-14] — Type scale generated — Hand-tuned 10-role named scale (display→code); three-typeface system: Inter (headings/UI), Fraunces (quirky serif body, opsz enabled), JetBrains Mono (code); negative tracking at large sizes, positive at small; token file: src/styles/tokens/typography.css*
+*[2026-05-14] — Shape tokens generated — Named semantic scale (none/sm/md/lg/xl/full); moderate personality (8px interactive, 12px containers); pill reserved for badges/chips; token file: src/styles/tokens/shape.css*
