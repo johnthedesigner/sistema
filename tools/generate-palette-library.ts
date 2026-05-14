@@ -31,10 +31,6 @@ function targetContrast(i: number): number {
   return 1.01 * Math.pow(19.0 / 1.01, i / 18)
 }
 
-function chromaScale(L: number): number {
-  return Math.sin(Math.PI * L)
-}
-
 function round2(n: number): number {
   return Math.round(n * 100) / 100
 }
@@ -42,13 +38,32 @@ function round2(n: number): number {
 interface PaletteStop { hex: string; contrast_white: number; contrast_black: number }
 interface PaletteResult { seed: string; stops: Record<string, PaletteStop> }
 
+function findMaxChroma(L: number, hue: number): number {
+  let lo = 0
+  let hi = 0.5
+  for (let i = 0; i < 20; i++) {
+    const mid = (lo + hi) / 2
+    const mapped = toGamutRgb({ mode: 'oklch', l: L, c: mid, h: hue })
+    const mappedC = mapped ? (oklch(mapped)?.c ?? 0) : 0
+    if (Math.abs(mappedC - mid) < 0.001) {
+      lo = mid
+    } else {
+      hi = mid
+    }
+  }
+  return lo
+}
+
 function generatePalette(seedHex: string): PaletteResult {
   const seed = oklch(seedHex)!
   const hue = seed.h ?? 0
   const candidates: { hex: string; cw: number; cb: number }[] = []
 
+  const maxChromaAtSeedL = findMaxChroma(seed.l, hue)
+  const saturation = maxChromaAtSeedL > 0 ? Math.min(1, seed.c / maxChromaAtSeedL) : 0
+
   for (let L = 0.02; L <= 0.985; L += 0.001) {
-    const C = seed.c * chromaScale(L)
+    const C = findMaxChroma(L, hue) * saturation
     const inGamut = toGamutRgb({ mode: 'oklch', l: L, c: C, h: hue })
     if (!inGamut) continue
     const hex = formatHex(inGamut)
