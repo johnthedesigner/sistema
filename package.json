@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.19",
+    "culori": "^4.0.2",
     "gray-matter": "^4.0.3",
     "next": "^15.3.2",
     "react": "^19.1.0",
@@ -19,6 +20,7 @@
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
+    "@types/culori": "^4.0.1",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",

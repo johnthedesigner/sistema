@@ -3,10 +3,10 @@
 ## Current State
 
 **Phase:** 7
-**Last completed task:** 6.12 — Phase 6 housekeeping
-**Next task:** 7.0 — Palette generation API
+**Last completed task:** 7.0 — Palette generation API
+**Next task:** 7.1 — Pre-generated palette library
 **Blockers:** None
-**Notes:** Phase 6 complete. Synthesis layer: 11 documents across 7 concern areas. Playbook v3.0: all plays system-agnostic. Build: 124 static pages.
+**Notes:** API at POST /api/palette. Algorithm implementation in src/lib/palette.ts (importable). 965 candidates per seed, all stops within ±0.1 of targets. Cross-hue interchangeability verified (blue/green/red -400 stops within 0.02 of each other). Build: passing.
 
 ---
 
@@ -20,6 +20,18 @@
 *Phase 4 session entries archived to `logs/phase-4.md`.*
 *Phase 5 session entries archived to `logs/phase-5.md`.*
 *Phase 6 session entries archived to `logs/phase-6.md`.*
+
+### 2026-05-13 — Task 7.0: Palette generation API
+
+**What was done:**
+- Installed `culori` (MIT, v4.0.2) + `@types/culori` for OKLCH conversion and WCAG contrast computation
+- Wrote `src/lib/palette.ts` — pure algorithm implementation (no Next.js dependencies; importable for build-time use): `generatePalette(seedHex)` + `generatePalettes(colors)`. Algorithm: hex → OKLCH seed; sweep L 0.02–0.985 in 0.001 steps; chroma scaled as `seed.c × sin(π × L)`; map each candidate to nearest in-gamut sRGB via `toGamut('rgb', 'oklch')` (correctly handles vivid seeds whose blue/green channels slightly exceed sRGB at high lightness); for each of 19 target contrasts (logarithmic 1.01→19.0), select candidate with minimum WCAG contrast difference against white; record both `contrast_white` and `contrast_black` per stop
+- Wrote `src/app/api/palette/route.ts` — POST handler with JSON validation, per-color hex format validation, and structured error responses (400 for bad input, 500 for generation errors)
+- **Key debug finding:** Vivid seeds (e.g. #2563eb) have blue channel slightly above 1.0 at high lightness even with chroma scaling. `toGamut('rgb', 'oklch')` resolves this correctly — manual clamping or `inGamut` checks would have rejected 572 valid candidates. With the fix: 965 candidates per seed regardless of hue.
+- Cross-hue interchangeability verified: blue-400 (3.17), green-400 (3.15), red-400 (3.16) — within 0.02 of each other; all stops within ±0.1 of logarithmic targets
+- Lint: passing | Build: passing
+
+---
 
 ### 2026-05-13 — Task 6.11: Color palette generation
 
