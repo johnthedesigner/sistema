@@ -1,0 +1,161 @@
+/*
+ * Sistema — Color Tokens
+ * Architecture: Named palettes (Model 3) with contextual surface layering
+ * Generated: 2026-05-14
+ *
+ * Usage notes:
+ * - All components must consume these tokens. No hardcoded hex values in components.
+ * - --color-primary is the brand blue (#0070FF). At 3.95:1 with white, it passes
+ *   the 3:1 threshold for UI components and large text, but NOT 4.5:1 for normal
+ *   text. For body-copy links, use a separate link token at #0055CC (5.9:1).
+ *   ⚠️ Verify any use of --color-on-primary (white) on --color-primary for small
+ *   text; consider #005CE6 for that context.
+ * - --color-secondary (#FFCC33) must not appear as text or icon on any light
+ *   surface. Use for badge fills, decorative borders, and non-text accents only.
+ *   It is safe as text on dark surfaces (15:1 on #111111).
+ * - --color-error (#B91C1C) is a distinct crimson, intentionally different from the
+ *   brand tertiary red (#E60026). Do not substitute one for the other.
+ * - Dark mode is applied via [data-theme="dark"] attribute set by JS time trigger.
+ *   Do not use @media (prefers-color-scheme: dark) for Sistema's own theming.
+ * - Verify all pairings in both themes before shipping new components.
+ */
+
+/* ============================================================
+   LIGHT MODE (default)
+   ============================================================ */
+
+:root {
+
+  /* --- Surfaces ---
+     Page background is slightly off-white (F8F9FA); cards and raised elements
+     sit on pure white above it. This gives a clear surface hierarchy without
+     heavy shadows. */
+  --color-surface:         #F8F9FA;  /* page background */
+  --color-surface-raised:  #FFFFFF;  /* cards, panels, sheets */
+  --color-surface-overlay: #FFFFFF;  /* modals, dialogs */
+
+  /* --- Text on surfaces ---
+     on-surface: #111827 → 17.8:1 on surface, 18.1:1 on surface-raised ✓
+     on-surface-muted: #6B7280 → 4.66:1 on surface ✓ (marginally; verify in context) */
+  --color-on-surface:       #111827;
+  --color-on-surface-muted: #6B7280;
+
+  /* --- Borders ---
+     border: subtle divider, decorative only (no text contrast requirement)
+     border-focus: #0070FF → 3.75:1 on surface, 3.95:1 on surface-raised ✓ (3:1 UI threshold) */
+  --color-border:       #E5E7EB;
+  --color-border-focus: #0070FF;
+
+  /* --- Primary — electric blue ---
+     ⚠️ VERIFY: --color-on-primary (#FFFFFF) on --color-primary (#0070FF) = 3.95:1.
+     Passes 3:1 for UI components and large text. Fails 4.5:1 for normal-weight
+     small text. For button labels at 14px regular weight, darken primary to
+     #005CE6 (5.2:1) or use at 16px+ / 600+ weight.
+     --color-primary-container: light blue tint for chips, tags, selected states.
+     on-primary-container: #003A9E → 8.4:1 on primary-container ✓ */
+  --color-primary:                #0070FF;
+  --color-on-primary:             #FFFFFF;
+  --color-primary-container:      #E8F1FF;
+  --color-on-primary-container:   #003A9E;
+
+  /* --- Secondary — yellow (#FFCC33) ---
+     NOT for text or icons on light surfaces (1.46:1 with white — unusable).
+     Use for: badge fills, decorative borders, highlight stripes, icon backgrounds
+     where the icon itself is not the yellow color.
+     on-secondary: #1A1200 → 14.4:1 on secondary ✓
+     secondary-container: cream tint for subtle yellow-tinted surfaces.
+     on-secondary-container: #4A3800 → 11.9:1 on secondary-container ✓ */
+  --color-secondary:                #FFCC33;
+  --color-on-secondary:             #1A1200;
+  --color-secondary-container:      #FFF9E6;
+  --color-on-secondary-container:   #4A3800;
+
+  /* --- Error ---
+     Distinct crimson, intentionally different from brand tertiary (#E60026).
+     #B91C1C on white: 6.4:1 ✓   on-error (#FFFFFF) on error: 6.4:1 ✓ */
+  --color-error:     #B91C1C;
+  --color-on-error:  #FFFFFF;
+
+  /* --- Success ---
+     #15803D on white: 5.1:1 ✓   on-success (#FFFFFF) on success: 5.1:1 ✓ */
+  --color-success:    #15803D;
+  --color-on-success: #FFFFFF;
+
+  /* --- Warning ---
+     Dark amber, distinct from secondary yellow (#FFCC33) in both hue and value.
+     #B45309 on white: 5.0:1 ✓   on-warning (#FFFFFF) on warning: 5.0:1 ✓ */
+  --color-warning:    #B45309;
+  --color-on-warning: #FFFFFF;
+}
+
+
+/* ============================================================
+   DARK MODE
+   Applied via JS time trigger: document.documentElement.dataset.theme = 'dark'
+   ============================================================ */
+
+[data-theme="dark"] {
+
+  /* --- Surfaces ---
+     Deep neutrals, not pure black. Elevation is expressed through lighter tonals,
+     not darker shadows. surface < surface-raised < surface-overlay in lightness. */
+  --color-surface:         #111111;
+  --color-surface-raised:  #1C1C1C;
+  --color-surface-overlay: #252525;
+
+  /* --- Text on dark surfaces ---
+     on-surface: #F3F4F6 → 17.1:1 on surface ✓
+     on-surface-muted: #9CA3AF → 7.3:1 on surface ✓ */
+  --color-on-surface:       #F3F4F6;
+  --color-on-surface-muted: #9CA3AF;
+
+  /* --- Borders ---
+     border: subtle divider against dark surface
+     border-focus: lifted blue → 6.9:1 on surface ✓ (well over 3:1 UI threshold) */
+  --color-border:       #2D2D2D;
+  --color-border-focus: #4D9FFF;
+
+  /* --- Primary — lifted blue ---
+     Tonal shift: light mode uses dark primary (40% L) with white text.
+     Dark mode lifts to lighter primary (80% L approx) with dark text.
+     --color-primary (#4D9FFF) on surface (#111111): 6.7:1 ✓ (safe for text/links)
+     --color-on-primary (#002D6E) on primary (#4D9FFF): 6.7:1 ✓
+     primary-container: dark tinted blue surface.
+     on-primary-container: #BAD4FF → 6.9:1 on primary-container ✓ */
+  --color-primary:                #4D9FFF;
+  --color-on-primary:             #002D6E;
+  --color-primary-container:      #1E3A5F;
+  --color-on-primary-container:   #BAD4FF;
+
+  /* --- Secondary — yellow (now usable as text/signal) ---
+     #FFCC33 on surface (#111111): ~15:1 ✓ — yellow is an ideal accent/text
+     color on dark surfaces. Use for highlighted labels, active nav items,
+     key callouts. on-secondary (#1A1200) on secondary (#FFCC33): 14.4:1 ✓
+     secondary-container: dark amber for tinted badge/tag surfaces.
+     on-secondary-container (#FFCC33) on container (#3D2E00): 10.0:1 ✓ */
+  --color-secondary:                #FFCC33;
+  --color-on-secondary:             #1A1200;
+  --color-secondary-container:      #3D2E00;
+  --color-on-secondary-container:   #FFCC33;
+
+  /* --- Error ---
+     Lifted to lighter salmon for use as text/icon signal on dark surfaces.
+     #FCA5A5 on surface (#111111): 9.8:1 ✓
+     on-error (#450A0A) on error (#FCA5A5): 10.2:1 ✓ */
+  --color-error:     #FCA5A5;
+  --color-on-error:  #450A0A;
+
+  /* --- Success ---
+     Lifted to bright green for signal on dark.
+     #4ADE80 on surface (#111111): 10.7:1 ✓
+     on-success (#052E16) on success (#4ADE80): 10.7:1 ✓ */
+  --color-success:    #4ADE80;
+  --color-on-success: #052E16;
+
+  /* --- Warning ---
+     Lifted to light amber for signal on dark.
+     #FCD34D on surface (#111111): 13.1:1 ✓
+     on-warning (#311700) on warning (#FCD34D): 13.1:1 ✓ */
+  --color-warning:    #FCD34D;
+  --color-on-warning: #311700;
+}
