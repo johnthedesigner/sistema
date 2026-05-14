@@ -23,10 +23,25 @@ function targetContrast(i: number): number {
   return 1.01 * Math.pow(19.0 / 1.01, i / 18)
 }
 
-// Chroma scaling prevents sRGB gamut clipping at extreme lightness values.
-// sin curve peaks at L=0.5 and approaches 0 at L=0 and L=1.
-function chromaScale(L: number): number {
-  return Math.sin(Math.PI * L)
+// Binary-search the maximum in-gamut OKLCH chroma for a given L and hue.
+// The sRGB gamut boundary varies significantly by hue — yellows and greens can
+// support much higher chroma at mid-L than a light seed color's raw C value
+// would suggest, which is why capping at seed.c produced washed-out palettes.
+function findMaxChroma(L: number, hue: number): number {
+  let lo = 0
+  let hi = 0.5
+  for (let i = 0; i < 20; i++) {
+    const mid = (lo + hi) / 2
+    const color: Oklch = { mode: 'oklch', l: L, c: mid, h: hue }
+    const mapped = mapToGamut(color)
+    const mappedC = mapped ? (oklch(mapped)?.c ?? 0) : 0
+    if (Math.abs(mappedC - mid) < 0.001) {
+      lo = mid
+    } else {
+      hi = mid
+    }
+  }
+  return lo
 }
 
 function round2(n: number): number {
@@ -51,10 +66,15 @@ function buildCandidates(seed: Oklch): Candidate[] {
   const candidates: Candidate[] = []
   const hue = seed.h ?? 0
 
+  // Compute how saturated the seed is relative to the gamut boundary at its
+  // own lightness. Applying this ratio at each L produces a palette where the
+  // seed's vibrancy is preserved regardless of where it sits on the L axis.
+  const maxChromaAtSeedL = findMaxChroma(seed.l, hue)
+  const saturation = maxChromaAtSeedL > 0 ? Math.min(1, seed.c / maxChromaAtSeedL) : 0
+
   for (let L = 0.02; L <= 0.985; L += 0.001) {
-    const C = seed.c * chromaScale(L)
+    const C = findMaxChroma(L, hue) * saturation
     const color: Oklch = { mode: 'oklch', l: L, c: C, h: hue }
-    // Map to nearest in-gamut sRGB; toGamut reduces chroma as needed
     const inGamut = mapToGamut(color)
     if (!inGamut) continue
     const hex = formatHex(inGamut)
