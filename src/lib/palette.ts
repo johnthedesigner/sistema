@@ -72,8 +72,16 @@ function buildCandidates(seed: Oklch): Candidate[] {
   const maxChromaAtSeedL = findMaxChroma(seed.l, hue)
   const saturation = maxChromaAtSeedL > 0 ? Math.min(1, seed.c / maxChromaAtSeedL) : 0
 
+  // Normalize the sin taper to the seed's own lightness rather than always
+  // peaking at L=0.5. For mid-L seeds (blue, red) this is ≈1 and has no
+  // effect. For high-L seeds (yellow at L=0.93) this ensures light stops taper
+  // proportionally — avoiding oversaturation at the pale end — while midtones
+  // remain at full gamut-relative saturation.
+  const taperAtSeedL = Math.sin(Math.PI * seed.l)
+
   for (let L = 0.02; L <= 0.985; L += 0.001) {
-    const C = findMaxChroma(L, hue) * saturation
+    const taper = Math.min(1, Math.sin(Math.PI * L) / taperAtSeedL)
+    const C = findMaxChroma(L, hue) * saturation * taper
     const color: Oklch = { mode: 'oklch', l: L, c: C, h: hue }
     const inGamut = mapToGamut(color)
     if (!inGamut) continue
