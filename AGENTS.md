@@ -202,6 +202,77 @@ Without `?topics=`, the bundle returns all guidance files + DESIGN.md for the sy
 ### Zero-page Firecrawl result: fall back to npm CDN
 When Firecrawl returns 0 pages from a design system documentation page (fully JS-rendered SPA with no crawlable content), source token values directly from the npm CDN package. Use jsDelivr (`cdn.jsdelivr.net/npm/<package>@<version>/`) to browse available package files and fetch the relevant artifact. This is the standard fallback for any design system that publishes a `@<org>/tokens` package — the CDN exposes the compiled output regardless of whether the doc site renders server-side.
 
+### culori v4 ESM interop in tsx generation scripts
+culori v4 is ESM-only — it has no CommonJS bundle. tsx scripts in a standard (CJS) package cannot import culori via `import { oklch } from 'culori'`. The fix: use `createRequire(import.meta.url)` to load culori's CJS bundle directly from node_modules, then destructure from the result.
+
+```typescript
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+const culori = require('culori') as typeof import('culori')
+const { oklch, formatHex, wcagContrast, toGamut } = culori
+```
+
+This applies to any ESM-only npm package used in a build-time script that runs under tsx. The `src/lib/palette.ts` file itself uses normal `import` (Next.js handles ESM correctly at build time) — this workaround is only needed in standalone `tools/` scripts.
+
+### `toGamut` TypeScript signature requires two arguments
+culori's `toGamut` function requires both a destination mode and an intermediate color space, even when the intermediate seems implied. TypeScript will reject a single argument. Always call it curried:
+
+```typescript
+const mapToGamut = toGamut('rgb', 'oklch')
+// then: mapToGamut({ mode: 'oklch', l, c, h })
+```
+
+Using `toGamut('rgb', 'oklch')` (not just `'rgb'`) also triggers culori's gamut-finding logic, which binary-searches for the maximum in-gamut chroma. This correctly handles vivid seeds whose channels exceed sRGB at high lightness — manual `inGamut` checks would reject valid candidates.
+
+### Campaign definition format in `_meta/CAMPAIGNS.md`
+Campaigns are defined in `_meta/CAMPAIGNS.md` and parsed by `src/lib/campaigns.ts`. Format:
+
+```markdown
+## slug — Title
+
+**Steps:** play-slug-1, play-slug-2, play-slug-3
+
+**Description:** One-sentence campaign description.
+```
+
+`loadCampaign(slug)` resolves each step's play body from `loadPlaybooks()` at build time. Campaign pages are fully SSG — `generateStaticParams` generates all `{slug, step}` combinations. No backend needed.
+
+### sessionStorage namespacing for campaign step state
+Campaign step variable values are persisted to sessionStorage using the key pattern:
+```
+campaign:{campaignSlug}:step:{stepNumber}:{varName}
+```
+This allows multiple campaigns to run concurrently without key collisions. State is restored on component mount from sessionStorage; written on every input change. sessionStorage survives page navigation within a tab but is cleared when the tab closes — suitable for single-session workflows like campaign runs.
+
+### localStorage-backed form pre-fill for contextual variables
+When a play variable has a meaningful persistent default (e.g. `color_mode` for `generate-color-scheme`), store it in localStorage and pre-fill the form field on mount. Pattern:
+1. Export a `STORAGE_KEY` constant from the selector component
+2. In `PlayForm` (or `CampaignStep`), read from localStorage in `useEffect` and call `setValues`
+3. When the user changes the selector, write back to localStorage immediately
+This makes contextual state cross-session and cross-play without URL coupling.
+
+### `mounted` state guard for sessionStorage/localStorage in client components
+Next.js pre-renders `'use client'` components on the server during `next build`. `sessionStorage` and `localStorage` are undefined on the server — accessing them without a guard causes a `ReferenceError` that fails the build.
+
+Pattern:
+```typescript
+const [mounted, setMounted] = useState(false)
+useEffect(() => { setMounted(true) }, [])
+// Only access sessionStorage/localStorage when mounted === true
+```
+
+For `useEffect` calls that restore from storage, the guard is implicit — `useEffect` never runs on the server. For render-time access (e.g. in JSX), check `mounted` before calling.
+
+### CC BY-NC synthesis: paraphrase only, attribute fully
+Content under Creative Commons Attribution-NonCommercial (CC BY-NC) licenses may be synthesized for a knowledge base with attribution, but the NC clause means the content cannot be incorporated into a commercial product verbatim. Rules for CC BY-NC sources:
+- Write all content in your own words — do not reproduce sentences verbatim
+- Attribute the source by URL and license in the versioned file's `derived_from` field and in the Source Map
+- Note the `license: CC BY-NC 4.0` in frontmatter
+- Do not copy prose passages, only synthesize ideas and technical guidance
+
+### Static tool data in `public/` for build-time generation
+For tools that need large pre-computed data (e.g. 22-palette × 19-stop library), generate the JSON at build time and commit it to `public/` as a static file. The generation script lives in `tools/` and runs via a npm script (`npm run palettes`). The file is served as a static asset — no API call needed at runtime. Re-run the script and commit the result whenever seeds or the algorithm change.
+
 ### GitHub raw URL sourcing for fully JS-rendered doc sites
 When a design system's documentation site is a fully JS-rendered SPA (Firecrawl returns 0 pages), fetch MDX/markdown source files directly from the GitHub repository via raw.githubusercontent.com. This is the correct pattern for Primer (primer.style → `primer/design` MDX) and similar systems. The MDX sources are typically cleaner and more complete than any scraped output would be. No Playwright needed — the raw file content is immediately usable as KB guidance content with minimal transformation.
 
