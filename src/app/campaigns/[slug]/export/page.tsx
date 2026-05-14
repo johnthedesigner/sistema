@@ -18,19 +18,19 @@ export default async function CampaignExportPage({
 
   return (
     <main className="max-w-4xl mx-auto px-6 py-12">
-      <nav className="text-sm text-gray-500 mb-8 flex items-center gap-1.5 flex-wrap">
-        <Link href="/" className="hover:text-gray-900">Sistema</Link>
+      <nav className="text-sm text-on-surface-muted mb-8 flex items-center gap-1.5 flex-wrap">
+        <Link href="/" className="hover:text-on-surface">Sistema</Link>
         <span>/</span>
-        <Link href="/campaigns" className="hover:text-gray-900">Campaigns</Link>
+        <Link href="/campaigns" className="hover:text-on-surface">Campaigns</Link>
         <span>/</span>
-        <Link href={`/campaigns/${slug}/1`} className="hover:text-gray-900">{campaign.title}</Link>
+        <Link href={`/campaigns/${slug}/1`} className="hover:text-on-surface">{campaign.title}</Link>
         <span>/</span>
-        <span className="text-gray-900">Export</span>
+        <span className="text-on-surface">Export</span>
       </nav>
 
       <div className="mb-8">
-        <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Campaign complete</p>
-        <h1 className="text-2xl font-bold text-gray-900">Export Prompts</h1>
+        <p className="text-xs font-medium text-on-surface-muted uppercase tracking-wider mb-1">Campaign complete</p>
+        <h1 className="text-2xl font-bold text-on-surface">Export Prompts</h1>
       </div>
 
       <CampaignExport

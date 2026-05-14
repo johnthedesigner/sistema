@@ -117,12 +117,12 @@ export default async function ContentPage({
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-12">
-      <nav className="text-sm text-gray-500 mb-8 flex items-center gap-1.5 flex-wrap">
-        <Link href="/kb" className="hover:text-gray-900">Knowledge Base</Link>
+      <nav className="text-sm text-on-surface-muted mb-8 flex items-center gap-1.5 flex-wrap">
+        <Link href="/kb" className="hover:text-on-surface">Knowledge Base</Link>
         <span>/</span>
-        <Link href={`/kb/${category}`} className="hover:text-gray-900">{categoryLabel}</Link>
+        <Link href={`/kb/${category}`} className="hover:text-on-surface">{categoryLabel}</Link>
         <span>/</span>
-        <Link href={`/kb/${category}/${slug}`} className="hover:text-gray-900">{systemName}</Link>
+        <Link href={`/kb/${category}/${slug}`} className="hover:text-on-surface">{systemName}</Link>
         {cleanPath.slice(0, -1).map(segment => (
           <span key={segment} className="flex items-center gap-1.5">
             <span>/</span>
@@ -130,7 +130,7 @@ export default async function ContentPage({
           </span>
         ))}
         <span>/</span>
-        <span className="text-gray-900">{topicName}</span>
+        <span className="text-on-surface">{topicName}</span>
       </nav>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -144,7 +144,7 @@ export default async function ContentPage({
                 href={rawUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-gray-400 hover:text-gray-600 border border-gray-200 rounded px-2 py-1 hover:border-gray-400 transition-colors font-mono"
+                className="text-xs text-on-surface-muted hover:text-on-surface border border-border rounded-radius-sm px-2 py-1 hover:border-on-surface-muted transition-colors font-mono"
               >
                 Raw
               </a>
@@ -155,8 +155,8 @@ export default async function ContentPage({
 
           {file.isJson ? (
             <div>
-              <p className="text-sm text-gray-500 mb-4">Token values as CSS custom properties.</p>
-              <pre className="bg-gray-50 border border-gray-200 rounded-lg p-6 text-xs font-mono overflow-x-auto leading-relaxed">
+              <p className="text-sm text-on-surface-muted mb-4">Token values as CSS custom properties.</p>
+              <pre className="bg-surface border border-border rounded-radius-lg p-6 text-xs font-mono overflow-x-auto leading-relaxed">
                 <code>{file.body}</code>
               </pre>
             </div>
@@ -168,14 +168,14 @@ export default async function ContentPage({
         {/* Sidebar */}
         <aside className="space-y-8">
           <div>
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-on-surface-muted mb-3">
               In this section
             </h2>
             <div className="space-y-5">
               {sortedTypes.map(type => (
                 <div key={type}>
                   {sortedTypes.length > 1 && (
-                    <h3 className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-1.5">
+                    <h3 className="text-xs font-medium text-on-surface-muted uppercase tracking-wider mb-1.5">
                       {TYPE_LABELS[type] ?? type}
                     </h3>
                   )}
@@ -186,13 +186,13 @@ export default async function ContentPage({
                       return (
                         <li key={key}>
                           {isCurrent ? (
-                            <span className="text-sm font-medium text-gray-900">
+                            <span className="text-sm font-medium text-on-surface">
                               {formatTopicName(parts)}
                             </span>
                           ) : (
                             <Link
                               href={`/kb/${category}/${slug}/${parts.join('/')}.md`}
-                              className="text-sm text-blue-600 hover:text-blue-800 hover:underline"
+                              className="text-sm text-primary hover:text-primary hover:underline"
                             >
                               {formatTopicName(parts)}
                             </Link>
@@ -214,7 +214,7 @@ export default async function ContentPage({
 
           {seeAlso.length > 0 && (
             <div>
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-on-surface-muted mb-3">
                 See also
               </h2>
               <ul className="space-y-1">
@@ -222,7 +222,7 @@ export default async function ContentPage({
                   <li key={`${otherCat}/${otherSlug}`}>
                     <Link
                       href={`/kb/${otherCat}/${otherSlug}/${parts.join('/')}.md`}
-                      className="text-sm text-blue-600 hover:text-blue-800 hover:underline"
+                      className="text-sm text-primary hover:text-primary hover:underline"
                     >
                       {name}
                     </Link>

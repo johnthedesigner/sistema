@@ -31,14 +31,14 @@ export default async function CampaignStepPage({
 
   return (
     <main className="max-w-4xl mx-auto px-6 py-12">
-      <nav className="text-sm text-gray-500 mb-8 flex items-center gap-1.5 flex-wrap">
-        <Link href="/" className="hover:text-gray-900">Sistema</Link>
+      <nav className="text-sm text-on-surface-muted mb-8 flex items-center gap-1.5 flex-wrap">
+        <Link href="/" className="hover:text-on-surface">Sistema</Link>
         <span>/</span>
-        <Link href="/campaigns" className="hover:text-gray-900">Campaigns</Link>
+        <Link href="/campaigns" className="hover:text-on-surface">Campaigns</Link>
         <span>/</span>
-        <Link href={`/campaigns/${slug}/1`} className="hover:text-gray-900">{campaign.title}</Link>
+        <Link href={`/campaigns/${slug}/1`} className="hover:text-on-surface">{campaign.title}</Link>
         <span>/</span>
-        <span className="text-gray-900">Step {stepNumber}</span>
+        <span className="text-on-surface">Step {stepNumber}</span>
       </nav>
 
       <CampaignProgress
@@ -48,10 +48,10 @@ export default async function CampaignStepPage({
       />
 
       <div className="mb-6">
-        <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">
+        <p className="text-xs font-medium text-on-surface-muted uppercase tracking-wider mb-1">
           Step {stepNumber} of {campaign.steps.length}
         </p>
-        <h1 className="text-2xl font-bold text-gray-900">{currentStep.play.title}</h1>
+        <h1 className="text-2xl font-bold text-on-surface">{currentStep.play.title}</h1>
       </div>
 
       <CampaignStep

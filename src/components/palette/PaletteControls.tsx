@@ -40,8 +40,8 @@ function FormatTab({
       onClick={() => onClick(value)}
       className={`px-3 py-1.5 text-sm rounded transition-colors ${
         active
-          ? 'bg-gray-900 text-white'
-          : 'text-gray-500 hover:text-gray-900'
+          ? 'bg-primary text-on-primary'
+          : 'text-on-surface-muted hover:text-on-surface'
       }`}
     >
       {label}
@@ -57,7 +57,7 @@ function CopyButton({
   return (
     <button
       onClick={onClick}
-      className="text-[11px] text-gray-400 hover:text-gray-700 transition-colors leading-none mt-0.5 text-left"
+      className="text-[11px] text-on-surface-muted hover:text-on-surface transition-colors leading-none mt-0.5 text-left"
     >
       {copied ? '✓ copied' : (label ?? 'copy')}
     </button>
@@ -87,7 +87,7 @@ function PaletteRow({
   return (
     <div className="flex items-center gap-2">
       <div className="w-16 shrink-0 flex flex-col">
-        <span className="text-sm text-gray-600 font-medium capitalize leading-tight">{name}</span>
+        <span className="text-sm text-on-surface font-medium capitalize leading-tight">{name}</span>
         <CopyButton
           label={format === 'figma' ? 'export' : 'copy'}
           onClick={handleCopy}
@@ -140,14 +140,14 @@ export function PaletteControls({
     <>
       {/* Format selector + export all */}
       <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+        <div className="flex items-center gap-1 bg-surface rounded-radius-lg p-1">
           <FormatTab label="CSS Variables" value="css" current={format} onClick={setFormat} />
           <FormatTab label="Tailwind Config" value="tailwind" current={format} onClick={setFormat} />
           <FormatTab label="Figma Variables" value="figma" current={format} onClick={setFormat} />
         </div>
         <button
           onClick={handleExportAll}
-          className="text-sm text-gray-500 hover:text-gray-900 border border-gray-200 hover:border-gray-400 rounded px-3 py-1.5 transition-colors"
+          className="text-sm text-on-surface-muted hover:text-on-surface border border-border hover:border-on-surface-muted rounded-radius-sm px-3 py-1.5 transition-colors"
         >
           {copiedKey === '__all__'
             ? '✓ copied'
@@ -160,9 +160,9 @@ export function PaletteControls({
       </div>
 
       {format === 'figma' && (
-        <p className="text-xs text-gray-400 mb-4 -mt-2">
+        <p className="text-xs text-on-surface-muted mb-4 -mt-2">
           Import the downloaded JSON using the{' '}
-          <span className="font-medium text-gray-500">Variables Import &amp; Export</span>{' '}
+          <span className="font-medium text-on-surface-muted">Variables Import &amp; Export</span>{' '}
           Figma community plugin or any plugin that accepts the{' '}
           <code className="font-mono">collections</code> format.
         </p>
@@ -174,7 +174,7 @@ export function PaletteControls({
         <div className="flex gap-0.5 flex-1">
           {STOPS.map(stop => (
             <div key={stop} className="flex-1 min-w-0 text-center">
-              <span className="text-[10px] text-gray-400 font-mono">{stop}</span>
+              <span className="text-[10px] text-on-surface-muted font-mono">{stop}</span>
             </div>
           ))}
         </div>
@@ -190,7 +190,7 @@ export function PaletteControls({
         ))}
       </div>
 
-      <hr className="border-gray-200 mb-6" />
+      <hr className="border-border mb-6" />
 
       {/* Chromatic colors */}
       <div className="space-y-2">

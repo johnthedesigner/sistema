@@ -16,7 +16,7 @@ const STATUS_STYLES: Record<string, string> = {
 
 function Pill({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${className}`}>
+    <span className={`inline-flex items-center px-2 py-0.5 rounded-radius-sm text-xs font-medium border ${className}`}>
       {children}
     </span>
   )
@@ -35,9 +35,9 @@ export function ContentMeta({ frontmatter }: { frontmatter: ContentFrontmatter }
     : new Date(retrieved as Date).toISOString().split('T')[0]
 
   return (
-    <div className="flex flex-wrap items-center gap-2 text-sm text-gray-500 pb-6 mb-6 border-b border-gray-100">
+    <div className="flex flex-wrap items-center gap-2 text-sm text-on-surface-muted pb-6 mb-6 border-b border-border">
       {content_type && (
-        <Pill className="bg-gray-50 text-gray-600 border-gray-200">
+        <Pill className="bg-surface text-on-surface-muted border-border">
           {TYPE_LABELS[content_type] ?? content_type}
         </Pill>
       )}
@@ -51,7 +51,7 @@ export function ContentMeta({ frontmatter }: { frontmatter: ContentFrontmatter }
           {version_label}
         </Pill>
       )}
-      <span className="text-gray-400">Retrieved {retrievedDate}</span>
+      <span className="text-on-surface-muted">Retrieved {retrievedDate}</span>
     </div>
   )
 }

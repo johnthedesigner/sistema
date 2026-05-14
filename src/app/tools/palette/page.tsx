@@ -25,17 +25,17 @@ export default function PalettePage() {
 
   return (
     <main className="max-w-7xl mx-auto px-6 py-12">
-      <nav className="text-sm text-gray-500 mb-8 flex items-center gap-1.5">
-        <Link href="/" className="hover:text-gray-900">Sistema</Link>
+      <nav className="text-sm text-on-surface-muted mb-8 flex items-center gap-1.5">
+        <Link href="/" className="hover:text-on-surface">Sistema</Link>
         <span>/</span>
-        <Link href="/tools/palette" className="hover:text-gray-900">Tools</Link>
+        <Link href="/tools/palette" className="hover:text-on-surface">Tools</Link>
         <span>/</span>
-        <span className="text-gray-900">Palette Library</span>
+        <span className="text-on-surface">Palette Library</span>
       </nav>
 
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Palette Library</h1>
-        <p className="text-gray-500 max-w-2xl">
+        <p className="text-on-surface-muted max-w-2xl">
           22 palettes generated from Tailwind&rsquo;s color family -600 stops. Each palette has 19 shades (50–950) selected by target contrast ratio against white — every stop at a given number has the same contrast guarantee across all hues. Click any swatch to copy its hex. Use the format selector to copy or export full palettes.
         </p>
       </div>
@@ -44,9 +44,9 @@ export default function PalettePage() {
 
       <PaletteControls library={library} />
 
-      <p className="text-xs text-gray-400 mt-10">
+      <p className="text-xs text-on-surface-muted mt-10">
         Generated using the algorithm in{' '}
-        <Link href="/kb/principles/color/palette-generation.md" className="underline hover:text-gray-600">
+        <Link href="/kb/principles/color/palette-generation.md" className="underline hover:text-on-surface">
           kb/principles/color/palette-generation
         </Link>
         . Custom seeds: <code className="font-mono">POST /api/palette</code>.

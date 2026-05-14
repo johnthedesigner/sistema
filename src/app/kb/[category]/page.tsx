@@ -41,13 +41,13 @@ export default async function CategoryPage({
   if (slugs.length === 0) {
     return (
       <main className="max-w-5xl mx-auto px-6 py-12">
-        <nav className="text-sm text-gray-500 mb-8">
-          <Link href="/kb" className="hover:text-gray-900">Knowledge Base</Link>
+        <nav className="text-sm text-on-surface-muted mb-8">
+          <Link href="/kb" className="hover:text-on-surface">Knowledge Base</Link>
           <span className="mx-2">/</span>
-          <span className="text-gray-900">{label}</span>
+          <span className="text-on-surface">{label}</span>
         </nav>
         <h1 className="text-3xl font-bold mb-4">{label}</h1>
-        <p className="text-gray-500">No content captured yet. Check back in a future phase.</p>
+        <p className="text-on-surface-muted">No content captured yet. Check back in a future phase.</p>
       </main>
     )
   }
@@ -63,14 +63,14 @@ export default async function CategoryPage({
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-12">
-      <nav className="text-sm text-gray-500 mb-8">
-        <Link href="/kb" className="hover:text-gray-900">Knowledge Base</Link>
+      <nav className="text-sm text-on-surface-muted mb-8">
+        <Link href="/kb" className="hover:text-on-surface">Knowledge Base</Link>
         <span className="mx-2">/</span>
-        <span className="text-gray-900">{label}</span>
+        <span className="text-on-surface">{label}</span>
       </nav>
 
       <h1 className="text-3xl font-bold mb-2">{label}</h1>
-      <p className="text-gray-500 mb-10">
+      <p className="text-on-surface-muted mb-10">
         Browse the knowledge base by {label.toLowerCase().replace(/s$/, '')}.
       </p>
 
@@ -79,11 +79,11 @@ export default async function CategoryPage({
           <Link
             key={entry.slug}
             href={`/kb/${category}/${entry.slug}`}
-            className="block border border-gray-200 rounded-lg p-6 hover:border-gray-400 hover:shadow-sm transition-all"
+            className="block border border-border rounded-radius-lg p-6 hover:border-on-surface-muted hover:shadow-sm transition-all"
           >
             <h2 className="text-lg font-semibold mb-2">{entry.name}</h2>
             {entry.description && (
-              <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
+              <p className="text-on-surface-muted text-sm leading-relaxed line-clamp-3">
                 {entry.description}
               </p>
             )}

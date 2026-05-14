@@ -81,12 +81,12 @@ export default async function SystemPage({
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-12">
-      <nav className="text-sm text-gray-500 mb-8">
-        <Link href="/kb" className="hover:text-gray-900">Knowledge Base</Link>
+      <nav className="text-sm text-on-surface-muted mb-8">
+        <Link href="/kb" className="hover:text-on-surface">Knowledge Base</Link>
         <span className="mx-2">/</span>
-        <Link href={`/kb/${category}`} className="hover:text-gray-900">{categoryLabel}</Link>
+        <Link href={`/kb/${category}`} className="hover:text-on-surface">{categoryLabel}</Link>
         <span className="mx-2">/</span>
-        <span className="text-gray-900">{systemName}</span>
+        <span className="text-on-surface">{systemName}</span>
       </nav>
 
       <h1 className="text-3xl font-bold mb-8">{systemName}</h1>
@@ -100,14 +100,14 @@ export default async function SystemPage({
         <div className="lg:col-span-2 space-y-10">
           {overview && (
             <section>
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">Overview</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-on-surface-muted mb-4">Overview</h2>
               <MarkdownBody>{overview}</MarkdownBody>
             </section>
           )}
 
           {sourceMap && (
             <section>
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">Sources</h2>
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-on-surface-muted mb-4">Sources</h2>
               <MarkdownBody>{sourceMap}</MarkdownBody>
             </section>
           )}
@@ -115,11 +115,11 @@ export default async function SystemPage({
 
         {/* Content browser sidebar */}
         <aside>
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">Browse Content</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-on-surface-muted mb-4">Browse Content</h2>
           <div className="space-y-6">
             {sortedTypes.map(type => (
               <div key={type}>
-                <h3 className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">
+                <h3 className="text-xs font-medium text-on-surface-muted uppercase tracking-wider mb-2">
                   {TYPE_LABELS[type] ?? type}
                 </h3>
                 <ul className="space-y-1">
@@ -127,7 +127,7 @@ export default async function SystemPage({
                     <li key={parts.join('/')}>
                       <Link
                         href={`/kb/${category}/${slug}/${parts.join('/')}.md`}
-                        className="text-sm text-blue-600 hover:text-blue-800 hover:underline"
+                        className="text-sm text-primary hover:text-primary hover:underline"
                       >
                         {formatTopicName(parts)}
                       </Link>

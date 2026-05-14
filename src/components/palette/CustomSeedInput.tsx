@@ -18,7 +18,7 @@ function FormatTab({
     <button
       onClick={() => onClick(value)}
       className={`px-3 py-1.5 text-sm rounded transition-colors ${
-        value === current ? 'bg-gray-900 text-white' : 'text-gray-500 hover:text-gray-900'
+        value === current ? 'bg-primary text-on-primary' : 'text-on-surface-muted hover:text-on-surface'
       }`}
     >
       {label}
@@ -85,21 +85,21 @@ export function CustomSeedInput() {
   }
 
   return (
-    <div className="border border-gray-200 rounded-xl p-6 mb-10">
-      <h2 className="text-sm font-semibold text-gray-900 mb-1">Generate from a custom seed</h2>
-      <p className="text-sm text-gray-500 mb-4">
+    <div className="border border-border rounded-radius-xl p-6 mb-10">
+      <h2 className="text-sm font-semibold text-on-surface mb-1">Generate from a custom seed</h2>
+      <p className="text-sm text-on-surface-muted mb-4">
         Enter any hex color to generate a 19-stop palette using the same contrast-targeting algorithm.
       </p>
 
       <div className="flex items-start gap-3 flex-wrap">
         {/* Hex swatch preview */}
         <div
-          className="w-9 h-9 rounded border border-gray-200 shrink-0 mt-0.5"
+          className="w-9 h-9 rounded-radius-sm border border-border shrink-0 mt-0.5"
           style={{ backgroundColor: isValid ? inputHex : '#f3f4f6' }}
         />
 
         <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500 font-medium">Hex color</label>
+          <label className="text-xs text-on-surface-muted font-medium">Hex color</label>
           <input
             type="text"
             value={hex}
@@ -107,33 +107,33 @@ export function CustomSeedInput() {
             onKeyDown={e => e.key === 'Enter' && handleGenerate()}
             placeholder="#2563eb"
             maxLength={7}
-            className={`w-28 text-sm font-mono border rounded-md px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-gray-300 ${
-              hex && !isValid ? 'border-red-300 text-red-700' : 'border-gray-200 text-gray-900'
+            className={`w-28 text-sm font-mono border rounded-radius-md px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-border-focus ${
+              hex && !isValid ? 'border-error text-error' : 'border-border text-on-surface'
             }`}
           />
           {hex && !isValid && (
-            <span className="text-xs text-red-500">Enter a valid 6-digit hex</span>
+            <span className="text-xs text-error">Enter a valid 6-digit hex</span>
           )}
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500 font-medium">Name <span className="font-normal text-gray-400">(optional)</span></label>
+          <label className="text-xs text-on-surface-muted font-medium">Name <span className="font-normal text-on-surface-muted">(optional)</span></label>
           <input
             type="text"
             value={name}
             onChange={e => setName(e.target.value.replace(/[^a-z0-9-]/gi, '-').toLowerCase())}
             onKeyDown={e => e.key === 'Enter' && handleGenerate()}
             placeholder="custom"
-            className="w-32 text-sm border border-gray-200 rounded-md px-2.5 py-1.5 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-300"
+            className="w-32 text-sm border border-border rounded-radius-md px-2.5 py-1.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-border-focus"
           />
         </div>
 
         <div className="flex flex-col justify-end">
-          <label className="text-xs text-gray-500 font-medium invisible">Generate</label>
+          <label className="text-xs text-on-surface-muted font-medium invisible">Generate</label>
           <button
             onClick={handleGenerate}
             disabled={!isValid || status === 'loading'}
-            className="px-4 py-1.5 rounded-md text-sm font-medium bg-gray-900 text-white hover:bg-gray-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            className="px-4 py-1.5 rounded-radius-md text-sm font-medium bg-primary text-on-primary hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
             {status === 'loading' ? 'Generating…' : 'Generate'}
           </button>
@@ -141,7 +141,7 @@ export function CustomSeedInput() {
       </div>
 
       {status === 'error' && (
-        <p className="mt-4 text-sm text-red-600">{error}</p>
+        <p className="mt-4 text-sm text-error">{error}</p>
       )}
 
       {status === 'done' && result && (
@@ -152,7 +152,7 @@ export function CustomSeedInput() {
             <div className="flex gap-0.5 flex-1">
               {STOPS.map(stop => (
                 <div key={stop} className="flex-1 min-w-0 text-center">
-                  <span className="text-[10px] text-gray-400 font-mono">{stop}</span>
+                  <span className="text-[10px] text-on-surface-muted font-mono">{stop}</span>
                 </div>
               ))}
             </div>
@@ -161,8 +161,8 @@ export function CustomSeedInput() {
           {/* Palette row */}
           <div className="flex items-center gap-2 mb-4">
             <div className="w-16 shrink-0">
-              <span className="text-sm text-gray-600 font-medium leading-tight block truncate">{resultName}</span>
-              <span className="text-xs text-gray-400 font-mono">{result.seed}</span>
+              <span className="text-sm text-on-surface font-medium leading-tight block truncate">{resultName}</span>
+              <span className="text-xs text-on-surface-muted font-mono">{result.seed}</span>
             </div>
             <div className="flex gap-0.5 flex-1">
               {STOPS.map(stop => {
@@ -183,14 +183,14 @@ export function CustomSeedInput() {
 
           {/* Format selector + copy */}
           <div className="flex items-center gap-3 flex-wrap">
-            <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+            <div className="flex items-center gap-1 bg-surface rounded-radius-lg p-1">
               <FormatTab label="CSS Variables" value="css" current={format} onClick={setFormat} />
               <FormatTab label="Tailwind Config" value="tailwind" current={format} onClick={setFormat} />
               <FormatTab label="Figma Variables" value="figma" current={format} onClick={setFormat} />
             </div>
             <button
               onClick={handleCopy}
-              className="text-sm text-gray-500 hover:text-gray-900 border border-gray-200 hover:border-gray-400 rounded px-3 py-1.5 transition-colors"
+              className="text-sm text-on-surface-muted hover:text-on-surface border border-border hover:border-on-surface-muted rounded-radius-sm px-3 py-1.5 transition-colors"
             >
               {copied
                 ? '✓ copied'

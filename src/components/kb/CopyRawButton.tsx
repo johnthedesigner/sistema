@@ -24,7 +24,7 @@ export function CopyRawButton({ rawUrl }: { rawUrl: string }) {
     <button
       onClick={handleCopy}
       disabled={state === 'copying'}
-      className="flex-shrink-0 mt-1.5 text-xs text-gray-400 hover:text-gray-600 border border-gray-200 rounded px-2 py-1 hover:border-gray-400 transition-colors disabled:opacity-50"
+      className="flex-shrink-0 mt-1.5 text-xs text-on-surface-muted hover:text-on-surface border border-border rounded-radius-sm px-2 py-1 hover:border-on-surface-muted transition-colors disabled:opacity-50"
     >
       {state === 'copied' ? 'Copied!' : state === 'error' ? 'Error' : state === 'copying' ? '...' : 'Copy markdown'}
     </button>

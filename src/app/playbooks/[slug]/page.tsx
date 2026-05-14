@@ -34,16 +34,16 @@ export default async function PlayPage({
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-12">
-      <nav className="text-sm text-gray-500 mb-8 flex items-center gap-1.5">
-        <Link href="/playbooks" className="hover:text-gray-900">Playbook</Link>
+      <nav className="text-sm text-on-surface-muted mb-8 flex items-center gap-1.5">
+        <Link href="/playbooks" className="hover:text-on-surface">Playbook</Link>
         <span>/</span>
-        <Link href={`/playbooks/stage/${play.stage}`} className="hover:text-gray-900">Stage {play.stage}: {stageLabel}</Link>
+        <Link href={`/playbooks/stage/${play.stage}`} className="hover:text-on-surface">Stage {play.stage}: {stageLabel}</Link>
         <span>/</span>
-        <span className="text-gray-900">{play.title}</span>
+        <span className="text-on-surface">{play.title}</span>
       </nav>
 
       <div className="mb-8">
-        <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">
+        <p className="text-xs font-medium text-on-surface-muted uppercase tracking-wider mb-1">
           Stage {play.stage} — {stageLabel}
         </p>
         <h1 className="text-3xl font-bold mb-4">{play.title}</h1>
@@ -52,7 +52,7 @@ export default async function PlayPage({
             {play.tags.map(tag => (
               <span
                 key={tag}
-                className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-500"
+                className="inline-flex items-center px-2 py-0.5 rounded-radius-sm text-xs font-medium bg-surface text-on-surface-muted"
               >
                 {tag}
               </span>
@@ -78,7 +78,7 @@ export default async function PlayPage({
       {exemplar ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <div className="border border-gray-100 rounded-lg p-6 bg-gray-50">
+            <div className="border border-border rounded-radius-lg p-6 bg-surface">
               <MarkdownBody>{displayBody}</MarkdownBody>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default async function PlayPage({
           </div>
         </div>
       ) : (
-        <div className="border border-gray-100 rounded-lg p-6 bg-gray-50">
+        <div className="border border-border rounded-radius-lg p-6 bg-surface">
           <MarkdownBody>{displayBody}</MarkdownBody>
         </div>
       )}

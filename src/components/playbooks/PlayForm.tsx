@@ -72,7 +72,7 @@ export function PlayForm({ body, tags = [] }: Props) {
         <div key={v}>
           <label
             htmlFor={`var-${v}`}
-            className="block text-sm font-medium text-gray-700 mb-1.5"
+            className="block text-sm font-medium text-on-surface mb-1.5"
           >
             {formatLabel(v)}
           </label>
@@ -88,14 +88,14 @@ export function PlayForm({ body, tags = [] }: Props) {
               onChange={e => setValues(prev => ({ ...prev, [v]: e.target.value }))}
               placeholder={getPlaceholder(v)}
               rows={3}
-              className="w-full text-sm border border-gray-200 rounded-md px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 resize-y"
+              className="w-full text-sm border border-border rounded-radius-md px-3 py-2 text-on-surface placeholder-on-surface-muted focus:outline-none focus:ring-2 focus:ring-border-focus resize-y"
             />
           )}
         </div>
       ))}
       <button
         onClick={handleCopy}
-        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium bg-gray-900 text-white hover:bg-gray-700 transition-colors"
+        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-radius-md text-sm font-medium bg-primary text-on-primary hover:opacity-90 transition-colors"
       >
         {copied ? 'Copied!' : 'Copy prompt'}
       </button>

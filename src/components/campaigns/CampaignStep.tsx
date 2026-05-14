@@ -101,7 +101,7 @@ export function CampaignStep({
         <div className="mb-6 space-y-4">
           {variables.map(v => (
             <div key={v}>
-              <label htmlFor={`var-${v}`} className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label htmlFor={`var-${v}`} className="block text-sm font-medium text-on-surface mb-1.5">
                 {formatLabel(v)}
               </label>
               {v === 'color_mode' && isColorSchemePlay ? (
@@ -116,7 +116,7 @@ export function CampaignStep({
                   onChange={e => handleChange(v, e.target.value)}
                   placeholder={PLACEHOLDERS[v] ?? `Enter ${formatLabel(v).toLowerCase()}…`}
                   rows={3}
-                  className="w-full text-sm border border-gray-200 rounded-md px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 resize-y"
+                  className="w-full text-sm border border-border rounded-radius-md px-3 py-2 text-on-surface placeholder-on-surface-muted focus:outline-none focus:ring-2 focus:ring-border-focus resize-y"
                 />
               )}
             </div>
@@ -127,26 +127,26 @@ export function CampaignStep({
       {/* Prompt */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Prompt</span>
+          <span className="text-xs font-medium text-on-surface-muted uppercase tracking-wider">Prompt</span>
           <button
             onClick={handleCopy}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium bg-gray-900 text-white hover:bg-gray-700 transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-radius-md text-sm font-medium bg-primary text-on-primary hover:opacity-90 transition-colors"
           >
             {copied ? '✓ Copied!' : 'Copy prompt'}
           </button>
         </div>
-        <pre className="bg-gray-50 border border-gray-200 rounded-lg p-5 text-sm text-gray-900 font-mono whitespace-pre-wrap leading-relaxed overflow-auto max-h-[480px]">
+        <pre className="bg-surface border border-border rounded-radius-lg p-5 text-sm text-on-surface font-mono whitespace-pre-wrap leading-relaxed overflow-auto max-h-[480px]">
           {resolveBody()}
         </pre>
       </div>
 
       {/* Navigation */}
-      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+      <div className="flex items-center justify-between pt-4 border-t border-border">
         <div>
           {prevHref && (
             <Link
               href={prevHref}
-              className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+              className="text-sm text-on-surface-muted hover:text-on-surface transition-colors"
             >
               ← Previous
             </Link>
@@ -156,7 +156,7 @@ export function CampaignStep({
           {nextHref && (
             <Link
               href={nextHref}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium border border-gray-200 text-gray-700 hover:border-gray-400 hover:text-gray-900 transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-radius-md text-sm font-medium border border-border text-on-surface hover:border-on-surface-muted hover:text-on-surface transition-colors"
             >
               Next step →
             </Link>
@@ -164,7 +164,7 @@ export function CampaignStep({
           {isLast && (
             <Link
               href={`/campaigns/${campaignSlug}/export`}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium bg-gray-900 text-white hover:bg-gray-700 transition-colors"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-radius-md text-sm font-medium bg-primary text-on-primary hover:opacity-90 transition-colors"
             >
               Export all prompts →
             </Link>

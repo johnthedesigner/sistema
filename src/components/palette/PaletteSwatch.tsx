@@ -26,7 +26,7 @@ export function PaletteSwatch({ hex, stop, contrastWhite, contrastBlack }: Props
     <button
       onClick={handleClick}
       title={`${stop}: ${hex} | ${contrastWhite}:1 on white | ${contrastBlack}:1 on black`}
-      className="group relative flex flex-col items-start justify-end w-full h-16 px-1.5 pb-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-gray-400 transition-transform hover:scale-105"
+      className="group relative flex flex-col items-start justify-end w-full h-16 px-1.5 pb-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-border-focus transition-transform hover:scale-105"
       style={{ backgroundColor: hex }}
     >
       <span

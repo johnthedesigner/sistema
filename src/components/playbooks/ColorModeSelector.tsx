@@ -21,10 +21,10 @@ export function ColorModeSelector({ value, onChange }: Props) {
           key={opt.value}
           type="button"
           onClick={() => onChange(opt.value)}
-          className={`px-3 py-1.5 rounded-md text-sm font-medium border transition-colors ${
+          className={`px-3 py-1.5 rounded-radius-md text-sm font-medium border transition-colors ${
             value === opt.value
-              ? 'bg-gray-900 text-white border-gray-900'
-              : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400 hover:text-gray-900'
+              ? 'bg-primary text-on-primary border-primary'
+              : 'bg-surface-raised text-on-surface-muted border-border hover:border-on-surface-muted hover:text-on-surface'
           }`}
         >
           {opt.label}

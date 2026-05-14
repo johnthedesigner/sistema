@@ -61,7 +61,7 @@ const STAGES = [
 
 function CodeBlock({ children }: { children: string }) {
   return (
-    <pre className="bg-gray-50 border border-gray-100 rounded-md px-4 py-3 text-sm text-gray-700 overflow-x-auto whitespace-pre-wrap break-words">
+    <pre className="bg-surface border border-border rounded-radius-md px-4 py-3 text-sm text-on-surface-muted overflow-x-auto whitespace-pre-wrap break-words">
       <code>{children}</code>
     </pre>
   )
@@ -69,7 +69,7 @@ function CodeBlock({ children }: { children: string }) {
 
 function StepNumber({ n }: { n: number }) {
   return (
-    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-gray-900 text-white text-xs font-semibold flex items-center justify-center mt-0.5">
+    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-on-primary text-xs font-semibold flex items-center justify-center mt-0.5">
       {n}
     </span>
   )
@@ -81,16 +81,16 @@ export default function GuidePage() {
 
       {/* Header */}
       <div className="mb-12">
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-3">How to use Sistema</h1>
-        <p className="text-gray-500 text-lg">
+        <h1 className="text-3xl font-bold tracking-tight text-on-surface mb-3">How to use Sistema</h1>
+        <p className="text-on-surface-muted text-lg">
           A practical walkthrough — from setting up your project to running plays end-to-end.
         </p>
       </div>
 
       {/* ── Section 1 ── */}
       <section className="mb-14">
-        <h2 className="text-xl font-semibold text-gray-900 mb-1">Adding a DESIGN.md to your project</h2>
-        <p className="text-gray-500 mb-4">
+        <h2 className="text-xl font-semibold text-on-surface mb-1">Adding a DESIGN.md to your project</h2>
+        <p className="text-on-surface-muted mb-4">
           A DESIGN.md file is a short, structured description of your product&apos;s visual language — written specifically for AI coding tools to read before generating design system artifacts. It lives at the root of your repository alongside CLAUDE.md or similar agent context files.
         </p>
 
@@ -102,9 +102,9 @@ export default function GuidePage() {
           <div className="flex gap-4">
             <StepNumber n={1} />
             <div>
-              <p className="font-medium text-gray-900 mb-1">Run the Generate a DESIGN.md play</p>
-              <p className="text-gray-500 text-sm">
-                Open the <Link href="/playbooks/generate-design-md" className="text-gray-900 underline underline-offset-2 hover:text-gray-600">Generate a DESIGN.md</Link> play, fill in your project context, and paste the prompt into Claude Code or your preferred AI coding agent.
+              <p className="font-medium text-on-surface mb-1">Run the Generate a DESIGN.md play</p>
+              <p className="text-on-surface-muted text-sm">
+                Open the <Link href="/playbooks/generate-design-md" className="text-on-surface underline underline-offset-2 hover:text-on-surface-muted">Generate a DESIGN.md</Link> play, fill in your project context, and paste the prompt into Claude Code or your preferred AI coding agent.
               </p>
             </div>
           </div>
@@ -112,8 +112,8 @@ export default function GuidePage() {
           <div className="flex gap-4">
             <StepNumber n={2} />
             <div>
-              <p className="font-medium text-gray-900 mb-1">Save the output as <code className="text-sm bg-gray-100 px-1.5 py-0.5 rounded">DESIGN.md</code></p>
-              <p className="text-gray-500 text-sm mb-3">
+              <p className="font-medium text-on-surface mb-1">Save the output as <code className="text-sm bg-surface px-1.5 py-0.5 rounded-radius-sm">DESIGN.md</code></p>
+              <p className="text-on-surface-muted text-sm mb-3">
                 Place it at the root of your project. The file format follows the Google Labs DESIGN.md convention — a brief spec covering color, typography, spacing, shape, and key component decisions.
               </p>
               <CodeBlock>{`my-project/
@@ -127,8 +127,8 @@ export default function GuidePage() {
           <div className="flex gap-4">
             <StepNumber n={3} />
             <div>
-              <p className="font-medium text-gray-900 mb-1">Reference it in future prompts</p>
-              <p className="text-gray-500 text-sm mb-3">
+              <p className="font-medium text-on-surface mb-1">Reference it in future prompts</p>
+              <p className="text-on-surface-muted text-sm mb-3">
                 Once the file exists, every subsequent play in the playbook can reference it. The agent reads DESIGN.md to stay consistent with your established decisions rather than starting from scratch each time.
               </p>
               <CodeBlock>{`Read DESIGN.md first, then implement the Button component using the token values defined there.`}</CodeBlock>
@@ -137,12 +137,12 @@ export default function GuidePage() {
         </div>
       </section>
 
-      <div className="border-t border-gray-100 mb-14" />
+      <div className="border-t border-border mb-14" />
 
       {/* ── Section 2 ── */}
       <section className="mb-14">
-        <h2 className="text-xl font-semibold text-gray-900 mb-1">Referencing KB content in prompts</h2>
-        <p className="text-gray-500 mb-6">
+        <h2 className="text-xl font-semibold text-on-surface mb-1">Referencing KB content in prompts</h2>
+        <p className="text-on-surface-muted mb-6">
           The Sistema knowledge base is publicly accessible at stable URLs. Every play in the playbook already includes fetch instructions pointing to specific KB pages — but you can reference any KB content directly in your own prompts.
         </p>
 
@@ -150,9 +150,9 @@ export default function GuidePage() {
           <div className="flex gap-4">
             <StepNumber n={1} />
             <div>
-              <p className="font-medium text-gray-900 mb-1">Browse to the content you need</p>
-              <p className="text-gray-500 text-sm">
-                Find the relevant page in the <Link href="/kb" className="text-gray-900 underline underline-offset-2 hover:text-gray-600">knowledge base</Link>. Each design system has guidance, implementation docs, and token assets — organized by category.
+              <p className="font-medium text-on-surface mb-1">Browse to the content you need</p>
+              <p className="text-on-surface-muted text-sm">
+                Find the relevant page in the <Link href="/kb" className="text-on-surface underline underline-offset-2 hover:text-on-surface-muted">knowledge base</Link>. Each design system has guidance, implementation docs, and token assets — organized by category.
               </p>
             </div>
           </div>
@@ -160,9 +160,9 @@ export default function GuidePage() {
           <div className="flex gap-4">
             <StepNumber n={2} />
             <div>
-              <p className="font-medium text-gray-900 mb-1">Use the page URL in your prompt</p>
-              <p className="text-gray-500 text-sm mb-3">
-                Tell the agent to fetch the page before generating. The KB serves raw markdown via the <code className="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/raw/</code> endpoint, which agents can read directly.
+              <p className="font-medium text-on-surface mb-1">Use the page URL in your prompt</p>
+              <p className="text-on-surface-muted text-sm mb-3">
+                Tell the agent to fetch the page before generating. The KB serves raw markdown via the <code className="text-sm bg-surface px-1.5 py-0.5 rounded-radius-sm">/raw/</code> endpoint, which agents can read directly.
               </p>
               <CodeBlock>{`Fetch ${VERCEL_URL}/raw/design-systems/material/guidance/foundations/color-system and use it as the reference for generating color role tokens.`}</CodeBlock>
             </div>
@@ -171,42 +171,42 @@ export default function GuidePage() {
           <div className="flex gap-4">
             <StepNumber n={3} />
             <div>
-              <p className="font-medium text-gray-900 mb-1">Or use the bundle endpoint for multiple files</p>
-              <p className="text-gray-500 text-sm mb-3">
-                The <code className="text-sm bg-gray-100 px-1.5 py-0.5 rounded">/bundle/</code> endpoint returns all files in a category as a single markdown document — useful when the agent needs the full picture of a topic.
+              <p className="font-medium text-on-surface mb-1">Or use the bundle endpoint for multiple files</p>
+              <p className="text-on-surface-muted text-sm mb-3">
+                The <code className="text-sm bg-surface px-1.5 py-0.5 rounded-radius-sm">/bundle/</code> endpoint returns all files in a category as a single markdown document — useful when the agent needs the full picture of a topic.
               </p>
               <CodeBlock>{`Fetch ${VERCEL_URL}/bundle/design-systems/material to get all Material Design 3 guidance, then generate a token architecture for a mobile-first product.`}</CodeBlock>
             </div>
           </div>
         </div>
 
-        <div className="mt-6 border border-gray-100 rounded-lg p-4 bg-gray-50">
-          <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">URL patterns</p>
-          <div className="space-y-1.5 text-sm font-mono text-gray-600">
-            <p><span className="text-gray-400">/kb/</span>design-systems/material/guidance/foundations/color-system <span className="text-gray-400">→ rendered page</span></p>
-            <p><span className="text-gray-400">/raw/</span>design-systems/material/guidance/foundations/color-system <span className="text-gray-400">→ raw markdown</span></p>
-            <p><span className="text-gray-400">/bundle/</span>design-systems/material <span className="text-gray-400">→ all files concatenated</span></p>
+        <div className="mt-6 border border-border rounded-radius-lg p-4 bg-surface">
+          <p className="text-xs font-medium text-on-surface-muted uppercase tracking-wider mb-2">URL patterns</p>
+          <div className="space-y-1.5 text-sm font-mono text-on-surface-muted">
+            <p><span className="text-on-surface-muted">/kb/</span>design-systems/material/guidance/foundations/color-system <span className="text-on-surface-muted">→ rendered page</span></p>
+            <p><span className="text-on-surface-muted">/raw/</span>design-systems/material/guidance/foundations/color-system <span className="text-on-surface-muted">→ raw markdown</span></p>
+            <p><span className="text-on-surface-muted">/bundle/</span>design-systems/material <span className="text-on-surface-muted">→ all files concatenated</span></p>
           </div>
         </div>
       </section>
 
-      <div className="border-t border-gray-100 mb-14" />
+      <div className="border-t border-border mb-14" />
 
       {/* ── Section 3 ── */}
       <section className="mb-14">
-        <h2 className="text-xl font-semibold text-gray-900 mb-1">Running a playbook end-to-end</h2>
-        <p className="text-gray-500 mb-6">
+        <h2 className="text-xl font-semibold text-on-surface mb-1">Running a playbook end-to-end</h2>
+        <p className="text-on-surface-muted mb-6">
           Here&apos;s a complete example of using Sistema to build the color layer of a new design system — from a seed color to deployable CSS custom properties. This is Stages 1–3 in sequence.
         </p>
 
         <div className="space-y-8">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-xs font-mono text-gray-400 bg-gray-100 px-2 py-0.5 rounded">Stage 1</span>
-              <span className="text-sm font-medium text-gray-700">Define the system</span>
+              <span className="text-xs font-mono text-on-surface-muted bg-surface px-2 py-0.5 rounded-radius-sm">Stage 1</span>
+              <span className="text-sm font-medium text-on-surface">Define the system</span>
             </div>
-            <p className="text-sm text-gray-500 mb-3">
-              Open the <Link href="/playbooks/generate-design-md" className="text-gray-900 underline underline-offset-2 hover:text-gray-600">Generate a DESIGN.md</Link> play. Fill in your product context — company name, product type, primary brand color. Paste into Claude Code. Save the output as <code className="text-sm bg-gray-100 px-1.5 py-0.5 rounded">DESIGN.md</code>.
+            <p className="text-sm text-on-surface-muted mb-3">
+              Open the <Link href="/playbooks/generate-design-md" className="text-on-surface underline underline-offset-2 hover:text-on-surface-muted">Generate a DESIGN.md</Link> play. Fill in your product context — company name, product type, primary brand color. Paste into Claude Code. Save the output as <code className="text-sm bg-surface px-1.5 py-0.5 rounded-radius-sm">DESIGN.md</code>.
             </p>
             <CodeBlock>{`# DESIGN.md — Meridian Analytics
 
@@ -218,11 +218,11 @@ Themes: light (default) + dark.
 
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-xs font-mono text-gray-400 bg-gray-100 px-2 py-0.5 rounded">Stage 2</span>
-              <span className="text-sm font-medium text-gray-700">Generate primitive tokens</span>
+              <span className="text-xs font-mono text-on-surface-muted bg-surface px-2 py-0.5 rounded-radius-sm">Stage 2</span>
+              <span className="text-sm font-medium text-on-surface">Generate primitive tokens</span>
             </div>
-            <p className="text-sm text-gray-500 mb-3">
-              Open the <Link href="/playbooks/generate-color-scheme" className="text-gray-900 underline underline-offset-2 hover:text-gray-600">Generate a Color Scheme</Link> play. Enter your primary color. The play tells the agent to fetch Material Design 3&apos;s color system from Sistema as a structural reference, then generate your palette in the same format.
+            <p className="text-sm text-on-surface-muted mb-3">
+              Open the <Link href="/playbooks/generate-color-scheme" className="text-on-surface underline underline-offset-2 hover:text-on-surface-muted">Generate a Color Scheme</Link> play. Enter your primary color. The play tells the agent to fetch Material Design 3&apos;s color system from Sistema as a structural reference, then generate your palette in the same format.
             </p>
             <CodeBlock>{`/* Generated: Meridian primitive palette */
 --color-blue-10: #EFF6FF;
@@ -234,11 +234,11 @@ Themes: light (default) + dark.
 
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-xs font-mono text-gray-400 bg-gray-100 px-2 py-0.5 rounded">Stage 3</span>
-              <span className="text-sm font-medium text-gray-700">Map semantic roles</span>
+              <span className="text-xs font-mono text-on-surface-muted bg-surface px-2 py-0.5 rounded-radius-sm">Stage 3</span>
+              <span className="text-sm font-medium text-on-surface">Map semantic roles</span>
             </div>
-            <p className="text-sm text-gray-500 mb-3">
-              Open the <Link href="/playbooks/generate-color-roles" className="text-gray-900 underline underline-offset-2 hover:text-gray-600">Map an Existing Palette to Semantic Roles</Link> play. Paste in the primitive tokens from Stage 2. The agent assigns each primitive to the correct semantic role — background, surface, primary, on-primary, etc. — producing deployable CSS custom properties for light and dark themes.
+            <p className="text-sm text-on-surface-muted mb-3">
+              Open the <Link href="/playbooks/generate-color-roles" className="text-on-surface underline underline-offset-2 hover:text-on-surface-muted">Map an Existing Palette to Semantic Roles</Link> play. Paste in the primitive tokens from Stage 2. The agent assigns each primitive to the correct semantic role — background, surface, primary, on-primary, etc. — producing deployable CSS custom properties for light and dark themes.
             </p>
             <CodeBlock>{`:root {
   --color-background: var(--color-gray-10);
@@ -256,36 +256,36 @@ Themes: light (default) + dark.
           </div>
         </div>
 
-        <p className="text-sm text-gray-500 mt-6">
+        <p className="text-sm text-on-surface-muted mt-6">
           At this point you have a committed, structured color system. Continue to Stage 4 to specify and implement components using these tokens.
         </p>
       </section>
 
-      <div className="border-t border-gray-100 mb-14" />
+      <div className="border-t border-border mb-14" />
 
       {/* ── Quick reference ── */}
       <section>
-        <h2 className="text-xl font-semibold text-gray-900 mb-1">Quick reference</h2>
-        <p className="text-gray-500 mb-6">All plays by stage — what each one produces and when to use it.</p>
+        <h2 className="text-xl font-semibold text-on-surface mb-1">Quick reference</h2>
+        <p className="text-on-surface-muted mb-6">All plays by stage — what each one produces and when to use it.</p>
 
         <div className="space-y-8">
           {STAGES.map(({ stage, label, description, plays }) => (
             <div key={stage}>
               <div className="flex items-baseline gap-3 mb-3">
-                <span className="text-xs font-mono text-gray-400">Stage {stage}</span>
-                <h3 className="text-sm font-semibold text-gray-700">{label}</h3>
+                <span className="text-xs font-mono text-on-surface-muted">Stage {stage}</span>
+                <h3 className="text-sm font-semibold text-on-surface-muted">{label}</h3>
               </div>
-              <p className="text-sm text-gray-500 mb-3">{description}</p>
-              <div className="border border-gray-100 rounded-lg overflow-hidden divide-y divide-gray-100">
+              <p className="text-sm text-on-surface-muted mb-3">{description}</p>
+              <div className="border border-border rounded-radius-lg overflow-hidden divide-y divide-border">
                 {plays.map(play => (
                   <div key={play.slug} className="px-4 py-3 grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-4">
                     <Link
                       href={`/playbooks/${play.slug}`}
-                      className="text-sm font-medium text-gray-900 hover:text-gray-600 transition-colors"
+                      className="text-sm font-medium text-on-surface hover:text-on-surface-muted transition-colors"
                     >
                       {play.title} →
                     </Link>
-                    <p className="text-sm text-gray-500">{play.output}</p>
+                    <p className="text-sm text-on-surface-muted">{play.output}</p>
                   </div>
                 ))}
               </div>
