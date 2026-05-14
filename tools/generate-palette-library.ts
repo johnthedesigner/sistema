@@ -108,7 +108,7 @@ const SEEDS: Record<string, string> = {
   red:     '#dc2626',
   orange:  '#ea580c',
   amber:   '#d97706',
-  yellow:  '#ca8a04',
+  yellow:  '#FFCC33',
   lime:    '#65a30d',
   green:   '#16a34a',
   emerald: '#059669',
