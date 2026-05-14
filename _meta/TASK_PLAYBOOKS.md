@@ -123,7 +123,8 @@ The color architecture synthesis explains the four major architectural models, t
 
 **Step 3 — Clarify scope:**
 
-Theme mode (read from living brief — confirm before proceeding):
+Theme mode: {{color_mode}}
+
 - **Light only:** generate `:root { }` with light mode values only
 - **Dark only:** generate `:root { }` with dark mode values only
 - **Both:** generate `:root { }` with light mode values, then `[data-theme="dark"] { }` with dark mode values

@@ -68,7 +68,7 @@ export default async function PlayPage({
       )}
 
       {hasVariables ? (
-        <PlayForm body={play.body} />
+        <PlayForm body={play.body} tags={play.tags} />
       ) : (
         <div className="mb-6">
           <CopyButton text={play.body} />

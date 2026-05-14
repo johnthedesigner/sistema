@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { ColorModeSelector, COLOR_MODE_STORAGE_KEY } from './ColorModeSelector'
 
 function extractVariables(body: string): string[] {
   const matches = [...body.matchAll(/\{\{([^}]+)\}\}/g)]
@@ -22,12 +23,32 @@ function getPlaceholder(varName: string): string {
   return PLACEHOLDERS[varName] ?? `Enter ${formatLabel(varName).toLowerCase()}…`
 }
 
-export function PlayForm({ body }: { body: string }) {
+interface Props {
+  body: string
+  tags?: string[]
+}
+
+export function PlayForm({ body, tags = [] }: Props) {
   const variables = extractVariables(body)
+  const isColorPlay = tags.includes('color')
+
   const [values, setValues] = useState<Record<string, string>>(
     Object.fromEntries(variables.map(v => [v, '']))
   )
   const [copied, setCopied] = useState(false)
+
+  useEffect(() => {
+    if (isColorPlay && variables.includes('color_mode')) {
+      const stored = localStorage.getItem(COLOR_MODE_STORAGE_KEY)
+      if (stored) setValues(prev => ({ ...prev, color_mode: stored }))
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  function handleColorModeChange(value: string) {
+    localStorage.setItem(COLOR_MODE_STORAGE_KEY, value)
+    setValues(prev => ({ ...prev, color_mode: value }))
+  }
 
   async function handleCopy() {
     const base = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
@@ -55,14 +76,21 @@ export function PlayForm({ body }: { body: string }) {
           >
             {formatLabel(v)}
           </label>
-          <textarea
-            id={`var-${v}`}
-            value={values[v]}
-            onChange={e => setValues(prev => ({ ...prev, [v]: e.target.value }))}
-            placeholder={getPlaceholder(v)}
-            rows={3}
-            className="w-full text-sm border border-gray-200 rounded-md px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 resize-y"
-          />
+          {v === 'color_mode' && isColorPlay ? (
+            <ColorModeSelector
+              value={values[v]}
+              onChange={handleColorModeChange}
+            />
+          ) : (
+            <textarea
+              id={`var-${v}`}
+              value={values[v]}
+              onChange={e => setValues(prev => ({ ...prev, [v]: e.target.value }))}
+              placeholder={getPlaceholder(v)}
+              rows={3}
+              className="w-full text-sm border border-gray-200 rounded-md px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 resize-y"
+            />
+          )}
         </div>
       ))}
       <button

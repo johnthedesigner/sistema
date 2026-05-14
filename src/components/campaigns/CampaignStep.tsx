@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { ColorModeSelector, COLOR_MODE_STORAGE_KEY } from '@/components/playbooks/ColorModeSelector'
 
 interface Props {
   campaignSlug: string
@@ -41,12 +42,18 @@ export function CampaignStep({
   )
   const [copied, setCopied] = useState(false)
 
-  // Restore from sessionStorage on mount
+  const isColorSchemePlay = playSlug === 'generate-color-scheme'
+
+  // Restore from sessionStorage on mount; pre-fill color_mode from localStorage for color plays
   useEffect(() => {
     const restored: Record<string, string> = {}
     for (const v of variables) {
       const stored = sessionStorage.getItem(storageKey(campaignSlug, stepNumber, v))
       if (stored !== null) restored[v] = stored
+    }
+    if (isColorSchemePlay && variables.includes('color_mode') && !restored.color_mode) {
+      const stored = localStorage.getItem(COLOR_MODE_STORAGE_KEY)
+      if (stored) restored.color_mode = stored
     }
     if (Object.keys(restored).length > 0) {
       setValues(prev => ({ ...prev, ...restored }))
@@ -57,6 +64,11 @@ export function CampaignStep({
   function handleChange(varName: string, value: string) {
     setValues(prev => ({ ...prev, [varName]: value }))
     sessionStorage.setItem(storageKey(campaignSlug, stepNumber, varName), value)
+  }
+
+  function handleColorModeChange(value: string) {
+    localStorage.setItem(COLOR_MODE_STORAGE_KEY, value)
+    handleChange('color_mode', value)
   }
 
   function resolveBody(): string {
@@ -91,14 +103,21 @@ export function CampaignStep({
               <label htmlFor={`var-${v}`} className="block text-sm font-medium text-gray-700 mb-1.5">
                 {formatLabel(v)}
               </label>
-              <textarea
-                id={`var-${v}`}
-                value={values[v]}
-                onChange={e => handleChange(v, e.target.value)}
-                placeholder={PLACEHOLDERS[v] ?? `Enter ${formatLabel(v).toLowerCase()}…`}
-                rows={3}
-                className="w-full text-sm border border-gray-200 rounded-md px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 resize-y"
-              />
+              {v === 'color_mode' && isColorSchemePlay ? (
+                <ColorModeSelector
+                  value={values[v]}
+                  onChange={handleColorModeChange}
+                />
+              ) : (
+                <textarea
+                  id={`var-${v}`}
+                  value={values[v]}
+                  onChange={e => handleChange(v, e.target.value)}
+                  placeholder={PLACEHOLDERS[v] ?? `Enter ${formatLabel(v).toLowerCase()}…`}
+                  rows={3}
+                  className="w-full text-sm border border-gray-200 rounded-md px-3 py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 resize-y"
+                />
+              )}
             </div>
           ))}
         </div>
