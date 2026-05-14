@@ -1,0 +1,32 @@
+{
+  "color": {
+    "dark-surface":          { "value": "{palette.dark-base}" },
+    "dark-surface-raised":   { "value": "{palette.dark-raised}" },
+    "dark-surface-overlay":  { "value": "{palette.dark-overlay}" },
+
+    "dark-on-surface":       { "value": "{palette.dark-text}" },
+    "dark-on-surface-muted": { "value": "{palette.dark-text-muted}" },
+
+    "dark-border":           { "value": "{palette.dark-border}" },
+    "dark-border-focus":     { "value": "{palette.blue-lifted}" },
+
+    "dark-primary":              { "value": "{palette.blue-lifted}" },
+    "dark-on-primary":           { "value": "{palette.blue-darkest}" },
+    "dark-primary-container":    { "value": "{palette.blue-container-dark}" },
+    "dark-on-primary-container": { "value": "{palette.blue-on-container-dark}" },
+
+    "dark-secondary":              { "value": "{palette.yellow-brand}" },
+    "dark-on-secondary":           { "value": "{palette.yellow-on}" },
+    "dark-secondary-container":    { "value": "{palette.yellow-container-dark}" },
+    "dark-on-secondary-container": { "value": "{palette.yellow-brand}" },
+
+    "dark-error":     { "value": "{palette.error-dark}" },
+    "dark-on-error":  { "value": "{palette.error-on-dark}" },
+
+    "dark-success":    { "value": "{palette.success-dark}" },
+    "dark-on-success": { "value": "{palette.success-on-dark}" },
+
+    "dark-warning":    { "value": "{palette.warning-dark}" },
+    "dark-on-warning": { "value": "{palette.warning-on-dark}" }
+  }
+}

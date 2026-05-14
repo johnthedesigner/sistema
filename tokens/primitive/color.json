@@ -1,0 +1,43 @@
+{
+  "palette": {
+    "blue-brand":           { "value": "#0070FF" },
+    "blue-link":            { "value": "#005CE6" },
+    "blue-lifted":          { "value": "#4D9FFF" },
+    "blue-deep":            { "value": "#003A9E" },
+    "blue-darkest":         { "value": "#002D6E" },
+    "blue-container":       { "value": "#E8F1FF" },
+    "blue-container-dark":  { "value": "#1E3A5F" },
+    "blue-on-container-dark": { "value": "#BAD4FF" },
+
+    "yellow-brand":             { "value": "#FFCC33" },
+    "yellow-on":                { "value": "#1A1200" },
+    "yellow-container":         { "value": "#FFF9E6" },
+    "yellow-container-dark":    { "value": "#3D2E00" },
+    "yellow-on-container":      { "value": "#4A3800" },
+
+    "error":       { "value": "#B91C1C" },
+    "error-dark":  { "value": "#FCA5A5" },
+    "error-on-dark": { "value": "#450A0A" },
+
+    "success":       { "value": "#15803D" },
+    "success-dark":  { "value": "#4ADE80" },
+    "success-on-dark": { "value": "#052E16" },
+
+    "warning":       { "value": "#B45309" },
+    "warning-dark":  { "value": "#FCD34D" },
+    "warning-on-dark": { "value": "#311700" },
+
+    "white":         { "value": "#FFFFFF" },
+    "surface":       { "value": "#F8F9FA" },
+    "text":          { "value": "#111827" },
+    "text-muted":    { "value": "#6B7280" },
+    "border":        { "value": "#E5E7EB" },
+
+    "dark-base":       { "value": "#111111" },
+    "dark-raised":     { "value": "#1C1C1C" },
+    "dark-overlay":    { "value": "#252525" },
+    "dark-text":       { "value": "#F3F4F6" },
+    "dark-text-muted": { "value": "#9CA3AF" },
+    "dark-border":     { "value": "#2D2D2D" }
+  }
+}

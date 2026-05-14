@@ -26,7 +26,7 @@
 
 **Motion:** [to be determined — stance TBD; prefers-reduced-motion will be implemented globally as a baseline]
 
-**Tokens:** [to be determined — tier model and naming convention TBD in generate-style-dictionary play; dark mode strategy: both themes fully resolved; switching via JS time-based trigger, not CSS media query]
+**Tokens:** Two-tier architecture (primitive → semantic). No component tokens — not yet needed. Primitive palette in `tokens/primitive/color.json` (reference only, not output). Semantic tokens in `tokens/semantic/` (color light + dark, typography, shape). Built by Style Dictionary v5 via `npm run tokens`. Output: `src/styles/tokens/generated.css` (CSS custom properties, `:root` + `[data-theme="dark"]`) and `src/styles/tokens/tokens.mjs` (ESM named exports). Source of truth: JSON files under `tokens/`. Dark mode: CSS var overrides via `[data-theme="dark"]` — JS time-based trigger, not `prefers-color-scheme`.
 
 ---
 
@@ -59,3 +59,4 @@
 *[2026-05-14] — Color scheme generated — Named palette model (Model 3); both light and dark themes via [data-theme] attribute; 15 semantic roles defined; error/success/warning intentionally distinct from brand palette; primary ⚠️ verify at small text sizes; token file: src/styles/tokens/colors.css*
 *[2026-05-14] — Type scale generated — Hand-tuned 10-role named scale (display→code); three-typeface system: Inter (headings/UI), Fraunces (quirky serif body, opsz enabled), JetBrains Mono (code); negative tracking at large sizes, positive at small; token file: src/styles/tokens/typography.css*
 *[2026-05-14] — Shape tokens generated — Named semantic scale (none/sm/md/lg/xl/full); moderate personality (8px interactive, 12px containers); pill reserved for badges/chips; token file: src/styles/tokens/shape.css*
+*[2026-05-14] — Style Dictionary configured — Two-tier JSON source (primitive/semantic); SD v5; outputs CSS custom properties + ESM module; dark mode via color-dark-* pattern → [data-theme="dark"]; globals.css now imports generated.css*
