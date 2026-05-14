@@ -1,0 +1,147 @@
+/*
+ * Sistema — Typography Tokens
+ * Scale: hand-tuned, 10 named roles, 11px–56px
+ * Taxonomy: named roles (semantic, not numeric steps)
+ * Typefaces: Inter (headings/UI), Fraunces (body), JetBrains Mono (code)
+ * Generated: 2026-05-14
+ *
+ * Loading requirements (next/font or equivalent):
+ * - Inter: weights 400, 500, 600, 700, 800
+ * - Fraunces: weights 400, 500; optical size axis (opsz) enabled at all body sizes
+ * - JetBrains Mono: weight 400
+ *
+ * Non-standard extension: --type-[role]-font is not in the play template but is
+ * required for a three-typeface system. Each role specifies its family via a
+ * reference to the --font-* primitive.
+ *
+ * Color is not specified here — consume --color-on-surface and
+ * --color-on-surface-muted from colors.css for text color decisions.
+ */
+
+/* ============================================================
+   Font family primitives
+   ============================================================ */
+
+:root {
+  --font-sans:  'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-mono:  'JetBrains Mono', 'Cascadia Code', 'Fira Mono', monospace;
+}
+
+
+/* ============================================================
+   Type scale
+   ============================================================ */
+
+:root {
+
+  /* --- Display — 56px ---
+     Homepage hero, major section landmarks, campaign titles.
+     Judgment call: 56px is assertive for a tool; appropriate for the homepage
+     and KB section heroes. Requires responsive clamping at mobile — do not use
+     without a fluid wrapper. Weight 800 + tight tracking creates compressed
+     authority. */
+  --type-display-font:           var(--font-sans);
+  --type-display-size:           3.5rem;      /* 56px */
+  --type-display-weight:         800;
+  --type-display-line-height:    1.0;
+  --type-display-letter-spacing: -0.025em;
+
+  /* --- Heading XL (h1) — 40px ---
+     Page-level titles: KB category pages, playbook detail, tool pages. */
+  --type-heading-xl-font:           var(--font-sans);
+  --type-heading-xl-size:           2.5rem;      /* 40px */
+  --type-heading-xl-weight:         700;
+  --type-heading-xl-line-height:    1.1;
+  --type-heading-xl-letter-spacing: -0.02em;
+
+  /* --- Heading LG (h2) — 32px ---
+     Major section headings within a page, campaign step titles. */
+  --type-heading-lg-font:           var(--font-sans);
+  --type-heading-lg-size:           2rem;        /* 32px */
+  --type-heading-lg-weight:         700;
+  --type-heading-lg-line-height:    1.15;
+  --type-heading-lg-letter-spacing: -0.015em;
+
+  /* --- Heading MD (h3) — 24px ---
+     Subsection headers, KB article in-page navigation, card group titles. */
+  --type-heading-md-font:           var(--font-sans);
+  --type-heading-md-size:           1.5rem;      /* 24px */
+  --type-heading-md-weight:         600;
+  --type-heading-md-line-height:    1.2;
+  --type-heading-md-letter-spacing: -0.01em;
+
+  /* --- Heading SM (h4) — 20px ---
+     Card titles, sidebar section headers, playbook step labels.
+     Zero tracking: at 20px the default inter-letterform spacing is balanced. */
+  --type-heading-sm-font:           var(--font-sans);
+  --type-heading-sm-size:           1.25rem;     /* 20px */
+  --type-heading-sm-weight:         600;
+  --type-heading-sm-line-height:    1.3;
+  --type-heading-sm-letter-spacing: 0em;
+
+  /* --- Body LG — 18px serif ---
+     KB article body text, long-form content, documentation prose.
+     Judgment call: Fraunces delivers the "quirky serif" direction; optical size
+     axis should be set to match rendered size (font-optical-sizing: auto).
+     Line height 1.75 is intentionally generous — above the 1.5 floor — for
+     sustained reading across multi-paragraph KB content. Verify with Fraunces
+     loaded: x-height may read larger than 18px in some weight/opsz settings. */
+  --type-body-lg-font:           var(--font-serif);
+  --type-body-lg-size:           1.125rem;    /* 18px */
+  --type-body-lg-weight:         400;
+  --type-body-lg-line-height:    1.75;
+  --type-body-lg-letter-spacing: 0em;
+
+  /* --- Body MD — 16px serif ---
+     Default prose in playbook steps, campaign content, KB article summaries.
+     Judgment call: serif body at 16px — verify Fraunces renders comfortably
+     at this size in all supported browsers before finalising. */
+  --type-body-md-font:           var(--font-serif);
+  --type-body-md-size:           1rem;        /* 16px */
+  --type-body-md-weight:         400;
+  --type-body-md-line-height:    1.65;
+  --type-body-md-letter-spacing: 0em;
+
+  /* --- Body SM — 14px serif ---
+     Supplementary prose, KB article metadata sections, inline descriptions.
+     Judgment call: 14px is the floor for Fraunces body use — below this,
+     switch to Body SM in sans (use --font-sans override) or switch to Label. */
+  --type-body-sm-font:           var(--font-serif);
+  --type-body-sm-size:           0.875rem;    /* 14px */
+  --type-body-sm-weight:         400;
+  --type-body-sm-line-height:    1.6;
+  --type-body-sm-letter-spacing: 0.005em;
+
+  /* --- Label — 12px sans ---
+     UI labels, form field labels, badge text, nav items, step indicators.
+     Sans-serif for UI clarity — serif labels at 12px sacrifice legibility.
+     Positive tracking (+0.02em) opens letterforms at this compressed size. */
+  --type-label-font:           var(--font-sans);
+  --type-label-size:           0.75rem;      /* 12px */
+  --type-label-weight:         500;
+  --type-label-line-height:    1.35;
+  --type-label-letter-spacing: 0.02em;
+
+  /* --- Caption — 11px sans ---
+     Timestamps, breadcrumbs, tooltip text, palette stop numbers, image credits.
+     Judgment call: 11px is the minimum legible size for the system — nothing
+     below this. Tracking +0.025em is at the upper end of positive; necessary
+     at this size for letterforms to separate clearly. */
+  --type-caption-font:           var(--font-sans);
+  --type-caption-size:           0.6875rem;   /* 11px */
+  --type-caption-weight:         400;
+  --type-caption-line-height:    1.4;
+  --type-caption-letter-spacing: 0.025em;
+
+  /* --- Code — 14px mono ---
+     Inline code, code blocks, token names, CLI examples, API references.
+     Matches Body SM in size so inline code fragments pair cleanly with
+     serif body text. Line height 1.7 — generous for multi-line code blocks. */
+  --type-code-font:           var(--font-mono);
+  --type-code-size:           0.875rem;     /* 14px */
+  --type-code-weight:         400;
+  --type-code-line-height:    1.7;
+  --type-code-letter-spacing: 0em;
+
+}
