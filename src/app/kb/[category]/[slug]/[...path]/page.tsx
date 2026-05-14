@@ -4,6 +4,7 @@ import { listSystems, listStubsForSystem, resolveStub, readSystemIndex, KB_CATEG
 import { MarkdownBody } from '@/components/kb/MarkdownBody'
 import { ContentMeta } from '@/components/kb/ContentMeta'
 import { CopyRawButton } from '@/components/kb/CopyRawButton'
+import { SourcesSidebar } from '@/components/kb/SourcesSidebar'
 
 function extractSystemName(body: string): string {
   const match = body.match(/^# (.+)$/m)
@@ -204,6 +205,12 @@ export default async function ContentPage({
               ))}
             </div>
           </div>
+
+          <SourcesSidebar
+            sourceUrl={file.frontmatter.source_url}
+            derivedFrom={file.frontmatter.derived_from}
+            sources={file.frontmatter.sources as string[] | undefined}
+          />
 
           {seeAlso.length > 0 && (
             <div>

@@ -11,6 +11,7 @@ export interface ContentFrontmatter {
   retrieved: string
   source_url?: string
   derived_from?: string[]
+  sources?: string[]
   unofficial?: boolean
   design_md_spec_version?: string
   supersedes?: string

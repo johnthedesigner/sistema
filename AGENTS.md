@@ -270,6 +270,27 @@ Content under Creative Commons Attribution-NonCommercial (CC BY-NC) licenses may
 - Note the `license: CC BY-NC 4.0` in frontmatter
 - Do not copy prose passages, only synthesize ideas and technical guidance
 
+### Source citations are mandatory in all synthesis documents
+Every KB content file must cite its sources in frontmatter so the app can render them as a linked sidebar. Use the `sources` field (preferred for new docs):
+
+```yaml
+# Synthesis doc with external + internal sources:
+sources:
+  - https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts/Variable_fonts_guide
+  - kb/reference/foundations/typography/type-scales     # internal KB path
+
+# Reference doc with a single primary URL (legacy pattern — still valid):
+source_url: https://carbondesignsystem.com/guidelines/color/overview/
+derived_from:
+  - https://practicaltypography.com/line-spacing.html
+```
+
+Rules:
+- `sources` accepts both external URLs and internal KB paths — the sidebar handles the difference
+- Do NOT include Markdown hyperlinks `[text](url)` in the document body for citations — the sidebar handles linking; hyperlinks in the body would be actionable for LLMs consuming the raw file
+- Plain text domain references in prose are fine: "source: practicaltypography.com"
+- Principles (synthesis) documents must list the internal KB paths they synthesize across
+
 ### Static tool data in `public/` for build-time generation
 For tools that need large pre-computed data (e.g. 22-palette × 19-stop library), generate the JSON at build time and commit it to `public/` as a static file. The generation script lives in `tools/` and runs via a npm script (`npm run palettes`). The file is served as a static asset — no API call needed at runtime. Re-run the script and commit the result whenever seeds or the algorithm change.
 

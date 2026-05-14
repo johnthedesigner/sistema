@@ -159,7 +159,34 @@ source_url: https://carbondesignsystem.com/guidelines/color/overview/
 ---
 ```
 
-### 3.2 Optional Fields
+### 3.2 Source citation fields
+
+Source fields are required for all synthesis and reference documents. The app renders them as a linked "Sources" sidebar on every KB content page.
+
+```yaml
+# For reference documents (single primary URL):
+source_url: https://carbondesignsystem.com/guidelines/color/overview/
+
+# For synthesis documents with multiple sources — use `sources` (preferred for new docs):
+sources:
+  - https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_fonts/Variable_fonts_guide
+  - https://drafts.csswg.org/css-fonts-4/
+  - kb/reference/foundations/typography/type-scales    # internal KB paths also accepted
+
+# `derived_from` is the legacy equivalent of `sources` for external URLs:
+derived_from:
+  - https://practicaltypography.com/line-spacing.html
+  - https://practicaltypography.com/body-text.html
+```
+
+**Rules:**
+- `sources` accepts both external URLs (`https://...`) and internal KB paths (`kb/reference/...` or `kb/principles/...`). The app distinguishes them automatically.
+- For new synthesis documents, prefer `sources` over the older `source_url` + `derived_from` pair.
+- Existing documents using `source_url` / `derived_from` are still valid — the sidebar merges all three fields.
+- Do not include Markdown hyperlinks `[text](url)` in the document body for source citations — the sidebar handles linking. Plain text domain names in the body are fine for in-prose attribution.
+- For principles (synthesis) documents that synthesize across internal KB documents, list the KB paths in `sources`.
+
+### 3.3 Optional metadata fields
 
 ```yaml
 supersedes: colors@2025-09-03.md       # the file this version replaces (omit for first capture)
@@ -170,7 +197,7 @@ notes: >
   token naming convention; see colors@v10.md for the legacy structure.
 ```
 
-### 3.3 Asset File Headers
+### 3.4 Asset File Headers
 
 Structured asset files (JSON, SCSS, CSS) do not use YAML frontmatter. Instead, they begin with a comment block:
 

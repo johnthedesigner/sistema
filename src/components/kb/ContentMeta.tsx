@@ -28,8 +28,6 @@ export function ContentMeta({ frontmatter }: { frontmatter: ContentFrontmatter }
     status,
     version_label,
     retrieved,
-    source_url,
-    derived_from,
   } = frontmatter
 
   const retrievedDate = typeof retrieved === 'string'
@@ -54,21 +52,6 @@ export function ContentMeta({ frontmatter }: { frontmatter: ContentFrontmatter }
         </Pill>
       )}
       <span className="text-gray-400">Retrieved {retrievedDate}</span>
-      {source_url && (
-        <a
-          href={source_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 hover:underline truncate max-w-xs"
-        >
-          Source ↗
-        </a>
-      )}
-      {derived_from && derived_from.length > 0 && (
-        <span className="text-gray-400">
-          Derived from {derived_from.length} source{derived_from.length !== 1 ? 's' : ''}
-        </span>
-      )}
     </div>
   )
 }
