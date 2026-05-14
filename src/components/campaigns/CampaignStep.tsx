@@ -41,6 +41,7 @@ export function CampaignStep({
     Object.fromEntries(variables.map(v => [v, '']))
   )
   const [copied, setCopied] = useState(false)
+  const [origin, setOrigin] = useState('')
 
   const isColorSchemePlay = playSlug === 'generate-color-scheme'
 
@@ -58,6 +59,7 @@ export function CampaignStep({
     if (Object.keys(restored).length > 0) {
       setValues(prev => ({ ...prev, ...restored }))
     }
+    setOrigin(window.location.origin)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -72,8 +74,7 @@ export function CampaignStep({
   }
 
   function resolveBody(): string {
-    const base = typeof window !== 'undefined' ? window.location.origin : ''
-    let resolved = playBody.replace(/\{\{sistema_url\}\}/g, base)
+    let resolved = playBody.replace(/\{\{sistema_url\}\}/g, origin)
     for (const [key, value] of Object.entries(values)) {
       resolved = resolved.replace(
         new RegExp(`\\{\\{${key}\\}\\}`, 'g'),
