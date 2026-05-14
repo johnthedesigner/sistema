@@ -17,6 +17,7 @@ tags: [typography, type-scale, modular-scale, musical-intervals, foundations]
 
 **Sources:**
 - Typographic Scale: `spencermortensen.com/articles/typographic-scale/` (Spencer Mortensen)
+- Modular Scale tool: `modularscale.com` (Tim Brown & Scott Kellum) — interactive ratio calculator, canonical enumeration of named ratios
 - Practical Typography: `practicaltypography.com` (Matthew Butterick)
 - *The Elements of Typographic Style* — Robert Bringhurst (classic scale reference)
 
