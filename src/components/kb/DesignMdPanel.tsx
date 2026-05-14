@@ -67,12 +67,12 @@ export function DesignMdPanel({
     })
   }
 
-  const btnBase = 'px-3 py-1.5 text-sm font-medium rounded transition-colors disabled:opacity-50'
-  const btnPrimary = `${btnBase} bg-gray-900 text-white hover:bg-gray-700`
-  const btnSecondary = `${btnBase} border border-gray-200 text-gray-700 hover:bg-gray-50`
+  const btnBase = 'px-3 py-1.5 text-sm font-medium rounded-radius-sm transition-colors disabled:opacity-50'
+  const btnPrimary = `${btnBase} bg-primary text-on-primary hover:opacity-90`
+  const btnSecondary = `${btnBase} border border-border text-on-surface hover:bg-surface`
 
   return (
-    <section className="border border-gray-200 rounded-lg p-6 mb-10">
+    <section className="border border-border rounded-radius-lg p-6 mb-10">
       <h2 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-1">
         Add to your project
       </h2>

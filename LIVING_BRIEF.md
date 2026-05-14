@@ -16,13 +16,13 @@
 
 ## 2. Key Decisions
 
-**Color:** Named palette model. Primary #0070FF — UI components and large text (3:1 ✓); small text requires #005CE6 (5.2:1). Secondary #FFCC33 — accent/non-text on light surfaces; free use as text on dark (15:1). Tertiary brand red #E60026 — not mapped to a semantic token; reserved for future brand-expression role. Error: #B91C1C (crimson, distinct from brand red) / #FCA5A5 dark. Success: #15803D / #4ADE80 dark. Warning: #B45309 (amber) / #FCD34D dark. Surfaces: #F8F9FA page / #FFFFFF raised / #FFFFFF overlay (light); #111111 / #1C1C1C / #252525 (dark). Token file: `src/styles/tokens/colors.css`.
+**Color:** Named palette model. Primary #0070FF — UI components and large text (3:1 ✓); small text requires #005CE6 (5.2:1). Secondary #FFCC33 — accent/non-text on light surfaces; free use as text on dark (15:1). Brand red #E60026 — logo and deliberate brand moments only, not for error states. Error: #B91C1C (crimson) / #FCA5A5 dark. Success: #15803D / #4ADE80 dark. Warning: #B45309 (amber) / #FCD34D dark. Surfaces: canvas #EFEEEA (page/body background) / #FFFFFF surface (cards, raised) / #F7F6F2 sunken (input backgrounds). On-surface: #0E1116 / muted #5B6470 / subtle #8A929C. Borders: #E4E7EB / strong #C9CFD6. Token file: `src/styles/tokens/generated.css`.
 
 **Typography:** Hand-tuned scale, 10 named roles (semantic, not numeric steps), 11px–56px. Three typefaces: Inter (headings/UI, weights 400–800), Fraunces (quirky serif body, weights 400–500, optical sizing enabled), JetBrains Mono (code, weight 400). Role taxonomy: display (56px/800), heading-xl (40px/700), heading-lg (32px/700), heading-md (24px/600), heading-sm (20px/600), body-lg (18px serif), body-md (16px serif), body-sm (14px serif), label (12px/500 sans), caption (11px sans), code (14px mono). Letter-spacing: negative for large sizes (display −0.025em), positive for small (label +0.02em, caption +0.025em). Token file: `src/styles/tokens/typography.css`.
 
 **Spacing:** [to be determined — base unit and scale TBD in generate-shape-tokens play]
 
-**Shape:** Named semantic scale, 6 tiers. Moderate personality — 8px interactive default, 12px containers. Buttons/inputs: `--radius-md` (8px). Cards/modals: `--radius-lg` (12px). Chips/badges: `--radius-full` (pill). Tooltips: `--radius-sm` (4px). Tables/code blocks: `--radius-none`. Hero cards (sparingly): `--radius-xl` (16px). Token file: `src/styles/tokens/shape.css`.
+**Shape:** Named semantic scale, 6 tiers. sm=6px / md=10px / lg=16px / xl=22px / full=9999px. Buttons/inputs: `--radius-md` (10px). Cards: `--radius-lg` (16px). Chips/badges: `--radius-full` (pill). Tooltips/tags: `--radius-sm` (6px). Prompt box: `--radius-xl` (22px). Shadows: `--shadow-sm` (1px 2px / 0.05 opacity) / `--shadow-md` (4px 14px / 0.06 opacity). Token file: `src/styles/tokens/generated.css`.
 
 **Motion:** [to be determined — stance TBD; prefers-reduced-motion will be implemented globally as a baseline]
 
@@ -32,13 +32,13 @@
 
 ## 3. Current State
 
-**Token files:** none yet
+**Token files:** `tokens/primitive/color.json`, `tokens/semantic/{color,color.dark,shape,typography}.json` → `src/styles/tokens/generated.css`
 
-**Components implemented:** none yet (Next.js app exists with ad-hoc Tailwind utility classes; no token layer)
+**Components implemented:** Logo (SVG symbol + Wordmark), PromptBox (LLM-style prompt surface), Nav (Wordmark + links + search + auth buttons), CampaignStep (prompt + variable form + prev/next nav)
 
-**Components stubbed:** none yet
+**Pages live:** Home (hero + PromptBox showcase + QuickCard row), Plays index (campaigns + stage rows), Play detail (chips + desc + variables + PromptBox + exemplar + right rail), Campaign step (blue header + progress track + PromptBox), KB landing (2×2 category cards + SVG illustrations), Palette tool (typography pass)
 
-**Known gaps:** No token architecture. No component library. Existing styles are ad-hoc Tailwind — will need migration once token layer is established.
+**Known gaps:** No full-text search. Sign in / auth buttons are static (no implementation). Dark mode trigger (time-based) not yet re-integrated with new surface token values.
 
 ---
 
@@ -60,3 +60,4 @@
 *[2026-05-14] — Type scale generated — Hand-tuned 10-role named scale (display→code); three-typeface system: Inter (headings/UI), Fraunces (quirky serif body, opsz enabled), JetBrains Mono (code); negative tracking at large sizes, positive at small; token file: src/styles/tokens/typography.css*
 *[2026-05-14] — Shape tokens generated — Named semantic scale (none/sm/md/lg/xl/full); moderate personality (8px interactive, 12px containers); pill reserved for badges/chips; token file: src/styles/tokens/shape.css*
 *[2026-05-14] — Style Dictionary configured — Two-tier JSON source (primitive/semantic); SD v5; outputs CSS custom properties + ESM module; dark mode via color-dark-* pattern → [data-theme="dark"]; globals.css now imports generated.css*
+*[2026-05-14] — UI redesign from Claude Design — New token values (canvas #EFEEEA, surface #FFFFFF, updated on-surface/border/radius values); Logo SVG component; PromptBox component; Nav redesign (Wordmark + Plays/KB/Tools/Guide + search + auth); Home hero redesign; Plays index redesign (campaigns prominent + stage rows); Play detail redesign (right rail + PromptBox); Campaign step redesign (blue header + progress track); KB landing redesign (illustrated cards + SVG illustrations); Palette tool typography pass*

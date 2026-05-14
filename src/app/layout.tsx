@@ -40,7 +40,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="bg-surface text-on-surface antialiased">
+      <body className="bg-canvas text-on-surface antialiased">
         <Nav />
         {children}
       </body>

@@ -1,148 +1,311 @@
 import Link from 'next/link'
-import { listSystems, readSystemIndex } from '@/lib/kb'
-import { loadPlaybooks, loadStages } from '@/lib/playbooks'
+import { loadPlaybooks } from '@/lib/playbooks'
+import { Logo } from '@/components/Logo'
+import { PromptBox } from '@/components/PromptBox'
 
-function extractSystemName(body: string): string {
-  const match = body.match(/^# (.+)$/m)
-  if (!match) return 'Unknown System'
-  return match[1].replace(/ — System Index$/, '').trim()
+function ArrowRight() {
+  return (
+    <svg width={12} height={12} viewBox="0 0 24 24" fill="none">
+      <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+const QUICK_PLAYS = [
+  {
+    kind: 'campaign' as const,
+    steps: 6,
+    slug: null,
+    href: '/campaigns/bootstrap-design-system',
+    title: 'Bootstrap a Design System',
+    desc: 'From positioning brief to a generated style dictionary, in six guided prompts.',
+  },
+  {
+    kind: 'play' as const,
+    stage: 2,
+    slug: 'generate-color-scheme',
+    href: '/playbooks/generate-color-scheme',
+    title: 'Generate a Color Scheme',
+    desc: 'OKLCH-grounded 19-stop palette from a single seed color.',
+  },
+  {
+    kind: 'play' as const,
+    stage: 6,
+    slug: 'audit-token-coverage',
+    href: '/playbooks/audit-token-coverage',
+    title: 'Audit Token Coverage',
+    desc: 'Find every hard-coded value that should be a token.',
+  },
+  {
+    kind: 'play' as const,
+    stage: 4,
+    slug: 'scaffold-component-library',
+    href: '/playbooks/scaffold-component-library',
+    title: 'Scaffold a Component Library',
+    desc: 'Generate the component spec set from your DESIGN.md.',
+  },
+]
+
+const STAGE_CHIP_STYLES: Record<number, { bg: string; color: string; border: string }> = {
+  1: { bg: '#E6F0FF', color: '#0058CC', border: '#BFD8FF' },
+  2: { bg: '#E6F0FF', color: '#1056BF', border: '#BFD8FF' },
+  3: { bg: '#F0E9FF', color: '#5325B8', border: '#D9C9FF' },
+  4: { bg: '#E3F3EC', color: '#137A4D', border: '#BCE3CE' },
+  5: { bg: '#FFF1E0', color: '#A65B00', border: '#FFD9A8' },
+  6: { bg: '#FFF8E0', color: '#8A6500', border: '#F2DA8A' },
 }
 
 export default function Home() {
-  const systemSlugs = listSystems()
   const plays = loadPlaybooks()
-  const stages = loadStages()
-
-  const systems = systemSlugs.map(slug => {
-    const index = readSystemIndex(slug)
-    return { slug, name: extractSystemName(index.body) }
-  })
+  const positioningBrief = plays.find(p => p.slug === 'positioning-brief')
 
   return (
     <main>
-      {/* Hero */}
-      <section className="max-w-5xl mx-auto px-6 pt-20 pb-16">
-        <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-5 max-w-2xl">
-          Design system knowledge, structured for AI coding tools
-        </h1>
-        <p className="text-lg text-gray-600 max-w-2xl mb-4">
-          Sistema is a versioned knowledge base of how production design systems handle color, typography, tokens, and components — plus a library of prompt starters that put that knowledge to work.
-        </p>
-        <p className="text-base text-gray-500 max-w-2xl mb-10">
-          When you ask an AI coding agent to generate design system artifacts, the output is only as good as what it knows. Sistema gives it something real to reference.
-        </p>
-        <div className="flex flex-wrap gap-3">
-          <Link
-            href="/playbooks"
-            className="inline-flex items-center px-5 py-2.5 rounded-md bg-gray-900 text-white text-sm font-medium hover:bg-gray-700 transition-colors"
-          >
-            Open playbook
-          </Link>
-          <Link
-            href="/kb"
-            className="inline-flex items-center px-5 py-2.5 rounded-md border border-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-50 transition-colors"
-          >
-            Browse knowledge base
-          </Link>
-        </div>
-      </section>
-
-      <div className="border-t border-gray-100" />
-
-      {/* How to use it */}
-      <section className="max-w-5xl mx-auto px-6 py-16">
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">How to use it</h2>
-        <p className="text-gray-500 mb-10 max-w-xl">
-          Each play in the playbook is a complete prompt you paste into your coding agent. The agent fetches reference material from this knowledge base before generating — so the output is grounded in documented, production-tested decisions.
-        </p>
-
-        <ol className="space-y-8 max-w-2xl">
-          <li className="flex gap-5">
-            <span className="flex-shrink-0 w-7 h-7 rounded-full bg-gray-100 text-gray-500 text-sm font-medium flex items-center justify-center mt-0.5">1</span>
-            <div>
-              <p className="font-medium text-gray-900 mb-1">Find the play that matches your task</p>
-              <p className="text-gray-500 text-sm">Plays are ordered by build stage — foundations first, components last. If you are starting a new system, begin at Stage 1. If you have tokens already, jump to Stage 4.</p>
-            </div>
-          </li>
-          <li className="flex gap-5">
-            <span className="flex-shrink-0 w-7 h-7 rounded-full bg-gray-100 text-gray-500 text-sm font-medium flex items-center justify-center mt-0.5">2</span>
-            <div>
-              <p className="font-medium text-gray-900 mb-1">Copy and paste into your coding agent</p>
-              <p className="text-gray-500 text-sm">The play text is ready to paste. Fill in the bracketed context fields — your brand color, tech stack, or existing code — then send.</p>
-            </div>
-          </li>
-          <li className="flex gap-5">
-            <span className="flex-shrink-0 w-7 h-7 rounded-full bg-gray-100 text-gray-500 text-sm font-medium flex items-center justify-center mt-0.5">3</span>
-            <div>
-              <p className="font-medium text-gray-900 mb-1">The agent fetches reference material and generates</p>
-              <p className="text-gray-500 text-sm">Each play tells the agent which Sistema pages to read first. It loads the relevant guidance and token values, then generates output that follows the same structural decisions as the reference system — not a generic approximation.</p>
-            </div>
-          </li>
-        </ol>
-
-        {/* Concrete example */}
-        <div className="mt-12 border border-gray-100 rounded-lg overflow-hidden max-w-2xl">
-          <div className="px-5 py-3 bg-gray-50 border-b border-gray-100">
-            <p className="text-xs font-medium text-gray-400 uppercase tracking-wider">Example</p>
+      <div className="max-w-[1180px] mx-auto px-10 pt-16 pb-20">
+        {/* Hero */}
+        <div className="mb-14">
+          {/* Announcement pill */}
+          <div className="inline-flex items-center gap-2.5 px-3 py-1.5 border border-border rounded-full bg-surface mb-6">
+            <span className="block w-1.5 h-1.5 rounded-full bg-primary" />
+            <span className="font-mono text-[11.5px] tracking-[0.04em] text-on-surface-muted">
+              grounded prompts for design-system work
+            </span>
           </div>
-          <div className="px-5 py-4 text-sm text-gray-600 space-y-2">
-            <p>Copy the <strong className="text-gray-800">Generate a Primitive Color Palette</strong> play. Paste it into Claude Code with your brand color.</p>
-            <p>The agent reads Material Design 3&apos;s color system overview and token values from Sistema, then generates a primitive palette in the same format — the same step scale, the same neutral-variant structure, the same JSON shape — with your hues substituted in.</p>
-            <p>The result is something you can commit and build on, not something you need to restructure first.</p>
+
+          {/* Headline */}
+          <h1
+            className="font-serif font-medium text-on-surface m-0"
+            style={{
+              fontSize: 76,
+              lineHeight: 1.0,
+              letterSpacing: '-0.03em',
+              fontVariationSettings: "'opsz' 144, 'SOFT' 40",
+              maxWidth: 920,
+            }}
+          >
+            Your AI coding agent
+            <br />
+            needs better context.
+            <br />
+            <span className="relative inline-block">
+              Here it is.
+              <span
+                className="absolute rounded-sm -z-10"
+                style={{
+                  left: -2,
+                  right: -2,
+                  bottom: 6,
+                  height: 14,
+                  background: 'var(--color-brand-yellow)',
+                }}
+              />
+            </span>
+          </h1>
+
+          {/* Subhead */}
+          <p
+            className="mt-7 text-on-surface-muted font-serif font-normal"
+            style={{
+              fontSize: 19,
+              lineHeight: 1.55,
+              maxWidth: 720,
+              fontVariationSettings: "'opsz' 32",
+            }}
+          >
+            Sistema packages production design-system references and ready-to-paste prompts —
+            <em className="text-on-surface italic"> plays</em> — so Claude Code and Cursor generate
+            tokens, components, and audits grounded in real systems instead of guessing.
+          </p>
+        </div>
+
+        {/* Prompt showcase */}
+        <div className="grid gap-6" style={{ gridTemplateColumns: '1fr 280px' }}>
+          {positioningBrief && (
+            <PromptBox
+              label="play · positioning-brief"
+              body={positioningBrief.body}
+              tokens="~640 tokens"
+              refs="3 KB refs"
+              variables={2}
+            />
+          )}
+
+          <div className="flex flex-col gap-3">
+            <div className="border border-border rounded-radius-lg p-4">
+              <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2">
+                This play
+              </p>
+              <p className="font-semibold text-[14px] text-on-surface mb-1">positioning-brief</p>
+              <p className="text-[12.5px] text-on-surface-muted leading-[1.4]">
+                Step 1 of <strong className="text-on-surface">Bootstrap a Design System</strong>.
+                Drafts the opening section of your DESIGN.md.
+              </p>
+              <div className="flex gap-1.5 mt-2.5 flex-wrap">
+                <span
+                  className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border"
+                  style={{
+                    background: STAGE_CHIP_STYLES[1].bg,
+                    color: STAGE_CHIP_STYLES[1].color,
+                    borderColor: STAGE_CHIP_STYLES[1].border,
+                  }}
+                >
+                  stage 1 · system
+                </span>
+                <span className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border border-border bg-surface-sunken text-on-surface-muted">
+                  positioning
+                </span>
+              </div>
+            </div>
+
+            <div className="border border-border rounded-radius-lg p-4">
+              <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2">
+                References pulled
+              </p>
+              <div className="flex flex-col gap-1.5 text-[12.5px]">
+                <div className="flex justify-between">
+                  <span className="font-mono text-on-surface">principles/positioning</span>
+                  <span className="text-on-surface-subtle">3.2k</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="font-mono text-on-surface">material/foundations</span>
+                  <span className="text-on-surface-subtle">8.4k</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="font-mono text-on-surface">primer/principles</span>
+                  <span className="text-on-surface-subtle">2.1k</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
 
-      <div className="border-t border-gray-100" />
-
-      {/* What's available */}
-      <section className="max-w-5xl mx-auto px-6 py-16">
-        <h2 className="text-xl font-semibold text-gray-900 mb-2">What&apos;s available</h2>
-        <p className="text-gray-500 mb-10">The knowledge base and playbook grow as new systems are documented and new plays are validated.</p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {/* Systems card */}
-          <Link
-            href="/kb"
-            className="group border border-gray-100 rounded-lg p-6 hover:border-gray-300 hover:bg-gray-50 transition-colors"
-          >
-            <div className="flex items-baseline justify-between mb-4">
-              <h3 className="font-semibold text-gray-900">Knowledge base</h3>
-              <span className="text-sm text-gray-400">{systems.length} system{systems.length !== 1 ? 's' : ''}</span>
+        {/* Quick-access row */}
+        <div className="mt-14">
+          <div className="flex items-baseline justify-between mb-4">
+            <div className="flex items-baseline gap-3.5">
+              <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted">
+                Jump to a play
+              </span>
+              <span className="text-[13px] text-on-surface-muted">most-used this week</span>
             </div>
-            <ul className="space-y-1 mb-4">
-              {systems.map(s => (
-                <li key={s.slug} className="text-sm text-gray-600">{s.name}</li>
-              ))}
-            </ul>
-            <p className="text-xs text-gray-400 group-hover:text-gray-500 transition-colors">
-              Guidance, implementation docs, and token values — all versioned and browsable →
-            </p>
-          </Link>
+            <Link
+              href="/playbooks"
+              className="flex items-center gap-1.5 text-[13px] font-medium text-primary no-underline"
+            >
+              Browse all 18 plays <ArrowRight />
+            </Link>
+          </div>
 
-          {/* Playbook card */}
-          <Link
-            href="/playbooks"
-            className="group border border-gray-100 rounded-lg p-6 hover:border-gray-300 hover:bg-gray-50 transition-colors"
-          >
-            <div className="flex items-baseline justify-between mb-4">
-              <h3 className="font-semibold text-gray-900">Playbook</h3>
-              <span className="text-sm text-gray-400">{plays.length} plays</span>
-            </div>
-            <ul className="space-y-1 mb-4">
-              {stages.map(({ stage, label }) => (
-                <li key={stage} className="text-sm text-gray-600">
-                  <span className="text-gray-400 font-mono text-xs mr-2">{stage}</span>
-                  {label}
-                </li>
-              ))}
-            </ul>
-            <p className="text-xs text-gray-400 group-hover:text-gray-500 transition-colors">
-              Prompt starters ordered by build stage — foundations to components →
-            </p>
-          </Link>
+          <div className="grid grid-cols-4 gap-3">
+            {QUICK_PLAYS.map(card => (
+              <QuickCard key={card.title} {...card} />
+            ))}
+          </div>
         </div>
-      </section>
+
+        {/* Footer note */}
+        <div className="flex items-center gap-4.5 mt-12 text-[13px] text-on-surface-muted">
+          <Logo size={20} />
+          <span>Sistema is reference material for AI agents, not a tutorial for humans.</span>
+          <div className="ml-auto flex items-center gap-2.5">
+            <span className="font-mono text-[11px] text-on-surface-subtle">v0.4 · public beta</span>
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-on-surface-subtle" />
+            <Link href="/guide" className="text-primary no-underline">
+              How a play works →
+            </Link>
+          </div>
+        </div>
+      </div>
     </main>
+  )
+}
+
+interface QuickCardProps {
+  kind: 'campaign' | 'play'
+  steps?: number
+  stage?: number
+  slug?: string | null
+  href: string
+  title: string
+  desc: string
+}
+
+function QuickCard({ kind, steps, stage, href, title, desc }: QuickCardProps) {
+  const isCampaign = kind === 'campaign'
+  const stageStyle = stage ? STAGE_CHIP_STYLES[stage] : null
+
+  return (
+    <Link
+      href={href}
+      className="flex flex-col gap-2.5 p-4 rounded-radius-lg border no-underline relative"
+      style={{
+        borderColor: isCampaign ? 'var(--color-primary)' : 'var(--color-border)',
+        background: isCampaign ? 'var(--color-primary)' : 'white',
+        color: isCampaign ? 'white' : 'inherit',
+        minHeight: 140,
+        boxShadow: isCampaign
+          ? '0 1px 0 rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.18)'
+          : 'none',
+      }}
+    >
+      <div className="flex items-center justify-between">
+        {isCampaign ? (
+          <span
+            className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border"
+            style={{
+              background: 'rgba(255,255,255,0.18)',
+              borderColor: 'rgba(255,255,255,0.35)',
+              color: 'white',
+            }}
+          >
+            campaign · {steps} steps
+          </span>
+        ) : stageStyle ? (
+          <span
+            className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border"
+            style={{
+              background: stageStyle.bg,
+              color: stageStyle.color,
+              borderColor: stageStyle.border,
+            }}
+          >
+            stage {stage}
+          </span>
+        ) : null}
+        <svg width={14} height={14} viewBox="0 0 24 24" fill="none">
+          <path
+            d="M5 12h14M13 5l7 7-7 7"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
+
+      <p className="font-semibold text-[14.5px] leading-[1.25] mt-0.5 m-0">{title}</p>
+
+      <p
+        className="text-[12.5px] leading-[1.45] m-0 grow"
+        style={{ color: isCampaign ? 'rgba(255,255,255,0.82)' : 'var(--color-on-surface-muted)' }}
+      >
+        {desc}
+      </p>
+
+      {isCampaign && steps && (
+        <div className="flex items-center gap-1 mt-1">
+          {Array.from({ length: steps }).map((_, i) => (
+            <span
+              key={i}
+              className="flex-1 rounded-sm"
+              style={{
+                height: 3,
+                background: i === 0 ? 'var(--color-brand-yellow)' : 'rgba(255,255,255,0.28)',
+              }}
+            />
+          ))}
+        </div>
+      )}
+    </Link>
   )
 }

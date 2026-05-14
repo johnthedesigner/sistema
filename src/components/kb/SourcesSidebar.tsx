@@ -50,7 +50,7 @@ export function SourcesSidebar({ sourceUrl, derivedFrom, sources }: Props) {
 
   return (
     <div>
-      <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
+      <h2 className="text-xs font-semibold uppercase tracking-wider text-on-surface-muted mb-3">
         Sources
       </h2>
       <ul className="space-y-1.5">
@@ -65,15 +65,15 @@ export function SourcesSidebar({ sourceUrl, derivedFrom, sources }: Props) {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-blue-600 hover:text-blue-800 hover:underline inline-flex items-center gap-1"
+                  className="text-sm text-primary hover:text-primary hover:underline inline-flex items-center gap-1"
                 >
                   {label}
-                  <span className="text-gray-400 text-xs">↗</span>
+                  <span className="text-on-surface-muted text-xs">↗</span>
                 </a>
               ) : (
                 <Link
                   href={href}
-                  className="text-sm text-blue-600 hover:text-blue-800 hover:underline"
+                  className="text-sm text-primary hover:text-primary hover:underline"
                 >
                   {label}
                 </Link>

@@ -1,0 +1,63 @@
+interface LogoProps {
+  size?: number
+  style?: React.CSSProperties
+}
+
+export function Logo({ size = 36, style }: LogoProps) {
+  const w = size
+  const h = Math.round(size * (192 / 172))
+  return (
+    <svg
+      width={w}
+      height={h}
+      viewBox="0 0 172 192"
+      style={style}
+      aria-label="Sistema"
+      fill="none"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M69.1123 121.945L42.307 142.588C35.605 147.75 36.994 158.229 44.8092 161.466L115.922 190.922C123.738 194.159 132.13 187.732 131.04 179.343L125.626 137.647L93.1029 151.119C87.4902 153.443 81.0555 150.778 78.7307 145.165L69.1123 121.945Z"
+        fill="#E60026"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M99.08 40.4036L54.8345 58.7307C49.2218 61.0555 46.5565 67.4902 48.8814 73.1029L59.6381 99.0719C56.5194 99.6809 53.297 100 50 100C22.3858 100 0 77.6142 0 50C0 22.3858 22.3858 0 50 0C74.332 0 94.6045 17.3804 99.08 40.4036Z"
+        fill="#FFCC33"
+      />
+      <path
+        d="M69.1123 121.945L103.478 95.4787C110.2 90.3014 120.005 94.3628 121.098 102.777L125.626 137.647L93.1029 151.119C87.4902 153.443 81.0555 150.778 78.7307 145.165L69.1123 121.945Z"
+        fill="#790083"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M69.1123 121.945L59.6381 99.0719C82.6406 94.58 100 74.3173 100 50C100 46.7177 99.6837 43.5093 99.08 40.4036L126.897 28.8814C132.51 26.5565 138.944 29.2218 141.269 34.8345L171.119 106.897C173.443 112.51 170.778 118.944 165.165 121.269L125.626 137.647L121.098 102.777C120.005 94.3628 110.2 90.3014 103.478 95.4787L69.1123 121.945Z"
+        fill="#0070FF"
+      />
+      <path
+        d="M54.8345 58.7307L99.08 40.4036C99.6837 43.5093 100 46.7177 100 50C100 74.3173 82.6406 94.58 59.6381 99.0719L48.8814 73.1029C46.5565 67.4902 49.2218 61.0555 54.8345 58.7307Z"
+        fill="#2C7900"
+      />
+    </svg>
+  )
+}
+
+interface WordmarkProps {
+  size?: number
+  showSymbol?: boolean
+}
+
+export function Wordmark({ size = 22, showSymbol = true }: WordmarkProps) {
+  return (
+    <div
+      className="font-serif font-semibold text-on-surface flex items-center gap-2.5"
+      style={{ fontSize: size, letterSpacing: '-0.01em' }}
+    >
+      {showSymbol && <Logo size={Math.round(size * 1.45)} />}
+      <span>Sistema</span>
+    </div>
+  )
+}

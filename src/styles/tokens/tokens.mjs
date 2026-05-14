@@ -340,9 +340,25 @@ export default {
       },
       path: ["color", "dark-on-warning"],
     },
+    canvas: {
+      key: "{color.canvas}",
+      value: "#EFEEEA",
+      filePath: "tokens/semantic/color.json",
+      isSource: true,
+      original: {
+        value: "{palette.canvas}",
+        key: "{color.canvas}",
+      },
+      name: "ColorCanvas",
+      attributes: {
+        category: "color",
+        type: "canvas",
+      },
+      path: ["color", "canvas"],
+    },
     surface: {
       key: "{color.surface}",
-      value: "#F8F9FA",
+      value: "#FFFFFF",
       filePath: "tokens/semantic/color.json",
       isSource: true,
       original: {
@@ -388,9 +404,25 @@ export default {
       },
       path: ["color", "surface-overlay"],
     },
+    "surface-sunken": {
+      key: "{color.surface-sunken}",
+      value: "#F7F6F2",
+      filePath: "tokens/semantic/color.json",
+      isSource: true,
+      original: {
+        value: "{palette.surface-sunken}",
+        key: "{color.surface-sunken}",
+      },
+      name: "ColorSurfaceSunken",
+      attributes: {
+        category: "color",
+        type: "surface-sunken",
+      },
+      path: ["color", "surface-sunken"],
+    },
     "on-surface": {
       key: "{color.on-surface}",
-      value: "#111827",
+      value: "#0E1116",
       filePath: "tokens/semantic/color.json",
       isSource: true,
       original: {
@@ -406,7 +438,7 @@ export default {
     },
     "on-surface-muted": {
       key: "{color.on-surface-muted}",
-      value: "#6B7280",
+      value: "#5B6470",
       filePath: "tokens/semantic/color.json",
       isSource: true,
       original: {
@@ -420,9 +452,25 @@ export default {
       },
       path: ["color", "on-surface-muted"],
     },
+    "on-surface-subtle": {
+      key: "{color.on-surface-subtle}",
+      value: "#8A929C",
+      filePath: "tokens/semantic/color.json",
+      isSource: true,
+      original: {
+        value: "{palette.text-subtle}",
+        key: "{color.on-surface-subtle}",
+      },
+      name: "ColorOnSurfaceSubtle",
+      attributes: {
+        category: "color",
+        type: "on-surface-subtle",
+      },
+      path: ["color", "on-surface-subtle"],
+    },
     border: {
       key: "{color.border}",
-      value: "#E5E7EB",
+      value: "#E4E7EB",
       filePath: "tokens/semantic/color.json",
       isSource: true,
       original: {
@@ -435,6 +483,22 @@ export default {
         type: "border",
       },
       path: ["color", "border"],
+    },
+    "border-strong": {
+      key: "{color.border-strong}",
+      value: "#C9CFD6",
+      filePath: "tokens/semantic/color.json",
+      isSource: true,
+      original: {
+        value: "{palette.border-strong}",
+        key: "{color.border-strong}",
+      },
+      name: "ColorBorderStrong",
+      attributes: {
+        category: "color",
+        type: "border-strong",
+      },
+      path: ["color", "border-strong"],
     },
     "border-focus": {
       key: "{color.border-focus}",
@@ -451,6 +515,70 @@ export default {
         type: "border-focus",
       },
       path: ["color", "border-focus"],
+    },
+    "brand-yellow": {
+      key: "{color.brand-yellow}",
+      value: "#FFCC33",
+      filePath: "tokens/semantic/color.json",
+      isSource: true,
+      original: {
+        value: "{palette.yellow-brand}",
+        key: "{color.brand-yellow}",
+      },
+      name: "ColorBrandYellow",
+      attributes: {
+        category: "color",
+        type: "brand-yellow",
+      },
+      path: ["color", "brand-yellow"],
+    },
+    "brand-yellow-50": {
+      key: "{color.brand-yellow-50}",
+      value: "#FFF8E0",
+      filePath: "tokens/semantic/color.json",
+      isSource: true,
+      original: {
+        value: "{palette.yellow-50}",
+        key: "{color.brand-yellow-50}",
+      },
+      name: "ColorBrandYellow50",
+      attributes: {
+        category: "color",
+        type: "brand-yellow-50",
+      },
+      path: ["color", "brand-yellow-50"],
+    },
+    "brand-red": {
+      key: "{color.brand-red}",
+      value: "#E60026",
+      filePath: "tokens/semantic/color.json",
+      isSource: true,
+      original: {
+        value: "{palette.brand-red}",
+        key: "{color.brand-red}",
+      },
+      name: "ColorBrandRed",
+      attributes: {
+        category: "color",
+        type: "brand-red",
+      },
+      path: ["color", "brand-red"],
+    },
+    "brand-blue-50": {
+      key: "{color.brand-blue-50}",
+      value: "#E6F0FF",
+      filePath: "tokens/semantic/color.json",
+      isSource: true,
+      original: {
+        value: "{palette.blue-50}",
+        key: "{color.brand-blue-50}",
+      },
+      name: "ColorBrandBlue50",
+      attributes: {
+        category: "color",
+        type: "brand-blue-50",
+      },
+      path: ["color", "brand-blue-50"],
     },
     primary: {
       key: "{color.primary}",
@@ -696,11 +824,11 @@ export default {
     },
     sm: {
       key: "{radius.sm}",
-      value: "4px",
+      value: "6px",
       filePath: "tokens/semantic/shape.json",
       isSource: true,
       original: {
-        value: "4px",
+        value: "6px",
         key: "{radius.sm}",
       },
       name: "RadiusSm",
@@ -712,11 +840,11 @@ export default {
     },
     md: {
       key: "{radius.md}",
-      value: "8px",
+      value: "10px",
       filePath: "tokens/semantic/shape.json",
       isSource: true,
       original: {
-        value: "8px",
+        value: "10px",
         key: "{radius.md}",
       },
       name: "RadiusMd",
@@ -728,11 +856,11 @@ export default {
     },
     lg: {
       key: "{radius.lg}",
-      value: "12px",
+      value: "16px",
       filePath: "tokens/semantic/shape.json",
       isSource: true,
       original: {
-        value: "12px",
+        value: "16px",
         key: "{radius.lg}",
       },
       name: "RadiusLg",
@@ -744,11 +872,11 @@ export default {
     },
     xl: {
       key: "{radius.xl}",
-      value: "16px",
+      value: "22px",
       filePath: "tokens/semantic/shape.json",
       isSource: true,
       original: {
-        value: "16px",
+        value: "22px",
         key: "{radius.xl}",
       },
       name: "RadiusXl",
@@ -773,6 +901,40 @@ export default {
         type: "full",
       },
       path: ["radius", "full"],
+    },
+  },
+  shadow: {
+    sm: {
+      key: "{shadow.sm}",
+      value: "0 1px 2px rgba(14,17,22,0.05)",
+      filePath: "tokens/semantic/shape.json",
+      isSource: true,
+      original: {
+        value: "0 1px 2px rgba(14,17,22,0.05)",
+        key: "{shadow.sm}",
+      },
+      name: "ShadowSm",
+      attributes: {
+        category: "shadow",
+        type: "sm",
+      },
+      path: ["shadow", "sm"],
+    },
+    md: {
+      key: "{shadow.md}",
+      value: "0 4px 14px rgba(14,17,22,0.06), 0 1px 2px rgba(14,17,22,0.04)",
+      filePath: "tokens/semantic/shape.json",
+      isSource: true,
+      original: {
+        value: "0 4px 14px rgba(14,17,22,0.06), 0 1px 2px rgba(14,17,22,0.04)",
+        key: "{shadow.md}",
+      },
+      name: "ShadowMd",
+      attributes: {
+        category: "shadow",
+        type: "md",
+      },
+      path: ["shadow", "md"],
     },
   },
   font: {

@@ -1,10 +1,14 @@
 {
   "radius": {
     "none": { "value": "0px" },
-    "sm":   { "value": "4px" },
-    "md":   { "value": "8px" },
-    "lg":   { "value": "12px" },
-    "xl":   { "value": "16px" },
+    "sm":   { "value": "6px" },
+    "md":   { "value": "10px" },
+    "lg":   { "value": "16px" },
+    "xl":   { "value": "22px" },
     "full": { "value": "9999px" }
+  },
+  "shadow": {
+    "sm": { "value": "0 1px 2px rgba(14,17,22,0.05)" },
+    "md": { "value": "0 4px 14px rgba(14,17,22,0.06), 0 1px 2px rgba(14,17,22,0.04)" }
   }
 }

@@ -604,3 +604,26 @@ Each session entry follows this structure:
 | created | _meta/TASK_PLAYBOOKS.md | Initial playbooks for color, typography, component, token, and research tasks |
 | created | _meta/INDEX.md | Master index template; no systems populated yet |
 | created | _meta/CHANGELOG.md | This file |
+
+## 2026-05-14 — Phase 10 · UI redesign (Claude Design)
+
+| action | artifact | notes |
+|--------|----------|-------|
+| updated | tokens/primitive/color.json | surface → #FFFFFF, text → #0E1116, text-muted → #5B6470, border → #E4E7EB; added canvas #EFEEEA, surface-sunken #F7F6F2, text-subtle #8A929C, border-strong #C9CFD6, brand-red #E60026, brand-purple #790083, brand-green #2C7900, blue-50 #E6F0FF, yellow-50 #FFF8E0 |
+| updated | tokens/semantic/color.json | added canvas, surface-sunken, on-surface-subtle, border-strong, brand-yellow, brand-yellow-50, brand-red, brand-blue-50 semantic tokens |
+| updated | tokens/semantic/shape.json | radius sm 4→6px, md 8→10px, lg 12→16px, xl 16→22px; added shadow-sm and shadow-md tokens |
+| updated | tailwind.config.ts | added canvas, surface-sunken, on-surface-subtle, border-strong, brand-* color utilities; added boxShadow sm/md extensions |
+| updated | src/styles/globals.css | html/body background → var(--color-canvas) |
+| updated | src/app/layout.tsx | body class bg-surface → bg-canvas |
+| created | src/components/Logo.tsx | Logo SVG component + Wordmark; paths from sistema-logo.svg upload |
+| created | src/components/PromptBox.tsx | LLM-style prompt surface; collapsed/expanded; copy + gradient fade |
+| updated | src/components/layout/Nav.tsx | Wordmark + [Plays/KB/Tools/Guide] + search box + Sign in + Get started; active link underline via usePathname |
+| updated | src/app/page.tsx | Hero redesign: announcement pill, 76px Fraunces headline with yellow underline, serif body, PromptBox showcase with right rail, 4-col QuickCard row |
+| updated | src/app/playbooks/page.tsx | Plays index redesign: campaigns first (colored cards), single plays by stage in 3-col card grids |
+| updated | src/app/playbooks/[slug]/page.tsx | Play detail redesign: 2-col layout, Fraunces description, PromptBox, right rail sidebar |
+| updated | src/app/campaigns/[slug]/[step]/page.tsx | Campaign step redesign: blue full-bleed header with progress track |
+| updated | src/components/campaigns/CampaignStep.tsx | PromptBox-style prompt display, updated variable form labels, updated prev/next nav |
+| updated | src/app/kb/page.tsx | KB landing redesign: 2×2 illustrated category cards with SVG illustrations |
+| updated | src/app/tools/palette/page.tsx | Typography pass: kicker + Fraunces h1 + serif description |
+| updated | LIVING_BRIEF.md | Updated surface/border/radius token values, component inventory, decision log |
+| updated | AGENTS.md | Added Logo, PromptBox, layout convention, stage chip color patterns |

@@ -4,6 +4,7 @@ import { loadPlaybooks } from './playbooks'
 import type { Play } from './types'
 
 const CAMPAIGNS_PATH = path.join(process.cwd(), '_meta', 'CAMPAIGNS.md')
+const CAMPAIGNS_META_PATH = path.join(process.cwd(), '_meta', 'campaigns')
 
 export interface CampaignStep {
   number: number       // 1-indexed
@@ -16,6 +17,7 @@ export interface Campaign {
   title: string
   description: string
   steps: CampaignStep[]
+  prompt: string | null
 }
 
 export function loadCampaigns(): Campaign[] {
@@ -48,7 +50,7 @@ export function loadCampaigns(): Campaign[] {
     })
 
     if (steps.length > 0) {
-      campaigns.push({ slug, title, description, steps })
+      campaigns.push({ slug, title, description, steps, prompt: loadCampaignPrompt(slug) })
     }
   }
 
@@ -57,4 +59,10 @@ export function loadCampaigns(): Campaign[] {
 
 export function loadCampaign(slug: string): Campaign | null {
   return loadCampaigns().find(c => c.slug === slug) ?? null
+}
+
+export function loadCampaignPrompt(slug: string): string | null {
+  const filePath = path.join(CAMPAIGNS_META_PATH, `${slug}.md`)
+  if (!fs.existsSync(filePath)) return null
+  return fs.readFileSync(filePath, 'utf-8')
 }

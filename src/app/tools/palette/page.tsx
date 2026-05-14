@@ -24,20 +24,30 @@ export default function PalettePage() {
   const library = loadLibrary()
 
   return (
-    <main className="max-w-7xl mx-auto px-6 py-12">
-      <nav className="text-sm text-on-surface-muted mb-8 flex items-center gap-1.5">
-        <Link href="/" className="hover:text-on-surface">Sistema</Link>
-        <span>/</span>
-        <Link href="/tools/palette" className="hover:text-on-surface">Tools</Link>
-        <span>/</span>
-        <span className="text-on-surface">Palette Library</span>
-      </nav>
-
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Palette Library</h1>
-        <p className="text-on-surface-muted max-w-2xl">
-          22 palettes generated from Tailwind&rsquo;s color family -600 stops. Each palette has 19 shades (50–950) selected by target contrast ratio against white — every stop at a given number has the same contrast guarantee across all hues. Click any swatch to copy its hex. Use the format selector to copy or export full palettes.
-        </p>
+    <main>
+      <div className="max-w-[1180px] mx-auto px-10 pt-10 pb-20">
+      <div className="flex items-start justify-between gap-6 mb-7">
+        <div>
+          <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
+            Tools · Palette library
+          </p>
+          <h1
+            className="font-serif font-medium text-on-surface m-0 mb-3"
+            style={{ fontSize: 36, lineHeight: 1.1, letterSpacing: '-0.02em', maxWidth: 720 }}
+          >
+            OKLCH palettes, one seed at a time.
+          </h1>
+          <p
+            className="text-on-surface-muted font-serif font-normal m-0"
+            style={{ maxWidth: 660, fontSize: 15, lineHeight: 1.55, fontVariationSettings: "'opsz' 32" }}
+          >
+            22 palettes generated from Tailwind&rsquo;s color family -600 stops using the same lightness curve and chroma envelope as the{' '}
+            <Link href="/playbooks/generate-color-scheme" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken">
+              generate-color-scheme
+            </Link>{' '}
+            play. Click any swatch to copy its hex.
+          </p>
+        </div>
       </div>
 
       <CustomSeedInput />
@@ -52,6 +62,7 @@ export default function PalettePage() {
         . Custom seeds: <code className="font-mono">POST /api/palette</code>.
         Regenerate: <code className="font-mono">npm run palettes</code>.
       </p>
+      </div>
     </main>
   )
 }

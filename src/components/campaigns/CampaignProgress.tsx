@@ -20,19 +20,19 @@ export function CampaignProgress({ steps, current, campaignSlug }: Props) {
             <div key={step.number} className="flex items-center flex-1 min-w-0">
               <div className="flex flex-col items-center gap-1 flex-1 min-w-0">
                 <div
-                  className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold shrink-0 transition-colors ${
+                  className={`w-7 h-7 rounded-radius-full flex items-center justify-center text-xs font-semibold shrink-0 transition-colors ${
                     done
-                      ? 'bg-gray-900 text-white'
+                      ? 'bg-on-surface text-on-primary'
                       : active
-                      ? 'bg-blue-600 text-white ring-2 ring-blue-200'
-                      : 'bg-gray-100 text-gray-400'
+                      ? 'bg-primary text-on-primary ring-2 ring-primary-container'
+                      : 'bg-surface text-on-surface-muted'
                   }`}
                 >
                   {done ? '✓' : step.number}
                 </div>
                 <span
                   className={`text-[10px] font-medium leading-tight text-center truncate max-w-[72px] ${
-                    active ? 'text-gray-900' : done ? 'text-gray-500' : 'text-gray-400'
+                    active ? 'text-on-surface' : done ? 'text-on-surface-muted' : 'text-on-surface-muted'
                   }`}
                 >
                   {step.title}
@@ -40,8 +40,8 @@ export function CampaignProgress({ steps, current, campaignSlug }: Props) {
               </div>
               {i < steps.length - 1 && (
                 <div
-                  className={`h-0.5 flex-1 mx-1 mb-4 rounded transition-colors ${
-                    step.number < current ? 'bg-gray-900' : 'bg-gray-200'
+                  className={`h-0.5 flex-1 mx-1 mb-4 rounded-radius-sm transition-colors ${
+                    step.number < current ? 'bg-on-surface' : 'bg-border'
                   }`}
                 />
               )}
