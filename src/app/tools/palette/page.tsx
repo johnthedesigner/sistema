@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import Link from 'next/link'
 import { PaletteControls } from '@/components/palette/PaletteControls'
+import { CustomSeedInput } from '@/components/palette/CustomSeedInput'
 
 interface PaletteStop {
   hex: string
@@ -38,6 +39,8 @@ export default function PalettePage() {
           22 palettes generated from Tailwind&rsquo;s color family -600 stops. Each palette has 19 shades (50–950) selected by target contrast ratio against white — every stop at a given number has the same contrast guarantee across all hues. Click any swatch to copy its hex. Use the format selector to copy or export full palettes.
         </p>
       </div>
+
+      <CustomSeedInput />
 
       <PaletteControls library={library} />
 
