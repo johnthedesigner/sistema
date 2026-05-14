@@ -7,7 +7,8 @@
     "dev:tunnel": "node tools/dev-tunnel.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "palettes": "npx tsx tools/generate-palette-library.ts"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.19",

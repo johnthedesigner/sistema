@@ -3,8 +3,8 @@
 ## Current State
 
 **Phase:** 7
-**Last completed task:** 7.0 — Palette generation API
-**Next task:** 7.1 — Pre-generated palette library
+**Last completed task:** 7.1 — Pre-generated palette library
+**Next task:** 7.2 — Campaign app feature
 **Blockers:** None
 **Notes:** API at POST /api/palette. Algorithm implementation in src/lib/palette.ts (importable). 965 candidates per seed, all stops within ±0.1 of targets. Cross-hue interchangeability verified (blue/green/red -400 stops within 0.02 of each other). Build: passing.
 
@@ -20,6 +20,19 @@
 *Phase 4 session entries archived to `logs/phase-4.md`.*
 *Phase 5 session entries archived to `logs/phase-5.md`.*
 *Phase 6 session entries archived to `logs/phase-6.md`.*
+
+### 2026-05-13 — Task 7.1: Pre-generated palette library
+
+**What was done:**
+- Scope change: replaced 8-hue × 3-saturation seed matrix with Tailwind v3's 22 canonical color family -600 stops — better hue coverage, battle-tested values, zero manual curation
+- Wrote `tools/generate-palette-library.ts` — standalone build script; inlines algorithm using `require('culori')` CJS bundle (avoids ESM interop issue that prevented importing `src/lib/palette.ts` directly via tsx); generates all 22 palettes and writes `public/palettes/library.json`; runs in 0.1s
+- Added `"palettes": "npx tsx tools/generate-palette-library.ts"` to root `package.json` scripts
+- Generated `public/palettes/library.json` — 22 palettes × 19 stops × {hex, contrast_white, contrast_black}
+- Wrote `src/components/palette/PaletteSwatch.tsx` — click-to-copy swatch; shows stop number and hex on hover; auto-selects white or black label text based on which has higher contrast
+- Wrote `src/app/tools/palette/page.tsx` — static palette browser at `/tools/palette`; grays and chromatic colors in separate groups; 19 stop labels across top; footer links to palette-generation synthesis doc and API endpoint
+- Lint: passing | Build: passing (126 static pages); `/tools/palette` renders as static (○)
+
+---
 
 ### 2026-05-13 — Task 7.0: Palette generation API
 
