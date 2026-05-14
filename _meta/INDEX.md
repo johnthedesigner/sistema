@@ -1,11 +1,11 @@
 # INDEX.md
 # Design System Knowledge Base — Master Index
 
-**Version:** 3.0
+**Version:** 3.2
 **Created:** 2026-05-11
 **Last Updated:** 2026-05-13
 **Systems Indexed:** 7
-**Total Content Files:** 83
+**Total Content Files:** 86
 
 **KB structure (Phase 6+):** `kb/reference/` contains design-systems, standards, and foundations. `kb/principles/` (new in Phase 6) contains cross-system synthesis documents. App URLs are unchanged — `/kb/design-systems/`, `/kb/standards/`, etc. continue to work; `reference/` does not appear in URLs.
 
@@ -206,13 +206,14 @@ Density axis, scale construction (modular vs. hand-tuned with ratio selection gu
 
 ---
 
-### Color Architecture
-**Topic:** `architecture` | **Status:** Active | **Last updated:** 2026-05-13
+### Color Architecture and Palette Generation
+**Topic:** `architecture`, `palette-generation` | **Status:** Active | **Last updated:** 2026-05-13
 
-The four architectural models (tonal palettes, step scales, named palettes, contextual tokens) with decision framework, non-negotiable floor, dark mode tonal shift logic, and neutral palette design.
+The four architectural models with decision framework and non-negotiable floor; plus a complete algorithm for generating accessible bespoke shade palettes from seed hex colors.
 
 - Section index: `kb/principles/color/_index.md`
 - Architecture: `kb/principles/color/architecture@2026-05-13.md` — four models with "use when" framing, decision framework (3 questions), non-negotiable floor (contrast minimums, foreground pairings, never-hardcode), dark mode tonal shift logic, neutral chroma decisions
+- Palette generation: `kb/principles/color/palette-generation@2026-05-13.md` — contrast-targeting algorithm (OKLCH candidate pool, logarithmic 19-stop target table 1.01→19, WCAG selection, dual white/black contrast tracking, gamut handling via chroma scaling, JSON output schema, pre-generated library approach)
 
 ---
 
@@ -223,6 +224,17 @@ The tier model, naming principles, dark mode approaches, required categories, an
 
 - Section index: `kb/principles/tokens/_index.md`
 - Architecture: `kb/principles/tokens/architecture@2026-05-13.md` — tier model (primitive → semantic → component), naming for role vs. value, three dark mode approaches and tradeoffs, required vs. optional categories, decision framework
+
+---
+
+### AI — UI Patterns and LLM Compatibility
+**Topic:** `ui-patterns`, `llm-compatibility` | **Status:** Active | **Last updated:** 2026-05-13
+
+UI patterns for products with AI features (chat, streaming, confidence signals, error states, feedback) and structural guidance for making a design system work well with AI coding tools (token naming, DESIGN.md, the living brief, component doc structure).
+
+- Section index: `kb/principles/ai/_index.md`
+- UI patterns: `kb/principles/ai/ui-patterns@2026-05-13.md` — message differentiation, streaming states, layout shift prevention, confidence/uncertainty signals, prompt input UX, AI-specific errors, feedback mechanisms
+- LLM compatibility: `kb/principles/ai/llm-compatibility@2026-05-13.md` — semantic token naming, context window efficiency, DESIGN.md as AI brief, living brief pattern, component doc structure
 
 ---
 

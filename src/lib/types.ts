@@ -45,8 +45,8 @@ export interface SystemIndex {
 export interface Play {
   slug: string
   title: string
-  /** 1=System definition, 2=Primitive tokens, 3=Semantic layer, 4=Components, 5=Migration */
-  stage: 1 | 2 | 3 | 4 | 5
+  /** 1=System definition, 2=Primitive tokens, 3=Semantic layer, 4=Components, 5=Migration, 6=Stewardship */
+  stage: 1 | 2 | 3 | 4 | 5 | 6
   tags: string[]
   /** Copyable prompt text. May contain {{sistema_url}} placeholder. */
   body: string

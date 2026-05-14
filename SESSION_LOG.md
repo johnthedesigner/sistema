@@ -2,11 +2,11 @@
 
 ## Current State
 
-**Phase:** 6
-**Last completed task:** 6.5 — Synthesis: accessibility floor
-**Next task:** 6.6 — Synthesis: AI concerns (ui-patterns + llm-compatibility)
+**Phase:** 7
+**Last completed task:** 6.12 — Phase 6 housekeeping
+**Next task:** 7.0 — Palette generation API
 **Blockers:** None
-**Notes:** Accessibility floor synthesis written as constraint checklist. Build: passing.
+**Notes:** Phase 6 complete. Synthesis layer: 11 documents across 7 concern areas. Playbook v3.0: all plays system-agnostic. Build: 124 static pages.
 
 ---
 
@@ -19,6 +19,89 @@
 *Phase 3 session entries archived to `logs/phase-3.md`.*
 *Phase 4 session entries archived to `logs/phase-4.md`.*
 *Phase 5 session entries archived to `logs/phase-5.md`.*
+*Phase 6 session entries archived to `logs/phase-6.md`.*
+
+### 2026-05-13 — Task 6.11: Color palette generation
+
+**What was done:**
+- Extended discussion with user to capture existing Figma plugin approach (contrast-targeting against white, 19 stops 50–950) and new ideas before writing
+- Key decisions resolved: OKLCH over HSL for candidate generation; logarithmic target distribution (midpoint at 4.38:1 vs. ~10:1 for ease-in-out); dual white+black contrast tracking per stop; sine-curve chroma scaling for gamut safety; easing approach documented for compatibility with existing palettes
+- Wrote `kb/principles/color/palette-generation@2026-05-13.md` covering: core insight (contrast-targeting vs. perceptual stepping, cross-hue interchangeability); algorithm overview (5 steps); OKLCH selection rationale and library options; candidate generation pseudocode with chroma scaling formula; 19-stop logarithmic target contrast table with WCAG thresholds annotated; stop selection pseudocode with WCAG formulas inline; dual contrast tracking rationale; output JSON schema; pre-generated library matrix (8 hues × 3 saturations = 24 palettes); exclusions (semantic mapping, dark mode surface selection)
+- Created stub; updated color `_index.md` and `_meta/INDEX.md` v3.1 → v3.2 (86 content files)
+- Phase 7 scope noted: API endpoint implementation, pre-generated library build
+- Lint: passing | Build: passing
+
+---
+
+### 2026-05-13 — Task 6.10: License compliance audit
+
+**What was done:**
+- Fetched all three Tier 3 sources to check license/copyright status
+- **bottosson.github.io/posts/oklab/**: Code explicitly MIT + public domain. Article prose has no copyright notice and no license statement. Mathematical content (OKLab color space properties, perceptual uniformity) is scientific fact, not creative expression. **Cleared.**
+- **spencermortensen.com/articles/typographic-scale/**: "Copyright © 2011. All rights reserved." Mathematical ratios (1.125, 1.333, etc.) are not copyrightable. Our synthesis describes the mathematical structure, not Spencer's written analysis. **Acceptable.** Non-blocking plan: add modularscale.com as supplementary citation.
+- **practicaltypography.com**: "No reproduction without written permission; fair use excepted." The legibility principles cited (1.5 line height, 45–90 char measure, 16px body minimum) are established typographic canon documented in WCAG 1.4.8, Bringhurst, and decades of web typography literature. Not Butterick's original inventions. **Acceptable under fair use.** Non-blocking plan: supplement with webtypography.net + Google Fonts Knowledge (both in PENDING_SOURCES.md).
+- Updated Source Maps in `kb/reference/foundations/color/_index.md` and `kb/reference/foundations/typography/_index.md` with tier classification and assessment for all sources
+- Created `_meta/LICENSE_AUDIT.md` as formal audit record
+- **No blocking violations.** Two non-blocking action items tracked in LICENSE_AUDIT.md and PENDING_SOURCES.md.
+- Build: unchanged at 123 static pages
+
+---
+
+### 2026-05-13 — Task 6.9: Maintenance plays (Stage 6)
+
+**What was done:**
+- Updated `src/lib/types.ts`: Play.stage type `1|2|3|4|5` → `1|2|3|4|5|6`
+- Updated `src/lib/playbooks.ts`: STAGE_LABELS[6] = 'Stewardship'; STAGE_DESCRIPTIONS[6] added; stage type cast and loadStages return type updated to include 6
+- Appended 6 plays to `_meta/TASK_PLAYBOOKS.md`:
+  - `session-start` — orient in living brief, confirm scope, identify relevant synthesis docs, confirm readiness before beginning work
+  - `add-component` — spec first (variants/states/token map/a11y), implement with token consumption + accessibility requirements, update living brief
+  - `audit-token-coverage` — scan for hardcoded hex/rgb/hsl, raw spacing/shape values; report by severity (blocking/recommended/minor) with file+line+correct token
+  - `accessibility-audit` — evaluate each component against all 7 accessibility floor sections; pass/fail per criterion; summary by compliance status
+  - `design-system-retrospective` — drift analysis, undocumented additions, decisions to revisit, DESIGN.md update check, living brief update
+  - `plan-next-iteration` — 5-dimension maturity assessment, prioritized task list with relevant play for each item, success criteria
+- All 6 plays parse correctly (verified with node script)
+- Lint: passing | Build: 116 → 123 static pages (6 new play pages + 1 new stage page)
+
+---
+
+### 2026-05-13 — Task 6.8: Campaign redesign
+
+**What was done:**
+- Read full current TASK_PLAYBOOKS.md (v2.0) — all 12 plays, all M3 URLs catalogued
+- Added `positioning-brief` play (Stage 1, before generate-design-md) — structured intake (8 questions: product type, density, brand stance, color constraints, theme requirements, platform/scale, accessibility, timeline); outputs positioning brief prose + living brief seed populated from answers
+- Revised `generate-design-md` — replaced M3 bundle URL with DESIGN.md spec + principles/tokens/architecture; added 4-step protocol (read living brief → read refs → generate → append to log); removed "do not copy M3 values" instruction (no longer relevant)
+- Revised `generate-color-scheme` — replaced all M3 color URLs with principles/color/architecture; added 5-step protocol with living brief; added light/dark/both theme selector (`:root` only vs. `:root` + `[data-theme="dark"]`); replaced M3 role names with system-agnostic naming (`--color-primary`, `--color-surface-raised`, etc.); replaced "M3 tonal logic" with synthesis dark mode tonal shift guidance
+- Revised `generate-type-scale` — replaced M3 typography URLs with principles/typography/architecture; added 4-step protocol with living brief; replaced M3 role names (display/headline/title/body/label) with open role guidance; added non-negotiable line height constraints inline
+- Revised `generate-shape-tokens` — replaced M3 shape URLs with principles/shape/architecture; added 4-step protocol with living brief; replaced M3 scale categories with open semantic scale
+- Revised `specify-component` — replaced M3 color-roles/shape/typography URLs with principles/tokens/architecture + principles/accessibility/floor; added 4-step protocol with living brief; added accessibility floor references inline in spec template
+- Revised `implement-component` — replaced M3 asset token URLs with principles/tokens/architecture + principles/accessibility/floor; added 4-step protocol with living brief
+- Revised `generate-color-roles`, `generate-dark-mode`, `generate-style-dictionary`, `migrate-tailwind-tokens`, `audit-component` — replaced all M3 URLs with synthesis equivalents
+- Zero M3/Material references remain in the file (verified with grep)
+- Build: passing (no app changes)
+
+---
+
+### 2026-05-13 — Task 6.7: Living brief spec and template
+
+**What was done:**
+- Wrote `_meta/LIVING_BRIEF_SPEC.md` — what the living brief is; what it is NOT (five contrasts: DESIGN.md, changelog, README, design spec, task list); five required sections with format for each (project identity, key decisions by concern area with required areas table, current state inventory, open questions as checkbox list, decision log with format + examples including a reversal example); format requirements (markdown only, 150-line max, 30-entry archiving rule, root-level placement); how plays interact (read at start, append at end protocol); update cadence table; relationship to DESIGN.md (parallel but independent)
+- Wrote `_meta/templates/LIVING_BRIEF.md` — 40-line blank template with all five sections stubbed; suitable for committing at project bootstrap
+- Updated `_meta/CHANGELOG.md`
+- Build: passing (no app changes)
+
+---
+
+### 2026-05-13 — Task 6.6: Synthesis — AI concerns
+
+**What was done:**
+- Read DESIGN.md spec and overview KB files as primary sources
+- Wrote `kb/principles/ai/ui-patterns@2026-05-13.md` — 6 sections: chat interface (message differentiation via alignment+label, consecutive grouping, markdown rendering, status states); streaming states (typing indicator, progressive text rendering, layout shift prevention, end-of-generation transition); confidence signals (when to surface, text over iconography, draft/verified distinction); prompt input UX (expandable textarea, stop generation, slash commands, file attachment); AI-specific error taxonomy with retry patterns; feedback mechanisms (thumbs, copy, regenerate)
+- Wrote `kb/principles/ai/llm-compatibility@2026-05-13.md` — 5 sections: token naming (semantic over abbreviations, consistent `--[category]-[role]-[variant]` pattern, no ordinals at semantic tier, coverage density); file structure (independent files, 300-line target, front-load critical info); DESIGN.md as primary AI brief (what to include/exclude, 80-150 line targets per section, when to update); living brief (structure with 5 required sections, 150-line constraint, decision log, play integration); component docs (purpose→variants→tokens→states→a11y order, token names not values, one-hop cross-references max)
+- Created 2 stubs and `kb/principles/ai/_index.md`
+- Updated `_meta/INDEX.md` v3.0 → v3.1 (85 content files), `_meta/CHANGELOG.md`
+- Lint: passing | Build: passing
+
+---
 
 ### 2026-05-13 — Task 6.5: Synthesis — Accessibility floor
 

@@ -28,6 +28,101 @@ Each session entry follows this structure:
 
 ## Log
 
+### 2026-05-13 — Task 6.12: Phase 6 housekeeping
+**Operator:** LLM-assisted
+**Systems affected:** meta only
+**Summary:** End-of-phase housekeeping: archived Phase 6 session entries to `logs/phase-6.md`, compressed `tasks/phase-6.md` to one-paragraph summaries (all tasks marked complete), updated `AGENTS.md` with 5 Phase 6 patterns (transparent URL migration, living brief artifact, Stage 6 stewardship plays, license audit methodology, playbook v3.0 system-agnostic structure), wrote `docs/phase-6-retro.md`, and generated `tasks/phase-7.md` with 6 tasks covering the palette generation API, pre-generated library, campaign app feature, light/dark/both selector, pending source crawls, and housekeeping.
+
+| Action | File | Notes |
+|---|---|---|
+| created | logs/phase-6.md | Phase 6 session log archive |
+| updated | tasks/phase-6.md | Compressed to summaries; all tasks marked complete |
+| updated | AGENTS.md | 5 new patterns added (Phase 6) |
+| created | docs/phase-6-retro.md | Phase 6 retrospective |
+| created | tasks/phase-7.md | Phase 7 task file |
+| updated | SESSION_LOG.md | Phase 6 entries archived; current state updated to Phase 7 |
+
+---
+
+### 2026-05-13 — Task 6.11: Color palette generation — investigation and approach
+**Operator:** LLM-assisted
+**Systems affected:** kb/principles/color (new: palette-generation)
+**Summary:** Settled on contrast-targeting algorithm over perceptual stepping (OKLCH candidate pool → WCAG contrast selection per target). Key decisions: OKLCH over HSL for dense candidate generation (perceptually uniform lightness axis, better candidate pool for vivid seeds); logarithmic distribution of 19 target contrast values from 1.01 to 19.0 (places midpoint at 4.38:1 vs. ~10:1 for ease-in-out, allocating more stops to the 3–7:1 working range where accessibility decisions cluster); dual contrast tracking — both white-contrast and black-contrast recorded per stop (enables dark mode interchangeability from the same palette); gamut handling via sine-curve chroma scaling (C × sin(π × L)) which preserves hue through the palette while preventing sRGB clipping at extremes; 50–950 scale in 50-unit increments (19 stops); JSON output schema with named color objects. Documented: easing approach retained for compatibility with existing palettes. Pre-generated library approach: same algorithm run at build time over an 8-hue × 3-saturation matrix = 24 palettes. Phase 7 scope: API endpoint implementation and pre-generated library build. User's Figma plugin approach (existing validated algorithm) is the basis; improvements are OKLCH candidate space and logarithmic target distribution.
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/principles/color/palette-generation@2026-05-13.md | Full algorithm specification |
+| created | kb/principles/color/palette-generation.md | Stub |
+| updated | kb/principles/color/_index.md | palette-generation entry added |
+| updated | _meta/INDEX.md | v3.1 → v3.2; palette-generation added to Color section |
+
+---
+
+### 2026-05-13 — Task 6.10: License compliance audit
+**Operator:** LLM-assisted
+**Systems affected:** meta only; kb/reference/foundations (Source Map updates)
+**Summary:** Audited all three Tier 3 sources identified in KB content. Fetched each source to determine license and copyright status. Bottosson OKLab: code is MIT/public domain, article prose has no copyright notice — cleared as Tier 3 synthesis. Spencer Mortensen typographic scale: "all rights reserved" but mathematical ratios are not copyrightable — acceptable as synthesis; plan to add modularscale.com as supplementary citation. Practical Typography: explicit "no reproduction without permission" but content is established typographic canon (line height 1.5×, 45–90 char measure, 16px minimum) documented in WCAG 1.4.8, Bringhurst, and wide literature — acceptable under fair use for educational synthesis; plan to supplement with webtypography.net and Google Fonts Knowledge (both in PENDING_SOURCES.md). No blocking violations. Source Maps added to both foundations _index.md files. Formal audit record at _meta/LICENSE_AUDIT.md.
+
+| Action | File | Notes |
+|---|---|---|
+| updated | kb/reference/foundations/color/_index.md | Source Map section added — all four sources documented with tier and assessment |
+| updated | kb/reference/foundations/typography/_index.md | Source Map section added — both Tier 3 sources documented with tier, assessment, and plan |
+| created | _meta/LICENSE_AUDIT.md | Formal audit record with full findings and action items |
+
+---
+
+### 2026-05-13 — Task 6.9: Maintenance plays (Stage 6)
+**Operator:** LLM-assisted
+**Systems affected:** meta (TASK_PLAYBOOKS.md); app (src/lib/playbooks.ts, src/lib/types.ts)
+**Summary:** Added Stage 6 (Stewardship) to the playbook with 6 maintenance plays. Updated Play type in types.ts and stage type casts/return types in playbooks.ts to include 6. Added STAGE_LABELS[6] ('Stewardship') and STAGE_DESCRIPTIONS[6]. Plays: session-start (orient at session start, confirm scope, load relevant synthesis docs, confirm readiness before beginning); add-component (read brief, spec the component, implement with token consumption and a11y requirements, update brief); audit-token-coverage (scan codebase for hardcoded values, report violations by severity with line refs and correct token names); accessibility-audit (evaluate implemented components against all 7 sections of the accessibility floor, report pass/fail per criterion with severity); design-system-retrospective (identify drift, undocumented additions, decisions to revisit, DESIGN.md update needs, update living brief); plan-next-iteration (maturity assessment across 5 dimensions, prioritized task list with relevant play for each, success criteria). Build: 116 → 123 static pages.
+
+| Action | File | Notes |
+|---|---|---|
+| updated | _meta/TASK_PLAYBOOKS.md | 6 Stage 6 plays appended |
+| updated | src/lib/playbooks.ts | STAGE_LABELS[6], STAGE_DESCRIPTIONS[6]; stage type updated to include 6 |
+| updated | src/lib/types.ts | Play.stage type updated to include 6 |
+
+---
+
+### 2026-05-13 — Task 6.8: Campaign redesign
+**Operator:** LLM-assisted
+**Systems affected:** meta only (TASK_PLAYBOOKS.md)
+**Summary:** Full revision of TASK_PLAYBOOKS.md from v2.0 to v3.0. Added `positioning-brief` play (Stage 1) — structured intake questions producing a positioning brief + living brief seed. Revised all five campaign plays to strip every M3/Material reference and replace with synthesis KB URLs (principles/tokens/architecture, principles/color/architecture, principles/typography/architecture, principles/shape/architecture, principles/accessibility/floor). Added living brief read/append protocol to every campaign play (generate-design-md, generate-color-scheme, generate-type-scale, generate-shape-tokens, specify-component, implement-component). Added light/dark/both theme selector to generate-color-scheme with correct branching output (`:root` only vs. `:root` + `[data-theme="dark"]`). Revised supporting plays (generate-color-roles, generate-dark-mode, generate-style-dictionary, migrate-tailwind-tokens, audit-component) to use synthesis KB URLs in place of M3 URLs. Zero M3/Material references remain in the playbook.
+
+| Action | File | Notes |
+|---|---|---|
+| updated | _meta/TASK_PLAYBOOKS.md | v2.0 → v3.0; positioning-brief added; all M3 refs removed; synthesis URLs wired; living brief protocol added to all campaign plays |
+
+---
+
+### 2026-05-13 — Task 6.7: Living brief spec and template
+**Operator:** LLM-assisted
+**Systems affected:** meta only
+**Summary:** Defined the living brief as a first-class project artifact. Spec covers: what it is vs. what it is not (contrasted with DESIGN.md, changelog, README, design spec, task list); five required sections (project identity, key decisions by concern area, current state inventory, open questions, decision log); format requirements (markdown only, 150-line maximum, archiving rule at 30 entries, root-level placement); how plays interact with it (read at start, append at end, update state section); update cadence table (what triggers an update vs. what doesn't); relationship to DESIGN.md (parallel but independent update triggers). Template is a blank fill-in version at 40 lines with all five sections stubbed.
+
+| Action | File | Notes |
+|---|---|---|
+| created | _meta/LIVING_BRIEF_SPEC.md | Full specification |
+| created | _meta/templates/LIVING_BRIEF.md | Blank template for user projects |
+
+---
+
+### 2026-05-13 — Task 6.6: Synthesis — AI concerns
+**Operator:** LLM-assisted
+**Systems affected:** kb/principles (new: ai/)
+**Summary:** Created two synthesis documents under kb/principles/ai/. UI patterns: covers chat interface design (message differentiation, status states, markdown rendering), streaming and generative states (typing indicator, progressive text, layout shift prevention, end-of-generation transition), confidence and uncertainty signals (when to signal, visual language, draft/verified distinction), prompt and input UX (expandable textarea, stop generation, slash commands), AI-specific error taxonomy with retry patterns, and per-response feedback mechanisms (thumbs, copy, regenerate). LLM compatibility: covers token naming for LLM comprehension (semantic over abbreviations, consistent patterns, ordinal-only naming rules, coverage density), file structure for context window efficiency (independent files, 300-line target, front-loading), DESIGN.md as the primary AI brief (what to include/exclude, context window cost targets, when to update), the living brief pattern (structure, 150-line constraint, integration with plays), and component documentation structure (token consumption over hardcoded values, avoiding cross-file dependencies).
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/principles/ai/ui-patterns@2026-05-13.md | AI UI patterns synthesis |
+| created | kb/principles/ai/ui-patterns.md | Stub |
+| created | kb/principles/ai/llm-compatibility@2026-05-13.md | LLM compatibility synthesis |
+| created | kb/principles/ai/llm-compatibility.md | Stub |
+| created | kb/principles/ai/_index.md | Section index with source map |
+| updated | _meta/INDEX.md | Added AI section to Section 1d; v3.0 → v3.1 |
+
+---
+
 ### 2026-05-13 — Task 6.5: Synthesis — Accessibility floor
 **Operator:** LLM-assisted
 **Systems affected:** kb/principles (new: accessibility/)

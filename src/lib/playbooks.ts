@@ -10,6 +10,7 @@ export const STAGE_LABELS: Record<number, string> = {
   3: 'Semantic layer',
   4: 'Components',
   5: 'Migration and adoption',
+  6: 'Stewardship',
 }
 
 export const STAGE_DESCRIPTIONS: Record<number, string> = {
@@ -18,6 +19,7 @@ export const STAGE_DESCRIPTIONS: Record<number, string> = {
   3: 'Build the semantic layer — role-based tokens, light/dark mode, and state colors — on top of your primitive foundation.',
   4: 'Specify and generate accessible component tokens and CSS for individual UI components.',
   5: 'Migrate existing color systems, audit token coverage, and adopt the token architecture incrementally.',
+  6: 'Maintain and evolve a living design system — session startup, adding components, auditing drift, accessibility checks, retrospectives, and planning the next iteration.',
 }
 
 /**
@@ -47,7 +49,7 @@ export function loadPlaybooks(): Play[] {
     const stageMatch = section.match(/^\*\*Stage:\*\*\s*(\d)/m)
     const tagsMatch = section.match(/^\*\*Tags:\*\*\s*(.+)$/m)
 
-    const stage = stageMatch ? (parseInt(stageMatch[1], 10) as 1 | 2 | 3 | 4 | 5) : 1
+    const stage = stageMatch ? (parseInt(stageMatch[1], 10) as 1 | 2 | 3 | 4 | 5 | 6) : 1
     const tags = tagsMatch ? tagsMatch[1].split(',').map(t => t.trim()) : []
 
     // Body is everything after the Tags line (and following blank line)
@@ -65,10 +67,10 @@ export function loadPlaybooks(): Play[] {
 /**
  * Returns all unique stages present in the playbook, in order.
  */
-export function loadStages(): Array<{ stage: 1 | 2 | 3 | 4 | 5; label: string }> {
+export function loadStages(): Array<{ stage: 1 | 2 | 3 | 4 | 5 | 6; label: string }> {
   const plays = loadPlaybooks()
   const seen = new Set<number>()
-  const stages: Array<{ stage: 1 | 2 | 3 | 4 | 5; label: string }> = []
+  const stages: Array<{ stage: 1 | 2 | 3 | 4 | 5 | 6; label: string }> = []
   for (const play of plays) {
     if (!seen.has(play.stage)) {
       seen.add(play.stage)

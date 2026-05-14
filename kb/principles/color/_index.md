@@ -10,6 +10,8 @@ How to design a color system that is accessible, themeable, and honest about the
 
 - **architecture** — The four major architectural models (tonal palettes, step scales, named palettes, contextual tokens) with decision framework, non-negotiable floor, dark mode tonal shift logic, and neutral palette design.
 
+- **palette-generation** — Complete algorithm for generating 19-stop shade palettes (50–950) from seed hex colors using contrast-targeting: dense OKLCH candidate generation, logarithmic target contrast table (1.01–19.0), WCAG contrast selection, dual white/black contrast tracking, gamut handling, output JSON schema, and pre-generated library approach.
+
 ---
 
 ## Source Map
