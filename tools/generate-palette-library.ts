@@ -64,7 +64,8 @@ function generatePalette(seedHex: string): PaletteResult {
   const taperAtSeedL = Math.sin(Math.PI * seed.l)
 
   for (let L = 0.02; L <= 0.985; L += 0.001) {
-    const taper = Math.min(1, Math.sin(Math.PI * L) / taperAtSeedL)
+    const rawTaper = Math.min(1, Math.sin(Math.PI * L) / taperAtSeedL)
+    const taper = (1 + rawTaper) / 2
     const C = findMaxChroma(L, hue) * saturation * taper
     const inGamut = toGamutRgb({ mode: 'oklch', l: L, c: C, h: hue })
     if (!inGamut) continue
