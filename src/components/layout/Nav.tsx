@@ -14,6 +14,9 @@ export function Nav() {
           <Link href="/playbooks" className="hover:text-gray-900 transition-colors">
             Playbooks
           </Link>
+          <Link href="/campaigns" className="hover:text-gray-900 transition-colors">
+            Campaigns
+          </Link>
           <Link href="/tools/palette" className="hover:text-gray-900 transition-colors">
             Tools
           </Link>

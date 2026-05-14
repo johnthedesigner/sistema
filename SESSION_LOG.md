@@ -3,8 +3,8 @@
 ## Current State
 
 **Phase:** 7
-**Last completed task:** 7.1 — Pre-generated palette library
-**Next task:** 7.2 — Campaign app feature
+**Last completed task:** 7.2 — Campaign app feature
+**Next task:** 7.3 — Light/dark/both selector
 **Blockers:** None
 **Notes:** API at POST /api/palette. Algorithm implementation in src/lib/palette.ts (importable). 965 candidates per seed, all stops within ±0.1 of targets. Cross-hue interchangeability verified (blue/green/red -400 stops within 0.02 of each other). Build: passing.
 
@@ -20,6 +20,23 @@
 *Phase 4 session entries archived to `logs/phase-4.md`.*
 *Phase 5 session entries archived to `logs/phase-5.md`.*
 *Phase 6 session entries archived to `logs/phase-6.md`.*
+
+### 2026-05-13 — Task 7.2: Campaign app feature
+
+**What was done:**
+- Wrote `_meta/CAMPAIGNS.md` — campaign definitions format + first campaign: "bootstrap" (6 steps: positioning-brief → generate-design-md → generate-color-scheme → generate-type-scale → generate-shape-tokens → generate-style-dictionary)
+- Wrote `src/lib/campaigns.ts` — parser that reads CAMPAIGNS.md and resolves play bodies from loadPlaybooks(); exports `loadCampaigns()` and `loadCampaign(slug)`
+- Wrote `src/app/campaigns/page.tsx` — static campaign index with progress bar preview per campaign
+- Wrote `src/app/campaigns/[slug]/[step]/page.tsx` — SSG step page (generateStaticParams generates bootstrap/1 through bootstrap/6); renders CampaignProgress + CampaignStep
+- Wrote `src/app/campaigns/[slug]/export/page.tsx` — SSG export page per campaign
+- Wrote `src/components/campaigns/CampaignProgress.tsx` — step indicator with numbered circles (done=filled, active=blue ring, pending=gray), connecting lines, step title labels
+- Wrote `src/components/campaigns/CampaignStep.tsx` — client component; restores variable values from sessionStorage on mount; saves to sessionStorage on change; renders prompt in scrollable pre block; copy button resolves variables; next/back navigation; final step links to export
+- Wrote `src/components/campaigns/CampaignExport.tsx` — client component; assembles all 6 step prompts with sessionStorage values; copy-all and download-.md buttons; collapsible per-step preview; `mounted` state guards sessionStorage access to prevent SSR errors
+- Added "Campaigns" to main nav
+- Build: 125 → 134 static pages (campaigns index + 6 steps + 1 export)
+- Lint: passing | Build: passing
+
+---
 
 ### 2026-05-13 — Task 7.1: Pre-generated palette library
 
