@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Fraunces, JetBrains_Mono } from 'next/font/google'
 import { Nav } from '@/components/layout/Nav'
+import { SiteFooter } from '@/components/layout/Footer'
 import '../styles/globals.css'
 
 const inter = Inter({
@@ -40,9 +41,10 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="bg-canvas text-on-surface antialiased">
+      <body className="bg-canvas text-on-surface antialiased min-h-screen flex flex-col">
         <Nav />
-        {children}
+        <div className="flex-1">{children}</div>
+        <SiteFooter />
       </body>
     </html>
   )

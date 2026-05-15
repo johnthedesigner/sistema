@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { loadPlaybooks } from '@/lib/playbooks'
-import { Logo } from '@/components/Logo'
 import { PromptBox } from '@/components/PromptBox'
 
 function ArrowRight() {
@@ -78,7 +77,7 @@ export default function Home() {
             style={{
               lineHeight: 1.0,
               letterSpacing: '-0.03em',
-              fontVariationSettings: "'opsz' 144, 'SUPERSOFT' 40",
+              fontVariationSettings: "'opsz' 144, 'SUPERSOFT' 40",  
               maxWidth: 920,
             }}
           >
@@ -201,18 +200,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Footer note */}
-        <div className="flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-4.5 mt-10 md:mt-12 text-[13px] text-on-surface-muted">
-          <Logo size={20} />
-          <span>Sistema is reference material for AI agents, not a tutorial for humans.</span>
-          <div className="md:ml-auto flex items-center gap-2.5">
-            <span className="font-mono text-[11px] text-on-surface-subtle">v0.4 · public beta</span>
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-on-surface-subtle" />
-            <Link href="/guide" className="text-primary no-underline">
-              How a play works →
-            </Link>
-          </div>
-        </div>
       </div>
     </main>
   )

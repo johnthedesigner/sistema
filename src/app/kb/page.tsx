@@ -232,9 +232,9 @@ export default function KBLandingPage() {
           ))}
         </div>
 
-        {/* Bottom strip */}
+        {/* KB utility strip */}
         <div
-          className="flex flex-col sm:flex-row sm:items-center gap-4 px-5 py-4 rounded-radius-md border border-border bg-surface"
+          className="flex flex-col sm:flex-row sm:items-center gap-4 rounded-radius-md border border-border bg-surface"
           style={{ padding: '16px 20px' }}
         >
           <Logo size={28} />
@@ -251,6 +251,7 @@ export default function KBLandingPage() {
             </Link>
           </div>
         </div>
+
       </div>
     </main>
   )

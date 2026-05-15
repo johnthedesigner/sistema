@@ -42,7 +42,7 @@ export function Nav() {
 
   return (
     <>
-      <header className="border-b border-border bg-surface-raised relative z-40">
+      <header className="sticky top-0 border-b border-border bg-surface-raised z-40">
         <div className="flex items-center justify-between px-5 md:px-10 h-[60px] md:h-[68px]">
           {/* Left: wordmark + desktop nav */}
           <div className="flex items-center gap-8 md:gap-12">
