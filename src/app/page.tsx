@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { loadPlaybooks } from '@/lib/playbooks'
+import { loadCampaign } from '@/lib/campaigns'
 import { PromptBox } from '@/components/PromptBox'
 
 function ArrowRight() {
@@ -55,8 +55,7 @@ const STAGE_CHIP_STYLES: Record<number, { bg: string; color: string; border: str
 }
 
 export default function Home() {
-  const plays = loadPlaybooks()
-  const positioningBrief = plays.find(p => p.slug === 'positioning-brief')
+  const bootstrap = loadCampaign('bootstrap')
 
   return (
     <main>
@@ -116,40 +115,42 @@ export default function Home() {
         </div>
 
         {/* Prompt showcase */}
+        {/* TODO: token count, ref count, and references table are hardcoded.
+            To make dynamic: add `tokens`, `kbRefs` fields to Campaign type,
+            and store per-ref token counts in KB index metadata. */}
         <div className="grid gap-6 grid-cols-1 md:grid-cols-[1fr_280px]">
-          {positioningBrief && (
+          {bootstrap?.prompt && (
             <PromptBox
-              label="play · positioning-brief"
-              body={positioningBrief.body}
-              tokens="~640 tokens"
-              refs="3 KB refs"
-              variables={2}
+              label="campaign · Bootstrap a Design System"
+              body={bootstrap.prompt}
+              tokens="~4,200 tokens"
+              refs="6 KB refs"
             />
           )}
 
           <div className="flex flex-col gap-3">
             <div className="border border-border rounded-radius-lg p-4">
               <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2">
-                This play
+                This campaign
               </p>
-              <p className="font-semibold text-[14px] text-on-surface mb-1">positioning-brief</p>
+              <p className="font-semibold text-[14px] text-on-surface mb-1">
+                {bootstrap?.title ?? 'Bootstrap a Design System'}
+              </p>
               <p className="text-[12.5px] text-on-surface-muted leading-[1.4]">
-                Step 1 of <strong className="text-on-surface">Bootstrap a Design System</strong>.
-                Drafts the opening section of your DESIGN.md.
+                {bootstrap?.description ?? ''}
               </p>
               <div className="flex gap-1.5 mt-2.5 flex-wrap">
                 <span
                   className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border"
-                  style={{
-                    background: STAGE_CHIP_STYLES[1].bg,
-                    color: STAGE_CHIP_STYLES[1].color,
-                    borderColor: STAGE_CHIP_STYLES[1].border,
-                  }}
+                  style={{ background: '#0070FF', color: 'white', borderColor: '#0070FF' }}
                 >
-                  stage 1 · system
+                  campaign · {bootstrap?.steps.length ?? 6} steps
                 </span>
                 <span className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border border-border bg-surface-sunken text-on-surface-muted">
-                  positioning
+                  planning
+                </span>
+                <span className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border border-border bg-surface-sunken text-on-surface-muted">
+                  tokens
                 </span>
               </div>
             </div>
@@ -158,18 +159,19 @@ export default function Home() {
               <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2">
                 References pulled
               </p>
+              {/* TODO: derive from campaign step metadata once KB ref sizes are indexed */}
               <div className="flex flex-col gap-1.5 text-[12.5px]">
                 <div className="flex justify-between">
                   <span className="font-mono text-on-surface">principles/positioning</span>
                   <span className="text-on-surface-subtle">3.2k</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="font-mono text-on-surface">material/foundations</span>
-                  <span className="text-on-surface-subtle">8.4k</span>
+                  <span className="font-mono text-on-surface">principles/tokens</span>
+                  <span className="text-on-surface-subtle">5.8k</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="font-mono text-on-surface">primer/principles</span>
-                  <span className="text-on-surface-subtle">2.1k</span>
+                  <span className="font-mono text-on-surface">principles/color</span>
+                  <span className="text-on-surface-subtle">4.3k</span>
                 </div>
               </div>
             </div>
