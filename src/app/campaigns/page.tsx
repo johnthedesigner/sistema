@@ -17,7 +17,7 @@ export default function CampaignsPage() {
       <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-8 md:pt-10 pb-20">
         <div className="mb-9">
           <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
-            Campaigns · {campaigns.length} available
+            Featured plays · {campaigns.length} available
           </p>
           <h1
             className="font-serif font-medium text-on-surface m-0 mb-3 text-[28px] md:text-[36px]"

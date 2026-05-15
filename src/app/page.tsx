@@ -78,7 +78,7 @@ export default function Home() {
             style={{
               lineHeight: 1.0,
               letterSpacing: '-0.03em',
-              fontVariationSettings: "'opsz' 144, 'SOFT' 40",
+              fontVariationSettings: "'opsz' 144, 'SUPERSOFT' 40",
               maxWidth: 920,
             }}
           >

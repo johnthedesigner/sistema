@@ -75,7 +75,7 @@ export default function PlaysPage() {
         {/* Page head */}
         <div className="mb-8">
           <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
-            Plays · {plays.length} single · {campaigns.length} campaigns
+            Plays · {plays.length} single · {campaigns.length} featured
           </p>
           <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-4">
             <h1
@@ -102,14 +102,14 @@ export default function PlaysPage() {
           </div>
         </div>
 
-        {/* Campaigns */}
+        {/* Featured plays */}
         <div className="flex items-baseline justify-between mb-4">
           <div className="flex items-baseline gap-3 flex-wrap">
             <h2 className="font-serif font-medium m-0" style={{ fontSize: 22, letterSpacing: '-0.01em' }}>
-              Campaigns
+              Featured plays
             </h2>
             <span className="text-[13px] text-on-surface-muted">
-              start here — complete arcs, six steps or fewer.
+              multi-step plays that cover a complete arc.
             </span>
           </div>
         </div>
@@ -118,9 +118,10 @@ export default function PlaysPage() {
           {campaigns.map((campaign, idx) => {
             const tone = CAMPAIGN_TONES[idx % 2]
             return (
-              <div
+              <Link
                 key={campaign.slug}
-                className="rounded-radius-lg p-5 md:p-6 relative overflow-hidden"
+                href={`/campaigns/${campaign.slug}`}
+                className="block rounded-radius-lg p-5 md:p-6 relative overflow-hidden no-underline"
                 style={{ background: tone.bg, color: 'white' }}
               >
                 <div className="flex items-center gap-2.5 mb-3">
@@ -128,7 +129,7 @@ export default function PlaysPage() {
                     className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border"
                     style={{ background: tone.chipBg, borderColor: tone.chipBd, color: 'white' }}
                   >
-                    campaign · {campaign.steps.length} steps
+                    featured · {campaign.steps.length} steps
                   </span>
                   <span className="font-mono text-[11px]" style={{ color: tone.dim }}>
                     ~{campaign.steps.length * 4} min
@@ -194,14 +195,13 @@ export default function PlaysPage() {
                   ))}
                 </div>
 
-                <Link
-                  href={`/campaigns/${campaign.slug}`}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-radius-md text-[13.5px] font-semibold no-underline"
+                <span
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-radius-md text-[13.5px] font-semibold"
                   style={{ background: 'white', color: tone.bg }}
                 >
-                  Start campaign <ArrowRight size={14} />
-                </Link>
-              </div>
+                  Open <ArrowRight size={14} />
+                </span>
+              </Link>
             )
           })}
         </div>

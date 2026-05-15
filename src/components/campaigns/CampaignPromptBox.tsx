@@ -52,7 +52,7 @@ export function CampaignPromptBox({ prompt, campaignSlug }: Props) {
             style={{ width: 8, height: 8, background: 'var(--color-primary)', boxShadow: '0 0 0 3px rgba(0,112,255,0.15)' }}
           />
           <span className="font-mono text-[11.5px] tracking-[0.04em] uppercase text-on-surface-muted">
-            campaign · {campaignSlug}
+            featured play · {campaignSlug}
           </span>
         </div>
         <button

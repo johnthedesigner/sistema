@@ -32,7 +32,7 @@ export default async function CampaignLandingPage({
         <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-6 md:py-8">
           <div className="mb-1">
             <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase" style={{ color: 'rgba(255,255,255,0.65)' }}>
-              Campaign · {campaign.steps.length} steps
+              Featured play · {campaign.steps.length} steps
             </span>
           </div>
           <h1
@@ -106,7 +106,7 @@ export default async function CampaignLandingPage({
               <>
                 <div className="flex items-baseline gap-3 mb-4">
                   <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted">
-                    Campaign prompt
+                    Prompt
                   </span>
                   <span className="text-[12px] text-on-surface-muted">
                     paste once — the agent drives the rest
@@ -116,7 +116,7 @@ export default async function CampaignLandingPage({
               </>
             ) : (
               <div className="border border-border rounded-radius-lg px-6 py-8 text-on-surface-muted text-[14px]">
-                Campaign prompt not yet available.
+                Prompt not yet available.
               </div>
             )}
           </div>

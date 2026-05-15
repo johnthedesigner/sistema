@@ -37,7 +37,7 @@ export default async function CampaignStepPage({
           <div className="flex items-baseline justify-between mb-4 md:mb-5">
             <div className="flex items-baseline gap-2 md:gap-3 flex-wrap">
               <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase" style={{ color: 'rgba(255,255,255,0.65)' }}>
-                Campaign
+                Featured play
               </span>
               <h1 className="font-serif font-medium m-0 text-white text-[18px] md:text-[22px]" style={{ letterSpacing: '-0.01em' }}>
                 {campaign.title}

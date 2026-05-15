@@ -28,7 +28,7 @@
     "warning-on-dark": { "value": "#311700" },
 
     "white":         { "value": "#FFFFFF" },
-    "canvas":        { "value": "#EFEEEA" },
+    "canvas":        { "value": "#FFFFFF" },
     "surface":       { "value": "#FFFFFF" },
     "surface-sunken":{ "value": "#F7F6F2" },
     "text":          { "value": "#0E1116" },

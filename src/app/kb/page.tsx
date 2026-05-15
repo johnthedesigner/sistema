@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { listSystems, KB_CATEGORIES, type KBCategory } from '@/lib/kb'
 import { Logo } from '@/components/Logo'
+import { SearchButton } from '@/components/search/SearchButton'
 
 function countEntries(category: KBCategory): number {
   return listSystems(category).length
@@ -8,58 +9,33 @@ function countEntries(category: KBCategory): number {
 
 const CATEGORY_META: Record<KBCategory, {
   title: string
-  purpose: string
-  purposeLabel: string
   description: string
   examples: string[]
-  playLink: string
-  playSlug: string
-  accent: string
   featured?: boolean
   href: string
 }> = {
   'design-systems': {
     title: 'Design Systems',
-    purposeLabel: 'for imitation',
-    purpose: 'for imitation',
     description: 'Reference docs from named production systems. Use these to understand how proven systems solve structural problems.',
     examples: ['Material Design 3', 'Carbon (IBM)', 'Atlassian', 'Primer (GitHub)', 'Ant Design'],
-    playLink: 'generate-color-scheme',
-    playSlug: 'generate-color-scheme',
-    accent: '#0070FF',
     href: '/kb/design-systems',
   },
   'standards': {
     title: 'Standards',
-    purposeLabel: 'for conformance',
-    purpose: 'for conformance',
     description: 'Normative specifications. Use these when your output must satisfy a published standard.',
     examples: ['WCAG 2.2', 'ARIA APG', 'APCA', 'DESIGN.md spec'],
-    playLink: 'accessibility-audit',
-    playSlug: 'accessibility-audit',
-    accent: '#0E1116',
     href: '/kb/standards',
   },
   'foundations': {
     title: 'Foundations',
-    purposeLabel: 'for first-principles reasoning',
-    purpose: 'for first-principles reasoning',
     description: 'Scientific and theoretical underpinnings. Use these to understand why design systems are structured the way they are.',
     examples: ['OKLCH perception', 'Type rhythm', 'Spacing theory'],
-    playLink: 'generate-type-scale',
-    playSlug: 'generate-type-scale',
-    accent: '#FFCC33',
     href: '/kb/foundations',
   },
   'principles': {
     title: 'Principles',
-    purposeLabel: 'for building something new',
-    purpose: 'for building something new',
     description: 'Cross-system synthesis. Frameworks for original work — primary references for plays.',
     examples: ['Positioning', 'Token architecture', 'Semantic layer design'],
-    playLink: 'positioning-brief',
-    playSlug: 'positioning-brief',
-    accent: '#E60026',
     featured: true,
     href: '/kb/principles',
   },
@@ -138,6 +114,77 @@ const ILLUSTRATIONS: Record<KBCategory, React.ReactNode> = {
   'principles': <PrinciplesIllustration />,
 }
 
+function CategoryCard({ category }: { category: KBCategory }) {
+  const meta = CATEGORY_META[category]
+  const count = countEntries(category)
+  const illustration = ILLUSTRATIONS[category]
+
+  return (
+    <div
+      className="flex flex-col md:flex-row border rounded-radius-lg overflow-hidden relative bg-surface group cursor-pointer"
+      style={{ borderColor: meta.featured ? 'var(--color-primary)' : 'var(--color-border)' }}
+    >
+      <Link
+        href={meta.href}
+        className="absolute inset-0 z-0"
+        aria-label={`Browse ${meta.title}`}
+      />
+
+      {/* Illustration area */}
+      <div
+        className="flex items-center justify-center relative overflow-hidden border-b border-border md:border-b-0 md:border-r shrink-0 h-[120px] md:h-auto md:w-[220px]"
+        style={{ background: 'linear-gradient(180deg, #FCFCFB 0%, #F4F5F4 100%)' }}
+      >
+        {illustration}
+        <div className="absolute top-3 left-3.5">
+          <span className="font-mono text-[11px] text-on-surface-muted">
+            {count > 0 ? `${count} entries` : 'coming soon'}
+          </span>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 min-w-0 p-5 md:p-[22px] relative z-10 pointer-events-none">
+        <div className="flex items-center gap-2.5 mb-1">
+          <h2
+            className="font-serif font-medium m-0 text-[22px] md:text-[26px]"
+            style={{ letterSpacing: '-0.015em' }}
+          >
+            {meta.title}
+          </h2>
+          {meta.featured && (
+            <span
+              className="px-2 py-0.5 rounded font-mono text-[10.5px] font-semibold tracking-[0.08em] uppercase"
+              style={{ background: 'var(--color-brand-yellow)', color: '#0E1116' }}
+            >
+              primary references
+            </span>
+          )}
+        </div>
+
+        <p className="text-[13.5px] leading-[1.5] text-on-surface-muted mb-3.5">
+          {meta.description}
+        </p>
+
+        <div className="flex gap-1.5 flex-wrap mb-4">
+          {meta.examples.map(ex => (
+            <span
+              key={ex}
+              className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border border-border bg-surface-sunken text-on-surface-muted"
+            >
+              {ex}
+            </span>
+          ))}
+        </div>
+
+        <span className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-on-surface-muted group-hover:text-on-surface transition-colors">
+          Browse {meta.title} <ArrowRight size={11} />
+        </span>
+      </div>
+    </div>
+  )
+}
+
 export default function KBLandingPage() {
   return (
     <main>
@@ -162,97 +209,27 @@ export default function KBLandingPage() {
           </p>
         </div>
 
-        {/* Category cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-[18px] mb-10">
-          {KB_CATEGORIES.map(category => {
-            const meta = CATEGORY_META[category]
-            const count = countEntries(category)
-            const illustration = ILLUSTRATIONS[category]
+        {/* Principles — primary references, separated above resources */}
+        <div className="mb-8">
+          <CategoryCard category="principles" />
+        </div>
 
-            return (
-              <div
-                key={category}
-                className="border rounded-radius-lg overflow-hidden relative bg-surface"
-                style={{ borderColor: meta.featured ? 'var(--color-primary)' : 'var(--color-border)' }}
-              >
-                {/* Illustration area */}
-                <div
-                  className="flex items-center justify-center relative overflow-hidden border-b border-border"
-                  style={{ height: 120, background: 'linear-gradient(180deg, #FCFCFB 0%, #F4F5F4 100%)' }}
-                >
-                  {illustration}
-                  <div className="absolute top-3 left-3.5 flex items-center gap-1.5">
-                    <span className="font-mono text-[11px] text-on-surface-muted">
-                      {count > 0 ? `${count} entries` : 'coming soon'}
-                    </span>
-                  </div>
-                  {meta.featured && (
-                    <div
-                      className="absolute top-3 right-3.5 px-2 py-0.5 rounded font-mono text-[10.5px] font-semibold tracking-[0.08em] uppercase"
-                      style={{ background: 'var(--color-brand-yellow)', color: '#0E1116' }}
-                    >
-                      primary references
-                    </div>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="p-5 md:p-[22px]">
-                  <div className="flex items-baseline gap-2.5 mb-1">
-                    <h2
-                      className="font-serif font-medium m-0 text-[22px] md:text-[26px]"
-                      style={{ letterSpacing: '-0.015em' }}
-                    >
-                      {meta.title}
-                    </h2>
-                    <span
-                      className="font-serif italic text-[11.5px]"
-                      style={{ color: meta.accent }}
-                    >
-                      &ldquo;{meta.purposeLabel}&rdquo;
-                    </span>
-                  </div>
-
-                  <p className="text-[13.5px] leading-[1.5] text-on-surface-muted mb-3.5">
-                    {meta.description}
-                  </p>
-
-                  <div className="flex gap-1.5 flex-wrap mb-4">
-                    {meta.examples.map(ex => (
-                      <span
-                        key={ex}
-                        className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border border-border bg-surface-sunken text-on-surface-muted"
-                      >
-                        {ex}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between flex-wrap gap-2">
-                    <Link
-                      href={meta.href}
-                      className="inline-flex items-center h-[30px] px-3 text-[12.5px] font-medium border border-border rounded-radius-md text-on-surface no-underline hover:bg-surface-sunken transition-colors"
-                    >
-                      Browse {meta.title}
-                    </Link>
-                    <Link
-                      href={`/playbooks/${meta.playSlug}`}
-                      className="flex items-center gap-1.5 text-[12.5px] font-medium text-primary no-underline"
-                    >
-                      Go to{' '}
-                      <span
-                        className="font-mono text-[11.5px] px-1.5 py-0.5 rounded"
-                        style={{ background: 'var(--color-brand-blue-50)' }}
-                      >
-                        {meta.playLink}
-                      </span>
-                      <ArrowRight size={12} />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )
-          })}
+        {/* Reference sources section */}
+        <div className="mb-3">
+          <h2
+            className="font-serif font-medium text-on-surface m-0 mb-1 text-[18px] md:text-[20px]"
+            style={{ letterSpacing: '-0.01em' }}
+          >
+            Reference Sources
+          </h2>
+          <p className="text-[13px] text-on-surface-muted m-0" style={{ lineHeight: 1.5 }}>
+            Named systems, specifications, and theoretical foundations. These are raw material — consulted for prior art and conformance, not synthesis.
+          </p>
+        </div>
+        <div className="flex flex-col gap-[14px] mb-10">
+          {(['design-systems', 'standards', 'foundations'] as const).map(category => (
+            <CategoryCard key={category} category={category} />
+          ))}
         </div>
 
         {/* Bottom strip */}
@@ -261,16 +238,11 @@ export default function KBLandingPage() {
           style={{ padding: '16px 20px' }}
         >
           <Logo size={28} />
-          <div className="text-[13.5px] text-on-surface leading-[1.4]">
-            <strong>Looking for a specific document, not a category?</strong>
-            <span className="text-on-surface-muted ml-2">
-              Search every KB entry, or jump straight to the play that pulls it in.
-            </span>
-          </div>
+          <strong className="text-[13.5px] text-on-surface">Looking for a specific document, not a category?</strong>
           <div className="sm:ml-auto flex gap-2.5">
-            <button className="inline-flex items-center h-[30px] px-3 text-[12.5px] font-medium border border-border rounded-radius-md text-on-surface bg-surface hover:bg-surface-sunken transition-colors">
-              Search KB
-            </button>
+            <SearchButton className="inline-flex items-center h-[30px] px-3 text-[12.5px] font-medium border border-border rounded-radius-md text-on-surface bg-surface hover:bg-surface-sunken transition-colors">
+              Search the Knowledge Base
+            </SearchButton>
             <Link
               href="/playbooks"
               className="inline-flex items-center h-[30px] px-3 text-[12.5px] font-medium rounded-radius-md text-on-primary bg-primary hover:opacity-90 transition-opacity no-underline"

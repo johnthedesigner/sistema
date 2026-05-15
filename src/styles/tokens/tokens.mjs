@@ -342,7 +342,7 @@ export default {
     },
     canvas: {
       key: "{color.canvas}",
-      value: "#EFEEEA",
+      value: "#FFFFFF",
       filePath: "tokens/semantic/color.json",
       isSource: true,
       original: {
