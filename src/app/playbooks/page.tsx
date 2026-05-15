@@ -84,7 +84,7 @@ export default function PlaysPage() {
             >
               Ready-to-paste prompts, grounded in real systems.
             </h1>
-            <div className="flex gap-2 items-center flex-wrap shrink-0">
+            {/* <div className="flex gap-2 items-center flex-wrap shrink-0">
               {['All', 'Tokens', 'Components', 'Audit', 'A11y'].map((label, i) => (
                 <button
                   key={label}
@@ -98,7 +98,7 @@ export default function PlaysPage() {
                   {label}
                 </button>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -207,16 +207,16 @@ export default function PlaysPage() {
         </div>
 
         {/* Single plays by stage */}
-        <div className="flex items-baseline justify-between mb-4.5">
+        <div className="flex items-baseline justify-between mb-4">
           <h2 className="font-serif font-medium m-0" style={{ fontSize: 22, letterSpacing: '-0.01em' }}>
-            Single plays
+            Plays <span className='font-mono text-[12.5px] text-on-surface-muted'>(by design system stage)</span>
           </h2>
           <span className="font-mono text-[11.5px] text-on-surface-subtle hidden md:inline">
             by stage · foundations → stewardship
           </span>
         </div>
 
-        <div className="flex flex-col gap-7">
+        <div className="flex flex-col gap-8">
           {stages.map(({ stage }) => {
             const stagePlays = plays.filter(p => p.stage === stage)
             const style = STAGE_CHIP_STYLES[stage]
@@ -229,11 +229,11 @@ export default function PlaysPage() {
                     className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border"
                     style={{ background: style.bg, color: style.color, borderColor: style.border }}
                   >
-                    stage {stage}
+                    stage {stage} — {label}
                   </span>
-                  <h3 className="text-[14.5px] font-semibold text-on-surface m-0">{label}</h3>
+                  {/* <h3 className="text-[14.5px] font-semibold text-on-surface m-0">{label}</h3> */}
                   <span className="text-[12.5px] text-on-surface-muted">
-                    · {stagePlays.length} {stagePlays.length === 1 ? 'play' : 'plays'}
+                    {stagePlays.length} {stagePlays.length === 1 ? 'play' : 'plays'}
                   </span>
                   <div className="flex-1 h-px bg-border hidden md:block" />
                 </div>
@@ -244,7 +244,7 @@ export default function PlaysPage() {
                     <Link
                       key={play.slug}
                       href={`/playbooks/${play.slug}`}
-                      className="block border border-border rounded-radius-lg p-4 no-underline hover:border-border-strong transition-colors bg-surface relative"
+                      className="block border border-border rounded-radius-lg p-4 no-underline hover:border-border-strong transition-colors bg-surface-sunken relative"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <span
@@ -255,10 +255,13 @@ export default function PlaysPage() {
                         </span>
                         <ArrowRight size={13} />
                       </div>
-                      <p className="font-mono text-[13.5px] font-medium text-on-surface m-0 mb-1.5">
+                      <p className="font-mono text-[11.5px] font-medium text-on-surface-subtle m-0">
                         {play.slug}
                       </p>
-                      <p className="text-[12.5px] text-on-surface-muted m-0 mb-3 leading-[1.45]">
+                      <p className="font-serif text-[24px] font-medium leading-[1.2] text-on-surface m-0 mb-3">
+                        {play.title}
+                      </p>
+                      <p className="text-[13.5px] text-on-surface-muted m-0 mb-3 leading-[1.45]">
                         {PLAY_OUTPUTS[play.slug] ?? play.title}
                       </p>
                       <div className="flex gap-1.5 flex-wrap">

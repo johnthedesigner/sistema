@@ -86,12 +86,12 @@ export function Nav() {
                 ⌘K
               </span>
             </button>
-            <button className="h-[34px] px-3 border border-border rounded-radius-md text-[13px] font-medium text-on-surface bg-surface-raised hover:bg-surface-sunken transition-colors">
-              Sign in
-            </button>
-            <button className="h-[34px] px-3 rounded-radius-md text-[13px] font-medium text-on-primary bg-primary hover:opacity-90 transition-opacity">
-              Get started
-            </button>
+            <Link
+              href="/guide"
+              className="h-[34px] px-3 inline-flex items-center rounded-radius-md text-[13px] font-medium text-on-primary bg-primary hover:opacity-90 transition-opacity no-underline"
+            >
+              How does it work?
+            </Link>
           </div>
 
           {/* Mobile: search icon + hamburger */}
@@ -134,13 +134,14 @@ export function Nav() {
                 )
               })}
             </nav>
-            <div className="flex gap-2 px-5 pb-4 pt-2">
-              <button className="flex-1 h-[38px] border border-border rounded-radius-md text-[13.5px] font-medium text-on-surface bg-surface-raised hover:bg-surface-sunken transition-colors">
-                Sign in
-              </button>
-              <button className="flex-1 h-[38px] rounded-radius-md text-[13.5px] font-medium text-on-primary bg-primary hover:opacity-90 transition-opacity">
-                Get started
-              </button>
+            <div className="flex px-5 pb-4 pt-2">
+              <Link
+                href="/guide"
+                onClick={close}
+                className="flex-1 inline-flex items-center justify-center h-[38px] rounded-radius-md text-[13.5px] font-medium text-on-primary bg-primary hover:opacity-90 transition-opacity no-underline"
+              >
+                How does it work?
+              </Link>
             </div>
           </div>
         )}
