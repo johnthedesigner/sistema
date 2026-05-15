@@ -29,27 +29,27 @@ export default async function CampaignLandingPage({
     <main>
       {/* Blue header */}
       <div style={{ background: '#0070FF', color: 'white' }}>
-        <div className="max-w-[1180px] mx-auto px-10 py-8">
+        <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-6 md:py-8">
           <div className="mb-1">
             <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase" style={{ color: 'rgba(255,255,255,0.65)' }}>
               Campaign · {campaign.steps.length} steps
             </span>
           </div>
           <h1
-            className="font-serif font-medium text-white m-0 mb-4"
-            style={{ fontSize: 36, lineHeight: 1.1, letterSpacing: '-0.02em' }}
+            className="font-serif font-medium text-white m-0 mb-3 md:mb-4 text-[28px] md:text-[36px]"
+            style={{ lineHeight: 1.1, letterSpacing: '-0.02em' }}
           >
             {campaign.title}
           </h1>
           <p
-            className="font-serif font-normal m-0 mb-7"
-            style={{ fontSize: 16, lineHeight: 1.55, color: 'rgba(255,255,255,0.8)', maxWidth: 620 }}
+            className="font-serif font-normal m-0 mb-5 md:mb-7 text-[15px] md:text-[16px]"
+            style={{ lineHeight: 1.55, color: 'rgba(255,255,255,0.8)', maxWidth: 620 }}
           >
             {campaign.description}
           </p>
 
-          {/* Step sequence track */}
-          <div className="flex items-center gap-1.5">
+          {/* Step sequence track — full on md+, scrollable pills on mobile */}
+          <div className="hidden md:flex items-center gap-1.5">
             {campaign.steps.map((step, i) => (
               <div key={step.playSlug} className="flex items-center gap-1.5 flex-1 min-w-0">
                 <div
@@ -75,12 +75,30 @@ export default async function CampaignLandingPage({
               </div>
             ))}
           </div>
+
+          {/* Mobile step pills */}
+          <div className="flex md:hidden gap-1.5 overflow-x-auto pb-1">
+            {campaign.steps.map((step, i) => (
+              <span
+                key={step.playSlug}
+                className="inline-flex items-center shrink-0 px-2.5 h-[26px] rounded-[6px] font-mono text-[10.5px]"
+                style={{
+                  border: '1px solid rgba(255,255,255,0.22)',
+                  background: 'rgba(255,255,255,0.08)',
+                  color: 'rgba(255,255,255,0.85)',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {i + 1}. {step.playSlug}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="max-w-[1180px] mx-auto px-10 pt-8 pb-20">
-        <div className="grid gap-8" style={{ gridTemplateColumns: '1fr 280px' }}>
+      <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-6 md:pt-8 pb-20">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-6 md:gap-8">
 
           {/* Main: campaign prompt */}
           <div>
@@ -105,7 +123,7 @@ export default async function CampaignLandingPage({
 
           {/* Right rail: step list */}
           <div>
-            <div className="sticky top-6">
+            <div className="md:sticky md:top-6">
               <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-3">
                 Steps
               </p>

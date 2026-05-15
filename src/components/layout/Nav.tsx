@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 import { Wordmark } from '@/components/Logo'
 
 const NAV_LINKS = [
@@ -13,21 +14,24 @@ const NAV_LINKS = [
 
 export function Nav() {
   const pathname = usePathname()
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   function isActive(href: string) {
     if (href === '/playbooks') return pathname.startsWith('/playbooks') || pathname.startsWith('/campaigns')
     return pathname.startsWith(href)
   }
 
+  function close() { setMobileOpen(false) }
+
   return (
-    <header className="border-b border-border bg-surface-raised">
-      <div className="flex items-center justify-between px-10 h-[68px]">
-        {/* Left: wordmark + links */}
-        <div className="flex items-center gap-12">
-          <Link href="/" className="flex items-center">
-            <Wordmark size={22} />
+    <header className="border-b border-border bg-surface-raised relative z-40">
+      <div className="flex items-center justify-between px-5 md:px-10 h-[60px] md:h-[68px]">
+        {/* Left: wordmark + desktop nav */}
+        <div className="flex items-center gap-8 md:gap-12">
+          <Link href="/" className="flex items-center" onClick={close}>
+            <Wordmark size={20} />
           </Link>
-          <nav className="flex items-center gap-7">
+          <nav className="hidden md:flex items-center gap-7">
             {NAV_LINKS.map(({ label, href }) => {
               const active = isActive(href)
               return (
@@ -38,7 +42,6 @@ export function Nav() {
                     'relative text-[14px] font-medium py-1.5 transition-colors',
                     active ? 'text-on-surface' : 'text-on-surface-muted hover:text-on-surface',
                   ].join(' ')}
-                  style={active ? undefined : undefined}
                 >
                   {label}
                   {active && (
@@ -53,8 +56,8 @@ export function Nav() {
           </nav>
         </div>
 
-        {/* Right: search + auth */}
-        <div className="flex items-center gap-3.5">
+        {/* Right: desktop controls */}
+        <div className="hidden md:flex items-center gap-3.5">
           <div className="flex items-center gap-2 h-[34px] px-3 border border-border rounded-radius-md bg-surface-raised text-on-surface-subtle text-[13px] min-w-[260px]">
             <SearchIcon />
             <span>Search plays, KB, tools…</span>
@@ -69,7 +72,48 @@ export function Nav() {
             Get started
           </button>
         </div>
+
+        {/* Mobile: hamburger */}
+        <button
+          className="md:hidden flex items-center justify-center w-9 h-9 rounded-radius-md border border-border text-on-surface-muted hover:bg-surface-sunken transition-colors"
+          onClick={() => setMobileOpen(o => !o)}
+          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+        >
+          {mobileOpen ? <XIcon /> : <MenuIcon />}
+        </button>
       </div>
+
+      {/* Mobile dropdown */}
+      {mobileOpen && (
+        <div className="md:hidden border-t border-border bg-surface-raised">
+          <nav className="flex flex-col px-5 py-3">
+            {NAV_LINKS.map(({ label, href }) => {
+              const active = isActive(href)
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={close}
+                  className={[
+                    'flex items-center h-11 text-[15px] font-medium border-b border-border transition-colors',
+                    active ? 'text-primary' : 'text-on-surface-muted',
+                  ].join(' ')}
+                >
+                  {label}
+                </Link>
+              )
+            })}
+          </nav>
+          <div className="flex gap-2 px-5 pb-4 pt-2">
+            <button className="flex-1 h-[38px] border border-border rounded-radius-md text-[13.5px] font-medium text-on-surface bg-surface-raised hover:bg-surface-sunken transition-colors">
+              Sign in
+            </button>
+            <button className="flex-1 h-[38px] rounded-radius-md text-[13.5px] font-medium text-on-primary bg-primary hover:opacity-90 transition-opacity">
+              Get started
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   )
 }
@@ -79,6 +123,22 @@ function SearchIcon() {
     <svg width={14} height={14} viewBox="0 0 24 24" fill="none">
       <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.7" />
       <path d="M20 20l-3.5-3.5" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function MenuIcon() {
+  return (
+    <svg width={18} height={18} viewBox="0 0 24 24" fill="none">
+      <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+function XIcon() {
+  return (
+    <svg width={18} height={18} viewBox="0 0 24 24" fill="none">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
     </svg>
   )
 }

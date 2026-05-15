@@ -73,7 +73,6 @@ function ArrowRight({ size = 12 }: { size?: number }) {
   )
 }
 
-// Abstract geometric SVG illustrations per category
 function DesignSystemsIllustration() {
   return (
     <svg width="260" height="100" viewBox="0 0 260 100">
@@ -142,15 +141,15 @@ const ILLUSTRATIONS: Record<KBCategory, React.ReactNode> = {
 export default function KBLandingPage() {
   return (
     <main>
-      <div className="max-w-[1180px] mx-auto px-10 pt-12 pb-20">
+      <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-8 md:pt-12 pb-20">
         {/* Header */}
         <div className="mb-9">
           <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
             Knowledge Base · {KB_CATEGORIES.reduce((sum, cat) => sum + countEntries(cat), 0)} entries
           </p>
           <h1
-            className="font-serif font-medium text-on-surface m-0 mb-3"
-            style={{ fontSize: 36, lineHeight: 1.1, letterSpacing: '-0.02em', maxWidth: 820 }}
+            className="font-serif font-medium text-on-surface m-0 mb-3 text-[26px] md:text-[36px]"
+            style={{ lineHeight: 1.1, letterSpacing: '-0.02em', maxWidth: 820 }}
           >
             Reference material plays read so your agent doesn&apos;t guess.
           </h1>
@@ -164,7 +163,7 @@ export default function KBLandingPage() {
         </div>
 
         {/* Category cards */}
-        <div className="grid gap-4.5 mb-10" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gap: 18 }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-[18px] mb-10">
           {KB_CATEGORIES.map(category => {
             const meta = CATEGORY_META[category]
             const count = countEntries(category)
@@ -179,7 +178,7 @@ export default function KBLandingPage() {
                 {/* Illustration area */}
                 <div
                   className="flex items-center justify-center relative overflow-hidden border-b border-border"
-                  style={{ height: 140, background: 'linear-gradient(180deg, #FCFCFB 0%, #F4F5F4 100%)' }}
+                  style={{ height: 120, background: 'linear-gradient(180deg, #FCFCFB 0%, #F4F5F4 100%)' }}
                 >
                   {illustration}
                   <div className="absolute top-3 left-3.5 flex items-center gap-1.5">
@@ -198,11 +197,11 @@ export default function KBLandingPage() {
                 </div>
 
                 {/* Content */}
-                <div className="p-[22px]">
+                <div className="p-5 md:p-[22px]">
                   <div className="flex items-baseline gap-2.5 mb-1">
                     <h2
-                      className="font-serif font-medium m-0"
-                      style={{ fontSize: 26, letterSpacing: '-0.015em' }}
+                      className="font-serif font-medium m-0 text-[22px] md:text-[26px]"
+                      style={{ letterSpacing: '-0.015em' }}
                     >
                       {meta.title}
                     </h2>
@@ -229,7 +228,7 @@ export default function KBLandingPage() {
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between flex-wrap gap-2">
                     <Link
                       href={meta.href}
                       className="inline-flex items-center h-[30px] px-3 text-[12.5px] font-medium border border-border rounded-radius-md text-on-surface no-underline hover:bg-surface-sunken transition-colors"
@@ -258,8 +257,8 @@ export default function KBLandingPage() {
 
         {/* Bottom strip */}
         <div
-          className="flex items-center gap-4.5 px-5 py-4.5 rounded-radius-md border border-border bg-surface"
-          style={{ gap: 18, padding: '18px 22px' }}
+          className="flex flex-col sm:flex-row sm:items-center gap-4 px-5 py-4 rounded-radius-md border border-border bg-surface"
+          style={{ padding: '16px 20px' }}
         >
           <Logo size={28} />
           <div className="text-[13.5px] text-on-surface leading-[1.4]">
@@ -268,7 +267,7 @@ export default function KBLandingPage() {
               Search every KB entry, or jump straight to the play that pulls it in.
             </span>
           </div>
-          <div className="ml-auto flex gap-2.5">
+          <div className="sm:ml-auto flex gap-2.5">
             <button className="inline-flex items-center h-[30px] px-3 text-[12.5px] font-medium border border-border rounded-radius-md text-on-surface bg-surface hover:bg-surface-sunken transition-colors">
               Search KB
             </button>

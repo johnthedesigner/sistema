@@ -81,25 +81,25 @@ export default async function PlayPage({
 
   return (
     <main>
-      <div className="max-w-[1180px] mx-auto px-10 pt-7 pb-20">
+      <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-5 md:pt-7 pb-20">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-[12.5px] text-on-surface-muted mb-5">
+        <nav className="flex items-center gap-2 text-[12.5px] text-on-surface-muted mb-5 flex-wrap">
           <Link href="/playbooks" className="hover:text-on-surface transition-colors no-underline text-on-surface-muted">
             Plays
           </Link>
           <span className="text-on-surface-subtle">/</span>
           <Link
             href={`/playbooks/stage/${play.stage}`}
-            className="hover:text-on-surface transition-colors no-underline text-on-surface-muted"
+            className="hover:text-on-surface transition-colors no-underline text-on-surface-muted hidden sm:inline"
           >
             Stage {play.stage} · {stageLabel}
           </Link>
-          <span className="text-on-surface-subtle">/</span>
+          <span className="text-on-surface-subtle hidden sm:inline">/</span>
           <span className="font-mono text-on-surface">{slug}</span>
         </nav>
 
-        {/* Two-column layout */}
-        <div className="grid gap-10" style={{ gridTemplateColumns: '1fr 280px' }}>
+        {/* Two-column layout: stacks on mobile, side-by-side on md+ */}
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-8 md:gap-10">
           {/* Main column */}
           <div>
             {/* Chips */}
@@ -122,8 +122,8 @@ export default async function PlayPage({
 
             {/* Title */}
             <h1
-              className="font-serif font-medium text-on-surface m-0 mb-3.5"
-              style={{ fontSize: 36, lineHeight: 1.1, letterSpacing: '-0.02em' }}
+              className="font-serif font-medium text-on-surface m-0 mb-3.5 text-[28px] md:text-[36px]"
+              style={{ lineHeight: 1.1, letterSpacing: '-0.02em' }}
             >
               {play.title}
             </h1>
@@ -177,7 +177,7 @@ export default async function PlayPage({
                       play · {slug}
                     </span>
                   </div>
-                  <div className="p-5 font-mono text-[13.5px] leading-[1.65] text-on-surface" style={{ whiteSpace: 'pre-wrap' }}>
+                  <div className="p-5 font-mono text-[13.5px] leading-[1.65] text-on-surface overflow-x-auto" style={{ whiteSpace: 'pre-wrap' }}>
                     {play.body}
                   </div>
                 </div>
@@ -206,86 +206,139 @@ export default async function PlayPage({
                 </div>
               </div>
             )}
+
+            {/* Right rail content on mobile (below main content) */}
+            <div className="mt-8 flex flex-col gap-3.5 md:hidden">
+              <RailContent
+                parentCampaign={parentCampaign}
+                stepInCampaign={stepInCampaign}
+                hasVariables={hasVariables}
+                play={play}
+                refs={refs}
+                exemplar={exemplar}
+                slug={slug}
+              />
+            </div>
           </div>
 
-          {/* Right rail */}
-          <div className="flex flex-col gap-3.5" style={{ position: 'sticky', top: 28, alignSelf: 'start' }}>
-            {/* In this play */}
-            <div className="border border-border rounded-radius-lg p-4">
-              <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
-                In this play
-              </p>
-              {[
-                hasVariables ? ['Variables', `${(play.body.match(/\{\{(?!sistema_url)[^}]+\}\}/g) ?? []).length}`] : null,
-                ['Prompt body', ''],
-                exemplar ? ['Example output', ''] : null,
-                refs.length > 0 ? ['References', `${refs.length}`] : null,
-              ].filter(Boolean).map(item => item && (
-                <div
-                  key={item[0]}
-                  className="flex justify-between items-center py-1.5 text-[13px]"
-                  style={{ borderBottom: '1px dashed var(--color-border)' }}
-                >
-                  <span>{item[0]}</span>
-                  {item[1] && <span className="font-mono text-[11px] text-on-surface-subtle">{item[1]}</span>}
-                </div>
-              ))}
-            </div>
-
-            {/* Part of campaign */}
-            {parentCampaign && (
-              <div className="border border-border rounded-radius-lg p-4">
-                <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
-                  Part of a campaign
-                </p>
-                <p className="font-semibold text-[13.5px] text-on-surface mb-1">{parentCampaign.title}</p>
-                <p className="text-[12px] text-on-surface-muted leading-[1.45] mb-2.5">
-                  Step {stepInCampaign?.number} of {parentCampaign.steps.length}.
-                </p>
-                <Link
-                  href={`/campaigns/${parentCampaign.slug}`}
-                  className="flex items-center justify-center gap-2 w-full h-[30px] text-[12.5px] font-medium border border-border rounded-radius-md text-on-surface no-underline hover:bg-surface-sunken transition-colors"
-                >
-                  Continue campaign <ArrowRight size={12} />
-                </Link>
-              </div>
-            )}
-
-            {/* References */}
-            {refs.length > 0 && (
-              <div className="border border-border rounded-radius-lg p-4">
-                <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
-                  References pulled in
-                </p>
-                {refs.map(ref => (
-                  <Link
-                    key={ref}
-                    href={`/raw/${ref}`}
-                    className="flex items-center justify-between py-1.5 no-underline"
-                  >
-                    <span className="font-mono text-[12px] text-on-surface truncate">{ref}</span>
-                    <ArrowRight size={12} />
-                  </Link>
-                ))}
-              </div>
-            )}
-
-            {/* Tip card */}
-            <div
-              className="border rounded-radius-md p-3.5"
-              style={{ borderColor: 'var(--color-border-strong)', borderStyle: 'dashed', background: 'var(--color-brand-yellow-50)' }}
-            >
-              <div className="flex items-center gap-2 mb-1.5">
-                <span className="block w-1.5 h-1.5 rounded-full" style={{ background: 'var(--color-brand-yellow)' }} />
-                <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase" style={{ color: '#8A6500' }}>Tip</span>
-              </div>
-              <p className="text-[12.5px] leading-[1.5] m-0" style={{ color: '#5A4400' }}>
-                Plays work best when your agent has read <span className="font-mono">DESIGN.md</span> first. Run <span className="font-mono">session-start</span> at the beginning of each session to orient it.
-              </p>
-            </div>
+          {/* Right rail — desktop only */}
+          <div className="hidden md:flex flex-col gap-3.5" style={{ position: 'sticky', top: 28, alignSelf: 'start' }}>
+            <RailContent
+              parentCampaign={parentCampaign}
+              stepInCampaign={stepInCampaign}
+              hasVariables={hasVariables}
+              play={play}
+              refs={refs}
+              exemplar={exemplar}
+              slug={slug}
+            />
           </div>
         </div>
       </div>
     </main>
+  )
+}
+
+function RailContent({
+  parentCampaign,
+  stepInCampaign,
+  hasVariables,
+  play,
+  refs,
+  exemplar,
+  slug,
+}: {
+  parentCampaign: ReturnType<typeof loadCampaigns>[number] | undefined
+  stepInCampaign: { number: number; playSlug: string; play: { title: string } } | undefined
+  hasVariables: boolean
+  play: { body: string; tags: string[] }
+  refs: string[]
+  exemplar: ReturnType<typeof loadExemplar>
+  slug: string
+}) {
+  function ArrowRight({ size = 12 }: { size?: number }) {
+    return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+        <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    )
+  }
+
+  return (
+    <>
+      {/* In this play */}
+      <div className="border border-border rounded-radius-lg p-4">
+        <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
+          In this play
+        </p>
+        {[
+          hasVariables ? ['Variables', `${(play.body.match(/\{\{(?!sistema_url)[^}]+\}\}/g) ?? []).length}`] : null,
+          ['Prompt body', ''],
+          exemplar ? ['Example output', ''] : null,
+          refs.length > 0 ? ['References', `${refs.length}`] : null,
+        ].filter(Boolean).map(item => item && (
+          <div
+            key={item[0]}
+            className="flex justify-between items-center py-1.5 text-[13px]"
+            style={{ borderBottom: '1px dashed var(--color-border)' }}
+          >
+            <span>{item[0]}</span>
+            {item[1] && <span className="font-mono text-[11px] text-on-surface-subtle">{item[1]}</span>}
+          </div>
+        ))}
+      </div>
+
+      {/* Part of campaign */}
+      {parentCampaign && (
+        <div className="border border-border rounded-radius-lg p-4">
+          <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
+            Part of a campaign
+          </p>
+          <p className="font-semibold text-[13.5px] text-on-surface mb-1">{parentCampaign.title}</p>
+          <p className="text-[12px] text-on-surface-muted leading-[1.45] mb-2.5">
+            Step {stepInCampaign?.number} of {parentCampaign.steps.length}.
+          </p>
+          <Link
+            href={`/campaigns/${parentCampaign.slug}`}
+            className="flex items-center justify-center gap-2 w-full h-[30px] text-[12.5px] font-medium border border-border rounded-radius-md text-on-surface no-underline hover:bg-surface-sunken transition-colors"
+          >
+            Continue campaign <ArrowRight size={12} />
+          </Link>
+        </div>
+      )}
+
+      {/* References */}
+      {refs.length > 0 && (
+        <div className="border border-border rounded-radius-lg p-4">
+          <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
+            References pulled in
+          </p>
+          {refs.map(ref => (
+            <Link
+              key={ref}
+              href={`/raw/${ref}`}
+              className="flex items-center justify-between py-1.5 no-underline"
+            >
+              <span className="font-mono text-[12px] text-on-surface truncate">{ref}</span>
+              <ArrowRight size={12} />
+            </Link>
+          ))}
+        </div>
+      )}
+
+      {/* Tip card */}
+      <div
+        className="border rounded-radius-md p-3.5"
+        style={{ borderColor: 'var(--color-border-strong)', borderStyle: 'dashed', background: 'var(--color-brand-yellow-50)' }}
+      >
+        <div className="flex items-center gap-2 mb-1.5">
+          <span className="block w-1.5 h-1.5 rounded-full" style={{ background: 'var(--color-brand-yellow)' }} />
+          <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase" style={{ color: '#8A6500' }}>Tip</span>
+        </div>
+        <p className="text-[12.5px] leading-[1.5] m-0" style={{ color: '#5A4400' }}>
+          Plays work best when your agent has read <span className="font-mono">DESIGN.md</span> first. Run <span className="font-mono">session-start</span> at the beginning of each session to orient it.
+        </p>
+      </div>
+    </>
   )
 }

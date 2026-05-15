@@ -16,7 +16,7 @@ const QUICK_PLAYS = [
     kind: 'campaign' as const,
     steps: 6,
     slug: null,
-    href: '/campaigns/bootstrap-design-system',
+    href: '/campaigns/bootstrap',
     title: 'Bootstrap a Design System',
     desc: 'From positioning brief to a generated style dictionary, in six guided prompts.',
   },
@@ -61,11 +61,11 @@ export default function Home() {
 
   return (
     <main>
-      <div className="max-w-[1180px] mx-auto px-10 pt-16 pb-20">
+      <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-8 md:pt-16 pb-20">
         {/* Hero */}
-        <div className="mb-14">
+        <div className="mb-10 md:mb-14">
           {/* Announcement pill */}
-          <div className="inline-flex items-center gap-2.5 px-3 py-1.5 border border-border rounded-full bg-surface mb-6">
+          <div className="inline-flex items-center gap-2.5 px-3 py-1.5 border border-border rounded-full bg-surface mb-5 md:mb-6">
             <span className="block w-1.5 h-1.5 rounded-full bg-primary" />
             <span className="font-mono text-[11.5px] tracking-[0.04em] text-on-surface-muted">
               grounded prompts for design-system work
@@ -74,9 +74,8 @@ export default function Home() {
 
           {/* Headline */}
           <h1
-            className="font-serif font-medium text-on-surface m-0"
+            className="font-serif font-medium text-on-surface m-0 text-[42px] md:text-[76px]"
             style={{
-              fontSize: 76,
               lineHeight: 1.0,
               letterSpacing: '-0.03em',
               fontVariationSettings: "'opsz' 144, 'SOFT' 40",
@@ -94,8 +93,8 @@ export default function Home() {
                 style={{
                   left: -2,
                   right: -2,
-                  bottom: 6,
-                  height: 14,
+                  bottom: 4,
+                  height: 10,
                   background: 'var(--color-brand-yellow)',
                 }}
               />
@@ -104,9 +103,8 @@ export default function Home() {
 
           {/* Subhead */}
           <p
-            className="mt-7 text-on-surface-muted font-serif font-normal"
+            className="mt-5 md:mt-7 text-on-surface-muted font-serif font-normal text-[16px] md:text-[19px]"
             style={{
-              fontSize: 19,
               lineHeight: 1.55,
               maxWidth: 720,
               fontVariationSettings: "'opsz' 32",
@@ -119,7 +117,7 @@ export default function Home() {
         </div>
 
         {/* Prompt showcase */}
-        <div className="grid gap-6" style={{ gridTemplateColumns: '1fr 280px' }}>
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-[1fr_280px]">
           {positioningBrief && (
             <PromptBox
               label="play · positioning-brief"
@@ -180,8 +178,8 @@ export default function Home() {
         </div>
 
         {/* Quick-access row */}
-        <div className="mt-14">
-          <div className="flex items-baseline justify-between mb-4">
+        <div className="mt-10 md:mt-14">
+          <div className="flex items-baseline justify-between mb-4 flex-wrap gap-2">
             <div className="flex items-baseline gap-3.5">
               <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted">
                 Jump to a play
@@ -196,7 +194,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {QUICK_PLAYS.map(card => (
               <QuickCard key={card.title} {...card} />
             ))}
@@ -204,10 +202,10 @@ export default function Home() {
         </div>
 
         {/* Footer note */}
-        <div className="flex items-center gap-4.5 mt-12 text-[13px] text-on-surface-muted">
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-4.5 mt-10 md:mt-12 text-[13px] text-on-surface-muted">
           <Logo size={20} />
           <span>Sistema is reference material for AI agents, not a tutorial for humans.</span>
-          <div className="ml-auto flex items-center gap-2.5">
+          <div className="md:ml-auto flex items-center gap-2.5">
             <span className="font-mono text-[11px] text-on-surface-subtle">v0.4 · public beta</span>
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-on-surface-subtle" />
             <Link href="/guide" className="text-primary no-underline">
@@ -242,7 +240,7 @@ function QuickCard({ kind, steps, stage, href, title, desc }: QuickCardProps) {
         borderColor: isCampaign ? 'var(--color-primary)' : 'var(--color-border)',
         background: isCampaign ? 'var(--color-primary)' : 'white',
         color: isCampaign ? 'white' : 'inherit',
-        minHeight: 140,
+        minHeight: 120,
         boxShadow: isCampaign
           ? '0 1px 0 rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.18)'
           : 'none',
@@ -283,10 +281,10 @@ function QuickCard({ kind, steps, stage, href, title, desc }: QuickCardProps) {
         </svg>
       </div>
 
-      <p className="font-semibold text-[14.5px] leading-[1.25] mt-0.5 m-0">{title}</p>
+      <p className="font-semibold text-[14px] leading-[1.25] mt-0.5 m-0">{title}</p>
 
       <p
-        className="text-[12.5px] leading-[1.45] m-0 grow"
+        className="text-[12px] leading-[1.45] m-0 grow"
         style={{ color: isCampaign ? 'rgba(255,255,255,0.82)' : 'var(--color-on-surface-muted)' }}
       >
         {desc}

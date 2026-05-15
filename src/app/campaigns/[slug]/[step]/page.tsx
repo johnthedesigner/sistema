@@ -32,24 +32,24 @@ export default async function CampaignStepPage({
     <main>
       {/* Blue header with progress track */}
       <div style={{ background: '#0070FF', color: 'white' }}>
-        <div className="max-w-[1180px] mx-auto px-10 py-6">
+        <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-5 md:py-6">
           {/* Campaign title + step counter */}
-          <div className="flex items-baseline justify-between mb-5">
-            <div className="flex items-baseline gap-3">
+          <div className="flex items-baseline justify-between mb-4 md:mb-5">
+            <div className="flex items-baseline gap-2 md:gap-3 flex-wrap">
               <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase" style={{ color: 'rgba(255,255,255,0.65)' }}>
                 Campaign
               </span>
-              <h1 className="font-serif font-medium m-0 text-white" style={{ fontSize: 22, letterSpacing: '-0.01em' }}>
+              <h1 className="font-serif font-medium m-0 text-white text-[18px] md:text-[22px]" style={{ letterSpacing: '-0.01em' }}>
                 {campaign.title}
               </h1>
             </div>
             <span className="font-mono text-[11.5px]" style={{ color: 'rgba(255,255,255,0.65)' }}>
-              Step {stepNumber} of {campaign.steps.length}
+              {stepNumber}/{campaign.steps.length}
             </span>
           </div>
 
-          {/* Progress track */}
-          <div className="flex items-center gap-1.5">
+          {/* Progress track — full on md+, hidden on mobile */}
+          <div className="hidden md:flex items-center gap-1.5">
             {campaign.steps.map((step, i) => {
               const isDone = i + 1 < stepNumber
               const isCurrent = i + 1 === stepNumber
@@ -97,19 +97,42 @@ export default async function CampaignStepPage({
               )
             })}
           </div>
+
+          {/* Mobile: progress bar + step slugs scrollable */}
+          <div className="flex md:hidden flex-col gap-2">
+            <div className="flex gap-0.5">
+              {campaign.steps.map((_, i) => (
+                <div
+                  key={i}
+                  className="flex-1 rounded-full"
+                  style={{
+                    height: 3,
+                    background: i + 1 < stepNumber
+                      ? 'rgba(255,255,255,0.7)'
+                      : i + 1 === stepNumber
+                        ? 'var(--color-brand-yellow)'
+                        : 'rgba(255,255,255,0.2)',
+                  }}
+                />
+              ))}
+            </div>
+            <p className="font-mono text-[11px] m-0" style={{ color: 'rgba(255,255,255,0.7)' }}>
+              {currentStep.playSlug}
+            </p>
+          </div>
         </div>
       </div>
 
       {/* Content area */}
-      <div className="max-w-[1180px] mx-auto px-10 pt-8 pb-20">
+      <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-6 md:pt-8 pb-20">
         {/* Step heading */}
-        <div className="mb-7">
+        <div className="mb-6 md:mb-7">
           <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2">
             Step {stepNumber} · {currentStep.play.title}
           </p>
           <h2
-            className="font-serif font-medium text-on-surface m-0"
-            style={{ fontSize: 36, lineHeight: 1.1, letterSpacing: '-0.02em' }}
+            className="font-serif font-medium text-on-surface m-0 text-[26px] md:text-[36px]"
+            style={{ lineHeight: 1.1, letterSpacing: '-0.02em' }}
           >
             {currentStep.play.title}
           </h2>

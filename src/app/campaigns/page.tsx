@@ -14,14 +14,14 @@ export default function CampaignsPage() {
 
   return (
     <main>
-      <div className="max-w-[1180px] mx-auto px-10 pt-10 pb-20">
+      <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-8 md:pt-10 pb-20">
         <div className="mb-9">
           <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
             Campaigns · {campaigns.length} available
           </p>
           <h1
-            className="font-serif font-medium text-on-surface m-0 mb-3"
-            style={{ fontSize: 36, lineHeight: 1.1, letterSpacing: '-0.02em', maxWidth: 720 }}
+            className="font-serif font-medium text-on-surface m-0 mb-3 text-[28px] md:text-[36px]"
+            style={{ lineHeight: 1.1, letterSpacing: '-0.02em', maxWidth: 720 }}
           >
             Self-driving workflows for design systems.
           </h1>
@@ -33,15 +33,15 @@ export default function CampaignsPage() {
           </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="flex flex-col gap-4">
           {campaigns.map(campaign => (
             <Link
               key={campaign.slug}
               href={`/campaigns/${campaign.slug}`}
-              className="flex items-start justify-between gap-6 border border-border rounded-radius-lg p-6 bg-surface hover:border-on-surface-muted hover:shadow-sm transition-all group no-underline"
+              className="flex items-start justify-between gap-4 border border-border rounded-radius-lg p-5 md:p-6 bg-surface hover:border-on-surface-muted hover:shadow-sm transition-all group no-underline"
             >
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2.5 mb-2">
+                <div className="flex items-center gap-2.5 mb-2 flex-wrap">
                   <span className="font-mono text-[11px] text-on-surface-muted tracking-[0.06em]">
                     {campaign.steps.length} steps
                   </span>
@@ -55,8 +55,8 @@ export default function CampaignsPage() {
                   )}
                 </div>
                 <h2
-                  className="font-serif font-medium text-on-surface m-0 mb-1.5 group-hover:text-primary transition-colors"
-                  style={{ fontSize: 22, letterSpacing: '-0.01em' }}
+                  className="font-serif font-medium text-on-surface m-0 mb-1.5 group-hover:text-primary transition-colors text-[20px] md:text-[22px]"
+                  style={{ letterSpacing: '-0.01em' }}
                 >
                   {campaign.title}
                 </h2>
@@ -64,34 +64,21 @@ export default function CampaignsPage() {
                   {campaign.description}
                 </p>
 
-                {/* Step sequence bar */}
-                <div className="flex items-center gap-1 mt-4">
-                  {campaign.steps.map((step, i) => (
-                    <div key={step.playSlug} className="flex items-center gap-1 flex-1 min-w-0">
-                      <div className="flex-1 h-[3px] rounded-full bg-border" title={step.playSlug} />
-                      {i < campaign.steps.length - 1 && (
-                        <div style={{ color: 'var(--color-border)', fontSize: 8 }}>▸</div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-                <div className="flex items-center gap-1 mt-1.5">
-                  {campaign.steps.map((step, i) => (
-                    <div key={step.playSlug} className="flex items-center gap-1 flex-1 min-w-0">
-                      <span
-                        className="font-mono truncate"
-                        style={{ fontSize: 9.5, color: 'var(--color-on-surface-muted)' }}
-                      >
-                        {step.playSlug}
-                      </span>
-                      {i < campaign.steps.length - 1 && <span style={{ fontSize: 8, color: 'var(--color-border)' }} />}
-                    </div>
+                {/* Step slug labels */}
+                <div className="flex flex-wrap gap-1 mt-3">
+                  {campaign.steps.map((step) => (
+                    <span
+                      key={step.playSlug}
+                      className="font-mono text-[10.5px] text-on-surface-subtle"
+                    >
+                      {step.playSlug}{step.number < campaign.steps.length ? ' →' : ''}
+                    </span>
                   ))}
                 </div>
               </div>
 
               <div className="shrink-0 flex items-center gap-1.5 text-[13px] font-medium text-primary mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                View campaign
+                <span className="hidden sm:inline">View</span>
                 <ArrowRight size={13} />
               </div>
             </Link>

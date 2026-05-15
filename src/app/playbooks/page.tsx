@@ -71,40 +71,40 @@ export default function PlaysPage() {
 
   return (
     <main>
-      <div className="max-w-[1180px] mx-auto px-10 pt-12 pb-20">
+      <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-8 md:pt-12 pb-20">
         {/* Page head */}
-        <div className="flex items-baseline justify-between mb-8">
-          <div>
-            <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
-              Plays · {plays.length} single · {campaigns.length} campaigns
-            </p>
+        <div className="mb-8">
+          <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
+            Plays · {plays.length} single · {campaigns.length} campaigns
+          </p>
+          <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-4">
             <h1
-              className="font-serif font-medium text-on-surface m-0"
-              style={{ fontSize: 36, lineHeight: 1.1, letterSpacing: '-0.02em' }}
+              className="font-serif font-medium text-on-surface m-0 text-[28px] md:text-[36px]"
+              style={{ lineHeight: 1.1, letterSpacing: '-0.02em' }}
             >
               Ready-to-paste prompts, grounded in real systems.
             </h1>
-          </div>
-          <div className="flex gap-2 items-center">
-            {['All', 'Tokens', 'Components', 'Audit', 'A11y'].map((label, i) => (
-              <button
-                key={label}
-                className="h-[30px] px-3 text-[12.5px] font-medium rounded-full border cursor-pointer"
-                style={{
-                  border: `1px solid ${i === 0 ? 'var(--color-on-surface)' : 'var(--color-border)'}`,
-                  background: i === 0 ? 'var(--color-on-surface)' : 'white',
-                  color: i === 0 ? 'white' : 'var(--color-on-surface)',
-                }}
-              >
-                {label}
-              </button>
-            ))}
+            <div className="flex gap-2 items-center flex-wrap shrink-0">
+              {['All', 'Tokens', 'Components', 'Audit', 'A11y'].map((label, i) => (
+                <button
+                  key={label}
+                  className="h-[30px] px-3 text-[12.5px] font-medium rounded-full border cursor-pointer"
+                  style={{
+                    border: `1px solid ${i === 0 ? 'var(--color-on-surface)' : 'var(--color-border)'}`,
+                    background: i === 0 ? 'var(--color-on-surface)' : 'white',
+                    color: i === 0 ? 'white' : 'var(--color-on-surface)',
+                  }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Campaigns */}
         <div className="flex items-baseline justify-between mb-4">
-          <div className="flex items-baseline gap-3">
+          <div className="flex items-baseline gap-3 flex-wrap">
             <h2 className="font-serif font-medium m-0" style={{ fontSize: 22, letterSpacing: '-0.01em' }}>
               Campaigns
             </h2>
@@ -114,13 +114,13 @@ export default function PlaysPage() {
           </div>
         </div>
 
-        <div className="grid gap-4 mb-14" style={{ gridTemplateColumns: '1fr 1fr' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-14">
           {campaigns.map((campaign, idx) => {
             const tone = CAMPAIGN_TONES[idx % 2]
             return (
               <div
                 key={campaign.slug}
-                className="rounded-radius-lg p-6 relative overflow-hidden"
+                className="rounded-radius-lg p-5 md:p-6 relative overflow-hidden"
                 style={{ background: tone.bg, color: 'white' }}
               >
                 <div className="flex items-center gap-2.5 mb-3">
@@ -136,8 +136,8 @@ export default function PlaysPage() {
                 </div>
 
                 <h3
-                  className="font-serif font-medium m-0 mb-2.5"
-                  style={{ fontSize: 26, lineHeight: 1.1, letterSpacing: '-0.015em' }}
+                  className="font-serif font-medium m-0 mb-2.5 text-[22px] md:text-[26px]"
+                  style={{ lineHeight: 1.1, letterSpacing: '-0.015em' }}
                 >
                   {campaign.title}
                 </h3>
@@ -149,8 +149,8 @@ export default function PlaysPage() {
                   {campaign.description}
                 </p>
 
-                {/* Step sequence */}
-                <div className="flex items-center gap-1.5 mb-5">
+                {/* Step sequence — hidden on small screens, shown on md+ */}
+                <div className="hidden md:flex items-center gap-1.5 mb-5">
                   {campaign.steps.map((step, i) => (
                     <div key={step.playSlug} className="flex items-center gap-1.5 flex-1 min-w-0">
                       <div
@@ -177,6 +177,23 @@ export default function PlaysPage() {
                   ))}
                 </div>
 
+                {/* Mobile: simple step pill row */}
+                <div className="flex md:hidden gap-1 mb-5 overflow-x-auto pb-1">
+                  {campaign.steps.map((step, i) => (
+                    <span
+                      key={step.playSlug}
+                      className="inline-flex items-center shrink-0 px-2 h-[22px] rounded font-mono text-[10px]"
+                      style={{
+                        background: 'rgba(255,255,255,0.12)',
+                        color: 'rgba(255,255,255,0.85)',
+                        border: '1px solid rgba(255,255,255,0.2)',
+                      }}
+                    >
+                      {i + 1}. {step.playSlug}
+                    </span>
+                  ))}
+                </div>
+
                 <Link
                   href={`/campaigns/${campaign.slug}`}
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-radius-md text-[13.5px] font-semibold no-underline"
@@ -194,7 +211,7 @@ export default function PlaysPage() {
           <h2 className="font-serif font-medium m-0" style={{ fontSize: 22, letterSpacing: '-0.01em' }}>
             Single plays
           </h2>
-          <span className="font-mono text-[11.5px] text-on-surface-subtle">
+          <span className="font-mono text-[11.5px] text-on-surface-subtle hidden md:inline">
             by stage · foundations → stewardship
           </span>
         </div>
@@ -218,11 +235,11 @@ export default function PlaysPage() {
                   <span className="text-[12.5px] text-on-surface-muted">
                     · {stagePlays.length} {stagePlays.length === 1 ? 'play' : 'plays'}
                   </span>
-                  <div className="flex-1 h-px bg-border" />
+                  <div className="flex-1 h-px bg-border hidden md:block" />
                 </div>
 
                 {/* Play cards */}
-                <div className="grid gap-3" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                   {stagePlays.map(play => (
                     <Link
                       key={play.slug}
