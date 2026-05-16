@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface PromptBoxProps {
   label: string
@@ -23,7 +23,13 @@ export function PromptBox({
 }: PromptBoxProps) {
   const [expanded, setExpanded] = useState(initialExpanded)
   const [copied, setCopied] = useState(false)
+  const [displayBody, setDisplayBody] = useState(body)
   const scrollMode = overflow === 'scroll'
+
+  useEffect(() => {
+    const base = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
+    setDisplayBody(body.replace(/\{\{sistema_url\}\}/g, base))
+  }, [body])
 
   async function handleCopy() {
     const base = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
@@ -75,7 +81,7 @@ export function PromptBox({
         className={`relative font-mono text-[13.5px] leading-[1.65] text-on-surface px-5 py-5 flex-1 min-h-0 ${scrollMode ? 'overflow-y-auto' : 'overflow-hidden'}`}
         style={{ whiteSpace: 'pre-wrap' }}
       >
-        {body}
+        {displayBody}
         {!scrollMode && !expanded && (
           <div
             className="absolute inset-x-0 bottom-0 pointer-events-none"

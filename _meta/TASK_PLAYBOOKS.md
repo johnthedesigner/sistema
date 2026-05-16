@@ -171,9 +171,9 @@ You are establishing the visual language for this design system — translating 
 Read `LIVING_BRIEF.md` from the project root. Confirm: product identity, density, theme scope, brand stance, and any existing color or visual decisions.
 
 Fetch and read the following from the Sistema knowledge base:
-- Visual language translation framework: `https://sistema.design/raw/principles/visual-language/overview`
-- Visual quality signals: `https://sistema.design/raw/principles/quality/visual-quality-signals`
-- Style tile format specification: `https://sistema.design/raw/principles/visual-language/style-tile-format`
+- Visual language translation framework: `{{sistema_url}}/raw/principles/visual-language/overview`
+- Visual quality signals: `{{sistema_url}}/raw/principles/quality/visual-quality-signals`
+- Style tile format specification: `{{sistema_url}}/raw/principles/visual-language/style-tile-format`
 
 The visual language framework provides aesthetic reference vocabulary and structured translation from positioning to visual direction. The quality signals document defines the AI slop test, absolute bans, and OKLCH commitment levels. The style tile format specifies exactly what `style-preview.html` must contain.
 

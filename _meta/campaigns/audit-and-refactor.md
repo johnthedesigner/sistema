@@ -1,6 +1,6 @@
 You are running the **Audit and Refactor a Design System** campaign. This is a self-driving 5-step process. You will complete each step sequentially, ask the user for input when you need it, and pause for confirmation before advancing. Do not begin a step until the previous one is complete.
 
-**If any prompt in this campaign references `https://sistema.design/raw/...`, fetch those URLs to load the reference material before proceeding with that step.**
+**If any prompt in this campaign references `{{sistema_url}}/raw/...`, fetch those URLs to load the reference material before proceeding with that step.**
 
 ---
 
@@ -47,8 +47,8 @@ State this scope explicitly, then check: does it conflict with any existing deci
 **Step 1c — Identify relevant synthesis documents:**
 
 This audit session will need the following references:
-- Token architecture: `https://sistema.design/raw/principles/tokens/architecture`
-- Accessibility floor: `https://sistema.design/raw/principles/accessibility/floor`
+- Token architecture: `{{sistema_url}}/raw/principles/tokens/architecture`
+- Accessibility floor: `{{sistema_url}}/raw/principles/accessibility/floor`
 
 Fetch and read both now. You will need them in subsequent steps.
 
@@ -79,7 +79,7 @@ Read `LIVING_BRIEF.md`. Note the token naming convention and the list of impleme
 
 **Step 2b — Read the token architecture reference:**
 
-You already loaded `https://sistema.design/raw/principles/tokens/architecture` in Step 1. If not yet read, fetch it now. Pay attention to the "no raw values in components" rule and coverage requirements.
+You already loaded `{{sistema_url}}/raw/principles/tokens/architecture` in Step 1. If not yet read, fetch it now. Pay attention to the "no raw values in components" rule and coverage requirements.
 
 **Step 2c — Scan for drift:**
 
@@ -143,7 +143,7 @@ Wait for the answer before continuing.
 
 **Step 3b — Read the accessibility floor:**
 
-You already loaded `https://sistema.design/raw/principles/accessibility/floor` in Step 1. If not yet read, fetch it now. Every item marked "must" in that document is a blocking violation if not met.
+You already loaded `{{sistema_url}}/raw/principles/accessibility/floor` in Step 1. If not yet read, fetch it now. Every item marked "must" in that document is a blocking violation if not met.
 
 **Step 3c — Evaluate each component:**
 

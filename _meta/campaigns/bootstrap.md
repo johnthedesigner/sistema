@@ -1,6 +1,6 @@
 You are running the **Bootstrap a Design System** campaign. This is a self-driving multi-phase process. You will complete each step sequentially, ask the user for input when you need it, and pause for confirmation before advancing. Do not begin a step until the previous one is complete.
 
-**If any prompt in this campaign references `https://sistema.design/raw/...`, fetch those URLs to load the reference material before proceeding with that step.**
+**If any prompt in this campaign references `{{sistema_url}}/raw/...`, fetch those URLs to load the reference material before proceeding with that step.**
 
 ---
 
@@ -140,9 +140,9 @@ You are translating the positioning brief into a specific visual direction befor
 Read `LIVING_BRIEF.md`. Confirm: product identity, density, theme scope, brand stance, and any existing visual decisions.
 
 Fetch and read the following from the Sistema knowledge base:
-- Visual language translation framework: `https://sistema.design/raw/principles/visual-language/overview`
-- Visual quality signals: `https://sistema.design/raw/principles/quality/visual-quality-signals`
-- Style tile format specification: `https://sistema.design/raw/principles/visual-language/style-tile-format`
+- Visual language translation framework: `{{sistema_url}}/raw/principles/visual-language/overview`
+- Visual quality signals: `{{sistema_url}}/raw/principles/quality/visual-quality-signals`
+- Style tile format specification: `{{sistema_url}}/raw/principles/visual-language/style-tile-format`
 
 **Step 2b — Produce the visual direction brief:**
 
@@ -216,8 +216,8 @@ Read `LIVING_BRIEF.md` from the project root. The approved visual direction from
 **Step 3b — Read the references:**
 
 Fetch and read the following from the Sistema knowledge base:
-- DESIGN.md format specification: `https://sistema.design/raw/standards/design-md/spec`
-- Token architecture synthesis: `https://sistema.design/raw/principles/tokens/architecture`
+- DESIGN.md format specification: `{{sistema_url}}/raw/standards/design-md/spec`
+- Token architecture synthesis: `{{sistema_url}}/raw/principles/tokens/architecture`
 
 The spec file defines the exact format, YAML schema, section order, and token types. The token architecture synthesis explains the tier model and naming principles.
 
@@ -263,9 +263,9 @@ If any of these are missing, ask before proceeding.
 **Step 4b — Read the references:**
 
 Fetch and read the following from the Sistema knowledge base:
-- Color architecture synthesis: `https://sistema.design/raw/principles/color/architecture`
-- Token architecture synthesis: `https://sistema.design/raw/principles/tokens/architecture`
-- Visual quality signals: `https://sistema.design/raw/principles/quality/visual-quality-signals`
+- Color architecture synthesis: `{{sistema_url}}/raw/principles/color/architecture`
+- Token architecture synthesis: `{{sistema_url}}/raw/principles/tokens/architecture`
+- Visual quality signals: `{{sistema_url}}/raw/principles/quality/visual-quality-signals`
 
 The color architecture synthesis explains the four major architectural models, contrast requirements, and dark mode tonal shift logic. The visual quality signals document defines the OKLCH commitment levels (§4) and absolute color bans (§3.2).
 
@@ -332,8 +332,8 @@ If not recorded, ask before proceeding.
 **Step 5b — Read the references:**
 
 Fetch and read the following from the Sistema knowledge base:
-- Typography architecture synthesis: `https://sistema.design/raw/principles/typography/architecture`
-- Visual quality signals: `https://sistema.design/raw/principles/quality/visual-quality-signals`
+- Typography architecture synthesis: `{{sistema_url}}/raw/principles/typography/architecture`
+- Visual quality signals: `{{sistema_url}}/raw/principles/quality/visual-quality-signals`
 
 **Step 5c — Generate the type scale:**
 
@@ -390,8 +390,8 @@ If not recorded, ask before proceeding.
 **Step 6b — Read the references:**
 
 Fetch and read the following from the Sistema knowledge base:
-- Shape architecture synthesis: `https://sistema.design/raw/principles/shape/architecture`
-- Visual quality signals: `https://sistema.design/raw/principles/quality/visual-quality-signals`
+- Shape architecture synthesis: `{{sistema_url}}/raw/principles/shape/architecture`
+- Visual quality signals: `{{sistema_url}}/raw/principles/quality/visual-quality-signals`
 
 **Step 6c — Generate the shape tokens:**
 
@@ -455,7 +455,7 @@ Before proceeding, ask:
 **Step 7b — Read the references:**
 
 Fetch and read the following from the Sistema knowledge base:
-- Token architecture synthesis: `https://sistema.design/raw/principles/tokens/architecture`
+- Token architecture synthesis: `{{sistema_url}}/raw/principles/tokens/architecture`
 
 **Step 7c — Generate the configuration:**
 
@@ -505,8 +505,8 @@ If the user chooses a different library: proceed accordingly, adapting the follo
 Read `LIVING_BRIEF.md`. Confirm the technology stack, token naming convention, and shape scale.
 
 Fetch and read the following from the Sistema knowledge base:
-- Token architecture synthesis: `https://sistema.design/raw/principles/tokens/architecture`
-- Accessibility floor: `https://sistema.design/raw/principles/accessibility/floor`
+- Token architecture synthesis: `{{sistema_url}}/raw/principles/tokens/architecture`
+- Accessibility floor: `{{sistema_url}}/raw/principles/accessibility/floor`
 
 **Step 8c — Install and configure the component library:**
 

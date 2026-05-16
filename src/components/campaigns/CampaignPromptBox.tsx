@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function CopyIcon() {
   return (
@@ -35,11 +35,18 @@ interface Props {
 export function CampaignPromptBox({ prompt, campaignSlug }: Props) {
   const [copied, setCopied] = useState(false)
   const [expanded, setExpanded] = useState(false)
+  const [displayPrompt, setDisplayPrompt] = useState(prompt)
 
-  const promptLines = prompt.split('\n').length
+  useEffect(() => {
+    const base = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
+    setDisplayPrompt(prompt.replace(/\{\{sistema_url\}\}/g, base))
+  }, [prompt])
+
+  const promptLines = displayPrompt.split('\n').length
 
   async function handleCopy() {
-    await navigator.clipboard.writeText(prompt)
+    const base = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
+    await navigator.clipboard.writeText(prompt.replace(/\{\{sistema_url\}\}/g, base))
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -83,7 +90,7 @@ export function CampaignPromptBox({ prompt, campaignSlug }: Props) {
         className="relative px-5 py-5 font-mono text-[13px] leading-[1.65] text-on-surface flex-1 min-h-0 overflow-hidden"
         style={{ whiteSpace: 'pre-wrap' }}
       >
-        {prompt}
+        {displayPrompt}
         {!expanded && (
           <div
             className="absolute inset-x-0 bottom-0 pointer-events-none"
