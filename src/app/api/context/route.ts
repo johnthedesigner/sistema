@@ -10,8 +10,7 @@ export async function GET(req: NextRequest) {
     const ua = req.headers.get('user-agent') ?? 'unknown'
 
     if (key) {
-      // Fire and forget — don't block the response on PostHog
-      fetch(`${host}/capture/`, {
+      await fetch(`${host}/capture/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
