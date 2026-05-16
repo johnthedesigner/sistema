@@ -3,6 +3,7 @@ import { Inter, Fraunces, JetBrains_Mono } from 'next/font/google'
 import { Nav } from '@/components/layout/Nav'
 import { SiteFooter } from '@/components/layout/Footer'
 import { ThemeDebugToggle } from '@/components/dev/ThemeDebugToggle'
+import { Analytics } from '@vercel/analytics/next'
 import '../styles/globals.css'
 
 const inter = Inter({
@@ -75,6 +76,7 @@ export default function RootLayout({
         <div className="flex-1">{children}</div>
         <SiteFooter />
         {process.env.NODE_ENV === 'development' && <ThemeDebugToggle />}
+        <Analytics />
       </body>
     </html>
   )

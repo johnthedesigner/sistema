@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { instrumentRawUrls, trackCopy } from '@/lib/analytics'
 import Link from 'next/link'
 import { ColorModeSelector, COLOR_MODE_STORAGE_KEY } from '@/components/playbooks/ColorModeSelector'
 
@@ -101,7 +102,8 @@ export function CampaignStep({
   }
 
   async function handleCopy() {
-    await navigator.clipboard.writeText(resolveBody())
+    await navigator.clipboard.writeText(instrumentRawUrls(resolveBody(), playSlug))
+    trackCopy(playSlug, { campaign: campaignSlug, step: stepNumber })
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }

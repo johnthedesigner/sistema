@@ -126,6 +126,7 @@ export default function Home() {
             <PromptBox
               label="campaign · Bootstrap a Design System"
               body={bootstrap.prompt}
+              playSlug="bootstrap"
               tokens="~4,200 tokens"
               refs="6 KB refs"
               overflow="scroll"

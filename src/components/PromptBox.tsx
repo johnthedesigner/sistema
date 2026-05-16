@@ -1,10 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { instrumentRawUrls, trackCopy } from '@/lib/analytics'
 
 interface PromptBoxProps {
   label: string
   body: string
+  playSlug: string
   tokens?: string
   refs?: string
   variables?: number
@@ -15,6 +17,7 @@ interface PromptBoxProps {
 export function PromptBox({
   label,
   body,
+  playSlug,
   tokens,
   refs,
   variables,
@@ -33,8 +36,9 @@ export function PromptBox({
 
   async function handleCopy() {
     const base = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
-    const resolved = body.replace(/\{\{sistema_url\}\}/g, base)
+    const resolved = instrumentRawUrls(body.replace(/\{\{sistema_url\}\}/g, base), playSlug)
     await navigator.clipboard.writeText(resolved)
+    trackCopy(playSlug)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }

@@ -163,6 +163,7 @@ export default async function PlayPage({
                 <PromptBox
                   label={`play · ${slug}`}
                   body={play.body}
+                  playSlug={slug}
                   refs={refs.length > 0 ? `${refs.length} KB ref${refs.length !== 1 ? 's' : ''}` : undefined}
                   expanded
                 />

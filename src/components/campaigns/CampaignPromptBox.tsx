@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { instrumentRawUrls, trackCopy } from '@/lib/analytics'
 
 function CopyIcon() {
   return (
@@ -46,7 +47,9 @@ export function CampaignPromptBox({ prompt, campaignSlug }: Props) {
 
   async function handleCopy() {
     const base = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
-    await navigator.clipboard.writeText(prompt.replace(/\{\{sistema_url\}\}/g, base))
+    const resolved = instrumentRawUrls(prompt.replace(/\{\{sistema_url\}\}/g, base), campaignSlug)
+    await navigator.clipboard.writeText(resolved)
+    trackCopy(campaignSlug, { campaign: campaignSlug })
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
