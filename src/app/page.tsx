@@ -63,12 +63,12 @@ export default function Home() {
         {/* Hero */}
         <div className="mb-10 md:mb-14">
           {/* Announcement pill */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-border rounded-full bg-surface mb-5 md:mb-6">
+          <div className="inline-flex max-w-full items-center gap-2 px-3 py-1.5 border border-border rounded-full bg-surface mb-5 md:mb-6">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-primary shrink-0">
               <path d="M2 3.5L5.5 6 2 8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               <line x1="7" y1="8.5" x2="10" y2="8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
-            <span className="font-mono text-[11.5px] tracking-[0.04em] text-on-surface-muted">
+            <span className="font-mono text-[11.5px] tracking-[0.04em] text-on-surface-muted truncate">
               Context-supported prompts for design-system work
             </span>
           </div>
