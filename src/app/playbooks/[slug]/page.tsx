@@ -44,14 +44,6 @@ function extractRefs(body: string): string[] {
   return [...new Set(matches.map(m => m[1]))].slice(0, 4)
 }
 
-function ArrowRight({ size = 12 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
 export async function generateStaticParams() {
   const plays = loadPlaybooks()
   return plays.map(p => ({ slug: p.slug }))
@@ -153,7 +145,7 @@ export default async function PlayPage({
                   </span>
                   <span className="text-[12px] text-on-surface-muted">fill in to personalize the prompt</span>
                 </div>
-                <PlayForm body={play.body} tags={play.tags} />
+                <PlayForm body={play.body} playSlug={slug} tags={play.tags} />
               </div>
             )}
 
@@ -217,7 +209,6 @@ export default async function PlayPage({
                 play={play}
                 refs={refs}
                 exemplar={exemplar}
-                slug={slug}
               />
             </div>
           </div>
@@ -231,7 +222,6 @@ export default async function PlayPage({
               play={play}
               refs={refs}
               exemplar={exemplar}
-              slug={slug}
             />
           </div>
         </div>
@@ -247,7 +237,6 @@ function RailContent({
   play,
   refs,
   exemplar,
-  slug,
 }: {
   parentCampaign: ReturnType<typeof loadCampaigns>[number] | undefined
   stepInCampaign: { number: number; playSlug: string; play: { title: string } } | undefined
@@ -255,7 +244,6 @@ function RailContent({
   play: { body: string; tags: string[] }
   refs: string[]
   exemplar: ReturnType<typeof loadExemplar>
-  slug: string
 }) {
   function ArrowRight({ size = 12 }: { size?: number }) {
     return (

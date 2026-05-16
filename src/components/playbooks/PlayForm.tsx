@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { ColorModeSelector, COLOR_MODE_STORAGE_KEY } from './ColorModeSelector'
+import { instrumentRawUrls, trackCopy } from '@/lib/analytics'
 
 function extractVariables(body: string): string[] {
   const matches = [...body.matchAll(/\{\{([^}]+)\}\}/g)]
@@ -25,10 +26,11 @@ function getPlaceholder(varName: string): string {
 
 interface Props {
   body: string
+  playSlug: string
   tags?: string[]
 }
 
-export function PlayForm({ body, tags = [] }: Props) {
+export function PlayForm({ body, playSlug, tags = [] }: Props) {
   const variables = extractVariables(body)
   const isColorPlay = tags.includes('color')
 
@@ -59,7 +61,8 @@ export function PlayForm({ body, tags = [] }: Props) {
         value.trim() || `{{${key}}}`
       )
     }
-    await navigator.clipboard.writeText(resolved)
+    await navigator.clipboard.writeText(instrumentRawUrls(resolved, playSlug, base))
+    trackCopy(playSlug)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }

@@ -36,7 +36,7 @@ export function PromptBox({
 
   async function handleCopy() {
     const base = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
-    const resolved = instrumentRawUrls(body.replace(/\{\{sistema_url\}\}/g, base), playSlug)
+    const resolved = instrumentRawUrls(body.replace(/\{\{sistema_url\}\}/g, base), playSlug, base)
     await navigator.clipboard.writeText(resolved)
     trackCopy(playSlug)
     setCopied(true)

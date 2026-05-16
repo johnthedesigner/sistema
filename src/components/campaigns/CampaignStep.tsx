@@ -102,7 +102,7 @@ export function CampaignStep({
   }
 
   async function handleCopy() {
-    await navigator.clipboard.writeText(instrumentRawUrls(resolveBody(), playSlug))
+    await navigator.clipboard.writeText(instrumentRawUrls(resolveBody(), playSlug, origin))
     trackCopy(playSlug, { campaign: campaignSlug, step: stepNumber })
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)

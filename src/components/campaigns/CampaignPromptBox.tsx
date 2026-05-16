@@ -47,7 +47,7 @@ export function CampaignPromptBox({ prompt, campaignSlug }: Props) {
 
   async function handleCopy() {
     const base = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
-    const resolved = instrumentRawUrls(prompt.replace(/\{\{sistema_url\}\}/g, base), campaignSlug)
+    const resolved = instrumentRawUrls(prompt.replace(/\{\{sistema_url\}\}/g, base), campaignSlug, base)
     await navigator.clipboard.writeText(resolved)
     trackCopy(campaignSlug, { campaign: campaignSlug })
     setCopied(true)
