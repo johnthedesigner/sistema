@@ -4,6 +4,7 @@ import { Nav } from '@/components/layout/Nav'
 import { SiteFooter } from '@/components/layout/Footer'
 import { ThemeDebugToggle } from '@/components/dev/ThemeDebugToggle'
 import { Analytics } from '@vercel/analytics/next'
+import { PostHogProvider } from '@/components/providers/PostHogProvider'
 import '../styles/globals.css'
 
 const inter = Inter({
@@ -72,11 +73,13 @@ export default function RootLayout({
         `}} />
       </head>
       <body className="bg-canvas text-on-surface antialiased min-h-screen flex flex-col">
-        <Nav />
-        <div className="flex-1">{children}</div>
-        <SiteFooter />
-        {process.env.NODE_ENV === 'development' && <ThemeDebugToggle />}
-        <Analytics />
+        <PostHogProvider>
+          <Nav />
+          <div className="flex-1">{children}</div>
+          <SiteFooter />
+          {process.env.NODE_ENV === 'development' && <ThemeDebugToggle />}
+          <Analytics />
+        </PostHogProvider>
       </body>
     </html>
   )

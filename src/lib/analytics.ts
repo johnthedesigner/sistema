@@ -1,4 +1,5 @@
 import { track } from '@vercel/analytics'
+import posthog from 'posthog-js'
 
 // Matches any resolved /raw/ URL in prompt text, stopping at whitespace or common
 // markdown delimiters. Handles backtick-wrapped, plain, and parenthesised forms.
@@ -14,5 +15,7 @@ export function instrumentRawUrls(text: string, playSlug: string): string {
 }
 
 export function trackCopy(playSlug: string, context: { campaign?: string; step?: number } = {}) {
-  track('prompt_copy', { play: playSlug, ...context })
+  const props = { play: playSlug, ...context }
+  track('prompt_copy', props)
+  posthog.capture('prompt_copy', props)
 }
