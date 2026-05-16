@@ -9,6 +9,7 @@ interface PromptBoxProps {
   refs?: string
   variables?: number
   expanded?: boolean
+  overflow?: 'expand' | 'scroll'
 }
 
 export function PromptBox({
@@ -18,9 +19,11 @@ export function PromptBox({
   refs,
   variables,
   expanded: initialExpanded = false,
+  overflow = 'expand',
 }: PromptBoxProps) {
   const [expanded, setExpanded] = useState(initialExpanded)
   const [copied, setCopied] = useState(false)
+  const scrollMode = overflow === 'scroll'
 
   async function handleCopy() {
     const base = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
@@ -32,11 +35,14 @@ export function PromptBox({
 
   return (
     <div
-      className="relative rounded-radius-xl border border-border bg-surface-raised overflow-hidden"
-      style={{ boxShadow: 'var(--shadow-md)' }}
+      className="relative rounded-radius-xl border border-border bg-surface-raised overflow-hidden flex flex-col"
+      style={{
+        boxShadow: 'var(--shadow-md)',
+        maxHeight: scrollMode || !expanded ? '25rem' : 'none',
+      }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-border" style={{ background: 'linear-gradient(180deg, #FCFCFC 0%, #FFFFFF 100%)' }}>
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-surface-raised">
         <div className="flex items-center gap-2.5">
           <span
             className="block rounded-full"
@@ -66,31 +72,27 @@ export function PromptBox({
 
       {/* Body */}
       <div
-        className="relative font-mono text-[13.5px] leading-[1.65] text-on-surface px-5 py-5"
-        style={{
-          whiteSpace: 'pre-wrap',
-          maxHeight: expanded ? 'none' : 168,
-          overflow: 'hidden',
-        }}
+        className={`relative font-mono text-[13.5px] leading-[1.65] text-on-surface px-5 py-5 flex-1 min-h-0 ${scrollMode ? 'overflow-y-auto' : 'overflow-hidden'}`}
+        style={{ whiteSpace: 'pre-wrap' }}
       >
         {body}
-        {!expanded && (
+        {!scrollMode && !expanded && (
           <div
             className="absolute inset-x-0 bottom-0 pointer-events-none"
             style={{
               height: 90,
-              background: 'linear-gradient(180deg, rgba(255,255,255,0) 0%, #FFFFFF 70%)',
+              background: 'linear-gradient(to bottom, transparent, var(--color-surface-raised))',
             }}
           />
         )}
       </div>
 
       {/* Expand toggle */}
-      {!expanded && (
+      {!scrollMode && !expanded && (
         <div className="absolute left-0 right-0 flex justify-center" style={{ bottom: 52 }}>
           <button
             onClick={() => setExpanded(true)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-border rounded-full text-[12px] font-medium text-on-surface"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-raised border border-border rounded-full text-[12px] font-medium text-on-surface"
             style={{ boxShadow: 'var(--shadow-sm)', pointerEvents: 'auto' }}
           >
             Show full prompt
@@ -100,7 +102,7 @@ export function PromptBox({
       )}
 
       {/* Footer */}
-      <div className="flex items-center justify-between px-4 pt-2.5 pb-3.5 border-t border-border bg-[#FCFCFC]">
+      <div className="flex items-center justify-between px-4 pt-2.5 pb-3.5 border-t border-border bg-surface">
         <div className="flex gap-4 font-mono text-[11px] text-on-surface-subtle">
           {tokens && <span>{tokens}</span>}
           {tokens && refs && <span>·</span>}

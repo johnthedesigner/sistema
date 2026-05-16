@@ -31,12 +31,12 @@ const PLAY_DESCRIPTIONS: Record<string, string> = {
 }
 
 const STAGE_CHIP_STYLES: Record<number, { bg: string; color: string; border: string }> = {
-  1: { bg: '#E6F0FF', color: '#0058CC', border: '#BFD8FF' },
-  2: { bg: '#E6F0FF', color: '#1056BF', border: '#BFD8FF' },
-  3: { bg: '#F0E9FF', color: '#5325B8', border: '#D9C9FF' },
-  4: { bg: '#E3F3EC', color: '#137A4D', border: '#BCE3CE' },
-  5: { bg: '#FFF1E0', color: '#A65B00', border: '#FFD9A8' },
-  6: { bg: '#FFF8E0', color: '#8A6500', border: '#F2DA8A' },
+  1: { bg: 'var(--stage-1-bg)', color: 'var(--stage-1-text)', border: 'var(--stage-1-border)' },
+  2: { bg: 'var(--stage-2-bg)', color: 'var(--stage-2-text)', border: 'var(--stage-2-border)' },
+  3: { bg: 'var(--stage-3-bg)', color: 'var(--stage-3-text)', border: 'var(--stage-3-border)' },
+  4: { bg: 'var(--stage-4-bg)', color: 'var(--stage-4-text)', border: 'var(--stage-4-border)' },
+  5: { bg: 'var(--stage-5-bg)', color: 'var(--stage-5-text)', border: 'var(--stage-5-border)' },
+  6: { bg: 'var(--stage-6-bg)', color: 'var(--stage-6-text)', border: 'var(--stage-6-border)' },
 }
 
 function extractRefs(body: string): string[] {
@@ -171,7 +171,7 @@ export default async function PlayPage({
             {hasVariables && (
               <div className="mb-9">
                 <div className="rounded-radius-xl border border-border bg-surface-raised overflow-hidden" style={{ boxShadow: 'var(--shadow-md)' }}>
-                  <div className="flex items-center gap-2.5 px-4 py-3 border-b border-border" style={{ background: 'linear-gradient(180deg, #FCFCFC 0%, #FFFFFF 100%)' }}>
+                  <div className="flex items-center gap-2.5 px-4 py-3 border-b border-border bg-surface-raised">
                     <span className="block w-2 h-2 rounded-full" style={{ background: 'var(--color-primary)', boxShadow: '0 0 0 3px rgba(0,112,255,0.15)' }} />
                     <span className="font-mono text-[11.5px] tracking-[0.04em] uppercase text-on-surface-muted">
                       play · {slug}
@@ -196,7 +196,7 @@ export default async function PlayPage({
                 <div className="border border-border rounded-radius-lg overflow-hidden">
                   <div
                     className="flex items-center justify-between px-4 py-3 border-b border-border"
-                    style={{ background: '#FCFCFC' }}
+                    style={{ background: 'var(--color-surface)' }}
                   >
                     <span className="font-mono text-[12px] text-on-surface-muted">{slug} · example output</span>
                   </div>
@@ -333,9 +333,9 @@ function RailContent({
       >
         <div className="flex items-center gap-2 mb-1.5">
           <span className="block w-1.5 h-1.5 rounded-full" style={{ background: 'var(--color-brand-yellow)' }} />
-          <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase" style={{ color: '#8A6500' }}>Tip</span>
+          <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted">Tip</span>
         </div>
-        <p className="text-[12.5px] leading-[1.5] m-0" style={{ color: '#5A4400' }}>
+        <p className="text-[12.5px] leading-[1.5] m-0 text-on-surface">
           Plays work best when your agent has read <span className="font-mono">DESIGN.md</span> first. Run <span className="font-mono">session-start</span> at the beginning of each session to orient it.
         </p>
       </div>

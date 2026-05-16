@@ -19,6 +19,14 @@ function CheckIcon() {
   )
 }
 
+function ChevronDown() {
+  return (
+    <svg width={12} height={12} viewBox="0 0 24 24" fill="none">
+      <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 interface Props {
   prompt: string
   campaignSlug: string
@@ -38,13 +46,15 @@ export function CampaignPromptBox({ prompt, campaignSlug }: Props) {
 
   return (
     <div
-      className="relative rounded-radius-xl border border-border bg-surface-raised overflow-hidden"
-      style={{ boxShadow: 'var(--shadow-md)' }}
+      className="relative rounded-radius-xl border border-border bg-surface-raised overflow-hidden flex flex-col"
+      style={{
+        boxShadow: 'var(--shadow-md)',
+        maxHeight: expanded ? 'none' : '25rem',
+      }}
     >
       {/* Header bar */}
       <div
-        className="flex items-center justify-between px-4 py-3 border-b border-border"
-        style={{ background: 'linear-gradient(180deg, #FCFCFC 0%, #FFFFFF 100%)' }}
+        className="flex items-center justify-between px-4 py-3 border-b border-border flex-none bg-surface-raised"
       >
         <div className="flex items-center gap-2.5">
           <span
@@ -69,37 +79,48 @@ export function CampaignPromptBox({ prompt, campaignSlug }: Props) {
       </div>
 
       {/* Prompt body */}
-      <div className="relative overflow-hidden">
-        <div
-          className="px-5 py-5 font-mono text-[13px] leading-[1.65] text-on-surface"
-          style={{
-            whiteSpace: 'pre-wrap',
-            maxHeight: expanded ? 'none' : 320,
-            overflow: 'hidden',
-          }}
-        >
-          {prompt}
-        </div>
+      <div
+        className="relative px-5 py-5 font-mono text-[13px] leading-[1.65] text-on-surface flex-1 min-h-0 overflow-hidden"
+        style={{ whiteSpace: 'pre-wrap' }}
+      >
+        {prompt}
         {!expanded && (
           <div
-            className="absolute bottom-0 left-0 right-0 flex items-end justify-center pb-4"
+            className="absolute inset-x-0 bottom-0 pointer-events-none"
             style={{
               height: 96,
               background: 'linear-gradient(to bottom, transparent, var(--color-surface-raised))',
-              pointerEvents: 'none',
             }}
           />
         )}
       </div>
 
+      {/* Floating expand button */}
+      {!expanded && (
+        <div className="absolute left-0 right-0 flex justify-center" style={{ bottom: 52 }}>
+          <button
+            onClick={() => setExpanded(true)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-raised border border-border rounded-full text-[12px] font-medium text-on-surface"
+            style={{ boxShadow: 'var(--shadow-sm)', pointerEvents: 'auto' }}
+          >
+            Show full prompt ({promptLines} lines)
+            <ChevronDown />
+          </button>
+        </div>
+      )}
+
       {/* Footer */}
-      <div className="flex items-center justify-between px-4 pt-2.5 pb-3.5 border-t border-border bg-[#FCFCFC]">
-        <button
-          onClick={() => setExpanded(e => !e)}
-          className="font-mono text-[11.5px] text-on-surface-muted hover:text-on-surface transition-colors"
-        >
-          {expanded ? 'Show less' : `Show full prompt (${promptLines} lines)`}
-        </button>
+      <div className="flex items-center justify-between px-4 pt-2.5 pb-3.5 border-t border-border bg-surface flex-none">
+        {expanded ? (
+          <button
+            onClick={() => setExpanded(false)}
+            className="font-mono text-[11.5px] text-on-surface-muted hover:text-on-surface transition-colors"
+          >
+            Show less
+          </button>
+        ) : (
+          <span />
+        )}
         <div className="flex items-center gap-2 text-[12px] text-on-surface-muted">
           <span className="font-mono text-[11px]">paste into</span>
           <span className="font-mono text-[11.5px] px-2 py-0.5 border border-border rounded-[6px]">Claude Code</span>

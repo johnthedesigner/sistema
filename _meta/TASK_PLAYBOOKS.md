@@ -19,6 +19,105 @@ Plays reference content from the Sistema knowledge base using `{{sistema_url}}` 
 
 ---
 
+## establish-context — Establish Design System Context
+
+**Stage:** 1
+**Tags:** planning, positioning, foundations, living-brief, intake
+
+You are establishing the full context for design system work on this project. Your job is to build a complete picture of what exists and what is needed before any decisions are made. Do not ask questions that can be answered by reading existing files.
+
+**Step 1 — Scan the project:**
+
+Before asking anything, read these files if they exist:
+- `LIVING_BRIEF.md` — existing positioning decisions and system state
+- `DESIGN.md` — existing token and visual language decisions
+- Any `package.json` or framework config — technology constraints
+- Any existing CSS or token files — what token naming and values are already in use
+- Any existing component files (spot-check 3–5) — current implementation patterns
+
+Summarize what you found. State explicitly: which of the questions below are already answered by reading the project.
+
+**Step 2 — Ask only what is missing:**
+
+Work through the following questions. Skip any already answered from Step 1. For any vague answer, ask for a specific clarification before moving on.
+
+1. **Product type and context:** What kind of product is this? Who are the primary users and what are they trying to accomplish?
+
+2. **Information density:** Is the UI primarily content-dense (tables, dashboards, data-heavy forms) or content-sparse (focused flows, marketing, simple consumer tasks)? Or does it need to serve both?
+
+3. **Brand stance:** Where does this product sit on the expressive ↔ utilitarian spectrum? Expressive = personality, delight, visual distinctiveness. Utilitarian = clarity, efficiency, cognitive load reduction.
+
+4. **Existing visual character (if any):** Is there an existing visual direction — a brand guide, a style tile, a reference design — that should be honored? Or is this a blank canvas?
+
+5. **Color constraints:** An existing brand color (hex preferred)? Any colors that must be avoided?
+
+6. **Theme requirements:** Light only, dark only, or both? If both — primary?
+
+7. **Platform and scale:** Web, mobile, or cross-platform? One team or multiple? Estimated component count: small (<20), medium (20–60), large (60+)?
+
+8. **Accessibility requirements:** Standard WCAG 2.2 AA, or a stronger requirement?
+
+9. **Technology constraints:** Existing framework, CSS approach, design tool, or component library? Any constraints on token format or build tooling?
+
+**Step 3 — Produce the context document:**
+
+Write or update `LIVING_BRIEF.md` at the project root with this structure:
+
+```
+# LIVING_BRIEF.md
+
+*Per-project state document. Read at session start; append to at session end.*
+
+---
+
+## 1. Project Identity
+
+**Product:** [name and one-sentence description]
+**Audience:** [who uses it and what they are trying to do]
+**Density:** [content-dense / content-sparse / balanced]
+**Theme:** [light only / dark only / both — primary: light/dark]
+**Stance:** [expressive ↔ utilitarian placement and brief rationale]
+**Technology:** [framework, CSS approach, design tool]
+
+---
+
+## 2. Key Decisions
+
+**Color:** [existing brand color or TBD]
+**Typography:** [existing typeface decisions or TBD]
+**Spacing:** [to be determined]
+**Shape:** [to be determined]
+**Motion:** [to be determined]
+**Tokens:** [format and build tooling or TBD]
+
+---
+
+## 3. Current State
+
+**Token files:** [list or "none yet"]
+**Components implemented:** [list or "none yet"]
+**Components stubbed:** [list or "none yet"]
+**Known gaps:** [what is missing]
+
+---
+
+## 4. Open Questions
+
+- [ ] [Any unresolved questions from Step 2]
+
+---
+
+## 5. Decision Log
+
+*[today's date] — Context established — [one-line summary of key findings]*
+```
+
+**Step 4 — Confirm readiness:**
+
+State: "Context established. Here is what I found / here is what you told me. The next step is [positioning-brief / establish-visual-language] depending on whether a visual direction already exists."
+
+---
+
 ## positioning-brief — Establish a Positioning Brief
 
 **Stage:** 1
@@ -60,6 +159,79 @@ Populate the Project Identity and Key Decisions sections of the living brief usi
 
 ---
 
+## establish-visual-language — Establish Visual Language
+
+**Stage:** 1
+**Tags:** planning, visual-language, style-tile, foundations
+
+You are establishing the visual language for this design system — translating the positioning brief into specific visual directions before any token values are generated. The output is `style-preview.html`: a self-contained static HTML file that demonstrates color, typography, shape, and surface treatment in a reviewable form. Human review and approval of this artifact is required before token generation begins.
+
+**Step 1 — Read the living brief and references:**
+
+Read `LIVING_BRIEF.md` from the project root. Confirm: product identity, density, theme scope, brand stance, and any existing color or visual decisions.
+
+Fetch and read the following from the Sistema knowledge base:
+- Visual language translation framework: `https://sistema.design/raw/principles/visual-language/overview`
+- Visual quality signals: `https://sistema.design/raw/principles/quality/visual-quality-signals`
+- Style tile format specification: `https://sistema.design/raw/principles/visual-language/style-tile-format`
+
+The visual language framework provides aesthetic reference vocabulary and structured translation from positioning to visual direction. The quality signals document defines the AI slop test, absolute bans, and OKLCH commitment levels. The style tile format specifies exactly what `style-preview.html` must contain.
+
+**Step 2 — Produce the visual direction brief:**
+
+Before generating any HTML, produce a short visual direction brief (3–5 sentences). This brief is the contract between the positioning brief and the style tile. It must answer:
+
+1. Which 2–3 aesthetic frameworks does this product draw from? (Reference the visual language translation framework.)
+2. What is the OKLCH color commitment level and why? (Reference the quality signals document.)
+3. What is the typographic character: weight range, size range, whether mixed typefaces are in use?
+4. Where on the sharp ↔ rounded spectrum does this product sit, and what is the preliminary radius estimate?
+5. What does this system explicitly NOT look like? (Name 2–3 specific exclusions.)
+
+Run the AI slop first-order reflex check on the proposed visual direction: are any of the preliminary choices category-obvious defaults? If so, justify them explicitly or adjust.
+
+**Step 3 — Generate style-preview.html:**
+
+Generate a `style-preview.html` file containing all seven required sections from the style tile format specification:
+
+1. Visual direction statement — the brief from Step 2, rendered in the file
+2. Color palette — all proposed colors as swatches, labeled with hex, OKLCH values, and contrast ratios
+3. Typography specimens — each type role rendered with sample text, labeled with role, size, weight, line height, tracking
+4. Shape and radius specimens — each radius token and shadow level rendered
+5. Surface treatment — default, raised, and overlay surfaces; composite card specimen
+6. Color in context — primary in interactive elements, semantic colors in state examples
+7. Reviewer notes — explicit checklist of decisions requiring human judgment
+
+Requirements per the format specification:
+- Self-contained HTML — no external dependencies
+- All color values shown as both hex and OKLCH
+- Every visual decision annotated with role name and value
+- Reviewer notes section must list each decision that requires human confirmation
+
+Quality constraints from the quality signals document:
+- Verify the color commitment level is consistent across all surface and neutral tokens
+- Check all proposed values against the absolute bans list
+- Run the first-order reflex test on the primary color
+- Flag any on-* pairing where contrast should be manually verified
+
+Write the file to `style-preview.html` at the project root.
+
+**Step 4 — Request review:**
+
+Pause and present the visual direction brief (from Step 2) as a summary. Then say:
+
+*"style-preview.html is ready for review. Open it in a browser and evaluate the seven sections against the reviewer checklist in Section 7 of the file. Specific decisions to focus on: [list 3–4 key choices that required judgment]. When you are satisfied, tell me to proceed — or tell me what to change."*
+
+Do not proceed to token generation until the user approves the style tile.
+
+**Step 5 — Update the living brief:**
+
+After approval, update the Key Decisions section of `LIVING_BRIEF.md` with the visual direction decisions. Append to the Decision Log:
+```
+[date] — Visual language established — [commitment level, primary color, typographic character, radius personality]
+```
+
+---
+
 ## generate-design-md — Generate a DESIGN.md
 
 **Stage:** 1
@@ -76,8 +248,9 @@ Read `LIVING_BRIEF.md` from the project root. Confirm the product identity, dens
 Read the following from the Sistema knowledge base:
 - DESIGN.md format specification: `{{sistema_url}}/raw/standards/design-md/spec`
 - Token architecture synthesis: `{{sistema_url}}/raw/principles/tokens/architecture`
+- Visual language overview: `{{sistema_url}}/raw/principles/visual-language/overview`
 
-The spec file defines the exact format, YAML schema, section order, and token types. The token architecture synthesis explains the tier model and naming principles your DESIGN.md should follow.
+The spec file defines the exact format, YAML schema, section order, and token types. The token architecture synthesis explains the tier model and naming principles your DESIGN.md should follow. The visual language overview provides the translation framework from positioning to preliminary token directions — if `establish-visual-language` has been run, use the approved style tile as the primary source for visual direction values; otherwise use the visual language framework to derive directions from the positioning brief.
 
 **Step 3 — Generate the DESIGN.md:**
 
@@ -111,15 +284,16 @@ You are helping me generate a complete color scheme for my design system — sem
 
 **Step 1 — Read the living brief:**
 
-Read `LIVING_BRIEF.md`. Note the theme setting (light-only / dark-only / both), any existing color decisions, and the product's density and brand stance.
+Read `LIVING_BRIEF.md`. Note the theme setting (light-only / dark-only / both), any existing color decisions, and the product's density and brand stance. If the living brief includes a visual direction from `establish-visual-language`, note the OKLCH commitment level — this drives how much chromatic presence the surface and neutral tokens should have.
 
 **Step 2 — Read the references:**
 
 Read the following from the Sistema knowledge base:
 - Color architecture synthesis: `{{sistema_url}}/raw/principles/color/architecture`
 - Token architecture synthesis: `{{sistema_url}}/raw/principles/tokens/architecture`
+- Visual quality signals: `{{sistema_url}}/raw/principles/quality/visual-quality-signals`
 
-The color architecture synthesis explains the four major architectural models, the non-negotiable floor (contrast requirements, foreground pairings, never-hardcode), and dark mode tonal shift logic. Use it to select the appropriate model for this product and to structure the output.
+The color architecture synthesis explains the four major architectural models, the non-negotiable floor (contrast requirements, foreground pairings, never-hardcode), and dark mode tonal shift logic. Use it to select the appropriate model for this product and to structure the output. The visual quality signals document defines the OKLCH commitment levels (§4) and absolute color bans (§3.2) — apply both when selecting values.
 
 **Step 3 — Clarify scope:**
 
@@ -157,11 +331,16 @@ Do not invert light mode values. Use tonal shift logic: surface values draw from
 
 Flag any role where the contrast should be manually verified.
 
+Before finalizing, run these checks from the visual quality signals document:
+- **First-order reflex check:** Is the primary color medium-blue without explicit justification? Are surfaces generic near-white? If so, reconsider or justify.
+- **Commitment level check:** Do surface and neutral token chroma values match the OKLCH commitment level from the visual direction? (Restrained: C < 15; Committed: C 8–20; Full palette: C 15–30; Drenched: C 25+.)
+- **Absolute bans check:** No opacity-derived container colors; primary and secondary must have distinct hues; no pure `#000000` or `#FFFFFF` surfaces; neutral ramp must have hue temperature.
+
 **Step 5 — Update the living brief:**
 
 Update the Color entry in Key Decisions and append to the decision log:
 ```
-[2026-05-13] — Color scheme generated — [note architecture model chosen, theme scope]
+[2026-05-13] — Color scheme generated — [note architecture model chosen, theme scope, commitment level]
 ```
 
 ---
@@ -181,8 +360,9 @@ Read `LIVING_BRIEF.md`. Note the density target, any typeface decisions already 
 
 Read the following from the Sistema knowledge base:
 - Typography architecture synthesis: `{{sistema_url}}/raw/principles/typography/architecture`
+- Visual quality signals: `{{sistema_url}}/raw/principles/quality/visual-quality-signals`
 
-This synthesis covers scale construction (modular vs. hand-tuned, ratio selection by context), role taxonomy decisions (named roles vs. numeric steps), and non-negotiable legibility constraints (line height per role, measure, letter-spacing direction by size). Use it as the decision framework — do not copy any specific design system's scale.
+This synthesis covers scale construction (modular vs. hand-tuned, ratio selection by context), role taxonomy decisions (named roles vs. numeric steps), and non-negotiable legibility constraints (line height per role, measure, letter-spacing direction by size). Use it as the decision framework — do not copy any specific design system's scale. The visual quality signals document (§2) defines type-specific quality checks: ensure weight, size, and tracking vary meaningfully across roles, and that the typographic character matches the visual direction brief.
 
 **Step 3 — Generate the type scale:**
 
@@ -236,8 +416,9 @@ Read `LIVING_BRIEF.md`. Note the brand stance (expressive vs. utilitarian) — t
 
 Read the following from the Sistema knowledge base:
 - Shape architecture synthesis: `{{sistema_url}}/raw/principles/shape/architecture`
+- Visual quality signals: `{{sistema_url}}/raw/principles/quality/visual-quality-signals`
 
-This synthesis covers the radius-as-personality spectrum, scale approach options (named semantic / numeric / global-factor), component family consistency rules, and pill shape guidance. Use it to select an approach appropriate for this product.
+This synthesis covers the radius-as-personality spectrum, scale approach options (named semantic / numeric / global-factor), component family consistency rules, and pill shape guidance. Use it to select an approach appropriate for this product. The visual quality signals document (§3.1) defines shape-related bans — specifically the uniform-radius default and the side-stripe accent pattern.
 
 **Step 3 — Generate the shape tokens:**
 
@@ -843,4 +1024,128 @@ Output a structured plan:
 Append to the decision log:
 ```
 [2026-05-13] — Iteration planned — [iteration goal in one sentence]
+```
+
+---
+
+## scaffold-core-components — Scaffold a Core Component Set
+
+**Stage:** 4
+**Tags:** components, shadcn, implementation, build-out
+
+You are implementing the core component set for this design system, consuming the token system you have generated. This play runs as part of the bootstrap campaign Phase 4 — the visual language and token system must be established before this play begins.
+
+**Step 1 — Read the living brief:**
+
+Read `LIVING_BRIEF.md`. Confirm the technology stack, token naming convention, shape scale, and approved visual direction.
+
+**Step 2 — Confirm component library:**
+
+Ask the user:
+1. Do you want to use shadcn/ui as the component base? (Recommended — Radix UI primitives with Tailwind, highly customizable, widely adopted. Components are copied into your project and owned by you.)
+2. Alternatives: Base UI (unstyled Radix-compatible primitives), Radix UI directly, or build from scratch.
+
+Proceed with the user's choice. If shadcn/ui: initialize with `npx shadcn@latest init`, then generate: Button, Input, Select, Checkbox, Badge, Card, Dialog, Popover, Separator, Tooltip.
+
+**Step 3 — Integrate the token system:**
+
+Update `globals.css` (or equivalent) to wire the semantic color role tokens from the color scheme step into the component library's CSS variable system.
+
+For each component, verify:
+- Token consumption: no hardcoded hex values or raw px for anything covered by a token
+- All interactive states present (hover, focus, active, disabled)
+- Focus indicator meets 3:1 contrast
+- Touch target ≥ 44×44px for interactive elements
+
+**Step 4 — Customize to the visual direction:**
+
+Apply the approved visual direction from `style-preview.html`:
+- Radius values match the shape token scale
+- Color variable mappings use semantic role tokens
+- Typography references the type scale tokens
+- Composite card specimen from `style-preview.html` serves as the visual target
+
+**Step 5 — Generate component-preview.html:**
+
+Generate a self-contained `component-preview.html` showing all core components in default, hover, and focus states. Pause for user review before proceeding.
+
+**Step 6 — Update the living brief:**
+
+Update the Components implemented list. Append to the Decision Log:
+```
+[date] — Core component set scaffolded — [library used, components generated]
+```
+
+---
+
+## generate-page-examples — Generate Full-Page Examples
+
+**Stage:** 4
+**Tags:** components, examples, build-out, visual-language
+
+You are generating 1–2 full-page HTML demonstrations of the design system in use at the page level. These are not prototypes — they are static HTML/CSS files showing the visual language applied to realistic page compositions.
+
+**Step 1 — Read the living brief:**
+
+Read `LIVING_BRIEF.md`. Note the product type — page types should be appropriate for the product context.
+
+**Step 2 — Confirm page types:**
+
+Suggest 2 page types based on the product type recorded in LIVING_BRIEF.md. Common options:
+- Dashboard with sidebar navigation, data table, stat cards
+- Settings page with form controls and section headers
+- Marketing landing page with hero, feature grid, CTA
+- Detail view with header, content area, sidebar
+
+Ask the user to confirm or redirect before proceeding.
+
+**Step 3 — Generate the pages:**
+
+For each page:
+- Self-contained HTML file, all styles in a `<style>` block
+- Uses CSS custom property tokens from the token system
+- Uses component patterns from `scaffold-core-components`
+- Realistic content — write copy appropriate to the product type (not lorem ipsum)
+- Full-width at desktop (1200px+), responsive to at least 768px
+
+Quality standard: pages should feel like production UI. Typography hierarchy clear. Density appropriate. Color usage consistent with the commitment level. No decorative elements beyond the token system.
+
+Write files as: `page-example-1.html`, `page-example-2.html`.
+
+Pause for user review before proceeding.
+
+---
+
+## setup-documentation-site — Set Up a Documentation Site
+
+**Stage:** 4
+**Tags:** components, documentation, build-out, stewardship
+
+You are setting up a lightweight component gallery and token reference that the team can maintain. This is not Storybook — it is a simple, maintainable solution.
+
+**Step 1 — Read the living brief:**
+
+Read `LIVING_BRIEF.md`. Note the framework and technology stack.
+
+**Step 2 — Confirm approach:**
+
+Recommend a single `docs/index.html` — a self-contained HTML file that renders all components, tokens, and usage examples with no build step required. Ask the user to confirm or redirect.
+
+**Step 3 — Generate docs/index.html:**
+
+The file must contain:
+
+1. **Token reference** — all color tokens as swatches with values; all type roles rendered; all radius and shadow tokens shown
+2. **Component gallery** — each core component in its variants and states; organized by name
+3. **Usage notes** — brief "when to use" for each component (design intent, not API reference)
+4. **Page example links** — links to the page example files
+5. **Visual direction summary** — the visual direction brief from `establish-visual-language`, condensed for the team
+
+Technical requirements: self-contained HTML, reads from the same CSS custom property values used in the product, openable directly from the filesystem.
+
+**Step 4 — Update the living brief:**
+
+Append to the Decision Log:
+```
+[date] — Documentation site generated — [approach, sections included]
 ```

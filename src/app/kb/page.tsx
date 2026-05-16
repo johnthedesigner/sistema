@@ -133,7 +133,7 @@ function CategoryCard({ category }: { category: KBCategory }) {
       {/* Illustration area */}
       <div
         className="flex items-center justify-center relative overflow-hidden border-b border-border md:border-b-0 md:border-r shrink-0 h-[120px] md:h-auto md:w-[220px]"
-        style={{ background: 'linear-gradient(180deg, #FCFCFB 0%, #F4F5F4 100%)' }}
+        style={{ background: 'var(--color-surface-sunken)' }}
       >
         {illustration}
         <div className="absolute top-3 left-3.5">
@@ -155,7 +155,7 @@ function CategoryCard({ category }: { category: KBCategory }) {
           {meta.featured && (
             <span
               className="px-2 py-0.5 rounded font-mono text-[10.5px] font-semibold tracking-[0.08em] uppercase"
-              style={{ background: 'var(--color-brand-yellow)', color: '#0E1116' }}
+              style={{ background: 'var(--color-brand-yellow)', color: 'var(--color-on-surface)' }}
             >
               primary references
             </span>

@@ -13,11 +13,11 @@ function ArrowRight() {
 const QUICK_PLAYS = [
   {
     kind: 'campaign' as const,
-    steps: 6,
+    steps: 10,
     slug: null,
     href: '/campaigns/bootstrap',
     title: 'Bootstrap a Design System',
-    desc: 'From positioning brief to a generated style dictionary, in six guided prompts.',
+    desc: 'From blank canvas through visual language, token system, components, and docs — in four structured phases.',
   },
   {
     kind: 'play' as const,
@@ -46,12 +46,12 @@ const QUICK_PLAYS = [
 ]
 
 const STAGE_CHIP_STYLES: Record<number, { bg: string; color: string; border: string }> = {
-  1: { bg: '#E6F0FF', color: '#0058CC', border: '#BFD8FF' },
-  2: { bg: '#E6F0FF', color: '#1056BF', border: '#BFD8FF' },
-  3: { bg: '#F0E9FF', color: '#5325B8', border: '#D9C9FF' },
-  4: { bg: '#E3F3EC', color: '#137A4D', border: '#BCE3CE' },
-  5: { bg: '#FFF1E0', color: '#A65B00', border: '#FFD9A8' },
-  6: { bg: '#FFF8E0', color: '#8A6500', border: '#F2DA8A' },
+  1: { bg: 'var(--stage-1-bg)', color: 'var(--stage-1-text)', border: 'var(--stage-1-border)' },
+  2: { bg: 'var(--stage-2-bg)', color: 'var(--stage-2-text)', border: 'var(--stage-2-border)' },
+  3: { bg: 'var(--stage-3-bg)', color: 'var(--stage-3-text)', border: 'var(--stage-3-border)' },
+  4: { bg: 'var(--stage-4-bg)', color: 'var(--stage-4-text)', border: 'var(--stage-4-border)' },
+  5: { bg: 'var(--stage-5-bg)', color: 'var(--stage-5-text)', border: 'var(--stage-5-border)' },
+  6: { bg: 'var(--stage-6-bg)', color: 'var(--stage-6-text)', border: 'var(--stage-6-border)' },
 }
 
 export default function Home() {
@@ -121,13 +121,14 @@ export default function Home() {
         {/* TODO: token count, ref count, and references table are hardcoded.
             To make dynamic: add `tokens`, `kbRefs` fields to Campaign type,
             and store per-ref token counts in KB index metadata. */}
-        <div className="grid gap-6 grid-cols-1 md:grid-cols-[1fr_280px]">
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-[1fr_280px] md:grid-rows-[25rem]">
           {bootstrap?.prompt && (
             <PromptBox
               label="campaign · Bootstrap a Design System"
               body={bootstrap.prompt}
               tokens="~4,200 tokens"
               refs="6 KB refs"
+              overflow="scroll"
             />
           )}
 
@@ -158,7 +159,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="border border-border rounded-radius-lg p-4">
+            <div className="border border-border rounded-radius-lg p-4 flex-1">
               <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2">
                 References pulled
               </p>
@@ -230,7 +231,7 @@ function QuickCard({ kind, steps, stage, href, title, desc }: QuickCardProps) {
       className="flex flex-col gap-2.5 p-4 rounded-radius-lg border no-underline relative"
       style={{
         borderColor: isCampaign ? 'var(--color-primary)' : 'var(--color-border)',
-        background: isCampaign ? 'var(--color-primary)' : 'white',
+        background: isCampaign ? '#0070FF' : 'var(--color-surface)',
         color: isCampaign ? 'white' : 'inherit',
         minHeight: 120,
         boxShadow: isCampaign

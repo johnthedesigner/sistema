@@ -153,7 +153,7 @@ export function CampaignStep({
       >
         <div
           className="flex items-center justify-between px-4 py-3 border-b border-border"
-          style={{ background: 'linear-gradient(180deg, #FCFCFC 0%, #FFFFFF 100%)' }}
+          style={{ background: 'var(--color-surface-raised)' }}
         >
           <div className="flex items-center gap-2.5">
             <span
@@ -182,7 +182,7 @@ export function CampaignStep({
         >
           {resolveBody()}
         </div>
-        <div className="flex items-center justify-between px-4 pt-2.5 pb-3.5 border-t border-border bg-[#FCFCFC]">
+        <div className="flex items-center justify-between px-4 pt-2.5 pb-3.5 border-t border-border bg-surface">
           <div className="font-mono text-[11px] text-on-surface-subtle">
             Step {stepNumber} of {totalSteps} · {playTitle}
           </div>

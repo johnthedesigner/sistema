@@ -6,10 +6,10 @@ import type { SearchEntry, SearchEntryType } from '@/lib/search'
 import { scoreEntry } from '@/lib/search'
 
 const TYPE_CONFIG: Record<SearchEntryType, { label: string; bg: string; color: string }> = {
-  play: { label: 'play', bg: '#E6F0FF', color: '#1056BF' },
-  featured: { label: 'featured', bg: '#0070FF', color: 'white' },
+  play: { label: 'play', bg: 'var(--color-primary-container)', color: 'var(--color-on-primary-container)' },
+  featured: { label: 'featured', bg: 'var(--color-primary)', color: 'var(--color-on-primary)' },
   kb: { label: 'kb', bg: 'var(--color-surface-sunken)', color: 'var(--color-on-surface-muted)' },
-  tool: { label: 'tool', bg: '#FFF8E0', color: '#8A6500' },
+  tool: { label: 'tool', bg: 'var(--color-brand-yellow-50)', color: 'var(--color-on-surface-muted)' },
 }
 
 function TypeBadge({ type }: { type: SearchEntryType }) {
@@ -121,7 +121,7 @@ export function CommandPalette({ open, onClose }: Props) {
     >
       <div
         className="w-full max-w-[560px] rounded-radius-xl border border-border bg-surface-raised overflow-hidden"
-        style={{ boxShadow: '0 8px 32px rgba(14,17,22,0.18), 0 2px 8px rgba(14,17,22,0.08)' }}
+        style={{ boxShadow: 'var(--shadow-md)' }}
         onClick={e => e.stopPropagation()}
       >
         {/* Input row */}

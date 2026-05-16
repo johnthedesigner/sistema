@@ -42,57 +42,11 @@ export default async function CampaignLandingPage({
             {campaign.title}
           </h1>
           <p
-            className="font-serif font-normal m-0 mb-5 md:mb-7 text-[15px] md:text-[16px]"
+            className="font-serif font-normal m-0 text-[15px] md:text-[16px]"
             style={{ lineHeight: 1.55, color: 'rgba(255,255,255,0.8)', maxWidth: 620 }}
           >
             {campaign.description}
           </p>
-
-          {/* Step sequence track — full on md+, scrollable pills on mobile */}
-          <div className="hidden md:flex items-center gap-1.5">
-            {campaign.steps.map((step, i) => (
-              <div key={step.playSlug} className="flex items-center gap-1.5 flex-1 min-w-0">
-                <div
-                  className="flex-1 px-2 py-1.5 rounded-[6px] min-w-0"
-                  style={{
-                    border: '1px solid rgba(255,255,255,0.22)',
-                    background: 'rgba(255,255,255,0.08)',
-                  }}
-                >
-                  <div className="font-mono mb-0.5" style={{ fontSize: 9.5, color: 'rgba(255,255,255,0.55)' }}>
-                    STEP {i + 1}
-                  </div>
-                  <p
-                    className="font-mono m-0 truncate"
-                    style={{ fontSize: 10.5, color: 'rgba(255,255,255,0.75)' }}
-                  >
-                    {step.playSlug}
-                  </p>
-                </div>
-                {i < campaign.steps.length - 1 && (
-                  <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: 10 }}>→</span>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile step pills */}
-          <div className="flex md:hidden gap-1.5 overflow-x-auto pb-1">
-            {campaign.steps.map((step, i) => (
-              <span
-                key={step.playSlug}
-                className="inline-flex items-center shrink-0 px-2.5 h-[26px] rounded-[6px] font-mono text-[10.5px]"
-                style={{
-                  border: '1px solid rgba(255,255,255,0.22)',
-                  background: 'rgba(255,255,255,0.08)',
-                  color: 'rgba(255,255,255,0.85)',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {i + 1}. {step.playSlug}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
 
