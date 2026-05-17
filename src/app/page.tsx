@@ -138,7 +138,7 @@ export default function Home() {
             >
               John the Designer
             </a>
-            {' '}— I&apos;ve built design systems professionally at Wayfair, Salesforce, and ReflexAI. This is the tool I wished I&apos;d had.
+            {' '}— I&apos;ve worked on design systems at Wayfair, Salesforce, and ReflexAI. This is the tool I wished I&apos;d had.
           </p>
         </div>
 
