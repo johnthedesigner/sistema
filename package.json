@@ -19,6 +19,7 @@
     "@vercel/analytics": "^2.0.1",
     "culori": "^4.0.2",
     "gray-matter": "^4.0.3",
+    "lucide-react": "^1.16.0",
     "next": "^15.3.2",
     "posthog-js": "^1.373.5",
     "react": "^19.1.0",

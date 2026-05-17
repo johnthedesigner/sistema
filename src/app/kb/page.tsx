@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Layers, ShieldCheck, FlaskConical, Bot, Compass } from 'lucide-react'
 import { listSystems, KB_CATEGORIES, type KBCategory } from '@/lib/kb'
 import { Logo } from '@/components/Logo'
 import { SearchButton } from '@/components/search/SearchButton'
@@ -14,36 +15,43 @@ function countEntries(category: KBCategory): number {
   return listSystems(category).length
 }
 
+type CategoryIcon = React.ComponentType<{ size?: number; className?: string }>
+
 const CATEGORY_META: Record<KBCategory, {
   title: string
   description: string
   examples: string[]
   featured?: boolean
   href: string
+  icon: CategoryIcon
 }> = {
   'design-systems': {
     title: 'Design Systems',
     description: 'Reference docs from named production systems. Use these to understand how proven systems solve structural problems.',
     examples: ['Material Design 3', 'Carbon (IBM)', 'Atlassian', 'Primer (GitHub)', 'Ant Design'],
     href: '/kb/design-systems',
+    icon: Layers,
   },
   'standards': {
     title: 'Standards',
     description: 'Normative specifications. Use these when your output must satisfy a published standard.',
     examples: ['WCAG 2.2', 'ARIA APG', 'APCA', 'DESIGN.md spec'],
     href: '/kb/standards',
+    icon: ShieldCheck,
   },
   'foundations': {
     title: 'Foundations',
     description: 'Scientific and theoretical underpinnings. Use these to understand why design systems are structured the way they are.',
     examples: ['OKLCH perception', 'Type rhythm', 'Spacing theory'],
     href: '/kb/foundations',
+    icon: FlaskConical,
   },
   'skills': {
     title: 'Agent Skills',
     description: 'Open-source design skills for AI coding agents — reviewed for license compatibility and synthesized into Sistema\'s principles.',
     examples: ['Impeccable', 'Anthropic frontend-design', 'designer-skills'],
     href: '/kb/skills',
+    icon: Bot,
   },
   'principles': {
     title: 'Principles',
@@ -51,6 +59,7 @@ const CATEGORY_META: Record<KBCategory, {
     examples: ['Positioning', 'Token architecture', 'Semantic layer design'],
     featured: true,
     href: '/kb/principles',
+    icon: Compass,
   },
 }
 
@@ -62,96 +71,14 @@ function ArrowRight({ size = 12 }: { size?: number }) {
   )
 }
 
-function DesignSystemsIllustration() {
-  return (
-    <svg width="260" height="100" viewBox="0 0 260 100">
-      {[0, 1, 2, 3, 4, 5].map(i => (
-        <rect key={i} x={20 + i * 38} y={20 + (i % 2) * 8} width="32" height="60" rx="4" fill="white" stroke="#C9CFD6" />
-      ))}
-      <rect x="58" y="32" width="20" height="6" fill="#0070FF" />
-      <rect x="58" y="44" width="16" height="4" fill="#E4E7EB" />
-      <rect x="58" y="52" width="14" height="4" fill="#E4E7EB" />
-      <rect x="134" y="36" width="20" height="6" fill="#FFCC33" />
-      <rect x="134" y="48" width="16" height="4" fill="#E4E7EB" />
-      <rect x="210" y="40" width="14" height="6" fill="#E60026" />
-    </svg>
-  )
-}
-
-function StandardsIllustration() {
-  return (
-    <svg width="260" height="100" viewBox="0 0 260 100">
-      <rect x="60" y="14" width="140" height="72" rx="4" fill="white" stroke="#0E1116" />
-      <rect x="76" y="28" width="60" height="4" fill="#0E1116" />
-      <rect x="76" y="40" width="108" height="3" fill="#5B6470" />
-      <rect x="76" y="48" width="92" height="3" fill="#5B6470" />
-      <rect x="76" y="56" width="100" height="3" fill="#5B6470" />
-      <rect x="76" y="64" width="40" height="3" fill="#5B6470" />
-      <circle cx="186" cy="68" r="10" fill="#0E1116" />
-      <path d="M181 68 l4 4 l7 -8" stroke="white" strokeWidth="1.6" fill="none" strokeLinecap="round" />
-    </svg>
-  )
-}
-
-function FoundationsIllustration() {
-  return (
-    <svg width="260" height="100" viewBox="0 0 260 100">
-      <line x1="30" y1="80" x2="230" y2="80" stroke="#C9CFD6" />
-      <line x1="30" y1="20" x2="30" y2="80" stroke="#C9CFD6" />
-      <path d="M30 78 Q 80 70, 130 50 T 230 22" stroke="#FFCC33" strokeWidth="3" fill="none" />
-      {[40, 70, 100, 130, 160, 190, 220].map((x, i) => (
-        <circle key={i} cx={x} cy={78 - i * 8} r="3.5" fill="#0070FF" />
-      ))}
-      <text x="200" y="92" fontFamily="monospace" fontSize="9" fill="#5B6470">L*</text>
-    </svg>
-  )
-}
-
-function PrinciplesIllustration() {
-  return (
-    <svg width="260" height="100" viewBox="0 0 260 100">
-      <g style={{ mixBlendMode: 'multiply' }}>
-        <circle cx="110" cy="56" r="34" fill="#FFCC33" />
-        <rect x="110" y="22" width="56" height="56" fill="#0070FF" />
-        <polygon points="148,18 188,80 110,80" fill="#E60026" />
-      </g>
-      <text x="20" y="92" fontFamily="monospace" fontSize="9" fill="#5B6470">primary references — synthesized across systems</text>
-    </svg>
-  )
-}
-
-function SkillsIllustration() {
-  return (
-    <svg width="260" height="100" viewBox="0 0 260 100">
-      {[0, 1, 2].map(i => (
-        <rect key={i} x={40 + i * 64} y={24} width={52} height={52} rx="6" fill="white" stroke="#C9CFD6" />
-      ))}
-      <text x="50" y="48" fontFamily="monospace" fontSize="9" fill="#5B6470">/impeccable</text>
-      <text x="114" y="48" fontFamily="monospace" fontSize="9" fill="#5B6470">/frontend</text>
-      <text x="114" y="60" fontFamily="monospace" fontSize="9" fill="#5B6470">-design</text>
-      <text x="178" y="48" fontFamily="monospace" fontSize="9" fill="#5B6470">/designer</text>
-      <text x="178" y="60" fontFamily="monospace" fontSize="9" fill="#5B6470">-skills</text>
-      <text x="20" y="92" fontFamily="monospace" fontSize="9" fill="#5B6470">agent skills — reviewed and synthesized</text>
-    </svg>
-  )
-}
-
-const ILLUSTRATIONS: Record<KBCategory, React.ReactNode> = {
-  'design-systems': <DesignSystemsIllustration />,
-  'standards': <StandardsIllustration />,
-  'foundations': <FoundationsIllustration />,
-  'skills': <SkillsIllustration />,
-  'principles': <PrinciplesIllustration />,
-}
-
 function CategoryCard({ category }: { category: KBCategory }) {
   const meta = CATEGORY_META[category]
   const count = countEntries(category)
-  const illustration = ILLUSTRATIONS[category]
+  const Icon = meta.icon
 
   return (
     <div
-      className="flex flex-col md:flex-row border rounded-radius-lg overflow-hidden relative bg-surface group cursor-pointer"
+      className="relative border rounded-radius-lg bg-surface group cursor-pointer"
       style={{ borderColor: meta.featured ? 'var(--color-primary)' : 'var(--color-border)' }}
     >
       <Link
@@ -160,24 +87,15 @@ function CategoryCard({ category }: { category: KBCategory }) {
         aria-label={`Browse ${meta.title}`}
       />
 
-      {/* Illustration area */}
-      <div
-        className="flex items-center justify-center relative overflow-hidden border-b border-border md:border-b-0 md:border-r shrink-0 h-[120px] md:h-auto md:w-[220px]"
-        style={{ background: 'var(--color-surface-sunken)' }}
-      >
-        {illustration}
-        <div className="absolute top-3 left-3.5">
-          <span className="font-mono text-[11px] text-on-surface-muted">
-            {count > 0 ? `${count} entries` : 'coming soon'}
-          </span>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="flex-1 min-w-0 p-5 md:p-[22px] relative z-10 pointer-events-none">
-        <div className="flex items-center gap-2.5 mb-1">
+      <div className="p-5 md:p-[22px] relative z-10 pointer-events-none">
+        {/* Title row */}
+        <div className="flex items-center gap-2.5 mb-2">
+          <Icon
+            size={18}
+            className={meta.featured ? 'text-primary shrink-0' : 'text-on-surface-muted shrink-0'}
+          />
           <h2
-            className="font-serif font-medium m-0 text-[22px] md:text-[26px]"
+            className="font-serif font-medium m-0 text-[20px] md:text-[22px] leading-none"
             style={{ letterSpacing: '-0.015em' }}
           >
             {meta.title}
@@ -190,13 +108,16 @@ function CategoryCard({ category }: { category: KBCategory }) {
               primary references
             </span>
           )}
+          <span className="ml-auto font-mono text-[11px] text-on-surface-subtle shrink-0">
+            {count > 0 ? `${count} entries` : 'coming soon'}
+          </span>
         </div>
 
-        <p className="text-[13.5px] leading-[1.5] text-on-surface-muted mb-3.5">
+        <p className="text-[13.5px] leading-[1.5] text-on-surface-muted mb-3.5 pl-[26px]">
           {meta.description}
         </p>
 
-        <div className="flex gap-1.5 flex-wrap mb-4">
+        <div className="flex items-center gap-1.5 flex-wrap pl-[26px]">
           {meta.examples.map(ex => (
             <span
               key={ex}
@@ -205,11 +126,10 @@ function CategoryCard({ category }: { category: KBCategory }) {
               {ex}
             </span>
           ))}
+          <span className="ml-auto inline-flex items-center gap-1.5 text-[12.5px] font-medium text-on-surface-muted group-hover:text-on-surface transition-colors shrink-0">
+            Browse {meta.title} <ArrowRight size={11} />
+          </span>
         </div>
-
-        <span className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-on-surface-muted group-hover:text-on-surface transition-colors">
-          Browse {meta.title} <ArrowRight size={11} />
-        </span>
       </div>
     </div>
   )
@@ -256,7 +176,7 @@ export default function KBLandingPage() {
             Named systems, specifications, and theoretical foundations. These are raw material — consulted for prior art and conformance, not synthesis.
           </p>
         </div>
-        <div className="flex flex-col gap-[14px] mb-10">
+        <div className="flex flex-col gap-[10px] mb-10">
           {(['design-systems', 'standards', 'foundations', 'skills'] as const).map(category => (
             <CategoryCard key={category} category={category} />
           ))}
