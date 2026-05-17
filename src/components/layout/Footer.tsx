@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Wordmark } from '@/components/Logo'
 
 function JohnTheDesignerMark({ size = 16 }: { size?: number }) {
   const w = Math.round(size * (90 / 41))
@@ -16,7 +15,8 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border">
       <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-6 flex flex-col md:flex-row items-start md:items-center gap-3 text-[13px] text-on-surface-muted">
-        <Wordmark size={18} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/sistema-logo.svg" alt="Sistema" style={{ height: 36, width: 'auto' }} />
         <div className="md:ml-auto flex flex-wrap items-center gap-2.5">
           <span className="font-mono text-[11px] text-on-surface-subtle">v0.4 · public beta</span>
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-on-surface-subtle" />
