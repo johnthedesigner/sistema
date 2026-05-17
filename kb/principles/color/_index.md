@@ -12,6 +12,8 @@ How to design a color system that is accessible, themeable, and honest about the
 
 - **palette-generation** — Complete algorithm for generating 19-stop shade palettes (50–950) from seed hex colors using contrast-targeting: dense OKLCH candidate generation, logarithmic target contrast table (1.01–19.0), WCAG contrast selection, dual white/black contrast tracking, gamut handling, output JSON schema, and pre-generated library approach.
 
+- **primitive-ramp-scalability** — Why full 19-stop OKLCH ramps should be generated before mapping semantic roles, especially for SaaS. Covers the scalability gap of hand-picked primitives, the contrast interchangeability benefit across hues, the dark mode benefit, when to generate full ramps vs. when it's overkill, the multi-hue strategy, and how ramps feed into the semantic layer. References the Sistema palette tool as the generation mechanism.
+
 ---
 
 ## Source Map

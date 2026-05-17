@@ -23,6 +23,14 @@ Items discovered during development or piloting that are not urgent enough to fi
 
   *Identified 2026-05-16.*
 
+## Copy and content quality
+
+- **Site-wide audit for AI writing patterns** — The VOICE_AND_TONE.md now defines a set of structural patterns to avoid (the "not just X — it's Y" family, contrast-first framing, ends-on-a-negative constructions, and others). The KB landing page descriptions have been cleaned, but the rest of the site has not been audited against this standard. Pages to check: home page subhead and credibility callout, playbook index and individual play descriptions (`PLAY_DESCRIPTIONS` in `playbooks/[slug]/page.tsx`, `PLAY_OUTPUTS` in `playbooks/page.tsx`), campaign descriptions (sourced from campaign markdown files), guide page body copy, sources page item descriptions, and KB category page copy at the system and file level. *Rule codified 2026-05-17.*
+
+## Test coverage
+
+- **Zero test coverage — full audit and baseline needed** — The codebase has no test files of any kind. The only runtime validation is TypeScript's type checker. Areas that warrant coverage: palette generation algorithm (`src/lib/palette.ts` — contrast-targeting math, gamut handling, stop selection); KB and playbook parsing (`src/lib/kb.ts`, `src/lib/playbooks.ts` — markdown parsing, slug extraction, variable detection); API routes (`/api/palette`, `/api/context` — request validation, error handling); sitemap and robots generation; and client-side prompt resolution (`resolveBody`, `extractVariables`, `emptyFallback` in `PlayDetail.tsx` — variable substitution, empty-field fallback text). Suggested stack: Vitest for unit/integration, Playwright for critical UI paths (copy prompt, examples modal, color mode selector persistence). *Identified 2026-05-17.*
+
 ## Component library
 
 - **`scaffold-component-library` play for headless library integration** — The bootstrap campaign ends at token generation. The existing component plays write from scratch, which is slow and skips accessibility correctness that headless libraries provide. A new play should detect or recommend a headless library (shadcn/ui, Base UI, Radix, Ark UI) based on the stack in the living brief, wire its token slots to the generated token file, and establish a pattern for future `add-component` calls. *Planned as Phase 9. Deferred until bootstrap campaign pilot results reviewed. 2026-05-14.*

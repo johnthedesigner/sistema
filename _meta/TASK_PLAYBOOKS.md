@@ -225,9 +225,15 @@ Do not proceed to token generation until the user approves the style tile.
 
 **Step 5 — Update the living brief:**
 
-After approval, update the Key Decisions section of `LIVING_BRIEF.md` with the visual direction decisions. Append to the Decision Log:
+After approval, update the Key Decisions section of `LIVING_BRIEF.md` with the visual direction decisions. Include the following specific values so they are available for downstream plays:
+- OKLCH commitment level
+- Primary seed hex (the exact hex value to feed into the palette tool)
+- Neutral seed hex (warm or cool tinted gray seed)
+- Any secondary or feedback hue seeds if established
+
+Append to the Decision Log:
 ```
-[date] — Visual language established — [commitment level, primary color, typographic character, radius personality]
+[date] — Visual language established — [commitment level, primary seed hex, typographic character, radius personality]
 ```
 
 ---
@@ -290,10 +296,11 @@ Read `LIVING_BRIEF.md`. Note the theme setting (light-only / dark-only / both), 
 
 Read the following from the Sistema knowledge base:
 - Color architecture synthesis: `{{sistema_url}}/raw/principles/color/architecture`
+- Primitive ramp scalability: `{{sistema_url}}/raw/principles/color/primitive-ramp-scalability`
 - Token architecture synthesis: `{{sistema_url}}/raw/principles/tokens/architecture`
 - Visual quality signals: `{{sistema_url}}/raw/principles/quality/visual-quality-signals`
 
-The color architecture synthesis explains the four major architectural models, the non-negotiable floor (contrast requirements, foreground pairings, never-hardcode), and dark mode tonal shift logic. Use it to select the appropriate model for this product and to structure the output. The visual quality signals document defines the OKLCH commitment levels (§4) and absolute color bans (§3.2) — apply both when selecting values.
+The color architecture synthesis explains the four major architectural models, the non-negotiable floor (contrast requirements, foreground pairings, never-hardcode), and dark mode tonal shift logic. Use it to select the appropriate model for this product and to structure the output. The primitive ramp scalability document explains the default preference for full 19-stop primitive ramps before semantic mapping and how they feed the semantic layer. The visual quality signals document defines the OKLCH commitment levels (§4) and absolute color bans (§3.2) — apply both when selecting values.
 
 **Step 3 — Clarify scope:**
 
@@ -303,12 +310,42 @@ Theme mode: {{color_mode}}
 - **Dark only:** generate `:root { }` with dark mode values only
 - **Both:** generate `:root { }` with light mode values, then `[data-theme="dark"] { }` with dark mode values
 
-**Step 4 — Generate the color scheme:**
+**Step 3.5 — Resolve seed colors and generate primitive ramps:**
+
+The default approach is to generate a full 19-stop OKLCH primitive ramp for each key hue before mapping semantic roles. This makes semantic role mapping deterministic and keeps the primitive layer extensible as the system grows.
+
+**Determine seed colors from the color direction:**
 
 My color direction:
 {{color_direction}}
 
-Generate the following semantic roles as CSS custom properties. Use the naming pattern `--color-[role]`:
+Read the color direction above and determine the seed hex(es) to use:
+- If a specific hex is given, use it directly.
+- If a color name or description is given (e.g. "royal blue", "warm amber"), select an appropriate seed hex that matches the intent. Prefer hues that are not the AI-default medium blue (220–240°) unless explicitly requested — run the first-order reflex check from the quality signals document.
+- If no color direction is given at all, check the LIVING_BRIEF for a primary seed hex from `establish-visual-language`. If none exists, ask the user for a primary brand color before proceeding.
+
+Generate ramps for at minimum:
+- **Primary hue** — the brand or action color seed
+- **Neutral/gray** — pick a seed with slight chroma that matches the product's temperature (warm: slight yellow/red shift; cool: slight blue/cyan shift). Do not use a pure achromatic gray.
+- **Feedback hues** — use the pre-built ramps from the Sistema palette library for error, success, and warning unless the brief specifies custom feedback colors.
+
+**API call — generate custom ramps:**
+
+POST `{{sistema_url}}/api/palette` with the body:
+```json
+{ "colors": { "primary": "#[seed]", "neutral": "#[seed]" } }
+```
+The response is `{ "palettes": { "[name]": { "seed": "...", "stops": { "50": { "hex": "...", "contrast_white": ..., "contrast_black": ... }, ... "950": {...} } } } }`.
+
+Call this endpoint with your determined seed hex(es). Use the returned stop values for all semantic role assignments in Step 4.
+
+**Pre-built ramps for feedback and neutral hues:**
+
+If the brief does not specify custom feedback colors, fetch the pre-built library at `{{sistema_url}}/palettes/library.json`. Available named ramps: slate, gray, zinc, neutral, stone (neutral grays); red, orange, amber, yellow, lime, green, emerald, teal, cyan, sky, blue, indigo, violet, purple, fuchsia, pink, rose (chromatic). Select the neutral ramp that best matches the product temperature and use red/amber/green for error/warning/success feedback roles.
+
+**Step 4 — Map semantic roles:**
+
+Using the generated ramp stops from Step 3.5, assign the following semantic roles as CSS custom properties. Use the naming pattern `--color-[role]`. For each role, note which ramp name and stop number you selected:
 
 **Required roles:**
 - `--color-primary` and `--color-on-primary` — primary action and its text
@@ -463,14 +500,17 @@ Update the Shape entry in Key Decisions and append to the decision log:
 
 Use this play when you already have a set of color values — from a brand palette, a Figma file, or an existing design system — and you want to map them to semantic roles that components can consume.
 
-If you are starting from a single seed color with no existing palette, use `generate-color-scheme` instead.
+If you are starting from a single seed color with no existing palette, use `generate-color-scheme` instead — it generates primitive ramps via the Sistema palette API and then maps them to semantic roles.
 
 **Step 1 — Read the references:**
 
 Read the following from the Sistema knowledge base:
 - Color architecture synthesis: `{{sistema_url}}/raw/principles/color/architecture`
+- Primitive ramp scalability: `{{sistema_url}}/raw/principles/color/primitive-ramp-scalability`
 
 Pay attention to the non-negotiable floor section: required semantic roles, the on-* pairing pattern, contrast requirements, and the never-hardcode rule.
+
+**Ramp completeness check:** If the palette provided has fewer than 10 stops per hue, expand it to a full 19-stop ramp before mapping roles. POST the seed hex(es) to `{{sistema_url}}/api/palette` with body `{ "colors": { "[name]": "#[seed]" } }` and use the returned stops. For feedback hues not present in the existing palette, fetch the pre-built library at `{{sistema_url}}/palettes/library.json` and select from the named ramps. If the palette is a fixed brand specification with specific values that cannot be expanded (e.g. an existing Figma swatch export), proceed as-is and flag any semantic role where the palette has no suitable stop.
 
 My existing palette:
 [Paste your color values here — hex values, a Figma swatch export, a Tailwind color config, or whatever format you have. Include neutrals and grays.]

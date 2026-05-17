@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { MarkdownBody } from '@/components/kb/MarkdownBody'
 import { instrumentRawUrls, trackCopy } from '@/lib/analytics'
 import { ColorModeSelector, COLOR_MODE_STORAGE_KEY } from './ColorModeSelector'
@@ -25,6 +25,11 @@ const PLACEHOLDERS: Record<string, string> = {
   tailwind_colors: 'Paste the colors section from your tailwind.config',
 }
 
+function emptyFallback(variable: string): string {
+  const label = formatLabel(variable).toLowerCase()
+  return `[No ${label} provided — check LIVING_BRIEF.md and any existing design documentation for relevant context. If none is found, ask the user before continuing.]`
+}
+
 function resolveBody(
   body: string,
   values: Record<string, string>,
@@ -34,7 +39,7 @@ function resolveBody(
   for (const [key, value] of Object.entries(values)) {
     out = out.replace(
       new RegExp(`\\{\\{${key}\\}\\}`, 'g'),
-      value.trim() || `{{${key}}}`,
+      value.trim() || emptyFallback(key),
     )
   }
   return out
@@ -69,9 +74,9 @@ function CheckIcon() {
   )
 }
 
-// ── examples flyout ───────────────────────────────────────────────────────────
+// ── examples modal ────────────────────────────────────────────────────────────
 
-function ExamplesFlyout({
+function ExamplesModal({
   exemplars,
   variables,
   onApply,
@@ -81,16 +86,6 @@ function ExamplesFlyout({
   onApply: (values: Record<string, string>) => void
 }) {
   const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!open) return
-    function handler(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
-    }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
-  }, [open])
 
   const usable = exemplars.filter(
     e => e.input && Object.keys(e.input).some(k => variables.includes(k)),
@@ -98,9 +93,9 @@ function ExamplesFlyout({
   if (usable.length === 0) return null
 
   return (
-    <div className="relative" ref={ref}>
+    <>
       <button
-        onClick={() => setOpen(o => !o)}
+        onClick={() => setOpen(true)}
         className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11.5px] font-medium border border-border rounded-radius-md text-on-surface-muted hover:text-on-surface hover:bg-surface-sunken transition-colors"
       >
         <svg width={11} height={11} viewBox="0 0 24 24" fill="none">
@@ -118,50 +113,61 @@ function ExamplesFlyout({
 
       {open && (
         <div
-          className="absolute left-0 top-full mt-1.5 z-30 w-[360px] border border-border rounded-radius-lg bg-surface-raised overflow-hidden"
-          style={{ boxShadow: 'var(--shadow-md)' }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-6"
+          onClick={() => setOpen(false)}
         >
-          <div className="px-4 py-2.5 border-b border-border">
-            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-on-surface-muted">
-              Example inputs
-            </p>
-          </div>
-          <div className="divide-y divide-border max-h-[400px] overflow-y-auto">
-            {usable.map((ex, i) => (
-              <div key={i} className="px-4 py-3.5">
-                {ex.title && (
-                  <p className="text-[13px] font-semibold text-on-surface mb-1">{ex.title}</p>
-                )}
-                {ex.quality_notes && (
-                  <p className="text-[12px] text-on-surface-muted leading-[1.45] mb-2.5">
-                    {ex.quality_notes}
-                  </p>
-                )}
-                <div className="space-y-1.5 mb-3">
-                  {Object.entries(ex.input ?? {})
-                    .filter(([k]) => variables.includes(k))
-                    .map(([key, val]) => (
-                      <div key={key} className="text-[12px]">
-                        <span className="font-mono text-on-surface-muted">{`{{${key}}}`}: </span>
-                        <span className="text-on-surface">{val}</span>
-                      </div>
-                    ))}
+          <div className="absolute inset-0 bg-black/40" />
+          <div
+            className="relative w-full max-w-[520px] max-h-[80vh] flex flex-col border border-border rounded-radius-xl bg-surface-raised overflow-hidden"
+            style={{ boxShadow: 'var(--shadow-lg)' }}
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-5 py-3.5 border-b border-border shrink-0">
+              <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-on-surface-muted">
+                Example inputs
+              </p>
+              <button
+                onClick={() => setOpen(false)}
+                className="text-on-surface-muted hover:text-on-surface transition-colors"
+                aria-label="Close"
+              >
+                <svg width={16} height={16} viewBox="0 0 24 24" fill="none">
+                  <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                </svg>
+              </button>
+            </div>
+            <div className="divide-y divide-border overflow-y-auto">
+              {usable.map((ex, i) => (
+                <div key={i} className="px-5 py-4">
+                  {ex.title && (
+                    <p className="text-[13px] font-semibold text-on-surface mb-2">{ex.title}</p>
+                  )}
+                  <div className="space-y-1.5 mb-3.5">
+                    {Object.entries(ex.input ?? {})
+                      .filter(([k]) => variables.includes(k))
+                      .map(([key, val]) => (
+                        <div key={key} className="text-[12px]">
+                          <span className="font-mono text-on-surface-muted">{`{{${key}}}`}: </span>
+                          <span className="text-on-surface">{val}</span>
+                        </div>
+                      ))}
+                  </div>
+                  <button
+                    onClick={() => {
+                      onApply(ex.input ?? {})
+                      setOpen(false)
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[12px] font-medium bg-primary text-on-primary rounded-radius-sm hover:opacity-90 transition-opacity"
+                  >
+                    Use this example
+                  </button>
                 </div>
-                <button
-                  onClick={() => {
-                    onApply(ex.input ?? {})
-                    setOpen(false)
-                  }}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[12px] font-medium bg-primary text-on-primary rounded-radius-sm hover:opacity-90 transition-opacity"
-                >
-                  Use this example
-                </button>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       )}
-    </div>
+    </>
   )
 }
 
@@ -183,7 +189,10 @@ export function PlayDetail({ body, playSlug, tags, refs, exemplars }: PlayDetail
 
   const [tab, setTab] = useState<'prompt' | 'example'>('prompt')
   const [values, setValues] = useState<Record<string, string>>(
-    Object.fromEntries(variables.map(v => [v, ''])),
+    Object.fromEntries(variables.map(v => [
+      v,
+      v === 'color_mode' && isColorPlay ? 'Both' : '',
+    ])),
   )
   const [copied, setCopied] = useState(false)
   const [origin, setOrigin] = useState('')
@@ -252,7 +261,7 @@ export function PlayDetail({ body, playSlug, tags, refs, exemplars }: PlayDetail
                     fill in to personalize the prompt
                   </span>
                 </div>
-                <ExamplesFlyout
+                <ExamplesModal
                   exemplars={exemplars}
                   variables={variables}
                   onApply={inputs => setValues(prev => ({ ...prev, ...inputs }))}

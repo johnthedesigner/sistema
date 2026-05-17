@@ -83,6 +83,21 @@ Active where possible. "Add a source" not "A source can be added." Passive voice
 ### Reading level
 Write for smart practitioners, not for entry-level. Use domain vocabulary that any mid-career designer or developer would know. Don't explain it; use it.
 
+### AI writing patterns to avoid
+These constructions are hallmarks of AI-generated text. Avoid them.
+
+- **"It's not just X — it's Y."** Say what it is. Drop the "not just" setup entirely.
+- **"Unlike X, Y..."** Leads with a contrast instead of a claim. Start with the claim.
+- **"Not just X"** as a modifier — "not just a tool," "not just documentation." Cut the hedge; say what it is.
+- **"Rather than X, Y."** Same pattern. Frame positively — say what the thing does, not what it doesn't do.
+- **"Whether you're X or Y..."** Faux-inclusive setup. Address the reader directly instead.
+- **"From X to Y..."** Range constructions that imply comprehensiveness without saying anything specific.
+- **"At the heart of..."** Decorative framing. Say the thing at the heart.
+- **"In today's world of..."** Context-setting that adds nothing. Start with the point.
+- **Ending sentences on "not X."** Reframe so the sentence ends on what is true, not what isn't.
+
+The test: could a sentence be lifted from a product marketing page and feel at home? If yes, rewrite it. Say the specific thing, not the shape of the thing.
+
 ---
 
 ## 4 — UI copy patterns

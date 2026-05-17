@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { Wordmark } from '@/components/Logo'
 import { CommandPalette } from '@/components/search/CommandPalette'
 
 const NAV_LINKS = [
@@ -47,7 +46,12 @@ export function Nav() {
           {/* Left: wordmark + desktop nav */}
           <div className="flex items-center gap-8 md:gap-12">
             <Link href="/" className="flex items-center" onClick={close}>
-              <Wordmark size={20} />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/sistema-by-jtd-logo.svg"
+                alt="Sistema by JTD"
+                style={{ height: 40, width: 'auto' }}
+              />
             </Link>
             <nav className="hidden md:flex items-center gap-7">
               {NAV_LINKS.map(({ label, href }) => {
@@ -78,11 +82,11 @@ export function Nav() {
           <div className="hidden md:flex items-center gap-3.5">
             <button
               onClick={() => setSearchOpen(true)}
-              className="flex items-center gap-2 h-[34px] px-3 border border-border rounded-radius-md bg-surface-raised text-on-surface-subtle text-[13px] min-w-[260px] hover:border-border-strong transition-colors"
+              className="flex items-center gap-2 h-[34px] px-3 border border-border rounded-radius-md bg-surface-raised text-on-surface-subtle hover:border-border-strong transition-colors"
+              aria-label="Search"
             >
               <SearchIcon />
-              <span className="text-on-surface-subtle">Search plays, KB, tools…</span>
-              <span className="ml-auto font-mono text-[11px] px-1.5 py-0.5 border border-border rounded text-on-surface-subtle">
+              <span className="font-mono text-[11px] px-1.5 py-0.5 border border-border rounded text-on-surface-subtle">
                 ⌘K
               </span>
             </button>
