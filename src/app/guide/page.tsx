@@ -1,13 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { DesignMdCallout } from '@/components/shared/DesignMdCallout'
+import { SITE_URL } from '@/lib/site-url'
 
 export const metadata: Metadata = {
   title: 'How to use Sistema',
-  description: 'A practical guide to using Sistema\'s knowledge base and playbook in AI coding workflows.',
+  description: 'A practical walkthrough — from a blank project to a running design system using Sistema plays in Claude Code or Cursor.',
 }
 
-const VERCEL_URL = 'https://sistema-bay-seven.vercel.app'
+const VERCEL_URL = SITE_URL
 
 const STAGES = [
   {
@@ -83,7 +84,7 @@ export default function GuidePage() {
       <div className="mb-12">
         <h1 className="text-3xl font-bold tracking-tight text-on-surface mb-3">How to use Sistema</h1>
         <p className="text-on-surface-muted text-lg">
-          A practical walkthrough — from setting up your project to running plays end-to-end.
+          A practical walkthrough — from a blank project to a running design system.
         </p>
       </div>
 
@@ -194,7 +195,7 @@ export default function GuidePage() {
 
       {/* ── Section 3 ── */}
       <section className="mb-14">
-        <h2 className="text-xl font-semibold text-on-surface mb-1">Running a playbook end-to-end</h2>
+        <h2 className="text-xl font-semibold text-on-surface mb-1">Running plays end-to-end</h2>
         <p className="text-on-surface-muted mb-6">
           Here&apos;s a complete example of using Sistema to build the color layer of a new design system — from a seed color to deployable CSS custom properties. This is Stages 1–3 in sequence.
         </p>

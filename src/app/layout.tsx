@@ -5,6 +5,7 @@ import { SiteFooter } from '@/components/layout/Footer'
 import { ThemeDebugToggle } from '@/components/dev/ThemeDebugToggle'
 import { Analytics } from '@vercel/analytics/next'
 import { PostHogProvider } from '@/components/providers/PostHogProvider'
+import { SITE_URL } from '@/lib/site-url'
 import '../styles/globals.css'
 
 const inter = Inter({
@@ -30,15 +31,26 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Sistema',
-  description: 'Design system knowledge base',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Sistema — Design system prompts for Claude Code and Cursor',
+    template: '%s — Sistema',
+  },
+  description:
+    'Ready-to-paste prompts grounded in real design system references. Helps Claude Code and Cursor generate tokens, components, and audits without guessing.',
   openGraph: {
-    title: 'Sistema',
-    description: 'Design system knowledge base',
-    images: [{ url: '/og-image.png', width: 1200, height: 630 }],
+    type: 'website',
+    siteName: 'Sistema',
+    title: 'Sistema — Design system prompts for Claude Code and Cursor',
+    description:
+      'Ready-to-paste prompts grounded in real design system references. Helps Claude Code and Cursor generate tokens, components, and audits without guessing.',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Sistema' }],
   },
   twitter: {
     card: 'summary_large_image',
+    title: 'Sistema — Design system prompts for Claude Code and Cursor',
+    description:
+      'Ready-to-paste prompts grounded in real design system references. Helps Claude Code and Cursor generate tokens, components, and audits without guessing.',
     images: ['/og-image.png'],
   },
   icons: {
@@ -46,6 +58,10 @@ export const metadata: Metadata = {
     other: [
       { rel: 'icon', url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
     ],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 

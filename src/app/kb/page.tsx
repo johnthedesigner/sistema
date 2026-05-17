@@ -1,7 +1,14 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { listSystems, KB_CATEGORIES, type KBCategory } from '@/lib/kb'
 import { Logo } from '@/components/Logo'
 import { SearchButton } from '@/components/search/SearchButton'
+
+export const metadata: Metadata = {
+  title: 'Knowledge Base',
+  description:
+    'Reference material from Material Design, Carbon, Atlassian, Primer, and more — grounded context for AI-assisted design system work.',
+}
 
 function countEntries(category: KBCategory): number {
   return listSystems(category).length
@@ -31,6 +38,12 @@ const CATEGORY_META: Record<KBCategory, {
     description: 'Scientific and theoretical underpinnings. Use these to understand why design systems are structured the way they are.',
     examples: ['OKLCH perception', 'Type rhythm', 'Spacing theory'],
     href: '/kb/foundations',
+  },
+  'skills': {
+    title: 'Agent Skills',
+    description: 'Open-source design skills for AI coding agents — reviewed for license compatibility and synthesized into Sistema\'s principles.',
+    examples: ['Impeccable', 'Anthropic frontend-design', 'designer-skills'],
+    href: '/kb/skills',
   },
   'principles': {
     title: 'Principles',
@@ -107,10 +120,27 @@ function PrinciplesIllustration() {
   )
 }
 
+function SkillsIllustration() {
+  return (
+    <svg width="260" height="100" viewBox="0 0 260 100">
+      {[0, 1, 2].map(i => (
+        <rect key={i} x={40 + i * 64} y={24} width={52} height={52} rx="6" fill="white" stroke="#C9CFD6" />
+      ))}
+      <text x="50" y="48" fontFamily="monospace" fontSize="9" fill="#5B6470">/impeccable</text>
+      <text x="114" y="48" fontFamily="monospace" fontSize="9" fill="#5B6470">/frontend</text>
+      <text x="114" y="60" fontFamily="monospace" fontSize="9" fill="#5B6470">-design</text>
+      <text x="178" y="48" fontFamily="monospace" fontSize="9" fill="#5B6470">/designer</text>
+      <text x="178" y="60" fontFamily="monospace" fontSize="9" fill="#5B6470">-skills</text>
+      <text x="20" y="92" fontFamily="monospace" fontSize="9" fill="#5B6470">agent skills — reviewed and synthesized</text>
+    </svg>
+  )
+}
+
 const ILLUSTRATIONS: Record<KBCategory, React.ReactNode> = {
   'design-systems': <DesignSystemsIllustration />,
   'standards': <StandardsIllustration />,
   'foundations': <FoundationsIllustration />,
+  'skills': <SkillsIllustration />,
   'principles': <PrinciplesIllustration />,
 }
 
@@ -198,14 +228,14 @@ export default function KBLandingPage() {
             className="font-serif font-medium text-on-surface m-0 mb-3 text-[26px] md:text-[36px]"
             style={{ lineHeight: 1.1, letterSpacing: '-0.02em', maxWidth: 820 }}
           >
-            Reference material plays read so your agent doesn&apos;t guess.
+            The reference your plays use, so your agent doesn&apos;t guess.
           </h1>
           <p
             className="text-on-surface-muted font-serif font-normal m-0"
             style={{ maxWidth: 740, fontSize: 16, lineHeight: 1.55, fontVariationSettings: "'opsz' 32" }}
           >
-            The KB is for agents, not for human reading. Browse it to understand what is grounded,
-            then go back to a play — that&apos;s where it gets pulled in automatically.
+            Every play pulls from this Knowledge Base at runtime. Browse by category to see what&apos;s covered,
+            or search for a specific document.
           </p>
         </div>
 
@@ -227,9 +257,28 @@ export default function KBLandingPage() {
           </p>
         </div>
         <div className="flex flex-col gap-[14px] mb-10">
-          {(['design-systems', 'standards', 'foundations'] as const).map(category => (
+          {(['design-systems', 'standards', 'foundations', 'skills'] as const).map(category => (
             <CategoryCard key={category} category={category} />
           ))}
+        </div>
+
+        {/* Sources callout */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 rounded-radius-md border border-border bg-surface-sunken px-5 py-4 mb-5">
+          <div className="flex-1 min-w-0">
+            <p className="text-[13.5px] font-semibold text-on-surface mb-0.5">Knowledge Base sources</p>
+            <p className="text-[12.5px] text-on-surface-muted m-0 leading-[1.45]">
+              This Knowledge Base is built from publicly available documentation: Material Design, Carbon, Atlassian, Ant Design, Radix, Primer, W3C, Shopify Polaris, MailChimp, and more.
+            </p>
+          </div>
+          <Link
+            href="/sources"
+            className="inline-flex items-center gap-1.5 h-[30px] px-3 text-[12.5px] font-medium border border-border rounded-radius-md text-on-surface bg-surface hover:bg-surface-sunken transition-colors no-underline shrink-0"
+          >
+            View all sources
+            <svg width={11} height={11} viewBox="0 0 24 24" fill="none">
+              <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
         </div>
 
         {/* KB utility strip */}
@@ -238,7 +287,7 @@ export default function KBLandingPage() {
           style={{ padding: '16px 20px' }}
         >
           <Logo size={28} />
-          <strong className="text-[13.5px] text-on-surface">Looking for a specific document, not a category?</strong>
+          <strong className="text-[13.5px] text-on-surface">Find a specific document</strong>
           <div className="sm:ml-auto flex gap-2.5">
             <SearchButton className="inline-flex items-center h-[30px] px-3 text-[12.5px] font-medium border border-border rounded-radius-md text-on-surface bg-surface hover:bg-surface-sunken transition-colors">
               Search the Knowledge Base

@@ -1149,3 +1149,128 @@ Append to the Decision Log:
 ```
 [date] — Documentation site generated — [approach, sections included]
 ```
+
+---
+
+## define-voice-and-tone — Define Voice and Tone
+
+**Stage:** 1
+**Tags:** content, voice, tone, copywriting, foundations, living-brief
+
+You are establishing the voice, tone, and writing standards for a design system. Your output is a `VOICE_AND_TONE.md` document that becomes the persistent writing reference for the project — the equivalent of a content design system's `DESIGN.md`.
+
+**Step 1 — Read the living brief:**
+
+Read `LIVING_BRIEF.md` from the project root. Note:
+- Product type and audience
+- Brand stance (expressive ↔ utilitarian)
+- Density (content-dense / content-sparse / balanced)
+- Any existing voice or brand personality notes
+
+If no living brief exists, ask the user to run `establish-context` first, or provide the project context below.
+
+**Step 2 — Read the references:**
+
+Read the following from the Sistema knowledge base:
+- Voice and tone synthesis: `{{sistema_url}}/raw/principles/content/voice-and-tone`
+- UI copy patterns: `{{sistema_url}}/raw/principles/content/ui-copy-patterns`
+- Writing mechanics: `{{sistema_url}}/raw/principles/content/writing-mechanics`
+
+These three documents synthesize content design guidance from MailChimp, Shopify Polaris, Carbon (IBM), and Atlassian. The voice-and-tone synthesis defines the cross-system baseline (plainspoken, genuine, helpful, direct), the brand-specific trait model, and the tone-adjustment framework by emotional context. The UI copy patterns document covers buttons, navigation, form labels, error messages, empty states, and confirmation dialogs — each with production-grounded do/don't examples. The writing mechanics document covers capitalization (sentence case everywhere), punctuation (periods, Oxford comma, exclamation marks), numbers, active voice, second-person address, reading level, and the lean content rule. Treat all three as the foundation — your output extends them with product-specific decisions, not replaces them.
+
+**Step 3 — Generate VOICE_AND_TONE.md:**
+
+My project context (supplement to the living brief):
+
+{{project_context}}
+
+Write `VOICE_AND_TONE.md` at the project root with this structure:
+
+```
+# VOICE_AND_TONE.md
+
+*Voice and writing standards for [Product Name]. Read at session start; reference when writing or reviewing any UI copy.*
+
+---
+
+## 1. Voice
+
+**[2–3 word voice label]:** [One-sentence description of the voice character that distinguishes it from the generic baseline.]
+
+Core traits (extend the cross-system baseline):
+- **Plainspoken:** [How this product specifically interprets plainspoken]
+- **Genuine:** [Any brand-specific authenticity notes]
+- **[Brand-specific trait 1]:** [Description and limits]
+- **[Brand-specific trait 2 if applicable]:** [Description and limits]
+
+Voice limits: [What this voice is not. 2–3 explicit prohibitions.]
+
+---
+
+## 2. Tone adjustments
+
+| Context | Reader state | Our tone |
+|---|---|---|
+| [context specific to this product] | [state] | [direction] |
+...
+
+---
+
+## 3. Writing mechanics
+
+Capitalization: [sentence case / any exceptions]
+Periods: [single-sentence labels: omit / multi-sentence: use]
+Contractions: [use / avoid — with rationale]
+Numbers: [numerals in UI / spell out in body if applicable]
+Oxford comma: [use / omit]
+Exclamation marks: [use sparingly / specific contexts]
+Address users as: [you / they / other — with rationale]
+
+---
+
+## 4. UI copy patterns
+
+### Buttons
+[Verb+noun rule for this product. Any exceptions or brand-specific patterns.]
+
+### Errors
+[Error message structure for this product. Tone guidance specific to the product's emotional register.]
+
+### Empty states
+[Empty state structure. Whether this product uses personality/illustration or direct instruction.]
+
+### Confirmations
+[Confirmation dialog standard for this product.]
+
+---
+
+## 5. Words to use / avoid
+
+| Use | Avoid | Reason |
+|---|---|---|
+| [term the product uses] | [term to avoid] | [brief reason] |
+...
+
+---
+
+## 6. The test
+
+Before publishing any copy: read it aloud. Does it sound like something a person at [Company/Product] would actually say to a user?
+
+If yes: ship it. If not: rewrite it.
+```
+
+Rules:
+- Draw specific character traits from the project context and living brief — do not use generic placeholder values
+- The voice label should be memorable and specific, not "friendly and professional"
+- The tone adjustment table must include 4–6 rows with contexts specific to this product's UI flows
+- The words table must include at least 5 rows drawn from the product's domain vocabulary
+- Use the cross-system mechanics defaults unless the project context gives a clear reason to deviate
+- Output raw markdown only — no surrounding explanation
+
+**Step 4 — Update the living brief:**
+
+Append to the Decision Log in `LIVING_BRIEF.md`:
+```
+[date] — Voice and tone guide generated — VOICE_AND_TONE.md created. Key voice traits: [list].
+```

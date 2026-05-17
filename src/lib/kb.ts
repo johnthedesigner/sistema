@@ -6,7 +6,7 @@ import type { ContentFile, ContentFrontmatter, StubFrontmatter, SystemIndex } fr
 const KB_ROOT = process.cwd()
 const KB_BASE = path.join(KB_ROOT, 'kb')
 
-const REFERENCE_CATEGORIES = ['design-systems', 'standards', 'foundations'] as const
+const REFERENCE_CATEGORIES = ['design-systems', 'standards', 'foundations', 'skills'] as const
 const REFERENCE_CATEGORY_SET = new Set(REFERENCE_CATEGORIES as readonly string[])
 
 export const KB_CATEGORIES = [...REFERENCE_CATEGORIES, 'principles'] as const

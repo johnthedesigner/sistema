@@ -10,6 +10,50 @@ Read `SCHEMA.md` before this document if you have not already. All terminology u
 
 ---
 
+## The KB Process — What This Project Is
+
+**Building the knowledge base is the primary work of this project.** Every crawling session, every research session, every time a new source is evaluated — that is a KB session. The plays, campaigns, and app are downstream of the KB. The KB is not a side effect.
+
+### The mandatory intake sequence
+
+Every source that passes review must go through this sequence in order. **Never skip steps.**
+
+1. **Crawl** — fetch via WebFetch, curl, or Firecrawl (for JS-rendered pages). Firecrawl is at `tools/scrape/firecrawl-guidance.ts`.
+2. **License/quality check** — is it usable? Is it permissive enough to incorporate?
+3. **Create KB files** — versioned content file + redirect stub + `_index.md` if new. See Procedure A.
+4. **Update `src/app/sources/page.tsx`** — every incorporated source must appear here.
+5. **Synthesize** — only now write principles in `kb/principles/[topic]/`. The `sources:` frontmatter must point to KB file paths, not external URLs.
+6. **Create or update plays** — plays read principles. Principles read KB files. The chain must be complete.
+
+### The content depth standard
+
+A KB file must capture its source at **full working detail**, not as a summary. The test:
+
+> A reader must be able to reconstruct the source's main claims, rules, distinctions, parameters, and examples from the KB file alone — without access to the original.
+
+In practice this means:
+- **All rules enumerated** — not "it has 27 anti-pattern rules"; list the rules
+- **All frameworks described with their full parameters** — not "it has 8 aesthetic philosophies"; describe each one with its typography, color, layout, motion, and detail parameters
+- **All distinctions preserved** — if the source draws a line between two things, that line must appear in the KB file
+- **Worked examples included** where the source includes them
+- **Key quotes preserved** where they convey precise nuance that paraphrase would lose
+
+A 150-line file summarizing a source with 7 domain references and 27 rules is not an incorporated source — it is a bookmark. That is not good enough.
+
+### Why this standard exists
+
+The synthesis chain is: **KB files → principles articles → plays**. Sparse KB files produce thin principles and plays that cannot reason about edge cases. Context lost at the KB layer cannot be recovered later — you cannot synthesize a nuance that was discarded before you started.
+
+The KB is also published for others to use. The point of publishing it is that other practitioners can synthesize their own principles and plays from Sistema's KB without re-crawling the original sources. A file that only summarizes its source fails this purpose entirely.
+
+### Source citation requirements
+
+- Every principles file `sources:` frontmatter must list `kb/reference/...` KB paths — never external URLs
+- Every `_index.md` source map must list KB paths with license tier, not "External synthesis"
+- Before writing any synthesis, verify that every source you plan to cite has a KB file. If it doesn't, create it first
+
+---
+
 ## General Principles
 
 1. **Never overwrite existing content files.** Always create a new versioned file. Mark the previous version as `legacy`.

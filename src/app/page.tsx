@@ -1,6 +1,18 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { loadCampaign } from '@/lib/campaigns'
 import { PromptBox } from '@/components/PromptBox'
+
+export const metadata: Metadata = {
+  title: 'Sistema — Design system prompts for Claude Code and Cursor',
+  description:
+    'Ready-to-paste prompts grounded in real design system references. Helps Claude Code and Cursor generate tokens, components, and audits without guessing.',
+  openGraph: {
+    title: 'Sistema — Design system prompts for Claude Code and Cursor',
+    description:
+      'Ready-to-paste prompts grounded in real design system references. Helps Claude Code and Cursor generate tokens, components, and audits without guessing.',
+  },
+}
 
 function ArrowRight() {
   return (
@@ -69,7 +81,7 @@ export default function Home() {
               <line x1="7" y1="8.5" x2="10" y2="8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
             <span className="font-mono text-[11.5px] tracking-[0.04em] text-on-surface-muted truncate">
-              Context-supported prompts for design-system work
+              Prompts grounded in real design system references
             </span>
           </div>
 
@@ -111,9 +123,22 @@ export default function Home() {
               fontVariationSettings: "'opsz' 32",
             }}
           >
-            Sistema packages production design-system references and ready-to-paste prompts —
+            Sistema pairs design system references with ready-to-paste prompts —
             <em className="text-on-surface italic"> plays</em> — so Claude Code and Cursor generate
             tokens, components, and audits grounded in real systems instead of guessing.
+          </p>
+
+          <p className="mt-4 text-[13px] text-on-surface-subtle" style={{ maxWidth: 580 }}>
+            Made by{' '}
+            <a
+              href="https://johnthedesigner.com"
+              className="text-on-surface-muted underline underline-offset-2 hover:text-on-surface transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              John the Designer
+            </a>
+            {' '}— I&apos;ve built design systems professionally at Wayfair, Salesforce, and ReflexAI. This is the tool I wished I&apos;d had.
           </p>
         </div>
 
@@ -188,15 +213,14 @@ export default function Home() {
           <div className="flex items-baseline justify-between mb-4 flex-wrap gap-2">
             <div className="flex items-baseline gap-3.5">
               <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted">
-                Jump to a play
+                Frequently used
               </span>
-              <span className="text-[13px] text-on-surface-muted">most-used this week</span>
             </div>
             <Link
               href="/playbooks"
               className="flex items-center gap-1.5 text-[13px] font-medium text-primary no-underline"
             >
-              Browse all 18 plays <ArrowRight />
+              Browse all plays <ArrowRight />
             </Link>
           </div>
 

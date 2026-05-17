@@ -90,7 +90,7 @@ export function Nav() {
               href="/guide"
               className="h-[34px] px-3 inline-flex items-center rounded-radius-md text-[13px] font-medium text-on-primary bg-primary hover:opacity-90 transition-opacity no-underline"
             >
-              How does it work?
+              Get started
             </Link>
           </div>
 
@@ -140,7 +140,7 @@ export function Nav() {
                 onClick={close}
                 className="flex-1 inline-flex items-center justify-center h-[38px] rounded-radius-md text-[13.5px] font-medium text-on-primary bg-primary hover:opacity-90 transition-opacity no-underline"
               >
-                How does it work?
+                Get started
               </Link>
             </div>
           </div>

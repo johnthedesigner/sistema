@@ -5,6 +5,9 @@ content_type: synthesis
 status: latest
 retrieved: 2026-05-15
 tags: [quality, visual-language, ai-output, oklch, color, anti-patterns, synthesis]
+sources:
+  - kb/reference/skills/impeccable/overview
+  - kb/reference/skills/anthropic-frontend-design/skill
 note: >
   These quality criteria are interpreted through the lens of design system building —
   token value decisions, component style defaults, and visual language establishment.

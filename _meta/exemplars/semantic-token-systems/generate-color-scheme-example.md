@@ -2,6 +2,7 @@
 play_slug: generate-color-scheme
 stage: 2
 created: 2026-05-12
+title: "B2B SaaS (Blue)"
 quality_notes: >
   Generated for a product with primary brand color #2563EB (blue), warm neutral
   preference, and a B2B SaaS context. Light and dark themes both provided.
@@ -10,6 +11,8 @@ quality_notes: >
   Non-obvious decisions annotated inline. Warning and success roles added beyond
   M3 baseline — common requirement for SaaS products with status indicators.
   All semantic role names use --color-* prefix (custom, not --md-sys-color-*).
+input:
+  color_direction: "#2563EB — professional B2B SaaS, slightly warm neutrals, confident but not playful"
 ---
 
 ## Input

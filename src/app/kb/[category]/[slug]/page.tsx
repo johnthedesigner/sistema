@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { listSystems, readSystemIndex, listStubsForSystem, findDesignMd, KB_CATEGORIES, type KBCategory } from '@/lib/kb'
 import { MarkdownBody } from '@/components/kb/MarkdownBody'
 import { DesignMdPanel } from '@/components/kb/DesignMdPanel'
+import { ArticleCopyButton } from '@/components/kb/ArticleCopyButton'
 
 function extractSystemName(body: string): string {
   const match = body.match(/^# (.+)$/m)
@@ -16,25 +17,20 @@ function extractSection(body: string, heading: string): string {
   return match ? match[1].trim() : ''
 }
 
-function formatTopicName(parts: string[]): string {
+// For principles, strip "Architecture" from display name — it's always the
+// category's main article and the category name alone is less redundant.
+function formatArticleName(parts: string[], category: string, systemName: string): string {
   const last = parts[parts.length - 1]
-  return last
-    .replace(/-/g, ' ')
-    .replace(/\b\w/g, c => c.toUpperCase())
-}
-
-const TYPE_LABELS: Record<string, string> = {
-  content: 'Content',
-  guidance: 'Guidance',
-  implementation: 'Implementation',
-  assets: 'Assets',
-  'design-md': 'DESIGN.md',
+  const base = last.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+  if (category === 'principles' && base === 'Architecture') return systemName
+  return base
 }
 
 const CATEGORY_LABELS: Record<KBCategory, string> = {
   'design-systems': 'Design Systems',
   'standards': 'Standards',
   'foundations': 'Foundations',
+  'skills': 'Agent Skills',
   'principles': 'Principles',
 }
 
@@ -69,15 +65,14 @@ export default async function SystemPage({
   const categoryLabel = CATEGORY_LABELS[cat]
   const designMdPath = findDesignMd(slug, cat)
 
-  const grouped = stubs.reduce<Record<string, string[][]>>((acc, parts) => {
-    const type = parts.length === 1 ? 'content' : parts[0]
-    if (!acc[type]) acc[type] = []
-    acc[type].push(parts)
-    return acc
-  }, {})
-
-  const typeOrder = ['content', 'guidance', 'implementation', 'assets', 'design-md']
-  const sortedTypes = typeOrder.filter(t => grouped[t])
+  // Articles: exclude design-md (handled by DesignMdPanel), sorted alphabetically by filename
+  const articles = stubs
+    .filter(parts => parts[0] !== 'design-md')
+    .sort((a, b) => {
+      const nameA = a[a.length - 1]
+      const nameB = b[b.length - 1]
+      return nameA.localeCompare(nameB)
+    })
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-12">
@@ -95,49 +90,45 @@ export default async function SystemPage({
         <DesignMdPanel rawPath={designMdPath} systemName={systemName} />
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        {/* Main content */}
-        <div className="lg:col-span-2 space-y-10">
-          {overview && (
-            <section>
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-on-surface-muted mb-4">Overview</h2>
-              <MarkdownBody>{overview}</MarkdownBody>
-            </section>
-          )}
+      <div className="space-y-10 mb-12">
+        {overview && (
+          <section>
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-on-surface-muted mb-4">Overview</h2>
+            <MarkdownBody>{overview}</MarkdownBody>
+          </section>
+        )}
 
-          {sourceMap && (
-            <section>
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-on-surface-muted mb-4">Sources</h2>
-              <MarkdownBody>{sourceMap}</MarkdownBody>
-            </section>
-          )}
-        </div>
+        {/* Articles */}
+        {articles.length > 0 && (
+          <section>
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-on-surface-muted mb-4">Articles</h2>
+            <div className="border border-border rounded-radius-lg divide-y divide-border overflow-hidden">
+              {articles.map(parts => {
+                const href = `/kb/${category}/${slug}/${parts.join('/')}.md`
+                const rawUrl = `/raw/${category}/${slug}/${parts.join('/')}`
+                const displayName = formatArticleName(parts, category, systemName)
+                return (
+                  <div key={parts.join('/')} className="flex items-center justify-between px-4 py-3 hover:bg-surface-sunken transition-colors">
+                    <Link
+                      href={href}
+                      className="text-[13.5px] text-on-surface hover:text-primary transition-colors no-underline font-medium"
+                    >
+                      {displayName}
+                    </Link>
+                    <ArticleCopyButton rawUrl={rawUrl} />
+                  </div>
+                )
+              })}
+            </div>
+          </section>
+        )}
 
-        {/* Content browser sidebar */}
-        <aside>
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-on-surface-muted mb-4">Browse Content</h2>
-          <div className="space-y-6">
-            {sortedTypes.map(type => (
-              <div key={type}>
-                <h3 className="text-xs font-medium text-on-surface-muted uppercase tracking-wider mb-2">
-                  {TYPE_LABELS[type] ?? type}
-                </h3>
-                <ul className="space-y-1">
-                  {grouped[type].map(parts => (
-                    <li key={parts.join('/')}>
-                      <Link
-                        href={`/kb/${category}/${slug}/${parts.join('/')}.md`}
-                        className="text-sm text-primary hover:text-primary hover:underline"
-                      >
-                        {formatTopicName(parts)}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </aside>
+        {sourceMap && (
+          <section>
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-on-surface-muted mb-4">Sources</h2>
+            <MarkdownBody>{sourceMap}</MarkdownBody>
+          </section>
+        )}
       </div>
     </main>
   )

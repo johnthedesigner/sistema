@@ -1,6 +1,13 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { loadPlaybooks, loadStages, STAGE_LABELS } from '@/lib/playbooks'
 import { loadCampaigns } from '@/lib/campaigns'
+
+export const metadata: Metadata = {
+  title: 'Playbook',
+  description:
+    'Ready-to-paste plays for every stage of design system work — from positioning brief through token generation, components, and audits.',
+}
 
 const STAGE_CHIP_STYLES: Record<number, { bg: string; color: string; border: string }> = {
   1: { bg: 'var(--stage-1-bg)', color: 'var(--stage-1-text)', border: 'var(--stage-1-border)' },
@@ -69,14 +76,14 @@ export default function PlaysPage() {
         {/* Page head */}
         <div className="mb-8">
           <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
-            Plays · {plays.length} single · {campaigns.length} featured
+            Playbook · {plays.length} plays · {campaigns.length} campaigns
           </p>
           <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-4">
             <h1
               className="font-serif font-medium text-on-surface m-0 text-[28px] md:text-[36px]"
               style={{ lineHeight: 1.1, letterSpacing: '-0.02em' }}
             >
-              Ready-to-paste prompts, grounded in real systems.
+              Plays for every stage of design system work.
             </h1>
             {/* <div className="flex gap-2 items-center flex-wrap shrink-0">
               {['All', 'Tokens', 'Components', 'Audit', 'A11y'].map((label, i) => (
@@ -100,10 +107,10 @@ export default function PlaysPage() {
         <div className="flex items-baseline justify-between mb-4">
           <div className="flex items-baseline gap-3 flex-wrap">
             <h2 className="font-serif font-medium m-0" style={{ fontSize: 22, letterSpacing: '-0.01em' }}>
-              Featured plays
+              Campaigns
             </h2>
             <span className="text-[13px] text-on-surface-muted">
-              multi-step plays that cover a complete arc.
+              Campaigns are multi-step plays that cover a complete design system workflow.
             </span>
           </div>
         </div>
@@ -123,10 +130,7 @@ export default function PlaysPage() {
                     className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border"
                     style={{ background: tone.chipBg, borderColor: tone.chipBd, color: 'white' }}
                   >
-                    featured · {campaign.steps.length} steps
-                  </span>
-                  <span className="font-mono text-[11px]" style={{ color: tone.dim }}>
-                    ~{campaign.steps.length * 4} min
+                    campaign · {campaign.steps.length} steps
                   </span>
                 </div>
 
@@ -148,7 +152,7 @@ export default function PlaysPage() {
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-radius-md text-[13.5px] font-semibold"
                   style={{ background: 'rgba(255,255,255,0.92)', color: tone.bg }}
                 >
-                  Open <ArrowRight size={14} />
+                  Start <ArrowRight size={14} />
                 </span>
               </Link>
             )
@@ -158,10 +162,10 @@ export default function PlaysPage() {
         {/* Single plays by stage */}
         <div className="flex items-baseline justify-between mb-4">
           <h2 className="font-serif font-medium m-0" style={{ fontSize: 22, letterSpacing: '-0.01em' }}>
-            Plays <span className='font-mono text-[12.5px] text-on-surface-muted'>(by design system stage)</span>
+            Plays by stage
           </h2>
           <span className="font-mono text-[11.5px] text-on-surface-subtle hidden md:inline">
-            by stage · foundations → stewardship
+            stage 1 (foundations) → stage 6 (stewardship)
           </span>
         </div>
 

@@ -60,8 +60,10 @@ Key characteristics:
 | guidance/components/modal@2026-05-12.md | Modal — variants, sizes, anatomy, focus management, accessibility | guidance | latest | 2026-05-12 |
 | guidance/components/ui-shell@2026-05-12.md | UI Shell — header, side nav, responsive, theming, accessibility | guidance | latest | 2026-05-12 |
 | design-md/DESIGN@2026-05-12.md | DESIGN.md reference for Carbon | design-md | latest | 2026-05-12 |
+| guidance/content/voice-and-tone@2026-05-16.md | IBM voice characteristics, tone by journey phase, content quality standard | guidance | latest | 2026-05-16 |
+| guidance/content/writing-style@2026-05-16.md | Sentence case (with rationale), simple writing, conversational style, can/may/might, inclusive language, pronouns, active/passive voice | guidance | latest | 2026-05-16 |
 
-**Total files:** 11 versioned content files + 11 redirect stubs
+**Total files:** 13 versioned content files + 13 redirect stubs
 
 ---
 
@@ -71,3 +73,4 @@ Key characteristics:
 |---|---|
 | 2026-05-12 | Initial capture — 7 content files added across guidance (3), implementation (1), assets (2), and design-md (1) |
 | 2026-05-12 | Task 3.5 — Component documentation added: button, text-input, modal, ui-shell (4 content files + 4 stubs) |
+| 2026-05-16 | Content guidelines added: voice-and-tone, writing-style (2 content files + 2 stubs) |

@@ -1,8 +1,14 @@
+import type { Metadata } from 'next'
 import fs from 'fs'
 import path from 'path'
 import Link from 'next/link'
 import { PaletteControls } from '@/components/palette/PaletteControls'
 import { CustomSeedInput } from '@/components/palette/CustomSeedInput'
+
+export const metadata: Metadata = {
+  title: 'Palette Tool',
+  robots: { index: false, follow: false },
+}
 
 interface PaletteStop {
   hex: string

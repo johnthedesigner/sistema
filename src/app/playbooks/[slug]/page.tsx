@@ -1,12 +1,27 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { loadPlaybooks, STAGE_LABELS } from '@/lib/playbooks'
 import { loadCampaigns } from '@/lib/campaigns'
-import { loadExemplar } from '@/lib/exemplars'
-import { PlayForm } from '@/components/playbooks/PlayForm'
-import { ExemplarPreview } from '@/components/playbooks/ExemplarPreview'
-import { DesignMdCallout } from '@/components/shared/DesignMdCallout'
-import { PromptBox } from '@/components/PromptBox'
+import { loadExemplars } from '@/lib/exemplars'
+import { PlayDetail } from '@/components/playbooks/PlayDetail'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const plays = loadPlaybooks()
+  const play = plays.find(p => p.slug === slug)
+  if (!play) return {}
+  const description = PLAY_DESCRIPTIONS[slug] ?? play.title
+  return {
+    title: play.title,
+    description,
+    openGraph: { title: play.title, description },
+  }
+}
 
 const PLAY_DESCRIPTIONS: Record<string, string> = {
   'positioning-brief': 'Produces the positioning brief section of your DESIGN.md — what the system is for, who it serves, and the three decisions that define its character.',
@@ -61,15 +76,13 @@ export default async function PlayPage({
   if (!play) notFound()
 
   const campaigns = loadCampaigns()
-  const parentCampaign = campaigns.find(c => c.steps.some(s => s.playSlug === slug))
-  const stepInCampaign = parentCampaign?.steps.find(s => s.playSlug === slug)
+  const parentCampaigns = campaigns.filter(c => c.steps.some(s => s.playSlug === slug))
 
   const stageLabel = STAGE_LABELS[play.stage]
   const stageStyle = STAGE_CHIP_STYLES[play.stage]
   const description = PLAY_DESCRIPTIONS[slug]
-  const hasVariables = /\{\{(?!sistema_url\}\})[^}]+\}\}/.test(play.body)
   const refs = extractRefs(play.body)
-  const exemplar = loadExemplar(slug)
+  const exemplars = loadExemplars(slug)
 
   return (
     <main>
@@ -90,7 +103,7 @@ export default async function PlayPage({
           <span className="font-mono text-on-surface">{slug}</span>
         </nav>
 
-        {/* Two-column layout: stacks on mobile, side-by-side on md+ */}
+        {/* Two-column layout */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-8 md:gap-10">
           {/* Main column */}
           <div>
@@ -130,99 +143,24 @@ export default async function PlayPage({
               </p>
             )}
 
-            {play.tags.includes('design-md') && (
-              <div className="mb-6">
-                <DesignMdCallout />
-              </div>
-            )}
-
-            {/* Variables */}
-            {hasVariables && (
-              <div className="mb-7">
-                <div className="flex items-baseline gap-3 mb-3">
-                  <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted">
-                    Variables
-                  </span>
-                  <span className="text-[12px] text-on-surface-muted">fill in to personalize the prompt</span>
-                </div>
-                <PlayForm body={play.body} playSlug={slug} tags={play.tags} />
-              </div>
-            )}
-
-            {/* Prompt box */}
-            {!hasVariables && (
-              <div className="mb-9">
-                <PromptBox
-                  label={`play · ${slug}`}
-                  body={play.body}
-                  playSlug={slug}
-                  refs={refs.length > 0 ? `${refs.length} KB ref${refs.length !== 1 ? 's' : ''}` : undefined}
-                  expanded
-                />
-              </div>
-            )}
-            {hasVariables && (
-              <div className="mb-9">
-                <div className="rounded-radius-xl border border-border bg-surface-raised overflow-hidden" style={{ boxShadow: 'var(--shadow-md)' }}>
-                  <div className="flex items-center gap-2.5 px-4 py-3 border-b border-border bg-surface-raised">
-                    <span className="block w-2 h-2 rounded-full" style={{ background: 'var(--color-primary)', boxShadow: '0 0 0 3px rgba(0,112,255,0.15)' }} />
-                    <span className="font-mono text-[11.5px] tracking-[0.04em] uppercase text-on-surface-muted">
-                      play · {slug}
-                    </span>
-                  </div>
-                  <div className="p-5 font-mono text-[13.5px] leading-[1.65] text-on-surface overflow-x-auto" style={{ whiteSpace: 'pre-wrap' }}>
-                    {play.body}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Exemplar */}
-            {exemplar && (
-              <div className="mt-9">
-                <div className="flex items-baseline gap-3 mb-3">
-                  <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted">
-                    Example output
-                  </span>
-                  <span className="text-[12px] text-on-surface-muted">what a successful run looks like</span>
-                </div>
-                <div className="border border-border rounded-radius-lg overflow-hidden">
-                  <div
-                    className="flex items-center justify-between px-4 py-3 border-b border-border"
-                    style={{ background: 'var(--color-surface)' }}
-                  >
-                    <span className="font-mono text-[12px] text-on-surface-muted">{slug} · example output</span>
-                  </div>
-                  <div className="p-5">
-                    <ExemplarPreview exemplar={exemplar} inline />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Right rail content on mobile (below main content) */}
-            <div className="mt-8 flex flex-col gap-3.5 md:hidden">
-              <RailContent
-                parentCampaign={parentCampaign}
-                stepInCampaign={stepInCampaign}
-                hasVariables={hasVariables}
-                play={play}
-                refs={refs}
-                exemplar={exemplar}
-              />
-            </div>
+            {/* Interactive: tabs + variables + prompt + exemplar */}
+            <PlayDetail
+              body={play.body}
+              playSlug={slug}
+              tags={play.tags}
+              refs={refs}
+              exemplars={exemplars}
+            />
           </div>
 
-          {/* Right rail — desktop only */}
+          {/* Right rail — desktop */}
           <div className="hidden md:flex flex-col gap-3.5" style={{ position: 'sticky', top: 28, alignSelf: 'start' }}>
-            <RailContent
-              parentCampaign={parentCampaign}
-              stepInCampaign={stepInCampaign}
-              hasVariables={hasVariables}
-              play={play}
-              refs={refs}
-              exemplar={exemplar}
-            />
+            <RailContent parentCampaigns={parentCampaigns} refs={refs} />
+          </div>
+
+          {/* Right rail — mobile */}
+          <div className="mt-4 flex flex-col gap-3.5 md:hidden">
+            <RailContent parentCampaigns={parentCampaigns} refs={refs} />
           </div>
         </div>
       </div>
@@ -230,69 +168,46 @@ export default async function PlayPage({
   )
 }
 
-function RailContent({
-  parentCampaign,
-  stepInCampaign,
-  hasVariables,
-  play,
-  refs,
-  exemplar,
-}: {
-  parentCampaign: ReturnType<typeof loadCampaigns>[number] | undefined
-  stepInCampaign: { number: number; playSlug: string; play: { title: string } } | undefined
-  hasVariables: boolean
-  play: { body: string; tags: string[] }
-  refs: string[]
-  exemplar: ReturnType<typeof loadExemplar>
-}) {
-  function ArrowRight({ size = 12 }: { size?: number }) {
-    return (
-      <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-        <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    )
-  }
+type Campaign = ReturnType<typeof loadCampaigns>[number]
 
+function ArrowRight({ size = 12 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function RailContent({
+  parentCampaigns,
+  refs,
+}: {
+  parentCampaigns: Campaign[]
+  refs: string[]
+}) {
   return (
     <>
-      {/* In this play */}
-      <div className="border border-border rounded-radius-lg p-4">
-        <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
-          In this play
-        </p>
-        {[
-          hasVariables ? ['Variables', `${(play.body.match(/\{\{(?!sistema_url)[^}]+\}\}/g) ?? []).length}`] : null,
-          ['Prompt body', ''],
-          exemplar ? ['Example output', ''] : null,
-          refs.length > 0 ? ['References', `${refs.length}`] : null,
-        ].filter(Boolean).map(item => item && (
-          <div
-            key={item[0]}
-            className="flex justify-between items-center py-1.5 text-[13px]"
-            style={{ borderBottom: '1px dashed var(--color-border)' }}
-          >
-            <span>{item[0]}</span>
-            {item[1] && <span className="font-mono text-[11px] text-on-surface-subtle">{item[1]}</span>}
-          </div>
-        ))}
-      </div>
-
-      {/* Part of campaign */}
-      {parentCampaign && (
+      {/* Part of campaign(s) */}
+      {parentCampaigns.length > 0 && (
         <div className="border border-border rounded-radius-lg p-4">
           <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
-            Part of a campaign
+            {parentCampaigns.length === 1 ? 'Part of a campaign' : 'Part of campaigns'}
           </p>
-          <p className="font-semibold text-[13.5px] text-on-surface mb-1">{parentCampaign.title}</p>
-          <p className="text-[12px] text-on-surface-muted leading-[1.45] mb-2.5">
-            Step {stepInCampaign?.number} of {parentCampaign.steps.length}.
-          </p>
-          <Link
-            href={`/campaigns/${parentCampaign.slug}`}
-            className="flex items-center justify-center gap-2 w-full h-[30px] text-[12.5px] font-medium border border-border rounded-radius-md text-on-surface no-underline hover:bg-surface-sunken transition-colors"
-          >
-            Continue campaign <ArrowRight size={12} />
-          </Link>
+          <div className="flex flex-col gap-1.5">
+            {parentCampaigns.map(c => (
+              <Link
+                key={c.slug}
+                href={`/campaigns/${c.slug}`}
+                className="flex items-center justify-between py-1.5 text-[13px] no-underline text-on-surface hover:text-primary transition-colors group"
+                style={{ borderBottom: '1px dashed var(--color-border)' }}
+              >
+                <span>{c.title}</span>
+                <span className="text-on-surface-subtle group-hover:text-primary transition-colors">
+                  <ArrowRight size={12} />
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       )}
 

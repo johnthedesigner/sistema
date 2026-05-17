@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import { listSystems, listStubsForSystem, resolveStub, readSystemIndex, KB_CATEGORIES, type KBCategory } from '@/lib/kb'
@@ -5,6 +6,10 @@ import { MarkdownBody } from '@/components/kb/MarkdownBody'
 import { ContentMeta } from '@/components/kb/ContentMeta'
 import { CopyRawButton } from '@/components/kb/CopyRawButton'
 import { SourcesSidebar } from '@/components/kb/SourcesSidebar'
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+}
 
 function extractSystemName(body: string): string {
   const match = body.match(/^# (.+)$/m)
@@ -32,6 +37,7 @@ const CATEGORY_LABELS: Record<KBCategory, string> = {
   'design-systems': 'Design Systems',
   'standards': 'Standards',
   'foundations': 'Foundations',
+  'skills': 'Agent Skills',
   'principles': 'Principles',
 }
 
@@ -75,7 +81,11 @@ export default async function ContentPage({
 
   const index = readSystemIndex(slug, cat)
   const systemName = extractSystemName(index.body)
-  const topicName = formatTopicName(cleanPath)
+  const rawTopicName = formatTopicName(cleanPath)
+  // For principles, "Architecture" articles are the category's main article —
+  // display the system name (e.g. "Color") instead of the redundant "Architecture".
+  const topicName =
+    cat === 'principles' && rawTopicName === 'Architecture' ? systemName : rawTopicName
   const categoryLabel = CATEGORY_LABELS[cat]
   const rawUrl = `/raw/${category}/${slug}/${cleanPath.join('/')}.md`
 

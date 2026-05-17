@@ -16,8 +16,10 @@ Frameworks for translating a positioning brief into specific visual directions b
 
 ## Source Map
 
-| Source | Type |
-|---|---|
-| designer-skills (design-brief, frontend-design, grill-me) | External synthesis |
-| Anthropic frontend-design skill | External synthesis |
-| Impeccable (design quality skill for AI agents) | External synthesis |
+| Source | Type | License |
+|---|---|---|
+| kb/reference/skills/designer-skills/grill-me.md | Agent skill (Apache 2.0) | Apache 2.0 |
+| kb/reference/skills/designer-skills/design-brief.md | Agent skill (Apache 2.0) | Apache 2.0 |
+| kb/reference/skills/designer-skills/frontend-design.md | Agent skill (Apache 2.0) | Apache 2.0 |
+| kb/reference/skills/anthropic-frontend-design/skill.md | Agent skill (official Anthropic) | See LICENSE.txt |
+| kb/reference/skills/impeccable/overview.md | Agent skill (Apache 2.0) | Apache 2.0 |

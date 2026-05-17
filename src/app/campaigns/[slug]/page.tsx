@@ -1,7 +1,23 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { loadCampaigns, loadCampaign } from '@/lib/campaigns'
 import { CampaignPromptBox } from '@/components/campaigns/CampaignPromptBox'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const campaign = loadCampaign(slug)
+  if (!campaign) return {}
+  return {
+    title: campaign.title,
+    description: campaign.description,
+    openGraph: { title: campaign.title, description: campaign.description },
+  }
+}
 
 function ArrowRight({ size = 12 }: { size?: number }) {
   return (
@@ -32,7 +48,7 @@ export default async function CampaignLandingPage({
         <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-6 md:py-8">
           <div className="mb-1">
             <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase" style={{ color: 'rgba(255,255,255,0.65)' }}>
-              Featured play · {campaign.steps.length} steps
+              Campaign · {campaign.steps.length} steps
             </span>
           </div>
           <h1
@@ -60,17 +76,17 @@ export default async function CampaignLandingPage({
               <>
                 <div className="flex items-baseline gap-3 mb-4">
                   <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted">
-                    Prompt
+                    Campaign prompt
                   </span>
                   <span className="text-[12px] text-on-surface-muted">
-                    paste once — the agent drives the rest
+                    Copy and paste into Claude Code or Cursor — the agent handles the rest.
                   </span>
                 </div>
                 <CampaignPromptBox prompt={campaign.prompt} campaignSlug={campaign.slug} />
               </>
             ) : (
               <div className="border border-border rounded-radius-lg px-6 py-8 text-on-surface-muted text-[14px]">
-                Prompt not yet available.
+                Prompt not yet available. Browse the individual plays in the steps list.
               </div>
             )}
           </div>
@@ -114,7 +130,7 @@ export default async function CampaignLandingPage({
                 style={{ background: 'var(--color-brand-yellow-50)', borderColor: 'var(--color-brand-yellow)', borderStyle: 'dashed' }}
               >
                 <p className="text-[12px] text-on-surface leading-[1.5] m-0">
-                  <strong>Self-driving:</strong> paste the prompt once. The agent will work through all {campaign.steps.length} steps, ask for input when needed, and pause for confirmation before advancing.
+                  <strong>Self-driving:</strong> paste once. The agent works through all {campaign.steps.length} steps, asks for input when needed, and pauses before advancing.
                 </p>
               </div>
             </div>

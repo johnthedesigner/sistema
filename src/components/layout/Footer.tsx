@@ -30,6 +30,10 @@ export function SiteFooter() {
             Built by John the Designer
           </a>
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-on-surface-subtle" />
+          <Link href="/sources" className="text-on-surface-subtle hover:text-on-surface-muted transition-colors no-underline font-mono text-[11px]">
+            Sources
+          </Link>
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-on-surface-subtle" />
           <Link href="/guide" className="text-primary no-underline">
             How a play works →
           </Link>

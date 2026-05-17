@@ -1,13 +1,13 @@
 # INDEX.md
 # Design System Knowledge Base — Master Index
 
-**Version:** 3.2
+**Version:** 3.3
 **Created:** 2026-05-11
-**Last Updated:** 2026-05-13
-**Systems Indexed:** 7
-**Total Content Files:** 86
+**Last Updated:** 2026-05-16
+**Systems Indexed:** 7 design systems + 3 agent skills
+**Total Content Files:** 86+
 
-**KB structure (Phase 6+):** `kb/reference/` contains design-systems, standards, and foundations. `kb/principles/` (new in Phase 6) contains cross-system synthesis documents. App URLs are unchanged — `/kb/design-systems/`, `/kb/standards/`, etc. continue to work; `reference/` does not appear in URLs.
+**KB structure (Phase 6+):** `kb/reference/` contains design-systems, standards, foundations, and skills. `kb/principles/` contains cross-system synthesis documents. App URLs are unchanged — `/kb/design-systems/`, `/kb/standards/`, `/kb/skills/`, etc.; `reference/` does not appear in URLs.
 
 This is the master index for the design system knowledge base. It provides two cross-referenced views of all content: by design system, and by category. Use this file as your first navigation stop in any LLM session before retrieving specific content.
 
@@ -102,6 +102,42 @@ Ant Financial's enterprise design system. Best reference for: explicit design va
 - System index: `kb/reference/design-systems/ant-design/_index.md`
 - Guidance: `kb/reference/design-systems/ant-design/guidance/foundations/` (design-values, color-system, typography, design-tokens)
 - DESIGN.md: `kb/reference/design-systems/ant-design/design-md/DESIGN.md`
+
+---
+
+## Section 1e: Agent Skills
+
+*Open-source design skills for AI coding agents. License-reviewed and synthesized into the visual-language and quality principles sections. Apache 2.0 unless noted.*
+
+### Impeccable (Philip Bakaus)
+**Slug:** `impeccable` | **License:** Apache 2.0 | **Retrieved:** 2026-05-16
+
+Design skill for AI agents with 7 domain reference files, 23 commands, and 27 deterministic anti-pattern rules + 12-rule LLM critique pass. Primary source for the "AI slop" problem framing and quality signal vocabulary.
+
+- Section index: `kb/reference/skills/impeccable/_index.md`
+- Overview: `kb/reference/skills/impeccable/overview@2026-05-16.md`
+
+---
+
+### Anthropic frontend-design skill (Anthropic)
+**Slug:** `anthropic-frontend-design` | **License:** See LICENSE.txt | **Retrieved:** 2026-05-16
+
+Official Anthropic Claude Code plugin. 42-line skill for distinctive frontend interfaces. The most widely-deployed design skill in the Claude ecosystem.
+
+- Section index: `kb/reference/skills/anthropic-frontend-design/_index.md`
+- Skill: `kb/reference/skills/anthropic-frontend-design/skill@2026-05-16.md`
+
+---
+
+### designer-skills (Julian Oczkowski)
+**Slug:** `designer-skills` | **License:** Apache 2.0 | **Retrieved:** 2026-05-16
+
+Collection of 8 agent skills encoding design process. Synthesized: grill-me (decision-tree interrogation), design-brief (codebase-aware structured brief), frontend-design (8 named aesthetic philosophies with implementation parameters).
+
+- Section index: `kb/reference/skills/designer-skills/_index.md`
+- grill-me: `kb/reference/skills/designer-skills/grill-me@2026-05-16.md`
+- design-brief: `kb/reference/skills/designer-skills/design-brief@2026-05-16.md`
+- frontend-design: `kb/reference/skills/designer-skills/frontend-design@2026-05-16.md`
 
 ---
 

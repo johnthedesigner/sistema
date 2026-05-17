@@ -2,6 +2,7 @@
 play_slug: generate-color-scheme
 stage: 2
 created: 2026-05-13
+title: "Verdant (Forest Green)"
 quality_notes: >
   Generated for "Verdant" — an environmental data and sustainability reporting
   platform. Primary: forest green (#1A6B3A). Secondary: muted olive/sage.

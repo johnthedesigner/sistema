@@ -5,6 +5,11 @@ content_type: synthesis
 status: latest
 retrieved: 2026-05-15
 tags: [visual-language, style-tile, preview, artifact, review, synthesis]
+sources:
+  - kb/reference/skills/designer-skills/design-brief
+  - kb/reference/skills/designer-skills/frontend-design
+  - kb/reference/skills/anthropic-frontend-design/skill
+  - kb/reference/skills/impeccable/overview
 note: >
   Interpreted through the lens of design system building. The style-preview.html
   artifact described here is a human review checkpoint before token generation —

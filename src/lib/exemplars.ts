@@ -9,6 +9,8 @@ export interface ExemplarFile {
   stage: number
   created: string
   quality_notes: string
+  title?: string
+  input?: Record<string, string>
   body: string
 }
 
@@ -26,22 +28,36 @@ function walkDir(dir: string): string[] {
   return files
 }
 
+function parseExemplar(filePath: string): ExemplarFile | null {
+  const raw = fs.readFileSync(filePath, 'utf-8')
+  const { data, content } = matter(raw)
+  if (!data.play_slug) return null
+  return {
+    play_slug: data.play_slug,
+    stage: data.stage,
+    created: data.created,
+    quality_notes: data.quality_notes ?? '',
+    title: data.title,
+    input: data.input ?? undefined,
+    body: content.trim(),
+  }
+}
+
 export function loadExemplar(playSlug: string): ExemplarFile | null {
   if (!fs.existsSync(EXEMPLARS_ROOT)) return null
-
   for (const filePath of walkDir(EXEMPLARS_ROOT)) {
-    const raw = fs.readFileSync(filePath, 'utf-8')
-    const { data, content } = matter(raw)
-    if (data.play_slug === playSlug) {
-      return {
-        play_slug: data.play_slug,
-        stage: data.stage,
-        created: data.created,
-        quality_notes: data.quality_notes ?? '',
-        body: content.trim(),
-      }
-    }
+    const ex = parseExemplar(filePath)
+    if (ex?.play_slug === playSlug) return ex
   }
-
   return null
+}
+
+export function loadExemplars(playSlug: string): ExemplarFile[] {
+  if (!fs.existsSync(EXEMPLARS_ROOT)) return []
+  const results: ExemplarFile[] = []
+  for (const filePath of walkDir(EXEMPLARS_ROOT)) {
+    const ex = parseExemplar(filePath)
+    if (ex?.play_slug === playSlug) results.push(ex)
+  }
+  return results
 }

@@ -11,6 +11,7 @@ const CATEGORY_DIR: Record<KBCategory, string> = {
   'design-systems': 'reference/design-systems',
   'standards': 'reference/standards',
   'foundations': 'reference/foundations',
+  'skills': 'reference/skills',
   'principles': 'principles',
 }
 
@@ -18,6 +19,7 @@ const CATEGORY_META: Record<KBCategory, string> = {
   'design-systems': 'design systems',
   'standards': 'standards',
   'foundations': 'foundations',
+  'skills': 'agent skills',
   'principles': 'principles',
 }
 

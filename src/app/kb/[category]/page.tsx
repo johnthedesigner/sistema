@@ -19,6 +19,7 @@ const CATEGORY_LABELS: Record<KBCategory, string> = {
   'design-systems': 'Design Systems',
   'standards': 'Standards',
   'foundations': 'Foundations',
+  'skills': 'Agent Skills',
   'principles': 'Principles',
 }
 

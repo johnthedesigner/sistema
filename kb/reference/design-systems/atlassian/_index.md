@@ -59,8 +59,10 @@ Key characteristics:
 | implementation/getting-started@2026-05-12.md | Installation, token setup, primitives, usage | implementation | latest | 2026-05-12 |
 | assets/tokens/colors@2026-05-12.json | Light-theme color + elevation token values | asset | latest | 2026-05-12 |
 | design-md/DESIGN@2026-05-12.md | DESIGN.md reference for Atlassian DS | design-md | latest | 2026-05-12 |
+| guidance/content/voice-and-tone@2026-05-16.md | Three personality traits (bold, optimistic, practical with a wink), tone dial table by user state, six content principles | guidance | latest | 2026-05-16 |
+| guidance/content/language-and-grammar@2026-05-16.md | Sentence case, articles in labels, abbreviations, contractions, gender pronouns, numbers, tense, Oxford comma, all punctuation rules, localization | guidance | latest | 2026-05-16 |
 
-**Total files:** 6 versioned content files + 6 redirect stubs
+**Total files:** 8 versioned content files + 8 redirect stubs
 
 ---
 
@@ -69,3 +71,4 @@ Key characteristics:
 | Date | Action |
 |---|---|
 | 2026-05-12 | Initial capture — 6 content files added across guidance (3), implementation (1), assets (1), and design-md (1) |
+| 2026-05-16 | Content guidelines added: voice-and-tone, language-and-grammar (2 content files + 2 stubs) |

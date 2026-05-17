@@ -14,7 +14,7 @@ Frameworks for evaluating whether design system decisions are specific and inten
 
 ## Source Map
 
-| Source | Type |
-|---|---|
-| Impeccable (design quality skill for AI agents) | External synthesis |
-| Anthropic frontend-design skill | External synthesis |
+| Source | Type | License |
+|---|---|---|
+| kb/reference/skills/impeccable/overview.md | Agent skill (Apache 2.0) | Apache 2.0 |
+| kb/reference/skills/anthropic-frontend-design/skill.md | Agent skill (official Anthropic) | See LICENSE.txt |

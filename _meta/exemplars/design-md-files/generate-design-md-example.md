@@ -2,6 +2,7 @@
 play_slug: generate-design-md
 stage: 1
 created: 2026-05-12
+title: "Meridian (B2B Analytics)"
 quality_notes: >
   Generated for "Meridian" — a fictional B2B analytics SaaS. Covers all major
   sections. Color values are coherent with a blue primary palette. Typography
@@ -9,6 +10,8 @@ quality_notes: >
   enough to inform implementation without prescribing code. Token names follow
   a two-tier primitive/semantic pattern consistent with the plan-token-architecture
   play output. Marked [default — review] where the brief was silent.
+input:
+  project_context: "Meridian — B2B analytics platform for operations teams. Data-dense UI (tables, charts, status indicators, inline editing). Precise and trustworthy. Desktop-primary, responsive to tablet."
 ---
 
 # Meridian Design System
