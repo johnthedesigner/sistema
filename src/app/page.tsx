@@ -76,7 +76,7 @@ export default function Home() {
         <div className="mb-10 md:mb-14">
           {/* Announcement pill */}
           <div className="inline-flex max-w-full items-center gap-2 px-3 py-1.5 border border-border rounded-full bg-surface mb-5 md:mb-6">
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-primary shrink-0">
+            <svg width="16" height="16" viewBox="0 0 12 12" fill="none" className="text-primary shrink-0">
               <path d="M2 3.5L5.5 6 2 8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               <line x1="7" y1="8.5" x2="10" y2="8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
@@ -91,14 +91,11 @@ export default function Home() {
             style={{
               lineHeight: 1.0,
               letterSpacing: '-0.03em',
-              fontVariationSettings: "'opsz' 144, 'SUPERSOFT' 40",  
+              fontVariationSettings: "'opsz' 144, 'SUPERSOFT' 40",
               maxWidth: 920,
             }}
           >
-            Your AI coding agent
-            <br />
-            needs better context.
-            <br />
+            {`Your AI coding agent needs better context. `}
             <span className="relative inline-block">
               Here it is.
               <span
@@ -119,8 +116,8 @@ export default function Home() {
             className="mt-5 md:mt-7 text-on-surface-muted font-serif font-normal text-[16px] md:text-[19px]"
             style={{
               lineHeight: 1.55,
-              maxWidth: 720,
               fontVariationSettings: "'opsz' 32",
+              maxWidth: 920,
             }}
           >
             Sistema pairs design system references with ready-to-paste prompts —
