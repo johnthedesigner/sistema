@@ -92,11 +92,19 @@ export function CustomSeedInput() {
       </p>
 
       <div className="flex items-start gap-3 flex-wrap">
-        {/* Hex swatch preview */}
-        <div
-          className="w-9 h-9 rounded-radius-sm border border-border shrink-0 mt-0.5"
-          style={{ backgroundColor: isValid ? inputHex : '#f3f4f6' }}
-        />
+        {/* Hex swatch / color picker */}
+        <label
+          className="self-stretch aspect-square min-h-9 rounded-radius-sm border border-border shrink-0 overflow-hidden relative cursor-pointer"
+          style={{ backgroundColor: isValid ? inputHex : 'var(--color-surface-sunken)' }}
+          title="Click to pick a color"
+        >
+          <input
+            type="color"
+            value={isValid ? inputHex : '#000000'}
+            onChange={e => setHex(e.target.value)}
+            className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+          />
+        </label>
 
         <div className="flex flex-col gap-1">
           <label className="text-xs text-on-surface-muted font-medium">Hex color</label>
@@ -146,43 +154,41 @@ export function CustomSeedInput() {
 
       {status === 'done' && result && (
         <div className="mt-6">
-          {/* Stop labels */}
-          <div className="flex items-center gap-2 mb-1">
-            <span className="w-16 shrink-0" />
-            <div className="flex gap-0.5 flex-1">
+          <div className="overflow-x-auto">
+            <div
+              className="min-w-[500px]"
+              style={{ display: 'grid', gridTemplateColumns: '64px repeat(19, minmax(3rem, 1fr))', columnGap: 2, rowGap: 6, alignItems: 'center' }}
+            >
+              {/* Header row: empty name cell + stop labels */}
+              <div style={{ position: 'sticky', left: 0, background: 'var(--color-canvas)', zIndex: 1, alignSelf: 'stretch', padding: ".5rem 0" }} />
               {STOPS.map(stop => (
-                <div key={stop} className="flex-1 min-w-0 text-center">
+                <div key={stop} className="text-center">
                   <span className="text-[10px] text-on-surface-muted font-mono">{stop}</span>
                 </div>
               ))}
-            </div>
-          </div>
 
-          {/* Palette row */}
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-16 shrink-0">
-              <span className="text-sm text-on-surface font-medium leading-tight block truncate">{resultName}</span>
-              <span className="text-xs text-on-surface-muted font-mono">{result.seed}</span>
-            </div>
-            <div className="flex gap-0.5 flex-1">
+              {/* Palette row: name cell + swatches */}
+              <div className="pr-1" style={{ position: 'sticky', left: 0, background: 'var(--color-canvas)', zIndex: 1 }}>
+                <span className="text-sm text-on-surface font-medium leading-tight block truncate">{resultName}</span>
+                <span className="text-xs text-on-surface-muted font-mono">{result.seed}</span>
+              </div>
               {STOPS.map(stop => {
                 const s = result.stops[stop]
                 return (
-                  <div key={stop} className="flex-1 min-w-0">
-                    <PaletteSwatch
-                      hex={s.hex}
-                      stop={stop}
-                      contrastWhite={s.contrast_white}
-                      contrastBlack={s.contrast_black}
-                    />
-                  </div>
+                  <PaletteSwatch
+                    key={stop}
+                    hex={s.hex}
+                    stop={stop}
+                    contrastWhite={s.contrast_white}
+                    contrastBlack={s.contrast_black}
+                  />
                 )
               })}
             </div>
           </div>
 
           {/* Format selector + copy */}
-          <div className="flex items-center gap-3 flex-wrap">
+          <div className="flex items-center gap-3 flex-wrap mt-4">
             <div className="flex items-center gap-1 bg-surface rounded-radius-lg p-1">
               <FormatTab label="CSS Variables" value="css" current={format} onClick={setFormat} />
               <FormatTab label="Tailwind Config" value="tailwind" current={format} onClick={setFormat} />

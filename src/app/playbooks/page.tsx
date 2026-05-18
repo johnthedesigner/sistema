@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { loadPlaybooks, loadStages, STAGE_LABELS } from '@/lib/playbooks'
+import { loadPlaybooks, loadStages, STAGE_LABELS, PLAY_DESCRIPTIONS } from '@/lib/playbooks'
 import { loadCampaigns } from '@/lib/campaigns'
 
 export const metadata: Metadata = {
@@ -35,27 +35,6 @@ const CAMPAIGN_TONES: Record<number, { bg: string; dim: string; body: string; ch
   },
 }
 
-const PLAY_OUTPUTS: Record<string, string> = {
-  'positioning-brief': 'A DESIGN.md positioning section',
-  'generate-design-md': 'A full DESIGN.md scaffold',
-  'generate-color-scheme': '19-stop OKLCH palette from seed',
-  'generate-type-scale': 'Modular type scale w/ leading',
-  'generate-shape-tokens': 'Radius + elevation + border set',
-  'generate-color-roles': 'Semantic role mapping',
-  'generate-dark-mode': 'Dark-mode role overrides',
-  'generate-style-dictionary': 'Style Dictionary v5 source JSON',
-  'specify-component': 'Component spec (states, anatomy)',
-  'implement-component': 'React + tokens implementation',
-  'scaffold-component-library': 'Library skeleton from DESIGN.md',
-  'migrate-tailwind-tokens': 'Tailwind theme → Style Dict.',
-  'audit-component': 'Component conformance report',
-  'session-start': 'Catch-up brief for the agent',
-  'add-component': 'New component to existing system',
-  'audit-token-coverage': 'Hard-coded values report',
-  'accessibility-audit': 'WCAG 2.2 + APCA findings',
-  'design-system-retrospective': "What worked, what didn't",
-  'plan-next-iteration': 'Prioritized backlog for next q.',
-}
 
 function ArrowRight({ size = 13 }: { size?: number }) {
   return (
@@ -215,7 +194,7 @@ export default function PlaysPage() {
                         {play.title}
                       </p>
                       <p className="text-[11.5px] text-on-surface-muted m-0 mb-3 leading-[1.45]">
-                        {PLAY_OUTPUTS[play.slug] ?? play.title}
+                        {PLAY_DESCRIPTIONS[play.slug] ?? play.title}
                       </p>
                       <div className="flex gap-1.5 flex-wrap">
                         {play.tags.slice(0, 3).map(tag => (

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { loadPlaybooks, STAGE_LABELS } from '@/lib/playbooks'
+import { loadPlaybooks, STAGE_LABELS, PLAY_DESCRIPTIONS } from '@/lib/playbooks'
 import { loadCampaigns } from '@/lib/campaigns'
 import { loadExemplars } from '@/lib/exemplars'
 import { PlayDetail } from '@/components/playbooks/PlayDetail'
@@ -23,27 +23,6 @@ export async function generateMetadata({
   }
 }
 
-const PLAY_DESCRIPTIONS: Record<string, string> = {
-  'positioning-brief': 'Produces the positioning brief section of your DESIGN.md — what the system is for, who it serves, and the three decisions that define its character.',
-  'generate-design-md': 'Generates a complete DESIGN.md scaffold from your positioning brief, ready to commit and use as agent context.',
-  'generate-color-scheme': 'Produces a perceptually-uniform 19-stop palette in OKLCH from a single seed color. Outputs hex previews, contrast targets, and a rationale per stop.',
-  'generate-type-scale': 'Generates a modular type scale with optical sizing, line-height, and letter-spacing values matched to your system\'s density and brand stance.',
-  'generate-shape-tokens': 'Produces a complete shape token set — border radii, elevation, and border width — calibrated to your system\'s character.',
-  'generate-color-roles': 'Maps your primitive color palette to semantic roles: surface, on-surface, primary, error, and all their variants.',
-  'generate-dark-mode': 'Generates dark-mode role overrides that maintain perceptual contrast and brand coherence across both themes.',
-  'generate-style-dictionary': 'Exports your token set as Style Dictionary v5 source JSON, ready for multi-platform build pipelines.',
-  'specify-component': 'Produces a component specification covering states, anatomy, token mappings, and accessibility requirements.',
-  'implement-component': 'Implements a specified component in React using your token classes, following the patterns in your DESIGN.md.',
-  'scaffold-component-library': 'Generates the full component spec set from your DESIGN.md — names, states, and anatomy for every component in scope.',
-  'migrate-tailwind-tokens': 'Migrates a Tailwind v3 color config to your Style Dictionary token source, preserving stop names and adding semantic roles.',
-  'audit-component': 'Produces a conformance report for an existing component — checking token usage, states, accessibility, and DESIGN.md alignment.',
-  'session-start': 'Generates a catch-up brief for your agent at the start of a new session, loading the current state of DESIGN.md and open decisions.',
-  'add-component': 'Adds a new component to an existing system — spec, implementation, and token mappings — following the patterns already established.',
-  'audit-token-coverage': 'Finds every hard-coded value in your codebase that should be a token, grouped by token category.',
-  'accessibility-audit': 'Produces WCAG 2.2 and APCA findings for your current token set, with specific remediation recommendations.',
-  'design-system-retrospective': 'Facilitates a structured retrospective on the current iteration — what worked, what didn\'t, and what changed from the original intent.',
-  'plan-next-iteration': 'Produces a prioritized backlog for the next design system iteration, grounded in the retrospective and the current DESIGN.md.',
-}
 
 const STAGE_CHIP_STYLES: Record<number, { bg: string; color: string; border: string }> = {
   1: { bg: 'var(--stage-1-bg)', color: 'var(--stage-1-text)', border: 'var(--stage-1-border)' },
@@ -242,6 +221,22 @@ function RailContent({
         <p className="text-[12.5px] leading-[1.5] m-0 text-on-surface">
           Plays work best when your agent has read <span className="font-mono">DESIGN.md</span> first. Run <span className="font-mono">session-start</span> at the beginning of each session to orient it.
         </p>
+      </div>
+
+      {/* How plays work */}
+      <div className="border border-border rounded-radius-lg p-4">
+        <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2">
+          How plays work
+        </p>
+        <p className="text-[12.5px] leading-[1.5] text-on-surface-muted mb-3">
+          Covers DESIGN.md setup, pulling KB references into prompts, and running plays end-to-end.
+        </p>
+        <Link
+          href="/guide"
+          className="inline-flex items-center gap-1.5 text-[12.5px] font-medium text-primary no-underline hover:opacity-80 transition-opacity"
+        >
+          Read the guide <ArrowRight size={11} />
+        </Link>
       </div>
     </>
   )

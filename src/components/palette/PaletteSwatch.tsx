@@ -19,7 +19,7 @@ export function PaletteSwatch({ hex, stop, contrastWhite, contrastBlack }: Props
     })
   }
 
-  const useWhiteText = contrastWhite < contrastBlack
+  const useWhiteText = contrastWhite > contrastBlack
   const labelColor = useWhiteText ? '#ffffff' : '#000000'
 
   return (

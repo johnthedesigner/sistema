@@ -5,7 +5,10 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
+html {
+  background-color: var(--color-canvas);
+}
+
 body {
   background-color: var(--color-canvas);
   overflow-x: hidden;

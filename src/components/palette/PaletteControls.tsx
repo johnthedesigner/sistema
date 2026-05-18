@@ -12,36 +12,27 @@ export type { Format }
 const GRAY_NAMES = ['slate', 'gray', 'zinc', 'neutral', 'stone']
 const CHROMATIC_NAMES = ['red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose']
 
-// --- Copy / Download helpers ---
+const GRID_COLS = '64px repeat(19, minmax(3rem, 1fr))'
 
 function useCopyButton() {
   const [copiedKey, setCopiedKey] = useState<string | null>(null)
-
   function copy(key: string, text: string) {
     navigator.clipboard.writeText(text).then(() => {
       setCopiedKey(key)
       setTimeout(() => setCopiedKey(null), 1500)
     })
   }
-
   return { copiedKey, copy }
 }
 
-// --- Sub-components ---
-
-function FormatTab({
-  label, value, current, onClick,
-}: {
+function FormatTab({ label, value, current, onClick }: {
   label: string; value: Format; current: Format; onClick: (f: Format) => void
 }) {
-  const active = value === current
   return (
     <button
       onClick={() => onClick(value)}
       className={`px-3 py-1.5 text-sm rounded transition-colors ${
-        active
-          ? 'bg-primary text-on-primary'
-          : 'text-on-surface-muted hover:text-on-surface'
+        value === current ? 'bg-primary text-on-primary' : 'text-on-surface-muted hover:text-on-surface'
       }`}
     >
       {label}
@@ -49,11 +40,7 @@ function FormatTab({
   )
 }
 
-function CopyButton({
-  label, onClick, copied,
-}: {
-  label?: string; onClick: () => void; copied: boolean
-}) {
+function CopyButton({ label, onClick, copied }: { label?: string; onClick: () => void; copied: boolean }) {
   return (
     <button
       onClick={onClick}
@@ -64,62 +51,46 @@ function CopyButton({
   )
 }
 
-function PaletteRow({
-  name, palette, format, copiedKey, onCopy,
-}: {
+function PaletteGridRow({ name, palette, format, copiedKey, onCopy }: {
   name: string
   palette: PaletteResult
   format: Format
   copiedKey: string | null
   onCopy: (key: string, text: string) => void
 }) {
-  const key = name
-
   function handleCopy() {
-    if (format === 'css') onCopy(key, toCss(name, palette))
-    else if (format === 'tailwind') onCopy(key, toTailwind(name, palette))
-    else {
-      const data = toFigmaCollection([name], { [name]: palette })
-      downloadJson(`${name}-palette.json`, data)
-    }
+    if (format === 'css') onCopy(name, toCss(name, palette))
+    else if (format === 'tailwind') onCopy(name, toTailwind(name, palette))
+    else downloadJson(`${name}-palette.json`, toFigmaCollection([name], { [name]: palette }))
   }
 
   return (
-    <div className="flex items-center gap-2">
-      <div className="w-16 shrink-0 flex flex-col">
+    <>
+      <div className="flex flex-col justify-center pr-1" style={{ position: 'sticky', left: 0, background: 'var(--color-canvas)', zIndex: 1, alignSelf: 'stretch', padding: ".5rem 0" }}>
         <span className="text-sm text-on-surface font-medium capitalize leading-tight">{name}</span>
         <CopyButton
           label={format === 'figma' ? 'export' : 'copy'}
           onClick={handleCopy}
-          copied={copiedKey === key}
+          copied={copiedKey === name}
         />
       </div>
-      <div className="flex gap-0.5 flex-1">
-        {STOPS.map(stop => {
-          const s = palette.stops[stop]
-          return (
-            <div key={stop} className="flex-1 min-w-0">
-              <PaletteSwatch
-                hex={s.hex}
-                stop={stop}
-                contrastWhite={s.contrast_white}
-                contrastBlack={s.contrast_black}
-              />
-            </div>
-          )
-        })}
-      </div>
-    </div>
+      {STOPS.map(stop => {
+        const s = palette.stops[stop]
+        return (
+          <PaletteSwatch
+            key={stop}
+            hex={s.hex}
+            stop={stop}
+            contrastWhite={s.contrast_white}
+            contrastBlack={s.contrast_black}
+          />
+        )
+      })}
+    </>
   )
 }
 
-// --- Main export ---
-
-export function PaletteControls({
-  library,
-}: {
-  library: Record<string, PaletteResult>
-}) {
+export function PaletteControls({ library }: { library: Record<string, PaletteResult> }) {
   const [format, setFormat] = useState<Format>('css')
   const { copiedKey, copy } = useCopyButton()
 
@@ -138,7 +109,6 @@ export function PaletteControls({
 
   return (
     <>
-      {/* Format selector + export all */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-1 bg-surface rounded-radius-lg p-1">
           <FormatTab label="CSS Variables" value="css" current={format} onClick={setFormat} />
@@ -168,38 +138,38 @@ export function PaletteControls({
         </p>
       )}
 
-      {/* Stop labels */}
-      <div className="flex items-center gap-2 mb-2">
-        <span className="w-16 shrink-0" />
-        <div className="flex gap-0.5 flex-1">
+      <div className="overflow-x-auto">
+        <div
+          className="min-w-[500px]"
+          style={{ display: 'grid', gridTemplateColumns: GRID_COLS, columnGap: 2, rowGap: 8, alignItems: 'center' }}
+        >
+          {/* Header row: empty name cell + stop labels */}
+          <div style={{ position: 'sticky', left: 0, background: 'var(--color-canvas)', zIndex: 1 }} />
           {STOPS.map(stop => (
-            <div key={stop} className="flex-1 min-w-0 text-center">
+            <div key={stop} className="text-center">
               <span className="text-[10px] text-on-surface-muted font-mono">{stop}</span>
             </div>
           ))}
+
+          {/* Gray families */}
+          {GRAY_NAMES.filter(n => library[n]).map(name => (
+            <PaletteGridRow
+              key={name} name={name} palette={library[name]}
+              format={format} copiedKey={copiedKey} onCopy={copy}
+            />
+          ))}
+
+          {/* Separator spanning all columns */}
+          <div style={{ gridColumn: '1 / -1', borderTop: '1px solid var(--color-border)' }} />
+
+          {/* Chromatic colors */}
+          {CHROMATIC_NAMES.filter(n => library[n]).map(name => (
+            <PaletteGridRow
+              key={name} name={name} palette={library[name]}
+              format={format} copiedKey={copiedKey} onCopy={copy}
+            />
+          ))}
         </div>
-      </div>
-
-      {/* Gray families */}
-      <div className="space-y-2 mb-6">
-        {GRAY_NAMES.filter(n => library[n]).map(name => (
-          <PaletteRow
-            key={name} name={name} palette={library[name]}
-            format={format} copiedKey={copiedKey} onCopy={copy}
-          />
-        ))}
-      </div>
-
-      <hr className="border-border mb-6" />
-
-      {/* Chromatic colors */}
-      <div className="space-y-2">
-        {CHROMATIC_NAMES.filter(n => library[n]).map(name => (
-          <PaletteRow
-            key={name} name={name} palette={library[name]}
-            format={format} copiedKey={copiedKey} onCopy={copy}
-          />
-        ))}
       </div>
     </>
   )
