@@ -1,299 +1,267 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { DesignMdCallout } from '@/components/shared/DesignMdCallout'
-import { SITE_URL } from '@/lib/site-url'
 
 export const metadata: Metadata = {
-  title: 'How to use Sistema',
-  description: 'A practical walkthrough — from a blank project to a running design system using Sistema plays in Claude Code or Cursor.',
+  title: 'How Sistema works',
+  description: 'Sistema gives your AI agent structured prompts and grounded reference material for design system work — so it reasons from evidence, not training data.',
 }
 
-const VERCEL_URL = SITE_URL
-
-const STAGES = [
-  {
-    stage: 1,
-    label: 'System definition',
-    description: 'Establish the design language — what the system is, what it references, its core decisions.',
-    plays: [
-      { slug: 'generate-design-md', title: 'Generate a DESIGN.md', output: 'A DESIGN.md file that describes your system\'s visual language for AI tools' },
-      { slug: 'plan-token-architecture', title: 'Plan a Token Architecture', output: 'A token tier structure (primitive → semantic → component) scoped to your stack' },
-    ],
-  },
-  {
-    stage: 2,
-    label: 'Primitive tokens',
-    description: 'Generate the raw scale values — color palettes, type sizes, spacing, shape.',
-    plays: [
-      { slug: 'generate-color-scheme', title: 'Generate a Color Scheme', output: 'A full primitive color palette with tonal steps for each hue' },
-      { slug: 'generate-type-scale', title: 'Generate a Primitive Type Scale', output: 'A type scale with size, weight, and line-height values for each role' },
-      { slug: 'generate-shape-tokens', title: 'Generate Shape Tokens', output: 'Border-radius scale mapped to component categories' },
-    ],
-  },
-  {
-    stage: 3,
-    label: 'Semantic layer',
-    description: 'Map primitives to roles — assign meaning to values so components stay theme-agnostic.',
-    plays: [
-      { slug: 'generate-color-roles', title: 'Map an Existing Palette to Semantic Roles', output: 'Semantic color role assignments (background, surface, on-*, etc.)' },
-      { slug: 'generate-dark-mode', title: 'Generate Dark Mode Token Values', output: 'Dark theme overrides for every semantic color role' },
-      { slug: 'generate-style-dictionary', title: 'Generate a Style Dictionary Config', output: 'A Style Dictionary config that transforms your tokens to CSS, JS, and iOS/Android' },
-    ],
-  },
-  {
-    stage: 4,
-    label: 'Components',
-    description: 'Specify and implement components using the token layer.',
-    plays: [
-      { slug: 'specify-component', title: 'Write a Component Specification', output: 'A component spec with variants, states, token mappings, and accessibility requirements' },
-      { slug: 'implement-component', title: 'Implement a Component', output: 'Working component code consuming semantic tokens, with documented variant props' },
-    ],
-  },
-  {
-    stage: 5,
-    label: 'Migration and adoption',
-    description: 'Integrate the system into an existing codebase.',
-    plays: [
-      { slug: 'migrate-tailwind-tokens', title: 'Migrate a Tailwind Config to Semantic Tokens', output: 'A migrated tailwind.config with semantic token references replacing raw values' },
-      { slug: 'audit-component', title: 'Audit a Component Against System Standards', output: 'An audit report with specific violations and corrected code' },
-    ],
-  },
-]
-
-function CodeBlock({ children }: { children: string }) {
+function Chip({ children }: { children: React.ReactNode }) {
   return (
-    <pre className="bg-surface border border-border rounded-radius-md px-4 py-3 text-sm text-on-surface-muted overflow-x-auto whitespace-pre-wrap break-words">
-      <code>{children}</code>
-    </pre>
+    <span className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border border-border bg-surface-sunken text-on-surface-muted">
+      {children}
+    </span>
   )
 }
 
-function StepNumber({ n }: { n: number }) {
+function OutlineLink({ href, external, children }: { href: string; external?: boolean; children: React.ReactNode }) {
+  const props = external ? { target: '_blank', rel: 'noopener noreferrer' } : {}
   return (
-    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-on-primary text-xs font-semibold flex items-center justify-center mt-0.5">
-      {n}
-    </span>
+    <a
+      href={href}
+      {...props}
+      className="inline-flex items-center h-[28px] px-3 text-[12px] font-medium rounded-radius-md text-on-surface border border-border bg-surface hover:bg-surface-sunken transition-colors no-underline"
+    >
+      {children}
+    </a>
   )
 }
 
 export default function GuidePage() {
   return (
-    <main className="max-w-3xl mx-auto px-6 py-12">
+    <main className="max-w-[720px] mx-auto px-6 py-12 md:py-16">
 
       {/* Header */}
-      <div className="mb-12">
-        <h1 className="text-3xl font-bold tracking-tight text-on-surface mb-3">How to use Sistema</h1>
-        <p className="text-on-surface-muted text-lg">
-          A practical walkthrough — from a blank project to a running design system.
+      <div className="mb-10">
+        <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-3">
+          How it works
+        </p>
+        <h1
+          className="font-serif font-medium text-on-surface m-0 mb-4 text-[28px] md:text-[36px]"
+          style={{ lineHeight: 1.1, letterSpacing: '-0.02em' }}
+        >
+          AI-assisted design systems, grounded in real precedent.
+        </h1>
+        <p className="text-on-surface-muted m-0" style={{ fontSize: 16, lineHeight: 1.6 }}>
+          Sistema gives your AI agent structured prompts and reference material from production design systems —
+          so instead of generating conventions from training data, it reasons from evidence. The result is a design
+          system that reflects real decisions, not guesses.
         </p>
       </div>
 
-      {/* ── Section 1 ── */}
-      <section className="mb-14">
-        <h2 className="text-xl font-semibold text-on-surface mb-1">Adding a DESIGN.md to your project</h2>
-        <p className="text-on-surface-muted mb-4">
-          A DESIGN.md file is a short, structured description of your product&apos;s visual language — written specifically for AI coding tools to read before generating design system artifacts. It lives at the root of your repository alongside CLAUDE.md or similar agent context files.
-        </p>
-
-        <div className="mb-6">
-          <DesignMdCallout />
+      {/* Three-path CTA: Bootstrap full-width, then Audit + Plays 2-up */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-14">
+        {/* Bootstrap — full width */}
+        <div className="sm:col-span-2 border border-primary rounded-radius-lg p-5 bg-surface flex flex-col sm:flex-row sm:items-center gap-4">
+          <div className="flex-1">
+            <p className="font-semibold text-on-surface text-[14.5px] mb-1">Starting a new design system?</p>
+            <p className="text-[13px] text-on-surface-muted leading-[1.5] m-0">
+              The Bootstrap Campaign runs an 11-step sequence — from positioning through scaffolding components — with each step building on the last.
+            </p>
+          </div>
+          <Link
+            href="/campaigns/bootstrap"
+            className="inline-flex items-center justify-center h-[34px] px-4 text-[13px] font-medium rounded-radius-md text-on-primary bg-primary hover:opacity-90 transition-opacity no-underline shrink-0"
+          >
+            Start the Bootstrap Campaign →
+          </Link>
         </div>
 
-        <div className="space-y-5">
-          <div className="flex gap-4">
-            <StepNumber n={1} />
-            <div>
-              <p className="font-medium text-on-surface mb-1">Run the Generate a DESIGN.md play</p>
-              <p className="text-on-surface-muted text-sm">
-                Open the <Link href="/playbooks/generate-design-md" className="text-on-surface underline underline-offset-2 hover:text-on-surface-muted">Generate a DESIGN.md</Link> play, fill in your project context, and paste the prompt into Claude Code or your preferred AI coding agent.
-              </p>
+        {/* Audit */}
+        <div className="border border-border rounded-radius-lg p-5 bg-surface flex flex-col gap-3">
+          <div>
+            <p className="font-semibold text-on-surface text-[14.5px] mb-1">Auditing an existing system?</p>
+            <p className="text-[13px] text-on-surface-muted leading-[1.5] m-0">
+              The Audit &amp; Refactor Campaign surfaces token drift, accessibility failures, and undocumented decisions — then produces a prioritized task list.
+            </p>
+          </div>
+          <Link
+            href="/campaigns/audit-and-refactor"
+            className="inline-flex items-center justify-center h-[34px] px-4 text-[13px] font-medium rounded-radius-md text-on-surface border border-border bg-surface hover:bg-surface-sunken transition-colors no-underline mt-auto"
+          >
+            Audit &amp; Refactor Campaign →
+          </Link>
+        </div>
+
+        {/* Individual plays */}
+        <div className="border border-border rounded-radius-lg p-5 bg-surface flex flex-col gap-3">
+          <div>
+            <p className="font-semibold text-on-surface text-[14.5px] mb-1">Extending an existing system?</p>
+            <p className="text-[13px] text-on-surface-muted leading-[1.5] m-0">
+              Run individual plays for specific tasks — add a component, generate dark mode, audit token coverage, or run a retrospective.
+            </p>
+          </div>
+          <Link
+            href="/playbooks"
+            className="inline-flex items-center justify-center h-[34px] px-4 text-[13px] font-medium rounded-radius-md text-on-surface border border-border bg-surface hover:bg-surface-sunken transition-colors no-underline mt-auto"
+          >
+            Browse plays →
+          </Link>
+        </div>
+      </div>
+
+      {/* Divider */}
+      <div className="border-t border-border mb-12" />
+
+      {/* Three concepts */}
+      <section className="mb-12">
+        <h2
+          className="font-serif font-medium text-on-surface m-0 mb-6 text-[20px] md:text-[22px]"
+          style={{ letterSpacing: '-0.015em' }}
+        >
+          Three things to understand
+        </h2>
+
+        <div className="flex flex-col gap-6">
+          {/* Plays */}
+          <div className="border border-border rounded-radius-lg p-5 bg-surface">
+            <p className="font-semibold text-on-surface text-[14.5px] mb-2">Plays</p>
+            <p className="text-[13.5px] text-on-surface-muted leading-[1.55] m-0 mb-3">
+              A play is a structured prompt for a specific design system task. Each one tells the agent what to do,
+              which KB documents to fetch as references, and what output to produce. You copy the prompt into your
+              AI agent, fill in your project context, and run it.
+            </p>
+            <div className="flex flex-wrap items-center gap-1.5">
+              <Chip>generate color tokens</Chip>
+              <Chip>specify a component</Chip>
+              <Chip>audit token coverage</Chip>
+              <Chip>scaffold components</Chip>
+              <Chip>25 plays total</Chip>
+              <OutlineLink href="/playbooks">Browse all plays →</OutlineLink>
             </div>
           </div>
 
-          <div className="flex gap-4">
-            <StepNumber n={2} />
-            <div>
-              <p className="font-medium text-on-surface mb-1">Save the output as <code className="text-sm bg-surface px-1.5 py-0.5 rounded-radius-sm">DESIGN.md</code></p>
-              <p className="text-on-surface-muted text-sm mb-3">
-                Place it at the root of your project. The file format follows the Google Labs DESIGN.md convention — a brief spec covering color, typography, spacing, shape, and key component decisions.
-              </p>
-              <CodeBlock>{`my-project/
-├── DESIGN.md          ← place it here
-├── CLAUDE.md          ← or alongside this
-├── src/
-└── ...`}</CodeBlock>
+          {/* KB */}
+          <div className="border border-border rounded-radius-lg p-5 bg-surface">
+            <p className="font-semibold text-on-surface text-[14.5px] mb-2">Knowledge Base</p>
+            <p className="text-[13.5px] text-on-surface-muted leading-[1.55] m-0 mb-3">
+              The KB contains structured documentation from production design systems, standards, and design theory.
+              Plays fetch specific KB pages at runtime — so the agent is reasoning from Material Design, Carbon, WCAG,
+              and OKLCH perception science rather than its training weights. You can also reference KB pages directly
+              in your own prompts.
+            </p>
+            <div className="flex flex-wrap items-center gap-1.5">
+              <Chip>Material Design 3</Chip>
+              <Chip>Carbon (IBM)</Chip>
+              <Chip>WCAG 2.2</Chip>
+              <Chip>OKLCH foundations</Chip>
+              <Chip>Sistema principles</Chip>
+              <OutlineLink href="/kb">Explore the Knowledge Base →</OutlineLink>
             </div>
           </div>
 
-          <div className="flex gap-4">
-            <StepNumber n={3} />
-            <div>
-              <p className="font-medium text-on-surface mb-1">Reference it in future prompts</p>
-              <p className="text-on-surface-muted text-sm mb-3">
-                Once the file exists, every subsequent play in the playbook can reference it. The agent reads DESIGN.md to stay consistent with your established decisions rather than starting from scratch each time.
-              </p>
-              <CodeBlock>{`Read DESIGN.md first, then implement the Button component using the token values defined there.`}</CodeBlock>
-            </div>
+          {/* DESIGN.md */}
+          <div className="border border-border rounded-radius-lg p-5 bg-surface">
+            <p className="font-semibold text-on-surface text-[14.5px] mb-2">DESIGN.md</p>
+            <p className="text-[13.5px] text-on-surface-muted leading-[1.55] m-0 mb-3">
+              A plain-text file at the root of your project that captures your design system decisions — brand color,
+              token architecture, type choices, spacing approach. Every play reads it at the start of a session and
+              updates it as decisions are made. It&apos;s how the agent stays consistent across sessions without
+              being re-briefed every time. The format follows the Google Stitch DESIGN.md convention.
+            </p>
+            <OutlineLink href="https://stitch.withgoogle.com/docs/design-md/format/" external>
+              Read the spec →
+            </OutlineLink>
           </div>
         </div>
       </section>
 
-      <div className="border-t border-border mb-14" />
+      {/* Divider */}
+      <div className="border-t border-border mb-12" />
 
-      {/* ── Section 2 ── */}
-      <section className="mb-14">
-        <h2 className="text-xl font-semibold text-on-surface mb-1">Referencing KB content in prompts</h2>
-        <p className="text-on-surface-muted mb-6">
-          The Sistema knowledge base is publicly accessible at stable URLs. Every play in the playbook already includes fetch instructions pointing to specific KB pages — but you can reference any KB content directly in your own prompts.
+      {/* How a play works */}
+      <section className="mb-12">
+        <h2
+          className="font-serif font-medium text-on-surface m-0 mb-2 text-[20px] md:text-[22px]"
+          style={{ letterSpacing: '-0.015em' }}
+        >
+          How a play works
+        </h2>
+        <p className="text-[13.5px] text-on-surface-muted leading-[1.55] m-0 mb-6">
+          Each play page has a prompt you copy directly into your AI of choice. The prompt is structured in steps —
+          it tells the agent to read your DESIGN.md, fetch relevant KB content, and produce a specific output. You
+          fill in your project details where indicated, then run it.
         </p>
 
-        <div className="space-y-5">
-          <div className="flex gap-4">
-            <StepNumber n={1} />
-            <div>
-              <p className="font-medium text-on-surface mb-1">Browse to the content you need</p>
-              <p className="text-on-surface-muted text-sm">
-                Find the relevant page in the <Link href="/kb" className="text-on-surface underline underline-offset-2 hover:text-on-surface-muted">knowledge base</Link>. Each design system has guidance, implementation docs, and token assets — organized by category.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex gap-4">
-            <StepNumber n={2} />
-            <div>
-              <p className="font-medium text-on-surface mb-1">Use the page URL in your prompt</p>
-              <p className="text-on-surface-muted text-sm mb-3">
-                Tell the agent to fetch the page before generating. The KB serves raw markdown via the <code className="text-sm bg-surface px-1.5 py-0.5 rounded-radius-sm">/raw/</code> endpoint, which agents can read directly.
-              </p>
-              <CodeBlock>{`Fetch ${VERCEL_URL}/raw/design-systems/material/guidance/foundations/color-system and use it as the reference for generating color role tokens.`}</CodeBlock>
-            </div>
-          </div>
-
-          <div className="flex gap-4">
-            <StepNumber n={3} />
-            <div>
-              <p className="font-medium text-on-surface mb-1">Or use the bundle endpoint for multiple files</p>
-              <p className="text-on-surface-muted text-sm mb-3">
-                The <code className="text-sm bg-surface px-1.5 py-0.5 rounded-radius-sm">/bundle/</code> endpoint returns all files in a category as a single markdown document — useful when the agent needs the full picture of a topic.
-              </p>
-              <CodeBlock>{`Fetch ${VERCEL_URL}/bundle/design-systems/material to get all Material Design 3 guidance, then generate a token architecture for a mobile-first product.`}</CodeBlock>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-6 border border-border rounded-radius-lg p-4 bg-surface">
-          <p className="text-xs font-medium text-on-surface-muted uppercase tracking-wider mb-2">URL patterns</p>
-          <div className="space-y-1.5 text-sm font-mono text-on-surface-muted">
-            <p><span className="text-on-surface-muted">/kb/</span>design-systems/material/guidance/foundations/color-system <span className="text-on-surface-muted">→ rendered page</span></p>
-            <p><span className="text-on-surface-muted">/raw/</span>design-systems/material/guidance/foundations/color-system <span className="text-on-surface-muted">→ raw markdown</span></p>
-            <p><span className="text-on-surface-muted">/bundle/</span>design-systems/material <span className="text-on-surface-muted">→ all files concatenated</span></p>
-          </div>
-        </div>
-      </section>
-
-      <div className="border-t border-border mb-14" />
-
-      {/* ── Section 3 ── */}
-      <section className="mb-14">
-        <h2 className="text-xl font-semibold text-on-surface mb-1">Running plays end-to-end</h2>
-        <p className="text-on-surface-muted mb-6">
-          Here&apos;s a complete example of using Sistema to build the color layer of a new design system — from a seed color to deployable CSS custom properties. This is Stages 1–3 in sequence.
-        </p>
-
-        <div className="space-y-8">
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-xs font-mono text-on-surface-muted bg-surface px-2 py-0.5 rounded-radius-sm">Stage 1</span>
-              <span className="text-sm font-medium text-on-surface">Define the system</span>
-            </div>
-            <p className="text-sm text-on-surface-muted mb-3">
-              Open the <Link href="/playbooks/generate-design-md" className="text-on-surface underline underline-offset-2 hover:text-on-surface-muted">Generate a DESIGN.md</Link> play. Fill in your product context — company name, product type, primary brand color. Paste into Claude Code. Save the output as <code className="text-sm bg-surface px-1.5 py-0.5 rounded-radius-sm">DESIGN.md</code>.
-            </p>
-            <CodeBlock>{`# DESIGN.md — Meridian Analytics
-
-## Color
-Primary: Blue (#2563EB). Semantic token model — no raw values in components.
-Themes: light (default) + dark.
-...`}</CodeBlock>
-          </div>
-
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-xs font-mono text-on-surface-muted bg-surface px-2 py-0.5 rounded-radius-sm">Stage 2</span>
-              <span className="text-sm font-medium text-on-surface">Generate primitive tokens</span>
-            </div>
-            <p className="text-sm text-on-surface-muted mb-3">
-              Open the <Link href="/playbooks/generate-color-scheme" className="text-on-surface underline underline-offset-2 hover:text-on-surface-muted">Generate a Color Scheme</Link> play. Enter your primary color. The play tells the agent to fetch Material Design 3&apos;s color system from Sistema as a structural reference, then generate your palette in the same format.
-            </p>
-            <CodeBlock>{`/* Generated: Meridian primitive palette */
---color-blue-10: #EFF6FF;
---color-blue-20: #DBEAFE;
-...
---color-blue-60: #2563EB;  /* primary */
-...`}</CodeBlock>
-          </div>
-
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-xs font-mono text-on-surface-muted bg-surface px-2 py-0.5 rounded-radius-sm">Stage 3</span>
-              <span className="text-sm font-medium text-on-surface">Map semantic roles</span>
-            </div>
-            <p className="text-sm text-on-surface-muted mb-3">
-              Open the <Link href="/playbooks/generate-color-roles" className="text-on-surface underline underline-offset-2 hover:text-on-surface-muted">Map an Existing Palette to Semantic Roles</Link> play. Paste in the primitive tokens from Stage 2. The agent assigns each primitive to the correct semantic role — background, surface, primary, on-primary, etc. — producing deployable CSS custom properties for light and dark themes.
-            </p>
-            <CodeBlock>{`:root {
-  --color-background: var(--color-gray-10);
-  --color-surface: #FFFFFF;
-  --color-primary: var(--color-blue-60);
-  --color-on-primary: #FFFFFF;
-  ...
-}
-
-[data-theme="dark"] {
-  --color-background: var(--color-gray-100);
-  --color-primary: var(--color-blue-40);
-  ...
-}`}</CodeBlock>
-          </div>
-        </div>
-
-        <p className="text-sm text-on-surface-muted mt-6">
-          At this point you have a committed, structured color system. Continue to Stage 4 to specify and implement components using these tokens.
-        </p>
-      </section>
-
-      <div className="border-t border-border mb-14" />
-
-      {/* ── Quick reference ── */}
-      <section>
-        <h2 className="text-xl font-semibold text-on-surface mb-1">Quick reference</h2>
-        <p className="text-on-surface-muted mb-6">All plays by stage — what each one produces and when to use it.</p>
-
-        <div className="space-y-8">
-          {STAGES.map(({ stage, label, description, plays }) => (
-            <div key={stage}>
-              <div className="flex items-baseline gap-3 mb-3">
-                <span className="text-xs font-mono text-on-surface-muted">Stage {stage}</span>
-                <h3 className="text-sm font-semibold text-on-surface-muted">{label}</h3>
+        <ol className="flex flex-col gap-4 list-none p-0 m-0">
+          {[
+            { n: 1, label: 'Open a play', detail: 'Find the play for your current task — either from a campaign step or by browsing the playbook.' },
+            { n: 2, label: 'Copy the prompt', detail: 'The play page generates a complete prompt with your project\'s Sistema URL pre-filled for KB fetches.' },
+            { n: 3, label: 'Paste into Claude or your coding agent', detail: 'Plays work in Claude.ai, Claude Code, Cursor, or any AI assistant with web access. A coding agent is recommended for plays that write files.' },
+            { n: 4, label: 'Review and commit', detail: 'The play produces a specific output — a file, a token set, a component — that you review and commit.' },
+          ].map(({ n, label, detail }) => (
+            <li key={n} className="flex gap-4">
+              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-on-primary text-[11px] font-semibold flex items-center justify-center mt-0.5">
+                {n}
+              </span>
+              <div>
+                <p className="font-medium text-on-surface text-[13.5px] mb-0.5">{label}</p>
+                <p className="text-[13px] text-on-surface-muted leading-[1.5] m-0">{detail}</p>
               </div>
-              <p className="text-sm text-on-surface-muted mb-3">{description}</p>
-              <div className="border border-border rounded-radius-lg overflow-hidden divide-y divide-border">
-                {plays.map(play => (
-                  <div key={play.slug} className="px-4 py-3 grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-4">
-                    <Link
-                      href={`/playbooks/${play.slug}`}
-                      className="text-sm font-medium text-on-surface hover:text-on-surface-muted transition-colors"
-                    >
-                      {play.title} →
-                    </Link>
-                    <p className="text-sm text-on-surface-muted">{play.output}</p>
-                  </div>
-                ))}
-              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* Divider */}
+      <div className="border-t border-border mb-12" />
+
+      {/* What plays cover */}
+      <section className="mb-12">
+        <h2
+          className="font-serif font-medium text-on-surface m-0 mb-2 text-[20px] md:text-[22px]"
+          style={{ letterSpacing: '-0.015em' }}
+        >
+          What plays cover
+        </h2>
+        <p className="text-[13.5px] text-on-surface-muted leading-[1.55] m-0 mb-5">
+          Plays span the full design system lifecycle — from initial positioning through ongoing maintenance.
+        </p>
+
+        <div className="flex flex-col divide-y divide-border border border-border rounded-radius-lg overflow-hidden">
+          {[
+            { label: 'System definition', plays: ['Establish context', 'Positioning brief', 'Visual language', 'Generate DESIGN.md'] },
+            { label: 'Token generation', plays: ['Color scheme', 'Type scale', 'Shape tokens', 'Spacing tokens', 'Color roles', 'Dark mode', 'Style Dictionary'] },
+            { label: 'Components', plays: ['Scaffold core components', 'Specify a component', 'Implement a component', 'Add a component'] },
+            { label: 'Docs & examples', plays: ['Generate page examples', 'Documentation site', 'Voice and tone'] },
+            { label: 'Maintenance', plays: ['Session start', 'Audit token coverage', 'Accessibility audit', 'Component audit', 'Retrospective', 'Plan next iteration'] },
+            { label: 'Migration', plays: ['Migrate Tailwind config'] },
+          ].map(({ label, plays }) => (
+            <div key={label} className="flex flex-row items-center gap-4 px-4 py-3">
+              <p className="font-medium text-on-surface text-[12.5px] w-[140px] shrink-0 m-0">{label}</p>
+              <p className="text-[12.5px] text-on-surface-muted m-0 min-w-0 flex-1 truncate">{plays.join(' · ')}</p>
             </div>
           ))}
         </div>
       </section>
+
+      {/* Bottom CTA */}
+      <div className="rounded-radius-lg border border-primary bg-surface p-5">
+        <p className="font-semibold text-on-surface text-[14.5px] mb-1">Ready to start?</p>
+        <p className="text-[13px] text-on-surface-muted m-0 leading-[1.5] mb-4">
+          New projects start with the Bootstrap Campaign. Existing systems can run the Audit &amp; Refactor Campaign or jump straight to an individual play.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <Link
+            href="/campaigns/bootstrap"
+            className="inline-flex items-center justify-center h-[34px] px-4 text-[13px] font-medium rounded-radius-md text-on-primary bg-primary hover:opacity-90 transition-opacity no-underline"
+          >
+            Bootstrap Campaign →
+          </Link>
+          <Link
+            href="/campaigns/audit-and-refactor"
+            className="inline-flex items-center justify-center h-[34px] px-4 text-[13px] font-medium rounded-radius-md text-on-surface border border-border bg-surface hover:bg-surface-sunken transition-colors no-underline"
+          >
+            Audit &amp; Refactor Campaign
+          </Link>
+          <Link
+            href="/playbooks"
+            className="inline-flex items-center justify-center h-[34px] px-4 text-[13px] font-medium rounded-radius-md text-on-surface border border-border bg-surface hover:bg-surface-sunken transition-colors no-underline"
+          >
+            Browse all plays
+          </Link>
+        </div>
+      </div>
 
     </main>
   )

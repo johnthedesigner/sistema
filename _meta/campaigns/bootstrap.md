@@ -17,18 +17,18 @@ When a decision is underspecified, make the specific choice and explain your rea
 ## Campaign map
 
 **Phase 1 — Foundation**
-1. **establish-context** — Scan the project, fill gaps with targeted questions, produce LIVING_BRIEF.md
-2. **positioning-brief** — Establish the product's design stance (may be folded into Step 1 if starting fresh)
+1. **establish-context** — Scan the project, fill gaps with targeted questions, produce LIVING_BRIEF.md (includes positioning)
 
 **Phase 2 — Visual Language**
-3. **establish-visual-language** — Translate positioning to specific visual direction; generate style-preview.html for human review
-4. **generate-design-md** — Generate the full DESIGN.md scaffold from the approved visual direction
+2. **establish-visual-language** — Translate positioning to specific visual direction; generate style-preview.html for human review
+3. **generate-design-md** — Generate the full DESIGN.md scaffold from the approved visual direction
 
 **Phase 3 — Token System**
-5. **generate-color-scheme** — Generate semantic color role tokens as CSS custom properties
-6. **generate-type-scale** — Generate a modular type scale with leading and tracking
-7. **generate-shape-tokens** — Generate shape tokens: radius, elevation, border width
-8. **generate-style-dictionary** — Export the token set as Style Dictionary v5 source JSON
+4. **generate-color-scheme** — Generate semantic color role tokens as DTCG JSON source files
+5. **generate-type-scale** — Generate a modular type scale as DTCG JSON source files
+6. **generate-shape-tokens** — Generate shape tokens as DTCG JSON source files: radius, elevation, border width
+7. **generate-spacing-tokens** — Generate spacing tokens as DTCG JSON source files: scale, density, rhythm
+8. **generate-style-dictionary** — Compile all token JSON into CSS custom properties; verify with token-check.html
 
 **Phase 4 — Component Build-out** *(runs after Phase 3 is approved)*
 9. **scaffold-core-components** — Implement a core component set using the token system
@@ -65,7 +65,7 @@ Work through the following questions. Skip any already answered from the scan. F
 6. **Theme:** Light only, dark only, or both? If both — which is primary?
 7. **Platform and scale:** Web, mobile, or cross-platform? One team or multiple? Component count: small (<20), medium (20–60), large (60+)?
 8. **Accessibility:** WCAG 2.2 AA, or a stronger requirement?
-9. **Technology:** Framework, CSS approach, design tool, component library? Any constraints on token format or build tooling?
+9. **Technology:** What's the tech stack — framework, styling approach, any existing component libraries? (e.g. Next.js with Tailwind, Vite + plain CSS, Nuxt, SvelteKit — just say what you have; the specifics matter for how we wire things up later.)
 
 **Step 1c — Write LIVING_BRIEF.md:**
 
@@ -85,7 +85,7 @@ Populate all sections. Leave Key Decisions entries as `[to be determined — {re
 **Density:** [content-dense / content-sparse / balanced]
 **Theme:** [light only / dark only / both — primary: light/dark]
 **Stance:** [expressive ↔ utilitarian placement and brief rationale]
-**Technology:** [framework, CSS approach, design tool]
+**Technology:** [framework, styling approach, component library]
 
 ---
 
@@ -93,10 +93,10 @@ Populate all sections. Leave Key Decisions entries as `[to be determined — {re
 
 **Color:** [existing brand color or TBD]
 **Typography:** [existing typeface decisions or TBD]
-**Spacing:** [to be determined]
+**Spacing:** [base unit, scale tier (dense/balanced/sparse), semantic alias decisions — or TBD]
 **Shape:** [to be determined]
 **Motion:** [to be determined]
-**Tokens:** [format and build tooling or TBD]
+**Tokens:** [Style Dictionary v5 — DTCG JSON source compiled to CSS custom properties, unless overridden by tech constraints]
 
 ---
 
@@ -249,7 +249,7 @@ Append to the Decision Log:
 
 ## Step 4 — generate-color-scheme
 
-You are generating a complete color scheme — semantic color role tokens as CSS custom properties, ready to ship.
+You are generating a complete color scheme as DTCG-format JSON source files. These files are the authoritative source for every color value in the system — the CSS is compiled from them in Step 9, not authored separately.
 
 **Step 4a — Confirm color input:**
 
@@ -269,34 +269,46 @@ Fetch and read the following from the Sistema knowledge base:
 
 The color architecture synthesis explains the four major architectural models, contrast requirements, and dark mode tonal shift logic. The visual quality signals document defines the OKLCH commitment levels (§4) and absolute color bans (§3.2).
 
-**Step 4c — Generate the color scheme:**
+**Step 4c — Generate the color token source files:**
 
-Generate the following semantic roles as CSS custom properties using the naming pattern `--color-[role]`:
+Write the following semantic roles as DTCG JSON. Use the key structure `color.[role]`:
 
 **Required roles:**
-- `--color-primary` and `--color-on-primary`
-- `--color-primary-container` and `--color-on-primary-container`
-- `--color-secondary` and `--color-on-secondary`
-- `--color-secondary-container` and `--color-on-secondary-container`
-- `--color-surface` — default background
-- `--color-surface-raised` — elevated surface (cards, sheets)
-- `--color-surface-overlay` — modal/dialog surface
-- `--color-on-surface` — primary text on surface
-- `--color-on-surface-muted` — secondary/muted text
-- `--color-border` — default border
-- `--color-border-focus` — focus ring (must meet 3:1 against surface)
-- `--color-error` and `--color-on-error`
-- `--color-success` and `--color-on-success`
-- `--color-warning` and `--color-on-warning`
+- `color.primary` and `color.on-primary`
+- `color.primary-container` and `color.on-primary-container`
+- `color.secondary` and `color.on-secondary`
+- `color.secondary-container` and `color.on-secondary-container`
+- `color.surface` — default background
+- `color.surface-raised` — elevated surface (cards, sheets)
+- `color.surface-overlay` — modal/dialog surface
+- `color.on-surface` — primary text on surface
+- `color.on-surface-muted` — secondary/muted text
+- `color.border` — default border
+- `color.border-focus` — focus ring (must meet 3:1 against surface)
+- `color.error` and `color.on-error`
+- `color.success` and `color.on-success`
+- `color.warning` and `color.on-warning`
 
-For dark mode (if required): use tonal shift logic — do not invert light mode values. Every `on-*` role must meet WCAG 4.5:1 against its paired surface. Flag any role where contrast should be manually verified.
+DTCG format:
+```json
+{
+  "color": {
+    "primary": { "$type": "color", "$value": "#..." },
+    "on-primary": { "$type": "color", "$value": "#..." }
+  }
+}
+```
+
+For each `on-*` role, note the contrast ratio against its paired surface as a `$description` field.
+
+For dark mode (if required): generate a separate `color.dark.json` with only the overridden values. Use tonal shift logic — do not invert light mode values. Every `on-*` role must meet WCAG 4.5:1 against its paired surface.
 
 Quality checks before finalizing:
 - **First-order reflex check:** Primary color — is it medium-blue without justification?
 - **Commitment level check:** Surface and neutral chroma values consistent with the approved commitment level?
 - **Absolute bans check:** No opacity-derived containers; primary and secondary have distinct hues; no pure black/white surfaces; neutral ramp has hue temperature.
 
-Write the output as a CSS file at the path specified in DESIGN.md, or as `src/styles/tokens/colors.css` if not specified.
+Write to `tokens/src/color.json` (and `tokens/src/color.dark.json` if applicable).
 
 **Step 4d — Update the living brief:**
 
@@ -307,9 +319,9 @@ Update the Color entry in Key Decisions. Append to the Decision Log:
 
 ### Before proceeding to Step 5
 
-- [ ] Color token file exists with all required roles
-- [ ] Every `on-*` role has a verified contrast ratio listed
-- [ ] Dark mode overrides exist if theme is "both"
+- [ ] `tokens/src/color.json` exists with all required roles
+- [ ] Every `on-*` role has a contrast ratio in its `$description`
+- [ ] `tokens/src/color.dark.json` exists if theme is "both"
 - [ ] All quality checks passed
 - [ ] Quality check: are surface colors genuinely specific, or generic near-white?
 
@@ -319,7 +331,7 @@ Update the Color entry in Key Decisions. Append to the Decision Log:
 
 ## Step 5 — generate-type-scale
 
-You are generating a typography token set for this design system.
+You are generating a typography token set as DTCG JSON source files.
 
 **Step 5a — Confirm typography input:**
 
@@ -335,15 +347,21 @@ Fetch and read the following from the Sistema knowledge base:
 - Typography architecture synthesis: `{{sistema_url}}/raw/principles/typography/architecture`
 - Visual quality signals: `{{sistema_url}}/raw/principles/quality/visual-quality-signals`
 
-**Step 5c — Generate the type scale:**
+**Step 5c — Generate the type scale token source file:**
 
-For each type role, output a token block:
-```css
-/* [Role name] — [one-line usage description] */
---type-[role]-size: [value];
---type-[role]-weight: [value];
---type-[role]-line-height: [value]; /* unitless */
---type-[role]-letter-spacing: [value]; /* em */
+For each type role, output a token group in DTCG format:
+```json
+{
+  "type": {
+    "body-lg": {
+      "$description": "Default body text — prose, descriptions, form labels",
+      "size":           { "$type": "dimension",  "$value": "16px" },
+      "weight":         { "$type": "fontWeight", "$value": 400 },
+      "line-height":    { "$type": "number",     "$value": 1.6 },
+      "letter-spacing": { "$type": "dimension",  "$value": "0em" }
+    }
+  }
+}
 ```
 
 Define roles appropriate for this product's density and stance. At minimum: display (if applicable), heading-lg, heading-sm, body-lg, body-sm, label, caption, code.
@@ -354,9 +372,9 @@ Non-negotiable legibility constraints:
 - Display roles: line height 1.0–1.1
 - Letter spacing: negative on large sizes, positive on small sizes (label/caption) when legibility requires it
 
-Quality check: weight, size, and tracking must vary meaningfully across roles — not size alone. Every role exists for a specific reason; name it in the comment.
+Quality check: weight, size, and tracking must vary meaningfully across roles — not size alone. Every role exists for a specific reason; name it in the `$description`.
 
-Write the output as a CSS file and note the path.
+Write to `tokens/src/typography.json`.
 
 **Step 5d — Update the living brief:**
 
@@ -367,8 +385,8 @@ Update the Typography entry in Key Decisions. Append to the Decision Log:
 
 ### Before proceeding to Step 6
 
-- [ ] Type scale CSS file exists with all roles
-- [ ] Each role has all four token properties
+- [ ] `tokens/src/typography.json` exists with all roles
+- [ ] Each role has all four token properties and a `$description`
 - [ ] Legibility constraints are met for all roles
 - [ ] Quality check: hierarchy is clear and each role has a distinct visual identity
 
@@ -378,7 +396,7 @@ Update the Typography entry in Key Decisions. Append to the Decision Log:
 
 ## Step 6 — generate-shape-tokens
 
-You are generating shape tokens — border-radius, elevation (shadow), and border width — for this design system.
+You are generating shape tokens — border-radius, elevation (shadow), and border width — as DTCG JSON source files.
 
 **Step 6a — Confirm shape direction:**
 
@@ -393,35 +411,40 @@ Fetch and read the following from the Sistema knowledge base:
 - Shape architecture synthesis: `{{sistema_url}}/raw/principles/shape/architecture`
 - Visual quality signals: `{{sistema_url}}/raw/principles/quality/visual-quality-signals`
 
-**Step 6c — Generate the shape tokens:**
+**Step 6c — Generate the shape token source file:**
 
-Output shape tokens as CSS custom properties:
-```css
---radius-none: 0px;
---radius-sm: [value];
---radius-md: [value];
---radius-lg: [value];
---radius-xl: [value];
---radius-full: 9999px;
+Output shape tokens in DTCG format:
+```json
+{
+  "radius": {
+    "none": { "$type": "dimension", "$value": "0px" },
+    "sm":   { "$type": "dimension", "$value": "..." },
+    "md":   { "$type": "dimension", "$value": "..." },
+    "lg":   { "$type": "dimension", "$value": "..." },
+    "xl":   { "$type": "dimension", "$value": "..." },
+    "full": { "$type": "dimension", "$value": "9999px" }
+  },
+  "shadow": {
+    "sm": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "1px", "blur": "3px", "spread": "0px", "color": "..." } },
+    "md": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "4px", "blur": "12px", "spread": "0px", "color": "..." } }
+  }
+}
 ```
 
-Include a component mapping table:
-| Component type | Radius token | Notes |
-|---|---|---|
-| Buttons | | |
-| Inputs / form fields | | |
-| Cards | | |
-| Modals / dialogs | | |
-| Chips / badges | | |
-| Tooltips | | |
+Include a component mapping table as `$description` on each radius stop, noting which component types use it:
 
-Also generate elevation tokens:
-```css
---shadow-sm: [value]; /* subtle lift — cards, dropdowns */
---shadow-md: [value]; /* clear elevation — modals, floating panels */
-```
+| Component type | Radius token |
+|---|---|
+| Buttons | |
+| Inputs / form fields | |
+| Cards | |
+| Modals / dialogs | |
+| Chips / badges | |
+| Tooltips | |
 
 Quality check: radius must not be uniform across all components — there must be a hierarchy. The values must match the approved shape personality from Step 2. Check against the side-stripe ban.
+
+Write to `tokens/src/shape.json`.
 
 **Step 6d — Update the living brief:**
 
@@ -432,75 +455,149 @@ Update the Shape entry in Key Decisions. Append to the Decision Log:
 
 ### Before proceeding to Step 7
 
-- [ ] Shape token CSS file exists
-- [ ] All radius stops defined and component mapping table complete
+- [ ] `tokens/src/shape.json` exists
+- [ ] All radius stops defined with component mapping noted
 - [ ] Elevation tokens defined
 - [ ] Quality check: radius values match the approved shape personality
 
-**Pause here.** Ask: *"Step 6 complete. Shape tokens generated. Ready to proceed to Step 7 — generating the Style Dictionary configuration?"*
+**Pause here.** Ask: *"Step 6 complete. Shape tokens generated. Ready to proceed to Step 7 — generating spacing tokens?"*
 
 ---
 
-## Step 7 — generate-style-dictionary
+## Step 7 — generate-spacing-tokens
 
-You are setting up Style Dictionary to compile the design tokens generated in this campaign into CSS custom properties, JavaScript modules, and other platform outputs.
+You are generating a spacing token set as DTCG JSON source files. Spacing decisions constrain every component's padding and every layout's rhythm — they must be defined before any component code is written, so that padding and gap values are documented decisions rather than ad hoc Tailwind utilities that drift over time.
 
-**Step 7a — Ask the user for repository context:**
+**Step 7a — Confirm density input:**
 
-Before proceeding, ask:
-1. What is the repository structure? (Where are source files, what framework is in use?)
-2. What output formats are needed? (CSS vars, JS ESM, JSON, SCSS)
-3. Any existing file organization to work around?
+Review LIVING_BRIEF.md. Confirm the product's density target: content-dense, balanced, or content-sparse. (Recorded from Step 1.)
 
-**Step 7b — Read the references:**
+**Step 7b — Generate the spacing token source file:**
 
-Fetch and read the following from the Sistema knowledge base:
-- Token architecture synthesis: `{{sistema_url}}/raw/principles/tokens/architecture`
+Select the scale tier that matches the density target. All scales use a 4px base unit:
 
-**Step 7c — Generate the configuration:**
+- **Content-dense:** tighter stops — 2, 4, 6, 8, 12, 16, 20, 24, 32, 48px
+- **Balanced:** standard stops — 4, 8, 12, 16, 20, 24, 32, 40, 48, 64px
+- **Content-sparse:** generous stops — 4, 8, 16, 24, 32, 48, 64, 80, 96, 128px
 
-Produce:
-1. A `style-dictionary.config.js` (or `.mjs`) file ready to run
-2. The expected input file structure, organized by tier (primitive → semantic → component)
-3. Example npm scripts: `"tokens": "node style-dictionary.config.mjs"`
-4. Migration guidance: how to move the CSS custom property files from steps 4–6 into the token JSON source structure
+If the product has mixed density (e.g., dense tables within a balanced layout), note this and adjust — tighter stops for component-internal spacing, larger stops for layout-level gaps.
 
-**Step 7d — Update the living brief:**
+Name tokens by their pixel value, not an abstract ordinal — `space-4` means 4px everywhere it appears. Also define semantic aliases for the three most critical layout decisions:
+
+```json
+{
+  "space": {
+    "1":  { "$type": "dimension", "$value": "4px" },
+    "2":  { "$type": "dimension", "$value": "8px" },
+    "3":  { "$type": "dimension", "$value": "12px" },
+    "4":  { "$type": "dimension", "$value": "16px" },
+    "5":  { "$type": "dimension", "$value": "20px" },
+    "6":  { "$type": "dimension", "$value": "24px" },
+    "8":  { "$type": "dimension", "$value": "32px" },
+    "10": { "$type": "dimension", "$value": "40px" },
+    "12": { "$type": "dimension", "$value": "48px" },
+    "16": { "$type": "dimension", "$value": "64px" }
+  },
+  "layout": {
+    "page-gutter":   { "$type": "dimension", "$value": "{space.6}", "$description": "Horizontal padding on page-level containers" },
+    "section-gap":   { "$type": "dimension", "$value": "{space.12}", "$description": "Vertical gap between major page sections" },
+    "component-gap": { "$type": "dimension", "$value": "{space.4}", "$description": "Gap between adjacent components in a list or row" }
+  }
+}
+```
+
+State the rationale: which tier, any stop adjustments, and why the three semantic aliases map to those values.
+
+Write to `tokens/src/spacing.json`.
+
+**Step 7c — Update the living brief:**
+
+Update the Spacing entry in Key Decisions. Append to the Decision Log:
+```
+[date] — Spacing tokens generated — [base unit, scale tier, semantic alias decisions]
+```
+
+### Before proceeding to Step 8
+
+- [ ] `tokens/src/spacing.json` exists
+- [ ] Scale tier matches the product's density target
+- [ ] Semantic layout aliases defined with rationale
+- [ ] LIVING_BRIEF.md Spacing entry updated
+
+**Pause here.** Ask: *"Step 7 complete. Spacing tokens generated. Ready to proceed to Step 8 — compiling the token system with Style Dictionary?"*
+
+---
+
+## Step 8 — generate-style-dictionary
+
+You are setting up Style Dictionary v5 to compile all token source files from Steps 4–7 into CSS custom properties. The JSON source files written in Steps 4–7 are the single authoritative definition of every token value. The compiled CSS is a build artifact — never edited directly.
+
+**Step 8a — Determine output paths:**
+
+Review the technology and project structure recorded in LIVING_BRIEF.md. Determine the correct CSS output path for the framework in use:
+- Next.js with `src/` directory: `src/styles/tokens/`
+- Next.js without `src/` directory: `styles/tokens/`
+- Vite / other: derive from the project structure
+
+If the project structure is ambiguous from what was scanned in Step 1, ask one brief question to confirm. Otherwise, proceed without asking.
+
+**Step 8b — Generate the Style Dictionary configuration:**
+
+Produce `style-dictionary.config.mjs`, ready to run with `node style-dictionary.config.mjs`:
+
+1. Source: all files in `tokens/src/` — `color.json`, `color.dark.json` (if it exists), `typography.json`, `shape.json`, `spacing.json`
+2. Output: CSS custom properties compiled to the path from Step 8a, using the naming convention `--[category]-[token-name]` (e.g. `--color-primary`, `--type-body-lg-size`, `--radius-md`, `--space-4`)
+3. Dark mode: if `color.dark.json` exists, output its values under a `[data-theme="dark"]` selector with a `@media (prefers-color-scheme: dark)` fallback
+4. Add an npm script to `package.json`: `"tokens": "node style-dictionary.config.mjs"`
+
+**Step 8c — Run compilation:**
+
+Run `npm run tokens`. If it fails, diagnose and fix before proceeding — do not skip past a failed compilation.
+
+**Step 8d — Generate token-check.html:**
+
+Immediately after successful compilation, generate `token-check.html` at the project root. This is a self-verification file — its purpose is to confirm that compiled token values match intent before any component code is written.
+
+The file must load the compiled CSS and render:
+- Every color token as a labeled swatch showing the token name and its computed hex
+- Every type role as a live text specimen rendered in that role's size, weight, and spacing
+- Every radius stop as a box with a visible border at that corner radius
+- Every spacing stop as a horizontal bar of that exact width, labeled
+
+Open `token-check.html` and verify that all values are what you specified. Catch mismatches here, not in component code.
+
+**Step 8e — Update the living brief:**
 
 Update the Tokens entry in Key Decisions. Append to the Decision Log:
 ```
-[date] — Style Dictionary configured — [output formats, file structure approach]
+[date] — Style Dictionary configured and compiled — [token count, output paths, any issues resolved]
 ```
 
 ### Before proceeding to Phase 4
 
-- [ ] Style Dictionary config exists and is runnable
-- [ ] Token source file structure is defined
-- [ ] All CSS files from steps 4–6 have a migration path
-- [ ] LIVING_BRIEF.md has an entry for each step
+- [ ] `style-dictionary.config.mjs` exists and runs without error
+- [ ] CSS token files compiled to the correct output path
+- [ ] `token-check.html` generated and reviewed — all values match intent
+- [ ] All JSON source files from Steps 4–7 included in the config
+- [ ] LIVING_BRIEF.md Tokens entry updated
 
-**Pause here.** Summarize Phase 3 outputs. Then ask: *"Phase 3 complete — token system established. Ready to proceed to Phase 4 — building core components?"*
+**Pause here.** Summarize Phase 3 outputs — token source files, compiled CSS paths, token count. Then ask: *"Phase 3 complete — token system compiled and verified. Ready to proceed to Phase 4 — building core components?"*
 
 ---
 
-## Step 8 — scaffold-core-components
+## Step 9 — scaffold-core-components
 
 You are implementing the core component set for this design system, consuming the token system established in Phase 3.
 
-**Step 8a — Confirm component library preference:**
+**Step 10a — Confirm component library preference:**
 
 Ask the user:
-1. Do you want to use shadcn/ui as the component base? (Recommended — Radix UI primitives with Tailwind, highly customizable, widely adopted.)
-2. Alternative options: Base UI (Radix-compatible, no styles), Radix UI directly (unstyled primitives), or no component library (build from scratch).
+1. Do you want to use shadcn/ui as the component base? (Recommended for Tailwind-based projects — Radix UI primitives with Tailwind, highly customizable, widely adopted.)
+2. Alternative options: Base UI (Radix-compatible, unstyled), Radix UI directly, or no component library (build from scratch).
 
-If the user chooses shadcn/ui:
-- The shadcn CLI generates component source files directly into the project (`components/ui/`) — components are owned by the project and customized freely.
-- Token integration: update `globals.css` to use the color token CSS custom properties from Step 4. Update `tailwind.config.js` to reference them.
-- shadcn uses HSL color variables by default; adapt them to the OKLCH-derived hex values from the color scheme.
+If the user's stack doesn't use Tailwind, adapt the approach to the actual styling layer in use — don't force Tailwind-specific integration on a non-Tailwind project.
 
-If the user chooses a different library: proceed accordingly, adapting the following steps to that library's integration approach.
-
-**Step 8b — Read the living brief and references:**
+**Step 10b — Read the living brief and references:**
 
 Read `LIVING_BRIEF.md`. Confirm the technology stack, token naming convention, and shape scale.
 
@@ -508,20 +605,113 @@ Fetch and read the following from the Sistema knowledge base:
 - Token architecture synthesis: `{{sistema_url}}/raw/principles/tokens/architecture`
 - Accessibility floor: `{{sistema_url}}/raw/principles/accessibility/floor`
 
-**Step 8c — Install and configure the component library:**
+**Step 10c — Wire the token system into the framework:**
+
+Before installing any components, establish the token integration layer. Without it, component code that references token-named utilities (e.g. `bg-primary`, `text-on-surface`) won't resolve.
+
+**For Tailwind-based projects:**
+
+Generate `tailwind.config.ts` extending the theme with every token from Phase 3. Every compiled CSS custom property must have a corresponding Tailwind utility class:
+
+```ts
+import type { Config } from 'tailwindcss'
+
+const config: Config = {
+  content: ['./src/**/*.{ts,tsx,js,jsx}', './app/**/*.{ts,tsx,js,jsx}'],
+  theme: {
+    extend: {
+      colors: {
+        primary:              'var(--color-primary)',
+        'on-primary':         'var(--color-on-primary)',
+        'primary-container':  'var(--color-primary-container)',
+        secondary:            'var(--color-secondary)',
+        'on-secondary':       'var(--color-on-secondary)',
+        surface:              'var(--color-surface)',
+        'surface-raised':     'var(--color-surface-raised)',
+        'surface-overlay':    'var(--color-surface-overlay)',
+        'on-surface':         'var(--color-on-surface)',
+        'on-surface-muted':   'var(--color-on-surface-muted)',
+        border:               'var(--color-border)',
+        'border-focus':       'var(--color-border-focus)',
+        error:                'var(--color-error)',
+        'on-error':           'var(--color-on-error)',
+        success:              'var(--color-success)',
+        warning:              'var(--color-warning)',
+        // add any additional roles from the color token file
+      },
+      borderRadius: {
+        none: 'var(--radius-none)',
+        sm:   'var(--radius-sm)',
+        md:   'var(--radius-md)',
+        lg:   'var(--radius-lg)',
+        xl:   'var(--radius-xl)',
+        full: 'var(--radius-full)',
+      },
+      spacing: {
+        // Add all spacing stops from tokens/src/spacing.json
+        1:  'var(--space-1)',
+        2:  'var(--space-2)',
+        3:  'var(--space-3)',
+        4:  'var(--space-4)',
+        5:  'var(--space-5)',
+        6:  'var(--space-6)',
+        8:  'var(--space-8)',
+        10: 'var(--space-10)',
+        12: 'var(--space-12)',
+        16: 'var(--space-16)',
+      },
+    }
+  }
+}
+export default config
+```
+
+Import the compiled token CSS in the project's global stylesheet. Verify the import path against the actual project directory structure — the path differs based on whether a `src/` directory is present. Check before writing:
+
+```css
+/* Next.js with src/ directory — in src/app/globals.css */
+@import '../../styles/tokens/colors.css';
+
+/* Next.js without src/ — in app/globals.css */
+@import '../styles/tokens/colors.css';
+```
+
+If using **Next.js**, load fonts via `next/font` — not a CDN `@import` in the global stylesheet. `next/font` self-hosts the font, eliminates render-blocking requests, and prevents layout shift. If the stack uses a different framework, use its idiomatic font loading approach.
+
+**For non-Tailwind projects:** establish the token integration layer appropriate to the CSS approach in use — CSS modules, vanilla CSS with custom properties, or the framework's theming API.
+
+**Step 10d — Install and configure the component library:**
 
 For shadcn/ui:
 1. Initialize: `npx shadcn@latest init`
-2. Configure the theme to use the token values from Steps 4–6
+2. Configure the theme to use the token values from Phase 3
 3. Generate the core component set (at minimum): Button, Input, Select, Checkbox, Badge, Card, Dialog, Popover, Separator, Tooltip
 
 For each component, verify:
-- Token consumption: are color and shape tokens referenced via CSS custom properties?
-- Hover/focus/active/disabled states are all present
+- Token consumption: color and shape tokens referenced via CSS custom properties
+- Hover/focus/active/disabled states all present
 - Focus indicator meets 3:1 contrast per the accessibility floor
 - Touch target ≥ 44×44px for interactive elements
 
-**Step 8d — Customize to the visual direction:**
+**Step 10e — Define the component file structure:**
+
+Before writing any component code, establish the file organization. Organize by functional group — not a catch-all file:
+
+```
+components/ui/
+  button.tsx      — Button, IconButton
+  input.tsx       — Input, Textarea
+  select.tsx      — Select, Combobox
+  form.tsx        — Checkbox, Radio, Switch, FormField
+  feedback.tsx    — Badge, Toast, Alert
+  overlay.tsx     — Dialog, Popover, Tooltip, Drawer
+  surface.tsx     — Card, Separator, Divider
+  index.ts        — barrel export: re-exports every public component
+```
+
+Adjust the groupings to match the actual component set. The `index.ts` barrel must re-export every public component so consumers always import from `@/components/ui`, never from individual files.
+
+**Step 10f — Customize to the visual direction:**
 
 Apply the approved visual direction from `style-preview.html`:
 - Update radius values to match the shape token scale
@@ -529,38 +719,42 @@ Apply the approved visual direction from `style-preview.html`:
 - Update typography to reference the type scale tokens
 - Verify the result visually against the approved composite card specimen from `style-preview.html`
 
-**Step 8e — Review checkpoint:**
+**Step 10g — Review checkpoint:**
 
-Generate a single `component-preview.html` file — a static HTML page showing all core components in their default states, hover states, and focus states. No JavaScript required; CSS-only if possible.
+Generate a single `component-preview.html` file — a static HTML page showing all core components in their default states, hover states, and focus states. CSS-only if possible.
 
 Pause and say: *"Component set is ready for review. Open component-preview.html to evaluate each component. Check: do they look like they belong to the same system? Do they match the approved visual direction? Tell me what to adjust, or approve to proceed."*
 
-**Do not proceed to Step 9 until the user approves.**
+**Do not proceed to Step 10 until the user approves.**
 
-**Step 8f — Update the living brief:**
+**Step 9h — Update the living brief:**
 
 Update the Components implemented list. Append to the Decision Log:
 ```
 [date] — Core component set scaffolded — [library used, components generated, any notable customizations]
 ```
 
-### Before proceeding to Step 9
+### Before proceeding to Step 11
 
+- [ ] Token integration layer wired (tailwind.config.ts or equivalent)
+- [ ] Import paths verified against actual project structure
+- [ ] Font loading uses the framework's idiomatic approach (not CDN @import)
 - [ ] Component library installed and configured
 - [ ] Core components generated and token-integrated
+- [ ] Component file structure organized with barrel export (`index.ts`)
 - [ ] `component-preview.html` exists and reviewed
 - [ ] User has approved the component set
 - [ ] LIVING_BRIEF.md updated
 
-**Pause here.** Ask: *"Step 8 complete. Core components approved. Ready to proceed to Step 9 — generating page examples?"*
+**Pause here.** Ask: *"Step 9 complete. Core components approved. Ready to proceed to Step 10 — generating page examples?"*
 
 ---
 
-## Step 9 — generate-page-examples
+## Step 10 — generate-page-examples
 
 You are generating 1–2 full-page HTML examples that demonstrate the design system in use at the page level. These are not prototypes — they are static HTML/CSS demonstrations of the visual language applied to realistic page compositions.
 
-**Step 9a — Confirm page types:**
+**Step 10a — Confirm page types:**
 
 Ask the user: what type of page should the examples demonstrate? Suggest based on the product type recorded in LIVING_BRIEF.md. For example:
 - A dashboard with a sidebar navigation, data table, and stat cards
@@ -570,13 +764,13 @@ Ask the user: what type of page should the examples demonstrate? Suggest based o
 
 Generate 2 page types unless the user specifies otherwise.
 
-**Step 9b — Generate the page examples:**
+**Step 10b — Generate the page examples:**
 
 For each page:
 - Self-contained HTML file
 - All styles in a `<style>` block — no external dependencies
-- Uses the CSS custom property tokens from Steps 4–6
-- Uses the component patterns from Step 8
+- Uses the CSS custom property tokens from Phase 3
+- Uses the component patterns from Step 9
 - Realistic content (not lorem ipsum) — write copy appropriate for the product type
 - Full-width layout at desktop (1200px+), responsive to at least 768px
 
@@ -584,13 +778,13 @@ Quality standard: the pages should feel like they could exist in a production pr
 
 Write each page as a separate file: `page-example-1.html`, `page-example-2.html`.
 
-**Step 9c — Review checkpoint:**
+**Step 10c — Review checkpoint:**
 
 Pause and say: *"Page examples are ready for review. Open page-example-1.html and page-example-2.html. Evaluate: does each page feel like a coherent product? Does the visual language hold up at the page level — not just the component level? Tell me what to adjust, or approve to proceed."*
 
-**Do not proceed to Step 10 until the user approves.**
+**Do not proceed to Step 11 until the user approves.**
 
-**Step 9d — Update the living brief:**
+**Step 10d — Update the living brief:**
 
 Append to the Decision Log:
 ```
@@ -599,11 +793,11 @@ Append to the Decision Log:
 
 ---
 
-## Step 10 — setup-documentation-site
+## Step 11 — setup-documentation-site
 
 You are setting up a lightweight documentation site — a browsable component gallery and token reference that the team can maintain. This is not Storybook; it should be a simple, maintainable solution appropriate to the team's tech stack.
 
-**Step 10a — Confirm approach:**
+**Step 11a — Confirm approach:**
 
 Ask the user:
 1. What is the primary framework in use? (From LIVING_BRIEF.md — confirm.)
@@ -612,31 +806,31 @@ Ask the user:
 
 Recommend option (c) for most cases — a single `docs/index.html` that renders all components, tokens, and usage examples, requiring no framework or build step. It can grow incrementally.
 
-**Step 10b — Generate the documentation site:**
+**Step 11b — Generate the documentation site:**
 
 For the recommended single-page approach:
 
 Generate `docs/index.html` containing:
 
-1. **Token reference** — all color tokens displayed as swatches, all type roles rendered, all radius tokens shown, all shadow tokens shown. Values shown as CSS custom property names and their current values.
+1. **Token reference** — all color tokens displayed as swatches, all type roles rendered, all radius tokens shown, all shadow tokens shown, all spacing stops shown. Values shown as CSS custom property names and their current values.
 
-2. **Component gallery** — each core component from Step 8 shown in its variants and states. Organized by component name. Each component shown at normal zoom (not scaled).
+2. **Component gallery** — each core component from Step 9 shown in its variants and states. Organized by component name. Each component shown at normal zoom (not scaled).
 
 3. **Usage notes** — for each component, a brief "When to use" description. Not an API reference — a design intent note.
 
-4. **Page examples link** — links to the page example files from Step 9.
+4. **Page examples link** — links to the page example files from Step 10.
 
 5. **Visual direction summary** — the visual direction brief from Step 2, condensed. Useful as a quick reference for the team.
 
 Technical requirements: self-contained HTML. All tokens read from the same CSS custom property values used in the product. No framework dependency. Must be openable directly from the filesystem.
 
-**Step 10c — Campaign complete:**
+**Step 11c — Campaign complete:**
 
 Summarize the full campaign output:
 1. Files produced (list all files created across all steps)
 2. Key decisions recorded in LIVING_BRIEF.md
-3. The token system structure and Style Dictionary configuration
-4. The component set and its token integration approach
+3. The token source file structure and Style Dictionary configuration
+4. The component set, its file organization, and its token integration approach
 5. Recommended next step: run `session-start` before beginning any further component work
 
 Append the final entry to the Decision Log:

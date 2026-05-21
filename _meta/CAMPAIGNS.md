@@ -20,7 +20,7 @@ Steps are play slugs from `TASK_PLAYBOOKS.md`, in execution order.
 
 ## bootstrap — Bootstrap a Design System
 
-**Steps:** establish-context, establish-visual-language, generate-design-md, generate-color-scheme, generate-type-scale, generate-shape-tokens, generate-style-dictionary, scaffold-core-components, generate-page-examples, setup-documentation-site
+**Steps:** establish-context, establish-visual-language, generate-design-md, generate-color-scheme, generate-type-scale, generate-shape-tokens, generate-spacing-tokens, generate-style-dictionary, scaffold-core-components, generate-page-examples, setup-documentation-site
 
 **Description:** Take a new design system from blank canvas through visual language establishment, a complete token system, core components, and a lightweight documentation site — in four structured phases.
 

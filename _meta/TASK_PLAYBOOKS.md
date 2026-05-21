@@ -345,26 +345,35 @@ If the brief does not specify custom feedback colors, fetch the pre-built librar
 
 **Step 4 — Map semantic roles:**
 
-Using the generated ramp stops from Step 3.5, assign the following semantic roles as CSS custom properties. Use the naming pattern `--color-[role]`. For each role, note which ramp name and stop number you selected:
+Using the generated ramp stops from Step 3.5, assign the following semantic roles as DTCG JSON. For each role, note which ramp name and stop number you selected. For each `on-*` role, include a `$description` with the contrast ratio against its paired surface.
+
+```json
+{
+  "color": {
+    "primary":    { "$type": "color", "$value": "#...", "$description": "" },
+    "on-primary": { "$type": "color", "$value": "#...", "$description": "X.X:1 against primary" }
+  }
+}
+```
 
 **Required roles:**
-- `--color-primary` and `--color-on-primary` — primary action and its text
-- `--color-primary-container` and `--color-on-primary-container` — contained variant and its text
-- `--color-secondary` and `--color-on-secondary` — secondary action and its text
-- `--color-secondary-container` and `--color-on-secondary-container`
-- `--color-surface` — default background
-- `--color-surface-raised` — elevated surface (cards, sheets)
-- `--color-surface-overlay` — modal / dialog overlay surface
-- `--color-on-surface` — primary text on surface
-- `--color-on-surface-muted` — secondary / muted text on surface
-- `--color-border` — default border
-- `--color-border-focus` — focus ring color (must meet 3:1 against surface)
-- `--color-error` and `--color-on-error` — error states
-- `--color-success` and `--color-on-success` — success / confirmation states
-- `--color-warning` and `--color-on-warning` — warning states
+- `color.primary` and `color.on-primary` — primary action and its text
+- `color.primary-container` and `color.on-primary-container` — contained variant and its text
+- `color.secondary` and `color.on-secondary` — secondary action and its text
+- `color.secondary-container` and `color.on-secondary-container`
+- `color.surface` — default background
+- `color.surface-raised` — elevated surface (cards, sheets)
+- `color.surface-overlay` — modal / dialog overlay surface
+- `color.on-surface` — primary text on surface
+- `color.on-surface-muted` — secondary / muted text on surface
+- `color.border` — default border
+- `color.border-focus` — focus ring color (must meet 3:1 against surface)
+- `color.error` and `color.on-error` — error states
+- `color.success` and `color.on-success` — success / confirmation states
+- `color.warning` and `color.on-warning` — warning states
 
 **For dark mode (if theme is "both"):**
-Do not invert light mode values. Use tonal shift logic: surface values draw from the dark end of the neutral palette; primary/secondary role colors draw from the lighter portion of each hue (higher lightness) to maintain contrast. Every `on-*` role must meet WCAG 4.5:1 against its paired surface.
+Do not invert light mode values. Use tonal shift logic: surface values draw from the dark end of the neutral palette; primary/secondary role colors draw from the lighter portion of each hue to maintain contrast against dark surfaces. Every `on-*` role must meet WCAG 4.5:1 against its paired surface. Write overrides as a separate `color.dark.json` containing only the roles that change.
 
 Flag any role where the contrast should be manually verified.
 
@@ -373,11 +382,13 @@ Before finalizing, run these checks from the visual quality signals document:
 - **Commitment level check:** Do surface and neutral token chroma values match the OKLCH commitment level from the visual direction? (Restrained: C < 15; Committed: C 8–20; Full palette: C 15–30; Drenched: C 25+.)
 - **Absolute bans check:** No opacity-derived container colors; primary and secondary must have distinct hues; no pure `#000000` or `#FFFFFF` surfaces; neutral ramp must have hue temperature.
 
+Write to `tokens/src/color.json` (and `tokens/src/color.dark.json` if dark mode is required). These JSON files are the authoritative source — CSS is compiled from them by Style Dictionary, not authored separately.
+
 **Step 5 — Update the living brief:**
 
 Update the Color entry in Key Decisions and append to the decision log:
 ```
-[2026-05-13] — Color scheme generated — [note architecture model chosen, theme scope, commitment level]
+[date] — Color scheme generated — [architecture model, theme scope, commitment level, primary color]
 ```
 
 ---
@@ -406,20 +417,22 @@ This synthesis covers scale construction (modular vs. hand-tuned, ratio selectio
 My typography direction:
 {{typography_direction}}
 
-For each type role, output a token block with this structure:
-```css
-/* [Role name] — [one-line usage description] */
---type-[role]-size: [value];
---type-[role]-weight: [value];
---type-[role]-line-height: [value];   /* unitless, e.g. 1.4 */
---type-[role]-letter-spacing: [value]; /* em, e.g. -0.01em */
+For each type role, output a token group in DTCG format:
+```json
+{
+  "type": {
+    "body-lg": {
+      "$description": "Default body text — prose, descriptions, form labels",
+      "size":           { "$type": "dimension",  "$value": "16px" },
+      "weight":         { "$type": "fontWeight", "$value": 400 },
+      "line-height":    { "$type": "number",     "$value": 1.6 },
+      "letter-spacing": { "$type": "dimension",  "$value": "0em" }
+    }
+  }
+}
 ```
 
-Define roles appropriate for this product's density and stance. At minimum:
-- A display role (large hero text, if applicable)
-- Heading roles (at least large and small)
-- Body roles (at least regular and small)
-- A label role (UI labels, captions, metadata)
+Define roles appropriate for this product's density and stance. At minimum: display (if applicable), heading-lg, heading-sm, body-lg, body-sm, label, caption, code. Every role must have a `$description` naming its purpose.
 
 Apply non-negotiable legibility constraints from the synthesis:
 - Body roles: line height ≥ 1.5 (unitless)
@@ -427,13 +440,15 @@ Apply non-negotiable legibility constraints from the synthesis:
 - Display roles: line height 1.0–1.1
 - Letter spacing: negative on large sizes (display/heading), positive on small sizes (label/caption) when legibility requires it
 
-Note any decision that required a judgment call.
+Quality check: weight, size, and tracking must vary meaningfully across roles — not size alone. Note any judgment call.
+
+Write to `tokens/src/typography.json`. This file is the authoritative source — CSS is compiled from it by Style Dictionary, not authored separately.
 
 **Step 4 — Update the living brief:**
 
 Update the Typography entry in Key Decisions and append to the decision log:
 ```
-[2026-05-13] — Type scale generated — [note scale approach and role taxonomy]
+[date] — Type scale generated — [scale approach, typeface decisions, number of roles]
 ```
 
 ---
@@ -462,33 +477,99 @@ This synthesis covers the radius-as-personality spectrum, scale approach options
 My shape direction:
 {{shape_direction}}
 
-Output shape tokens as CSS custom properties:
-```css
---radius-none: 0px;
---radius-sm: [value];
---radius-md: [value];
---radius-lg: [value];
---radius-xl: [value];
---radius-full: 9999px;
+Output shape tokens in DTCG format. Include radius, elevation shadows, and a component mapping table as `$description` on each radius stop:
+
+```json
+{
+  "radius": {
+    "none": { "$type": "dimension", "$value": "0px",    "$description": "Tooltips, chips in dense contexts" },
+    "sm":   { "$type": "dimension", "$value": "...",    "$description": "Inputs, select fields" },
+    "md":   { "$type": "dimension", "$value": "...",    "$description": "Buttons, badges" },
+    "lg":   { "$type": "dimension", "$value": "...",    "$description": "Cards, panels" },
+    "xl":   { "$type": "dimension", "$value": "...",    "$description": "Modals, dialogs, sheets" },
+    "full": { "$type": "dimension", "$value": "9999px", "$description": "Pills, avatars, toggle tracks" }
+  },
+  "shadow": {
+    "sm": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "1px", "blur": "3px",  "spread": "0px", "color": "..." } },
+    "md": { "$type": "shadow", "$value": { "offsetX": "0px", "offsetY": "4px", "blur": "12px", "spread": "0px", "color": "..." } }
+  }
+}
 ```
 
-Include a component mapping table — which radius token each major component type should use:
-| Component type | Radius token | Notes |
-|---|---|---|
-| Buttons | | |
-| Inputs / form fields | | |
-| Cards | | |
-| Modals / dialogs | | |
-| Chips / badges | | |
-| Tooltips | | |
+Radius must not be uniform across all components — there must be a hierarchy. Values must match the shape personality from the visual direction. Check against the side-stripe ban.
 
 Explain the personality choice: where this system sits on the sharp ↔ rounded spectrum and why.
+
+Write to `tokens/src/shape.json`. This file is the authoritative source — CSS is compiled from it by Style Dictionary, not authored separately.
 
 **Step 4 — Update the living brief:**
 
 Update the Shape entry in Key Decisions and append to the decision log:
 ```
-[2026-05-13] — Shape tokens generated — [note personality stance and scale approach]
+[date] — Shape tokens generated — [radius personality, scale range, shadow approach]
+```
+
+---
+
+## generate-spacing-tokens — Generate Spacing Tokens
+
+**Stage:** 2
+**Tags:** tokens, spacing, layout, primitives
+
+You are generating a spacing token set as DTCG JSON source files. Spacing decisions constrain every component's padding and every layout's rhythm — they must be defined before any component code is written, so that padding and gap values are documented decisions rather than ad hoc utilities that drift over time.
+
+**Step 1 — Read the living brief:**
+
+Read `LIVING_BRIEF.md`. Confirm the product's density target: content-dense, balanced, or content-sparse. (If no living brief exists, ask the user before proceeding.)
+
+**Step 2 — Read the references:**
+
+Read the following from the Sistema knowledge base:
+- Token architecture synthesis: `{{sistema_url}}/raw/principles/tokens/architecture`
+
+**Step 3 — Generate the spacing token source file:**
+
+Select the scale tier that matches the density target. All scales use a 4px base unit:
+
+- **Content-dense:** tighter stops — 2, 4, 6, 8, 12, 16, 20, 24, 32, 48px
+- **Balanced:** standard stops — 4, 8, 12, 16, 20, 24, 32, 40, 48, 64px
+- **Content-sparse:** generous stops — 4, 8, 16, 24, 32, 48, 64, 80, 96, 128px
+
+If the product has mixed density (e.g., dense tables within a balanced layout), note this and adjust — tighter stops for component-internal spacing, larger stops for layout-level gaps.
+
+Name tokens by their pixel value, not an abstract ordinal — `space.4` means 4px everywhere it appears. Also define semantic aliases for the three most critical layout decisions:
+
+```json
+{
+  "space": {
+    "1":  { "$type": "dimension", "$value": "4px" },
+    "2":  { "$type": "dimension", "$value": "8px" },
+    "3":  { "$type": "dimension", "$value": "12px" },
+    "4":  { "$type": "dimension", "$value": "16px" },
+    "5":  { "$type": "dimension", "$value": "20px" },
+    "6":  { "$type": "dimension", "$value": "24px" },
+    "8":  { "$type": "dimension", "$value": "32px" },
+    "10": { "$type": "dimension", "$value": "40px" },
+    "12": { "$type": "dimension", "$value": "48px" },
+    "16": { "$type": "dimension", "$value": "64px" }
+  },
+  "layout": {
+    "page-gutter":   { "$type": "dimension", "$value": "{space.6}",  "$description": "Horizontal padding on page-level containers" },
+    "section-gap":   { "$type": "dimension", "$value": "{space.12}", "$description": "Vertical gap between major page sections" },
+    "component-gap": { "$type": "dimension", "$value": "{space.4}",  "$description": "Gap between adjacent components in a list or row" }
+  }
+}
+```
+
+State the rationale: which tier, any stop adjustments, and why the three semantic aliases map to those values.
+
+Write to `tokens/src/spacing.json`. This file is the authoritative source — CSS is compiled from it by Style Dictionary, not authored separately.
+
+**Step 4 — Update the living brief:**
+
+Update the Spacing entry in Key Decisions and append to the decision log:
+```
+[date] — Spacing tokens generated — [base unit, scale tier, semantic alias decisions]
 ```
 
 ---
@@ -557,25 +638,73 @@ Output as `[data-theme="dark"] { }` CSS custom properties. Explain any roles tha
 **Stage:** 3
 **Tags:** tokens, tooling, build, style-dictionary
 
-You are helping me set up Style Dictionary to compile my design tokens into CSS custom properties, JavaScript modules, and other platform outputs.
+You are setting up Style Dictionary v5 to compile DTCG JSON token source files into CSS custom properties. The JSON files are the authoritative source — the compiled CSS is a build artifact, never edited directly.
 
 **Step 1 — Read the references:**
 
 Read the following from the Sistema knowledge base:
 - Token architecture synthesis: `{{sistema_url}}/raw/principles/tokens/architecture`
 
-Pay attention to the tier model and file structure recommendations — your Style Dictionary input files should mirror this structure.
+**Step 2 — Confirm setup:**
 
-My setup:
-[Describe your repository structure, what output formats you need (CSS vars, JS ESM, JSON, SCSS?), and any existing file organization to work around.]
+My token source files:
+[List which token files exist in `tokens/src/` — e.g. `color.json`, `color.dark.json`, `typography.json`, `shape.json`, `spacing.json`]
 
-Output:
-1. A `style-dictionary.config.js` file ready to run
-2. The expected input file structure (where token JSON files should live), organized by tier (primitive, semantic, component) per the token architecture synthesis
-3. Example npm scripts to run the build
-4. A brief explanation of how to add a new token category without breaking existing outputs
+My project structure:
+[Describe the framework and directory layout, so the CSS output path can be correctly set — e.g. "Next.js with `src/` directory", "Vite with `public/`", etc.]
 
-The output should be complete enough to copy into a repository and run with `npx style-dictionary build`.
+**Step 3 — Determine output path:**
+
+Based on the framework and project structure:
+- Next.js with `src/` directory → `src/styles/tokens/`
+- Next.js without `src/` → `styles/tokens/`
+- Vite / other → derive from the project structure
+
+If ambiguous, ask one brief question to confirm. Otherwise proceed.
+
+**Step 4 — Generate the Style Dictionary configuration:**
+
+Produce `style-dictionary.config.mjs`, ready to run with `node style-dictionary.config.mjs`:
+
+1. Source: all files in `tokens/src/` — include every JSON file present
+2. Output: CSS custom properties compiled to the path from Step 3, using the naming convention `--[category]-[token-name]` (e.g. `--color-primary`, `--type-body-lg-size`, `--radius-md`, `--space-4`)
+3. Dark mode: if `color.dark.json` exists, output its values under a `[data-theme="dark"]` selector with a `@media (prefers-color-scheme: dark)` fallback
+4. Add an npm script to `package.json`: `"tokens": "node style-dictionary.config.mjs"`
+
+**Step 5 — Run compilation:**
+
+Run `npm run tokens`. If it fails, diagnose and fix before proceeding — do not skip past a failed compilation.
+
+**Step 6 — Generate token-check.html:**
+
+After successful compilation, generate `token-check.html` at the project root. Its purpose is to confirm that compiled token values match intent before any component code is written.
+
+The file must load the compiled CSS and render:
+- Every color token as a labeled swatch showing the token name and computed hex value
+- Every type role as a live text specimen rendered in that role's size, weight, and spacing
+- Every radius stop as a box with a visible border at that corner radius
+- Every spacing stop as a horizontal bar of that exact width, labeled with its pixel value
+
+Open `token-check.html` and verify all values match what was specified. Catch mismatches here, not in component code.
+
+**Step 7 — Wire tokens into the project:**
+
+Import the compiled token CSS in the project's global stylesheet. Verify the import path against the actual directory structure — the path differs based on whether a `src/` directory is present:
+
+```css
+/* Next.js with src/ — in src/app/globals.css */
+@import '../../styles/tokens/colors.css';
+
+/* Next.js without src/ — in app/globals.css */
+@import '../styles/tokens/colors.css';
+```
+
+**Step 8 — Update the living brief:**
+
+Update the Tokens entry in Key Decisions and append to the decision log:
+```
+[date] — Style Dictionary configured and compiled — [token count, output paths, any issues resolved]
+```
 
 ---
 
@@ -1073,31 +1202,120 @@ Append to the decision log:
 **Stage:** 4
 **Tags:** components, shadcn, implementation, build-out
 
-You are implementing the core component set for this design system, consuming the token system you have generated. This play runs as part of the bootstrap campaign Phase 4 — the visual language and token system must be established before this play begins.
+You are implementing the core component set for this design system, consuming the token system you have generated. The token system (color, type, shape, spacing) must be compiled before this play begins.
 
 **Step 1 — Read the living brief:**
 
 Read `LIVING_BRIEF.md`. Confirm the technology stack, token naming convention, shape scale, and approved visual direction.
 
+Fetch and read the following from the Sistema knowledge base:
+- Token architecture synthesis: `{{sistema_url}}/raw/principles/tokens/architecture`
+- Accessibility floor: `{{sistema_url}}/raw/principles/accessibility/floor`
+
 **Step 2 — Confirm component library:**
 
 Ask the user:
-1. Do you want to use shadcn/ui as the component base? (Recommended — Radix UI primitives with Tailwind, highly customizable, widely adopted. Components are copied into your project and owned by you.)
-2. Alternatives: Base UI (unstyled Radix-compatible primitives), Radix UI directly, or build from scratch.
+1. Do you want to use shadcn/ui as the component base? (Recommended for Tailwind-based projects — Radix UI primitives with Tailwind, highly customizable, widely adopted. Components are copied into your project and owned by you.)
+2. Alternatives: Base UI (unstyled Radix-compatible primitives), Radix UI directly, or no library (build from scratch).
 
-Proceed with the user's choice. If shadcn/ui: initialize with `npx shadcn@latest init`, then generate: Button, Input, Select, Checkbox, Badge, Card, Dialog, Popover, Separator, Tooltip.
+If the stack doesn't use Tailwind, adapt the approach to the actual styling layer — don't force Tailwind-specific integration on a non-Tailwind project.
 
-**Step 3 — Integrate the token system:**
+**Step 3 — Wire the token system into the framework:**
 
-Update `globals.css` (or equivalent) to wire the semantic color role tokens from the color scheme step into the component library's CSS variable system.
+Before installing any components, establish the token integration layer. Without it, component code that references token-named utilities won't resolve.
+
+**For Tailwind-based projects:**
+
+Generate `tailwind.config.ts` extending the theme with every token from the token system. Every compiled CSS custom property must have a corresponding Tailwind utility class:
+
+```ts
+import type { Config } from 'tailwindcss'
+
+const config: Config = {
+  content: ['./src/**/*.{ts,tsx,js,jsx}', './app/**/*.{ts,tsx,js,jsx}'],
+  theme: {
+    extend: {
+      colors: {
+        primary:             'var(--color-primary)',
+        'on-primary':        'var(--color-on-primary)',
+        'primary-container': 'var(--color-primary-container)',
+        secondary:           'var(--color-secondary)',
+        'on-secondary':      'var(--color-on-secondary)',
+        surface:             'var(--color-surface)',
+        'surface-raised':    'var(--color-surface-raised)',
+        'surface-overlay':   'var(--color-surface-overlay)',
+        'on-surface':        'var(--color-on-surface)',
+        'on-surface-muted':  'var(--color-on-surface-muted)',
+        border:              'var(--color-border)',
+        'border-focus':      'var(--color-border-focus)',
+        error:               'var(--color-error)',
+        'on-error':          'var(--color-on-error)',
+        success:             'var(--color-success)',
+        warning:             'var(--color-warning)',
+        // add any additional roles from the color token file
+      },
+      borderRadius: {
+        none: 'var(--radius-none)',
+        sm:   'var(--radius-sm)',
+        md:   'var(--radius-md)',
+        lg:   'var(--radius-lg)',
+        xl:   'var(--radius-xl)',
+        full: 'var(--radius-full)',
+      },
+      spacing: {
+        // Add all stops from tokens/src/spacing.json
+        1:  'var(--space-1)',
+        2:  'var(--space-2)',
+        3:  'var(--space-3)',
+        4:  'var(--space-4)',
+        5:  'var(--space-5)',
+        6:  'var(--space-6)',
+        8:  'var(--space-8)',
+        10: 'var(--space-10)',
+        12: 'var(--space-12)',
+        16: 'var(--space-16)',
+      },
+    }
+  }
+}
+export default config
+```
+
+Verify the import path for compiled token CSS in the global stylesheet against the actual project directory structure — the path differs based on whether a `src/` directory is present.
+
+If using **Next.js**, load fonts via `next/font` — not a CDN `@import` in the global stylesheet. `next/font` self-hosts the font, eliminates render-blocking requests, and prevents layout shift. If the stack uses a different framework, use its idiomatic font loading approach.
+
+**For non-Tailwind projects:** establish the token integration layer appropriate to the CSS approach in use — CSS modules, vanilla CSS with custom properties, or the framework's theming API.
+
+**Step 4 — Define the component file structure:**
+
+Before writing any component code, establish the file organization. Organize by functional group — not a catch-all file:
+
+```
+components/ui/
+  button.tsx      — Button, IconButton
+  input.tsx       — Input, Textarea
+  select.tsx      — Select, Combobox
+  form.tsx        — Checkbox, Radio, Switch, FormField
+  feedback.tsx    — Badge, Toast, Alert
+  overlay.tsx     — Dialog, Popover, Tooltip, Drawer
+  surface.tsx     — Card, Separator, Divider
+  index.ts        — barrel export: re-exports every public component
+```
+
+Adjust groupings to match the actual component set. The `index.ts` barrel must re-export every public component so consumers always import from `@/components/ui`, never from individual files.
+
+**Step 5 — Install and scaffold components:**
+
+If shadcn/ui: initialize with `npx shadcn@latest init`, then generate at minimum: Button, Input, Select, Checkbox, Badge, Card, Dialog, Popover, Separator, Tooltip.
 
 For each component, verify:
 - Token consumption: no hardcoded hex values or raw px for anything covered by a token
 - All interactive states present (hover, focus, active, disabled)
-- Focus indicator meets 3:1 contrast
+- Focus indicator meets 3:1 contrast per the accessibility floor
 - Touch target ≥ 44×44px for interactive elements
 
-**Step 4 — Customize to the visual direction:**
+**Step 6 — Customize to the visual direction:**
 
 Apply the approved visual direction from `style-preview.html`:
 - Radius values match the shape token scale
@@ -1105,15 +1323,15 @@ Apply the approved visual direction from `style-preview.html`:
 - Typography references the type scale tokens
 - Composite card specimen from `style-preview.html` serves as the visual target
 
-**Step 5 — Generate component-preview.html:**
+**Step 7 — Generate component-preview.html:**
 
 Generate a self-contained `component-preview.html` showing all core components in default, hover, and focus states. Pause for user review before proceeding.
 
-**Step 6 — Update the living brief:**
+**Step 8 — Update the living brief:**
 
 Update the Components implemented list. Append to the Decision Log:
 ```
-[date] — Core component set scaffolded — [library used, components generated]
+[date] — Core component set scaffolded — [library used, components generated, any notable customizations]
 ```
 
 ---
