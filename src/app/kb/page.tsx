@@ -103,7 +103,7 @@ function CategoryCard({ category }: { category: KBCategory }) {
           {meta.featured && (
             <span
               className="px-2 py-0.5 rounded font-mono text-[10.5px] font-semibold tracking-[0.08em] uppercase"
-              style={{ background: 'var(--color-brand-yellow)', color: 'var(--color-on-surface)' }}
+              style={{ background: 'var(--color-brand-yellow)', color: '#0E1116' }}
             >
               primary references
             </span>

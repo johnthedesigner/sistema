@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { CommandPalette } from '@/components/search/CommandPalette'
+import { SistemaByJtdLogo } from '@/components/logos/SistemaByJtdLogo'
 
 const NAV_LINKS = [
   { label: 'Playbook', href: '/playbooks' },
@@ -45,12 +46,7 @@ export function Nav() {
           {/* Left: wordmark */}
           <div className="flex items-center flex-1">
             <Link href="/" className="flex items-center" onClick={close}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/sistema-by-jtd-logo.svg"
-                alt="Sistema by JTD"
-                style={{ height: 40, width: 'auto' }}
-              />
+              <SistemaByJtdLogo height={40} />
             </Link>
           </div>
 

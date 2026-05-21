@@ -10,8 +10,7 @@ export function CopyRawButton({ rawUrl }: { rawUrl: string }) {
     try {
       const res = await fetch(rawUrl)
       if (!res.ok) throw new Error('fetch failed')
-      const text = await res.text()
-      await navigator.clipboard.writeText(text)
+      await navigator.clipboard.writeText(await res.text())
       setState('copied')
       setTimeout(() => setState('idle'), 2000)
     } catch {
@@ -24,9 +23,26 @@ export function CopyRawButton({ rawUrl }: { rawUrl: string }) {
     <button
       onClick={handleCopy}
       disabled={state === 'copying'}
-      className="flex-shrink-0 mt-1.5 text-xs text-on-surface-muted hover:text-on-surface border border-border rounded-radius-sm px-2 py-1 hover:border-on-surface-muted transition-colors disabled:opacity-50"
+      className="inline-flex items-center justify-center gap-1.5 h-[26px] px-2.5 min-w-[130px] text-[11.5px] font-mono font-medium border border-border rounded-radius-sm text-on-surface-muted hover:text-on-surface hover:bg-surface-sunken transition-colors shrink-0 disabled:opacity-50"
     >
-      {state === 'copied' ? 'Copied!' : state === 'error' ? 'Error' : state === 'copying' ? '...' : 'Copy markdown'}
+      {state === 'copied' ? (
+        <>
+          <svg width={11} height={11} viewBox="0 0 24 24" fill="none">
+            <path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Copied
+        </>
+      ) : state === 'error' ? (
+        'Error'
+      ) : (
+        <>
+          <svg width={11} height={11} viewBox="0 0 24 24" fill="none">
+            <rect x="8" y="8" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.7" />
+            <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" stroke="currentColor" strokeWidth="1.7" />
+          </svg>
+          Copy Markdown
+        </>
+      )}
     </button>
   )
 }

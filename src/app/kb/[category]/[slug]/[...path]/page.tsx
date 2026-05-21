@@ -146,16 +146,21 @@ export default async function ContentPage({
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* Main content */}
         <div className="lg:col-span-2">
-          <div className="flex items-start justify-between gap-4 mb-6">
-            <h1 className="text-3xl font-bold">{topicName}</h1>
-            <div className="flex items-center gap-2 flex-shrink-0 mt-1.5">
+          <div className="mb-6">
+            <h1 className="text-3xl font-bold mb-3">{topicName}</h1>
+            <div className="flex items-center gap-2">
               <CopyRawButton rawUrl={rawUrl} />
               <a
                 href={rawUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-on-surface-muted hover:text-on-surface border border-border rounded-radius-sm px-2 py-1 hover:border-on-surface-muted transition-colors font-mono"
+                className="inline-flex items-center gap-1.5 h-[26px] px-2.5 text-[11.5px] font-mono font-medium border border-border rounded-radius-sm text-on-surface-muted hover:text-on-surface hover:bg-surface-sunken transition-colors no-underline shrink-0"
               >
+                <svg width={11} height={11} viewBox="0 0 24 24" fill="none">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M15 3h6v6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M10 14L21 3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
                 Raw
               </a>
             </div>

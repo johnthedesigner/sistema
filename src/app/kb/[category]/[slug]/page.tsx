@@ -108,14 +108,17 @@ export default async function SystemPage({
                 const rawUrl = `/raw/${category}/${slug}/${parts.join('/')}`
                 const displayName = formatArticleName(parts, category, systemName)
                 return (
-                  <div key={parts.join('/')} className="flex items-center justify-between px-4 py-3 hover:bg-surface-sunken transition-colors">
+                  <div key={parts.join('/')} className="relative flex items-center justify-between px-4 py-3 hover:bg-surface-sunken transition-colors">
+                    <Link href={href} className="absolute inset-0 z-0" aria-hidden="true" tabIndex={-1} />
                     <Link
                       href={href}
-                      className="text-[13.5px] text-on-surface hover:text-primary transition-colors no-underline font-medium"
+                      className="text-[13.5px] text-on-surface hover:text-primary transition-colors no-underline font-medium relative z-[1]"
                     >
                       {displayName}
                     </Link>
-                    <ArticleCopyButton rawUrl={rawUrl} />
+                    <div className="relative z-[2]">
+                      <ArticleCopyButton rawUrl={rawUrl} />
+                    </div>
                   </div>
                 )
               })}
