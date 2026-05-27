@@ -12,30 +12,89 @@ function JohnTheDesignerMark({ size = 16 }: { size?: number }) {
   )
 }
 
+const FOOTER_NAV = [
+  {
+    label: 'Playbook',
+    links: [
+      { label: 'Browse plays', href: '/playbooks' },
+      { label: 'Bootstrap campaign', href: '/campaigns/bootstrap' },
+      { label: 'Audit campaign', href: '/campaigns/audit-and-refactor' },
+    ],
+  },
+  {
+    label: 'Knowledge Base',
+    links: [
+      { label: 'Principles', href: '/kb/principles' },
+      { label: 'Design systems', href: '/kb/design-systems' },
+      { label: 'Standards', href: '/kb/standards' },
+      { label: 'Foundations', href: '/kb/foundations' },
+    ],
+  },
+  {
+    label: 'Resources',
+    links: [
+      { label: 'How it works', href: '/guide' },
+      { label: 'Palette tool', href: '/tools/palette' },
+      { label: 'Contrast checker', href: '/tools/contrast' },
+      { label: 'Type scale calculator', href: '/tools/type-scale' },
+      { label: 'Sources', href: '/sources' },
+    ],
+  },
+]
+
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border">
-      <div className="max-w-[1180px] mx-auto px-5 md:px-10 py-6 flex flex-col md:flex-row items-start md:items-center gap-3 text-[13px] text-on-surface-muted">
-        <SistemaLogo height={36} />
-        <div className="md:ml-auto flex flex-wrap items-center gap-2.5">
+    <footer style={{ background: '#0E1116' }}>
+      <div className="max-w-[1180px] mx-auto px-5 md:px-10">
+
+        {/* Brand */}
+        <div className="pt-14 md:pt-20 pb-10 md:pb-14 border-b border-white/[0.08]">
+          <SistemaLogo height={64} />
+          <p className="mt-5 font-serif font-normal m-0 text-white/40 text-[16px] leading-[1.6] max-w-[420px]">
+            Structured plays and grounded reference material for AI-assisted design system work.
+          </p>
+        </div>
+
+        {/* Nav columns */}
+        <div className="py-10 md:py-14 grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-16 border-b border-white/[0.08]">
+          {FOOTER_NAV.map(section => (
+            <div key={section.label}>
+              <p className="font-mono m-0 mb-5 text-[10.5px] tracking-[0.12em] uppercase text-white/30">
+                {section.label}
+              </p>
+              <ul className="list-none p-0 m-0 flex flex-col gap-3">
+                {section.links.map(link => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="no-underline transition-colors text-[14px] text-white/50 hover:text-white/90"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom strip */}
+        <div className="py-6 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
           <a
             href="https://johnthedesigner.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-on-surface-subtle hover:text-on-surface-muted transition-colors no-underline font-mono text-[11px]"
+            className="flex items-center gap-2 no-underline transition-colors text-white/35 hover:text-white/65"
           >
-            <JohnTheDesignerMark size={16} />
-            Built by John the Designer
+            <JohnTheDesignerMark size={14} />
+            <span className="font-mono text-[11px]">Built by John the Designer</span>
           </a>
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-on-surface-subtle" />
-          <Link href="/sources" className="text-on-surface-subtle hover:text-on-surface-muted transition-colors no-underline font-mono text-[11px]">
-            Sources
-          </Link>
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-on-surface-subtle" />
-          <Link href="/guide" className="text-primary no-underline">
-            How a play works →
-          </Link>
+          <span className="hidden sm:inline text-white/20 text-[11px]">·</span>
+          <span className="font-mono text-[11px] text-white/20">
+            Public beta
+          </span>
         </div>
+
       </div>
     </footer>
   )

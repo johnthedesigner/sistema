@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import { listSystems, readSystemIndex, KB_CATEGORIES, type KBCategory } from '@/lib/kb'
 
 function extractSystemName(body: string): string {
@@ -21,6 +22,29 @@ const CATEGORY_LABELS: Record<KBCategory, string> = {
   'foundations': 'Foundations',
   'skills': 'Agent Skills',
   'principles': 'Principles',
+}
+
+const CATEGORY_DESCRIPTIONS: Record<KBCategory, string> = {
+  'design-systems': 'Crawled and structured documentation from Material Design 3, Carbon, Atlassian, Primer, Ant Design, Radix UI, Shopify Polaris, and MailChimp.',
+  'standards': 'Normative references: WCAG 2.2, ARIA APG, APCA, and the DESIGN.md specification.',
+  'foundations': 'Color perception, typographic rhythm, spacing theory, and contrast science — the reasoning layer behind every token decision.',
+  'skills': 'Reviewed agent skill libraries: Impeccable, Anthropic frontend-design, and designer-skills.',
+  'principles': "Sistema's own synthesized frameworks: OKLCH commitment levels, token architecture patterns, visual quality signals, and content voice.",
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>
+}): Promise<Metadata> {
+  const { category } = await params
+  if (!KB_CATEGORIES.includes(category as KBCategory)) return {}
+  const cat = category as KBCategory
+  const label = CATEGORY_LABELS[cat]
+  return {
+    title: `${label} — Knowledge Base`,
+    description: CATEGORY_DESCRIPTIONS[cat],
+  }
 }
 
 export async function generateStaticParams() {

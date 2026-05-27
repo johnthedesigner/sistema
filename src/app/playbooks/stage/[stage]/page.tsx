@@ -1,6 +1,23 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import { loadPlaybooks, loadStages, STAGE_LABELS, STAGE_DESCRIPTIONS } from '@/lib/playbooks'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ stage: string }>
+}): Promise<Metadata> {
+  const { stage: stageParam } = await params
+  const stageNum = parseInt(stageParam, 10)
+  const label = STAGE_LABELS[stageNum]
+  if (!label) return {}
+  const description = STAGE_DESCRIPTIONS[stageNum] ?? ''
+  return {
+    title: `Stage ${stageNum}: ${label} — Playbook`,
+    description: description || `Plays in stage ${stageNum} of the Sistema design system workflow.`,
+  }
+}
 
 export async function generateStaticParams() {
   const stages = loadStages()

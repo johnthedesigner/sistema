@@ -1,7 +1,12 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import { loadCampaigns, loadCampaign } from '@/lib/campaigns'
 import { CampaignExport } from '@/components/campaigns/CampaignExport'
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+}
 
 export async function generateStaticParams() {
   return loadCampaigns().map(c => ({ slug: c.slug }))

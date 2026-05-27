@@ -375,7 +375,13 @@ Using the generated ramp stops from Step 3.5, assign the following semantic role
 **For dark mode (if theme is "both"):**
 Do not invert light mode values. Use tonal shift logic: surface values draw from the dark end of the neutral palette; primary/secondary role colors draw from the lighter portion of each hue to maintain contrast against dark surfaces. Every `on-*` role must meet WCAG 4.5:1 against its paired surface. Write overrides as a separate `color.dark.json` containing only the roles that change.
 
-Flag any role where the contrast should be manually verified.
+**Contrast verification:**
+Before finalizing any role assignment, verify each `on-*` pairing using the Sistema contrast API:
+```
+POST {{sistema_url}}/api/contrast
+{ "foreground": "#hex-of-on-role", "background": "#hex-of-surface-role" }
+```
+The response returns the exact WCAG ratio and pass/fail for each criterion. All normal text `on-*` roles must return `aa_text: true` (≥ 4.5:1). `color.border-focus` must return `aa_ui: true` (≥ 3:1). Adjust stop selection for any pair that fails — do not proceed to the file write with a failing pair.
 
 Before finalizing, run these checks from the visual quality signals document:
 - **First-order reflex check:** Is the primary color medium-blue without explicit justification? Are surfaces generic near-white? If so, reconsider or justify.
@@ -412,7 +418,11 @@ Read the following from the Sistema knowledge base:
 
 This synthesis covers scale construction (modular vs. hand-tuned, ratio selection by context), role taxonomy decisions (named roles vs. numeric steps), and non-negotiable legibility constraints (line height per role, measure, letter-spacing direction by size). Use it as the decision framework — do not copy any specific design system's scale. The visual quality signals document (§2) defines type-specific quality checks: ensure weight, size, and tracking vary meaningfully across roles, and that the typographic character matches the visual direction brief.
 
-**Step 3 — Generate the type scale:**
+**Step 3 — Explore the scale (optional):**
+
+If you haven't settled on a ratio yet, open `{{sistema_url}}/tools/type-scale` in a browser. Enter your base size and try ratios — Perfect Fourth (1.333) is a good starting point for most UI products; Major Third (1.250) for denser, more utilitarian interfaces; Perfect Fifth (1.500) or Golden Ratio (1.618) for editorial or expressive work. The calculator shows how each ratio distributes sizes from caption through display.
+
+**Step 4 — Generate the type scale:**
 
 My typography direction:
 {{typography_direction}}
@@ -444,7 +454,7 @@ Quality check: weight, size, and tracking must vary meaningfully across roles �
 
 Write to `tokens/src/typography.json`. This file is the authoritative source — CSS is compiled from it by Style Dictionary, not authored separately.
 
-**Step 4 — Update the living brief:**
+**Step 5 — Update the living brief:**
 
 Update the Typography entry in Key Decisions and append to the decision log:
 ```
@@ -598,7 +608,7 @@ My existing palette:
 
 Map the palette to semantic roles following the role structure from the color architecture synthesis. For each role:
 - Note which palette value you assigned
-- Verify the contrast ratio for every `on-*` pairing (target ≥ 4.5:1 for text, ≥ 3:1 for UI components)
+- Verify the exact contrast ratio for every `on-*` pairing using `POST {{sistema_url}}/api/contrast` — all normal text roles must return `aa_text: true` (≥ 4.5:1), UI component roles must return `aa_ui: true` (≥ 3:1)
 - Flag gaps where the palette does not have a suitable value for a required role
 
 Output as CSS custom properties. Token naming pattern: `--color-[role]`.
@@ -629,7 +639,10 @@ Generate a complete dark mode role mapping. Do not invert light mode values — 
 - Primary/secondary role colors draw from the lighter portion of each hue to maintain contrast against dark surfaces
 - Every `on-*` role must meet WCAG 4.5:1 against its paired surface
 
-Output as `[data-theme="dark"] { }` CSS custom properties. Explain any roles that required a non-obvious decision, and flag any pairing where contrast should be manually verified.
+Output as `[data-theme="dark"] { }` CSS custom properties. Explain any roles that required a non-obvious decision.
+
+**Contrast verification:**
+Verify every `on-*` pairing using `POST {{sistema_url}}/api/contrast`. All normal text roles must return `aa_text: true` (≥ 4.5:1). Adjust any stop that fails before finalizing.
 
 ---
 
@@ -1057,7 +1070,7 @@ Components to audit:
 
 For each component, evaluate against each section of the accessibility floor:
 
-1. **Color contrast** — Do all text/background pairings meet 4.5:1 (normal text) or 3:1 (large text / UI components)?
+1. **Color contrast** — For each text/background pairing, POST the hex values to `{{sistema_url}}/api/contrast` and use the returned ratio and pass/fail verdict. Report the exact ratio — do not estimate. All normal text must return `aa_text: true` (≥ 4.5:1); large text and UI components must return `aa_ui: true` (≥ 3:1).
 2. **Keyboard navigation** — Is every interactive element reachable by keyboard? Can it be activated with the correct key?
 3. **Focus visibility** — Is the focus indicator visible? Does it meet 3:1 contrast against the adjacent surface?
 4. **Touch targets** — Is the interactive area ≥ 44×44px?

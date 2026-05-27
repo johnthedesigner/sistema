@@ -9,7 +9,7 @@ import { SistemaByJtdLogo } from '@/components/logos/SistemaByJtdLogo'
 const NAV_LINKS = [
   { label: 'Playbook', href: '/playbooks' },
   { label: 'Knowledge Base', href: '/kb' },
-  { label: 'Tools', href: '/tools/palette' },
+  { label: 'Tools', href: '/tools' },
 ]
 
 export function Nav() {
@@ -19,6 +19,7 @@ export function Nav() {
 
   function isActive(href: string) {
     if (href === '/playbooks') return pathname.startsWith('/playbooks') || pathname.startsWith('/campaigns')
+    if (href === '/tools') return pathname.startsWith('/tools')
     return pathname.startsWith(href)
   }
 

@@ -57,7 +57,7 @@ The project was built in structured phases, each with a task spec and retrospect
 
 **Total build time:** approximately 7 days of intensive Claude Code sessions.
 
-**Current state:** Public beta. 142+ static pages. Full design token pipeline (color, typography, shape). Search. Two campaigns. 18+ plays across 6 stages.
+**Current state:** Public beta. 142+ static pages. Full design token pipeline (color, typography, shape, spacing). Search. Two campaigns. 25 plays.
 
 ---
 
@@ -72,25 +72,32 @@ The project was built in structured phases, each with a task spec and retrospect
 
 All KB content is accessible at stable `/raw/` and `/bundle/` endpoints so agents can fetch it directly.
 
-### Plays (18+ across 6 stages)
-Stage 1: Foundation (DESIGN.md generation, token architecture planning)
-Stage 2: Primitives (color scheme, type scale, shape tokens)
-Stage 3: Semantic layer (color roles, dark mode, Style Dictionary config)
-Stage 4: Components (spec writing, implementation)
-Stage 5: Migration (Tailwind migration, component audit)
-Stage 6: Stewardship (session start, add-component, accessibility audit, retrospective)
+### Plays (25 total)
+**Foundation:** context, positioning, visual language, DESIGN.md generation
+**Token generation:** color scheme, type scale, shape tokens, spacing tokens, color roles, dark mode, Style Dictionary
+**Components:** scaffold core components, specify, implement, add a component
+**Documentation & examples:** page examples, documentation site, voice and tone
+**Maintenance:** session start, token coverage audit, accessibility audit, retrospective, next iteration planning
+**Migration:** Tailwind config migration, component audit
 
 Plays are structured prompts with template variables. The user fills in project context; the agent fetches the KB refs and generates.
 
+### Token pipeline
+Token plays now output DTCG JSON source files (`tokens/src/`) as the authoritative record of every value. CSS is compiled from JSON by Style Dictionary v5 — not hand-authored. The generate-style-dictionary play also produces `token-check.html`, a self-verification file that renders every color swatch, type specimen, and spacing stop against the compiled values before any component code is written.
+
 ### Campaigns
-Self-driving multi-step sequences. Paste one prompt into Claude Code; the agent runs every step in sequence. Current campaigns:
-- **Bootstrap a Design System** — 6 steps, positioning brief through Style Dictionary
-- **Audit and Refactor** — 4 steps, token audit through retrospective
+Self-driving multi-step sequences. Paste one prompt into Claude Code; the agent runs every step in sequence, asks for input when needed, and pauses before advancing. Current campaigns:
+- **Bootstrap a Design System** — 11 steps: context + visual language → DESIGN.md → 4 token files (color, type, shape, spacing) → Style Dictionary compilation → core components → page examples → documentation site
+- **Audit and Refactor** — 5 steps: session start → token coverage audit → accessibility audit → retrospective → iteration plan
 
-### Palette tool (`/tools/palette`)
-Generates 19-stop OKLCH color ramps from any seed hex. The algorithm uses contrast-targeting (not perceptual stepping): each of the 19 stops is selected by contrast ratio against white, using a logarithmic distribution that places the midpoint at 4.38:1 — directly in the WCAG working range. All 22 pre-built palettes follow the same algorithm. Cross-hue interchangeability: blue-600 and green-600 meet the same contrast target.
+### Tools (`/tools`)
+Three tools. Two expose machine-facing API endpoints plays can call mid-prompt; one is a pure exploration/calculation tool.
 
-Output formats: CSS Variables, Tailwind config, Figma Variables (compatible with the "Variables Import & Export" community plugin).
+**Palette tool (`/tools/palette`)** — Generates 19-stop OKLCH color ramps from any seed hex. The algorithm uses contrast-targeting (not perceptual stepping): each of the 19 stops is selected by contrast ratio against white, using a logarithmic distribution that places the midpoint at 4.38:1 — directly in the WCAG working range. All 22 pre-built palettes follow the same algorithm. Cross-hue interchangeability: blue-600 and green-600 meet the same contrast target. Output formats: CSS Variables, Tailwind config, Figma Variables (compatible with the "Variables Import & Export" community plugin). API: `POST /api/palette`.
+
+**Contrast checker (`/tools/contrast`)** — Check any foreground/background pair against WCAG 2.2 AA and AAA thresholds. Live visual preview with exact ratio. The generate-color-scheme, generate-color-roles, generate-dark-mode, and accessibility-audit plays all call `POST /api/contrast` mid-prompt to verify semantic role pairings before writing token files — replacing AI-estimated contrast with the exact mathematical answer.
+
+**Type scale calculator (`/tools/type-scale`)** — Explore modular type scales. Pick a base size (px) and a named ratio (Minor Third through Golden Ratio) or enter a custom ratio. Shows all scale stops from caption through display with suggested line heights. Outputs CSS custom properties and DTCG JSON. No API endpoint — the math is trivial and the generate-type-scale play handles semantic role assignment from there.
 
 ---
 

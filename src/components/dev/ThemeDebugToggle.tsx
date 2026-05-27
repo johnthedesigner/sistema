@@ -7,7 +7,7 @@ const SESSION_KEY = 'debug-theme'
 export function ThemeDebugToggle() {
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (e.code !== 'KeyD' || !e.altKey || !e.shiftKey || e.metaKey || e.ctrlKey) return
+      if (e.code !== 'KeyD' || !e.shiftKey || e.altKey || e.metaKey || e.ctrlKey) return
       const tag = (e.target as HTMLElement).tagName
       if (tag === 'INPUT' || tag === 'TEXTAREA') return
 

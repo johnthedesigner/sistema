@@ -299,9 +299,14 @@ DTCG format:
 }
 ```
 
-For each `on-*` role, note the contrast ratio against its paired surface as a `$description` field.
+For each `on-*` role, verify the exact contrast ratio using the Sistema contrast API before recording it in the `$description` field:
+```
+POST {{sistema_url}}/api/contrast
+{ "foreground": "#hex-of-on-role", "background": "#hex-of-surface-role" }
+```
+The response returns `ratio` and pass/fail per WCAG criterion. All normal text `on-*` roles must return `aa_text: true` (≥ 4.5:1). `color.border-focus` must return `aa_ui: true` (≥ 3:1). Adjust stop selection for any pair that fails — do not write the file with a failing pair.
 
-For dark mode (if required): generate a separate `color.dark.json` with only the overridden values. Use tonal shift logic — do not invert light mode values. Every `on-*` role must meet WCAG 4.5:1 against its paired surface.
+For dark mode (if required): generate a separate `color.dark.json` with only the overridden values. Use tonal shift logic — do not invert light mode values. Run the contrast API on every `on-*` role in dark mode as well.
 
 Quality checks before finalizing:
 - **First-order reflex check:** Primary color — is it medium-blue without justification?
@@ -320,7 +325,7 @@ Update the Color entry in Key Decisions. Append to the Decision Log:
 ### Before proceeding to Step 5
 
 - [ ] `tokens/src/color.json` exists with all required roles
-- [ ] Every `on-*` role has a contrast ratio in its `$description`
+- [ ] Every `on-*` role verified via `/api/contrast` and ratio recorded in `$description`
 - [ ] `tokens/src/color.dark.json` exists if theme is "both"
 - [ ] All quality checks passed
 - [ ] Quality check: are surface colors genuinely specific, or generic near-white?

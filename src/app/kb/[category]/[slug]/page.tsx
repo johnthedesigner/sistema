@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import { listSystems, readSystemIndex, listStubsForSystem, findDesignMd, KB_CATEGORIES, type KBCategory } from '@/lib/kb'
 import { MarkdownBody } from '@/components/kb/MarkdownBody'
 import { DesignMdPanel } from '@/components/kb/DesignMdPanel'
@@ -32,6 +33,25 @@ const CATEGORY_LABELS: Record<KBCategory, string> = {
   'foundations': 'Foundations',
   'skills': 'Agent Skills',
   'principles': 'Principles',
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string; slug: string }>
+}): Promise<Metadata> {
+  const { category, slug } = await params
+  if (!KB_CATEGORIES.includes(category as KBCategory)) return {}
+  const cat = category as KBCategory
+  if (!listSystems(cat).includes(slug)) return {}
+  const index = readSystemIndex(slug, cat)
+  const systemName = extractSystemName(index.body)
+  const overview = extractSection(index.body, 'Overview')
+  const description = overview.split('\n')[0].replace(/\*\*(.+?)\*\*/g, '$1').slice(0, 160) || `${systemName} — Sistema knowledge base`
+  return {
+    title: systemName,
+    description,
+  }
 }
 
 export async function generateStaticParams() {
