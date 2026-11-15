@@ -29,3 +29,9 @@ Also accepted, as listed under "Assumed unless you object":
 - `kb/reference/skills/` is treated as reference material.
 - The registry's first worked case is display line height, with the value decided in V2.
 - Plays keep `overrides` for standalone use on the site.
+
+## 2026-11-14 — Clarification during V1.1
+
+- **Guide IDs** are `guide.<topic>.<name>#<anchor>`, because several topics have more than one guide (color has three). D4's `content/guides/<topic>.md` becomes `content/guides/<topic>/<name>.md`. Anchors are GitHub-style heading slugs.
+- **Optional items:** a `?` suffix marks an optional output (in `produces`) or an optional play (in a workflow sequence). An optional play's outputs cannot satisfy a required play's `requires`.
+- **Shared outputs:** a `change` play may write a file that a `create` play also produces (for example `color.map-existing` and `color.scheme`). Two `create` plays may not.

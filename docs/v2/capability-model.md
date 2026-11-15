@@ -67,7 +67,7 @@ produces:                 # what this step writes; used for skip checks and orde
   - tokens/src/color.json
   - tokens/src/color.dark.json?   # "?" = only when the theme includes dark
 tools: [palette, contrast]
-knowledge: [guide.color#models, guide.color#dark-mode, guide.quality#commitment-levels]
+knowledge: [guide.color.architecture#models, guide.color.architecture#dark-mode, guide.quality.visual-quality-signals#commitment-levels]
 rules: [color.contrast.text, color.contrast.ui, color.roles.required, quality.color.bans]
 evidence: contrast matrix (every on-* pair, every theme) from tool.contrast batch
 overrides: [color_direction, color_mode]   # optional inputs when the step is run on its own
@@ -246,19 +246,19 @@ entry: false
 requires: [design-md#direction, gate:direction-approved, project:a11y-standard, project:theme]
 produces: [tokens/src/color.json, tokens/src/color.dark.json?]
 tools: [palette, contrast]
-knowledge: [guide.color#models, guide.color#roles, guide.color#dark-mode, guide.quality#commitment-levels]
+knowledge: [guide.color.architecture#models, guide.color.architecture#roles, guide.color.architecture#dark-mode, guide.quality.visual-quality-signals#commitment-levels]
 rules: [color.roles.required, color.contrast.text, color.contrast.ui, quality.color.bans, quality.color.first-order-reflex]
 evidence: Batch contrast result covering every on-* pair in every theme. All required pairs pass.
 overrides: [color_direction, color_mode]
 ---
 
 1. From DESIGN.md, take the color direction, brand seed, and commitment level. From sistema.json, take the theme and accessibility standard.
-2. Pick the color model that fits (see guide.color#models). Record the choice.
+2. Pick the color model that fits (see guide.color.architecture#models). Record the choice.
 3. Choose seeds: primary, a tinted neutral, and any secondary hue. Check them against quality.color.first-order-reflex.
 4. Call the palette tool with all seeds in one request. Do not compute ramps yourself.
    Use the pre-built library ramps for error, success, and warning unless DESIGN.md names custom ones.
 5. Assign every role in color.roles.required from the returned stops. Note the ramp and stop for each.
-6. If the theme includes dark, assign dark values by tonal shift (guide.color#dark-mode). Write only the roles that change.
+6. If the theme includes dark, assign dark values by tonal shift (guide.color.architecture#dark-mode). Write only the roles that change.
 7. Call the contrast tool once with every on-* pair in every theme. Fix any failing pair by moving stops, then check again.
 8. Write the files listed in `produces`. Include each pair's ratio in its $description.
 9. Show the evidence. Append the decision (model, seeds, commitment level) to DECISIONS.md.

@@ -23,16 +23,19 @@
     "@vercel/analytics": "^2.0.1",
     "culori": "^4.0.2",
     "gray-matter": "^4.0.3",
+    "js-yaml": "^4.3.2",
     "lucide-react": "^1.16.0",
     "next": "^15.3.2",
     "posthog-js": "^1.373.5",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-markdown": "^10.1.0",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/culori": "^4.0.1",
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",

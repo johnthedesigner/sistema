@@ -12,7 +12,10 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { OUTPUT_RULES, SOURCE_RULES, runRules, type Corpus, type SourceFile, type Violation } from './rules'
+import { OUTPUT_RULES, SOURCE_RULES as LEGACY_RULES, runRules, type Corpus, type SourceFile, type Violation } from './rules'
+import { MODEL_RULES } from './model-rules'
+
+const SOURCE_RULES = [...LEGACY_RULES, ...MODEL_RULES]
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(HERE, '..', '..', '..')
@@ -42,6 +45,7 @@ export function loadCorpus(includeOutput: boolean): Corpus {
     kbFiles: walk('kb', p => /\.(md|json)$/.test(p)),
     playDescriptions: read('src/lib/playbooks.ts'),
     builtHtml: includeOutput ? walk('.next/server/app', p => p.endsWith('.html')) : [],
+    contentFiles: walk('content', p => /\.(md|ya?ml)$/.test(p)),
   }
 }
 

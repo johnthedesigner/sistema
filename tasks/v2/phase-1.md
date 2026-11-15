@@ -25,7 +25,7 @@ Walk the owner through `docs/v2/decision-brief-v1.md` (D1 to D10). Record each a
 
 ### Task V1.1: Schemas and contract checks
 
-**Status:** not started
+**Status:** done (2026-11-14)
 
 Schemas for plays, workflows, rules, and `sistema.json` (TypeScript types plus runtime validation). Add new rules to the existing checker (`tools/validate/content/`), not a parallel tool:
 - required fields
@@ -35,8 +35,8 @@ Schemas for plays, workflows, rules, and `sistema.json` (TypeScript types plus r
 - `knowledge` and `rules` IDs resolve
 - every tool in `tools` is named in the play body
 
-- [ ] Schemas with tests, including one failing fixture per check
-- [ ] New checks are code-level for content under `content/`, and don't touch legacy files
+- [x] Schemas with tests, including one failing fixture per check
+- [x] New checks are code-level for content under `content/`, and don't touch legacy files
 
 ### Task V1.2: Loaders and channel generators
 

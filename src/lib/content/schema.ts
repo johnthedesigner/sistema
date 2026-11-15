@@ -1,0 +1,176 @@
+/**
+ * v2 content model schemas (docs/v2/capability-model.md, decisions D1–D8).
+ *
+ * Plays and workflows are markdown files with YAML frontmatter under content/.
+ * Rules are YAML lists under content/rules/<topic>.yaml. sistema.json lives in
+ * the user's project and is described here so plays and tools agree on it.
+ */
+import { z } from 'zod'
+
+export const TOPICS = [
+  'project',
+  'visual-language',
+  'content',
+  'color',
+  'typography',
+  'shape',
+  'depth',
+  'spacing',
+  'motion',
+  'tokens',
+  'components',
+  'accessibility',
+  'quality',
+  'ai',
+] as const
+export type Topic = (typeof TOPICS)[number]
+
+export const KINDS = ['create', 'change', 'check', 'orient'] as const
+export const MILESTONES = ['direction', 'foundations', 'patterns', 'maintain'] as const
+export type Milestone = (typeof MILESTONES)[number]
+export const TOOLS = ['palette', 'contrast', 'type_scale'] as const
+export type ToolName = (typeof TOOLS)[number]
+
+/** DESIGN.md body sections, in spec order (D6a). */
+export const DESIGN_MD_SECTIONS = [
+  'overview',
+  'colors',
+  'typography',
+  'layout',
+  'elevation-depth',
+  'shapes',
+  'components',
+  'dos-donts',
+] as const
+
+const slug = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
+const topicPattern = TOPICS.join('|')
+
+/** A play ID: <topic>.<name>, e.g. color.scheme */
+export const PlayId = z.string().regex(new RegExp(`^(?:${topicPattern})\\.[a-z0-9]+(?:-[a-z0-9]+)*$`), 'play id must be <topic>.<name>')
+/** A rule ID: <topic>.<name>[.<name>...], e.g. color.contrast.text */
+export const RuleId = z.string().regex(new RegExp(`^(?:${topicPattern})(?:\\.[a-z0-9]+(?:-[a-z0-9]+)*)+$`), 'rule id must be <topic>.<name>')
+/** A guide reference: guide.<topic>.<name>[#anchor] */
+export const GuideRef = z.string().regex(new RegExp(`^guide\\.(?:${topicPattern})\\.[a-z0-9-]+(?:#[a-z0-9-]+)?$`), 'knowledge ref must be guide.<topic>.<name>#anchor')
+
+/**
+ * State tokens used in `requires` and `produces`:
+ *   tokens/src/color.json      a repo path ("?" suffix in produces = optional output)
+ *   design-md#colors           a DESIGN.md section
+ *   gate:direction-approved    a recorded human approval
+ *   project:a11y-standard      a project rule in sistema.json
+ */
+export const StateToken = z
+  .string()
+  .regex(/^(?:gate:[a-z0-9-]+|project:[a-z0-9-]+|design-md#[a-z0-9-]+|[\w./-]+\.[a-z0-9]+)\??$/, 'not a valid state token')
+  .refine(t => !t.startsWith('design-md#') || (DESIGN_MD_SECTIONS as readonly string[]).includes(t.slice(10).replace(/\?$/, '')), {
+    message: `design-md section must be one of: ${DESIGN_MD_SECTIONS.join(', ')}`,
+  })
+
+export const PlayFrontmatter = z
+  .object({
+    id: PlayId,
+    title: z.string().min(3),
+    description: z.string().min(20),
+    topic: z.enum(TOPICS),
+    kind: z.enum(KINDS),
+    milestone: z.enum(MILESTONES),
+    entry: z.boolean().default(false),
+    requires: z.array(StateToken).default([]),
+    produces: z.array(StateToken).default([]),
+    tools: z.array(z.enum(TOOLS)).default([]),
+    knowledge: z.array(GuideRef).default([]),
+    rules: z.array(RuleId).default([]),
+    evidence: z.string().min(10),
+    overrides: z.array(z.string().regex(/^[a-z][a-z0-9_]*$/)).default([]),
+    last_reviewed: z.iso.date(),
+  })
+  .strict()
+  .refine(p => p.id.startsWith(`${p.topic}.`), { message: 'id must start with its topic', path: ['id'] })
+export type PlayFrontmatter = z.infer<typeof PlayFrontmatter>
+
+/** A workflow sequence item: a play ID ("?" suffix = optional) or a gate. */
+export const SequenceItem = z.union([
+  z.string().regex(new RegExp(`^(?:${topicPattern})\\.[a-z0-9-]+\\??$`), 'sequence item must be a play id'),
+  z.object({ gate: z.string().regex(slug), prompt: z.string().min(10) }).strict(),
+])
+export type SequenceItem = z.infer<typeof SequenceItem>
+
+export const WorkflowFrontmatter = z
+  .object({
+    id: z.string().regex(/^workflow\.[a-z0-9-]+$/),
+    title: z.string().min(3),
+    description: z.string().min(20),
+    entry: z.boolean().default(true),
+    sequence: z.array(SequenceItem).optional(),
+    routes: z.record(z.string(), z.array(PlayId)).optional(),
+    continue_with: z.string().regex(/^workflow\.[a-z0-9-]+$/).optional(),
+    last_reviewed: z.iso.date(),
+  })
+  .strict()
+  .refine(w => Boolean(w.sequence) !== Boolean(w.routes), { message: 'a workflow has either a sequence or routes, not both' })
+export type WorkflowFrontmatter = z.infer<typeof WorkflowFrontmatter>
+
+export const Rule = z
+  .object({
+    id: RuleId,
+    statement: z.string().min(10),
+    reason: z.string().min(10),
+    layer: z.enum(['standard', 'sistema-default', 'project']),
+    severity: z.enum(['blocking', 'advisory']),
+    measure: z
+      .object({
+        kind: z.enum(['range', 'min', 'max', 'enum', 'presence']),
+        min: z.number().optional(),
+        max: z.number().optional(),
+        values: z.array(z.string()).optional(),
+        unit: z.string().optional(),
+      })
+      .strict()
+      .optional(),
+    /** Values keyed by standard, then level, e.g. { "wcag-2.2": { AA: 4.5, AAA: 7 } } (D8). */
+    parameters: z.record(z.string(), z.record(z.string(), z.union([z.number(), z.string()]))).optional(),
+    applies_to: z.string().min(3),
+    applies_when: z.string().optional(),
+    checked_by: z.array(z.string()).default([]),
+    sources: z.array(z.string()).default([]),
+  })
+  .strict()
+  .refine(r => r.severity !== 'blocking' || r.checked_by.length > 0, {
+    message: 'blocking rules need checked_by',
+    path: ['checked_by'],
+  })
+export type Rule = z.infer<typeof Rule>
+
+export const RuleFile = z.array(Rule)
+
+/** sistema.json in the user's project (D7). */
+export const SistemaState = z
+  .object({
+    sistema: z.literal('2'),
+    workflow: z.string().optional(),
+    milestone: z.enum(MILESTONES).optional(),
+    project: z
+      .object({
+        a11y_standard: z.string().optional(),
+        theme: z.enum(['light', 'dark', 'light-dark']).optional(),
+        density: z.enum(['dense', 'balanced', 'sparse']).optional(),
+        stack: z.string().optional(),
+      })
+      .partial()
+      .default({}),
+    steps: z
+      .record(
+        PlayId,
+        z.object({
+          status: z.enum(['pending', 'complete', 'skipped']),
+          date: z.iso.date().optional(),
+          evidence: z.string().optional(),
+        }),
+      )
+      .default({}),
+    gates: z.record(z.string(), z.object({ date: z.iso.date(), by: z.string() })).default({}),
+    routing: z.record(z.string(), z.string()).default({}),
+  })
+  .strict()
+export type SistemaState = z.infer<typeof SistemaState>

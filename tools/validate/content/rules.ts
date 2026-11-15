@@ -22,6 +22,7 @@ export interface Corpus {
   kbFiles: SourceFile[] // kb/**/* (md and json)
   playDescriptions?: SourceFile // src/lib/playbooks.ts
   builtHtml: SourceFile[] // .next/server/app/**/*.html (output mode only)
+  contentFiles?: SourceFile[] // content/** (v2 content model)
 }
 
 export interface Violation {
