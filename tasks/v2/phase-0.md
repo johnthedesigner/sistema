@@ -136,23 +136,23 @@ One place resolves `{{sistema_url}}`. The fix covers every surface where an agen
 
 ## Task V0.4: Fix the broken guide stub
 
-**Status:** not started
+**Status:** done (2026-11-14)
 **Phase:** V0
 
 ### What this task implements
 
 Fix the code-level content violations so V0.6 can block on them:
 1. Add the missing stub for `kb/principles/color/primitive-ramp-scalability` (bug inventory #18), so `/raw/principles/color/primitive-ramp-scalability` resolves. Guides carry forward into the new content model.
-2. Fix the broken Primer source citation (#29).
+2. ~~Fix the broken Primer source citation (#29).~~ Withdrawn: a checker false positive. The rule now accepts `.json` stubs.
 3. Make the one bare `/api/contrast` in `_meta/campaigns/bootstrap.md:328` absolute (#30). This is a one-line fix, needed only so code-level checks pass until V1 deletes the file.
 
 All other content bugs in the inventory (step numbering, literal dates, touch targets, the bootstrap tool skip, metadata, titles, the guide contradiction, hardcoded counts) are **not fixed in V0**. Nothing merges to `main` before V1 replaces that content, so fixing it now would be thrown away. V1 resolves each one through the content model, and the integrity check confirms it. Each is marked "V1" in `bug-inventory.md`.
 
 ### Acceptance criteria
 
-- [ ] `/raw/principles/color/primitive-ramp-scalability` returns 200 with the placeholder resolved
-- [ ] `ref.*` rules report 0 violations
-- [ ] `_meta/CHANGELOG.md` and `_meta/INDEX.md` updated
+- [x] `/raw/principles/color/primitive-ramp-scalability` returns 200 with the placeholder resolved
+- [x] `ref.*` rules report 0 violations
+- [x] `_meta/CHANGELOG.md` and `_meta/INDEX.md` updated
 
 ---
 

@@ -325,7 +325,7 @@ Update the Color entry in Key Decisions. Append to the Decision Log:
 ### Before proceeding to Step 5
 
 - [ ] `tokens/src/color.json` exists with all required roles
-- [ ] Every `on-*` role verified via `/api/contrast` and ratio recorded in `$description`
+- [ ] Every `on-*` role verified via `{{sistema_url}}/api/contrast` and ratio recorded in `$description`
 - [ ] `tokens/src/color.dark.json` exists if theme is "both"
 - [ ] All quality checks passed
 - [ ] Quality check: are surface colors genuinely specific, or generic near-white?

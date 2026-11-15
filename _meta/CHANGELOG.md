@@ -28,6 +28,17 @@ Each session entry follows this structure:
 
 ## Log
 
+### 2026-11-14 — v2 V0.4: missing stub and absolute URL
+**Operator:** LLM-assisted
+**Systems affected:** principles/color, meta only (campaigns)
+**Summary:** Added the missing redirect stub for primitive-ramp-scalability, which two plays fetch and which returned 404. Made one bare `/api/contrast` reference in the bootstrap campaign absolute.
+
+| Action | File | Notes |
+|---|---|---|
+| created | kb/principles/color/primitive-ramp-scalability.md | Stub pointing to primitive-ramp-scalability@2026-05-17.md |
+| updated | _meta/campaigns/bootstrap.md | `/api/contrast` → `{{sistema_url}}/api/contrast` (line 328) |
+| updated | _meta/INDEX.md | Listed primitive-ramp-scalability under principles/color |
+
 ### 2026-05-13 — Task 6.12: Phase 6 housekeeping
 **Operator:** LLM-assisted
 **Systems affected:** meta only

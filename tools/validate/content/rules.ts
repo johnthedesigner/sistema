@@ -97,7 +97,7 @@ function kbSourceCandidates(kbPath: string): string[] {
   for (const cat of ['design-systems', 'standards', 'foundations', 'skills']) {
     if (p.startsWith(`kb/${cat}/`)) p = p.replace(`kb/${cat}/`, `kb/reference/${cat}/`)
   }
-  return [`${p}.md`, `${p}/_index.md`]
+  return [`${p}.md`, `${p}.json`, `${p}/_index.md`]
 }
 
 function agentTextFiles(corpus: Corpus): SourceFile[] {

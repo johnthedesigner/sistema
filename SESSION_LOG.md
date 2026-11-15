@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 0 (Audit and fixes). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-0.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V0.3 — Placeholder resolution
-**Next task:** V0.4 — Fix the broken guide stub and two code-level references
+**Last completed task:** V0.4 — Broken guide stub
+**Next task:** V0.6 — Make code-level checks blocking
 **Blockers:** none. The audit and capability model were approved 2026-11-14.
 **Notes:** `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -14,6 +14,14 @@
 ## Session log
 
 *v1 Phase 0–7 session entries archived to `logs/phase-0.md` through `logs/phase-7.md`. Phase 8 entries are in `logs/phase-8.md`. v1 Phase 9 was never started and was closed out in V0.0.*
+
+### 2026-11-14 — Task V0.4: Broken guide stub
+
+**What was done:**
+- Added `kb/principles/color/primitive-ramp-scalability.md` (stub). `/raw` and `/bundle` now serve it with the placeholder resolved, and the V0.3 route tests pass.
+- Made the bare `/api/contrast` in `_meta/campaigns/bootstrap.md:328` absolute.
+- Withdrew bug #29. The Primer citation was valid (a `.json` stub), so the `ref.sources` rule was fixed to accept `.json`, with a test added.
+- Updated `_meta/INDEX.md` and `_meta/CHANGELOG.md`. Code-level source violations are at 0, and 29 of 29 tests pass.
 
 ### 2026-11-14 — Task V0.3: Placeholder resolution
 

@@ -249,6 +249,7 @@ The four architectural models with decision framework and non-negotiable floor; 
 
 - Section index: `kb/principles/color/_index.md`
 - Architecture: `kb/principles/color/architecture@2026-05-13.md` — four models with "use when" framing, decision framework (3 questions), non-negotiable floor (contrast minimums, foreground pairings, never-hardcode), dark mode tonal shift logic, neutral chroma decisions
+- Primitive ramp scalability: `kb/principles/color/primitive-ramp-scalability@2026-05-17.md` — why full 19-stop primitive ramps come before semantic mapping (stub added 2026-11-14; previously unreachable)
 - Palette generation: `kb/principles/color/palette-generation@2026-05-13.md` — contrast-targeting algorithm (OKLCH candidate pool, logarithmic 19-stop target table 1.01→19, WCAG selection, dual white/black contrast tracking, gamut handling via chroma scaling, JSON output schema, pre-generated library approach)
 
 ---

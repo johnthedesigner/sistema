@@ -41,7 +41,7 @@
 | 27 | Unused token CSS files, one of which the brief still names | `src/styles/tokens/{colors,shape,typography}.css` | V3 |
 | 28 | AGENTS.md describes an old palette taper formula | AGENTS.md "OKLCH palette chroma taper" vs `src/lib/palette.ts:73-95` | V0.7 |
 
-| 29 | Broken source citation: Primer's DESIGN.md cites `kb/design-systems/primer/assets/tokens/colors`, which doesn't exist | `kb/reference/design-systems/primer/design-md/DESIGN@2026-05-12.md:13` (found by `ref.sources`) | V0.4 |
+| 29 | ~~Broken source citation in Primer's DESIGN.md~~ **Withdrawn:** a false positive. The citation points to a valid `.json` token stub, and the `ref.sources` rule didn't accept `.json`. Rule fixed in V0.4 | n/a | n/a |
 | 30 | Bare relative URL in a campaign prompt: "verified via `/api/contrast`" | `_meta/campaigns/bootstrap.md:328` (found by `ref.relative-url`) | V0.4 |
 | 31 | Tool pages show relative API paths (`POST /api/palette`) to agents reading the page | `src/app/tools/{palette,contrast}/page.tsx`, `src/app/tools/page.tsx` (found by `output.relative-url`) | V0.3 |
 | 33 | The contrast tool's Copy button put a literal `{{sistema_url}}` on the clipboard | `src/components/contrast/ContrastChecker.tsx:243` | V0.3 (fixed) |

@@ -84,7 +84,8 @@ describe('ref.sources', () => {
     const kbFiles = [
       target,
       { path: 'kb/reference/standards/wcag/_index.md', text: '# WCAG' },
-      versioned('kb/principles/a/x@2026-05-13.md', 'sources:\n  - kb/standards/wcag/contrast\n  - kb/reference/standards/wcag'),
+      stub('kb/reference/design-systems/p/assets/tokens/colors.json', 'colors@2026-05-12.json'),
+      versioned('kb/principles/a/x@2026-05-13.md', 'sources:\n  - kb/standards/wcag/contrast\n  - kb/reference/standards/wcag\n  - kb/design-systems/p/assets/tokens/colors'),
     ]
     expect(ids(corpus({ kbFiles }), 'ref.sources')).toHaveLength(0)
   })
