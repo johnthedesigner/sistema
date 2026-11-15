@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { SITE_URL } from '@/lib/site-url'
 import { ContrastChecker } from '@/components/contrast/ContrastChecker'
 
 export const metadata: Metadata = {
@@ -38,7 +39,7 @@ export default function ContrastCheckerPage() {
               <Link href="/playbooks/accessibility-audit" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken">
                 accessibility-audit
               </Link>
-              {' '}plays via <span className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface">POST /api/contrast</span>.
+              {' '}plays via <span className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface">POST {SITE_URL}/api/contrast</span>.
             </p>
           </div>
 

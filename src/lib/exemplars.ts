@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import { resolveSistemaUrl } from './placeholders'
 
 const EXEMPLARS_ROOT = path.join(process.cwd(), '_meta', 'exemplars')
 
@@ -39,7 +40,7 @@ function parseExemplar(filePath: string): ExemplarFile | null {
     quality_notes: data.quality_notes ?? '',
     title: data.title,
     input: data.input ?? undefined,
-    body: content.trim(),
+    body: resolveSistemaUrl(content.trim()),
   }
 }
 

@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import type { Play } from './types'
+import { resolveSistemaUrl } from './placeholders'
 
 const PLAYBOOKS_PATH = path.join(process.cwd(), '_meta', 'TASK_PLAYBOOKS.md')
 
@@ -83,7 +84,7 @@ export function loadPlaybooks(): Play[] {
     const tagsIdx = section.indexOf('**Tags:**')
     const afterTags = section.slice(tagsIdx)
     const bodyStart = afterTags.indexOf('\n\n')
-    const body = bodyStart >= 0 ? afterTags.slice(bodyStart).trim() : ''
+    const body = resolveSistemaUrl(bodyStart >= 0 ? afterTags.slice(bodyStart).trim() : '')
 
     plays.push({ slug, title, stage, tags, body })
   }

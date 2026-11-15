@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 0 (Audit and fixes). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-0.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V0.2 — Check infrastructure (report-only)
-**Next task:** V0.3 — Placeholder resolution
+**Last completed task:** V0.3 — Placeholder resolution
+**Next task:** V0.4 — Fix the broken guide stub and two code-level references
 **Blockers:** none. The audit and capability model were approved 2026-11-14.
 **Notes:** `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -14,6 +14,16 @@
 ## Session log
 
 *v1 Phase 0–7 session entries archived to `logs/phase-0.md` through `logs/phase-7.md`. Phase 8 entries are in `logs/phase-8.md`. v1 Phase 9 was never started and was closed out in V0.0.*
+
+### 2026-11-14 — Task V0.3: Placeholder resolution
+
+**What was done:**
+- `src/lib/site-url.ts`: `resolveSiteUrl(env)` (explicit `NEXT_PUBLIC_SITE_URL`, then the Vercel preview branch URL, then `https://sistema.johnthedesigner.com`). `next.config.ts` inlines the result as `NEXT_PUBLIC_SITE_URL`, so server and client agree.
+- `src/lib/placeholders.ts`: `resolveSistemaUrl` is now the only implementation. It also holds the shared `extractVariables` and `formatVariableLabel` helpers (previously 4 copies).
+- Resolution happens in the server loaders (`playbooks.ts`, `campaigns.ts`, `exemplars.ts`, `kb.ts` `resolveStub` and `readRawContent`), so pages, `/raw`, and `/bundle` all get resolved text.
+- Removed client-side resolution and `origin` state from `PromptBox`, `CampaignPromptBox`, `CampaignStep`, `CampaignExport`, `PlayDetail`, `PlayForm`, `CopyButton`, and `DesignMdPanel`. Tool pages and the contrast tool's Copy button now show absolute API URLs (fixes #31 and a new #33).
+- Tests: `src/lib/placeholders.test.ts` (8) and `src/app/raw/raw-and-bundle.test.ts`, which runs the real `/raw` and `/bundle` handlers and replaces the `raw.placeholder` checker rule. The route test fails until V0.4 adds the missing stub, as intended.
+- Built output (with `.env.local` moved aside to match production): `output.placeholder` went from 35 to 0, and `output.relative-url` from 16 to 2 (both from `bootstrap.md:328`, fixed in V0.4).
 
 ### 2026-11-14 — Task V0.2: Check infrastructure
 

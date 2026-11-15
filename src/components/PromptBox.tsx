@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { instrumentRawUrls, trackCopy } from '@/lib/analytics'
+import { SITE_URL } from '@/lib/site-url'
 
 interface PromptBoxProps {
   label: string
@@ -26,18 +27,11 @@ export function PromptBox({
 }: PromptBoxProps) {
   const [expanded, setExpanded] = useState(initialExpanded)
   const [copied, setCopied] = useState(false)
-  const [displayBody, setDisplayBody] = useState(body)
   const scrollMode = overflow === 'scroll'
 
-  useEffect(() => {
-    const base = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
-    setDisplayBody(body.replace(/\{\{sistema_url\}\}/g, base))
-  }, [body])
-
+  // body arrives with {{sistema_url}} already resolved by the server loaders.
   async function handleCopy() {
-    const base = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
-    const resolved = instrumentRawUrls(body.replace(/\{\{sistema_url\}\}/g, base), playSlug, base)
-    await navigator.clipboard.writeText(resolved)
+    await navigator.clipboard.writeText(instrumentRawUrls(body, playSlug, SITE_URL))
     trackCopy(playSlug)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
@@ -85,7 +79,7 @@ export function PromptBox({
         className={`relative font-mono text-[13.5px] leading-[1.65] text-on-surface px-5 py-5 flex-1 min-h-0 ${scrollMode ? 'overflow-y-auto' : 'overflow-hidden'}`}
         style={{ whiteSpace: 'pre-wrap' }}
       >
-        {displayBody}
+        {body}
         {!scrollMode && !expanded && (
           <div
             className="absolute inset-x-0 bottom-0 pointer-events-none"

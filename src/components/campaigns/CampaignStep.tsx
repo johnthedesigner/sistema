@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { instrumentRawUrls, trackCopy } from '@/lib/analytics'
 import Link from 'next/link'
 import { ColorModeSelector, COLOR_MODE_STORAGE_KEY } from '@/components/playbooks/ColorModeSelector'
+import { SITE_URL } from '@/lib/site-url'
+import { extractVariables, formatVariableLabel as formatLabel } from '@/lib/placeholders'
 
 interface Props {
   campaignSlug: string
@@ -12,16 +14,6 @@ interface Props {
   playSlug: string
   playTitle: string
   playBody: string
-}
-
-function extractVariables(body: string): string[] {
-  const matches = [...body.matchAll(/\{\{([^}]+)\}\}/g)]
-  const vars = matches.map(m => m[1]).filter(v => v !== 'sistema_url')
-  return [...new Set(vars)]
-}
-
-function formatLabel(v: string): string {
-  return v.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
 }
 
 const PLACEHOLDERS: Record<string, string> = {
@@ -59,7 +51,6 @@ export function CampaignStep({
     Object.fromEntries(variables.map(v => [v, '']))
   )
   const [copied, setCopied] = useState(false)
-  const [origin, setOrigin] = useState('')
 
   const isColorSchemePlay = playSlug === 'generate-color-scheme'
 
@@ -76,7 +67,6 @@ export function CampaignStep({
     if (Object.keys(restored).length > 0) {
       setValues(prev => ({ ...prev, ...restored }))
     }
-    setOrigin(window.location.origin)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -91,7 +81,7 @@ export function CampaignStep({
   }
 
   function resolveBody(): string {
-    let resolved = playBody.replace(/\{\{sistema_url\}\}/g, origin)
+    let resolved = playBody
     for (const [key, value] of Object.entries(values)) {
       resolved = resolved.replace(
         new RegExp(`\\{\\{${key}\\}\\}`, 'g'),
@@ -102,7 +92,7 @@ export function CampaignStep({
   }
 
   async function handleCopy() {
-    await navigator.clipboard.writeText(instrumentRawUrls(resolveBody(), playSlug, origin))
+    await navigator.clipboard.writeText(instrumentRawUrls(resolveBody(), playSlug, SITE_URL))
     trackCopy(playSlug, { campaign: campaignSlug, step: stepNumber })
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)

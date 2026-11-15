@@ -3,16 +3,8 @@
 import { useState, useEffect } from 'react'
 import { ColorModeSelector, COLOR_MODE_STORAGE_KEY } from './ColorModeSelector'
 import { instrumentRawUrls, trackCopy } from '@/lib/analytics'
-
-function extractVariables(body: string): string[] {
-  const matches = [...body.matchAll(/\{\{([^}]+)\}\}/g)]
-  const vars = matches.map(m => m[1]).filter(v => v !== 'sistema_url')
-  return [...new Set(vars)]
-}
-
-function formatLabel(varName: string): string {
-  return varName.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
-}
+import { extractVariables, formatVariableLabel as formatLabel } from '@/lib/placeholders'
+import { SITE_URL } from '@/lib/site-url'
 
 const PLACEHOLDERS: Record<string, string> = {
   project_context: 'e.g. "B2B analytics tool for enterprise finance teams — should feel calm, professional, and trustworthy"',
@@ -53,15 +45,14 @@ export function PlayForm({ body, playSlug, tags = [] }: Props) {
   }
 
   async function handleCopy() {
-    const base = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
-    let resolved = body.replace(/\{\{sistema_url\}\}/g, base)
+    let resolved = body
     for (const [key, value] of Object.entries(values)) {
       resolved = resolved.replace(
         new RegExp(`\\{\\{${key}\\}\\}`, 'g'),
         value.trim() || `{{${key}}}`
       )
     }
-    await navigator.clipboard.writeText(instrumentRawUrls(resolved, playSlug, base))
+    await navigator.clipboard.writeText(instrumentRawUrls(resolved, playSlug, SITE_URL))
     trackCopy(playSlug)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)

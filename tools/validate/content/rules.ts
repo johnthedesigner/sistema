@@ -233,19 +233,8 @@ const sourcesResolve: Rule = {
   },
 }
 
-const rawPlaceholder: Rule = {
-  id: 'raw.placeholder',
-  level: 'code',
-  description: 'KB files served by /raw must not contain {{sistema_url}} unless /raw resolves it. (Replaced by a route test once V0.3 lands.)',
-  check(corpus) {
-    const out: Omit<Violation, 'rule' | 'level'>[] = []
-    for (const f of corpus.kbFiles) {
-      const i = f.text.indexOf('{{sistema_url}}')
-      if (i >= 0) out.push({ file: f.path, line: lineOf(f.text, i), message: '/raw serves this file with {{sistema_url}} unresolved' })
-    }
-    return out
-  },
-}
+// raw.placeholder was retired in V0.3: /raw and /bundle now resolve {{sistema_url}}
+// server-side, and src/app/raw/raw-and-bundle.test.ts checks the real handlers.
 
 const outputPlaceholder: Rule = {
   id: 'output.placeholder',
@@ -387,7 +376,6 @@ export const SOURCE_RULES: Rule[] = [
   stubTargetsExist,
   versionedFilesHaveStubs,
   sourcesResolve,
-  rawPlaceholder,
   literalDates,
   stepNumbers,
   missingDescriptions,

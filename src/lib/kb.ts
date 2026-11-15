@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import type { ContentFile, ContentFrontmatter, StubFrontmatter, SystemIndex } from './types'
+import { resolveSistemaUrl } from './placeholders'
 
 const KB_ROOT = process.cwd()
 const KB_BASE = path.join(KB_ROOT, 'kb')
@@ -111,7 +112,7 @@ export function resolveStub(stubPath: string): ContentFile {
   const { data, content } = matter(raw)
   return {
     frontmatter: data as ContentFrontmatter,
-    body: content,
+    body: resolveSistemaUrl(content),
     filePath: versionedPath,
     stubPath,
     isJson: false,
@@ -168,7 +169,7 @@ export function readRawContent(stubPath: string): string | null {
   try {
     const versionedPath = readStubTarget(stubPath)
     if (!fs.existsSync(versionedPath)) return null
-    return fs.readFileSync(versionedPath, 'utf-8')
+    return resolveSistemaUrl(fs.readFileSync(versionedPath, 'utf-8'))
   } catch {
     return null
   }

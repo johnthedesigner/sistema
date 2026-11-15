@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { extractVariables } from '@/lib/placeholders'
 
 interface StepMeta {
   number: number
@@ -20,15 +21,9 @@ function storageKey(campaignSlug: string, stepNumber: number, varName: string) {
   return `campaign:${campaignSlug}:step:${stepNumber}:${varName}`
 }
 
-function extractVariables(body: string): string[] {
-  const matches = [...body.matchAll(/\{\{([^}]+)\}\}/g)]
-  const vars = matches.map(m => m[1]).filter(v => v !== 'sistema_url')
-  return [...new Set(vars)]
-}
 
 function resolveBody(body: string, campaignSlug: string, stepNumber: number): string {
-  const base = window.location.origin
-  let resolved = body.replace(/\{\{sistema_url\}\}/g, base)
+  let resolved = body
   const variables = extractVariables(body)
   for (const key of variables) {
     const value = sessionStorage.getItem(storageKey(campaignSlug, stepNumber, key)) ?? ''

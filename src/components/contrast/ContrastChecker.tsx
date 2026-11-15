@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useId } from 'react'
+import { SITE_URL } from '@/lib/site-url'
 
 // WCAG 2.x contrast computed client-side — no API round-trip needed for the UI
 function linearize(c: number): number {
@@ -234,13 +235,13 @@ export function ContrastChecker() {
         <div className="flex-1 min-w-0">
           <p className="text-[12.5px] font-semibold text-on-surface mb-0.5">Use this in your AI prompts</p>
           <p className="text-[12px] text-on-surface-muted m-0 leading-[1.45] font-mono break-all">
-            POST /api/contrast {'{ "foreground": "#hex", "background": "#hex" }'}
+            POST {SITE_URL}/api/contrast {'{ "foreground": "#hex", "background": "#hex" }'}
           </p>
         </div>
         <button
           onClick={() => {
             if (!bothValid) return
-            const cmd = `POST {{sistema_url}}/api/contrast\n{ "foreground": "${fg}", "background": "${bg}" }`
+            const cmd = `POST ${SITE_URL}/api/contrast\n{ "foreground": "${fg}", "background": "${bg}" }`
             navigator.clipboard.writeText(cmd)
           }}
           disabled={!bothValid}

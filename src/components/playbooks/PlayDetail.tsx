@@ -3,19 +3,12 @@
 import { useState, useEffect } from 'react'
 import { MarkdownBody } from '@/components/kb/MarkdownBody'
 import { instrumentRawUrls, trackCopy } from '@/lib/analytics'
+import { extractVariables, formatVariableLabel as formatLabel } from '@/lib/placeholders'
+import { SITE_URL } from '@/lib/site-url'
 import { ColorModeSelector, COLOR_MODE_STORAGE_KEY } from './ColorModeSelector'
 import type { ExemplarFile } from '@/lib/exemplars'
 
 // ── helpers ───────────────────────────────────────────────────────────────────
-
-function extractVariables(body: string): string[] {
-  const matches = [...body.matchAll(/\{\{([^}]+)\}\}/g)]
-  return [...new Set(matches.map(m => m[1]).filter(v => v !== 'sistema_url'))]
-}
-
-function formatLabel(v: string): string {
-  return v.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
-}
 
 const PLACEHOLDERS: Record<string, string> = {
   project_context:
@@ -30,12 +23,8 @@ function emptyFallback(variable: string): string {
   return `[No ${label} provided — check LIVING_BRIEF.md and any existing design documentation for relevant context. If none is found, ask the user before continuing.]`
 }
 
-function resolveBody(
-  body: string,
-  values: Record<string, string>,
-  base: string,
-): string {
-  let out = body.replace(/\{\{sistema_url\}\}/g, base)
+function resolveBody(body: string, values: Record<string, string>): string {
+  let out = body
   for (const [key, value] of Object.entries(values)) {
     out = out.replace(
       new RegExp(`\\{\\{${key}\\}\\}`, 'g'),
@@ -195,10 +184,8 @@ export function PlayDetail({ body, playSlug, tags, refs, exemplars }: PlayDetail
     ])),
   )
   const [copied, setCopied] = useState(false)
-  const [origin, setOrigin] = useState('')
 
   useEffect(() => {
-    setOrigin(process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin)
     if (isColorPlay && variables.includes('color_mode')) {
       const stored = localStorage.getItem(COLOR_MODE_STORAGE_KEY)
       if (stored) setValues(prev => ({ ...prev, color_mode: stored }))
@@ -212,14 +199,14 @@ export function PlayDetail({ body, playSlug, tags, refs, exemplars }: PlayDetail
   }
 
   async function handleCopy() {
-    const resolved = resolveBody(body, values, origin)
-    await navigator.clipboard.writeText(instrumentRawUrls(resolved, playSlug, origin))
+    const resolved = resolveBody(body, values)
+    await navigator.clipboard.writeText(instrumentRawUrls(resolved, playSlug, SITE_URL))
     trackCopy(playSlug)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const displayBody = origin ? resolveBody(body, values, origin) : body
+  const displayBody = resolveBody(body, values)
 
   return (
     <div>

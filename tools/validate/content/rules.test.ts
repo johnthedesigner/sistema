@@ -94,14 +94,6 @@ describe('ref.sources', () => {
   })
 })
 
-describe('raw.placeholder', () => {
-  it('flags KB files containing {{sistema_url}}', () => {
-    const kbFiles = [versioned('kb/principles/a/x@2026-05-13.md', 'category: principles', 'POST {{sistema_url}}/api/palette')]
-    expect(ids(corpus({ kbFiles }), 'raw.placeholder')).toHaveLength(1)
-    expect(ids(corpus({ kbFiles: [versioned('kb/principles/a/y@2026-05-13.md')] }), 'raw.placeholder')).toHaveLength(0)
-  })
-})
-
 describe('output rules', () => {
   it('flags literal placeholders in built HTML, one violation per file', () => {
     const builtHtml = [{ path: 'a.html', text: '<p>{{sistema_url}}/raw/x and {{sistema_url}}/api/y</p>' }]

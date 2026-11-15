@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { instrumentRawUrls, trackCopy } from '@/lib/analytics'
+import { SITE_URL } from '@/lib/site-url'
 
 function CopyIcon() {
   return (
@@ -36,19 +37,11 @@ interface Props {
 export function CampaignPromptBox({ prompt, campaignSlug }: Props) {
   const [copied, setCopied] = useState(false)
   const [expanded, setExpanded] = useState(false)
-  const [displayPrompt, setDisplayPrompt] = useState(prompt)
+  const promptLines = prompt.split('\n').length
 
-  useEffect(() => {
-    const base = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
-    setDisplayPrompt(prompt.replace(/\{\{sistema_url\}\}/g, base))
-  }, [prompt])
-
-  const promptLines = displayPrompt.split('\n').length
-
+  // prompt arrives with {{sistema_url}} already resolved by the server loader.
   async function handleCopy() {
-    const base = process.env.NEXT_PUBLIC_SITE_URL ?? window.location.origin
-    const resolved = instrumentRawUrls(prompt.replace(/\{\{sistema_url\}\}/g, base), campaignSlug, base)
-    await navigator.clipboard.writeText(resolved)
+    await navigator.clipboard.writeText(instrumentRawUrls(prompt, campaignSlug, SITE_URL))
     trackCopy(campaignSlug, { campaign: campaignSlug })
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
@@ -93,7 +86,7 @@ export function CampaignPromptBox({ prompt, campaignSlug }: Props) {
         className="relative px-5 py-5 font-mono text-[13px] leading-[1.65] text-on-surface flex-1 min-h-0 overflow-hidden"
         style={{ whiteSpace: 'pre-wrap' }}
       >
-        {displayPrompt}
+        {prompt}
         {!expanded && (
           <div
             className="absolute inset-x-0 bottom-0 pointer-events-none"

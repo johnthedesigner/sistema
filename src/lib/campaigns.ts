@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { loadPlaybooks } from './playbooks'
 import type { Play } from './types'
+import { resolveSistemaUrl } from './placeholders'
 
 const CAMPAIGNS_PATH = path.join(process.cwd(), '_meta', 'CAMPAIGNS.md')
 const CAMPAIGNS_META_PATH = path.join(process.cwd(), '_meta', 'campaigns')
@@ -64,5 +65,5 @@ export function loadCampaign(slug: string): Campaign | null {
 export function loadCampaignPrompt(slug: string): string | null {
   const filePath = path.join(CAMPAIGNS_META_PATH, `${slug}.md`)
   if (!fs.existsSync(filePath)) return null
-  return fs.readFileSync(filePath, 'utf-8')
+  return resolveSistemaUrl(fs.readFileSync(filePath, 'utf-8'))
 }

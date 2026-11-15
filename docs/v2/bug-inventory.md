@@ -44,6 +44,7 @@
 | 29 | Broken source citation: Primer's DESIGN.md cites `kb/design-systems/primer/assets/tokens/colors`, which doesn't exist | `kb/reference/design-systems/primer/design-md/DESIGN@2026-05-12.md:13` (found by `ref.sources`) | V0.4 |
 | 30 | Bare relative URL in a campaign prompt: "verified via `/api/contrast`" | `_meta/campaigns/bootstrap.md:328` (found by `ref.relative-url`) | V0.4 |
 | 31 | Tool pages show relative API paths (`POST /api/palette`) to agents reading the page | `src/app/tools/{palette,contrast}/page.tsx`, `src/app/tools/page.tsx` (found by `output.relative-url`) | V0.3 |
+| 33 | The contrast tool's Copy button put a literal `{{sistema_url}}` on the clipboard | `src/components/contrast/ContrastChecker.tsx:243` | V0.3 (fixed) |
 | 32 | Local builds bake `NEXT_PUBLIC_SITE_URL` from `.env.local` (an old ngrok tunnel) into 383 pages. Production is unaffected because Vercel has its own env | `.env.local` line 1. Owner's file, not edited | Owner |
 
 ## Integrity check baseline

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { SITE_URL } from '@/lib/site-url'
 
 export const metadata: Metadata = {
   title: 'Tools — Sistema',
@@ -12,17 +13,17 @@ const TOOLS = [
     slug: 'palette',
     href: '/tools/palette',
     title: 'Palette generator',
-    description: 'Generate 19-stop OKLCH color ramps from any seed hex. The same algorithm the generate-color-scheme play uses via /api/palette. Export as CSS variables, Tailwind config, or Figma Variables.',
+    description: 'Generate 19-stop OKLCH color ramps from any seed hex. The same algorithm the generate-color-scheme play uses via the palette API. Export as CSS variables, Tailwind config, or Figma Variables.',
     playRef: 'generate-color-scheme',
-    api: '/api/palette',
+    api: `${SITE_URL}/api/palette`,
   },
   {
     slug: 'contrast',
     href: '/tools/contrast',
     title: 'Contrast checker',
-    description: 'Check any foreground/background pair against WCAG 2.2 AA and AAA thresholds. The same calculation plays use to verify semantic role pairings — available as /api/contrast for use directly in your prompts.',
+    description: 'Check any foreground/background pair against WCAG 2.2 AA and AAA thresholds. The same calculation plays use to verify semantic role pairings — also available as an API for use directly in your prompts.',
     playRef: 'accessibility-audit',
-    api: '/api/contrast',
+    api: `${SITE_URL}/api/contrast`,
   },
   {
     slug: 'type-scale',

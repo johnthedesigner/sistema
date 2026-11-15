@@ -109,7 +109,7 @@ The check covers:
 
 ## Task V0.3: Placeholder resolution
 
-**Status:** not started
+**Status:** done (2026-11-14). The route test goes green once V0.4 adds the missing stub.
 **Phase:** V0
 
 ### What this task implements
@@ -127,10 +127,10 @@ One place resolves `{{sistema_url}}`. The fix covers every surface where an agen
 
 ### Acceptance criteria
 
-- [ ] Exactly one implementation of placeholder resolution exists (`grep` shows no other `replace(/\{\{sistema_url` calls)
-- [ ] `curl` of a `/raw` page and a `/bundle` page containing the placeholder returns absolute URLs
-- [ ] The integrity check's placeholder count drops to zero for these surfaces
-- [ ] Build passes
+- [x] Exactly one implementation of placeholder resolution exists (`grep` shows no other `replace(/\{\{sistema_url` calls)
+- [x] `curl` of a `/raw` page and a `/bundle` page containing the placeholder returns absolute URLs
+- [x] The integrity check's placeholder count drops to zero for these surfaces
+- [x] Build passes
 
 ---
 

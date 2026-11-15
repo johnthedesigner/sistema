@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { SITE_URL } from '@/lib/site-url'
 
 type CopyState = 'idle' | 'copying' | 'copied' | 'error'
 
@@ -35,10 +36,7 @@ export function DesignMdPanel({
   rawPath: string
   systemName: string
 }) {
-  const [origin, setOrigin] = useState(process.env.NEXT_PUBLIC_SITE_URL ?? '')
-  useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_SITE_URL) setOrigin(window.location.origin)
-  }, [])
+  const origin = SITE_URL
 
   const [contentState, runContent] = useCopy()
   const [urlState, runUrl] = useCopy()

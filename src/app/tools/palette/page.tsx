@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import fs from 'fs'
 import path from 'path'
 import Link from 'next/link'
+import { SITE_URL } from '@/lib/site-url'
 import { PaletteControls } from '@/components/palette/PaletteControls'
 import { CustomSeedInput } from '@/components/palette/CustomSeedInput'
 
@@ -65,7 +66,7 @@ export default function PalettePage() {
         <Link href="/kb/principles/color/palette-generation.md" className="underline hover:text-on-surface">
           kb/principles/color/palette-generation
         </Link>
-        . Custom seeds: <code className="font-mono">POST /api/palette</code>.
+        . Custom seeds: <code className="font-mono">POST {SITE_URL}/api/palette</code>.
         Regenerate: <code className="font-mono">npm run palettes</code>.
       </p>
       </div>
