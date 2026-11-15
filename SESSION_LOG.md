@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 0 (Audit and fixes). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-0.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V0.4 — Broken guide stub
-**Next task:** V0.6 — Make code-level checks blocking
+**Last completed task:** V0.6 — Code-level checks blocking
+**Next task:** V0.7 — Housekeeping and gate check
 **Blockers:** none. The audit and capability model were approved 2026-11-14.
 **Notes:** `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -14,6 +14,14 @@
 ## Session log
 
 *v1 Phase 0–7 session entries archived to `logs/phase-0.md` through `logs/phase-7.md`. Phase 8 entries are in `logs/phase-8.md`. v1 Phase 9 was never started and was closed out in V0.0.*
+
+### 2026-11-14 — Task V0.6: Code-level checks blocking
+
+**What was done:**
+- Added `prebuild` (`check:content --strict`) and `postbuild` (`check:content --output-only --strict`). Every `npm run build`, including Vercel's, now fails on a code-level violation.
+- Verified both directions with throwaway edits (then reverted). A bare `/raw/` URL added to a play fails at prebuild. A literal `{{sistema_url}}` in page code fails at postbuild. A clean tree builds with 0 code-level violations.
+- Strict mode lists code-level violations and only counts content-level ones, which keeps build logs readable. CI now relies on the build hooks and prints the content report separately.
+- Content baseline for V1: 62 (6 dates, 24 step numbers, 1 description, 21 titles, 10 thresholds).
 
 ### 2026-11-14 — Task V0.4: Broken guide stub
 

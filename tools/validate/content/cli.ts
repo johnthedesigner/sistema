@@ -70,6 +70,8 @@ function main() {
       const list = byRule.get(r.id) ?? []
       const mark = list.length === 0 ? 'ok  ' : r.level === 'code' ? 'FAIL' : 'warn'
       console.log(`${mark} ${r.id} (${r.level}) — ${list.length}`)
+      // In --strict builds, content-level rules are summarized, not listed.
+      if (args.has('--strict') && r.level === 'content') continue
       for (const v of list.slice(0, 50)) console.log(`       ${v.file}:${v.line}  ${v.message}`)
       if (list.length > 50) console.log(`       … ${list.length - 50} more`)
     }

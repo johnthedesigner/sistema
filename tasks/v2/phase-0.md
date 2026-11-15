@@ -164,7 +164,7 @@ Folded into V1 on 2026-11-14 (see `docs/v2/capability-model.md`). The ID is kept
 
 ## Task V0.6: Make code-level checks blocking
 
-**Status:** not started
+**Status:** done (2026-11-14)
 **Phase:** V0
 
 ### What this task implements
@@ -173,9 +173,9 @@ Wires `check:content --strict` into the build (a `prebuild` script, so Vercel ru
 
 ### Acceptance criteria
 
-- [ ] `npm run build` fails when a raw placeholder or relative URL reaches built output (confirm with a throwaway edit, then revert)
-- [ ] `npm run build` passes on the clean tree
-- [ ] Content-level violation counts recorded in `bug-inventory.md` as the V1 baseline
+- [x] `npm run build` fails when a raw placeholder or relative URL reaches built output (confirm with a throwaway edit, then revert)
+- [x] `npm run build` passes on the clean tree
+- [x] Content-level violation counts recorded in `bug-inventory.md` as the V1 baseline
 
 ---
 

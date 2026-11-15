@@ -70,3 +70,5 @@ First run 2026-11-14 (V0.2), `npm run check:content -- --output` after `npm run 
 | **Total** | | **119** (57 code, 62 content) |
 
 V0.3 and V0.4 should bring the code-level count to 0. Content counts are the V1 baseline.
+
+**After V0.6 (2026-11-14):** code-level 0 (source and built output). Content-level 62: `literal-date` 6, `step-number` 24, `missing-description` 1, `missing-title` 21, `universal-threshold` 10. Code-level rules now block the build.
