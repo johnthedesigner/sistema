@@ -102,3 +102,11 @@ The owner liked the adoption result: identify existing colors, complete the ramp
 
 **Tool dependency.** The comparison page needs real ramps for each option. Until E exists, the agent makes one palette tool call for the regenerated ramp and places existing values beside it. The "keep and complete" strip then shows where the jumps are, rather than smoothing them. After E, the tool returns all options, plus the diagnosis, in one call.
 
+
+### Owner note: show the process outline and progress (2026-11-15)
+
+In a GUI, the person sees an outline of the process up front, and progress is shown against that outline as they go. The workflow should do the same, as far as it can without slowing the run.
+
+| # | Change | Where | Phase |
+|---|---|---|---|
+| H | **Outline at the start, progress against it throughout.** The renderer generates the outline from the workflow definition, so the agent doesn't write it: the milestones, the steps in each, the gates, and which steps are optional. Each step gets one plain sentence. The agent shows it once at the start (after `project.assess`, with routed and skipped steps already marked) and asks nothing about it. After each play, it shows a single progress line (for example `Foundations 3 of 6: color done, typography next`), not the whole outline. At each gate, and on resume, it shows the full outline with each step's status from `sistema.json`. The gate pages (`style-preview.html`, `token-check.html`) carry the same outline as a header strip, and link to any comparison pages in `sistema-review/`. **Cost limits:** no extra questions, no extra pages, and HTML is only touched when a gate page is built anyway. | `render.ts` (starter and full workflow), gate page rules, `start.md` | V1.5 revision |
