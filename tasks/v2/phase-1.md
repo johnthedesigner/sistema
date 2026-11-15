@@ -40,7 +40,7 @@ Schemas for plays, workflows, rules, and `sistema.json` (TypeScript types plus r
 
 ### Task V1.2: Loaders and channel generators
 
-**Status:** not started
+**Status:** done (2026-11-14). Renderers are tested on fixtures; route tests against real content land with V1.3.
 
 Loaders for `content/`. Generators for:
 - paste-in workflow starter (capability-model 9.2)
@@ -50,9 +50,9 @@ Loaders for `content/`. Generators for:
 
 Placeholders are resolved through `src/lib/placeholders.ts`.
 
-- [ ] Starter and `/raw/plays/<id>` render for the slice content
-- [ ] Output passes the existing code-level checks
-- [ ] Route tests in the style of `src/app/raw/raw-and-bundle.test.ts`
+- [x] Starter, full version, and `/raw/plays/<id>` render (fixture-tested; real slice content in V1.3)
+- [x] Output passes the existing code-level checks (no literal dates, relative URLs, or placeholders; asserted in tests)
+- [ ] Route tests (moved to V1.3, once real content exists) in the style of `src/app/raw/raw-and-bundle.test.ts`
 
 ### Task V1.3: Convert the slice content
 

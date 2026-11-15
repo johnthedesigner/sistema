@@ -113,6 +113,10 @@ describe('model.schema', () => {
     expect(msgs.some(m => m.includes('checked_by'))).toBe(true)
     expect(msgs.some(m => m.includes('invalid YAML'))).toBe(true)
   })
+  it('reports malformed frontmatter YAML instead of throwing', () => {
+    const broken = { path: 'content/plays/color/broken.md', text: '---\nid: color.broken\nkind: create\nkind: change\n---\nbody' }
+    expect(violations(corpus([broken]), 'model.schema')[0].message).toMatch(/invalid YAML/)
+  })
   it('rejects a workflow with both sequence and routes', () => {
     const w = workflow('workflow.start', ['project.assess'], 'routes:\n  add: [project.assess]\n')
     expect(violations(corpus([assess, w]), 'model.schema')).toHaveLength(1)

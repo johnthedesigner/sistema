@@ -41,8 +41,18 @@ function frontmatter(text: string): { data: Record<string, unknown>; content: st
   return { data: normalized, content }
 }
 
+function safeFrontmatter(text: string): { ok: true; data: Record<string, unknown>; content: string } | { ok: false; issues: ParseIssue[] } {
+  try {
+    return { ok: true, ...frontmatter(text) }
+  } catch (e) {
+    return { ok: false, issues: [{ path: '(frontmatter)', message: `invalid YAML: ${(e as Error).message.split('\n')[0]}` }] }
+  }
+}
+
 export function parsePlay(file: string, text: string): Parsed<Play> {
-  const { data, content } = frontmatter(text)
+  const fm = safeFrontmatter(text)
+  if (!fm.ok) return fm
+  const { data, content } = fm
   const result = PlayFrontmatter.safeParse(data)
   if (!result.success) return { ok: false, issues: issues(result.error) }
   if (!content.trim()) return { ok: false, issues: [{ path: 'body', message: 'play has no procedure' }] }
@@ -50,7 +60,9 @@ export function parsePlay(file: string, text: string): Parsed<Play> {
 }
 
 export function parseWorkflow(file: string, text: string): Parsed<Workflow> {
-  const { data, content } = frontmatter(text)
+  const fm = safeFrontmatter(text)
+  if (!fm.ok) return fm
+  const { data, content } = fm
   const result = WorkflowFrontmatter.safeParse(data)
   if (!result.success) return { ok: false, issues: issues(result.error) }
   return { ok: true, value: { ...result.data, body: content.trim(), file } }

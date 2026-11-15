@@ -1,0 +1,247 @@
+/**
+ * Channel renderers for the v2 content model (capability-model Section 6).
+ * Pure functions: given parsed content and a base URL, produce the text an
+ * agent reads. The same play renders to /raw/plays/<id>, the full workflow
+ * expansion, and (in V4) MCP next_step responses.
+ */
+import type { Play, Workflow } from './parse'
+import type { Rule, SequenceItem, ToolName } from './schema'
+
+export interface RenderContext {
+  base: string // site origin, no trailing slash
+  plays: Map<string, Play>
+  rules: Map<string, Rule>
+}
+
+// ─── URLs ───────────────────────────────────────────────────────────────────
+
+export const playUrl = (base: string, id: string) => `${base}/raw/plays/${id}`
+export const workflowSlug = (id: string) => id.replace(/^workflow\./, '')
+export const workflowUrl = (base: string, id: string) => `${base}/raw/workflows/${workflowSlug(id)}`
+export const workflowFullUrl = (base: string, id: string) => `${workflowUrl(base, id)}/full`
+
+/** Guides live in kb/principles until V1.12 moves them to content/guides. */
+export function guideUrl(base: string, ref: string): { url: string; section?: string } {
+  const [id, section] = ref.split('#')
+  const [, topic, name] = id.split('.')
+  return { url: `${base}/raw/principles/${topic}/${name}`, section }
+}
+
+// ─── tools ──────────────────────────────────────────────────────────────────
+
+interface ToolDoc {
+  title: string
+  usage: (base: string) => string
+}
+
+export const TOOL_DOCS: Record<ToolName, ToolDoc> = {
+  palette: {
+    title: 'Palette',
+    usage: base =>
+      [
+        `POST ${base}/api/palette`,
+        'Body: {"colors": {"<name>": "#rrggbb", ...}}  (6-digit hex; send every seed in one request)',
+        'Returns: {"palettes": {"<name>": {"seed": "#...", "stops": {"50": {"hex", "contrast_white", "contrast_black"}, ... "950": {...}}}}}',
+      ].join('\n'),
+  },
+  contrast: {
+    title: 'Contrast',
+    usage: base =>
+      [
+        `POST ${base}/api/contrast`,
+        'Body: {"foreground": "#hex", "background": "#hex"}  (one pair per request)',
+        'Returns: {"ratio": 4.83, "passes": {"aa_text", "aa_large_text", "aa_ui", "aaa_text", "aaa_large_text"}}',
+      ].join('\n'),
+  },
+  type_scale: {
+    title: 'Type scale',
+    usage: () => 'Not yet available as an API. Until it is, follow the type scale guidance cited in this play and record the values you chose.',
+  },
+}
+
+export function renderTools(base: string, tools: ToolName[]): string {
+  if (tools.length === 0) return ''
+  const blocks = tools.map(t => `**${TOOL_DOCS[t].title}**\n\n\`\`\`\n${TOOL_DOCS[t].usage(base)}\n\`\`\``)
+  return `## Tools\n\nUse these tools. Never compute or estimate their results yourself.\n\n${blocks.join('\n\n')}`
+}
+
+// ─── state tokens ───────────────────────────────────────────────────────────
+
+const SECTION_TITLES: Record<string, string> = {
+  overview: 'Overview',
+  colors: 'Colors',
+  typography: 'Typography',
+  layout: 'Layout',
+  'elevation-depth': 'Elevation & Depth',
+  shapes: 'Shapes',
+  components: 'Components',
+  'dos-donts': "Do's and Don'ts",
+}
+
+/** Human description of a requires/produces token. */
+export function describeToken(token: string): string {
+  const t = token.replace(/\?$/, '')
+  const optional = token.endsWith('?') ? ' (when it applies)' : ''
+  if (t.startsWith('gate:')) return `the \`${t.slice(5)}\` approval is recorded in \`sistema.json\` \`gates\`${optional}`
+  if (t.startsWith('project:')) return `\`sistema.json\` \`project.${t.slice(8).replace(/-/g, '_')}\` is set${optional}`
+  if (t.startsWith('design-md#')) return `DESIGN.md has its ${SECTION_TITLES[t.slice(10)] ?? t.slice(10)} section${optional}`
+  return `\`${t}\`${optional}`
+}
+
+function producersOf(token: string, ctx: RenderContext): string[] {
+  const t = token.replace(/\?$/, '')
+  return [...ctx.plays.values()].filter(p => p.produces.some(x => x.replace(/\?$/, '') === t)).map(p => p.id)
+}
+
+// ─── play ───────────────────────────────────────────────────────────────────
+
+function renderRule(rule: Rule): string {
+  const params = rule.parameters
+    ? '\n  Values by standard: ' +
+      Object.entries(rule.parameters)
+        .map(([std, levels]) => `${std} ${Object.entries(levels).map(([lvl, v]) => `${lvl} ${v}`).join(', ')}`)
+        .join('; ') +
+      '. Use the values for the standard in `sistema.json` `project.a11y_standard`.'
+    : ''
+  const tag = rule.severity === 'blocking' ? 'Required' : 'Advisory'
+  return `- **${rule.id}** (${tag}): ${rule.statement}${params}\n  Why: ${rule.reason}`
+}
+
+/** One play as a self-contained document for an agent. */
+export function renderPlay(play: Play, ctx: RenderContext): string {
+  const parts: string[] = [`# ${play.title}`, `\`${play.id}\` · ${play.description}`]
+
+  if (play.requires.length) {
+    const lines = play.requires.map(r => {
+      const from = producersOf(r, ctx).filter(id => id !== play.id)
+      return `- ${describeToken(r)}${from.length ? ` (from ${from.map(id => `\`${id}\``).join(' or ')})` : ''}`
+    })
+    parts.push(`## Before you start\n\nCheck that:\n${lines.join('\n')}\n\nIf any of these is missing, stop and tell the person which play produces it.`)
+  }
+
+  parts.push(`## Procedure\n\n${play.body}`)
+
+  const tools = renderTools(ctx.base, play.tools)
+  if (tools) parts.push(tools)
+
+  if (play.rules.length) {
+    const lines = play.rules.map(id => {
+      const rule = ctx.rules.get(id)
+      return rule ? renderRule(rule) : `- **${id}**`
+    })
+    parts.push(`## Rules\n\n${lines.join('\n')}`)
+  }
+
+  if (play.knowledge.length) {
+    const lines = play.knowledge.map(ref => {
+      const { url, section } = guideUrl(ctx.base, ref)
+      return `- ${url}${section ? ` (section: ${section})` : ''}`
+    })
+    parts.push(`## Read when you need it\n\nFetch these when the procedure refers to them, not all up front:\n${lines.join('\n')}`)
+  }
+
+  if (play.produces.length) parts.push(`## This play writes\n\n${play.produces.map(p => `- ${describeToken(p)}`).join('\n')}`)
+
+  parts.push(`## Done when\n\n${play.evidence}`)
+
+  parts.push(
+    [
+      '## Record it',
+      '',
+      `When the evidence is shown, set \`steps["${play.id}"]\` in \`sistema.json\` to \`{"status": "complete", "date": "<today, YYYY-MM-DD>", "evidence": "<one line>"}\`.`,
+      `Then append one line to DECISIONS.md: \`<today, YYYY-MM-DD> — ${play.title} — <the decisions you made and why>\`.`,
+    ].join('\n'),
+  )
+
+  return parts.join('\n\n') + '\n'
+}
+
+// ─── workflow ───────────────────────────────────────────────────────────────
+
+interface Step {
+  number: number
+  play: Play
+  optional: boolean
+  gateAfter: Array<{ gate: string; prompt: string }>
+}
+
+/** Number the plays in a sequence; gates attach to the play before them. */
+export function workflowSteps(workflow: Workflow, plays: Map<string, Play>): { steps: Step[]; leadingGates: Array<{ gate: string; prompt: string }> } {
+  const steps: Step[] = []
+  const leadingGates: Array<{ gate: string; prompt: string }> = []
+  for (const item of workflow.sequence ?? ([] as SequenceItem[])) {
+    if (typeof item !== 'string') {
+      ;(steps.length ? steps[steps.length - 1].gateAfter : leadingGates).push(item)
+      continue
+    }
+    const id = item.replace(/\?$/, '')
+    const play = plays.get(id)
+    if (!play) throw new Error(`${workflow.id}: unknown play ${id}`)
+    steps.push({ number: steps.length + 1, play, optional: item.endsWith('?'), gateAfter: [] })
+  }
+  return { steps, leadingGates }
+}
+
+/** The short paste-in starter (capability-model 9.2). */
+export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, workflows?: Map<string, Workflow>): string {
+  const { steps, leadingGates } = workflowSteps(workflow, ctx.plays)
+  const gateLine = (g: { gate: string; prompt: string }) => `   GATE (${g.gate}): ${g.prompt}`
+
+  const list = [
+    ...leadingGates.map(g => gateLine(g).trim()),
+    ...steps.flatMap(s => [
+      `${s.number}. ${s.play.title}${s.optional ? ' (optional: offer it, run it only if the person wants it)' : ''}: ${playUrl(ctx.base, s.play.id)}`,
+      ...s.gateAfter.map(gateLine),
+    ]),
+  ]
+
+  const tools = [...new Set(steps.flatMap(s => s.play.tools))]
+  const next = workflow.continue_with ? workflows?.get(workflow.continue_with) : undefined
+
+  const parts = [
+    `# ${workflow.title}`,
+    workflow.description,
+    ...(workflow.body ? [workflow.body] : []),
+    `You are running Sistema's ${workflow.title} workflow. Work through it one play at a time.`,
+    [
+      '## How to run it',
+      '',
+      '1. Read `sistema.json` in the project root. If it does not exist, the first play creates it.',
+      '2. Find the first play below that is not marked complete in `sistema.json` `steps`.',
+      "3. Fetch that play's instructions from its URL and follow them exactly.",
+      "4. If the play's outputs already exist and meet its checks, record it as complete with that evidence and move on.",
+      "5. When a play's evidence is shown, record it in `sistema.json` and continue with the next play.",
+      '6. At a GATE, stop. Ask the person to review, and continue only after they approve. Record the approval in `sistema.json` `gates` with today\'s date.',
+      '7. If the session ends, the next session starts again at step 1. Finished plays are skipped.',
+    ].join('\n'),
+    `## Plays\n\n${list.join('\n')}`,
+    ...(tools.length ? [renderTools(ctx.base, tools)] : []),
+    ...(next
+      ? [`## When this workflow is done\n\nTell the person what was completed, then offer to continue with ${next.title}: ${workflowUrl(ctx.base, next.id)}`]
+      : []),
+    `If you cannot fetch URLs, use the full version, which includes every play: ${workflowFullUrl(ctx.base, workflow.id)}`,
+  ]
+  return parts.join('\n\n') + '\n'
+}
+
+/** Shift every markdown heading down one level (for embedding). */
+function demote(markdown: string): string {
+  let inFence = false
+  return markdown
+    .split('\n')
+    .map(line => {
+      if (line.startsWith('```')) inFence = !inFence
+      return !inFence && /^#{1,5} /.test(line) ? `#${line}` : line
+    })
+    .join('\n')
+}
+
+/** Starter plus every play inline, for agents that cannot fetch. */
+export function renderWorkflowFull(workflow: Workflow, ctx: RenderContext, workflows?: Map<string, Workflow>): string {
+  const starter = renderWorkflowStarter(workflow, ctx, workflows)
+    .replace(/\n\nIf you cannot fetch URLs, use the full version[^\n]*\n$/, '\n')
+    .replace("3. Fetch that play's instructions from its URL and follow them exactly.", "3. Follow that play's instructions, included below.")
+  const { steps } = workflowSteps(workflow, ctx.plays)
+  const plays = steps.map(s => demote(renderPlay(s.play, ctx)).replace(/^## /, `## Play ${s.number}: `))
+  return [starter.trimEnd(), ...plays.map(p => p.trimEnd())].join('\n\n---\n\n') + '\n'
+}
