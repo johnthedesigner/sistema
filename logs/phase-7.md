@@ -72,3 +72,16 @@
 - **Key debug finding:** `toGamut('rgb', 'oklch')` TypeScript signature requires two arguments (dest mode + intermediate color space). Called as curried function: `const mapToGamut = toGamut('rgb', 'oklch')`. Vivid seeds have channels slightly above 1.0 at high lightness — `toGamut` binary-searches for maximum in-gamut chroma, resolving this without manual clamping. With fix: 965 candidates per seed regardless of hue.
 - Cross-hue interchangeability verified: blue-400 (3.17), green-400 (3.15), red-400 (3.16) — within 0.02; all stops within ±0.1 of logarithmic targets
 - Lint: passing | Build: passing (125 static pages)
+
+---
+
+### 2026-05-13 — Task 7.5: Phase 7 housekeeping
+
+**What was done:**
+- Archived Phase 7 session entries (tasks 7.0–7.4) to `logs/phase-7.md`
+- Compressed `tasks/phase-7.md` to one-paragraph summaries (all five tasks complete)
+- Updated `AGENTS.md` with 8 new patterns from Phase 7: culori v4 ESM interop (`createRequire`), `toGamut` two-argument TypeScript signature, campaign definition format in `_meta/CAMPAIGNS.md`, sessionStorage key namespacing for campaigns, localStorage-backed form pre-fill pattern, `mounted` state guard for storage access in client components, CC BY-NC synthesis rules, static tool data in `public/`
+- Wrote `docs/phase-7-retro.md`
+- Generated `tasks/phase-8.md` (tasks 8.0–8.4: Google Fonts Knowledge, second campaign, custom palette seed input, Stage 6 exemplars, housekeeping)
+- Updated SESSION_LOG.md current state to Phase 8
+- Build: 135 static pages. Lint: passing.

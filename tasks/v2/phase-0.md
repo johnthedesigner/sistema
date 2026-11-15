@@ -19,7 +19,7 @@
 
 ## Task V0.0: Baseline and housekeeping
 
-**Status:** not started
+**Status:** done (2026-11-14)
 **Phase:** V0
 
 ### What this task implements
@@ -36,10 +36,10 @@ Creates a clean, recorded starting point before any v2 change ships.
 
 ### Acceptance criteria
 
-- [ ] `git tag` shows `v1-baseline` on `main` HEAD, and the tag is pushed
-- [ ] `docs/v2/SISTEMA_PLAN.md` exists and matches the owner's file
-- [ ] `tasks/phase-9.md` shows a disposition for every task
-- [ ] `SESSION_LOG.md` Current State points to V0.1
+- [x] `git tag` shows `v1-baseline` on `main` HEAD, and the tag is pushed
+- [x] `docs/v2/SISTEMA_PLAN.md` exists and matches the owner's file
+- [x] `tasks/phase-9.md` shows a disposition for every task
+- [x] `SESSION_LOG.md` Current State points to V0.1
 
 ---
 

@@ -2,6 +2,16 @@
 
 **Phase goal:** Play quality — audit every current play end-to-end, fix the gaps discovered during dogfooding, and ship two high-leverage improvements from the backlog.
 
+**Closed out 2026-11-14 (v2 Task V0.0).** Phase 9 was never started. Its tasks were absorbed into the v2 overhaul (`docs/v2/ROADMAP.md`):
+
+| Task | Disposition |
+|---|---|
+| 9.0 Play quality audit | Replaced by the V0 integrity check and the V5 behavior tests |
+| 9.1 positioning-brief feed-forward | Replaced by V1 play contracts with declared inputs and outputs |
+| 9.2 scaffold-component-library play | Stays in `_meta/BACKLOG.md`. Revisit under the Patterns milestone in V3 |
+| 9.3 Vercel deployment | Done outside this task file. Live at https://sistema.johnthedesigner.com |
+| 9.4 Housekeeping | Folded into V0.0 |
+
 **Context from Phase 8:**
 - Bootstrap campaign completed end-to-end on Sistema itself; token pipeline is working
 - Two BACKLOG items discovered: (1) `positioning-brief` doesn't feed-forward to downstream play variables; (2) no `scaffold-component-library` play to bridge tokens → components
@@ -14,7 +24,7 @@
 
 ## Task 9.0 — Play quality audit
 
-**Status:** not started
+**Status:** superseded by v2 (see disposition table)
 **Phase:** 9
 
 ### What this task implements
@@ -46,7 +56,7 @@ Each play is run by reading its prompt from `_meta/TASK_PLAYBOOKS.md`, substitut
 
 ## Task 9.1 — Fix `positioning-brief` feed-forward
 
-**Status:** not started
+**Status:** superseded by v2 (see disposition table)
 **Phase:** 9
 **Backlog reference:** `_meta/BACKLOG.md` — "positioning-brief should produce feed-forward outputs for downstream plays"
 
@@ -86,7 +96,7 @@ This eliminates the re-statement friction without requiring any app changes.
 
 ## Task 9.2 — `scaffold-component-library` play
 
-**Status:** not started
+**Status:** superseded by v2 (see disposition table)
 **Phase:** 9
 **Backlog reference:** `_meta/BACKLOG.md` — "scaffold-component-library play for headless library integration"
 **Memory:** `project_direction_phase9.md`
@@ -122,7 +132,7 @@ A new Stage 4 play that bridges token generation and component implementation. T
 
 ## Task 9.3 — Vercel deployment
 
-**Status:** not started
+**Status:** done (deployed outside this task file)
 **Phase:** 9
 
 ### What this task implements

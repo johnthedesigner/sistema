@@ -1,5 +1,7 @@
 # AGENTS.md — Sistema
 
+> **v2 overhaul in progress (branch `v2`).** Start every session with `SESSION_LOG.md` Current State, then `docs/v2/ROADMAP.md` and the current `tasks/v2/phase-N.md`. Where this file describes v1 structures (stages, `TASK_PLAYBOOKS.md`, the living brief), the v2 plan (`docs/v2/SISTEMA_PLAN.md`) takes precedence. This file is updated at the end of each v2 phase.
+
 ## What this repository is
 
 Sistema is a two-layer product: a structured knowledge base (KB) of design system

@@ -2,33 +2,30 @@
 
 ## Current State
 
-**Phase:** 8
-**Last completed task:** 7.5 — Phase 7 housekeeping
-**Next task:** 8.0 — Google Fonts Knowledge synthesis
-**Blockers:** Google Fonts Knowledge requires manual license verification (JS-rendered; check `fonts.google.com/knowledge` footer in a browser for CC BY 4.0 notice before synthesizing)
-**Notes:** Build: 135 static pages. All lint checks passing. 22-palette library live at `/tools/palette`. Campaign app live at `/campaigns`. Color mode selector wired to `generate-color-scheme`.
+**Phase:** v2 Phase 0 (Audit and fixes). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-0.md`.
+**Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
+**Last completed task:** V0.0 — Baseline and housekeeping
+**Next task:** V0.1 — Repo audit (`docs/v2/audit.md`). The owner reviews it before V0.2 starts.
+**Blockers:** none
+**Notes:** `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
 ---
 
 ## Session log
 
-*Phase 0 session entries archived to `logs/phase-0.md`.*
-*Phase 1 session entries archived to `logs/phase-1.md`.*
-*Phase 2 session entries archived to `logs/phase-2.md`.*
-*Phase 2b session entries archived to `logs/phase-2b.md`.*
-*Phase 3 session entries archived to `logs/phase-3.md`.*
-*Phase 4 session entries archived to `logs/phase-4.md`.*
-*Phase 5 session entries archived to `logs/phase-5.md`.*
-*Phase 6 session entries archived to `logs/phase-6.md`.*
-*Phase 7 session entries archived to `logs/phase-7.md`.*
+*v1 Phase 0–7 session entries archived to `logs/phase-0.md` through `logs/phase-7.md`. Phase 8 entries are in `logs/phase-8.md`. v1 Phase 9 was never started and was closed out in V0.0.*
 
-### 2026-05-13 — Task 7.5: Phase 7 housekeeping
+### 2026-11-14 — Task V0.0: Baseline and housekeeping
 
 **What was done:**
-- Archived Phase 7 session entries (tasks 7.0–7.4) to `logs/phase-7.md`
-- Compressed `tasks/phase-7.md` to one-paragraph summaries (all five tasks complete)
-- Updated `AGENTS.md` with 8 new patterns from Phase 7: culori v4 ESM interop (`createRequire`), `toGamut` two-argument TypeScript signature, campaign definition format in `_meta/CAMPAIGNS.md`, sessionStorage key namespacing for campaigns, localStorage-backed form pre-fill pattern, `mounted` state guard for storage access in client components, CC BY-NC synthesis rules, static tool data in `public/`
-- Wrote `docs/phase-7-retro.md`
-- Generated `tasks/phase-8.md` (tasks 8.0–8.4: Google Fonts Knowledge, second campaign, custom palette seed input, Stage 6 exemplars, housekeeping)
-- Updated SESSION_LOG.md current state to Phase 8
-- Build: 135 static pages. Lint: passing.
+- Committed the 2026-05-27 retrospective updates to root `DESIGN.md` and `LIVING_BRIEF.md` (owner approved). Fixed two factual errors: the Tailwind version (3.4, not v4) and the stale "time-based" dark mode note in the brief.
+- Added the owner's plan (`docs/v2/SISTEMA_PLAN.md`), the execution roadmap (`docs/v2/ROADMAP.md`), and the Phase 0 task file (`tasks/v2/phase-0.md`).
+- Tagged `main` (`0a94ac4`) as `v1-baseline` and pushed the tag.
+- Closed out `tasks/phase-9.md` with a disposition for each task. Annotated three `_meta/BACKLOG.md` items that v2 now covers.
+- Archived the Task 7.5 entry to `logs/phase-7.md`. Reset Current State to v2.
+- Added a v2 pointer at the top of `AGENTS.md`.
+
+**Owner decisions logged:**
+- A single merge of `v2` into `main` at the end. No per-phase PRs or merges.
+- No compatibility work. Sistema has no outside users yet.
+- Production domain is `sistema.johnthedesigner.com`.
