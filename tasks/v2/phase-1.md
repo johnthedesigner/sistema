@@ -68,7 +68,7 @@ For each converted play, log in `docs/v2/migration-notes.md` where every instruc
 
 ### Task V1.4: Slice runs
 
-**Status:** not started
+**Status:** in progress. The preview, scratch projects, and protocol are ready (`docs/v2/slice-runs.md`). Waiting on the owner's runs.
 
 Per D9 and D10: run the Start starter on two scratch projects (empty, and existing Tailwind colors) against a public URL. Capture transcripts and outputs.
 

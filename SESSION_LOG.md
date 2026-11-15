@@ -5,9 +5,9 @@
 **Phase:** v2 Phase 1 (Content model and narrative). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-1.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
 **Last completed task:** V1.3 — Convert the slice content
-**Next task:** V1.4 — Slice runs (needs the owner: push `v2`, Vercel preview access, and two scratch projects)
+**Next task:** V1.4 — Slice runs (owner runs the Start starter in both scratch projects; see `docs/v2/slice-runs.md`). V1.6 IA research can run meanwhile.
 **Blockers:** none
-**Notes:** `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
+**Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
 ---
 
@@ -50,3 +50,10 @@
 - `docs/v2/migration-notes.md`: where every legacy instruction went, across 5 plays (including both Bootstrap copies). Reading the legacy plays caught gaps in my first drafts: the platform and scale question, the positioning statement, and map-existing's ramp completeness step. All fixed.
 - New bug #34: the quality guide's chroma budgets use an unstated scale.
 - 72 tests pass. The build passes with all 10 plays and both workflow routes prerendered, and output checks show 0.
+
+### 2026-11-14 — Task V1.4 setup
+
+**What was done:**
+- Pushed `v2` (owner approved). The first CI run passed. The Vercel preview built, and agent-facing URLs resolve to the branch URL (confirms `resolveSiteUrl` on a real preview).
+- Created scratch projects in `~/Repos/sistema-slice/` (new folder, no existing repos touched): `new-project` (bare Next.js 15 and Tailwind 4) and `existing-colors` ("Ledgerline," with partial brand ramps in `@theme` and hardcoded hex in components). Each has its own local git repo and initial commit, and both build.
+- Wrote `docs/v2/slice-runs.md`: how to run, the owner persona, and what is recorded per run.
