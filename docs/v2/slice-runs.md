@@ -73,3 +73,27 @@ When a run ends, tell me. I'll review the transcript (if you can share it or sav
 4. **A brand name was re-slotted without asking.** Brand `ember-500` became ramp stop `ember.400`, so the ramp stays monotonic, and the old utility names (`pine-700` and the rest) are gone. The play says to ask before changing a brand *value*, but not a *name*. *Proposed fix:* ask before renaming or re-slotting any existing named value, and list renamed names in the evidence.
 5. **Not yet measured:** tool call counts, malformed calls, and resume. These need the transcript or the owner's notes.
 
+### Owner feedback on color adoption (2026-11-15)
+
+The owner judged the adoption result close to the ideal default: identify existing colors, complete the ramps, and place the existing values into them. Five changes are needed to make it work for the person using it.
+
+**Measured in this run** (OKLCH from `tokens/src/color.json`):
+
+| Ramp | Observation | Cause |
+|---|---|---|
+| pine 100 to 150 | Visible jump | Chroma: existing 100 is C 0.022, tool 150 is C 0.104 (about 5x). The contrast step is normal (1.20 to 1.40). |
+| ink 200 | Ramp stalls, then jumps | Existing ink-200 has the same contrast as tool ink-150 (1.40 and 1.39). It is a 150 named 200. |
+| ember 500 | Index misaligned | Existing ember-500 lands on Sistema's 400 by contrast (3.00 against white). |
+| pine 500 and 700 | Mild drift | About half a step lighter than their names imply. |
+
+**Proposed changes:**
+
+| # | Change | Where | Phase |
+|---|---|---|---|
+| A | **Explain the approach at intake, and let the person choose.** `project.assess` describes how Sistema handles existing colors before anything is decided, and records a choice as `project.color_strategy`: **keep-exact** (use only the existing colors; never add or replace values without asking; roles that can't be filled, or that fail contrast, are listed and decided with the person), **keep-and-complete** (the default: existing values are pinned in full ramps, and the ramps are tuned around them), or **regenerate** (existing colors are seeds only; uniform ramps; old names mapped to the nearest stops, with the person's agreement). | `project.assess`, `SistemaState` schema | V1.5 revision |
+| B | **Diagnose before mapping.** `color.map-existing` starts with a report, one row per existing color: name, value, contrast against white, the Sistema stop it lands on, how far that is from its name, and how its chroma compares to its ramp neighbors. Flags: misaligned index (one stop or more off), chroma outlier (will cause a visible jump), and duplicate step. The play explains the options for each flag and asks before going on. | `color.map-existing` | V1.5 revision |
+| C | **Consent for every change to existing colors.** Nothing existing is replaced, renamed, re-slotted, or heavily augmented without an explicit choice from the person. This is a blocking rule (`color.existing.consent`) and absorbs finding 4. | `content/rules/color.yaml`, both color plays | V1.5 revision |
+| D | **Ramp strip previews.** Every ramp preview is one row of swatches, edge to edge with no gaps, so lightness and chroma steps are visible. Labels go below the strip, and existing values are marked. This applies to `style-preview.html`, `token-check.html`, and Sistema's own palette tool page. | rule `color.preview.ramp-strips`, the direction and pipeline plays, `/tools/palette` | V1.5 (plays), V3 (site) |
+| E | **Anchored ramps in the palette tool.** The tool accepts existing values as anchors at their slots and tunes the neighboring stops so transitions are smooth: chroma and hue blend gradually between anchors, while lightness keeps the contrast targets. It also returns the diagnosis from B (nearest stop, index offset, chroma ratio), so the play doesn't estimate it. This passes the tool test (plan 10.3): it is a calculation, this run shows a model gets it wrong, and a current play needs it. Until it exists, the play shows the jumps honestly and asks. | `/api/palette`, `src/lib/palette.ts` | V2 |
+| F | **Say it on the site.** The color guide and onboarding explain the approach and the three strategies. | Narrative and color guide | V1.7, V3 |
+
