@@ -13,7 +13,9 @@ const REQUIRED_FIELDS = [
 ] as const;
 
 const VALID_STATUSES = ['latest', 'legacy', 'draft', 'deprecated'] as const;
-const VALID_CONTENT_TYPES = ['guidance', 'implementation', 'asset', 'design-md'] as const;
+// v2: superseded by the content schemas in V1 (docs/v2/capability-model.md). Kept for
+// by-hand use on reference folders until then. 'synthesis' is what kb/principles uses.
+const VALID_CONTENT_TYPES = ['guidance', 'implementation', 'asset', 'design-md', 'synthesis'] as const;
 
 // Files that are not content files and should not be validated as such
 const SKIP_FILES = new Set(['_index.md']);

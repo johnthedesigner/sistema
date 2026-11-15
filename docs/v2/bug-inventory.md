@@ -41,6 +41,31 @@
 | 27 | Unused token CSS files, one of which the brief still names | `src/styles/tokens/{colors,shape,typography}.css` | V3 |
 | 28 | AGENTS.md describes an old palette taper formula | AGENTS.md "OKLCH palette chroma taper" vs `src/lib/palette.ts:73-95` | V0.7 |
 
+| 29 | Broken source citation: Primer's DESIGN.md cites `kb/design-systems/primer/assets/tokens/colors`, which doesn't exist | `kb/reference/design-systems/primer/design-md/DESIGN@2026-05-12.md:13` (found by `ref.sources`) | V0.4 |
+| 30 | Bare relative URL in a campaign prompt: "verified via `/api/contrast`" | `_meta/campaigns/bootstrap.md:328` (found by `ref.relative-url`) | V0.4 |
+| 31 | Tool pages show relative API paths (`POST /api/palette`) to agents reading the page | `src/app/tools/{palette,contrast}/page.tsx`, `src/app/tools/page.tsx` (found by `output.relative-url`) | V0.3 |
+| 32 | Local builds bake `NEXT_PUBLIC_SITE_URL` from `.env.local` (an old ngrok tunnel) into 383 pages. Production is unaffected because Vercel has its own env | `.env.local` line 1. Owner's file, not edited | Owner |
+
 ## Integrity check baseline
 
-V0.2 fills this in with the first report-only run.
+First run 2026-11-14 (V0.2), `npm run check:content -- --output` after `npm run build` on `v2`.
+
+| Rule | Level | Count |
+|---|---|---|
+| `ref.raw-url` | code | 2 |
+| `ref.relative-url` | code | 1 |
+| `ref.campaign-step` | code | 0 |
+| `ref.stub-target` | code | 0 |
+| `ref.orphan-version` | code | 1 |
+| `ref.sources` | code | 1 |
+| `raw.placeholder` | code | 1 |
+| `output.placeholder` | code | 35 |
+| `output.relative-url` | code | 16 |
+| `content.literal-date` | content | 6 |
+| `content.step-number` | content | 24 |
+| `content.missing-description` | content | 1 |
+| `content.missing-title` | content | 21 |
+| `content.universal-threshold` | content | 10 |
+| **Total** | | **119** (57 code, 62 content) |
+
+V0.3 and V0.4 should bring the code-level count to 0. Content counts are the V1 baseline.

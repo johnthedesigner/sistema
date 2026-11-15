@@ -4,9 +4,9 @@
 
 **Phase:** v2 Phase 0 (Audit and fixes). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-0.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V0.1 — Repo audit
-**Next task:** V0.2 — Check infrastructure (report-only).
-**Blockers:** owner review of `docs/v2/capability-model.md` (the audit review is folded into this one)
+**Last completed task:** V0.2 — Check infrastructure (report-only)
+**Next task:** V0.3 — Placeholder resolution
+**Blockers:** none. The audit and capability model were approved 2026-11-14.
 **Notes:** `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
 ---
@@ -14,6 +14,17 @@
 ## Session log
 
 *v1 Phase 0–7 session entries archived to `logs/phase-0.md` through `logs/phase-7.md`. Phase 8 entries are in `logs/phase-8.md`. v1 Phase 9 was never started and was closed out in V0.0.*
+
+### 2026-11-14 — Task V0.2: Check infrastructure
+
+**What was done:**
+- `tools/validate/content/` holds the integrity checker. It has 12 source rules and 2 output rules (code or content level), is report-only by default, and supports `--strict` (code), `--strict-all`, `--output`/`--output-only`, and `--json`. It has 19 Vitest tests, with passing and failing cases for each rule.
+- Added `vitest` and `tsx` as root dev dependencies, plus `npm test` and `npm run check:content`. The checker uses only root dependencies, so it runs on Vercel.
+- Moved lint from `next lint` to the ESLint CLI (`eslint.config.mjs`, flat config extending `next/core-web-vitals`). Same result as before: 0 errors, 2 warnings.
+- Set `outputFileTracingRoot` in `next.config.ts`. The workspace-root warning is gone, and `next start` now serves routes correctly.
+- Allowed `content_type: synthesis` in `lint-frontmatter.ts`, and marked it as superseded by V1 schemas.
+- Added `.github/workflows/ci.yml` (lint, test, source check, build, output check; report-only). Not yet run, because `v2` hasn't been pushed.
+- Baseline: 119 violations (57 code, 62 content), recorded in `bug-inventory.md`. Found 4 new issues (#29 to #32), including `.env.local` baking an ngrok URL into local builds.
 
 ### 2026-11-14 — Design change: capability model
 

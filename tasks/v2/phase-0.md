@@ -45,7 +45,7 @@ Creates a clean, recorded starting point before any v2 change ships.
 
 ## Task V0.1: Repo audit
 
-**Status:** done, awaiting owner review (2026-11-14)
+**Status:** done (2026-11-14)
 **Phase:** V0
 
 ### What this task implements
@@ -64,13 +64,13 @@ The written audit from plan Section 2, covering all seven items. It builds on th
 - [x] Each Section 14 row is marked confirmed, not found, or different, with evidence
 - [x] Each Section 10.2 tool claim is confirmed by reading the route code or by a local request
 - [x] Type scale page defaults recorded (base, ratio, line heights, smallest size) with where they come from
-- [ ] **Owner reviews the audit before V0.2 starts**
+- [x] **Owner reviews the audit before V0.2 starts** (approved 2026-11-14)
 
 ---
 
 ## Task V0.2: Check infrastructure (report-only)
 
-**Status:** not started
+**Status:** done (2026-11-14). CI verification waits for the first push of `v2`.
 **Phase:** V0
 
 ### What this task implements
@@ -99,11 +99,11 @@ The check covers:
 
 ### Acceptance criteria
 
-- [ ] `npm run check:content` prints every violation and exits 0
-- [ ] `npm run check:content -- --strict` exits non-zero when any violation exists
-- [ ] The checker has tests with one fixture per rule, and each fixture fails as expected
-- [ ] CI runs on pushes to `v2`
-- [ ] The report output is saved into `docs/v2/bug-inventory.md` as the baseline count
+- [x] `npm run check:content` prints every violation and exits 0
+- [x] `npm run check:content -- --strict` exits non-zero when any violation exists
+- [x] The checker has tests with one fixture per rule, and each fixture fails as expected
+- [ ] CI runs on pushes to `v2` (workflow written; runs once `v2` is pushed)
+- [x] The report output is saved into `docs/v2/bug-inventory.md` as the baseline count
 
 ---
 
@@ -121,8 +121,9 @@ One place resolves `{{sistema_url}}`. The fix covers every surface where an agen
 1. Create a single resolver in `src/lib/` (for example `resolvePlaceholders(text, origin)`). Replace every component copy of the `replace()` call with it.
 2. Resolve placeholders server-side in `/raw` and `/bundle` responses, using the request origin. An agent that fetches a raw page must never see `{{sistema_url}}`.
 3. Change the `SITE_URL` fallback in `src/lib/site-url.ts` to `https://sistema.johnthedesigner.com` (confirmed by the owner).
-4. Resolve the placeholder in `kb/principles/color/primitive-ramp-scalability@2026-05-17.md` through the same path, so `/raw` serves it resolved.
-5. Confirm the visible prompt text on play, campaign step, and tool pages shows resolved absolute URLs after mount.
+4. Resolve the placeholder in `kb/principles/color/primitive-ramp-scalability@2026-05-17.md` through the same path, so `/raw` serves it resolved. Replace the `raw.placeholder` rule with a route test that calls the `/raw` handler and asserts no placeholder.
+5. Render tool pages' API examples as absolute URLs (bug inventory #31).
+6. Confirm the visible prompt text on play, campaign step, and tool pages shows resolved absolute URLs after mount.
 
 ### Acceptance criteria
 
@@ -140,14 +141,17 @@ One place resolves `{{sistema_url}}`. The fix covers every surface where an agen
 
 ### What this task implements
 
-The one content fix that survives V1. Add the missing stub for `kb/principles/color/primitive-ramp-scalability` (bug inventory #18), so `/raw/principles/color/primitive-ramp-scalability` resolves. Guides carry forward into the new content model. Play and campaign text does not.
+Fix the code-level content violations so V0.6 can block on them:
+1. Add the missing stub for `kb/principles/color/primitive-ramp-scalability` (bug inventory #18), so `/raw/principles/color/primitive-ramp-scalability` resolves. Guides carry forward into the new content model.
+2. Fix the broken Primer source citation (#29).
+3. Make the one bare `/api/contrast` in `_meta/campaigns/bootstrap.md:328` absolute (#30). This is a one-line fix, needed only so code-level checks pass until V1 deletes the file.
 
 All other content bugs in the inventory (step numbering, literal dates, touch targets, the bootstrap tool skip, metadata, titles, the guide contradiction, hardcoded counts) are **not fixed in V0**. Nothing merges to `main` before V1 replaces that content, so fixing it now would be thrown away. V1 resolves each one through the content model, and the integrity check confirms it. Each is marked "V1" in `bug-inventory.md`.
 
 ### Acceptance criteria
 
 - [ ] `/raw/principles/color/primitive-ramp-scalability` returns 200 with the placeholder resolved
-- [ ] The integrity check reports no broken references
+- [ ] `ref.*` rules report 0 violations
 - [ ] `_meta/CHANGELOG.md` and `_meta/INDEX.md` updated
 
 ---

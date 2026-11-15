@@ -1,6 +1,6 @@
 # Capability Model and IA Proposal
 
-**Status:** proposal, awaiting owner review. **Created:** 2026-11-14.
+**Status:** approved by the owner 2026-11-14. Public naming (Section 10) is settled in the V1 decision session. **Created:** 2026-11-14.
 **Supersedes:** plan Sections 5.3 (stages to categories), 8.1 (`campaign` type), and 8.5 (play contracts, extended here). Everything else in the plan still applies.
 **Owner decisions already made (2026-11-14):**
 - Knowledge, calculations, and procedures are separate units.
