@@ -1,6 +1,6 @@
 # v2 Phase 0 Task File: Audit and fixes
 
-**Phase goal:** An honest written picture of the code, content free of the known bug instances, and a build-time integrity check that stops those bug types from returning. All work commits to `v2`. Nothing merges to `main` until the VF task (ROADMAP Section 2).
+**Phase goal:** An honest written picture of the code, server-side placeholder resolution, and a build-time integrity check, blocking for code-level rules and report-only for content until V1. Content bugs are inventoried here and fixed in V1 (see `docs/v2/capability-model.md`). All work commits to `v2`. Nothing merges to `main` until the VF task (ROADMAP Section 2).
 **Plan references:** `docs/v2/SISTEMA_PLAN.md` Sections 2, 13 (layer 1), 14, 15 (Phase 0).
 **Roadmap:** `docs/v2/ROADMAP.md`.
 
@@ -75,7 +75,7 @@ The written audit from plan Section 2, covering all seven items. It builds on th
 
 ### What this task implements
 
-The content integrity check (plan 13, layer 1), first in report-only mode, so its output becomes the measured fix list for V0.3 to V0.5.
+The content integrity check (plan 13, layer 1), first in report-only mode. Rules fall into two groups. **Code-level** rules (placeholders and relative URLs in built output, broken references, stub integrity) become blocking in V0.6. **Content-level** rules (literal dates, step references by number, missing metadata) stay report-only until V1 moves content into the new model. Write the checker so V1 can add schema and contract validation to it, rather than replacing it.
 
 The check runs against **built output** (`.next` HTML and `/raw` responses from `next start`) as well as source files. Source content is supposed to contain placeholders. The output must not.
 
@@ -133,70 +133,45 @@ One place resolves `{{sistema_url}}`. The fix covers every surface where an agen
 
 ---
 
-## Task V0.4: Play and campaign content fixes
+## Task V0.4: Fix the broken guide stub
 
 **Status:** not started
 **Phase:** V0
 
 ### What this task implements
 
-Fixes every content instance from the bug inventory in `_meta/TASK_PLAYBOOKS.md` and `_meta/campaigns/*.md`. These files are edited in place here. V1 restructures them.
+The one content fix that survives V1. Add the missing stub for `kb/principles/color/primitive-ramp-scalability` (bug inventory #18), so `/raw/principles/color/primitive-ramp-scalability` resolves. Guides carry forward into the new content model. Play and campaign text does not.
 
-### Steps
-
-1. **Bootstrap color step:** add the palette tool as a required step, with the correct request body shape (`{ "colors": { "name": "#hex" } }`). Add the sentence "Use the palette tool. Do not compute ramps yourself." Make the standalone Generate a Color Scheme play match.
-2. **Step references:** replace every "Step N" cross-reference with the step's name. Fix the Step 9 substep labels.
-3. **Literal dates:** replace each `[2026-05-13]` template entry with an instruction to write today's date.
-4. **Touch targets:** replace each hardcoded 44 by 44 pixel requirement with wording that defers to the accessibility standard recorded in the living brief. This is an interim fix. See ROADMAP Section 6.
-5. **Broken reference:** add the missing stub for `kb/principles/color/primitive-ramp-scalability` (bug inventory #18).
-6. **Browser-only tool page:** reword the type scale reference at `TASK_PLAYBOOKS.md:423` so agents aren't told to fetch a page they can't use. V2 adds the API.
-7. **Relative URLs:** make sure every agent-facing URL starts with `{{sistema_url}}`.
-8. Log each change in `_meta/CHANGELOG.md`.
+All other content bugs in the inventory (step numbering, literal dates, touch targets, the bootstrap tool skip, metadata, titles, the guide contradiction, hardcoded counts) are **not fixed in V0**. Nothing merges to `main` before V1 replaces that content, so fixing it now would be thrown away. V1 resolves each one through the content model, and the integrity check confirms it. Each is marked "V1" in `bug-inventory.md`.
 
 ### Acceptance criteria
 
-- [ ] The integrity check reports zero violations of these types in plays and campaigns
-- [ ] Bootstrap's color step text names both the palette and contrast tools
-- [ ] No "44" pixel requirement remains in any play or campaign
-- [ ] Build passes
+- [ ] `/raw/principles/color/primitive-ramp-scalability` returns 200 with the placeholder resolved
+- [ ] The integrity check reports no broken references
+- [ ] `_meta/CHANGELOG.md` and `_meta/INDEX.md` updated
 
 ---
 
-## Task V0.5: Metadata and site fixes
+## Task V0.5: Dropped
 
-**Status:** not started
-**Phase:** V0
-
-### Steps
-
-1. Replace the hardcoded `steps: 10` in `src/app/page.tsx` with a count derived from campaign data. Search for any other hardcoded counts.
-2. Give every play and KB entry a human-written title and a real description. This covers "Llm Compatibility" and "Generate Spacing Tokens", plus any others the check finds.
-3. Make `/guide` describe what plays actually read today. This is an interim fix. See ROADMAP Section 6.
-4. Check every campaign's metadata (step counts, titles, descriptions) against `_meta/CAMPAIGNS.md`.
-
-### Acceptance criteria
-
-- [ ] No hardcoded campaign step counts remain in `src/`
-- [ ] The integrity check reports zero metadata violations
-- [ ] Home page hero and Frequently Used list show the same step count for Bootstrap
-- [ ] Build passes
+Folded into V1 on 2026-11-14 (see `docs/v2/capability-model.md`). The ID is kept so later task numbers don't shift.
 
 ---
 
-## Task V0.6: Make the check blocking
+## Task V0.6: Make code-level checks blocking
 
 **Status:** not started
 **Phase:** V0
 
 ### What this task implements
 
-Wires `check:content --strict` into the build (a `prebuild` script, so Vercel runs it too) and into CI.
+Wires `check:content --strict` into the build (a `prebuild` script, so Vercel runs it too) and into CI, **for code-level rules only**: placeholders and relative URLs in built output, broken `/raw` references, and stub integrity. Content-level rules (dates, step references, metadata, restated rules) stay report-only. V1 makes them blocking as content moves into the new model.
 
 ### Acceptance criteria
 
-- [ ] `npm run build` fails when a placeholder or relative URL is added to a play (confirm with a throwaway test edit, then revert)
+- [ ] `npm run build` fails when a raw placeholder or relative URL reaches built output (confirm with a throwaway edit, then revert)
 - [ ] `npm run build` passes on the clean tree
-- [ ] Bug inventory updated with the final count: zero
+- [ ] Content-level violation counts recorded in `bug-inventory.md` as the V1 baseline
 
 ---
 
@@ -209,13 +184,13 @@ Wires `check:content --strict` into the build (a `prebuild` script, so Vercel ru
 
 1. Write `docs/v2/retro-phase-0.md`.
 2. Add new patterns to `AGENTS.md`: the shared resolver, the integrity check, and v2 task conventions.
-3. Write `docs/v2/decision-brief-v1.md` for the "V1 start" decisions in ROADMAP Section 5. Give each one options, a recommendation, and downstream effects.
+3. Write `docs/v2/decision-brief-v1.md` for the "V1 start" decisions in ROADMAP Section 5 and capability-model Section 10. Give each one options, a recommendation, and downstream effects.
 4. Write `tasks/v2/phase-1.md` from the ROADMAP V1 outline, adjusted for what V0 found.
 5. Archive V0 session entries to `logs/v2-phase-0.md`.
 6. Present the gate evidence to the owner. Do not merge to `main`.
 
 ### Acceptance criteria
 
-- [ ] Gate criteria met: build passes with the strict check, and no placeholders or relative URLs appear in `/raw`, `/bundle`, play, or campaign output. Spot-check with `curl` against `next start` locally or against the `v2` Vercel preview
+- [ ] Gate criteria met: build passes with code-level checks blocking, and no placeholders or relative URLs appear in `/raw`, `/bundle`, play, or campaign output. Spot-check with `curl` against `next start` locally or against the `v2` Vercel preview
 - [ ] Owner's go logged in `SESSION_LOG.md`
 - [ ] `tasks/v2/phase-1.md` exists

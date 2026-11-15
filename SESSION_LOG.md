@@ -5,8 +5,8 @@
 **Phase:** v2 Phase 0 (Audit and fixes). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-0.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
 **Last completed task:** V0.1 — Repo audit
-**Next task:** V0.2 — Check infrastructure (report-only). Blocked on owner review of the audit.
-**Blockers:** owner review of `docs/v2/audit.md`, `bug-inventory.md`, and `PLAN_CORRECTIONS.md`
+**Next task:** V0.2 — Check infrastructure (report-only).
+**Blockers:** owner review of `docs/v2/capability-model.md` (the audit review is folded into this one)
 **Notes:** `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
 ---
@@ -14,6 +14,16 @@
 ## Session log
 
 *v1 Phase 0–7 session entries archived to `logs/phase-0.md` through `logs/phase-7.md`. Phase 8 entries are in `logs/phase-8.md`. v1 Phase 9 was never started and was closed out in V0.0.*
+
+### 2026-11-14 — Design change: capability model
+
+**What was done:**
+- The owner decided to rethink how plays are organized, so the IA works for MCP and skills as well as the web library. Bootstrap, the most-used play, becomes the center of the model.
+- Wrote `docs/v2/capability-model.md`: units (guide, rule, opinion, tool, step, workflow), topics as the main axis, step contracts, workflows with gates and skip/resume driven by `sistema.json`, channel rendering, a fixed 6-tool MCP surface, and a fit test mapping all 25 plays and 2 campaigns (resulting in 23 steps and 3 workflows).
+- The fit test found: a `migrate-tailwind-tokens` output path conflict, a spacing step that doesn't cite its guide, no steps for motion or depth, no components guide, DESIGN.md written by several steps (needs section-level outputs), and that Adopt depends on detecting non-conforming outputs.
+- Updated ROADMAP: V1 is now decisions, then a vertical slice (workflow.start plus 4 steps run on two scratch projects), then a fit review, then full migration with a second fit review. V0.4 shrinks to one stub fix. V0.5 is dropped, because nothing merges before V1 replaces that content.
+
+**Owner decisions:** separate units; topic axis with derived milestones; designed for Agent Skills; workflows as entry points; gates at Direction approval and end of Foundations; Start covers Direction and Foundations, with Patterns as a continuation; steps grouped under topics on the site.
 
 ### 2026-11-14 — Task V0.1: Repo audit
 

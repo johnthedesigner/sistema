@@ -1,7 +1,7 @@
 # Sistema v2: Execution Roadmap
 
 **For:** the owner and every Claude Code session working on v2.
-**Source plan:** `docs/v2/SISTEMA_PLAN.md`. This roadmap does not replace it. The plan says *what* and *why*. This file says *in what order*, *how work is tracked*, and *how each step is verified*.
+**Source plan:** `docs/v2/SISTEMA_PLAN.md`, as amended by `docs/v2/capability-model.md` (workflows, steps, topics, MCP surface) and `docs/v2/PLAN_CORRECTIONS.md`. This roadmap does not replace it. The plan says *what* and *why*. This file says *in what order*, *how work is tracked*, and *how each step is verified*.
 **Created:** 2026-11-14 on branch `v2`.
 
 ---
@@ -88,36 +88,48 @@ Order matters inside this phase. The integrity check is written **before** the f
 | V0.1 | Repo audit (plan Section 2) written to `docs/v2/audit.md`. **Owner review checkpoint.** |
 | V0.2 | Test and check infrastructure: test runner, `check:content` script in report-only mode, minimal CI |
 | V0.3 | Placeholder resolution: one shared resolver; server-side resolution for raw and bundle output |
-| V0.4 | Campaign and play content fixes (numbering, step refs, counts, dates, palette tool, thresholds) |
-| V0.5 | Metadata and site fixes (titles, descriptions, guide contradiction, hardcoded counts, site URL) |
-| V0.6 | Switch the integrity check to blocking. Full build passes |
+| V0.4 | Fix the one broken guide stub. All other content bugs are fixed in V1. |
+| V0.5 | Dropped (folded into V1). |
+| V0.6 | Switch the integrity check to blocking for code-level rules. Content rules stay report-only until V1 moves each item into the new model. |
 | V0.7 | Housekeeping, retro, decision prep for V1, write `tasks/v2/phase-1.md`. **Gate check.** |
 
-**Gate:** `npm run build` passes with the integrity check blocking. No placeholders and no relative URLs in any published agent text, including `/raw` and `/bundle` output. The owner approves.
+**Why V0 fixes almost no content:** the capability model replaces play bodies, campaign files, `PLAY_DESCRIPTIONS`, and stage metadata. Nothing merges to `main` before V1 replaces them, so polishing them now would be thrown away. Guides carry forward, so the broken guide stub is the one content fix worth making.
+
+**Gate:** `npm run build` passes with code-level checks blocking. No placeholders and no relative URLs in any published agent text, including `/raw` and `/bundle` output. Content violations are counted in the bug inventory as the baseline for V1. The owner approves.
 
 ### V1: Narrative and content model
 
-This is the largest phase, and other phases build on its output. It splits into two tracks that run in order. Track A produces owner decisions. Track B builds on them.
+This is the largest phase, and other phases build on its output. The content model follows `docs/v2/capability-model.md`: guides, rules, opinions, tools, steps, and workflows, organized by topic, with milestones derived from step contracts.
 
-**Track A: decisions and narrative (owner-facing)**
-1. Decision session for the blocking open decisions (Section 5, "V1 start").
-2. IA and layout research (plan 7.2). Write up findings. Owner review.
-3. Narrative outline for home and onboarding. Owner review. Then draft.
-4. Published opinions outline. Owner review. Then draft.
-5. Proposed site structure (three modes). Owner review.
+The order is: decisions, then a thin vertical slice, then a fit review, then full migration. A small slice of real content proves the model before everything is moved. Track A (owner-facing) runs alongside the slice.
 
-**Track B: content model (engineering)**
-1. Content type schemas (plan 8.1) and the validation layer. This extends the V0 integrity check. It does not replace it.
-2. Split `_meta/TASK_PLAYBOOKS.md` (about 1,500 lines, one file) into one file per play, with no change to the text. Verify that the rendered output is unchanged before and after.
-3. Rules registry schema, then seed it with every rule currently embedded in plays and guides. Replace each restated rule with a registry reference.
-4. Play contracts (plan 8.5) on every play.
-5. Campaigns rebuilt as lists of play IDs. No copied play text. Step numbers and counts are generated.
-6. Category taxonomy: replace the six stages with the five categories.
-7. Project state model (plan 8.6) and a migration play for `LIVING_BRIEF.md` users.
-8. Reference material moves to an internal folder. Sources page added. **Order constraint:** before unpublishing any `/kb/reference/...` URL, every play that fetches it must have a published replacement. The integrity check's broken-reference rule enforces this. No redirects are needed.
-9. "What uses this" lookup and the last-reviewed check (plan 8.2).
+**Step 1: Decisions.** One session covering the blocking items in Section 5 ("V1 start"), including the open items in capability-model Section 10.
 
-**Gate:** every play and campaign renders from the content model. No rule is restated in prose. The owner has approved the narrative, IA, opinions, and state model.
+**Step 2: Vertical slice (engineering)**
+1. Schemas for steps, workflows, rules, and `sistema.json`. Build checks that extend the V0 integrity check: contracts resolve, `requires` is satisfied by an earlier `produces`, milestones are consistent, and output paths don't conflict.
+2. Generators for each channel's output: paste-in starter prompts, `/raw/steps/<id>`, and the "full version" expansion. Placeholders are resolved on the server.
+3. Convert `workflow.start` plus `project.assess`, `visual-language.direction`, `color.scheme`, and `tokens.pipeline`. Seed the rules those steps cite. Stub the rest.
+4. Run the paste-in starter on two scratch projects (empty, and existing Tailwind colors) against a `v2` Vercel preview.
+5. **Fit review with the owner** (capability-model Section 11). Revise the model before going further.
+
+**Track A: narrative and IA (alongside the slice)**
+1. IA and layout research (plan 7.2). Include how well-regarded MCP servers and skill libraries organize their capabilities, not only design system and docs sites. Owner review.
+2. Narrative outline for home and onboarding, built around the three entry points (start, adopt, work on my system). Owner review. Then draft.
+3. Published opinions outline. Owner review. Then draft.
+4. Proposed site structure (three modes, with topic-organized reference). Owner review.
+
+**Step 3: Full migration**
+1. Convert the remaining steps and workflows per the capability-model Section 7 mapping. Add contracts first, then fix what the build check reports.
+2. Seed the rules registry with every rule embedded in plays and guides. Replace each restated rule with a registry reference.
+3. Restructure guides so they have addressable sections, which steps cite.
+4. Delete `_meta/TASK_PLAYBOOKS.md`, `_meta/CAMPAIGNS.md`, `_meta/campaigns/`, `PLAY_DESCRIPTIONS`, and the stage constants once nothing reads them.
+5. Turn the content integrity rules from report-only to blocking.
+6. Write a migration step that turns `LIVING_BRIEF.md` into DESIGN.md, DECISIONS.md, and `sistema.json`.
+7. Move reference material to an internal folder. Add the Sources page. **Order constraint:** before unpublishing any `/kb/reference/...` URL, every step that fetches it must have a published replacement. Guide `sources` citations that point to reference material change to plain credit lines. No redirects are needed.
+8. Add the "What uses this" lookup and the last-reviewed check (plan 8.2).
+9. **Second fit review:** check the full catalog against capability-model Section 7, and confirm no step restates a guide.
+
+**Gate:** every step and workflow renders from the content model in every channel. No rule is restated in prose. The owner has approved the narrative, IA, opinions, state model, and both fit reviews.
 
 ### V2: Tools and paste-in improvements
 
@@ -127,19 +139,19 @@ Expected tasks: contrast batch mode and `oklch()` and `rgb()` input; GET support
 
 ### V3: Reference project, guides, and site
 
-Expected order: the reference project goes through Direction, then Foundations, then Patterns. The four guide rewrites (color, tokens, typography, quality signals) follow the reference project, because the guides' worked examples come from it. Guides are outlined first, then drafted. The site restructure into three modes comes next. The site's own design system (DESIGN.md, DECISIONS.md, sistema.json) goes through the method last. That last task also resolves the root `DESIGN.md` and `LIVING_BRIEF.md` that exist today.
+Expected order: the reference project is built by running `workflow.start` and then `workflow.patterns`, which makes it the main end-to-end test of the method. The four guide rewrites (color, tokens, typography, quality signals) follow the reference project, because the guides' worked examples come from it. Guides are outlined first, then drafted. The site restructure into three modes comes next. The site's own design system (DESIGN.md, DECISIONS.md, sistema.json) goes through the method last. That last task also resolves the root `DESIGN.md` and `LIVING_BRIEF.md` that exist today.
 
 **Gate:** plan 15, Phase 3 gate.
 
 ### V4: MCP server
 
-Expected first task: verify the current versions and APIs of `mcp-handler`, the MCP TypeScript SDK, and Zod before writing code. The plan names versions that may have changed. Then build the route, the connect page, and the copy-or-run option on play pages, and test in each client.
+Expected first task: verify the current versions and APIs of `mcp-handler`, the MCP TypeScript SDK, and Zod before writing code. The plan names versions that may have changed. Then build the route with the fixed tool surface in capability-model Section 6 (`search`, `read`, `next_step`, `palette`, `contrast`, `type_scale`), plus one MCP prompt per workflow. Then build the connect page and the copy-or-run option, and test in each client. Generating Agent Skills from the same files is a small follow-on here, since the content model already supports it.
 
 **Gate:** plan 15, Phase 4 gate.
 
 ### V5: Test harness and evaluations
 
-Expected tasks: build the harness with a spending cap; write behavior tests for the core plays; run the three-way comparison (setup A runs from the `v1-baseline` tag); evaluate tool candidates with thresholds set **before** the runs; update site claims to match the results.
+Expected tasks: build the harness with a spending cap; write behavior tests centered on running `workflow.start` from beginning to end (new project and Adopt path), with per-step tests second; run the three-way comparison (setup A runs from the `v1-baseline` tag); evaluate tool candidates with thresholds set **before** the runs; update site claims to match the results.
 
 **Gate:** plan 15, Phase 5 gate.
 
@@ -165,29 +177,35 @@ Open decisions are set to the latest point where they can be settled without blo
 
 | Decision | Needed by | Blocks |
 |---|---|---|
-| Project state files (DESIGN.md, DECISIONS.md, sistema.json) | V1 start | Play contracts, migration play, every play's read/write steps |
-| Milestone and practice names; merge Maintenance and Growth | V1 start | Category taxonomy, schemas, IA |
+| Capability model (`docs/v2/capability-model.md`) | Before V0.2 | V0 scope, all of V1 |
+| `sistema.json` schema and DESIGN.md section list | V1 vertical slice | Step contracts, skip and resume, gates |
+| Public names (play or step, workflow or campaign) and milestone names; merge Maintenance and Growth | V1 start | Schemas, IA, site copy |
 | Default stack path | V1 start | Opinions page, play wording |
-| Rules registry schema | V1 Track B step 3 | Registry seeding |
+| Rules registry schema | V1 vertical slice | Rules cited by the first steps |
 | Narrative, opinions, IA approvals | V1 gate | V2 start |
 | Reference project product and location | V3 start | Guide worked examples |
 | Token validator and dark mode mapping as tools | V5 evaluation results | V5 gate |
 
 V0.7 prepares a decision brief for the "V1 start" items. Each one gets options, a recommendation, and what changes downstream. That way V1 opens with a single decision session instead of stalling on each item in turn.
 
-## 6. Known interim states
+## 6. Content bugs deferred to V1
 
-Some V0 fixes are stopgaps that V1 replaces properly. They are still worth doing, so the V1 migration starts from content that passes the integrity check. Keep them minimal and don't polish them.
+The bug inventory's content bugs are fixed by the V1 content model, not by editing v1 content:
 
-- **Touch targets:** V0 replaces "44 by 44 pixels" with wording that defers to the accessibility standard recorded in the project's brief. The registry and `sistema.json` replace that wording in V1.
-- **State file contradiction:** V0 makes `/guide` describe what plays actually do today (they read `LIVING_BRIEF.md`). V1 settles the long-term model.
-- **Literal dates:** V0 replaces them with an instruction to use today's date. V1 makes this a build rule.
-- **Monolithic `TASK_PLAYBOOKS.md`:** V0 edits it in place. V1 splits it.
+| Bug type | How V1 fixes it |
+|---|---|
+| Step numbering and step references by number | Workflows generate numbering. Steps refer to each other by ID. The build checks references. |
+| Hardcoded counts | Counts come from workflow data. |
+| Literal dates | The build rule rejects them. Steps say "today's date." |
+| Universal thresholds (44px) | Rules registry, parameterized by the project's chosen standard in `sistema.json`. |
+| Bootstrap tool skip | One copy of each step. `tools` is in the contract. The build checks that the step text names each required tool. |
+| Missing descriptions and titles | Required schema fields. |
+| DESIGN.md vs living brief contradiction | The state model in capability-model Section 5. |
 
 ## 7. Risks specific to execution order
 
-- **V1 scope.** V1 is roughly as large as all the other phases combined. If it runs long, cut Track B step 9 and the reference-material move (step 8) into a V1b. Do not cut schemas, the registry, or the migration.
-- **Migration regressions.** Splitting plays and rebuilding campaigns can silently change prompt text. Snapshot every rendered play and campaign step (raw text) before Track B starts, and diff against the snapshot after each step.
+- **V1 scope.** V1 is roughly as large as all the other phases combined. If it runs long, move the reference-material move and the "What uses this" lookup (full migration items 7 and 8) into a V1b. Do not cut the vertical slice, the fit reviews, schemas, or the registry.
+- **Rewrites losing good content.** Steps are deliberately rewritten, not copied, so a snapshot diff isn't useful. Instead, each converted step is checked against the play it replaces: every instruction is either kept, moved to a guide section or rule the step cites, or dropped on purpose and logged in `docs/v2/migration-notes.md`.
 - **A long-lived branch makes the final review large.** Task-ID commit messages, the per-phase retros, and `REVIEW_GUIDE.md` exist to keep that one review manageable. Don't skip them.
 - **AGENTS.md drift.** Much of `AGENTS.md` describes v1 structures (stages, `TASK_PLAYBOOKS.md`, living brief). Update it in each phase's housekeeping task, not at the end.
 - **Session log staleness.** `SESSION_LOG.md` currently says Phase 8. Every task must update it, or later sessions will start from the wrong place.
