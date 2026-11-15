@@ -181,7 +181,7 @@ Wires `check:content --strict` into the build (a `prebuild` script, so Vercel ru
 
 ## Task V0.7: Housekeeping and gate check
 
-**Status:** not started
+**Status:** done, awaiting the owner gate check (2026-11-14)
 **Phase:** V0
 
 ### Steps
@@ -195,6 +195,6 @@ Wires `check:content --strict` into the build (a `prebuild` script, so Vercel ru
 
 ### Acceptance criteria
 
-- [ ] Gate criteria met: build passes with code-level checks blocking, and no placeholders or relative URLs appear in `/raw`, `/bundle`, play, or campaign output. Spot-check with `curl` against `next start` locally or against the `v2` Vercel preview
+- [x] Gate criteria met: build passes with code-level checks blocking, and no placeholders or relative URLs appear in `/raw`, `/bundle`, play, or campaign output. Spot-check with `curl` against `next start` locally or against the `v2` Vercel preview
 - [ ] Owner's go logged in `SESSION_LOG.md`
-- [ ] `tasks/v2/phase-1.md` exists
+- [x] `tasks/v2/phase-1.md` exists
