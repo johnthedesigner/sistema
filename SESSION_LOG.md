@@ -4,9 +4,9 @@
 
 **Phase:** v2 Phase 0 (Audit and fixes). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-0.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V0.0 — Baseline and housekeeping
-**Next task:** V0.1 — Repo audit (`docs/v2/audit.md`). The owner reviews it before V0.2 starts.
-**Blockers:** none
+**Last completed task:** V0.1 — Repo audit
+**Next task:** V0.2 — Check infrastructure (report-only). Blocked on owner review of the audit.
+**Blockers:** owner review of `docs/v2/audit.md`, `bug-inventory.md`, and `PLAN_CORRECTIONS.md`
 **Notes:** `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
 ---
@@ -14,6 +14,17 @@
 ## Session log
 
 *v1 Phase 0–7 session entries archived to `logs/phase-0.md` through `logs/phase-7.md`. Phase 8 entries are in `logs/phase-8.md`. v1 Phase 9 was never started and was closed out in V0.0.*
+
+### 2026-11-14 — Task V0.1: Repo audit
+
+**What was done:**
+- Wrote `docs/v2/audit.md` (all seven plan Section 2 items), `docs/v2/bug-inventory.md` (28 bugs: 17 from plan Section 14, 11 new), and `docs/v2/PLAN_CORRECTIONS.md` (10 corrections).
+- Baseline `npm run build`: passes, 197 pages.
+- Searched built HTML: 35 pages contain literal `{{sistema_url}}`, and 11 campaign step pages contain relative `/raw/` URLs. The cause is client-only placeholder resolution.
+- Probed the tool APIs on `next dev`. `next start` serves 404 everywhere because a stray `../package-lock.json` makes Next.js pick the wrong workspace root.
+- Updated `tasks/v2/phase-0.md` V0.2 to V0.4 with the new findings.
+
+**Key findings:** two hand-written copies of every campaign step (root cause of the tool skip and numbering drift); a broken `/raw` reference used by two plays; the type scale disagreement is three-way and doesn't involve 0.969.
 
 ### 2026-11-14 — Task V0.0: Baseline and housekeeping
 

@@ -45,7 +45,7 @@ Creates a clean, recorded starting point before any v2 change ships.
 
 ## Task V0.1: Repo audit
 
-**Status:** not started
+**Status:** done, awaiting owner review (2026-11-14)
 **Phase:** V0
 
 ### What this task implements
@@ -60,10 +60,10 @@ The written audit from plan Section 2, covering all seven items. It builds on th
 
 ### Acceptance criteria
 
-- [ ] All seven audit items covered, each citing file paths
-- [ ] Each Section 14 row is marked confirmed, not found, or different, with evidence
-- [ ] Each Section 10.2 tool claim is confirmed by reading the route code or by a local request
-- [ ] Type scale page defaults recorded (base, ratio, line heights, smallest size) with where they come from
+- [x] All seven audit items covered, each citing file paths
+- [x] Each Section 14 row is marked confirmed, not found, or different, with evidence
+- [x] Each Section 10.2 tool claim is confirmed by reading the route code or by a local request
+- [x] Type scale page defaults recorded (base, ratio, line heights, smallest size) with where they come from
 - [ ] **Owner reviews the audit before V0.2 starts**
 
 ---
@@ -77,11 +77,13 @@ The written audit from plan Section 2, covering all seven items. It builds on th
 
 The content integrity check (plan 13, layer 1), first in report-only mode, so its output becomes the measured fix list for V0.3 to V0.5.
 
+The check runs against **built output** (`.next` HTML and `/raw` responses from `next start`) as well as source files. Source content is supposed to contain placeholders. The output must not.
+
 The check covers:
 - unfilled `{{...}}` placeholders in any agent-facing output, after resolution
 - relative URLs (`/raw/...`, `/bundle/...`, `/api/...`) in agent-facing text
 - literal dates in play and campaign templates
-- broken internal references (play slugs in `CAMPAIGNS.md`, KB paths in `sources`, stub `points_to`)
+- broken internal references (play slugs in `CAMPAIGNS.md`, KB paths in `sources`, stub `points_to`, `/raw/` URLs in plays that don't resolve, versioned files with no stub)
 - step references by number ("Step 9", "in Step N") and substep labels that don't match their parent step
 - missing or placeholder metadata (a description equal to the title, a title derived from a file name)
 
@@ -90,6 +92,9 @@ The check covers:
 - `tools/validate/check-content.ts` (alongside the existing `lint-frontmatter.ts`)
 - `package.json`: `check:content` script, plus `--strict` flag support
 - Test runner (recommendation: Vitest) with a first test file for the checker itself
+- `next.config.ts`: set `outputFileTracingRoot` so `next start` works locally (bug inventory #25)
+- Move `npm run lint` from the deprecated `next lint` to the ESLint CLI
+- Retire or fold in `tools/validate/lint-frontmatter.ts` (it rejects `content_type: synthesis`)
 - `.github/workflows/ci.yml`: lint, `check:content`, test, and build, on every push to `v2` and `main`
 
 ### Acceptance criteria
@@ -116,7 +121,8 @@ One place resolves `{{sistema_url}}`. The fix covers every surface where an agen
 1. Create a single resolver in `src/lib/` (for example `resolvePlaceholders(text, origin)`). Replace every component copy of the `replace()` call with it.
 2. Resolve placeholders server-side in `/raw` and `/bundle` responses, using the request origin. An agent that fetches a raw page must never see `{{sistema_url}}`.
 3. Change the `SITE_URL` fallback in `src/lib/site-url.ts` to `https://sistema.johnthedesigner.com` (confirmed by the owner).
-4. Confirm the visible prompt text on play, campaign step, and tool pages shows resolved absolute URLs after mount.
+4. Resolve the placeholder in `kb/principles/color/primitive-ramp-scalability@2026-05-17.md` through the same path, so `/raw` serves it resolved.
+5. Confirm the visible prompt text on play, campaign step, and tool pages shows resolved absolute URLs after mount.
 
 ### Acceptance criteria
 
@@ -142,8 +148,10 @@ Fixes every content instance from the bug inventory in `_meta/TASK_PLAYBOOKS.md`
 2. **Step references:** replace every "Step N" cross-reference with the step's name. Fix the Step 9 substep labels.
 3. **Literal dates:** replace each `[2026-05-13]` template entry with an instruction to write today's date.
 4. **Touch targets:** replace each hardcoded 44 by 44 pixel requirement with wording that defers to the accessibility standard recorded in the living brief. This is an interim fix. See ROADMAP Section 6.
-5. **Relative URLs:** make sure every agent-facing URL starts with `{{sistema_url}}`.
-6. Log each change in `_meta/CHANGELOG.md`.
+5. **Broken reference:** add the missing stub for `kb/principles/color/primitive-ramp-scalability` (bug inventory #18).
+6. **Browser-only tool page:** reword the type scale reference at `TASK_PLAYBOOKS.md:423` so agents aren't told to fetch a page they can't use. V2 adds the API.
+7. **Relative URLs:** make sure every agent-facing URL starts with `{{sistema_url}}`.
+8. Log each change in `_meta/CHANGELOG.md`.
 
 ### Acceptance criteria
 
