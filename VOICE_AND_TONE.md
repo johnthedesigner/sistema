@@ -64,7 +64,7 @@ Sentence case everywhere — headings, labels, button text, nav items, error mes
 ### Punctuation
 - **Periods:** In body prose, error messages, and helper text. Not in UI labels, button text, nav items, or standalone headings.
 - **Oxford comma:** Always. "Color, typography, and spacing."
-- **Exclamation marks:** Very rare. Reserve for genuine success moments (a campaign completed, a play generated for the first time). Never in errors or instructional copy. Never stacked.
+- **Exclamation marks:** Very rare. Reserve for genuine success moments (a workflow completed, a play generated for the first time). Never in errors or instructional copy. Never stacked.
 - **Em dashes:** Use to set off a clause — no spaces on either side.
 - **Ellipsis:** Only for genuine truncation. Not to suggest trailing off or imply hesitation.
 
@@ -113,7 +113,7 @@ Destructive actions name the action explicitly: "Delete source" not "Delete" (to
 ### Navigation labels
 One or two words. Sentence case. Noun-first for sections, verb-first for actions.
 
-> "Playbooks" / "Knowledge base" / "Sources" / "Campaigns"
+> "Playbooks" / "Knowledge base" / "Sources" / "Workflows"
 > Actions: "New play" / "Add source"
 
 ### Errors
@@ -154,7 +154,7 @@ Placeholder text is an example, not a label. Never use placeholder text as a sub
 
 | Term | Notes |
 |---|---|
-| **play** | The unit of instructional content. Singular and plural: "this play," "three plays." Not "workflow," "recipe," "template," or "guide." |
+| **play** | The unit of instructional content: one task with a contract. Singular and plural: "this play," "three plays." Not "step," "recipe," "template," or "guide." |
 | **KB** | Acceptable abbreviation in running text after first reference. Not "knowledge base" every time. |
 | **brief** | The positioning or design brief artifact. Not "questionnaire," "form," or "survey." |
 | **source** | External content that has been reviewed and indexed into the KB. |
@@ -163,7 +163,7 @@ Placeholder text is an example, not a label. Never use placeholder text as a sub
 | **commitment level** | The OKLCH chroma framework term. Not "saturation level" or "color intensity." |
 | **first-order reflex** | The AI-slop anti-pattern framework term. Use as defined in Impeccable. |
 | **scaffold** | For plays or operations that generate initial file or directory structure. |
-| **campaign** | A goal-directed sequence of plays targeting a real-world outcome. |
+| **workflow** | An ordered set of plays with gates, which can resume and skip finished work. For example: "the Start workflow." Replaces "campaign" (v2 decision D1, 2026-11-14). |
 
 ### Avoid
 
@@ -208,5 +208,5 @@ If it passes: the reader knows exactly what to do next and why, without any word
 | Editorially confident | The Fraunces body type and strong brand color choices signal a product with opinions. Copy that hedges contradicts the visual identity. |
 | Contractions throughout | Removes formality without removing authority. Matches the direct-but-human tone of the brand. |
 | No exclamation marks in instructional or error copy | They read as performative. Success states may use them sparingly. |
-| "Play" not "workflow" or "template" | Domain vocabulary that's specific to this product. Distinguishes Sistema from generic no-code tools. |
+| "Play" not "step" or "template" | Domain vocabulary that's specific to this product. Distinguishes Sistema from generic no-code tools. |
 | Active voice as default | Shorter, clearer, and matches the command-form instruction style of playbook content. |

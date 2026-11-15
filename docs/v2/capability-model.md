@@ -1,6 +1,6 @@
 # Capability Model and IA Proposal
 
-**Status:** approved by the owner 2026-11-14. Public naming (Section 10) is settled in the V1 decision session. **Created:** 2026-11-14.
+**Status:** approved by the owner 2026-11-14. V1.0 decisions applied 2026-11-14 (see `docs/v2/decisions.md`): steps are publicly called **plays**, sequences are **workflows**, and content lives in `content/`. **Created:** 2026-11-14.
 **Supersedes:** plan Sections 5.3 (stages to categories), 8.1 (`campaign` type), and 8.5 (play contracts, extended here). Everything else in the plan still applies.
 **Owner decisions already made (2026-11-14):**
 - Knowledge, calculations, and procedures are separate units.
@@ -48,7 +48,7 @@ Every guide, rule, tool, and step belongs to one topic. Topics form the shared n
 | `quality` | visual-quality-signals | none | Cross-cutting. Provides advisory rules. |
 | `ai` | llm-compatibility, ui-patterns | none | Guides only |
 
-Milestones (Direction, Foundations, Patterns, Maintain/Grow) are not folders. Each step declares one. The build checks that its `requires` and `produces` agree with that milestone.
+Milestones (Direction, Foundations, Patterns) and the Maintain and grow practice are not folders. Each play declares one (`direction`, `foundations`, `patterns`, `maintain`). The build checks that its `requires` and `produces` agree with that milestone.
 
 ## 3. The step contract
 
@@ -189,7 +189,7 @@ This maps all 25 plays and both campaigns, to check that the model holds up with
 | define-voice-and-tone | `content.voice-and-tone` | create | direction | Keep. Optional in Start. |
 | generate-color-scheme | `color.scheme` | create | foundations | Keep. Shrinks from 118 lines to about 40 (Section 9). |
 | generate-color-roles | `color.map-existing` | change | foundations | Keep. Used when color exists but doesn't conform. |
-| generate-dark-mode | `color.add-theme` | change | maintain/grow | **Reframe** as adding a theme to an existing scheme. A first-time dark theme is part of `color.scheme`. |
+| generate-dark-mode | `color.add-theme` | change | maintain | **Reframe** as adding a theme to an existing scheme. A first-time dark theme is part of `color.scheme`. |
 | generate-type-scale | `typography.scale` | create | foundations | Keep. Uses the type scale tool once V2 adds the API. |
 | generate-shape-tokens | `shape.tokens` | create | foundations | Keep. Elevation stays here for now (see Section 8). |
 | generate-spacing-tokens | `spacing.tokens` | create | foundations | Keep. Add a reference to the spacing guide. |
@@ -201,12 +201,12 @@ This maps all 25 plays and both campaigns, to check that the model holds up with
 | add-component | (sequence) | | | **Retire as a step.** It becomes the `workflow.session` route "add a component" = specify, then implement. |
 | generate-page-examples | `components.page-examples` | create | patterns | Keep. |
 | setup-documentation-site | `components.docs-site` | create | patterns | Keep. |
-| audit-component | `components.audit` | check | maintain/grow | Keep. **Overlaps** with accessibility-audit on accessibility. The shared part moves into rules both steps cite. |
-| accessibility-audit | `accessibility.audit` | check | maintain/grow | Keep. Reads the project's chosen standard instead of a fixed 44px threshold. |
-| audit-token-coverage | `tokens.coverage-audit` | check | maintain/grow | Keep. |
-| session-start | `project.orient` | orient | maintain/grow | Keep. Becomes the router at the start of `workflow.session`. |
-| design-system-retrospective | `project.review` | check | maintain/grow | Keep. |
-| plan-next-iteration | `project.plan` | orient | maintain/grow | Keep. |
+| audit-component | `components.audit` | check | maintain | Keep. **Overlaps** with accessibility-audit on accessibility. The shared part moves into rules both steps cite. |
+| accessibility-audit | `accessibility.audit` | check | maintain | Keep. Reads the project's chosen standard instead of a fixed 44px threshold. |
+| audit-token-coverage | `tokens.coverage-audit` | check | maintain | Keep. |
+| session-start | `project.orient` | orient | maintain | Keep. Becomes the router at the start of `workflow.session`. |
+| design-system-retrospective | `project.review` | check | maintain | Keep. |
+| plan-next-iteration | `project.plan` | orient | maintain | Keep. |
 | **Campaign: bootstrap** | `workflow.start` + `workflow.patterns` | | | **Split** at the Foundations gate. The 844-line duplicate is deleted. |
 | **Campaign: audit-and-refactor** | `workflow.start` (Adopt door) + `workflow.session` | | | **Retire.** Assessment is now the first step of Start. Its audits become session routes. |
 
@@ -306,8 +306,8 @@ This barely changes. The difference is that it reads `sistema.json` and DECISION
 
 | Decision | Recommendation | Settle in |
 |---|---|---|
-| Public names: "step" vs "play", "workflow" vs "campaign" (VOICE_AND_TONE.md locks "play" and "campaign") | Keep **play** for steps, since it's familiar and branded. Use **workflow** in place of campaign, because a campaign implied a fixed script. | V1 Track A, with milestone names |
-| `sistema.json` schema and DESIGN.md section list | Start from Sections 5 and 8.4. Finalize while building the first steps (see Section 11). | V1 |
+| Public names | **Decided (D1):** play and workflow | Done |
+| `sistema.json` schema and DESIGN.md section list | **Decided (D6a, D7):** spec's 8 sections; schema finalized during the slice | V1 slice |
 | Motion step | Don't build it now. Add it under Growth when a project asks for it. | Later |
 | Components guide | Write it before `workflow.patterns` is considered complete | V3 |
 | Split `components.scaffold-core` | Decide once its contract is written | V1 migration |

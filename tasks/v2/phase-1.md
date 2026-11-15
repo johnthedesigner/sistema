@@ -4,7 +4,7 @@
 **Plan references:** `docs/v2/capability-model.md` (all), plan Sections 3, 6, 7.1, 7.2, 8, 9.2; ROADMAP V1.
 **Starting point (end of V0):** server-side placeholder resolution; integrity checker with code-level rules blocking the build; 62 content-level violations as the baseline; 29 passing tests.
 
-Names below assume decision-brief D1 option A ("play", "workflow") and D4 option A (`content/`). Adjust after V1.0 if the owner chooses otherwise.
+Decisions D1 to D10 are recorded in `docs/v2/decisions.md` (all recommendations accepted).
 
 **Order:** V1.0, then the slice (V1.1 to V1.5), with Track A (V1.6 to V1.9) running alongside the slice. Full migration (V1.10 to V1.17) starts only after the V1.5 fit review. V1.18 closes the phase.
 
@@ -12,12 +12,12 @@ Names below assume decision-brief D1 option A ("play", "workflow") and D4 option
 
 ## Task V1.0: Decision session
 
-**Status:** not started
+**Status:** done (2026-11-14)
 
 Walk the owner through `docs/v2/decision-brief-v1.md` (D1 to D10). Record each answer in `docs/v2/decisions.md` (date, decision, reason). Update `capability-model.md` and this file where an answer changes them.
 
-- [ ] D1 to D10 answered and recorded
-- [ ] This file and `capability-model.md` updated for any non-default answers
+- [x] D1 to D10 answered and recorded
+- [x] This file and `capability-model.md` updated for any non-default answers
 
 ---
 
