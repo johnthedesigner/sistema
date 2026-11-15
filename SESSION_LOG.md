@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 1 (Content model and narrative). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-1.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V1.2 — Loaders and channel generators
-**Next task:** V1.3 — Convert the slice content
+**Last completed task:** V1.3 — Convert the slice content
+**Next task:** V1.4 — Slice runs (needs the owner: push `v2`, Vercel preview access, and two scratch projects)
 **Blockers:** none
 **Notes:** `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -38,3 +38,15 @@
 - Static routes (no runtime file reads): `/raw/plays/[id]`, `/raw/workflows/[id]`, and `/raw/workflows/[id]/full`.
 - Fixed a parser bug: malformed frontmatter YAML now produces a `model.schema` violation instead of crashing the checker.
 - 58 tests pass. Build passes.
+
+### 2026-11-14 — Task V1.3: Convert the slice content
+
+**What was done:**
+- `content/workflows/start.md`: 9 plays, with gates `direction-approved` and `foundations-approved`, and `content.voice-and-tone` optional.
+- Converted `project.assess`, `visual-language.direction`, `color.scheme`, `color.map-existing` (added because the Adopt run routes to it), and `tokens.pipeline`. Five slice placeholders tell agents to record themselves as skipped.
+- `content/rules/`: 14 rules across color, quality, tokens, visual-language, and project. Contrast rules are parameterized by standard (WCAG 2.2, WCAG 2.1, Section 508, EN 301 549).
+- Renderer: the starter now follows `sistema.json` routing, records declined optional plays as skipped, and groups guide sections per guide. The DECISIONS.md line format no longer uses em dashes.
+- Checker: text rules now also scan `content/`, `model.knowledge` checks rule `sources`, and output checks scan prerendered `/raw` `.body` responses. A mutation test (broken anchor, missing tool) confirmed the contract checks fire.
+- `docs/v2/migration-notes.md`: where every legacy instruction went, across 5 plays (including both Bootstrap copies). Reading the legacy plays caught gaps in my first drafts: the platform and scale question, the positioning statement, and map-existing's ramp completeness step. All fixed.
+- New bug #34: the quality guide's chroma budgets use an unstated scale.
+- 72 tests pass. The build passes with all 10 plays and both workflow routes prerendered, and output checks show 0.

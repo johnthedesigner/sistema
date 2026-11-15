@@ -45,6 +45,7 @@
 | 30 | Bare relative URL in a campaign prompt: "verified via `/api/contrast`" | `_meta/campaigns/bootstrap.md:328` (found by `ref.relative-url`) | V0.4 |
 | 31 | Tool pages show relative API paths (`POST /api/palette`) to agents reading the page | `src/app/tools/{palette,contrast}/page.tsx`, `src/app/tools/page.tsx` (found by `output.relative-url`) | V0.3 |
 | 33 | The contrast tool's Copy button put a literal `{{sistema_url}}` on the clipboard | `src/components/contrast/ContrastChecker.tsx:243` | V0.3 (fixed) |
+| 34 | The quality guide's chroma budgets ("C < 5", "60–90 for primary") use an unstated scale. OKLCH chroma runs from 0 to about 0.37, so agents can't apply the numbers literally | `kb/principles/quality/visual-quality-signals@2026-05-15.md` Section 4 | V3 (guide rewrite); the new `quality.color.commitment-level` rule cites the guide instead of restating numbers |
 | 32 | Local builds bake `NEXT_PUBLIC_SITE_URL` from `.env.local` (an old ngrok tunnel) into 383 pages. Production is unaffected because Vercel has its own env | `.env.local` line 1. Owner's file, not edited | Owner |
 
 ## Integrity check baseline

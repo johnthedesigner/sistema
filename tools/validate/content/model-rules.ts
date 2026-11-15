@@ -212,11 +212,16 @@ const producesConflict: Rule = {
 const knowledgeResolves: Rule = {
   id: 'model.knowledge',
   level: 'code',
-  description: 'Every knowledge ref names a guide that exists, and its #anchor is a heading in that guide.',
+  description: 'Every guide ref (play knowledge, rule sources) names a guide that exists, and its #anchor is a heading in it.',
   check(c) {
     const out: Out[] = []
-    for (const p of loadModel(c).plays) {
-      for (const ref of p.knowledge) {
+    const m = loadModel(c)
+    const refs = [
+      ...m.plays.flatMap(p => p.knowledge.map(ref => ({ file: p.file, ref }))),
+      ...m.rules.flatMap(r => r.sources.filter(s => s.startsWith('guide.')).map(ref => ({ file: r.file, ref }))),
+    ]
+    for (const p of refs) {
+      for (const ref of [p.ref]) {
         const text = guideText(c, ref)
         if (text === null) {
           out.push({ file: p.file, line: 1, message: `guide for ${ref} not found (looked in ${guideFiles(ref).join(', ')})` })

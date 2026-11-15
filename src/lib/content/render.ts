@@ -133,10 +133,15 @@ export function renderPlay(play: Play, ctx: RenderContext): string {
   }
 
   if (play.knowledge.length) {
-    const lines = play.knowledge.map(ref => {
+    // One line per guide, listing every section the play cites from it.
+    const byUrl = new Map<string, string[]>()
+    for (const ref of play.knowledge) {
       const { url, section } = guideUrl(ctx.base, ref)
-      return `- ${url}${section ? ` (section: ${section})` : ''}`
-    })
+      byUrl.set(url, [...(byUrl.get(url) ?? []), ...(section ? [section] : [])])
+    }
+    const lines = [...byUrl].map(([url, sections]) =>
+      `- ${url}${sections.length ? ` (section${sections.length > 1 ? 's' : ''}: ${sections.join(', ')})` : ''}`,
+    )
     parts.push(`## Read when you need it\n\nFetch these when the procedure refers to them, not all up front:\n${lines.join('\n')}`)
   }
 
@@ -149,7 +154,7 @@ export function renderPlay(play: Play, ctx: RenderContext): string {
       '## Record it',
       '',
       `When the evidence is shown, set \`steps["${play.id}"]\` in \`sistema.json\` to \`{"status": "complete", "date": "<today, YYYY-MM-DD>", "evidence": "<one line>"}\`.`,
-      `Then append one line to DECISIONS.md: \`<today, YYYY-MM-DD> — ${play.title} — <the decisions you made and why>\`.`,
+      `Then append one line to DECISIONS.md: \`<today, YYYY-MM-DD> | ${play.title} | <the decisions you made and why>\`.`,
     ].join('\n'),
   )
 
@@ -202,17 +207,18 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
     `# ${workflow.title}`,
     workflow.description,
     ...(workflow.body ? [workflow.body] : []),
-    `You are running Sistema's ${workflow.title} workflow. Work through it one play at a time.`,
+    'You are running a Sistema workflow. Work through it one play at a time.',
     [
       '## How to run it',
       '',
       '1. Read `sistema.json` in the project root. If it does not exist, the first play creates it.',
       '2. Find the first play below that is not marked complete in `sistema.json` `steps`.',
       "3. Fetch that play's instructions from its URL and follow them exactly.",
-      "4. If the play's outputs already exist and meet its checks, record it as complete with that evidence and move on.",
-      "5. When a play's evidence is shown, record it in `sistema.json` and continue with the next play.",
-      '6. At a GATE, stop. Ask the person to review, and continue only after they approve. Record the approval in `sistema.json` `gates` with today\'s date.',
-      '7. If the session ends, the next session starts again at step 1. Finished plays are skipped.',
+      `4. If \`sistema.json\` \`routing\` maps that play to a different one, run that play instead. Every play is at ${ctx.base}/raw/plays/<id>.`,
+      "5. If the play's outputs already exist and meet its checks, record it as complete with that evidence and move on.",
+      "6. When a play's evidence is shown, record it in `sistema.json` and continue with the next play. If the person declines an optional play, record it as skipped.",
+      '7. At a GATE, stop. Ask the person to review, and continue only after they approve. Record the approval in `sistema.json` `gates` with today\'s date.',
+      '8. If the session ends, the next session starts again at step 1. Finished plays are skipped.',
     ].join('\n'),
     `## Plays\n\n${list.join('\n')}`,
     ...(tools.length ? [renderTools(ctx.base, tools)] : []),

@@ -1,0 +1,19 @@
+- id: visual-language.style-tile.sections
+  statement: >-
+    style-preview.html contains all seven sections: visual direction statement, color palette,
+    typography specimens, shape and radius specimens, surface treatment, color in context, and reviewer notes.
+  reason: The person approving the direction needs to see every decision before values are generated from it.
+  layer: sistema-default
+  severity: blocking
+  measure: { kind: presence }
+  applies_to: style-preview.html
+  checked_by: [gate.direction-approved]
+  sources: [guide.visual-language.style-tile-format#2-required-sections]
+
+- id: visual-language.style-tile.self-contained
+  statement: style-preview.html is one self-contained file with no external dependencies, and shows every color as hex and OKLCH.
+  reason: It must open from the file system for review, and OKLCH makes the commitment level visible.
+  layer: sistema-default
+  severity: advisory
+  applies_to: style-preview.html
+  sources: [guide.visual-language.style-tile-format#3-technical-requirements]

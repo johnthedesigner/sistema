@@ -106,6 +106,7 @@ function agentTextFiles(corpus: Corpus): SourceFile[] {
   if (corpus.playbooks) files.push(corpus.playbooks)
   files.push(...corpus.campaignPrompts)
   files.push(...corpus.kbFiles.filter(f => /@\d{4}-\d{2}-\d{2}\.md$/.test(f.path)))
+  files.push(...(corpus.contentFiles ?? []).filter(f => f.path.endsWith('.md')))
   return files
 }
 
@@ -274,7 +275,11 @@ const literalDates: Rule = {
   description: 'Prompt templates contain no literal dates; they tell the agent to use today\'s date.',
   check(corpus) {
     const out: Omit<Violation, 'rule' | 'level'>[] = []
-    const files = [...(corpus.playbooks ? [corpus.playbooks] : []), ...corpus.campaignPrompts]
+    const files = [
+      ...(corpus.playbooks ? [corpus.playbooks] : []),
+      ...corpus.campaignPrompts,
+      ...(corpus.contentFiles ?? []).filter(f => f.path.endsWith('.md')),
+    ]
     for (const f of files) {
       for (const m of matches(f.text, /\[20\d{2}-\d{2}-\d{2}\]/)) {
         out.push({ file: f.path, line: lineOf(f.text, m.index), message: `literal date ${m[0]} in a template` })

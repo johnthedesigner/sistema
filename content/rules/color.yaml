@@ -1,0 +1,60 @@
+- id: color.roles.required
+  statement: >-
+    The color tokens define these semantic roles: primary, on-primary, primary-container,
+    on-primary-container, secondary, on-secondary, secondary-container, on-secondary-container,
+    surface, surface-raised, surface-overlay, on-surface, on-surface-muted, border, border-focus,
+    error, on-error, success, on-success, warning, on-warning.
+  reason: Components and later plays build on these roles. A missing role gets invented ad hoc, and the system drifts.
+  layer: sistema-default
+  severity: blocking
+  measure: { kind: presence }
+  applies_to: tokens/src/color.json
+  checked_by: [play.color.scheme evidence]
+  sources: [guide.color.architecture#what-every-color-system-requires]
+
+- id: color.contrast.text
+  statement: Every on-* text role meets the text contrast ratio that the project's accessibility standard requires against its paired surface, in every theme.
+  reason: Text that fails contrast is unreadable for many people with low vision, and in bright light for everyone.
+  layer: standard
+  severity: blocking
+  measure: { kind: min, unit: contrast ratio }
+  parameters:
+    wcag-2.2: { AA: 4.5, AAA: 7 }
+    wcag-2.1: { AA: 4.5, AAA: 7 }
+    section-508: { AA: 4.5 }
+    en-301-549: { AA: 4.5 }
+  applies_to: each on-* role paired with the surface or container it sits on
+  applies_when: Normal-size text. Large text (24px, or 18.66px bold) may use the large-text ratio of the same standard.
+  checked_by: [tool.contrast]
+  sources: [guide.accessibility.floor#11-text-contrast-wcag-143-aa]
+
+- id: color.contrast.ui
+  statement: The focus ring and other essential non-text indicators meet the non-text contrast ratio that the project's standard requires against adjacent colors.
+  reason: People need to see where focus is and where controls are.
+  layer: standard
+  severity: blocking
+  measure: { kind: min, unit: contrast ratio }
+  parameters:
+    wcag-2.2: { AA: 3 }
+    wcag-2.1: { AA: 3 }
+    en-301-549: { AA: 3 }
+  applies_to: border-focus against surface; any border that is the only boundary of a control
+  checked_by: [tool.contrast]
+  sources: [guide.accessibility.floor#12-ui-component-contrast-wcag-1411-aa]
+
+- id: color.dark.tonal-shift
+  statement: Dark theme values are chosen by tonal shift from the same ramps, not by inverting light values.
+  reason: Inverted values lose hue and produce harsh, unbalanced contrast.
+  layer: sistema-default
+  severity: advisory
+  applies_to: tokens/src/color.dark.json
+  sources: [guide.color.architecture#dark-mode-the-tonal-shift]
+
+- id: color.ramps.from-tool
+  statement: Primitive ramps come from the palette tool, never from values computed or estimated by hand.
+  reason: Hand-computed ramps are inconsistent between runs and drift from the algorithm the guides describe.
+  layer: sistema-default
+  severity: blocking
+  applies_to: every primitive ramp used for semantic roles
+  checked_by: [tool.palette]
+  sources: [guide.color.primitive-ramp-scalability#the-sistema-palette-api]

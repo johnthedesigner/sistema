@@ -1,0 +1,17 @@
+- id: project.a11y.standard-chosen
+  statement: The project records the accessibility standard and level it must meet, chosen for its use case, before any values are generated.
+  reason: Contrast, target size, and other requirements come from that standard. Sistema does not set universal thresholds.
+  layer: project
+  severity: blocking
+  measure: { kind: presence }
+  applies_to: sistema.json project.a11y_standard
+  applies_when: Every project. Common choices are WCAG 2.2 AA for most web products, Section 508 or EN 301 549 where the law requires it, and AAA criteria for specific audiences.
+  checked_by: [play.project.assess evidence]
+  sources: [guide.accessibility.floor#how-to-use-this-document]
+
+- id: project.read-before-asking
+  statement: Questions are asked only when the answer is not already in the project's files.
+  reason: Asking what the repo already says wastes the person's time and signals that the agent did not look.
+  layer: sistema-default
+  severity: advisory
+  applies_to: project.assess

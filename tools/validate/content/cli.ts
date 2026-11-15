@@ -44,7 +44,8 @@ export function loadCorpus(includeOutput: boolean): Corpus {
     campaignPrompts: walk('_meta/campaigns', p => p.endsWith('.md')),
     kbFiles: walk('kb', p => /\.(md|json)$/.test(p)),
     playDescriptions: read('src/lib/playbooks.ts'),
-    builtHtml: includeOutput ? walk('.next/server/app', p => p.endsWith('.html')) : [],
+    // Built pages, plus prerendered /raw route responses (.body files).
+    builtHtml: includeOutput ? walk('.next/server/app', p => p.endsWith('.html') || (p.includes('/raw/') && p.endsWith('.body'))) : [],
     contentFiles: walk('content', p => /\.(md|ya?ml)$/.test(p)),
   }
 }

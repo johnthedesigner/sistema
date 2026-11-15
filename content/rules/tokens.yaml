@@ -1,0 +1,16 @@
+- id: tokens.source.dtcg
+  statement: Token values are written once, in DTCG JSON under tokens/src/. Compiled CSS and DESIGN.md front matter are generated from it and never edited by hand.
+  reason: One source of truth. A value edited in two places drifts.
+  layer: sistema-default
+  severity: blocking
+  applies_to: tokens/src/*.json, compiled CSS, DESIGN.md front matter
+  checked_by: [play.tokens.pipeline evidence]
+  sources: [guide.tokens.architecture#the-tier-model]
+
+- id: tokens.naming.role
+  statement: Token names state the role, not the value (color.on-surface-muted, not color.gray-600).
+  reason: Role names survive value changes and tell the reader where a token belongs.
+  layer: sistema-default
+  severity: advisory
+  applies_to: semantic tokens
+  sources: [guide.tokens.architecture#name-for-role-not-value]

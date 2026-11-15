@@ -1,0 +1,25 @@
+- id: quality.color.first-order-reflex
+  statement: The primary color is not the category default (for example, medium blue around 220 to 240 degrees for a SaaS tool) unless the direction justifies it in writing.
+  reason: Category defaults make every product look the same. They survive review because nobody chose them on purpose.
+  layer: sistema-default
+  severity: advisory
+  applies_to: the primary seed
+  sources: [guide.quality.visual-quality-signals#21-first-order-reflexes-category-obvious-choices]
+
+- id: quality.color.bans
+  statement: >-
+    No opacity-derived container colors. Primary and secondary have distinct hues.
+    No pure black or pure white default surface. The neutral ramp carries hue temperature.
+  reason: Each of these is a reflex that weakens the system and is hard to notice later.
+  layer: sistema-default
+  severity: advisory
+  applies_to: color tokens
+  sources: [guide.quality.visual-quality-signals#32-color-token-bans]
+
+- id: quality.color.commitment-level
+  statement: Surface and neutral chroma match the commitment level recorded in the direction.
+  reason: The commitment level is the product's decision about how much color it carries. Tokens that drift from it contradict the approved direction.
+  layer: sistema-default
+  severity: advisory
+  applies_to: surface, surface-raised, surface-overlay, border, and the neutral ramp
+  sources: [guide.quality.visual-quality-signals#4-oklch-color-commitment-levels]

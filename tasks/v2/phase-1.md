@@ -52,19 +52,19 @@ Placeholders are resolved through `src/lib/placeholders.ts`.
 
 - [x] Starter, full version, and `/raw/plays/<id>` render (fixture-tested; real slice content in V1.3)
 - [x] Output passes the existing code-level checks (no literal dates, relative URLs, or placeholders; asserted in tests)
-- [ ] Route tests (moved to V1.3, once real content exists) in the style of `src/app/raw/raw-and-bundle.test.ts`
+- [x] Route tests (done in V1.3 against real content: `src/app/raw/content-routes.test.ts`) in the style of `src/app/raw/raw-and-bundle.test.ts`
 
 ### Task V1.3: Convert the slice content
 
-**Status:** not started
+**Status:** done (2026-11-14). Converted five plays, not four: `color.map-existing` was added because the Adopt run routes to it.
 
 Convert `workflow.start`, `project.assess`, `visual-language.direction`, `color.scheme`, and `tokens.pipeline`. Stub the other Start plays. Seed the rules those plays cite (D8 schema). Add the guide section anchors they cite.
 
 For each converted play, log in `docs/v2/migration-notes.md` where every instruction from the old play went: kept, moved to a guide or rule, or dropped with a reason.
 
-- [ ] Five items converted, contract checks pass
-- [ ] Migration notes complete for each
-- [ ] `project.assess` handles the Adopt classification (conforming, non-conforming, missing)
+- [x] Five items converted, contract checks pass
+- [x] Migration notes complete for each
+- [x] `project.assess` handles the Adopt classification (conforming, non-conforming, missing)
 
 ### Task V1.4: Slice runs
 
