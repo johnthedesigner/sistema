@@ -1,6 +1,6 @@
 # IA and Layout Research
 
-**Task:** V1.6 (plan 7.2). **Date:** 2026-11-16. **Status:** waiting for owner review. The proposed site structure comes later, in V1.9, and builds on this.
+**Task:** V1.6 (plan 7.2). **Date:** 2026-11-16. **Status:** reviewed by the owner 2026-11-16, with a second pass added (section 6). The proposed site structure comes later, in V1.9, and builds on this.
 
 **Method:** real pages were fetched and read. Nothing is filled in from memory. Eight sites were readable: GOV.UK, Carbon, Primer, Atlassian, Spectrum (partly), Stripe, Tailwind, and MDN. Two sites could not be evaluated:
 - **Material 3** renders only with JavaScript and returned page titles only.
@@ -106,8 +106,39 @@ These are inputs for V1.9, not decisions.
    - Live component demos and a searchable token explorer. Sistema has no component library of its own; the reference project in V3 may change that.
    - Change history per page. Git history covers it until there are outside users.
 
-## 5. Questions for the owner
+## 5. Owner answers (2026-11-16)
 
-1. Does "one first action, two other doors" match how you want the home page to work, or should the three entry points have equal weight?
-2. Should `llms.txt` and an agents page come early (V1.13, cheap) or wait for the V3 site work?
-3. Are there sites you admire that this list missed? Linear's docs, Vercel's docs, and the Radix docs are candidates if you want a second pass.
+1. **Home page:** one first action ("Start a design system"), with "I already have a system" and "Work on my system" as the two other doors.
+2. **`llms.txt` and an agents page:** sooner rather than later. They move into V1.13, when the site starts reading the new content model.
+3. **More sites:** Linear, Vercel, and Radix, plus a design system hosted on zeroheight. These are covered in section 6.
+
+## 6. Second pass: Linear, Vercel, Radix, and zeroheight
+
+| Site | Worth borrowing | Seen at |
+|---|---|---|
+| **Linear** | Every docs page opens with a short note **for agents**: the MCP server URL, its setup page, and the `llms.txt` index. Each article has a `.md` twin at the same path. Getting started splits by audience (admins and team members). | linear.app/docs, /docs/start-guide.md |
+| **Vercel** | The docs home leads with a copyable terminal block and a "Set up your agent" block with one command per agent. The getting-started page has an **"Agent prompt"** block to paste into an agent. The markdown twins carry front matter: `last_updated`, `type` (how-to), `prerequisites`, `related`, and `summary`. `llms.txt` starts with a section on **how agents should use Vercel's docs**, then lists the indexes. There is also an MCP server and a docs search command in the CLI. | vercel.com/docs, /llms.txt |
+| **Radix** | A fixed component template: features list, anatomy (the part tree), an API table per part, examples, then accessibility with "Adheres to the [pattern] WAI-ARIA design pattern" and a **keyboard interactions table** (key and what it does). This is the closest model for documenting accessible behavior. | radix-ui.com/primitives/docs/components/dialog |
+| **NS Nessie (zeroheight)** | Top-level tabs: Get started, Guidelines, Fundamentals, Design System. Get started splits **by role**: designers, web, iOS, and Android developers, and content designers. Component pages have tabs for Examples, Guidelines, Copywriting, and Samples. Tokens are grouped in tiers: Base, Applied, Core. Release notes are per platform, and there are archived versions of older token generations. It also has a **"Token Lint/Skill"** page, an agent skill for checking token use. Pages show "Styleguide updated 4 days ago", breadcrumbs, previous and next links, and a "Help us improve" feedback link. | design.ns.nl (rendered with a headless browser) |
+| **Brainly Pencil (zeroheight)** | Top-level tabs: Brand, Marketing, Product, Components, Resources. Brand guidance (voice, logo, illustration) lives in the same site as product UI. Shortcuts sit on the home page. | design.brainly.com |
+
+**About zeroheight as a platform.** Its sites render only with JavaScript, so a plain fetch, and most agents, see just the page title. Agents reach the content through zeroheight's API and MCP server instead. zeroheight also markets "design context for AI agents" and an "Agent Readiness Checker" that tests how readable a docs site is for AI. The format makes these easy:
+- tabbed pages;
+- embedded Figma and Storybook;
+- an "updated" stamp on every page;
+- versioning.
+
+It makes these hard:
+- plain fetchable pages;
+- custom page types such as Sistema's plays and workflows.
+
+That supports keeping Sistema custom (plan Section 7), and serving plain text alongside the HTML.
+
+**What the second pass adds to section 4:**
+- **An "for agents" note at the top of every page** (Linear): one line pointing to `llms.txt`, the starter URL, and later the MCP server. This is cheap, and V1.13 can do it.
+- **`llms.txt` opens with how agents should use Sistema** (Vercel): fetch the starter, follow it, and read `sistema.json` first.
+- **Markdown twins carry front matter** (Vercel): Sistema's `/raw/` play pages could add `last_reviewed`, `requires`, and `produces` as a short header.
+- **Start pages offer an "agent prompt" block** (Vercel): this is Sistema's starter prompt, already the core of plan 7.1's "Start working."
+- **Get started can split by role** (Nessie, Linear): designer, developer, and content designer, if the narrative (V1.7) supports it.
+- **A copywriting tab on component pages** (Nessie): this matches `content.voice-and-tone`, and suggests component specs should include copy, which `components.specify` already does.
+- **Component documentation template** (Radix): features, anatomy, keyboard table, and WAI-ARIA citation. This is for the spec format in `components.specify` and the reference project in V3.

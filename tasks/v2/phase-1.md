@@ -97,11 +97,11 @@ Review `slice-runs.md` with the owner against capability-model Section 11. Revis
 
 ### Task V1.6: IA and layout research
 
-**Status:** findings written 2026-11-16 (`docs/v2/ia-research.md`); waiting for owner review
+**Status:** complete 2026-11-16. Findings and owner answers in `docs/v2/ia-research.md`, including a second pass (Linear, Vercel, Radix, zeroheight)
 
 Plan 7.2's list of sites, plus 2 or 3 well-regarded MCP servers and skill libraries. The question for those: how they organize capabilities for an agent. Write findings to `docs/v2/ia-research.md`.
 
-- [ ] Findings written; owner review
+- [x] Findings written; owner review
 
 ### Task V1.7: Narrative (outline first)
 
@@ -159,9 +159,10 @@ Move `kb/principles/` to `content/guides/` (D4), give each guide a required titl
 
 **Status:** not started
 
-Point the existing pages (play pages, play index, campaign pages, home quick cards, `/guide` references) at the new loaders, with minimal UI change. The site restructure is V3. Remove stage constants and `PLAY_DESCRIPTIONS`.
+Point the existing pages (play pages, play index, campaign pages, home quick cards, `/guide` references) at the new loaders, with minimal UI change. The site restructure is V3. Remove stage constants and `PLAY_DESCRIPTIONS`. **Added from V1.6 (owner, 2026-11-16):** publish `llms.txt` (opening with how agents should use Sistema, then one line per workflow, play, and guide), an agents page, and a short "for agents" note at the top of every page.
 
 - [ ] `npm run build` passes; every current route either renders from the new model or is removed on purpose
+- [ ] `llms.txt`, the agents page, and the per-page agent note are live
 
 ### Task V1.14: Remove legacy content and enable content rules
 
