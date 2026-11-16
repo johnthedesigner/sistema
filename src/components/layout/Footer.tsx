@@ -14,26 +14,26 @@ function JohnTheDesignerMark({ size = 16 }: { size?: number }) {
 
 const FOOTER_NAV = [
   {
-    label: 'Playbook',
+    label: 'Get started',
     links: [
-      { label: 'Browse plays', href: '/playbooks' },
-      { label: 'Bootstrap campaign', href: '/campaigns/bootstrap' },
-      { label: 'Audit campaign', href: '/campaigns/audit-and-refactor' },
+      { label: 'How Sistema works', href: '/how-it-works' },
+      { label: 'Start a design system', href: '/workflows/start' },
+      { label: 'Work on my system', href: '/workflows/session' },
+      { label: 'All plays', href: '/plays' },
     ],
   },
   {
-    label: 'Knowledge Base',
+    label: 'Learn',
     links: [
-      { label: 'Principles', href: '/kb/principles' },
-      { label: 'Design systems', href: '/kb/design-systems' },
-      { label: 'Standards', href: '/kb/standards' },
-      { label: 'Foundations', href: '/kb/foundations' },
+      { label: 'Guides', href: '/guides' },
+      { label: 'Opinions', href: '/reference/opinions' },
+      { label: 'Rules', href: '/reference/rules' },
+      { label: 'For agents', href: '/agents' },
     ],
   },
   {
     label: 'Resources',
     links: [
-      { label: 'How it works', href: '/guide' },
       { label: 'Palette tool', href: '/tools/palette' },
       { label: 'Contrast checker', href: '/tools/contrast' },
       { label: 'Type scale calculator', href: '/tools/type-scale' },

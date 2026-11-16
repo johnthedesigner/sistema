@@ -103,7 +103,8 @@ export const WorkflowFrontmatter = z
     description: z.string().min(20),
     entry: z.boolean().default(true),
     sequence: z.array(SequenceItem).optional(),
-    routes: z.record(z.string(), z.array(PlayId)).optional(),
+    /** For route workflows: each route has a human label (shown on the site) and its plays. */
+    routes: z.record(z.string().regex(slug), z.object({ title: z.string().min(3), plays: z.array(PlayId).min(1) }).strict()).optional(),
     continue_with: z.string().regex(/^workflow\.[a-z0-9-]+$/).optional(),
     /** For route workflows: the play that runs first and picks a route. */
     start_with: PlayId.optional(),

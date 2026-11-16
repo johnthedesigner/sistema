@@ -23,7 +23,6 @@ function extractSection(body: string, heading: string): string {
 function formatArticleName(parts: string[], category: string, systemName: string): string {
   const last = parts[parts.length - 1]
   const base = last.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
-  if (category === 'principles' && base === 'Architecture') return systemName
   return base
 }
 
@@ -32,7 +31,6 @@ const CATEGORY_LABELS: Record<KBCategory, string> = {
   'standards': 'Standards',
   'foundations': 'Foundations',
   'skills': 'Agent Skills',
-  'principles': 'Principles',
 }
 
 export async function generateMetadata({

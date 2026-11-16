@@ -53,7 +53,7 @@ describe('/raw/workflows/[id] and /full', () => {
       const text = await res.text()
       clean(text)
       expect(text).toContain('## How to run it')
-      if (w.routes) expect(text).toMatch(/^- [a-z-]+: .+\n {4}https?:\/\/\S+\/raw\/plays\//m)
+      if (w.routes) expect(text).toMatch(/^- [a-z-]+ \([^)]+\): .+\n {4}https?:\/\/\S+\/raw\/plays\//m)
       else expect(text).toMatch(/^ 1\. .+\n {4}https?:\/\/\S+\/raw\/plays\//m)
       expect(text.split('\n').length).toBeLessThan(140)
     })

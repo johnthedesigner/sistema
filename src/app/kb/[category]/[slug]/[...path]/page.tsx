@@ -38,7 +38,6 @@ const CATEGORY_LABELS: Record<KBCategory, string> = {
   'standards': 'Standards',
   'foundations': 'Foundations',
   'skills': 'Agent Skills',
-  'principles': 'Principles',
 }
 
 export async function generateStaticParams() {
@@ -84,8 +83,7 @@ export default async function ContentPage({
   const rawTopicName = formatTopicName(cleanPath)
   // For principles, "Architecture" articles are the category's main article —
   // display the system name (e.g. "Color") instead of the redundant "Architecture".
-  const topicName =
-    cat === 'principles' && rawTopicName === 'Architecture' ? systemName : rawTopicName
+  const topicName = rawTopicName
   const categoryLabel = CATEGORY_LABELS[cat]
   const rawUrl = `/raw/${category}/${slug}/${cleanPath.join('/')}.md`
 

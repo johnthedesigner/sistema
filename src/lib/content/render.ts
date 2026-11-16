@@ -21,11 +21,15 @@ export const workflowUrl = (base: string, id: string) => `${base}/raw/workflows/
 export const workflowFullUrl = (base: string, id: string) => `${workflowUrl(base, id)}/full`
 export const stateSchemaUrl = (base: string) => `${base}/raw/schema/sistema.json`
 
-/** Guides live in content/guides; the legacy /raw/principles route serves them until V1.13 adds /raw/guides. */
+export const guideRawUrl = (base: string, topic: string, name: string) => `${base}/raw/guides/${topic}/${name}`
+export const opinionsUrl = (base: string) => `${base}/raw/opinions`
+export const rulesUrl = (base: string) => `${base}/raw/rules`
+
+/** A guide ref (guide.<topic>.<name>#section) as its plain-text URL and section. */
 export function guideUrl(base: string, ref: string): { url: string; section?: string } {
   const [id, section] = ref.split('#')
   const [, topic, name] = id.split('.')
-  return { url: `${base}/raw/principles/${topic}/${name}`, section }
+  return { url: guideRawUrl(base, topic, name), section }
 }
 
 // ─── tools ──────────────────────────────────────────────────────────────────
@@ -96,7 +100,7 @@ function producersOf(token: string, ctx: RenderContext): string[] {
 
 // ─── play ───────────────────────────────────────────────────────────────────
 
-function renderRule(rule: Rule): string {
+export function renderRule(rule: Rule): string {
   const params = rule.parameters
     ? '\n  Values by standard: ' +
       Object.entries(rule.parameters)
@@ -246,7 +250,7 @@ function stateExample(workflow: Workflow, ctx: RenderContext): string {
 
 /** Plays a route workflow uses: the start play, then each route's plays, deduplicated. */
 export function routePlays(workflow: Workflow, plays: Map<string, Play>): Play[] {
-  const ids = [...(workflow.start_with ? [workflow.start_with] : []), ...Object.values(workflow.routes ?? {}).flat()]
+  const ids = [...(workflow.start_with ? [workflow.start_with] : []), ...Object.values(workflow.routes ?? {}).flatMap(r => r.plays)]
   return [...new Set(ids)].map(id => {
     const play = plays.get(id)
     if (!play) throw new Error(`${workflow.id}: unknown play ${id}`)
@@ -259,9 +263,9 @@ function renderRoutesStarter(workflow: Workflow, ctx: RenderContext): string {
   const url = workflowUrl(ctx.base, workflow.id)
   const start = workflow.start_with ? ctx.plays.get(workflow.start_with) : undefined
   const tools = [...new Set(routePlays(workflow, ctx.plays).flatMap(p => p.tools))]
-  const routeLines = Object.entries(workflow.routes ?? {}).flatMap(([name, ids]) => {
-    const plays = ids.map(id => ctx.plays.get(id)!)
-    return [`- ${name}: ${plays.map(p => p.title).join(' → ')}`, ...plays.map(p => `    ${playUrl(ctx.base, p.id)}`)]
+  const routeLines = Object.entries(workflow.routes ?? {}).flatMap(([name, route]) => {
+    const plays = route.plays.map(id => ctx.plays.get(id)!)
+    return [`- ${name} (${route.title}): ${plays.map(p => p.title).join(' → ')}`, ...plays.map(p => `    ${playUrl(ctx.base, p.id)}`)]
   })
 
   const parts = [
@@ -280,7 +284,7 @@ function renderRoutesStarter(workflow: Workflow, ctx: RenderContext): string {
     [
       '## How to run it',
       '',
-      ...(start ? [`1. Run ${start.title} (\`${start.id}\`). It reads the system's state, confirms the goal with the person, and picks a route.`] : ['1. Ask the person for the goal of this session, and pick the route that fits.']),
+      ...(start ? [`1. Run ${start.title} (\`${start.id}\`). It reads the system's state, confirms the goal with the person, and picks a route. If the person's message already says what they want (for example, "I want to add a component: a date picker"), treat that as the goal and confirm it rather than asking again.`] : ['1. Ask the person for the goal of this session, and pick the route that fits. If their message already says what they want, confirm it rather than asking again.']),
       '2. Run the route\'s plays in order. Fetch each from its URL and follow it exactly.',
       "3. When a play's evidence is shown, record it in `sistema.json` `steps` (this replaces the record of that play's previous run) and add its line to DECISIONS.md.",
       '4. After each play, show one progress line, for example `add-component 1 of 2: specification done, implementation next`.',

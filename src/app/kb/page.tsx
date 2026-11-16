@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Layers, ShieldCheck, FlaskConical, Bot, Compass } from 'lucide-react'
+import { Layers, ShieldCheck, FlaskConical, Bot } from 'lucide-react'
 import { listSystems, KB_CATEGORIES, type KBCategory } from '@/lib/kb'
 import { Logo } from '@/components/Logo'
 import { SearchButton } from '@/components/search/SearchButton'
@@ -52,14 +52,6 @@ const CATEGORY_META: Record<KBCategory, {
     examples: ['Impeccable', 'Anthropic frontend-design', 'designer-skills'],
     href: '/kb/skills',
     icon: Bot,
-  },
-  'principles': {
-    title: 'Principles',
-    description: 'Sistema\'s own synthesized frameworks, derived from cross-reading multiple design systems, standards, and agent skills. The content here is original analysis — OKLCH commitment levels, visual quality signals, token architecture patterns, content voice frameworks, and more. Plays pull from this layer at runtime.',
-    examples: ['Positioning', 'Token architecture', 'Semantic layer design'],
-    featured: true,
-    href: '/kb/principles',
-    icon: Compass,
   },
 }
 
@@ -159,9 +151,10 @@ export default function KBLandingPage() {
           </p>
         </div>
 
-        {/* Principles — primary references, separated above resources */}
-        <div className="mb-8">
-          <CategoryCard category="principles" />
+        <div className="mb-8 border border-border rounded-radius-lg p-4 bg-surface">
+          <p className="text-[14px] text-on-surface m-0">
+            Sistema&apos;s own guidance now lives in <Link href="/guides" className="text-primary">Guides</Link>. This section holds the source material it was built from.
+          </p>
         </div>
 
         {/* Reference sources section */}

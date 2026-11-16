@@ -1,101 +1,37 @@
 import type { MetadataRoute } from 'next'
-import { loadPlaybooks } from '@/lib/playbooks'
-import { loadCampaigns } from '@/lib/campaigns'
-import { listSystems, KB_CATEGORIES, type KBCategory } from '@/lib/kb'
+import { listSystems, type KBCategory } from '@/lib/kb'
+import { catalog, playHref, workflowHref } from '@/lib/content/site'
 import { SITE_URL } from '@/lib/site-url'
 
 const REFERENCE_CATEGORIES: KBCategory[] = ['design-systems', 'standards', 'foundations', 'skills']
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
-
-  const plays = loadPlaybooks()
-  const campaigns = loadCampaigns()
-
-  const staticRoutes: MetadataRoute.Sitemap = [
-    {
-      url: SITE_URL,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 1.0,
-    },
-    {
-      url: `${SITE_URL}/playbooks`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_URL}/campaigns`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_URL}/kb`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_URL}/guide`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${SITE_URL}/sources`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
-  ]
-
-  const playRoutes: MetadataRoute.Sitemap = plays.map(play => ({
-    url: `${SITE_URL}/playbooks/${play.slug}`,
+  const c = catalog()
+  const entry = (path: string, priority: number, changeFrequency: 'weekly' | 'monthly' = 'monthly') => ({
+    url: `${SITE_URL}${path}`,
     lastModified: now,
-    changeFrequency: 'monthly',
-    priority: 0.8,
-  }))
-
-  const campaignRoutes: MetadataRoute.Sitemap = campaigns.map(campaign => ({
-    url: `${SITE_URL}/campaigns/${campaign.slug}`,
-    lastModified: now,
-    changeFrequency: 'monthly',
-    priority: 0.8,
-  }))
-
-  const kbCategoryRoutes: MetadataRoute.Sitemap = KB_CATEGORIES.map(category => ({
-    url: `${SITE_URL}/kb/${category}`,
-    lastModified: now,
-    changeFrequency: 'monthly',
-    priority: 0.6,
-  }))
-
-  // KB system index pages only — not individual content files
-  const kbSystemRoutes: MetadataRoute.Sitemap = REFERENCE_CATEGORIES.flatMap(category =>
-    listSystems(category).map(slug => ({
-      url: `${SITE_URL}/kb/${category}/${slug}`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    }))
-  )
-
-  // Principles entries (no sub-slug structure — they resolve at category level)
-  const principlesRoutes: MetadataRoute.Sitemap = listSystems('principles').map(slug => ({
-    url: `${SITE_URL}/kb/principles/${slug}`,
-    lastModified: now,
-    changeFrequency: 'monthly',
-    priority: 0.5,
-  }))
+    changeFrequency,
+    priority,
+  })
 
   return [
-    ...staticRoutes,
-    ...playRoutes,
-    ...campaignRoutes,
-    ...kbCategoryRoutes,
-    ...kbSystemRoutes,
-    ...principlesRoutes,
+    entry('', 1.0, 'weekly'),
+    entry('/how-it-works', 0.9),
+    entry('/workflows', 0.8),
+    entry('/plays', 0.8, 'weekly'),
+    entry('/guides', 0.8),
+    entry('/reference', 0.7),
+    entry('/reference/opinions', 0.7),
+    entry('/reference/rules', 0.6),
+    entry('/reference/tools', 0.6),
+    entry('/agents', 0.6),
+    entry('/tools', 0.6),
+    entry('/sources', 0.5),
+    ...c.workflows.map(w => entry(workflowHref(w.id), 0.8)),
+    ...c.plays.map(p => entry(playHref(p.id), 0.7)),
+    ...c.guides.map(g => entry(`/guides/${g.topic}/${g.id.split('.')[2]}`, 0.7)),
+    // Reference material stays public until V1.16 makes it internal.
+    ...REFERENCE_CATEGORIES.flatMap(cat => listSystems(cat).map(slug => entry(`/kb/${cat}/${slug}`, 0.4))),
   ]
 }

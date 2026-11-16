@@ -7,9 +7,11 @@ import { CommandPalette } from '@/components/search/CommandPalette'
 import { SistemaByJtdLogo } from '@/components/logos/SistemaByJtdLogo'
 
 const NAV_LINKS = [
-  { label: 'Playbook', href: '/playbooks' },
-  { label: 'Knowledge Base', href: '/kb' },
+  { label: 'Plays', href: '/plays' },
+  { label: 'Guides', href: '/guides' },
+  { label: 'Reference', href: '/reference' },
   { label: 'Tools', href: '/tools' },
+  { label: 'For agents', href: '/agents' },
 ]
 
 export function Nav() {
@@ -18,7 +20,7 @@ export function Nav() {
   const [searchOpen, setSearchOpen] = useState(false)
 
   function isActive(href: string) {
-    if (href === '/playbooks') return pathname.startsWith('/playbooks') || pathname.startsWith('/campaigns')
+    if (href === '/plays') return pathname.startsWith('/plays') || pathname.startsWith('/workflows')
     if (href === '/tools') return pathname.startsWith('/tools')
     return pathname.startsWith(href)
   }
@@ -90,7 +92,7 @@ export function Nav() {
                 </span>
               </button>
               <Link
-                href="/guide"
+                href="/how-it-works"
                 className="h-[34px] px-3 inline-flex items-center rounded-radius-md text-[13px] font-medium text-on-primary bg-primary hover:opacity-90 transition-opacity no-underline"
               >
                 Get started
@@ -138,7 +140,7 @@ export function Nav() {
             </nav>
             <div className="flex px-5 pb-4 pt-2">
               <Link
-                href="/guide"
+                href="/how-it-works"
                 onClick={close}
                 className="flex-1 inline-flex items-center justify-center h-[38px] rounded-radius-md text-[13.5px] font-medium text-on-primary bg-primary hover:opacity-90 transition-opacity no-underline"
               >

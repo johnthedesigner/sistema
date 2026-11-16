@@ -157,12 +157,12 @@ Move `kb/principles/` to `content/guides/` (D4), give each guide a required titl
 
 ### Task V1.13: Site reads the new model
 
-**Status:** not started
+**Status:** complete 2026-11-16. New routes: `/plays`, `/plays/[id]`, `/workflows`, `/workflows/[id]`, `/guides`, `/guides/[topic]/[name]`, `/reference` (opinions, rules, tools), `/how-it-works`, `/agents`, `/llms.txt`, and `/raw/{guides,opinions,rules,agents}`. Removed `/playbooks`, `/campaigns`, `/guide`, `/bundle`, `/kb/principles`, and their loaders. Home, nav, footer, sitemap, and Cmd-K search read the new model. Session routes have labels, and the session starter accepts a goal named in the prompt. Deferred to V3: the entry pages (`/start`, `/existing`, `/work`), `/reference/files/*`, the prompt box with suggestions, and the narrative home page
 
 Point the existing pages (play pages, play index, campaign pages, home quick cards, `/guide` references) at the new loaders, with minimal UI change. The site restructure is V3. Remove stage constants and `PLAY_DESCRIPTIONS`. **Added from V1.9 (owner, 2026-11-16):** use the new URLs from `docs/v2/site-structure.md` section 3 and delete the old routes; point Cmd-K search at the new content; give session routes human labels and let the session starter accept a route named in the prompt (needed by the prompt box). **Added from V1.6 (owner, 2026-11-16):** publish `llms.txt` (opening with how agents should use Sistema, then one line per workflow, play, and guide), an agents page, and a short "for agents" note at the top of every page.
 
-- [ ] `npm run build` passes; every current route either renders from the new model or is removed on purpose
-- [ ] `llms.txt`, the agents page, and the per-page agent note are live
+- [x] `npm run build` passes; every current route either renders from the new model or is removed on purpose (`/kb` reference categories stay until V1.16)
+- [x] `llms.txt`, the agents page, and the per-page agent note are live
 
 ### Task V1.14: Remove legacy content and enable content rules
 

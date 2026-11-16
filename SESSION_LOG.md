@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 1 (Content model and narrative). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-1.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V1.12 — Guides moved to `content/guides/`
-**Next task:** V1.13 — Site reads the new model (new URLs, `llms.txt`, agents page, prompt box prerequisites)
+**Last completed task:** V1.13 — Site reads the new model
+**Next task:** V1.14 — Remove legacy content and make content rules blocking
 **Blockers:** none
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -75,4 +75,21 @@
 - Legacy compatibility until V1.13: `kb.ts` maps the `principles` category to `content/guides` (no stubs), and generates topic index pages from guide titles and descriptions. The checker treats `kb/principles/...` paths as aliases, so legacy `/raw/principles` URLs and `sources` entries still resolve. `ContentMeta` shows "Last reviewed" for guides.
 - Section anchors stay derived from headings. They're stable because `model.knowledge` fails the build when a cited heading changes.
 - 101 tests pass. The build passes (227 pages).
+
+### 2026-11-16 — Task V1.13: Site reads the new model
+
+**What was done:**
+- **New pages, in today's visual style:**
+  - `/plays` (by topic) and `/plays/[id]`: prompt, what it needs and produces, evidence, rules, workflows with previous and next steps, cited guide sections, and an "Edit on GitHub" link.
+  - `/workflows` and `/workflows/[id]`: prompt, an outline grouped by milestone with approvals, or the routes for the session workflow.
+  - `/guides` and `/guides/[topic]/[name]`: body with heading ids that match the anchors plays cite, "On this page", plays and rules for the topic.
+  - `/reference` with opinions (expandable, grouped), rules (by topic, with values by standard, the plays that use each rule, and its opinion), and tool APIs.
+  - `/how-it-works` (the approved narrative copy) and `/agents`.
+- **Plain text for agents:** `/llms.txt` (opening with how agents should use Sistema), plus `/raw/agents`, `/raw/opinions`, `/raw/rules`, and `/raw/guides/[topic]/[name]`. Plays now cite guides at `/raw/guides/...`.
+- Every new page has the one-line note for agents at the top, with absolute URLs.
+- **Rewired:** home (working headline, start prompt, workflows), nav (Plays, Guides, Reference, Tools, For agents; Get started goes to How Sistema works), footer, sitemap, and Cmd-K search (workflows, plays, guides, opinions, rules, sources, tools).
+- **Removed:** `/playbooks`, `/campaigns`, `/guide`, `/bundle`, `/kb/principles`, `src/lib/{playbooks,campaigns,exemplars}.ts`, and the playbook and campaign components. `kb.ts` covers only reference categories.
+- **Session routes are `{title, plays}`.** The session starter and `project.orient` accept a goal already stated in the prompt (needed by the V3 prompt box).
+- Checked every route on a production server (old routes return 404), and took screenshots at desktop and phone width with no horizontal scroll. 100 tests pass, and the build passes (216 pages, output checks 0).
+- **Deferred to V3:** entry pages `/start`, `/existing`, `/work`; `/reference/files/*`; the prompt box with suggestions; the narrative home page.
 

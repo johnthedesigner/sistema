@@ -21,7 +21,6 @@ const CATEGORY_LABELS: Record<KBCategory, string> = {
   'standards': 'Standards',
   'foundations': 'Foundations',
   'skills': 'Agent Skills',
-  'principles': 'Principles',
 }
 
 const CATEGORY_DESCRIPTIONS: Record<KBCategory, string> = {
@@ -29,7 +28,6 @@ const CATEGORY_DESCRIPTIONS: Record<KBCategory, string> = {
   'standards': 'Normative references: WCAG 2.2, ARIA APG, APCA, and the DESIGN.md specification.',
   'foundations': 'Color perception, typographic rhythm, spacing theory, and contrast science — the reasoning layer behind every token decision.',
   'skills': 'Reviewed agent skill libraries: Impeccable, Anthropic frontend-design, and designer-skills.',
-  'principles': "Sistema's own synthesized frameworks: OKLCH commitment levels, token architecture patterns, visual quality signals, and content voice.",
 }
 
 export async function generateMetadata({

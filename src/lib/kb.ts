@@ -6,31 +6,22 @@ import { resolveSistemaUrl } from './placeholders'
 
 const KB_ROOT = process.cwd()
 const KB_BASE = path.join(KB_ROOT, 'kb')
-/**
- * Guides moved to content/guides in V1.12 (no stubs, no versions). The legacy
- * `principles` category reads them from there until V1.13 moves the site to
- * the new routes.
- */
-const GUIDES_DIR = path.join(KB_ROOT, 'content', 'guides')
 
 const REFERENCE_CATEGORIES = ['design-systems', 'standards', 'foundations', 'skills'] as const
-const REFERENCE_CATEGORY_SET = new Set(REFERENCE_CATEGORIES as readonly string[])
 
-export const KB_CATEGORIES = [...REFERENCE_CATEGORIES, 'principles'] as const
+export const KB_CATEGORIES = REFERENCE_CATEGORIES
 export type KBCategory = typeof KB_CATEGORIES[number]
 
 function getCategoryDir(category: KBCategory): string {
-  if (REFERENCE_CATEGORY_SET.has(category)) return path.join('reference', category)
-  return category
+  return path.join('reference', category)
 }
 
 /** Absolute directory for a category. */
 function categoryRoot(category: KBCategory): string {
-  return category === 'principles' ? GUIDES_DIR : path.join(KB_BASE, getCategoryDir(category))
+  return path.join(KB_BASE, getCategoryDir(category))
 }
 
 function resolveKBPath(kbPath: string): string {
-  if (kbPath.startsWith('kb/principles/')) return kbPath.replace('kb/principles/', 'content/guides/')
   for (const cat of REFERENCE_CATEGORIES) {
     if (kbPath.startsWith(`kb/${cat}/`) || kbPath === `kb/${cat}`) {
       return kbPath.replace(`kb/${cat}`, `kb/reference/${cat}`)
@@ -51,7 +42,6 @@ export function listSystems(category: KBCategory = 'design-systems'): string[] {
     .filter(e => {
       if (!e.isDirectory()) return false
       if (e.name.startsWith('_') || e.name.startsWith('.')) return false
-      if (category === 'principles') return fs.readdirSync(path.join(categoryDir, e.name)).some(f => f.endsWith('.md'))
       const indexPath = path.join(categoryDir, e.name, '_index.md')
       return fs.existsSync(indexPath)
     })
@@ -63,20 +53,6 @@ export function listSystems(category: KBCategory = 'design-systems'): string[] {
  * Reads and returns the raw markdown body of a system's _index.md.
  */
 export function readSystemIndex(slug: string, category: KBCategory = 'design-systems'): SystemIndex {
-  if (category === 'principles') {
-    const dir = path.join(GUIDES_DIR, slug)
-    if (!fs.existsSync(dir)) throw new Error(`Guide topic not found: ${slug}`)
-    const items = fs
-      .readdirSync(dir)
-      .filter(f => f.endsWith('.md'))
-      .sort()
-      .map(f => {
-        const { data } = matter(fs.readFileSync(path.join(dir, f), 'utf-8'), {})
-        return `- **${data.title}**: ${data.description}`
-      })
-    const heading = slug.replace(/-/g, ' ').replace(/^./, c => c.toUpperCase())
-    return { body: `# ${heading}\n\n${items.join('\n')}\n`, slug }
-  }
   const indexPath = path.join(KB_BASE, getCategoryDir(category), slug, '_index.md')
   if (!fs.existsSync(indexPath)) {
     throw new Error(`System index not found: ${category}/${slug}/_index.md`)
@@ -93,11 +69,6 @@ export function readSystemIndex(slug: string, category: KBCategory = 'design-sys
 function readStubTarget(stubPath: string): string {
   const resolvedPath = resolveKBPath(stubPath)
   const mdPath = path.join(KB_ROOT, `${resolvedPath}.md`)
-  // Guides are plain files: the file is its own target.
-  if (resolvedPath.startsWith('content/guides/')) {
-    if (!fs.existsSync(mdPath)) throw new Error(`Guide not found: ${resolvedPath}`)
-    return mdPath
-  }
   const jsonPath = path.join(KB_ROOT, `${resolvedPath}.json`)
   const stubFilePath = fs.existsSync(mdPath) ? mdPath
     : fs.existsSync(jsonPath) ? jsonPath

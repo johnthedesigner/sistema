@@ -1,16 +1,17 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { loadCampaign } from '@/lib/campaigns'
 import { PromptBox } from '@/components/PromptBox'
+import { catalog, orderedWorkflows, workflowHref, workflowPlayIds, workflowPrompt } from '@/lib/content/site'
+import { AgentNote } from '@/components/site/ui'
 
 export const metadata: Metadata = {
-  title: 'Sistema — Design system prompts for Claude Code and Cursor',
+  title: 'Sistema: firm foundations for AI-built apps',
   description:
-    'Ready-to-paste prompts grounded in real design system references. Helps Claude Code and Cursor generate tokens, components, and audits without guessing.',
+    'Sistema guides your AI coding agent through building a design system in your repository, with your approval at each stage.',
   openGraph: {
-    title: 'Sistema — Design system prompts for Claude Code and Cursor',
+    title: 'Sistema: firm foundations for AI-built apps',
     description:
-      'Ready-to-paste prompts grounded in real design system references. Helps Claude Code and Cursor generate tokens, components, and audits without guessing.',
+      'Sistema guides your AI coding agent through building a design system in your repository, with your approval at each stage.',
   },
 }
 
@@ -22,303 +23,92 @@ function ArrowRight() {
   )
 }
 
-const QUICK_PLAYS = [
-  {
-    kind: 'campaign' as const,
-    steps: 10,
-    slug: null,
-    href: '/campaigns/bootstrap',
-    title: 'Bootstrap a Design System',
-    desc: 'From blank canvas through visual language, token system, components, and docs — in four structured phases.',
-  },
-  {
-    kind: 'play' as const,
-    stage: 2,
-    slug: 'generate-color-scheme',
-    href: '/playbooks/generate-color-scheme',
-    title: 'Generate a Color Scheme',
-    desc: 'OKLCH-grounded 19-stop palette from a single seed color.',
-  },
-  {
-    kind: 'play' as const,
-    stage: 6,
-    slug: 'audit-token-coverage',
-    href: '/playbooks/audit-token-coverage',
-    title: 'Audit Token Coverage',
-    desc: 'Find every hard-coded value that should be a token.',
-  },
-  {
-    kind: 'play' as const,
-    stage: 4,
-    slug: 'scaffold-component-library',
-    href: '/playbooks/scaffold-component-library',
-    title: 'Scaffold a Component Library',
-    desc: 'Generate the component spec set from your DESIGN.md.',
-  },
-]
-
-const STAGE_CHIP_STYLES: Record<number, { bg: string; color: string; border: string }> = {
-  1: { bg: 'var(--stage-1-bg)', color: 'var(--stage-1-text)', border: 'var(--stage-1-border)' },
-  2: { bg: 'var(--stage-2-bg)', color: 'var(--stage-2-text)', border: 'var(--stage-2-border)' },
-  3: { bg: 'var(--stage-3-bg)', color: 'var(--stage-3-text)', border: 'var(--stage-3-border)' },
-  4: { bg: 'var(--stage-4-bg)', color: 'var(--stage-4-text)', border: 'var(--stage-4-border)' },
-  5: { bg: 'var(--stage-5-bg)', color: 'var(--stage-5-text)', border: 'var(--stage-5-border)' },
-  6: { bg: 'var(--stage-6-bg)', color: 'var(--stage-6-text)', border: 'var(--stage-6-border)' },
-}
-
 export default function Home() {
-  const bootstrap = loadCampaign('bootstrap')
+  const start = catalog().workflowById.get('workflow.start')!
+  const workflows = orderedWorkflows()
 
   return (
     <main>
-      <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-8 md:pt-16 pb-20">
+      <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-6 md:pt-12 pb-20">
+        <AgentNote raw="/raw/agents" />
         {/* Hero */}
-        <div className="mb-10 md:mb-14">
-          {/* Announcement pill */}
-          <div className="inline-flex max-w-full items-center gap-2 px-3 py-1.5 border border-border rounded-full bg-surface mb-5 md:mb-6">
-            <svg width="16" height="16" viewBox="0 0 12 12" fill="none" className="text-primary shrink-0">
-              <path d="M2 3.5L5.5 6 2 8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <line x1="7" y1="8.5" x2="10" y2="8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-            </svg>
-            <span className="font-mono text-[11.5px] tracking-[0.04em] text-on-surface-muted truncate">
-              Prompts grounded in real design system references
-            </span>
-          </div>
-
-          {/* Headline */}
+        <div className="mb-10 md:mb-12">
           <h1
-            className="font-serif font-medium text-on-surface m-0 text-[42px] md:text-[76px]"
-            style={{
-              lineHeight: 1.0,
-              letterSpacing: '-0.03em',
-              fontVariationSettings: "'opsz' 144, 'SUPERSOFT' 40",
-              maxWidth: 920,
-            }}
+            className="font-serif font-medium text-on-surface m-0 text-[42px] md:text-[72px]"
+            style={{ lineHeight: 1.0, letterSpacing: '-0.03em', fontVariationSettings: "'opsz' 144, 'SUPERSOFT' 40", maxWidth: 940 }}
           >
-            {`Your AI coding agent needs better context. `}
+            {'Firm foundations for AI-built apps. '}
             <span className="relative inline-block">
-              Here it is.
-              <span
-                className="absolute rounded-sm -z-10"
-                style={{
-                  left: -2,
-                  right: -2,
-                  bottom: 4,
-                  height: 10,
-                  background: 'var(--color-brand-yellow)',
-                }}
-              />
+              More room to design.
+              <span className="absolute rounded-sm -z-10" style={{ left: -2, right: -2, bottom: 4, height: 10, background: 'var(--color-brand-yellow)' }} />
             </span>
           </h1>
-
-          {/* Subhead */}
           <p
             className="mt-5 md:mt-7 text-on-surface-muted font-serif font-normal text-[16px] md:text-[19px]"
-            style={{
-              lineHeight: 1.55,
-              fontVariationSettings: "'opsz' 32",
-              maxWidth: 920,
-            }}
+            style={{ lineHeight: 1.55, fontVariationSettings: "'opsz' 32", maxWidth: 820 }}
           >
-            Sistema pairs design system references with ready-to-paste prompts —
-            <em className="text-on-surface italic"> plays</em> — so Claude Code and Cursor generate
-            tokens, components, and audits grounded in real systems instead of guessing.
+            Sistema guides your AI coding agent through building a design system in your repository. Once colors, type, and spacing are decided and checked, every new screen starts from solid ground, and your time goes to design choices instead of fixing drift.
           </p>
-
           <p className="mt-4 text-[13px] text-on-surface-subtle" style={{ maxWidth: 580 }}>
             Made by{' '}
-            <a
-              href="https://johnthedesigner.com"
-              className="text-on-surface-muted underline underline-offset-2 hover:text-on-surface transition-colors"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://johnthedesigner.com" className="text-on-surface-muted underline underline-offset-2 hover:text-on-surface transition-colors" target="_blank" rel="noopener noreferrer">
               John the Designer
             </a>
-            {' '}— I&apos;ve worked on design systems at Wayfair, Salesforce, and ReflexAI. This is the tool I wished I&apos;d had.
+            {' '}after work on design systems at Wayfair, Salesforce, and ReflexAI.
           </p>
         </div>
 
-        {/* Prompt showcase */}
-        {/* TODO: token count, ref count, and references table are hardcoded.
-            To make dynamic: add `tokens`, `kbRefs` fields to Campaign type,
-            and store per-ref token counts in KB index metadata. */}
-        <div className="grid gap-6 grid-cols-1 md:grid-cols-[1fr_280px] md:grid-rows-[25rem]">
-          {bootstrap?.prompt && (
-            <PromptBox
-              label="campaign · Bootstrap a Design System"
-              body={bootstrap.prompt}
-              playSlug="bootstrap"
-              tokens="~4,200 tokens"
-              refs="6 KB refs"
-              overflow="scroll"
-            />
-          )}
-
+        {/* Start */}
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-[1fr_300px]">
+          <div className="min-w-0">
+            <PromptBox label="Start a design system" body={workflowPrompt(start.id)} playSlug={start.id} expanded />
+            <p className="text-[13px] text-on-surface-muted mt-3 m-0">
+              Paste this into Claude Code, Cursor, or another coding agent, in your project folder. It works for new projects and for projects that already have colors or tokens: it keeps what you have.
+            </p>
+          </div>
           <div className="flex flex-col gap-3">
-            <div className="border border-border rounded-radius-lg p-4">
-              <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2">
-                This campaign
-              </p>
-              <p className="font-semibold text-[14px] text-on-surface mb-1">
-                {bootstrap?.title ?? 'Bootstrap a Design System'}
-              </p>
-              <p className="text-[12.5px] text-on-surface-muted leading-[1.4]">
-                {bootstrap?.description ?? ''}
-              </p>
-              <div className="flex gap-1.5 mt-2.5 flex-wrap">
-                <span
-                  className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border"
-                  style={{ background: '#0070FF', color: 'white', borderColor: '#0070FF' }}
-                >
-                  campaign · {bootstrap?.steps.length ?? 6} steps
-                </span>
-                <span className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border border-border bg-surface-sunken text-on-surface-muted">
-                  planning
-                </span>
-                <span className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border border-border bg-surface-sunken text-on-surface-muted">
-                  tokens
-                </span>
-              </div>
-            </div>
-
-            <div className="border border-border rounded-radius-lg p-4 flex-1">
-              <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2">
-                References pulled
-              </p>
-              {/* TODO: derive from campaign step metadata once KB ref sizes are indexed */}
-              <div className="flex flex-col gap-1.5 text-[12.5px]">
-                <div className="flex justify-between">
-                  <span className="font-mono text-on-surface">principles/positioning</span>
-                  <span className="text-on-surface-subtle">3.2k</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="font-mono text-on-surface">principles/tokens</span>
-                  <span className="text-on-surface-subtle">5.8k</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="font-mono text-on-surface">principles/color</span>
-                  <span className="text-on-surface-subtle">4.3k</span>
-                </div>
-              </div>
-            </div>
+            <Link href="/how-it-works" className="block border border-border rounded-radius-lg p-4 no-underline bg-surface hover:border-border-strong">
+              <p className="font-semibold text-[14px] text-on-surface m-0 mb-1">How Sistema works</p>
+              <p className="text-[12.5px] text-on-surface-muted m-0 leading-[1.45]">You see every stage in your browser before anything builds on it.</p>
+            </Link>
+            <Link href={workflowHref('workflow.session')} className="block border border-border rounded-radius-lg p-4 no-underline bg-surface hover:border-border-strong">
+              <p className="font-semibold text-[14px] text-on-surface m-0 mb-1">Work on my system</p>
+              <p className="text-[12.5px] text-on-surface-muted m-0 leading-[1.45]">Components, themes, audits, and what&apos;s next.</p>
+            </Link>
           </div>
         </div>
 
-        {/* Quick-access row */}
-        <div className="mt-10 md:mt-14">
+        {/* Workflows */}
+        <div className="mt-12 md:mt-14">
           <div className="flex items-baseline justify-between mb-4 flex-wrap gap-2">
-            <div className="flex items-baseline gap-3.5">
-              <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted">
-                Frequently used
-              </span>
-            </div>
-            <Link
-              href="/playbooks"
-              className="flex items-center gap-1.5 text-[13px] font-medium text-primary no-underline"
-            >
+            <span className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted">Workflows</span>
+            <Link href="/plays" className="flex items-center gap-1.5 text-[13px] font-medium text-primary no-underline">
               Browse all plays <ArrowRight />
             </Link>
           </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {QUICK_PLAYS.map(card => (
-              <QuickCard key={card.title} {...card} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {workflows.map((w, i) => (
+              <Link
+                key={w.id}
+                href={workflowHref(w.id)}
+                className="flex flex-col gap-2 p-4 rounded-radius-lg border no-underline"
+                style={{
+                  borderColor: i === 0 ? 'var(--color-primary)' : 'var(--color-border)',
+                  background: i === 0 ? '#0070FF' : 'var(--color-surface)',
+                  color: i === 0 ? 'white' : 'inherit',
+                  minHeight: 120,
+                }}
+              >
+                <span className="font-mono text-[11.5px]" style={{ opacity: 0.75 }}>{workflowPlayIds(w).length} plays</span>
+                <p className="font-semibold text-[15px] leading-[1.25] m-0">{w.title}</p>
+                <p className="text-[12.5px] leading-[1.45] m-0" style={{ color: i === 0 ? 'rgba(255,255,255,0.85)' : 'var(--color-on-surface-muted)' }}>
+                  {w.description}
+                </p>
+              </Link>
             ))}
           </div>
         </div>
-
       </div>
     </main>
-  )
-}
-
-interface QuickCardProps {
-  kind: 'campaign' | 'play'
-  steps?: number
-  stage?: number
-  slug?: string | null
-  href: string
-  title: string
-  desc: string
-}
-
-function QuickCard({ kind, steps, stage, href, title, desc }: QuickCardProps) {
-  const isCampaign = kind === 'campaign'
-  const stageStyle = stage ? STAGE_CHIP_STYLES[stage] : null
-
-  return (
-    <Link
-      href={href}
-      className="flex flex-col gap-2.5 p-4 rounded-radius-lg border no-underline relative"
-      style={{
-        borderColor: isCampaign ? 'var(--color-primary)' : 'var(--color-border)',
-        background: isCampaign ? '#0070FF' : 'var(--color-surface)',
-        color: isCampaign ? 'white' : 'inherit',
-        minHeight: 120,
-        boxShadow: isCampaign
-          ? '0 1px 0 rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.18)'
-          : 'none',
-      }}
-    >
-      <div className="flex items-center justify-between">
-        {isCampaign ? (
-          <span
-            className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border"
-            style={{
-              background: 'rgba(255,255,255,0.18)',
-              borderColor: 'rgba(255,255,255,0.35)',
-              color: 'white',
-            }}
-          >
-            campaign · {steps} steps
-          </span>
-        ) : stageStyle ? (
-          <span
-            className="inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border"
-            style={{
-              background: stageStyle.bg,
-              color: stageStyle.color,
-              borderColor: stageStyle.border,
-            }}
-          >
-            stage {stage}
-          </span>
-        ) : null}
-        <svg width={14} height={14} viewBox="0 0 24 24" fill="none">
-          <path
-            d="M5 12h14M13 5l7 7-7 7"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </div>
-
-      <p className="font-semibold text-[14px] leading-[1.25] mt-0.5 m-0">{title}</p>
-
-      <p
-        className="text-[12px] leading-[1.45] m-0 grow"
-        style={{ color: isCampaign ? 'rgba(255,255,255,0.82)' : 'var(--color-on-surface-muted)' }}
-      >
-        {desc}
-      </p>
-
-      {isCampaign && steps && (
-        <div className="flex items-center gap-1 mt-1">
-          {Array.from({ length: steps }).map((_, i) => (
-            <span
-              key={i}
-              className="flex-1 rounded-sm"
-              style={{
-                height: 3,
-                background: i === 0 ? 'var(--color-brand-yellow)' : 'rgba(255,255,255,0.28)',
-              }}
-            />
-          ))}
-        </div>
-      )}
-    </Link>
   )
 }

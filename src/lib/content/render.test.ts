@@ -130,7 +130,7 @@ describe('renderPlay', () => {
     expect(out).toContain('Applies when: Normal-size text.')
   })
   it('links guides absolutely with their section', () => {
-    expect(out).toContain(`${BASE}/raw/principles/color/architecture (section: dark-mode)`)
+    expect(out).toContain(`${BASE}/raw/guides/color/architecture (section: dark-mode)`)
   })
   it('ends with evidence and record-keeping, with no literal dates or relative URLs', () => {
     expect(out).toContain('## Done when\n\nEvidence for color.scheme.')

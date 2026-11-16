@@ -1,7 +1,7 @@
 // Shared types and client-safe scoring function.
 // Server-only index builder lives in search-builder.ts.
 
-export type SearchEntryType = 'play' | 'featured' | 'kb' | 'tool'
+export type SearchEntryType = 'workflow' | 'play' | 'guide' | 'opinion' | 'rule' | 'kb' | 'tool'
 
 export interface SearchEntry {
   type: SearchEntryType

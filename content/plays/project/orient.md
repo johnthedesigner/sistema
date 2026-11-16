@@ -19,7 +19,7 @@ last_reviewed: 2026-11-15
 
 2. **Summarize in four lines:** what the product is, what the system has (token categories, themes, component count), what is open (provisional items in DESIGN.md, gaps from recent audits), and the last decision recorded.
 
-3. **Confirm the goal.** Use `goal` if given, or ask: "What do you want to do in this session?" Restate it in one sentence.
+3. **Confirm the goal.** Use `goal` if given. If the person's message already says what they want (the site's prompt box adds a line such as "I want to add a component: a date picker"), restate that and confirm it. Otherwise ask: "What do you want to do in this session?" Restate it in one sentence.
 
 4. **Check for conflicts.** If the goal contradicts a recorded decision (for example, a new accent color in a restrained system), say so, and ask whether to change the decision or the goal. Record a changed decision in DECISIONS.md.
 
