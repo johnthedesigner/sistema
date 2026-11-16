@@ -105,7 +105,7 @@ Plan 7.2's list of sites, plus 2 or 3 well-regarded MCP servers and skill librar
 
 ### Task V1.7: Narrative (outline first)
 
-**Status:** outline written 2026-11-16 (`docs/v2/narrative-outline.md`); waiting for owner review
+**Status:** outline approved 2026-11-16 (recommendations accepted; home page speaks to whoever drives the agent; no time estimates yet). Draft in `docs/v2/narrative-draft.md`, waiting for owner review
 
 Home and onboarding narrative (plan Section 3), built around three entry points: start a system, bring Sistema to an existing system, work on my system. Include the repo-as-source-of-truth fit statement (plan 4). Outline, owner review, then draft. Plan Section 1 writing style applies.
 
