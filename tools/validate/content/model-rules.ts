@@ -139,7 +139,7 @@ const workflowRefs: Rule = {
     for (const w of m.workflows) {
       const ids = [
         ...(w.sequence ?? []).filter((i): i is string => typeof i === 'string').map(i => seqId(i).id),
-        ...Object.values(w.routes ?? {}).flat(),
+        ...Object.values(w.routes ?? {}).flatMap(r => r.plays),
         ...(w.start_with ? [w.start_with] : []),
       ]
       for (const id of ids) if (!plays.has(id)) out.push({ file: w.file, line: 1, message: `unknown play ${id}` })
