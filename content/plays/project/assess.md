@@ -7,29 +7,30 @@ kind: orient
 milestone: direction
 entry: true
 requires: []
-produces: [sistema.json, DECISIONS.md, "project:a11y-standard", "project:theme", "project:density", "project:stack"]
+produces: [sistema.json, DECISIONS.md, AGENTS.md, "project:a11y-standard", "project:theme", "project:density", "project:stack"]
 tools: []
 knowledge: []
-rules: [project.a11y.standard-chosen, project.read-before-asking]
-evidence: A findings table that classifies every Start output, the positioning statement in DECISIONS.md, and a valid sistema.json with the project rules filled in.
+rules: [project.a11y.standard-chosen, project.read-before-asking, project.state.pointer, project.state.valid]
+evidence: A findings table that classifies every Start output, the positioning statement with its inferred facts in DECISIONS.md, a valid sistema.json with the project rules filled in, and the Sistema section in the agent instructions file.
 overrides: [project_context]
-last_reviewed: 2026-11-14
+last_reviewed: 2026-11-15
 ---
 Your job is to understand this project before anything is decided. Read first. Ask only what the files do not answer.
 
 1. **Read the project.** Look for each of these, and note what you find:
    - `sistema.json`, `DESIGN.md`, `DECISIONS.md`, and `LIVING_BRIEF.md` (an older Sistema state file)
+   - `AGENTS.md` and `CLAUDE.md`
    - `package.json` and any framework config, for the stack and build tools
-   - Token sources: `tokens/`, any `*.tokens.json`, a Tailwind config `theme`, and CSS or SCSS files that define custom properties
+   - Token sources: `tokens/`, any `*.tokens.json`, a Tailwind config `theme` or `@theme` block, and CSS or SCSS files that define custom properties
    - Three to five component files, to see how values are used today
-   - `style-preview.html` and `token-check.html`
+   - The `sistema-review/` folder, and older review pages at the root (`style-preview.html`, `token-check.html`)
 
 2. **Classify each Start output.** Make a table with one row per output and one of three statuses:
 
    | Output | Status | Where it is now |
    |---|---|---|
    | DESIGN.md Overview section | | |
-   | style-preview.html | | |
+   | sistema-review/style-preview.html | | |
    | tokens/src/color.json | | |
    | tokens/src/typography.json | | |
    | tokens/src/shape.json | | |
@@ -52,31 +53,27 @@ Your job is to understand this project before anything is decided. Read first. A
    - Which accessibility standard and level must it meet? Help the person choose for their use case. WCAG 2.2 AA fits most web products. Section 508 or EN 301 549 applies where the law requires it. Some audiences call for AAA criteria. Record the choice exactly, for example `wcag-2.2 AA`.
    - What stack is it built on? Sistema's default path is web with React and Tailwind. Other stacks are supported more loosely.
 
-4. **Write `sistema.json`** at the project root. If it exists, update it and keep what is already recorded.
+   **If the project already has colors,** tell the person how Sistema handles them before going on: nothing existing changes without their choice. The color play will show their current colors next to a few options on a comparison page, and they decide for each hue. Common options are keeping the colors exactly, keeping them and completing the ramps around them, or using them as seeds for new, even ramps. Don't ask them to choose now.
 
-   ```json
-   {
-     "sistema": "2",
-     "workflow": "start",
-     "milestone": "direction",
-     "project": {
-       "a11y_standard": "wcag-2.2 AA",
-       "theme": "light-dark",
-       "density": "balanced",
-       "stack": "react-tailwind"
-     },
-     "steps": {},
-     "gates": {},
-     "routing": {}
-   }
+4. **Write `sistema.json`** at the project root, in the shape the workflow starter gives. If it exists, update it and keep what is already recorded. Set `continue` to the URL of the workflow you are running. `theme` is one of `light`, `dark`, or `light-dark`, and `theme_primary` is set when it is `light-dark`. `density` is one of `dense`, `balanced`, or `sparse`. `platform` is one of `web`, `mobile`, or `web-mobile`.
+
+5. **Record routing for outputs that differ.** When colors exist but differ, set `"routing": {"color.scheme": "color.map-existing"}`. The workflow then runs that play instead, which starts from the existing colors. For other outputs that differ, note them in DECISIONS.md. Their plays will handle them when reached.
+
+6. **Add the Sistema section to the agent instructions file.** Use `AGENTS.md` if it exists, or `CLAUDE.md` if the project uses that instead. If neither exists, create `AGENTS.md`. Add this section once, at the end, and change nothing else in the file:
+
+   ```
+   <!-- sistema:start -->
+   ## Design system (Sistema)
+   This project's design system follows Sistema. Before any design system work
+   (tokens, colors, type, components, DESIGN.md), read sistema.json and fetch
+   the URL in its "continue" field, then follow it.
+   <!-- sistema:end -->
    ```
 
-   `theme` is one of `light`, `dark`, or `light-dark`. `density` is one of `dense`, `balanced`, or `sparse`.
+   Tell the person you added it, and why: a new session will find its way back to the workflow without them pasting anything.
 
-5. **Record routing for outputs that differ.** When colors exist but differ, set `"routing": {"color.scheme": "color.map-existing"}`. The workflow then runs that play instead, which keeps the existing colors and brings them into Sistema's format. For other outputs that differ, note them in DECISIONS.md. Their plays will handle them when reached.
+7. **Start DECISIONS.md** if it does not exist. Its first line is `This project follows Sistema. To continue, fetch the URL in sistema.json "continue".` Then a heading, and one line per decision. If `LIVING_BRIEF.md` exists, copy its decision log entries into DECISIONS.md and keep the file. Do not delete it.
 
-6. **Start DECISIONS.md** if it does not exist, with a heading and one line per decision. If `LIVING_BRIEF.md` exists, copy its decision log entries into DECISIONS.md and keep the file. Do not delete it.
+8. **Write the positioning statement** as the first DECISIONS.md entry, in 100 to 200 words. Say what the product is, who it serves, where it sits between expressive and utilitarian, and its platform and scale. Write it so a designer or another agent could act on it. The direction play builds on it. Under it, add a line headed "Inferred, not asked" that lists each fact you took from files or assumed, so the person can correct it.
 
-7. **Write the positioning statement** as the first DECISIONS.md entry, in 100 to 200 words. Say what the product is, who it serves, where it sits between expressive and utilitarian, and its platform and scale. Write it so a designer or another agent could act on it. The direction play builds on it.
-
-8. **Show the evidence:** the findings table, the positioning statement, and the final `sistema.json`. Then summarize, in two or three sentences, what the next play will do.
+9. **Show the evidence:** the findings table, the positioning statement with its inferred facts, and the final `sistema.json`. Then show the workflow outline, as the starter describes.

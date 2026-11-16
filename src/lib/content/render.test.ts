@@ -4,7 +4,7 @@ import path from 'path'
 import { describe, expect, it } from 'vitest'
 import { loadCatalog } from './load'
 import { parsePlay, parseWorkflow, type Play, type Workflow } from './parse'
-import { describeToken, renderPlay, renderWorkflowFull, renderWorkflowStarter, workflowSteps, type RenderContext } from './render'
+import { describeToken, renderOutline, renderPlay, renderWorkflowFull, renderWorkflowStarter, workflowSteps, type RenderContext } from './render'
 import type { Rule } from './schema'
 
 const BASE = 'https://sistema.example'
@@ -151,17 +151,40 @@ describe('workflow rendering', () => {
     expect(steps[1].gateAfter[0].gate).toBe('direction-approved')
   })
 
-  it('renders a short starter with URLs, the gate, tools, continuation, and the full-version link', () => {
+  it('renders a starter with resume first, a grouped outline, exact state shapes, tools, and the workflow end', () => {
     const out = renderWorkflowStarter(start, ctx, workflows)
-    expect(out).toContain(`2. Title visual-language.direction: ${BASE}/raw/plays/visual-language.direction`)
-    expect(out).toContain('   GATE (direction-approved): Review style-preview.html')
-    expect(out).toContain('3. Title content.voice-and-tone (optional')
+    // Resume comes before anything else.
+    expect(out.indexOf('## First: is this a resumed run?')).toBeLessThan(out.indexOf('## Outline'))
+    // Outline: plays numbered, grouped by milestone, with URLs and gates in place.
+    expect(out).toMatch(/ 2\. Title visual-language\.direction: .+\n {4}https:\/\/sistema\.example\/raw\/plays\/visual-language\.direction/)
+    expect(out).toContain('   ◆ Approval (direction-approved): Review style-preview.html')
+    expect(out).toContain(' 3. Title content.voice-and-tone (optional)')
+    // State: exact shape, continue URL, schema link.
+    expect(out).toContain(`"continue": "${BASE}/raw/workflows/start"`)
+    expect(out).toContain('"in-progress"')
+    expect(out).toContain(`${BASE}/raw/schema/sistema.json`)
+    // Tools, end of workflow, full version.
     expect(out).toContain(`POST ${BASE}/api/palette`)
+    expect(out).toContain('"pairs"')
     expect(out).toContain(`continue with Build patterns: ${BASE}/raw/workflows/patterns`)
     expect(out).toContain(`${BASE}/raw/workflows/start/full`)
     expect(out).not.toMatch(LITERAL_DATE)
     expect(out).not.toMatch(RELATIVE_URL)
-    expect(out.split('\n').length).toBeLessThan(60)
+    expect(out.split('\n').length).toBeLessThan(140)
+  })
+
+  it('renders the outline grouped by milestone', () => {
+    const outline = renderOutline(start, ctx)
+    const lines = outline.split('\n').filter(l => /^[A-Z]/.test(l))
+    expect(lines.length).toBeGreaterThan(0)
+    expect(new Set(lines).size).toBe(lines.length)
+  })
+
+  it('says there is no next workflow when none is set', () => {
+    const solo = { ...start, continue_with: undefined }
+    const out = renderWorkflowStarter(solo, ctx, workflows)
+    expect(out).toContain('there is no next Sistema workflow yet')
+    expect(out).toContain('Remove `continue`')
   })
 
   it('renders a full version with every play inline and no fetch instructions', () => {

@@ -23,3 +23,22 @@
   severity: advisory
   applies_to: surface, surface-raised, surface-overlay, border, and the neutral ramp
   sources: [guide.quality.visual-quality-signals#4-oklch-color-commitment-levels]
+
+- id: quality.review.compare-visually
+  statement: >-
+    When a play asks the person to choose between options that change how the system looks, or proposes
+    changes to existing values, it first writes a self-contained page in sistema-review/ showing the
+    current state next to each option, with differences marked, and asks the person to open it.
+  reason: The consequences of design system choices are hard to judge from text alone.
+  layer: sistema-default
+  severity: advisory
+  applies_to: sistema-review/<play-id>.html
+
+- id: quality.review.outline
+  statement: >-
+    Every review page starts with the workflow outline as a strip: each step and approval with its
+    status, and the current step highlighted.
+  reason: The person should always see where this review sits in the whole process.
+  layer: sistema-default
+  severity: advisory
+  applies_to: sistema-review/*.html

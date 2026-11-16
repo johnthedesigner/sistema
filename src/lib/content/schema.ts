@@ -144,33 +144,49 @@ export type Rule = z.infer<typeof Rule>
 
 export const RuleFile = z.array(Rule)
 
-/** sistema.json in the user's project (D7). */
+/** Step status values in sistema.json. `in-progress` covers a play waiting at a gate. */
+export const STEP_STATUSES = ['pending', 'in-progress', 'complete', 'skipped'] as const
+
+/** sistema.json in the user's project (D7, revised in V1.5). */
 export const SistemaState = z
   .object({
     sistema: z.literal('2'),
     workflow: z.string().optional(),
+    /** URL of the workflow to resume from. Set while a workflow runs; the agent instructions file points here. */
+    continue: z.url().optional(),
     milestone: z.enum(MILESTONES).optional(),
     project: z
       .object({
-        a11y_standard: z.string().optional(),
-        theme: z.enum(['light', 'dark', 'light-dark']).optional(),
-        density: z.enum(['dense', 'balanced', 'sparse']).optional(),
-        stack: z.string().optional(),
+        a11y_standard: z.string(),
+        theme: z.enum(['light', 'dark', 'light-dark']),
+        /** Which theme is primary when theme is light-dark. */
+        theme_primary: z.enum(['light', 'dark']),
+        density: z.enum(['dense', 'balanced', 'sparse']),
+        platform: z.enum(['web', 'mobile', 'web-mobile']),
+        stack: z.string(),
       })
       .partial()
+      .strict()
       .default({}),
     steps: z
       .record(
         PlayId,
-        z.object({
-          status: z.enum(['pending', 'complete', 'skipped']),
-          date: z.iso.date().optional(),
-          evidence: z.string().optional(),
-        }),
+        z
+          .object({
+            status: z.enum(STEP_STATUSES),
+            date: z.iso.date().optional(),
+            evidence: z.string().optional(),
+          })
+          .strict(),
       )
       .default({}),
-    gates: z.record(z.string(), z.object({ date: z.iso.date(), by: z.string() })).default({}),
-    routing: z.record(z.string(), z.string()).default({}),
+    gates: z
+      .record(
+        z.string().regex(slug),
+        z.object({ date: z.iso.date(), by: z.string().min(1), note: z.string().optional() }).strict(),
+      )
+      .default({}),
+    routing: z.record(PlayId, PlayId).default({}),
   })
   .strict()
 export type SistemaState = z.infer<typeof SistemaState>

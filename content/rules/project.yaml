@@ -15,3 +15,31 @@
   layer: sistema-default
   severity: advisory
   applies_to: project.assess
+
+- id: project.state.pointer
+  statement: >-
+    While a Sistema workflow is running, the project's agent instructions file (AGENTS.md, or CLAUDE.md
+    if that is what the project uses) has the Sistema section between <!-- sistema:start --> and
+    <!-- sistema:end -->, and sistema.json `continue` holds the workflow URL. DECISIONS.md, DESIGN.md
+    (as an HTML comment), and every review page carry one line naming that URL.
+  reason: >-
+    People resume with "keep going", not by pasting the starter again. Coding agents load the instructions
+    file at the start of every session, so the pointer brings a new session back to the workflow without
+    the person copying anything.
+  layer: sistema-default
+  severity: blocking
+  measure: { kind: presence }
+  applies_to: AGENTS.md or CLAUDE.md, sistema.json continue
+  checked_by: [play.project.assess evidence, workflow starter resume check]
+
+- id: project.state.valid
+  statement: >-
+    sistema.json matches the published schema: only play IDs in `steps`, only the documented status
+    values, gate records with `date` and `by`, and `milestone` set to one of direction, foundations,
+    patterns, or maintain. Work done outside a play goes in DECISIONS.md, not in `steps`.
+  reason: The next session, the site, and the MCP server all read this file. Invented shapes break resume.
+  layer: sistema-default
+  severity: blocking
+  measure: { kind: presence }
+  applies_to: sistema.json
+  checked_by: [workflow starter end-of-session check]

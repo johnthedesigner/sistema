@@ -151,3 +151,31 @@ In a GUI, the person sees an outline of the process up front, and progress is sh
 | # | Change | Where | Phase |
 |---|---|---|---|
 | H | **Outline at the start, progress against it throughout.** The renderer generates the outline from the workflow definition, so the agent doesn't write it: the milestones, the steps in each, the gates, and which steps are optional. Each step gets one plain sentence. The agent shows it once at the start (after `project.assess`, with routed and skipped steps already marked) and asks nothing about it. After each play, it shows a single progress line (for example `Foundations 3 of 6: color done, typography next`), not the whole outline. At each gate, and on resume, it shows the full outline with each step's status from `sistema.json`. The gate pages (`style-preview.html`, `token-check.html`) carry the same outline as a header strip, and link to any comparison pages in `sistema-review/`. **Cost limits:** no extra questions, no extra pages, and HTML is only touched when a gate page is built anyway. | `render.ts` (starter and full workflow), gate page rules, `start.md` | V1.5 revision |
+
+---
+
+## R1: resume rerun (after the V1.5 revision)
+
+**Project:** `~/Repos/sistema-slice/new-project-2`, a fresh clone of the original scaffold commit (`3273072`), with its own git repo and no remote.
+
+**What it tests:** whether an informal return finds its way back to the workflow through the agent instructions file, with nothing pasted. It also checks the V1.5 changes on the first plays: the outline, real ramp stops in the preview, `sistema-review/`, and a valid `sistema.json`.
+
+**How to run (owner):**
+1. Open a fresh Claude Code session in `new-project-2` and paste:
+   ```
+   Fetch https://sistema-git-v2-jtd-604ef502.vercel.app/raw/workflows/start and follow it.
+   ```
+2. Answer as you like. Reusing the new-project product is fine.
+3. When the agent stops at the direction approval, **close the session without approving.**
+4. Open a new session in the same folder and type something informal, for example "let's keep going". Do not paste the starter.
+5. Approve or revise, then let it run through the color play at least. Going on to the final approval is better.
+6. At the end, ask the agent what gaps it noticed in the prompts.
+
+**Pass if:**
+- The resumed session fetches the workflow URL before doing anything else.
+- It shows the outline with status, and records the direction gate as `{date, by}`.
+- It runs `color.scheme` with the palette and contrast tools, and the colors match the approved preview's stops.
+- `sistema.json` validates against `/raw/schema/sistema.json` at the end.
+- `AGENTS.md` has the Sistema section.
+
+I review it from the session logs in `~/.claude/projects/`, so an export isn't required.

@@ -151,6 +151,22 @@ continue_with: workflow.patterns  # offered at the end, not run automatically
 
 Field names are illustrative. V1 settles the schema. DESIGN.md (identity and visual language) and DECISIONS.md (the decision log) sit beside this file, as in plan 8.6. The living brief's other jobs move into this file.
 
+### 5.1 Continuity and review pages (added in V1.5)
+
+The slice runs showed that the state file alone doesn't bring a new session back to the workflow: people resume with "keep going," not by pasting the starter again. So continuity is part of the model:
+
+- **`continue`** in `sistema.json` holds the URL of the running workflow. The starter's first instruction is to resume from it whenever `sistema.json` exists.
+- **The agent instructions file** (`AGENTS.md`, or `CLAUDE.md`) gets a marked Sistema section from `project.assess` that points to `continue`. Coding agents load this file at the start of every session, so no copying is needed. Rule `project.state.pointer`.
+- **Every Sistema file** (DECISIONS.md, DESIGN.md, review pages) carries one line naming the `continue` URL, as a backup.
+- **A workflow has an explicit end.** The starter tells the agent to say the workflow is complete, offer the next workflow or say there is none, and update `continue` and the instructions file. Work after that is outside Sistema's process.
+- **The schema is published** at `/raw/schema/sistema.json`, generated from the Zod schema. The starter states the exact shape, and the agent validates the file before ending a session. Step status adds `in-progress`. Gate records add an optional `note`. `project` adds `theme_primary` and `platform`.
+
+Review pages are part of the model too:
+- **They live in `sistema-review/`:** the gate pages (`style-preview.html`, `token-check.html`) and comparison pages named by play (for example `color.map-existing.html`).
+- **The outline is rendered from the workflow definition.** It's shown after the first play, at gates, and on resume, with one progress line after each play. Review pages show it as a strip (`quality.review.outline`).
+- **Choices that change how the system looks are shown, not described.** The play writes a comparison page of the current state against each option before asking (`quality.review.compare-visually`).
+- **Matters of taste are presented as options, not set as defaults.** An example is how to treat existing colors. The plays may name the usual suggestion.
+
 ## 6. How each channel renders the same files
 
 | | Paste-in | MCP | Agent Skill |

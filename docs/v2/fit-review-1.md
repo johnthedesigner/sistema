@@ -1,6 +1,6 @@
 # Fit Review 1: Revision Plan
 
-**Task:** V1.5. **Inputs:** both slice runs and the owner's feedback, in `slice-runs.md`. **Status:** approved by the owner on 2026-11-15, with 2.3 replaced by the instructions-file pointer (2.1). All four ⚑ items follow the recommendation. 6.2 (batch contrast) is approved for V1.5.
+**Task:** V1.5. **Inputs:** both slice runs and the owner's feedback, in `slice-runs.md`. **Status:** approved by the owner on 2026-11-15, with 2.3 replaced by the instructions-file pointer (2.1). All four ⚑ items follow the recommendation. 6.2 (batch contrast) is approved for V1.5. **Applied 2026-11-15**, except 6.1 (V2) and section 8 (V1.7, V3). Rule names as built: `quality.review.compare-visually` and `quality.review.outline` (rule IDs need a topic), plus `project.state.valid` for 3.4.
 
 How to review: mark each item **accept**, **change** (with a note), or **drop**. Items marked ⚑ need a decision, not just a yes. When the plan is approved, I apply it, rerun the resume test (R1), and then start the full migration (V1.10).
 

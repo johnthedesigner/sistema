@@ -211,5 +211,19 @@ describe('parsers and sistema.json', () => {
     })
     expect(ok.success).toBe(true)
     expect(SistemaState.safeParse({ sistema: '2', steps: { 'not a play': { status: 'complete' } } }).success).toBe(false)
+    // V1.5 additions: continue, in-progress, gate note, theme_primary, platform.
+    expect(
+      SistemaState.safeParse({
+        sistema: '2',
+        continue: 'https://sistema.example/raw/workflows/start',
+        project: { theme: 'light-dark', theme_primary: 'light', platform: 'web' },
+        steps: { 'visual-language.direction': { status: 'in-progress' } },
+        gates: { 'foundations-approved': { date: '2026-11-15', by: 'owner', note: '7 roles changed' } },
+      }).success,
+    ).toBe(true)
+    // Shapes the slice runs invented are rejected.
+    expect(SistemaState.safeParse({ sistema: '2', milestone: 'foundations-complete' }).success).toBe(false)
+    expect(SistemaState.safeParse({ sistema: '2', gates: { 'direction-approved': { status: 'approved', date: '2026-11-15' } } }).success).toBe(false)
+    expect(SistemaState.safeParse({ sistema: '2', steps: { 'components.core': { status: 'done' } } }).success).toBe(false)
   })
 })

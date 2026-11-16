@@ -53,8 +53,8 @@ describe('/raw/workflows/[id] and /full', () => {
       const text = await res.text()
       clean(text)
       expect(text).toContain('## How to run it')
-      expect(text).toMatch(/^1\. .+: https?:\/\/\S+\/raw\/plays\//m)
-      expect(text.split('\n').length).toBeLessThan(80)
+      expect(text).toMatch(/^ 1\. .+\n {4}https?:\/\/\S+\/raw\/plays\//m)
+      expect(text.split('\n').length).toBeLessThan(140)
     })
     it(`renders the ${id} full version`, async () => {
       const res = await fullGET(new Request('http://x'), { params: Promise.resolve({ id }) })
@@ -64,4 +64,16 @@ describe('/raw/workflows/[id] and /full', () => {
       expect(text).toContain('## Play 1:')
     })
   }
+})
+
+describe('/raw/schema/sistema.json', () => {
+  it('serves a JSON Schema that matches the state file shape', async () => {
+    const { GET } = await import('./schema/sistema.json/route')
+    const res = GET()
+    expect(res.headers.get('content-type')).toContain('schema+json')
+    const schema = await res.json()
+    expect(schema.properties.continue).toBeDefined()
+    expect(schema.properties.steps.additionalProperties.properties.status.enum).toContain('in-progress')
+    expect(schema.properties.gates.additionalProperties.required).toEqual(['date', 'by'])
+  })
 })

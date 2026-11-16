@@ -1,5 +1,13 @@
 # Migration Notes
 
+**V1.5 revision (2026-11-15):** after the slice runs, the converted plays changed as listed in `fit-review-1.md` sections 2 to 7. Summary:
+- `project.assess` adds the agent instructions pointer, `continue`, `theme_primary`, `platform`, an "Inferred, not asked" line, and explains how existing colors will be handled without asking for a strategy.
+- `visual-language.direction` takes every preview color from the palette tool, writes to `sistema-review/`, and may link web fonts.
+- `color.scheme` reuses the stops the approved preview used, and lists any change.
+- `color.map-existing` diagnoses existing values, builds a comparison page with three options per hue, and asks before changing anything (`color.existing.consent`).
+- `tokens.pipeline` states the Tailwind 3 and 4 wiring, lists every file it changes outside `tokens/`, requires a passing app build, links the DESIGN.md front matter spec, and adds "approved but not yet tokenized" to the token check page.
+- The tables below describe the first conversion (V1.1).
+
 For each converted play: where every instruction from the legacy play (and its Bootstrap campaign copy) went. Each instruction is either **kept** (in the new procedure), **moved** (to a rule, a guide section, the contract, or the renderer), or **dropped** (with a reason).
 
 The renderer (`src/lib/content/render.ts`) now produces sections that every legacy play wrote by hand: references, tool usage, "update the living brief," and the decision log line. Those are marked **renderer** below.

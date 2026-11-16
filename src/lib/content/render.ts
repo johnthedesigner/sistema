@@ -19,6 +19,7 @@ export const playUrl = (base: string, id: string) => `${base}/raw/plays/${id}`
 export const workflowSlug = (id: string) => id.replace(/^workflow\./, '')
 export const workflowUrl = (base: string, id: string) => `${base}/raw/workflows/${workflowSlug(id)}`
 export const workflowFullUrl = (base: string, id: string) => `${workflowUrl(base, id)}/full`
+export const stateSchemaUrl = (base: string) => `${base}/raw/schema/sistema.json`
 
 /** Guides live in kb/principles until V1.12 moves them to content/guides. */
 export function guideUrl(base: string, ref: string): { url: string; section?: string } {
@@ -49,8 +50,8 @@ export const TOOL_DOCS: Record<ToolName, ToolDoc> = {
     usage: base =>
       [
         `POST ${base}/api/contrast`,
-        'Body: {"foreground": "#hex", "background": "#hex"}  (one pair per request)',
-        'Returns: {"ratio": 4.83, "passes": {"aa_text", "aa_large_text", "aa_ui", "aaa_text", "aaa_large_text"}}',
+        'Body: {"pairs": [{"foreground": "#hex", "background": "#hex", "label": "on-primary on primary"}, ...]}  (send every pair in one request, up to 200)',
+        'Returns: {"results": [{"label", "ratio": 4.83, "passes": {"aa_text", "aa_large_text", "aa_ui", "aaa_text", "aaa_large_text"}}, ...]}  (same order; an invalid pair gets {"error"})',
       ].join('\n'),
   },
   type_scale: {
@@ -187,21 +188,66 @@ export function workflowSteps(workflow: Workflow, plays: Map<string, Play>): { s
   return { steps, leadingGates }
 }
 
-/** The short paste-in starter (capability-model 9.2). */
-export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, workflows?: Map<string, Workflow>): string {
+const MILESTONE_TITLES: Record<string, string> = {
+  direction: 'Direction',
+  foundations: 'Foundations',
+  patterns: 'Patterns',
+  maintain: 'Maintain',
+}
+
+/** The workflow outline, grouped by milestone, with gates in place (proposal H). */
+export function renderOutline(workflow: Workflow, ctx: RenderContext): string {
   const { steps, leadingGates } = workflowSteps(workflow, ctx.plays)
-  const gateLine = (g: { gate: string; prompt: string }) => `   GATE (${g.gate}): ${g.prompt}`
+  const lines: string[] = leadingGates.map(g => `   ◆ Approval: ${g.gate}`)
+  let milestone = ''
+  for (const s of steps) {
+    if (s.play.milestone !== milestone) {
+      milestone = s.play.milestone
+      lines.push(`${MILESTONE_TITLES[milestone] ?? milestone}`)
+    }
+    lines.push(
+      `${String(s.number).padStart(2)}. ${s.play.title}${s.optional ? ' (optional)' : ''}: ${s.play.description}`,
+      `    ${playUrl(ctx.base, s.play.id)}`,
+    )
+    for (const g of s.gateAfter) lines.push(`   ◆ Approval (${g.gate}): ${g.prompt}`)
+  }
+  return lines.join('\n')
+}
 
-  const list = [
-    ...leadingGates.map(g => gateLine(g).trim()),
-    ...steps.flatMap(s => [
-      `${s.number}. ${s.play.title}${s.optional ? ' (optional: offer it, run it only if the person wants it)' : ''}: ${playUrl(ctx.base, s.play.id)}`,
-      ...s.gateAfter.map(gateLine),
-    ]),
-  ]
+/** The exact sistema.json shape, shown in the starter (fit review 3.1). */
+function stateExample(workflow: Workflow, ctx: RenderContext): string {
+  return JSON.stringify(
+    {
+      sistema: '2',
+      workflow: workflowSlug(workflow.id),
+      continue: workflowUrl(ctx.base, workflow.id),
+      milestone: 'direction',
+      project: {
+        a11y_standard: 'wcag-2.2 AA',
+        theme: 'light-dark',
+        theme_primary: 'light',
+        density: 'balanced',
+        platform: 'web',
+        stack: 'react-tailwind',
+      },
+      steps: {
+        'project.assess': { status: 'complete', date: '<YYYY-MM-DD>', evidence: '<one line>' },
+        'visual-language.direction': { status: 'in-progress', date: '<YYYY-MM-DD>' },
+      },
+      gates: { 'direction-approved': { date: '<YYYY-MM-DD>', by: '<who approved>', note: '<optional: what changed at approval>' } },
+      routing: { 'color.scheme': 'color.map-existing' },
+    },
+    null,
+    2,
+  )
+}
 
+/** The short paste-in starter (capability-model 9.2, revised in V1.5). */
+export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, workflows?: Map<string, Workflow>): string {
+  const { steps } = workflowSteps(workflow, ctx.plays)
   const tools = [...new Set(steps.flatMap(s => s.play.tools))]
   const next = workflow.continue_with ? workflows?.get(workflow.continue_with) : undefined
+  const url = workflowUrl(ctx.base, workflow.id)
 
   const parts = [
     `# ${workflow.title}`,
@@ -209,22 +255,53 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
     ...(workflow.body ? [workflow.body] : []),
     'You are running a Sistema workflow. Work through it one play at a time.',
     [
+      '## First: is this a resumed run?',
+      '',
+      'If `sistema.json` exists in the project root, this is a resumed run, whatever the person said ("continue", "pick up where I left off", or anything else). Read it, show the outline below with each step\'s status, and continue from the first step that is not complete or skipped. If a gate is waiting, ask for that approval first. Do not start other work until the workflow is finished or the person says to leave it.',
+    ].join('\n'),
+    [
+      '## Outline',
+      '',
+      'Show this outline to the person once, after the first play, with steps that will be skipped or replaced already marked. After each play, show one progress line, for example `Foundations 3 of 6: color done, typography next`. At each approval, and when resuming, show the full outline with each step\'s status. Review pages carry the same outline as a strip at the top.',
+      '',
+      '```',
+      renderOutline(workflow, ctx),
+      '```',
+    ].join('\n'),
+    [
       '## How to run it',
       '',
-      '1. Read `sistema.json` in the project root. If it does not exist, the first play creates it.',
-      '2. Find the first play below that is not marked complete in `sistema.json` `steps`.',
-      "3. Fetch that play's instructions from its URL and follow them exactly.",
-      `4. If \`sistema.json\` \`routing\` maps that play to a different one, run that play instead. Every play is at ${ctx.base}/raw/plays/<id>.`,
-      "5. If the play's outputs already exist and meet its checks, record it as complete with that evidence and move on.",
-      "6. When a play's evidence is shown, record it in `sistema.json` and continue with the next play. If the person declines an optional play, record it as skipped.",
-      '7. At a GATE, stop. Ask the person to review, and continue only after they approve. Record the approval in `sistema.json` `gates` with today\'s date.',
-      '8. If the session ends, the next session starts again at step 1. Finished plays are skipped.',
+      '1. Find the first play in the outline that is not marked complete or skipped in `sistema.json` `steps`.',
+      `2. If \`sistema.json\` \`routing\` maps that play to a different one, run that play instead. Every play is at ${ctx.base}/raw/plays/<id>.`,
+      "3. Fetch the play's instructions from its URL and follow them exactly.",
+      "4. If the play's outputs already exist and meet its checks, record it as complete with that evidence and move on.",
+      '5. When a play\'s evidence is shown, record it in `sistema.json` and continue. If the person declines an optional play, record it as skipped.',
+      '6. At an approval, stop. Set the play before it to `in-progress`, ask the person to review, and continue only after they approve. Then record the gate and mark the play complete. Tell the person they can stop at any approval and pick up later in any new session.',
+      '7. Set `milestone` to the milestone of the next unfinished play.',
+      `8. Before ending any session, check \`sistema.json\` against the schema at ${stateSchemaUrl(ctx.base)} and fix anything that doesn't match.`,
     ].join('\n'),
-    `## Plays\n\n${list.join('\n')}`,
+    [
+      '## State: sistema.json',
+      '',
+      'Use exactly this shape. Only play IDs go in `steps`. Status is one of `pending`, `in-progress`, `complete`, or `skipped`. `milestone` is one of `direction`, `foundations`, `patterns`, or `maintain`. Work done outside a play goes in DECISIONS.md, not in `steps`.',
+      '',
+      '```json',
+      stateExample(workflow, ctx),
+      '```',
+      '',
+      `\`continue\` is this workflow's URL: ${url}. The first play also adds a short Sistema section to the project's AGENTS.md or CLAUDE.md that points to it, so a new session finds its way back. If that section is missing when you resume, add it as \`project.assess\` describes.`,
+    ].join('\n'),
     ...(tools.length ? [renderTools(ctx.base, tools)] : []),
-    ...(next
-      ? [`## When this workflow is done\n\nTell the person what was completed, then offer to continue with ${next.title}: ${workflowUrl(ctx.base, next.id)}`]
-      : []),
+    [
+      '## When this workflow is done',
+      '',
+      'After the last approval:',
+      `1. Tell the person the "${workflow.title}" workflow is complete, and show the final outline.`,
+      next
+        ? `2. Offer to continue with ${next.title}: ${workflowUrl(ctx.base, next.id)}. If they accept, set \`continue\` to that URL. If not, remove \`continue\`.`
+        : '2. Say that there is no next Sistema workflow yet, and that further work (for example, building components) is outside Sistema\'s process, so they can decide how to go on. Remove `continue` from `sistema.json`, and change the Sistema section in the agent instructions file to say the workflow is finished and DESIGN.md is the reference.',
+      '3. Ask: "Was anything in this process unclear, or would you change anything?" Add any answer to DECISIONS.md.',
+    ].join('\n'),
     `If you cannot fetch URLs, use the full version, which includes every play: ${workflowFullUrl(ctx.base, workflow.id)}`,
   ]
   return parts.join('\n\n') + '\n'
@@ -246,7 +323,7 @@ function demote(markdown: string): string {
 export function renderWorkflowFull(workflow: Workflow, ctx: RenderContext, workflows?: Map<string, Workflow>): string {
   const starter = renderWorkflowStarter(workflow, ctx, workflows)
     .replace(/\n\nIf you cannot fetch URLs, use the full version[^\n]*\n$/, '\n')
-    .replace("3. Fetch that play's instructions from its URL and follow them exactly.", "3. Follow that play's instructions, included below.")
+    .replace("3. Fetch the play's instructions from its URL and follow them exactly.", "3. Follow that play's instructions, included below.")
   const { steps } = workflowSteps(workflow, ctx.plays)
   const plays = steps.map(s => demote(renderPlay(s.play, ctx)).replace(/^## /, `## Play ${s.number}: `))
   return [starter.trimEnd(), ...plays.map(p => p.trimEnd())].join('\n\n---\n\n') + '\n'

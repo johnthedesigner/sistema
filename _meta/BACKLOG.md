@@ -40,3 +40,15 @@ Items discovered during development or piloting that are not urgent enough to fi
 - **Iconography as an optional foundation area** — Many app UIs need an icon library chosen early, with a constrained set of sizes, stroke weights, colors, and alignment rules tied to the type scale and color tokens. Possible shape in the v2 model: a new `iconography` topic with a guide, rules (size steps keyed to type roles, stroke weight, color roles icons may use, accessible labeling), and a play such as `iconography.system`. It would be offered as an optional continuation after Foundations, like Patterns. Needs reference material first (icon library docs, design system icon guidance), sourced through the KB intake process. Plan Section 9.2 already lists iconography as a likely gap. *Owner note during V1.4 slice runs, 2026-11-15.*
 
 - **Data visualization as an optional foundation area** — B2B apps often need chart color palettes (categorical, sequential, diverging) that are accessible and work with the color tokens, plus chart library selection. Library choice is hard: most libraries cover a narrow set of chart types, so full coverage can take more than one library, and that choice should be recorded with its reason. Larger and more complex than iconography. It probably needs its own guide set (palette construction, chart type coverage, library comparison) and several plays rather than one. Possible tool candidate: a data-viz palette generator built on the existing palette algorithm, evaluated against the plan's tool test (Section 10.3) before building. Plan Section 9.2 lists data visualization as a likely gap. *Owner note during V1.4 slice runs, 2026-11-15.*
+
+## Component lessons from the slice runs (v2)
+
+- **Lessons for the Patterns milestone plays** — The new-project slice run built about 40 components outside the workflow and found problems the component plays should teach. Add them as rules or guide sections when components are converted (V1.10 to V1.13):
+  - In Tailwind 4, `outline-none` sets the outline style to none, so `outline-2` draws nothing unless `outline-solid` is added. Axe does not catch it. Check that the focus ring actually renders.
+  - Don't disable the focused control while its action runs, because focus drops to `<body>`. Ignore repeat presses instead.
+  - Toasts carry confirmations and undo only. Errors the person must act on stay inline, where they can't time out. A toast with an action never times out. Hover and focus pause the timer independently.
+  - Self-host fonts. `next/font/google` failed builds twice on a busy network.
+  - Never put two utilities for the same property on one element. Tailwind orders the CSS rules, not the class order.
+  - Run Playwright with a fixed, small number of workers on a loaded machine, so slow runs aren't mistaken for flaky tests.
+
+  *From the V1.4 new-project run, 2026-11-15.*

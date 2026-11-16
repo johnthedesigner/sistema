@@ -58,3 +58,25 @@
   applies_to: every primitive ramp used for semantic roles
   checked_by: [tool.palette]
   sources: [guide.color.primitive-ramp-scalability#the-sistema-palette-api]
+
+- id: color.existing.consent
+  statement: >-
+    No existing color is replaced, renamed, moved to a different stop, or surrounded by many new values
+    without an explicit choice from the person, made after seeing the options on a comparison page.
+  reason: >-
+    Existing palettes, narrow, broad, or custom, are deliberate. Whether to keep them exactly, complete
+    them, or regenerate them is a matter of taste that varies by project, so the person decides.
+  layer: sistema-default
+  severity: blocking
+  measure: { kind: presence }
+  applies_to: color.map-existing, and any play that changes existing color values
+  checked_by: [play.color.map-existing evidence]
+
+- id: color.preview.ramp-strips
+  statement: >-
+    Every ramp shown on a review page is one row of swatches with no gaps between them, labels below the
+    row, and existing or anchored values marked.
+  reason: Separate swatches hide uneven steps. A continuous strip makes jumps in lightness or saturation visible.
+  layer: sistema-default
+  severity: advisory
+  applies_to: style-preview.html, token-check.html, sistema-review/*.html
