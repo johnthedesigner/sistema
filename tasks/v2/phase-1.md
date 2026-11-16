@@ -97,7 +97,7 @@ Review `slice-runs.md` with the owner against capability-model Section 11. Revis
 
 ### Task V1.6: IA and layout research
 
-**Status:** not started
+**Status:** findings written 2026-11-16 (`docs/v2/ia-research.md`); waiting for owner review
 
 Plan 7.2's list of sites, plus 2 or 3 well-regarded MCP servers and skill libraries. The question for those: how they organize capabilities for an agent. Write findings to `docs/v2/ia-research.md`.
 
