@@ -5,7 +5,7 @@
 import matter from 'gray-matter'
 import yaml from 'js-yaml'
 import type { z } from 'zod'
-import { PlayFrontmatter, RuleFile, WorkflowFrontmatter, type Rule } from './schema'
+import { OpinionFrontmatter, PlayFrontmatter, RuleFile, WorkflowFrontmatter, opinionSections, type Rule } from './schema'
 
 export interface ParseIssue {
   path: string // field path inside the file
@@ -19,6 +19,10 @@ export interface Play extends PlayFrontmatter {
   file: string
 }
 export interface Workflow extends WorkflowFrontmatter {
+  body: string
+  file: string
+}
+export interface Opinion extends OpinionFrontmatter {
   body: string
   file: string
 }
@@ -66,6 +70,23 @@ export function parseWorkflow(file: string, text: string): Parsed<Workflow> {
   const result = WorkflowFrontmatter.safeParse(data)
   if (!result.success) return { ok: false, issues: issues(result.error) }
   return { ok: true, value: { ...result.data, body: content.trim(), file } }
+}
+
+export function parseOpinion(file: string, text: string): Parsed<Opinion> {
+  const fm = safeFrontmatter(text)
+  if (!fm.ok) return fm
+  const { data, content } = fm
+  const result = OpinionFrontmatter.safeParse(data)
+  if (!result.success) return { ok: false, issues: issues(result.error) }
+  const headings = [...content.matchAll(/^##\s+(.+?)\s*$/gm)].map(m => m[1])
+  const missing = opinionSections(result.data.group).filter(h => !headings.includes(h))
+  if (missing.length) return { ok: false, issues: missing.map(h => ({ path: 'body', message: `missing section "## ${h}"` })) }
+  return { ok: true, value: { ...result.data, body: content.trim(), file } }
+}
+
+/** Expected file path for an opinion ID: opinion.tokens-before-components -> content/opinions/tokens-before-components.md */
+export function opinionPath(id: string): string {
+  return `content/opinions/${id.slice('opinion.'.length)}.md`
 }
 
 export function parseRuleFile(text: string): Parsed<Rule[]> {

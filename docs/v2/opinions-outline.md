@@ -1,6 +1,6 @@
 # Published Opinions: Outline
 
-**Task:** V1.8, outline stage. **Status:** waiting for owner review. After approval I write each opinion as a content item in `content/opinions/<id>.md`, following plan Section 1's writing style.
+**Task:** V1.8, outline stage. **Status:** approved 2026-11-16. Drafted as 20 content items in `content/opinions/` (see Section 6 for the owner's answers).
 
 **Sources:** plan Section 6 (the starting list), decision D3 (default stack), the rules registry (`content/rules/`), what the slice runs and R1 showed, and owner direction from 2026-11-16 (visual milestones, matters of taste are guidance, nothing existing changes without consent).
 
@@ -91,3 +91,12 @@ The plan's starting list, edited after the slice runs. **New** marks an item tha
 2. **Load-bearing items.** #4, #5, and #10 are hard to override without losing part of the method. Should the page mark these (for example, "Required for Sistema to work"), or leave every item equally optional in tone?
 3. **The "otherwise" for #5 and #7 is "none."** Is an opinion with no real alternative still an opinion, or does it belong in "How Sistema works" instead?
 4. **Override logging.** Should overrides use a fixed form in DECISIONS.md (for example, "Override: opinion.tokens-before-components") so audits can find them, or stay free text?
+
+## 6. Owner answers (2026-11-16)
+
+1. **Cuts:** keep all seven new opinions. Merge "Output is CSS custom properties" into the DTCG item, and "Go beyond the minimum" into the accessibility standard item. 22 becomes 20.
+2. **and 3. Opinions you can't really override:** they're part of how Sistema works. They form a fifth group, `method`, which comes first on the page. Method items have "Why" and "What breaks without it" instead of the two override sections. The four are: tokens before components, evidence before done, your repo holds the state, and read before asking.
+4. **Overrides:** an override is a decision like any other. It goes in DECISIONS.md and names the opinion it overrides.
+
+The draft: `content/opinions/*.md`, schema `OpinionFrontmatter` in `src/lib/content/schema.ts`. The content checker validates each item's sections, file path, rules, and guide anchors. Pages and `/raw/opinions` come with the site build in V1.13.
+

@@ -113,6 +113,35 @@ export const WorkflowFrontmatter = z
   .refine(w => Boolean(w.sequence) !== Boolean(w.routes), { message: 'a workflow has either a sequence or routes, not both' })
 export type WorkflowFrontmatter = z.infer<typeof WorkflowFrontmatter>
 
+/**
+ * Published opinions (plan 6, V1.8). `method` opinions are part of how Sistema
+ * works and can't be overridden without losing part of the method; the other
+ * groups are defaults a project may override in DECISIONS.md.
+ */
+export const OPINION_GROUPS = ['method', 'process', 'structure', 'quality-floor', 'boundary'] as const
+export type OpinionGroup = (typeof OPINION_GROUPS)[number]
+export const OpinionId = z.string().regex(/^opinion\.[a-z0-9]+(?:-[a-z0-9]+)*$/, 'opinion id must be opinion.<name>')
+
+export const OpinionFrontmatter = z
+  .object({
+    id: OpinionId,
+    title: z.string().min(3),
+    group: z.enum(OPINION_GROUPS),
+    /** The default, in one sentence. */
+    default: z.string().min(10),
+    description: z.string().min(20),
+    rules: z.array(RuleId).default([]),
+    guides: z.array(GuideRef).default([]),
+    last_reviewed: z.iso.date(),
+  })
+  .strict()
+export type OpinionFrontmatter = z.infer<typeof OpinionFrontmatter>
+
+/** Body sections each opinion must have, by group. */
+export function opinionSections(group: OpinionGroup): string[] {
+  return group === 'method' ? ['Why', 'What breaks without it'] : ['Why', "When you'd choose otherwise", 'If you override it']
+}
+
 export const Rule = z
   .object({
     id: RuleId,

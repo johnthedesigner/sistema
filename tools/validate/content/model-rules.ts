@@ -6,10 +6,13 @@ import { MILESTONES } from '../../../src/lib/content/schema'
 import {
   guideFiles,
   headingAnchors,
+  opinionPath,
+  parseOpinion,
   parsePlay,
   parseRuleFile,
   parseWorkflow,
   playPath,
+  type Opinion,
   type ParseIssue,
   type Play,
   type Workflow,
@@ -23,6 +26,7 @@ interface Model {
   plays: Play[]
   workflows: Workflow[]
   rules: Array<ContentRule & { file: string }>
+  opinions: Opinion[]
   errors: Array<{ file: string; issue: ParseIssue }>
 }
 
@@ -31,7 +35,7 @@ const cache = new WeakMap<Corpus, Model>()
 export function loadModel(corpus: Corpus): Model {
   const hit = cache.get(corpus)
   if (hit) return hit
-  const model: Model = { plays: [], workflows: [], rules: [], errors: [] }
+  const model: Model = { plays: [], workflows: [], rules: [], opinions: [], errors: [] }
   for (const f of corpus.contentFiles ?? []) {
     if (/^content\/plays\/.+\.md$/.test(f.path)) {
       const r = parsePlay(f.path, f.text)
@@ -40,6 +44,10 @@ export function loadModel(corpus: Corpus): Model {
     } else if (/^content\/workflows\/[^/]+\.md$/.test(f.path)) {
       const r = parseWorkflow(f.path, f.text)
       if (r.ok) model.workflows.push(r.value)
+      else r.issues.forEach(issue => model.errors.push({ file: f.path, issue }))
+    } else if (/^content\/opinions\/[^/]+\.md$/.test(f.path)) {
+      const r = parseOpinion(f.path, f.text)
+      if (r.ok) model.opinions.push(r.value)
       else r.issues.forEach(issue => model.errors.push({ file: f.path, issue }))
     } else if (/^content\/rules\/[^/]+\.ya?ml$/.test(f.path)) {
       const r = parseRuleFile(f.text)
@@ -84,7 +92,7 @@ const TOOL_WORDS: Record<string, RegExp> = {
 const parses: Rule = {
   id: 'model.schema',
   level: 'code',
-  description: 'Every play, workflow, and rule file in content/ matches its schema.',
+  description: 'Every play, workflow, rule, and opinion file in content/ matches its schema.',
   check: c => loadModel(c).errors.map(e => ({ file: e.file, line: 1, message: `${e.issue.path}: ${e.issue.message}` })),
 }
 
@@ -104,6 +112,12 @@ const idMatchesPath: Rule = {
     for (const r of loadModel(c).rules) {
       if (ruleSeen.has(r.id)) out.push({ file: r.file, line: 1, message: `duplicate rule id ${r.id} (also ${ruleSeen.get(r.id)})` })
       ruleSeen.set(r.id, r.file)
+    }
+    const opinionSeen = new Set<string>()
+    for (const o of loadModel(c).opinions) {
+      if (opinionPath(o.id) !== o.file) out.push({ file: o.file, line: 1, message: `id ${o.id} should live at ${opinionPath(o.id)}` })
+      if (opinionSeen.has(o.id)) out.push({ file: o.file, line: 1, message: `duplicate opinion id ${o.id}` })
+      opinionSeen.add(o.id)
     }
     return out
   },
@@ -240,13 +254,14 @@ const producesConflict: Rule = {
 const knowledgeResolves: Rule = {
   id: 'model.knowledge',
   level: 'code',
-  description: 'Every guide ref (play knowledge, rule sources) names a guide that exists, and its #anchor is a heading in it.',
+  description: 'Every guide ref (play knowledge, rule sources, opinion guides) names a guide that exists, and its #anchor is a heading in it.',
   check(c) {
     const out: Out[] = []
     const m = loadModel(c)
     const refs = [
       ...m.plays.flatMap(p => p.knowledge.map(ref => ({ file: p.file, ref }))),
       ...m.rules.flatMap(r => r.sources.filter(s => s.startsWith('guide.')).map(ref => ({ file: r.file, ref }))),
+      ...m.opinions.flatMap(o => o.guides.map(ref => ({ file: o.file, ref }))),
     ]
     for (const p of refs) {
       for (const ref of [p.ref]) {
@@ -266,11 +281,11 @@ const knowledgeResolves: Rule = {
 const rulesResolve: Rule = {
   id: 'model.rule-refs',
   level: 'code',
-  description: 'Every rule a play cites exists in content/rules/.',
+  description: 'Every rule a play or opinion cites exists in content/rules/.',
   check(c) {
     const m = loadModel(c)
     const ids = new Set(m.rules.map(r => r.id))
-    return m.plays.flatMap(p => p.rules.filter(r => !ids.has(r)).map(r => ({ file: p.file, line: 1, message: `unknown rule ${r}` })))
+    return [...m.plays, ...m.opinions].flatMap(p => p.rules.filter(r => !ids.has(r)).map(r => ({ file: p.file, line: 1, message: `unknown rule ${r}` })))
   },
 }
 

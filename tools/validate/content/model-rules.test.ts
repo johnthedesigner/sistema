@@ -235,3 +235,49 @@ describe('parsers and sistema.json', () => {
     expect(SistemaState.safeParse({ sistema: '2', steps: { 'components.core': { status: 'done' } } }).success).toBe(false)
   })
 })
+
+// ─── opinions (V1.8) ────────────────────────────────────────────────────────
+
+function opinion(o: { slug: string; group?: string; rules?: string[]; guides?: string[]; body?: string; path?: string }): SourceFile {
+  const group = o.group ?? 'process'
+  const body =
+    o.body ??
+    (group === 'method'
+      ? '## Why\n\nReason.\n\n## What breaks without it\n\nConsequence.\n'
+      : "## Why\n\nReason.\n\n## When you'd choose otherwise\n\nCase.\n\n## If you override it\n\nEffect.\n")
+  return {
+    path: o.path ?? `content/opinions/${o.slug}.md`,
+    text: `---
+id: opinion.${o.slug}
+title: An opinion
+group: ${group}
+default: A default stated in one sentence.
+description: "When to use: a description long enough to pass."
+rules: ${JSON.stringify(o.rules ?? [])}
+guides: ${JSON.stringify(o.guides ?? [])}
+last_reviewed: 2026-11-16
+---
+${body}`,
+  }
+}
+
+describe('opinions', () => {
+  it('a valid opinion passes, including rule and guide refs', () => {
+    const ok = opinion({ slug: 'calculate', rules: ['color.contrast.text'], guides: ['guide.color.architecture#dark-mode-tonal-shift'] })
+    const method = opinion({ slug: 'evidence', group: 'method' })
+    expect(violations(corpus([rulesFile, ok, method]))).toEqual([])
+  })
+  it('requires the sections for its group', () => {
+    const missing = opinion({ slug: 'evidence', group: 'method', body: "## Why\n\nReason.\n\n## If you override it\n\nx\n" })
+    const msgs = violations(corpus([missing]), 'model.schema').map(v => v.message)
+    expect(msgs).toEqual(['body: missing section "## What breaks without it"'])
+  })
+  it('reports a misplaced file, an unknown rule, and a missing guide anchor', () => {
+    const misplaced = opinion({ slug: 'a', path: 'content/opinions/b.md' })
+    const badRefs = opinion({ slug: 'c', rules: ['color.nope'], guides: ['guide.color.architecture#nope'] })
+    const c = corpus([rulesFile, misplaced, badRefs])
+    expect(violations(c, 'model.id-path').map(v => v.message)).toEqual(['id opinion.a should live at content/opinions/a.md'])
+    expect(violations(c, 'model.rule-refs').map(v => v.message)).toEqual(['unknown rule color.nope'])
+    expect(violations(c, 'model.knowledge').map(v => v.message)).toEqual(['guide.color.architecture#nope: no heading with anchor #nope'])
+  })
+})

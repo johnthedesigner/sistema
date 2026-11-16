@@ -113,11 +113,11 @@ Home and onboarding narrative (plan Section 3), built around three entry points:
 
 ### Task V1.8: Published opinions (outline first)
 
-**Status:** outline in `docs/v2/opinions-outline.md`, waiting for owner review
+**Status:** outline approved 2026-11-16; draft of 20 items in `content/opinions/`, waiting for owner review. Rendering comes in V1.13
 
 Plan Section 6 opinions as `content/opinions/` items: default, reason, when to choose otherwise. Outline, owner review, then draft.
 
-- [ ] Outline approved; draft approved; opinions are content items, not page copy
+- [ ] Outline approved (done); draft approved; opinions are content items, not page copy (done)
 
 ### Task V1.9: Proposed site structure
 
