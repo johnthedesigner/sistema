@@ -1,0 +1,328 @@
+<title>Sistema Site Structure</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single review column; option comparisons sit side by side and stack on phones. Sistema's own palette. */
+:root {
+  --canvas: #EFEEEA; --surface: #FFFFFF; --sunken: #F7F6F2;
+  --fg: #0E1116; --muted: #5B6470; --subtle: #8A929C;
+  --border: #E1E0DA; --border-strong: #C9CFD6;
+  --primary: #0058CC; --on-primary: #FFFFFF; --primary-container: #E6F0FF; --on-primary-container: #003A9E;
+  --rec: #137A4D; --rec-bg: #E3F3EC;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --canvas: #121417; --surface: #1B1E23; --sunken: #16191D;
+  --fg: #ECEEF1; --muted: #A3ABB5; --subtle: #7D8590;
+  --border: #2C3037; --border-strong: #3B414A;
+  --primary: #5C9DFF; --on-primary: #08152B; --primary-container: #1A2C4A; --on-primary-container: #BFD8FF;
+  --rec: #6FD3A3; --rec-bg: #15332A; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --canvas: #121417; --surface: #1B1E23; --sunken: #16191D;
+  --fg: #ECEEF1; --muted: #A3ABB5; --subtle: #7D8590;
+  --border: #2C3037; --border-strong: #3B414A;
+  --primary: #5C9DFF; --on-primary: #08152B; --primary-container: #1A2C4A; --on-primary-container: #BFD8FF;
+  --rec: #6FD3A3; --rec-bg: #15332A; color-scheme: dark; }
+
+body { background: var(--canvas); color: var(--fg); font: 15px/1.55 var(--font-sans); }
+.wrap { max-width: 1040px; margin: 0 auto; padding-block: 40px 72px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 48px; }
+h1 { font: 600 2.25rem/1.1 var(--font-serif); margin: 0; text-wrap: balance; }
+h2 { font-size: 1.35rem; line-height: 1.25; margin: 0; text-wrap: balance; }
+h3 { font-size: 1rem; margin: 0; }
+p { margin: 0; max-width: 68ch; }
+.lead { color: var(--muted); }
+.eyebrow { font: 500 .72rem/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+section { display: grid; gap: 16px; }
+.head { display: grid; gap: 8px; }
+code, .mono { font-family: var(--font-mono); font-size: .86em; }
+
+/* prompt box */
+.stage { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 32px 24px; display: grid; gap: 16px; justify-items: center; }
+.stage .hl { font: 600 1.6rem/1.15 var(--font-serif); text-align: center; text-wrap: balance; }
+.pb { width: 100%; max-width: 680px; display: grid; gap: 12px; }
+.box { border: 1px solid var(--border-strong); border-radius: 14px; background: var(--surface); box-shadow: 0 4px 14px rgba(14,17,22,.06); display: grid; }
+.box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-container); }
+.box textarea { border: 0; background: transparent; color: var(--fg); font: 14px/1.5 var(--font-mono); padding: 14px 16px 6px; resize: vertical; min-height: 84px; outline: none; }
+.boxbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 8px 8px 16px; flex-wrap: wrap; }
+.hint { color: var(--muted); font-size: .82rem; }
+.copy { display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 10px; background: var(--primary); color: var(--on-primary); font: 600 .9rem var(--font-sans); padding: 9px 14px; cursor: pointer; }
+.copy:focus-visible, .chip:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.chip { border: 1px solid var(--border-strong); background: var(--surface); color: var(--fg); border-radius: 999px; padding: 7px 13px; font: 500 .86rem var(--font-sans); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--primary-container); border-color: var(--primary); color: var(--on-primary-container); }
+.chips.sub .chip { font-size: .8rem; padding: 5px 11px; }
+.sublabel { text-align: center; font-size: .78rem; color: var(--muted); }
+.notes { display: grid; gap: 6px; padding-left: 18px; margin: 0; color: var(--muted); font-size: .9rem; }
+
+/* options */
+.opts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 760px) { .opts { grid-template-columns: 1fr; } }
+.opt { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; display: grid; gap: 14px; align-content: start; min-width: 0; }
+.opt.rec { border-color: var(--rec); }
+.tag { justify-self: start; font: 600 .72rem/1 var(--font-sans); padding: 5px 8px; border-radius: 6px; background: var(--sunken); color: var(--muted); }
+.opt.rec .tag { background: var(--rec-bg); color: var(--rec); }
+.navbar { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; padding: 10px 12px; border-radius: 10px; background: var(--sunken); font-size: .82rem; font-weight: 600; }
+.navbar .logo { font-family: var(--font-serif); margin-right: 6px; }
+.navbar .right { margin-left: auto; color: var(--muted); font-weight: 500; }
+.tree { display: grid; gap: 10px; font-size: .86rem; }
+.tree .node b { display: block; }
+.tree .node span { color: var(--muted); }
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.tabs span { font-size: .78rem; padding: 4px 9px; border-radius: 6px; background: var(--sunken); color: var(--muted); }
+.tabs span:first-child { background: var(--primary-container); color: var(--on-primary-container); }
+.proscons { display: grid; gap: 4px; font-size: .86rem; color: var(--muted); padding-left: 18px; margin: 0; }
+
+/* wireframes */
+.wf { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; display: grid; gap: 10px; min-width: 0; align-content: start; }
+.blk { border: 1px dashed var(--border-strong); border-radius: 8px; padding: 9px 11px; font-size: .82rem; color: var(--muted); }
+.blk b { color: var(--fg); font-weight: 600; }
+.blk.solid { border-style: solid; background: var(--sunken); }
+.blk.agent { font-family: var(--font-mono); font-size: .74rem; border-style: solid; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* url table */
+.scroll { overflow-x: auto; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; }
+table { border-collapse: collapse; width: 100%; font-size: .86rem; }
+th, td { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+td.mono { white-space: nowrap; }
+.gone { color: var(--muted); }
+
+ol.qs { display: grid; gap: 10px; padding-left: 20px; margin: 0; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: no-preference) { .chip, .copy { transition: background-color .12s, border-color .12s; } }
+</style>
+
+<div class="wrap">
+  <header class="head">
+    <div class="eyebrow">V1.9 · Proposal for owner review</div>
+    <h1>Sistema site structure</h1>
+    <p class="lead">Four places to go, one prompt box that every entry point shares, and the pages and URLs behind them. The written version is <code>docs/v2/site-structure.md</code>.</p>
+  </header>
+
+  <section aria-labelledby="pb-h">
+    <div class="head">
+      <div class="eyebrow">1 · The prompt box</div>
+      <h2 id="pb-h">Choose what you want to do, then copy the prompt</h2>
+      <p class="lead">This one works. Try the suggestions, edit the text, and copy. The headline is the working one from the narrative.</p>
+    </div>
+    <div class="stage">
+      <div class="hl">Firm foundations for AI-built apps. More room to design.</div>
+      <div class="pb">
+        <div class="box">
+          <label for="prompt" class="sr">Prompt to paste into your coding agent</label>
+          <textarea id="prompt" rows="3" spellcheck="false"></textarea>
+          <div class="boxbar">
+            <span class="hint" id="hint">Paste into Claude Code, Cursor, or another coding agent, in your project folder.</span>
+            <button class="copy" id="copy" type="button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <span id="copy-label">Copy prompt</span>
+            </button>
+          </div>
+        </div>
+        <div class="chips" role="group" aria-label="What do you want to do?" id="doors"></div>
+        <div id="routes-wrap" hidden>
+          <div class="sublabel" id="routes-label">What do you want to work on?</div>
+          <div class="chips sub" role="group" aria-labelledby="routes-label" id="routes" style="margin-top:8px"></div>
+        </div>
+        <div aria-live="polite" class="sr" id="live"></div>
+      </div>
+    </div>
+    <ul class="notes">
+      <li>The text in square brackets is for you to fill in. The box is editable, so the copied prompt says what you want.</li>
+      <li>The button reads "Copy prompt" with a copy icon. An arrow would suggest the message gets sent.</li>
+      <li>The same box appears on the "Work on my system" page with only the second row, and on workflow and play pages with no suggestions.</li>
+      <li>Later (V4), a toggle above the box switches between Prompt and MCP server.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="nav-h">
+    <div class="head">
+      <div class="eyebrow">2 · Navigation</div>
+      <h2 id="nav-h">Four places, joined by topic</h2>
+      <p class="lead">Plan 7.1 separates getting to work, learning, and looking things up. Topics run across all three as links.</p>
+    </div>
+    <div class="opts">
+      <div class="opt rec">
+        <span class="tag">A · Recommended</span>
+        <h3>Four places, topics as cross-links</h3>
+        <div class="navbar"><span class="logo">Sistema</span><span>Get started</span><span>Guides</span><span>Reference</span><span>Tools</span><span class="right">For agents · GitHub</span></div>
+        <div class="tree">
+          <div class="node"><b>Get started</b><span>How Sistema works · Start a design system · Bring Sistema to an existing system · Work on my system · All plays</span></div>
+          <div class="node"><b>Guides</b><span>Color · Typography · Spacing · Shape · Depth · Motion · Tokens · Accessibility · Content · Visual language · Quality · AI</span></div>
+          <div class="node"><b>Reference</b><span>Opinions · Rules · Workflows · File formats · Tool APIs · Sources</span></div>
+          <div class="node"><b>Tools</b><span>Palette · Contrast · Type scale</span></div>
+        </div>
+        <ul class="proscons">
+          <li>Starting work is always one click away.</li>
+          <li>Learning and looking up stay separate, as plan 7.1 asks.</li>
+          <li>A guide ends with its plays and rules, so a topic is still easy to follow.</li>
+        </ul>
+      </div>
+      <div class="opt">
+        <span class="tag">B · Considered</span>
+        <h3>Topic hubs</h3>
+        <div class="navbar"><span class="logo">Sistema</span><span>Get started</span><span>Topics</span><span>Tools</span><span class="right">For agents · GitHub</span></div>
+        <div class="tree">
+          <div class="node"><b>Color</b>
+            <div class="tabs" style="margin-top:6px"><span>Guide</span><span>Plays</span><span>Rules</span><span>Tool</span></div>
+          </div>
+          <div class="node"><b>Typography, Spacing, Shape…</b><span>The same four tabs on every topic</span></div>
+          <div class="node"><b>Opinions, file formats</b><span>No natural topic, so they need a place of their own anyway</span></div>
+        </div>
+        <ul class="proscons">
+          <li>Reads well when you care about one topic.</li>
+          <li>Mixes learning, doing, and looking up on one page.</li>
+          <li>Starting a design system becomes one link among many.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="tpl-h">
+    <div class="head">
+      <div class="eyebrow">3 · Page templates</div>
+      <h2 id="tpl-h">Every play page has the same parts, in the same order</h2>
+      <p class="lead">Play pages follow the shape the IA research found on Carbon and Stripe. Guide pages end where the play pages begin.</p>
+    </div>
+    <div class="opts">
+      <div class="wf" aria-label="Play page wireframe">
+        <div class="eyebrow">Play page · /plays/color.scheme</div>
+        <div class="blk agent">For agents: plain text at /raw/plays/color.scheme · llms.txt</div>
+        <div class="blk solid"><b>Color scheme</b><br>What it does and when to use it · Foundations · Reviewed 2026-11-15</div>
+        <div class="blk solid"><b>Prompt box</b>, this play's prompt, no suggestions</div>
+        <div class="row2"><div class="blk"><b>Needs</b><br>Direction approved, accessibility standard</div><div class="blk"><b>Produces</b><br>Color tokens, review page</div></div>
+        <div class="blk"><b>Evidence it shows</b><br>Contrast results for every pair, ramps on a page</div>
+        <div class="row2"><div class="blk"><b>Rules</b><br>Linked to the rules table</div><div class="blk"><b>Guide sections</b><br>Linked by anchor</div></div>
+        <div class="blk"><b>In these workflows</b><br>Start: previous and next step</div>
+        <div class="blk">Edit on GitHub</div>
+      </div>
+      <div class="wf" aria-label="Guide page wireframe">
+        <div class="eyebrow">Guide page · /guides/color/architecture</div>
+        <div class="blk agent">For agents: plain text at /raw/guides/color/architecture · llms.txt</div>
+        <div class="row2" style="grid-template-columns: 2fr 1fr">
+          <div class="blk solid" style="min-height:150px"><b>Guide body</b><br>Sections with stable anchors that plays cite</div>
+          <div class="blk"><b>On this page</b><br>Section list</div>
+        </div>
+        <div class="blk"><b>Plays for color</b><br>Color scheme · Bring in existing colors · Add a theme</div>
+        <div class="blk"><b>Rules for color</b><br>Linked to the rules table</div>
+        <div class="blk">Reviewed date · Edit on GitHub</div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="url-h">
+    <div class="head">
+      <div class="eyebrow">4 · Pages and URLs</div>
+      <h2 id="url-h">Short URLs that say what the page is</h2>
+      <p class="lead">No redirects are needed, since there are no outside users yet.</p>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Page</th><th>URL</th><th>Replaces</th></tr></thead>
+        <tbody>
+          <tr><td>Home</td><td class="mono">/</td><td></td></tr>
+          <tr><td>How Sistema works</td><td class="mono">/how-it-works</td><td class="mono gone">/guide</td></tr>
+          <tr><td>Entry pages</td><td class="mono">/start · /existing · /work</td><td></td></tr>
+          <tr><td>A workflow</td><td class="mono">/workflows/[id]</td><td class="mono gone">/campaigns/*</td></tr>
+          <tr><td>Plays</td><td class="mono">/plays · /plays/[id]</td><td class="mono gone">/playbooks/*</td></tr>
+          <tr><td>Guides</td><td class="mono">/guides/[topic]/[name]</td><td class="mono gone">/kb/principles/*</td></tr>
+          <tr><td>Opinions</td><td class="mono">/reference/opinions</td><td></td></tr>
+          <tr><td>Rules</td><td class="mono">/reference/rules</td><td></td></tr>
+          <tr><td>File formats</td><td class="mono">/reference/files/[name]</td><td></td></tr>
+          <tr><td>Tool APIs</td><td class="mono">/reference/tools</td><td></td></tr>
+          <tr><td>Tools</td><td class="mono">/tools/[name]</td><td></td></tr>
+          <tr><td>Sources</td><td class="mono">/sources</td><td class="gone">Reference material pages (/kb/*)</td></tr>
+          <tr><td>For agents</td><td class="mono">/agents · /llms.txt</td><td class="mono gone">/bundle/*</td></tr>
+          <tr><td>Plain-text twins</td><td class="mono">/raw/…</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="q-h">
+    <div class="head">
+      <div class="eyebrow">5 · Your call</div>
+      <h2 id="q-h">Four questions before this is final</h2>
+    </div>
+    <ol class="qs">
+      <li><b>Navigation.</b> Four places with topic cross-links (A, recommended), or topic hubs (B)?</li>
+      <li><b>Prompt box.</b> Is the editable box with a fill-in line the direction you want? Should the second row appear only after "Work on my system" (as shown), or always?</li>
+      <li><b>When URLs change.</b> Move to the new URLs in V1.13 while rewiring the pages (recommended, so nothing gets built twice), or keep the old ones until V3?</li>
+      <li><b>Search.</b> Keep today's Cmd-K command palette and point it at the new content (recommended), or drop it for now?</li>
+    </ol>
+  </section>
+</div>
+
+<script>
+(function () {
+  var SITE = 'https://sistema.johnthedesigner.com';
+  var start = 'Fetch ' + SITE + '/raw/workflows/start and follow it.';
+  var session = 'Fetch ' + SITE + '/raw/workflows/session and follow it.';
+  var doors = [
+    { id: 'start', label: 'Start a design system', prompt: start },
+    { id: 'existing', label: 'I already have a design system', prompt: start + '\nThis project already has a design system. Keep what is there.' },
+    { id: 'work', label: 'Work on my system', prompt: session }
+  ];
+  var routes = [
+    { label: 'Add a component', line: 'I want to add a component: [which one, and what it is for]' },
+    { label: 'Add a theme', line: 'I want to add a theme: [which one]' },
+    { label: 'Bring in existing colors', line: 'I want to bring in existing colors from: [where they live]' },
+    { label: 'Audit a component', line: 'Audit this component: [name]' },
+    { label: 'Audit accessibility', line: 'Audit accessibility.' },
+    { label: 'Audit token use', line: 'Audit token use.' },
+    { label: 'Review the system', line: 'Review the system against DESIGN.md and the decision log.' },
+    { label: 'Plan the next round', line: 'Plan the next round of work.' }
+  ];
+  var ta = document.getElementById('prompt');
+  var doorsEl = document.getElementById('doors');
+  var routesEl = document.getElementById('routes');
+  var routesWrap = document.getElementById('routes-wrap');
+  var live = document.getElementById('live');
+  var label = document.getElementById('copy-label');
+
+  function chip(text, onClick) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip'; b.textContent = text;
+    b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', onClick);
+    return b;
+  }
+  function press(group, btn) {
+    Array.prototype.forEach.call(group.children, function (c) { c.setAttribute('aria-pressed', c === btn ? 'true' : 'false'); });
+  }
+  function set(text) { ta.value = text; label.textContent = 'Copy prompt'; }
+
+  doors.forEach(function (d) {
+    var b = chip(d.label, function () {
+      press(doorsEl, b);
+      routesWrap.hidden = d.id !== 'work';
+      press(routesEl, null);
+      set(d.prompt);
+    });
+    doorsEl.appendChild(b);
+  });
+  routes.forEach(function (r) {
+    var b = chip(r.label, function () { press(routesEl, b); set(session + '\n' + r.line); });
+    routesEl.appendChild(b);
+  });
+
+  press(doorsEl, doorsEl.children[0]);
+  set(doors[0].prompt);
+
+  document.getElementById('copy').addEventListener('click', function () {
+    var text = ta.value;
+    function done() { label.textContent = 'Copied'; live.textContent = 'Copied. Paste it into your agent.'; }
+    function fallback() { ta.focus(); ta.select(); label.textContent = 'Selected, press Ctrl+C'; live.textContent = 'Prompt selected. Copy it with your keyboard.'; }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback);
+      else fallback();
+    } catch (e) { fallback(); }
+  });
+})();
+</script>

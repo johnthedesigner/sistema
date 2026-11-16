@@ -113,15 +113,15 @@ Home and onboarding narrative (plan Section 3), built around three entry points:
 
 ### Task V1.8: Published opinions (outline first)
 
-**Status:** outline approved 2026-11-16; draft of 20 items in `content/opinions/`, waiting for owner review. Rendering comes in V1.13
+**Status:** outline approved 2026-11-16; complete 2026-11-16. Outline and draft approved; 20 items in `content/opinions/`. Rendering comes in V1.13
 
 Plan Section 6 opinions as `content/opinions/` items: default, reason, when to choose otherwise. Outline, owner review, then draft.
 
-- [ ] Outline approved (done); draft approved; opinions are content items, not page copy (done)
+- [x] Outline approved; draft approved; opinions are content items, not page copy
 
 ### Task V1.9: Proposed site structure
 
-**Status:** not started
+**Status:** proposal in `docs/v2/site-structure.md` with a visual version (`site-structure.html`), waiting for owner review
 
 Three modes (plan 7.1), with topic-organized reference and plays grouped under topics. This is a proposal only. The build happens in V3.
 
