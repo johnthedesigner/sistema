@@ -85,7 +85,7 @@ Record for each run:
 
 ### Task V1.5: Fit review 1 (owner)
 
-**Status:** in progress. Revision plan in `docs/v2/fit-review-1.md`, waiting for owner markup
+**Status:** in progress. Plan approved 2026-11-15 (`docs/v2/fit-review-1.md`); applying it, then the R1 resume rerun
 
 Review `slice-runs.md` with the owner against capability-model Section 11. Revise the model, schemas, and slice content. **Full migration does not start until the owner approves.**
 

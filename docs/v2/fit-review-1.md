@@ -1,6 +1,6 @@
 # Fit Review 1: Revision Plan
 
-**Task:** V1.5. **Inputs:** both slice runs and the owner's feedback, in `slice-runs.md`. **Status:** waiting for the owner's markup.
+**Task:** V1.5. **Inputs:** both slice runs and the owner's feedback, in `slice-runs.md`. **Status:** approved by the owner on 2026-11-15, with 2.3 replaced by the instructions-file pointer (2.1). All four ⚑ items follow the recommendation. 6.2 (batch contrast) is approved for V1.5.
 
 How to review: mark each item **accept**, **change** (with a note), or **drop**. Items marked ⚑ need a decision, not just a yes. When the plan is approved, I apply it, rerun the resume test (R1), and then start the full migration (V1.10).
 
@@ -23,14 +23,22 @@ How to review: mark each item **accept**, **change** (with a note), or **drop**.
 
 ## 2. Continuity and resume (highest priority)
 
-**2.1 Every Sistema file points back to the workflow.**
-- `sistema.json` gets `"continue": "<site>/raw/workflows/start"`.
-- DECISIONS.md, DESIGN.md (as an HTML comment), `style-preview.html`, and `token-check.html` each get one line: *"This project follows Sistema's Start workflow. Before doing more design system work, fetch <url> and continue from sistema.json."*
-- Where it changes: the starter, the assess play, and rule `project.state.pointer` (blocking, checked by `sistema.json` validation).
+**2.1 A pointer in the agent instructions file (primary mechanism).** `project.assess` adds a short, clearly marked section to the project's `AGENTS.md`, or to `CLAUDE.md` if that is what the project uses. It creates `AGENTS.md` if neither exists, and tells the person what it added. Coding agents load these files at the start of every session, so a new session knows about Sistema before the person types anything. The section reads:
 
-**2.2 The starter's first rule.** "If `sistema.json` exists, fetch the `continue` URL and resume from it before doing anything else, even if the person only says 'continue.'" This only helps once the starter has been read, which is why 2.1 puts the pointer in the files the agent reads first.
+```
+<!-- sistema:start -->
+## Design system (Sistema)
+This project's design system follows Sistema. Before any design system work
+(tokens, colors, type, components, DESIGN.md), read sistema.json and fetch
+the URL in its "continue" field, then follow it.
+<!-- sistema:end -->
+```
 
-**2.3 Every gate message ends with the resume text.** For example: *"To continue in a new session, paste: Fetch <url> and follow it."*
+The markers let later plays update or remove the section. The `continue` field in `sistema.json` holds the current workflow URL (2.4 changes it when a workflow ends). Rule `project.state.pointer` is blocking: the section exists, and `continue` is set while a workflow is running. The starter repeats it as its first instruction: if `sistema.json` exists, resume from it, even when the person only says "continue."
+
+**2.2 Backup pointers in Sistema's own files.** DECISIONS.md, DESIGN.md (as an HTML comment), and the review pages each carry one line naming the `continue` URL. These are for tools that don't load an instructions file, and for people reading the files.
+
+**2.3 ~~Gate messages end with text to paste.~~ Dropped** (owner: copying text between sessions is not a good approach). 2.1 makes it unnecessary. Gate messages say only that the person can stop here and pick up later in any session.
 
 **2.4 The workflow has a clear end.** When the last gate passes, the agent says Start is complete and names the next workflow, or says there isn't one yet. It also says that further work is outside Sistema's process, so the person can decide. For `continue` in `sistema.json` this means: the next workflow's URL, or removed.
 
