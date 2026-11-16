@@ -55,6 +55,9 @@ code, .mono { font-family: var(--font-mono); font-size: .86em; }
 .chip { border: 1px solid var(--border-strong); background: var(--surface); color: var(--fg); border-radius: 999px; padding: 7px 13px; font: 500 .86rem var(--font-sans); cursor: pointer; }
 .chip[aria-pressed="true"] { background: var(--primary-container); border-color: var(--primary); color: var(--on-primary-container); }
 .chips.sub .chip { font-size: .8rem; padding: 5px 11px; }
+#routes-wrap.dim { opacity: .55; }
+#routes-wrap.dim:hover, #routes-wrap.dim:focus-within { opacity: .8; }
+@media (prefers-reduced-motion: no-preference) { #routes-wrap { transition: opacity .15s; } }
 .sublabel { text-align: center; font-size: .78rem; color: var(--muted); }
 .notes { display: grid; gap: 6px; padding-left: 18px; margin: 0; color: var(--muted); font-size: .9rem; }
 
@@ -126,7 +129,7 @@ ol.qs { display: grid; gap: 10px; padding-left: 20px; margin: 0; }
           </div>
         </div>
         <div class="chips" role="group" aria-label="What do you want to do?" id="doors"></div>
-        <div id="routes-wrap" hidden>
+        <div id="routes-wrap" class="dim">
           <div class="sublabel" id="routes-label">What do you want to work on?</div>
           <div class="chips sub" role="group" aria-labelledby="routes-label" id="routes" style="margin-top:8px"></div>
         </div>
@@ -252,7 +255,7 @@ ol.qs { display: grid; gap: 10px; padding-left: 20px; margin: 0; }
     </div>
     <ol class="qs">
       <li><b>Navigation.</b> Four places with topic cross-links (A, recommended), or topic hubs (B)?</li>
-      <li><b>Prompt box.</b> Is the editable box with a fill-in line the direction you want? Should the second row appear only after "Work on my system" (as shown), or always?</li>
+      <li><b>Prompt box.</b> Decided: the second row always shows, slightly dimmed. Choosing "Work on my system" or any task in that row selects "Work on my system" and lifts the dimming.</li>
       <li><b>When URLs change.</b> Move to the new URLs in V1.13 while rewiring the pages (recommended, so nothing gets built twice), or keep the old ones until V3?</li>
       <li><b>Search.</b> Keep today's Cmd-K command palette and point it at the new content (recommended), or drop it for now?</li>
     </ol>
@@ -301,14 +304,20 @@ ol.qs { display: grid; gap: 10px; padding-left: 20px; margin: 0; }
   doors.forEach(function (d) {
     var b = chip(d.label, function () {
       press(doorsEl, b);
-      routesWrap.hidden = d.id !== 'work';
+      routesWrap.classList.toggle('dim', d.id !== 'work');
       press(routesEl, null);
       set(d.prompt);
     });
     doorsEl.appendChild(b);
   });
   routes.forEach(function (r) {
-    var b = chip(r.label, function () { press(routesEl, b); set(session + '\n' + r.line); });
+    var b = chip(r.label, function () {
+      // Choosing a task also chooses "Work on my system" and lifts the dimming.
+      press(doorsEl, doorsEl.children[2]);
+      routesWrap.classList.remove('dim');
+      press(routesEl, b);
+      set(session + '\n' + r.line);
+    });
     routesEl.appendChild(b);
   });
 

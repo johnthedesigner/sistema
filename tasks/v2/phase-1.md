@@ -121,11 +121,11 @@ Plan Section 6 opinions as `content/opinions/` items: default, reason, when to c
 
 ### Task V1.9: Proposed site structure
 
-**Status:** proposal in `docs/v2/site-structure.md` with a visual version (`site-structure.html`), waiting for owner review
+**Status:** complete 2026-11-16. Approved: four places joined by topic, the prompt box (routes row dimmed until chosen), new URLs in V1.13, keep Cmd-K search. See `docs/v2/site-structure.md`
 
 Three modes (plan 7.1), with topic-organized reference and plays grouped under topics. This is a proposal only. The build happens in V3.
 
-- [ ] Proposal approved
+- [x] Proposal approved
 
 ---
 
@@ -159,7 +159,7 @@ Move `kb/principles/` to `content/guides/` (D4), give each guide a required titl
 
 **Status:** not started
 
-Point the existing pages (play pages, play index, campaign pages, home quick cards, `/guide` references) at the new loaders, with minimal UI change. The site restructure is V3. Remove stage constants and `PLAY_DESCRIPTIONS`. **Added from V1.6 (owner, 2026-11-16):** publish `llms.txt` (opening with how agents should use Sistema, then one line per workflow, play, and guide), an agents page, and a short "for agents" note at the top of every page.
+Point the existing pages (play pages, play index, campaign pages, home quick cards, `/guide` references) at the new loaders, with minimal UI change. The site restructure is V3. Remove stage constants and `PLAY_DESCRIPTIONS`. **Added from V1.9 (owner, 2026-11-16):** use the new URLs from `docs/v2/site-structure.md` section 3 and delete the old routes; point Cmd-K search at the new content; give session routes human labels and let the session starter accept a route named in the prompt (needed by the prompt box). **Added from V1.6 (owner, 2026-11-16):** publish `llms.txt` (opening with how agents should use Sistema, then one line per workflow, play, and guide), an agents page, and a short "for agents" note at the top of every page.
 
 - [ ] `npm run build` passes; every current route either renders from the new model or is removed on purpose
 - [ ] `llms.txt`, the agents page, and the per-page agent note are live

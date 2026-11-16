@@ -1,6 +1,6 @@
 # Proposed Site Structure
 
-**Task:** V1.9 (plan 7.1). **Status:** proposal, waiting for owner review. The build happens in two steps: V1.13 points pages at the new content model, and V3 does the visual restructure. A visual version of this proposal, with a working prompt box, is in `site-structure.html` in this folder.
+**Task:** V1.9 (plan 7.1). **Status:** approved 2026-11-16 (answers in section 7). The build happens in two steps: V1.13 points pages at the new content model, and V3 does the visual restructure. A visual version of this proposal, with a working prompt box, is in `site-structure.html` in this folder.
 
 **Inputs:** plan Section 7, `ia-research.md` (sections 4 to 6), the approved narrative (`narrative-draft.md`), the opinions (`content/opinions/`), and the owner's prompt box idea (2026-11-16).
 
@@ -31,7 +31,7 @@ The owner's idea, refined. One component, used in three places.
 **On the home page:**
 - The box looks like a chat input and shows the real prompt.
 - Three suggestions sit below it: **Start a design system** (selected by default), **I already have a design system**, and **Work on my system**.
-- Choosing "Work on my system" shows a second row of suggestions, the routes: add a component, add a theme, bring in existing colors, audit a component, audit accessibility, audit token use, review the system, and plan the next round. Two rows keep the first view small.
+- A second row always shows the routes: add a component, add a theme, bring in existing colors, audit a component, audit accessibility, audit token use, review the system, and plan the next round. The row is slightly dimmed until "Work on my system" is chosen. Choosing "Work on my system", or any route in the row, selects "Work on my system" and lifts the dimming. (Owner, 2026-11-16.)
 - Choosing a suggestion swaps the prompt in the box.
 - Route prompts end with a line you can fill in, such as "I want to add a component: [describe it]". The box is editable, so the copied prompt can say what you want.
 - The action button reads **Copy prompt** and shows a copy icon. An arrow would suggest sending. After a click it says "Copied. Paste it into your agent."
@@ -103,3 +103,11 @@ The owner's idea, refined. One component, used in three places.
 2. **Prompt box:** is the editable box with a fill-in line for routes the direction you want? Should the second row of route suggestions appear only after choosing "Work on my system", or always show?
 3. **URL change in V1.13:** move to the new URLs while rewiring (recommended), or keep the old ones until V3?
 4. **Search:** the site has a command palette (Cmd-K) today. Keep it and point it at the new content (recommended), or drop it until the site has more content?
+
+## 7. Owner answers (2026-11-16)
+
+1. **Navigation:** the four places, with topics as cross-links.
+2. **Prompt box:** the routes row always shows, slightly dimmed. Choosing "Work on my system" or any route selects "Work on my system" and lifts the dimming. Section 2 and the visual page are updated.
+3. **URLs:** change them in V1.13.
+4. **Search:** keep the Cmd-K command palette and point it at the new content.
+
