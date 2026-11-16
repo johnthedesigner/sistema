@@ -38,21 +38,54 @@ When a run ends, tell me. I'll review the transcript (if you can share it or sav
 
 | Measure | New project | Existing colors |
 |---|---|---|
-| Plays completed, skipped, routed | | 4 complete, 5 placeholders skipped, color routed to map-existing |
-| Resume tested (new session picked up correctly) | | No. The whole run was one session |
-| Palette tool calls (count; malformed?) | | 1 call for all four hues (pine, ink, ember, red), as the play asks. Not malformed |
-| Contrast tool calls (count; malformed?) | | 4 shell loops of single-pair calls (3 in direction, 1 for 27 pairs in color), so roughly 50 HTTP calls. None malformed. Independent recheck: 21 pairs, 0 failures |
-| Any values computed by hand instead of by tool | | **Yes, in the style preview.** 7 preview colors were hand-picked and later replaced by ramp stops (see finding 2) |
-| Gates: stopped and waited? revision handled? | | Both gates held. The Foundations approval recorded the 7 changed roles |
-| Evidence shown for each play | | Yes, one line per play in `sistema.json` |
-| `sistema.json` valid against the schema | | **No** (see finding 1) |
-| Routing set and followed (existing colors) | | Yes |
+| Plays completed, skipped, routed | 2 complete (assess, direction). After resume, none: the agent left the workflow (finding N1) | 4 complete, 5 placeholders skipped, color routed to map-existing |
+| Resume tested (new session picked up correctly) | **Failed.** The owner typed "pick up where I left off" instead of re-pasting. The agent never fetched Sistema again | No. The whole run was one session |
+| Palette tool calls (count; malformed?) | 2 in session 1 (direction). 0 after resume. Ramps were hand-built in Python | 1 call for all four hues (pine, ink, ember, red), as the play asks. Not malformed |
+| Contrast tool calls (count; malformed?) | About 15 batched loops in session 1 (92 pairs). 0 after resume; a local contrast function was used instead | 4 shell loops of single-pair calls (3 in direction, 1 for 27 pairs in color), so roughly 50 HTTP calls. None malformed. Independent recheck: 21 pairs, 0 failures |
+| Any values computed by hand instead of by tool | Yes, after resume: 7 ramp stops interpolated by hand, and all later contrast checks | **Yes, in the style preview.** 7 preview colors were hand-picked and later replaced by ramp stops (see finding 2) |
+| Gates: stopped and waited? revision handled? | Direction: stopped and waited. Approved as-is, but `gates` is still `{}`. No Foundations gate, no `token-check.html` | Both gates held. The Foundations approval recorded the 7 changed roles |
+| Evidence shown for each play | Yes, but under invented step IDs | Yes, one line per play in `sistema.json` |
+| `sistema.json` valid against the schema | **No.** Milestone `components`; step IDs that don't exist (`tokens.semantic`, `components.core`, and others); extra project fields `theme_primary` and `platform` | **No** (see finding 1) |
+| Routing set and followed (existing colors) | n/a | Yes |
 | Brand colors preserved (existing colors) | | Values yes, exactly. One brand name was re-slotted without asking (finding 4) |
-| Things the agent guessed or asked that it shouldn't have | | Invented a milestone value, a step status, and a gate record shape (finding 1). Guessed the DESIGN.md front matter format (finding 6). Kept ink-200 at its name without asking (finding 4) |
-| Claims that didn't match the files | | None found. Contrast, role count, compile, and app build all verified |
-| Approximate token use, if visible | | Not visible in the export |
+| Things the agent guessed or asked that it shouldn't have | Session 1: recorded its assumptions (one team, 20 to 60 components) in DECISIONS.md, which is good. After resume: guessed the whole rest of the process | Invented a milestone value, a step status, and a gate record shape (finding 1). Guessed the DESIGN.md front matter format (finding 6). Kept ink-200 at its name without asking (finding 4) |
+| Claims that didn't match the files | None found. Its claims about tests and builds match the commits | None found. Contrast, role count, compile, and app build all verified |
+| Approximate token use, if visible | Session 2 ran about 8 hours and compacted at least once | Not visible in the export |
 
 ## Findings
+
+### New project (reviewed 2026-11-15)
+
+Sources: the owner's export, plus both session logs (`2f803d5f…` the first session, `033a8f86…` the resumed one), read directly. The owner described their own product: a dense data analysis and scenario planning tool, with Airtable-like color personality, both themes equal, light primary.
+
+**Session 1 (on the workflow) went well.** Assess recorded the answers and wrote down its assumptions. The direction play used the palette and contrast tools, checked 92 pairs, built "Ink & Signal" (magenta primary, teal secondary, plum-tinted neutrals, 8 categorical hues, IBM Plex), stopped at the gate, and named its judgment calls clearly.
+
+**Findings:**
+
+N1. **Resume left the workflow, and nothing pulled it back. This is the most important finding of both runs.** The owner returned with "I was in the middle of something, let's pick up where I left off", which is what a person actually types. The agent rebuilt the state well from DECISIONS.md, DESIGN.md, `sistema.json`, and the preview, and correctly found the waiting gate. But nothing in those files said where the workflow lives, so it never fetched Sistema again. After approval it improvised. It recorded no gate, invented step IDs and a `components` milestone, wrote every DESIGN.md section from the preview, put tokens straight into `globals.css` (no DTCG, no Style Dictionary, no `token-check.html`, no Foundations gate), hand-built ramps, and then built about 40 components over 8 hours as the owner kept saying yes. The work is good, but it isn't Sistema's process, and the state file no longer describes reality. *Proposed fixes:*
+   - `sistema.json` carries `"continue": "<site>/raw/workflows/start"`, and the starter says that any session that finds `sistema.json` fetches that URL before doing anything else.
+   - Every file Sistema creates gets one line at the top: DECISIONS.md, the DESIGN.md comment, and the footer of each review page. The line says: "This project follows Sistema's Start workflow. To continue, fetch <url>."
+   - At each gate, the agent's message ends with the exact text to paste in a new session.
+   - Once Start ends, the agent says so plainly. It names the next workflow (or "none yet"), and says that further work is outside Sistema's process. This also gives proposal H's outline a clear end.
+   - Later, MCP and Agent Skills make this native: a skill can trigger on `sistema.json`.
+
+N2. **Off-workflow, the agent found things the plays should teach.** These are candidates for rules and guides:
+   - In Tailwind 4, `outline-none` plus `outline-2` draws no focus ring unless `outline-solid` is added. Axe doesn't catch it. This is the second run to hit a Tailwind 4 trap (see existing-colors finding 7).
+   - Turn off Tailwind's default palette (`--color-*: initial`), so only system colors exist.
+   - Avoid self-referencing `@theme` variables (again).
+   - Self-host fonts, because `next/font/google` failed builds twice.
+   - Don't disable the focused button while its action runs.
+   - Toasts have no error tone, and toasts with an action never time out.
+
+   The pipeline items belong in `tokens.pipeline`. The component items wait for the components milestone (V1.10 and later).
+
+N3. **Its hand-built ramps anchored the approved values on exact stops,** which is the same idea as proposal E. That's more evidence the palette tool should accept anchors.
+
+N4. **The review page can't show the chosen typeface.** It must be self-contained, so IBM Plex rendered only if it was installed locally. The agent said so honestly. *Proposed fix:* allow font links from Google Fonts or a font CDN in review pages (only the font, nothing else), or require a note when the font can't be shown.
+
+N5. **`project.assess` collects things the schema has no field for:** the primary theme when both are used, and the platform. The agent added `theme_primary` and `platform`. *Proposed fix:* add both to the schema and the starter's shapes (with existing-colors finding 1).
+
+N6. **Approvals were bare "yes" and "proceed" for 8 hours.** Each one carried the agent further from Sistema with no outline to measure against. Proposal H (an outline and progress) would have made the drift visible. After the first resume, the outline would have shown the token, color, and pipeline steps as still pending.
 
 ### Existing colors (reviewed 2026-11-15)
 
