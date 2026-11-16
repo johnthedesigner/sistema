@@ -1,6 +1,6 @@
 # Narrative Draft
 
-**Task:** V1.7, draft stage. **Status:** waiting for owner review. This follows the approved outline (`narrative-outline.md`) and the owner's answers on 2026-11-16:
+**Task:** V1.7, draft stage. **Status:** approved for this juncture 2026-11-16 (headline still open; final copy gets another pass when the site is built in V1.13 and V3). This follows the approved outline (`narrative-outline.md`) and the owner's answers on 2026-11-16:
 - keep "Patterns";
 - one practice, "Work on my system";
 - speak to whoever is driving the agent;
@@ -57,14 +57,14 @@ Your agent builds the system in stages. After each one, you see the result in yo
 
 - **One source of truth.** Tokens use the open DTCG format, so design tools can read them too. Figma variables export is planned.
 - **Accessible color by design.** Every ramp is built on contrast targets, and every pairing is checked against your standard. New colors fit without breaking it.
-- **Themes from day one.** Light and dark are two views of the same roles. Adding another theme is an addition, not a rewrite.
+- **Themes from day one.** Light and dark are two views of the same roles. Adding another theme is an addition, not a rewrite. Density and reduced-motion modes are planned.
 - **Built for AI agents:**
   - Tokens are named for their job (`bg-primary`, not `bg-blue-600`), so agents pick the right one.
   - Tools calculate what agents would otherwise guess.
   - "Done" means shown and checked, not claimed.
   - Agents pick up where the last session left off.
 
-[Owner check needed: plan 5 doesn't yet produce density or reduced-motion modes. The owner suggested them as examples of themeability. Either add them to the roadmap or keep the copy to light and dark, as above. See note N2 at the end of this file.]
+[Build note: when `tokens.add-mode` ships (roadmap V3), drop "planned" and name density and reduced motion alongside light and dark. See N2.]
 
 ### Fast is good. Fast and consistent is better.
 
@@ -293,7 +293,11 @@ For agents: a plain-text version of this page is at `[raw URL]`. All pages: `[si
 
 **N2. Themeability beyond light and dark.** The owner suggested density and motion preference as theme examples. Today Sistema records density as a project setting, which shapes the type and spacing scales, and requires components to respect reduced motion. It doesn't yet produce switchable density or motion modes as token themes. The copy above says only what exists. A "density and motion modes" capability could go on the roadmap (`color.add-theme` would generalize to `tokens.add-mode`) if the owner wants to claim it.
 
+**Resolved 2026-11-16:** the owner wants it. `tokens.add-mode` is on the roadmap (V3, before the reference project). Until it ships, the copy says "planned."
+
 **N3. No invented jargon.** Owner direction: user-facing copy doesn't use Sistema's internal names ("token check page", "style preview", "review page", "play") where plain words work. Internal names stay in file names and agent-facing text.
+
+**N4. Prompt box with suggestions (owner idea, 2026-11-16, needs refinement).** Style the entry points like a chat input. The suggestions below it are the workflows and routes (start, bring in an existing system, add a component, audit, add a theme, and so on). Clicking a suggestion swaps the prompt in the box. The action button copies the prompt instead of sending it. This goes into V1.9 as an input for the home page and the "Work on my system" page.
 
 ## Headline deliberation
 

@@ -87,6 +87,8 @@ Carbon and Primer have MCP pages, and Atlassian has a "Design for AI" section. T
 
 These are inputs for V1.9, not decisions.
 
+0. **Owner idea (2026-11-16): a prompt box with suggestions.** The entry point looks like a chat input. The workflows and routes appear as suggestions below it. Clicking one swaps the prompt in the box, and the action button copies the prompt rather than sending it. This could carry the three doors and the session routes in one control. Needs refinement in V1.9.
+
 1. **One first action.** "Start a design system" (copy the starter, or connect the MCP server), with "I already have a system" and "Work on my system" as the two other doors. This matches plan Section 3's three entry points, and the `start`, `start` (Adopt path), and `session` workflows already built.
 2. **Guides and Reference are separate places.** Guides are organized by topic (color, typography, and so on). Reference holds the rules registry, the published opinions, tool details, and file formats (`sistema.json` schema, DESIGN.md, DTCG).
 3. **Play pages follow the Carbon and Stripe shape:**

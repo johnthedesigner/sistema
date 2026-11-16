@@ -139,7 +139,7 @@ Expected tasks: contrast batch mode and `oklch()` and `rgb()` input; GET support
 
 ### V3: Reference project, guides, and site
 
-Expected order: the reference project is built by running `workflow.start` and then `workflow.patterns`, which makes it the main end-to-end test of the method. The four guide rewrites (color, tokens, typography, quality signals) follow the reference project, because the guides' worked examples come from it. Guides are outlined first, then drafted. The site restructure into three modes comes next. The site's own design system (DESIGN.md, DECISIONS.md, sistema.json) goes through the method last. That last task also resolves the root `DESIGN.md` and `LIVING_BRIEF.md` that exist today.
+First task: **`tokens.add-mode`** (owner decision, 2026-11-16). `color.add-theme` generalizes into a step that adds a mode to the token system: color themes, density (compact and comfortable spacing and type), and reduced motion. The reference project then exercises it, and the home page can claim it. Then, expected order: the reference project is built by running `workflow.start` and then `workflow.patterns`, which makes it the main end-to-end test of the method. The four guide rewrites (color, tokens, typography, quality signals) follow the reference project, because the guides' worked examples come from it. Guides are outlined first, then drafted. The site restructure into three modes comes next. The site's own design system (DESIGN.md, DECISIONS.md, sistema.json) goes through the method last. That last task also resolves the root `DESIGN.md` and `LIVING_BRIEF.md` that exist today.
 
 **Gate:** plan 15, Phase 3 gate.
 

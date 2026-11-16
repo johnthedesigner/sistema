@@ -105,15 +105,15 @@ Plan 7.2's list of sites, plus 2 or 3 well-regarded MCP servers and skill librar
 
 ### Task V1.7: Narrative (outline first)
 
-**Status:** outline approved 2026-11-16 (recommendations accepted; home page speaks to whoever drives the agent; no time estimates yet). Draft in `docs/v2/narrative-draft.md`, waiting for owner review
+**Status:** complete 2026-11-16. Outline and draft approved (`docs/v2/narrative-draft.md`). Headline still open; its deliberation is logged in the draft. Density and motion modes added to the roadmap (V3, `tokens.add-mode`)
 
 Home and onboarding narrative (plan Section 3), built around three entry points: start a system, bring Sistema to an existing system, work on my system. Include the repo-as-source-of-truth fit statement (plan 4). Outline, owner review, then draft. Plan Section 1 writing style applies.
 
-- [ ] Outline approved; draft approved
+- [x] Outline approved; draft approved
 
 ### Task V1.8: Published opinions (outline first)
 
-**Status:** not started
+**Status:** outline in `docs/v2/opinions-outline.md`, waiting for owner review
 
 Plan Section 6 opinions as `content/opinions/` items: default, reason, when to choose otherwise. Outline, owner review, then draft.
 
