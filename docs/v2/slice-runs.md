@@ -179,3 +179,28 @@ In a GUI, the person sees an outline of the process up front, and progress is sh
 - `AGENTS.md` has the Sistema section.
 
 I review it from the session logs in `~/.claude/projects/`, so an export isn't required.
+
+### R1 results (reviewed 2026-11-15): **pass**
+
+Sources: both session logs (`4b991122…` first session, `8dadc58b…` resumed session), and the project files.
+
+| Pass condition | Result |
+|---|---|
+| The resumed session fetches the workflow before anything else | **Yes.** Claude Code loaded `AGENTS.md` at session start (it appears in the session context), and after "let's keep going" the first action was fetching the workflow URL. |
+| Outline with status on resume; direction gate recorded as `{date, by}` | Yes. The outline was shown on resume, at the final gate, and at the end. Both gates are recorded with `date`, `by`, and a useful `note`. |
+| `color.scheme` uses the palette and contrast tools; colors match the approved preview | Yes. Palette calls in both sessions, and batch contrast requests (110 pairings). One role changed from the preview (dark muted text, 4.33 to one stop lighter), and it was listed as a change. |
+| `sistema.json` validates against the schema | **Yes**, checked independently with the Zod schema. The agent also fetched the published schema and checked it itself. |
+| `AGENTS.md` has the Sistema section | Yes. At the end of the workflow it was rewritten to say Start is finished and DESIGN.md is the reference, with token rules for later agents. |
+
+**Also confirmed:**
+- **Revision at the gate worked across sessions.** The owner sent direction changes at resume: a blue, yellow, and red brand, broad data hues, rounder corners, and near-white and soft-black backgrounds. The agent rebuilt the preview, checked its own screenshot, and fixed the layout before asking again.
+- The review pages are in `sistema-review/`, with outline strips and continuous ramp strips. The preview loads its fonts from Google Fonts.
+- Tailwind 4 wiring follows the play: `--color-*: initial` and `@theme inline reference`.
+- The token check page has the "Approved but not yet tokenized" section.
+- `next build` passes (independent recheck).
+- The workflow ended explicitly: no next workflow, work beyond is outside Sistema, and the closing question was asked.
+
+**Small gaps, fixed right away:**
+- After the workflow ended, DECISIONS.md's first line still said "to continue, fetch `continue`" though `continue` was removed. The end step now updates every pointer line, not just AGENTS.md and DESIGN.md.
+- DESIGN.md front matter used the package name (`new-project`), because no product name was recorded. `project.assess` now asks for it and records `project.name`, and the pipeline uses it.
+- The Style Dictionary install was blocked by a permission prompt. The agent stopped and handed the step back, which was right. The pipeline play now says so explicitly.

@@ -157,6 +157,8 @@ export const SistemaState = z
     milestone: z.enum(MILESTONES).optional(),
     project: z
       .object({
+        /** The product's name, as the person calls it. Used in DESIGN.md front matter. */
+        name: z.string().min(1),
         a11y_standard: z.string(),
         theme: z.enum(['light', 'dark', 'light-dark']),
         /** Which theme is primary when theme is light-dark. */

@@ -223,6 +223,7 @@ function stateExample(workflow: Workflow, ctx: RenderContext): string {
       continue: workflowUrl(ctx.base, workflow.id),
       milestone: 'direction',
       project: {
+        name: '<product name>',
         a11y_standard: 'wcag-2.2 AA',
         theme: 'light-dark',
         theme_primary: 'light',
@@ -298,8 +299,8 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
       'After the last approval:',
       `1. Tell the person the "${workflow.title}" workflow is complete, and show the final outline.`,
       next
-        ? `2. Offer to continue with ${next.title}: ${workflowUrl(ctx.base, next.id)}. If they accept, set \`continue\` to that URL. If not, remove \`continue\`.`
-        : '2. Say that there is no next Sistema workflow yet, and that further work (for example, building components) is outside Sistema\'s process, so they can decide how to go on. Remove `continue` from `sistema.json`, and change the Sistema section in the agent instructions file to say the workflow is finished and DESIGN.md is the reference.',
+        ? `2. Offer to continue with ${next.title}: ${workflowUrl(ctx.base, next.id)}. If they accept, set \`continue\` to that URL. If not, remove \`continue\` and update the pointer lines in the agent instructions file, DECISIONS.md, DESIGN.md, and the review pages to say the workflow is finished.`
+        : '2. Say that there is no next Sistema workflow yet, and that further work (for example, building components) is outside Sistema\'s process, so they can decide how to go on. Remove `continue` from `sistema.json`. Change the Sistema section in the agent instructions file, and the pointer lines in DECISIONS.md, DESIGN.md, and the review pages, to say the workflow is finished and DESIGN.md is the reference.',
       '3. Ask: "Was anything in this process unclear, or would you change anything?" Add any answer to DECISIONS.md.',
     ].join('\n'),
     `If you cannot fetch URLs, use the full version, which includes every play: ${workflowFullUrl(ctx.base, workflow.id)}`,

@@ -44,7 +44,7 @@ Your job is to understand this project before anything is decided. Read first. A
    Do not judge quality here. Each later play checks its own outputs before skipping.
 
 3. **Ask only what is missing.** Skip anything step 1 answered. If an answer is vague, ask one follow-up before moving on.
-   - What is the product, and who uses it to do what?
+   - What is the product called, what is it, and who uses it to do what?
    - Is the interface dense (tables, dashboards, data-heavy forms), sparse (focused flows, simple tasks), or balanced?
    - Where does it sit between expressive (personality, distinctiveness) and utilitarian (clarity, efficiency)?
    - Is there an existing brand color or visual direction to honor? Any colors to avoid?
@@ -55,7 +55,7 @@ Your job is to understand this project before anything is decided. Read first. A
 
    **If the project already has colors,** tell the person how Sistema handles them before going on: nothing existing changes without their choice. The color play will show their current colors next to a few options on a comparison page, and they decide for each hue. Common options are keeping the colors exactly, keeping them and completing the ramps around them, or using them as seeds for new, even ramps. Don't ask them to choose now.
 
-4. **Write `sistema.json`** at the project root, in the shape the workflow starter gives. If it exists, update it and keep what is already recorded. Set `continue` to the URL of the workflow you are running. `theme` is one of `light`, `dark`, or `light-dark`, and `theme_primary` is set when it is `light-dark`. `density` is one of `dense`, `balanced`, or `sparse`. `platform` is one of `web`, `mobile`, or `web-mobile`.
+4. **Write `sistema.json`** at the project root, in the shape the workflow starter gives. If it exists, update it and keep what is already recorded. Set `continue` to the URL of the workflow you are running, and `project.name` to the product's name. `theme` is one of `light`, `dark`, or `light-dark`, and `theme_primary` is set when it is `light-dark`. `density` is one of `dense`, `balanced`, or `sparse`. `platform` is one of `web`, `mobile`, or `web-mobile`.
 
 5. **Record routing for outputs that differ.** When colors exist but differ, set `"routing": {"color.scheme": "color.map-existing"}`. The workflow then runs that play instead, which starts from the existing colors. For other outputs that differ, note them in DECISIONS.md. Their plays will handle them when reached.
 

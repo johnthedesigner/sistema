@@ -28,7 +28,7 @@ The JSON files in `tokens/src/` are the only place token values are written. Eve
    - Source: every JSON file in `tokens/src/`.
    - Output: CSS custom properties named `--<category>-<name>`, for example `--color-primary`, `--radius-md`, `--space-4`.
    - Dark theme: if `color.dark.json` exists, output its values under `[data-theme="dark"]`, with a `@media (prefers-color-scheme: dark)` fallback.
-   - Add `"tokens": "node style-dictionary.config.mjs"` to `package.json` scripts. Install `style-dictionary` as a dev dependency if it is missing.
+   - Add `"tokens": "node style-dictionary.config.mjs"` to `package.json` scripts. Install `style-dictionary` as a dev dependency if it is missing. If the install is blocked, ask the person to approve it or run it, and continue once it is in place.
 
 4. **Compile.** Run `npm run tokens`. If it fails, find the cause and fix it before going on. Do not skip a failed compile.
 
@@ -42,7 +42,7 @@ The JSON files in `tokens/src/` are the only place token values are written. Eve
 7. **Regenerate DESIGN.md front matter.** Write the token values from `tokens/src/` into DESIGN.md's YAML front matter, using the token schema in the DESIGN.md specification (section "Design tokens (YAML front matter)"): `{{sistema_url}}/raw/standards/design-md/spec`. In short:
 
    ```yaml
-   name: <product name>
+   name: <sistema.json project.name>
    colors:
      <role>: "#rrggbb"
    typography:
