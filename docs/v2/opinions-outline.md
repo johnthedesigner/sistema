@@ -17,7 +17,7 @@ Each item has:
 - **If you override it:** what changes in the method. Some opinions are load-bearing, and overriding them means Sistema can't do part of its job. The item says so plainly.
 - **Related:** the rules that put it into practice, and the guide sections that explain it.
 
-**Overrides are normal.** A project logs an override in DECISIONS.md with its reason, like any other decision. Agents read DECISIONS.md, so they follow the override from then on.
+**Overrides are normal.** An override is just a kind of decision. It goes in DECISIONS.md like any other entry, with a date and a reason, and it also names the opinion it overrides (for example, "Overrides opinion.tokens-before-components"), so audits can find it. Agents read DECISIONS.md, so they follow the override from then on. *(Owner, 2026-11-16.)*
 
 **Opinions aren't rules.** A rule is a checkable requirement inside a step (for example, `color.contrast.text`). An opinion is the stance behind one or more rules. Opinions link to rules. Steps cite rules, not opinions.
 
