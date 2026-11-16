@@ -7,3 +7,11 @@
   severity: advisory
   applies_to: VOICE_AND_TONE.md, interface copy
   sources: [guide.content.voice-and-tone#2-the-cross-system-voice-baseline]
+
+- id: content.errors.no-exclamation
+  statement: Errors, warnings, and failure messages never use exclamation points.
+  reason: An exclamation point reads as alarm or cheer, and neither helps someone fix a problem.
+  layer: sistema-default
+  severity: advisory
+  applies_to: interface copy for errors, warnings, and failures
+  sources: [guide.content.writing-mechanics#exclamation-marks]

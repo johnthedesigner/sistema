@@ -360,16 +360,40 @@ const missingTitles: Rule = {
   },
 }
 
+/**
+ * Known rule values that tend to get restated in prose. Each comes from a
+ * registry rule (content/rules/), which is where the value belongs.
+ */
+export const RESTATED_VALUES: Array<{ re: RegExp; what: string; rule: string }> = [
+  { re: /\b(?:3|4\.5|7)(?:\.0)?:1\b/, what: 'a contrast ratio', rule: 'color.contrast.*' },
+  { re: /\b(?:24|44|48)\s*[×x]\s*(?:24|44|48)\b/, what: 'a target size', rule: 'accessibility.target-size' },
+  { re: /\b(?:target|touch|tap|hit area)[^.\n]{0,40}\b(?:24|44|48)\s?(?:px|pt|dp)\b/i, what: 'a target size', rule: 'accessibility.target-size' },
+  { re: /\bline[- ]height[^.\n]{0,40}(?:at least|minimum|≥|>=)\s*1\.5\b/i, what: 'a line-height minimum', rule: 'typography.line-height.body' },
+  { re: /\b(?:body|text)[^.\n]{0,30}(?:at least|minimum|≥|>=)\s*16\s?px\b/i, what: 'a text size minimum', rule: '(none: guidance only)' },
+]
+
+/** A line that names the standard a value comes from is a citation, not a restated rule. */
+const NAMES_A_STANDARD = /\b(?:WCAG|APCA|Section 508|EN 301 549|ISO|Apple HIG|Human Interface Guidelines|Material Design)\b/
+
 const universalThresholds: Rule = {
   id: 'content.universal-threshold',
   level: 'content',
-  description: 'No universal 44x44 touch target requirement; requirements come from the project\'s chosen standard.',
+  description:
+    'Rule values (contrast ratios, target sizes, line-height and text-size minimums) are not restated in prose. Plays cite the rule; guides may quote a value only on a line that names its standard.',
   check(corpus) {
     const out: Omit<Violation, 'rule' | 'level'>[] = []
     for (const f of sistemaAuthoredFiles(corpus)) {
-      for (const m of matches(f.text, /44\s*[×x]\s*44/)) {
-        out.push({ file: f.path, line: lineOf(f.text, m.index), message: 'hardcoded 44x44 touch target' })
-      }
+      const isPlay = /^content\/(?:plays|workflows)\//.test(f.path)
+      const lines = f.text.split('\n')
+      lines.forEach((line, i) => {
+        if (!isPlay && NAMES_A_STANDARD.test(line)) return
+        for (const v of RESTATED_VALUES) {
+          if (v.re.test(line)) {
+            out.push({ file: f.path, line: i + 1, message: `restates ${v.what}; cite ${v.rule} instead${isPlay ? '' : ', or name the standard on this line'}` })
+            break
+          }
+        }
+      })
     }
     return out
   },

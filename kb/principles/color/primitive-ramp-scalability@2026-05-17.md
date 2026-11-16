@@ -92,7 +92,7 @@ The mapping pattern:
 
 ```
 Primary role assignments (light mode):
---color-primary              → [primary ramp, stop ~550–600]   /* 4.5:1–6.07:1 against white */
+--color-primary              → [primary ramp, stop ~550–600]   /* about 4.5:1 to 6.07:1 against white (WCAG 2.x) */
 --color-primary-container    → [primary ramp, stop ~100–150]   /* 1.19:1–1.40:1, tinted background */
 --color-on-primary           → white or [primary ramp, stop ~950]
 --color-on-primary-container → [primary ramp, stop ~700–800]   /* high contrast against container */

@@ -27,3 +27,13 @@
   applies_to: components and pages
   checked_by: [play.tokens.coverage-audit evidence, play.components.audit evidence]
   sources: [guide.tokens.architecture#the-tier-model]
+
+- id: tokens.naming.consistent
+  statement: >-
+    Every token category (color, type, space, shape, depth, motion) follows the same naming pattern, so a
+    person or agent who knows one name can predict the others.
+  reason: Agents guess names they haven't seen. A consistent pattern turns those guesses into correct names instead of invented ones.
+  layer: sistema-default
+  severity: advisory
+  applies_to: tokens/src/*.json
+  sources: [guide.ai.llm-compatibility#12-consistent-naming-patterns-across-categories]

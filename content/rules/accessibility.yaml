@@ -1,8 +1,8 @@
 - id: accessibility.target-size
   statement: >-
     Every pointer target is at least the minimum size for the project's standard, measured as the
-    clickable area, not the visible shape. Where the standard sets no minimum, use 24 by 24 CSS px.
-    Touch-first products should use 44 by 44.
+    clickable area, not the visible shape. Where the chosen standard sets no minimum, use the WCAG 2.2 AA
+    value. Larger targets for touch-first products are guidance, covered in the accessibility guide.
   reason: Small targets cause missed taps and errors, especially for people with limited dexterity.
   layer: standard
   severity: blocking
@@ -16,14 +16,14 @@
 
 - id: accessibility.focus-visible
   statement: >-
-    Every focusable element shows a focus indicator on keyboard focus that meets 3:1 against the surface
-    next to it, and is never fully hidden by other content. Verify that the indicator actually renders:
+    Every focusable element shows a focus indicator on keyboard focus that meets color.contrast.ui against
+    the surface next to it, and is never fully hidden by other content. Verify that the indicator actually renders:
     in Tailwind 4, `outline-none` with `outline-2` draws nothing unless `outline-solid` is added, and
     automated scanners don't catch it.
   reason: Keyboard users can't act on what they can't find. A ring with no line style passes code review and fails people.
   layer: standard
   severity: blocking
-  measure: { kind: min, min: 3, unit: ratio }
+  measure: { kind: presence }
   applies_to: interactive components
   checked_by: [play.components.implement evidence, play.accessibility.audit evidence]
   sources: [guide.accessibility.floor#3-focus-visibility]

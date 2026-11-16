@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 1 (Content model and narrative). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-1.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V1.3 — Convert the slice content
-**Next task:** V1.4 — Slice runs (owner runs the Start starter in both scratch projects; see `docs/v2/slice-runs.md`). V1.6 IA research can run meanwhile.
+**Last completed task:** V1.11 — Rules registry seeding (V1.4 to V1.10 also complete)
+**Next task:** V1.12 — Guides with addressable sections (move `kb/principles/` to `content/guides/`)
 **Blockers:** none
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -57,3 +57,13 @@
 - Pushed `v2` (owner approved). The first CI run passed. The Vercel preview built, and agent-facing URLs resolve to the branch URL (confirms `resolveSiteUrl` on a real preview).
 - Created scratch projects in `~/Repos/sistema-slice/` (new folder, no existing repos touched): `new-project` (bare Next.js 15 and Tailwind 4) and `existing-colors` ("Ledgerline," with partial brand ramps in `@theme` and hardcoded hex in components). Each has its own local git repo and initial commit, and both build.
 - Wrote `docs/v2/slice-runs.md`: how to run, the owner persona, and what is recorded per run.
+
+### 2026-11-16 — Tasks V1.4 to V1.11 (summary)
+
+**What was done:**
+- **V1.4 and V1.5:** slice runs in both scratch projects, then the R1 resume run, which passed. Findings, owner feedback A to H, and fixes are in `docs/v2/slice-runs.md`. The state model is settled: `continue`, `in-progress`, gate notes, the AGENTS.md pointer, and the `/raw/schema/sistema.json` schema. Contrast accepts batches.
+- **V1.10:** all 22 plays and 3 workflows (start, patterns, session) are in the new model. Fit review 1 is approved (`docs/v2/fit-review-1.md`).
+- **V1.6 to V1.9 (Track A):** IA research, the narrative (`narrative-draft.md`, with the headline still open), 20 published opinions (`content/opinions/`, with schema and checks), and the site structure (`site-structure.md` with a visual version). Owner decisions are recorded in each document. Density and motion modes are on the roadmap as `tokens.add-mode` (V3). The prompt box and the new URLs go into V1.13.
+- **V1.11:** `content.universal-threshold` now catches restated rule values (contrast ratios, target sizes, line-height and text-size minimums). Plays may not restate them. Guides may quote a value only on a line that names its standard. Edited the accessibility, color, and typography guides to cite rules. This was an in-place edit of the current versioned files, because D4 drops versioning for Sistema-authored content and V1.12 moves them. New rules: `color.contrast.large-text`, `typography.line-height.body` (AAA only), `typography.text-spacing` (WCAG 1.4.12), `tokens.naming.consistent`, `content.errors.no-exclamation`, `visual-language.direction.changes-propagate`, and four `ai.ui.*` rules. `typography.line-height.by-role` no longer sets universal ranges. Rules now render their `applies_when`.
+- 100 tests pass. The build passes. The remaining 21 `content.universal-threshold` warnings are all in legacy `_meta/` files, which V1.14 deletes.
+

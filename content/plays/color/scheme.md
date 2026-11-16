@@ -15,7 +15,7 @@ knowledge:
   - guide.color.architecture#neutral-palette-design
   - guide.color.primitive-ramp-scalability#how-ramps-feed-the-semantic-layer
   - guide.quality.visual-quality-signals#4-oklch-color-commitment-levels
-rules: [color.ramps.from-tool, color.preview.ramp-strips, color.roles.required, color.contrast.text, color.contrast.ui, color.dark.tonal-shift, quality.color.first-order-reflex, quality.color.bans, quality.color.commitment-level, tokens.naming.role]
+rules: [color.ramps.from-tool, color.preview.ramp-strips, color.roles.required, color.contrast.text, color.contrast.large-text, color.contrast.ui, color.dark.tonal-shift, quality.color.first-order-reflex, quality.color.bans, quality.color.commitment-level, tokens.naming.role]
 evidence: A contrast table with one row per on-* pairing and the border-focus pairing, in every theme, each showing the ratio from the contrast tool and the required value. Every required pairing passes.
 overrides: [color_direction, color_mode]
 last_reviewed: 2026-11-15

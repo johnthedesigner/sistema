@@ -56,6 +56,7 @@ const rule: Rule = {
   severity: 'blocking',
   parameters: { 'wcag-2.2': { AA: 4.5, AAA: 7 } },
   applies_to: 'on-* roles',
+  applies_when: 'Normal-size text.',
   checked_by: ['tool.contrast'],
   sources: [],
 }
@@ -126,6 +127,7 @@ describe('renderPlay', () => {
   it('inlines rules with standard parameters', () => {
     expect(out).toContain('**color.contrast.text** (Required)')
     expect(out).toContain('wcag-2.2 AA 4.5, AAA 7')
+    expect(out).toContain('Applies when: Normal-size text.')
   })
   it('links guides absolutely with their section', () => {
     expect(out).toContain(`${BASE}/raw/principles/color/architecture (section: dark-mode)`)

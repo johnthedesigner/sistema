@@ -14,7 +14,7 @@ knowledge:
   - guide.tokens.architecture#dark-mode-at-the-token-level
   - guide.tokens.architecture#dark-mode-values-the-tonal-shift-problem
   - guide.depth.architecture#model-2-tonal-surface-elevation
-rules: [color.dark.tonal-shift, color.roles.required, color.contrast.text, color.contrast.ui, quality.review.compare-visually, quality.review.outline, tokens.source.dtcg]
+rules: [color.dark.tonal-shift, color.roles.required, color.contrast.text, color.contrast.large-text, color.contrast.ui, quality.review.compare-visually, quality.review.outline, tokens.source.dtcg]
 evidence: A contrast table for every required pairing in the new theme, the comparison page showing both themes side by side, the person's approval, and the updated sistema.json theme.
 overrides: []
 last_reviewed: 2026-11-15

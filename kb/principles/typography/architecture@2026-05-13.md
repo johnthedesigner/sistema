@@ -139,13 +139,13 @@ Numeric steps (1 through N) assign no semantic meaning — they're a size ladder
 
 ---
 
-## Legibility constraints (non-negotiable)
+## Legibility
 
-These are not design preferences — they are cognitive limits. Violating them reduces readability for all users.
+These ranges come from reading research and typographic practice. They're guidance with reasons, and the right value depends on the typeface, size, and measure. The requirements that apply to every project come from its accessibility standard: rule `typography.text-spacing` (WCAG 1.4.12 at AA) and, for AAA projects, rule `typography.line-height.body` (WCAG 1.4.8).
 
 ### Line height
 
-**Body text:** Line height must be **120–145% of font size** (unitless values 1.2–1.45 in CSS). Below 1.2 and lines feel cramped; above ~1.6 and the space between lines becomes larger than the line itself, disrupting reading flow.
+**Body text:** typical line height is about **1.3 to 1.6 times the font size**. Sources differ: print-oriented guides suggest 1.2 to 1.45, while interface systems usually set 14 to 18px body text at 1.4 to 1.6. Below 1.2, lines feel cramped. Above about 1.6, the space between lines starts to compete with the lines themselves.
 
 **Per-size calibration:** The optimal line-height ratio is not constant across the scale. It decreases as font size increases:
 - Display / hero (48px+): 1.05–1.1
@@ -221,7 +221,7 @@ Typography and spacing are not independent. Every decision in the type scale has
 
 **Line height and vertical rhythm:** The line height of body text typically becomes the base unit for vertical spacing within a text container. If body text has a 24px line height, vertical margins between paragraphs should be multiples or fractions of 24px — this creates visual rhythm. Systems with a strict 8px spacing grid work well with 16px/24px line heights (multiples of 8); they work poorly with 20px or 22px line heights.
 
-**Scale steps and component height:** Interactive components (buttons, form fields, select controls) have a minimum height that should relate to the type scale. A button using `label-large` text at 14px/20px line height needs enough vertical padding to produce a comfortable click target (44px minimum). 14px + (2 × 15px padding) = 44px — the 15px padding is the spacing system value. When the type scale changes, the component height tokens that reference it may also need adjustment.
+**Scale steps and component height:** Interactive components (buttons, form fields, select controls) have a minimum height that should relate to the type scale. A button using `label-large` text at 14px/20px line height needs enough vertical padding to meet the project's minimum target size (rule `accessibility.target-size`). For example, reaching the WCAG 2.5.5 (AAA) size takes 14px + (2 × 15px padding) = 44px, where the 15px padding is a spacing system value. When the type scale changes, the component height tokens that reference it may also need adjustment.
 
 **Spacing and type density:** A dense type scale (small steps, small base) requires a proportionally tighter spacing scale. A system with 12px body text and an 8px base spacing unit feels correct; the same spacing unit with 18px body text feels compressed. The key ratio: base spacing should be roughly 50–75% of the body text line height. If body text has a 24px line height, the base spacing unit of 12–16px works well.
 

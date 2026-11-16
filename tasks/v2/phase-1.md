@@ -141,11 +141,11 @@ Convert the rest per capability-model Section 7: `workflow.patterns`, `workflow.
 
 ### Task V1.11: Rules registry seeding
 
-**Status:** not started
+**Status:** complete 2026-11-16. 46 rules in 11 files. `content.universal-threshold` is 0 outside legacy `_meta/` files (21 there, removed in V1.14). Guide edits were made in place under D4
 
 Every rule embedded in plays and guides goes into `content/rules/`, and every restatement is replaced with a reference. That includes the 44px threshold, which becomes a standard-parameterized rule. Add a checker rule that flags restated rules where it can detect them (known thresholds and ratios in prose).
 
-- [ ] Registry seeded; `content.universal-threshold` at 0
+- [x] Registry seeded; `content.universal-threshold` at 0 (outside legacy files)
 
 ### Task V1.12: Guides with addressable sections
 

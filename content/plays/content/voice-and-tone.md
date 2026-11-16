@@ -19,7 +19,7 @@ knowledge:
   - guide.content.ui-copy-patterns#6-confirmation-dialogs
   - guide.content.writing-mechanics#1-capitalization
   - guide.content.writing-mechanics#2-punctuation
-rules: [content.voice.baseline]
+rules: [content.voice.baseline, content.errors.no-exclamation]
 evidence: VOICE_AND_TONE.md with its six sections, and five sample strings written in the new voice (a primary button, an error, an empty state, a destructive confirmation, and a success message), each annotated with the rule it follows.
 overrides: [project_context]
 last_reviewed: 2026-11-15

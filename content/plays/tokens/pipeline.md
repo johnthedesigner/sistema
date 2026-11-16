@@ -13,7 +13,7 @@ knowledge:
   - guide.tokens.architecture#the-tier-model
   - guide.tokens.architecture#dark-mode-at-the-token-level
   - guide.tokens.architecture#common-failure-modes
-rules: [tokens.source.dtcg, tokens.naming.role, color.preview.ramp-strips, quality.review.outline]
+rules: [tokens.source.dtcg, tokens.naming.role, tokens.naming.consistent, color.preview.ramp-strips, quality.review.outline]
 evidence: The compile command's successful output, the list of compiled files, every file outside tokens/ that this play changed, a passing app build, and sistema-review/token-check.html showing every token. The person reviews token-check.html at the gate that follows.
 overrides: []
 last_reviewed: 2026-11-15

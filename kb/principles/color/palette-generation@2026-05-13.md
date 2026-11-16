@@ -122,7 +122,7 @@ The 19 target contrast ratios for stops 50–950 use a **logarithmic distributio
 
 Formula: `target[i] = 1.01 × (19.0 / 1.01) ^ (i / 18)` for i = 0..18
 
-This allocates more stops to the 1:1–7:1 range where most accessibility decisions occur (primary colors, text, interactive elements) and fewer to the very dark end (>10:1) where stops are approaching black and differentiation matters less.
+This allocates more stops to the range from 1:1 to 7:1, where the WCAG 2.x text and UI thresholds fall and most accessibility decisions occur (primary colors, text, interactive elements) and fewer to the very dark end (>10:1) where stops are approaching black and differentiation matters less.
 
 | Stop | Index (i) | Target contrast (white) | Notable threshold |
 |---|---|---|---|

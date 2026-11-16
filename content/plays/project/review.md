@@ -11,7 +11,7 @@ produces: []
 tools: []
 knowledge:
   - guide.tokens.architecture#common-failure-modes
-rules: [project.state.valid, visual-language.design-md.roles-not-values]
+rules: [project.state.valid, visual-language.design-md.roles-not-values, visual-language.direction.changes-propagate]
 evidence: A report with four sections (drift, undocumented additions, decisions to revisit, and DESIGN.md changes needed), and the records updated to match.
 overrides: []
 last_reviewed: 2026-11-15

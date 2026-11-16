@@ -13,7 +13,7 @@ knowledge:
   - guide.color.architecture#the-decision-framework
   - guide.color.architecture#dark-mode-the-tonal-shift
   - guide.color.primitive-ramp-scalability#how-ramps-feed-the-semantic-layer
-rules: [color.existing.consent, quality.review.compare-visually, quality.review.outline, color.preview.ramp-strips, color.ramps.from-tool, color.roles.required, color.contrast.text, color.contrast.ui, color.dark.tonal-shift, quality.color.bans, tokens.naming.role]
+rules: [color.existing.consent, quality.review.compare-visually, quality.review.outline, color.preview.ramp-strips, color.ramps.from-tool, color.roles.required, color.contrast.text, color.contrast.large-text, color.contrast.ui, color.dark.tonal-shift, quality.color.bans, tokens.naming.role]
 evidence: The comparison page, the person's choice for each hue, a mapping table (existing value, source location, ramp and stop, assigned role, and whether its name changed), and a contrast table for every required pairing in every theme. Every required pairing passes.
 overrides: []
 last_reviewed: 2026-11-15

@@ -17,7 +17,7 @@ knowledge:
   - guide.accessibility.floor#4-touch-and-pointer-targets
   - guide.accessibility.floor#5-semantic-structure-and-aria
   - guide.accessibility.floor#6-motion
-rules: [color.contrast.text, color.contrast.ui, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.reduced-motion, accessibility.focus-not-lost]
+rules: [color.contrast.text, color.contrast.large-text, color.contrast.ui, typography.text-spacing, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.reduced-motion, accessibility.focus-not-lost]
 evidence: A report per component with pass, fail, or needs-checking for each criterion, every contrast ratio from the tool, the automated scan results in every theme, and a summary of blocking violations.
 overrides: [scope]
 last_reviewed: 2026-11-15
@@ -29,7 +29,7 @@ last_reviewed: 2026-11-15
 3. **Check each component:**
    - **Contrast:** every text and UI pairing in every state and theme, in one batch request to the contrast tool. Report the exact ratios.
    - **Keyboard:** reachable, operable with the expected keys, no traps, focus returns after overlays close, and focus isn't dropped to the page body.
-   - **Focus:** visible, actually rendered (take a screenshot), 3:1 against its surroundings, and not hidden behind sticky content.
+   - **Focus:** visible, actually rendered (take a screenshot), meets `color.contrast.ui` against its surroundings, and not hidden behind sticky content.
    - **Targets:** the clickable area meets the minimum for the standard.
    - **Semantics:** native elements where possible, an accessible name, and exposed states.
    - **Motion:** reduced motion is respected.

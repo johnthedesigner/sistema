@@ -104,8 +104,9 @@ function renderRule(rule: Rule): string {
         .join('; ') +
       '. Use the values for the standard in `sistema.json` `project.a11y_standard`.'
     : ''
+  const when = rule.applies_when ? `\n  Applies when: ${rule.applies_when}` : ''
   const tag = rule.severity === 'blocking' ? 'Required' : 'Advisory'
-  return `- **${rule.id}** (${tag}): ${rule.statement}${params}\n  Why: ${rule.reason}`
+  return `- **${rule.id}** (${tag}): ${rule.statement}${when}${params}\n  Why: ${rule.reason}`
 }
 
 /** One play as a self-contained document for an agent. */

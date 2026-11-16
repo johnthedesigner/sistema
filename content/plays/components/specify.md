@@ -13,7 +13,7 @@ knowledge:
   - guide.tokens.architecture#naming-principles
   - guide.accessibility.floor#2-keyboard-navigation
   - guide.accessibility.floor#5-semantic-structure-and-aria
-rules: [accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, tokens.usage.no-raw-values]
+rules: [accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, tokens.usage.no-raw-values, content.errors.no-exclamation, ai.ui.sources-distinct, ai.ui.generated-content-marked, ai.ui.stop-generation, ai.ui.retry]
 evidence: The specification file, and a list of any new tokens or rules the component needs that the system doesn't have yet.
 overrides: [component]
 last_reviewed: 2026-11-15

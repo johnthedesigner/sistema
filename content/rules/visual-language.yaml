@@ -31,3 +31,13 @@
   layer: sistema-default
   severity: advisory
   applies_to: DESIGN.md
+
+- id: visual-language.direction.changes-propagate
+  statement: >-
+    If the approved direction changes after foundations have been built, the affected foundations are
+    rebuilt from the revised direction and approved again.
+  reason: The direction is the contract between the brief and the tokens. Tokens built from an old direction quietly contradict the new one.
+  layer: sistema-default
+  severity: advisory
+  applies_to: tokens/src/*.json after a change to DESIGN.md overview sections or the approved preview
+  sources: [guide.visual-language.style-tile-format#4-what-the-review-means]

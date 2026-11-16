@@ -151,4 +151,17 @@ describe('content rules', () => {
     const kbFiles = [versioned('kb/reference/standards/wcag/c@2026-05-12.md', 'x: y', 'at least 44 x 44 CSS pixels')]
     expect(ids(corpus({ playbooks, kbFiles }), 'content.universal-threshold')).toHaveLength(1)
   })
+
+  it('content.universal-threshold: plays may not restate values; guides may when they name the standard', () => {
+    const contentFiles = [
+      { path: 'content/plays/accessibility/audit.md', text: 'Focus ring meets 3:1 against WCAG surfaces.' },
+      { path: 'content/plays/color/scheme.md', text: 'Check every pair with the contrast tool.' },
+    ]
+    const kbFiles = [
+      versioned('kb/principles/a/ok@2026-05-13.md', 'title: A', 'Under WCAG 2.2 AA, normal text needs 4.5:1.'),
+      versioned('kb/principles/a/bad@2026-05-13.md', 'title: B', 'Body line height must be at least 1.5.\nTouch targets should be 44px.\nText at 4.5:1.'),
+    ]
+    const found = ids(corpus({ kbFiles, contentFiles }), 'content.universal-threshold')
+    expect(found).toHaveLength(4)
+  })
 })

@@ -1,0 +1,35 @@
+- id: ai.ui.sources-distinct
+  statement: Messages from the person and from the AI are visually distinct, so anyone can tell at a glance who said what.
+  reason: Confusing the two undermines trust and makes conversations hard to scan.
+  layer: sistema-default
+  severity: advisory
+  applies_to: chat and conversation components
+  applies_when: The product shows AI-generated content.
+  sources: [guide.ai.ui-patterns#11-visual-differentiation-of-message-sources]
+
+- id: ai.ui.generated-content-marked
+  statement: Where AI-generated and human-written content appear together, the AI-generated content is marked.
+  reason: People need to know what a person wrote and what a model produced to judge how far to trust it.
+  layer: sistema-default
+  severity: advisory
+  applies_to: components that show generated content
+  applies_when: The product shows AI-generated content alongside human-written content.
+  sources: [guide.ai.ui-patterns#33-distinguishing-ai-generated-from-human-authored-content]
+
+- id: ai.ui.stop-generation
+  statement: People can stop a response while it's being generated.
+  reason: Being able to stop keeps people in control, and saves time when a response heads the wrong way.
+  layer: sistema-default
+  severity: advisory
+  applies_to: prompt input and streaming response components
+  applies_when: The product streams AI responses.
+  sources: [guide.ai.ui-patterns#42-stop-generation]
+
+- id: ai.ui.retry
+  statement: A failed response offers a retry in place, without making the person type their message again.
+  reason: Retyping after a failure is the most common friction point in AI interfaces.
+  layer: sistema-default
+  severity: advisory
+  applies_to: response and error components
+  applies_when: The product shows AI responses that can fail.
+  sources: [guide.ai.ui-patterns#52-retry-patterns]

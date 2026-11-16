@@ -166,9 +166,9 @@ Start here. These three questions map product context to architectural approach.
 
 These are constraints, not recommendations. Any color system that doesn't satisfy these is incomplete.
 
-**Contrast minimums (WCAG AA):**
-- Normal text on any background: ≥ 4.5:1
-- Large text (≥ 18pt or ≥ 14pt bold) and UI components on any background: ≥ 3:1
+**Contrast minimums (from the project's chosen standard; rules `color.contrast.text`, `color.contrast.large-text`, and `color.contrast.ui`):**
+- Normal text on any background: the standard's text ratio (4.5:1 under WCAG 2.2 AA)
+- Large text (18pt and up, or 14pt bold and up) and UI components on any background: the large-text and non-text ratios (3:1 under WCAG 2.2 AA)
 - Verify these in both light and dark mode — the ratio calculation is luminance-based, not perceptual; dark mode needs separate verification
 
 **Defined foreground for every background:**
@@ -211,7 +211,7 @@ These are starting points, not rigid rules. Verify contrast in dark mode explici
 **Practical dark mode minimum:**
 - Design at least three surface tiers: base surface (~tone 10–12), raised surface (~tone 14–16), elevated surface (~tone 18–20)
 - Reduce chroma on colored backgrounds in dark mode — tinted surfaces at full chroma look oversaturated
-- Verify focus ring visibility on dark surfaces — a blue focus ring at 3:1 against white may not clear 3:1 against a dark neutral
+- Verify focus ring visibility on dark surfaces — a blue focus ring that meets the non-text ratio against white may not meet it against a dark neutral
 
 ---
 
