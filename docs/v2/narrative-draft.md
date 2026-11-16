@@ -13,19 +13,16 @@ Placeholders like `[starter prompt]` mark where the site inserts live content. B
 
 ## Home
 
+Brevity matters most on this page. Headings state the point of their section, so the page reads by scanning headings alone.
+
 ### Hero
 
-**Headline.** The owner's direction (2026-11-16) is to pair AI-friendly foundations with the design freedom they give. Options, recommended first:
-1. Firm foundations for AI-built apps. More room to design.
-2. Give your agent firm foundations, and give your design more room.
-3. Design foundations your AI agent follows, so your app has room to grow.
-4. Decide the foundations once. Design freely from there.
-5. Foundations built for AI agents. Freedom built for designers.
+**Headline (working):** Firm foundations for AI-built apps. More room to design.
+
+The headline is still open. See "Headline deliberation" at the end of this file.
 
 **Subhead:**
 Sistema guides your AI coding agent through building a design system in your repository. Once colors, type, and spacing are decided and checked, every new screen starts from solid ground, and your time goes to design choices instead of fixing drift.
-
-**Supporting line** (under the subhead, smaller): You approve each stage on a rendered page, and every value is calculated, not guessed.
 
 **Primary action:** Start a design system
 
@@ -35,63 +32,68 @@ Sistema guides your AI coding agent through building a design system in your rep
 [Later: a second tab, "Connect the MCP server."]
 
 **Two other doors:**
+- **I already have a design system.** Same prompt. It keeps what you have. [Link]
+- **Work on my system.** Components, themes, audits, and what's next. [Link]
 
-- **I already have a design system.** Use the same prompt. The first step finds what you have and keeps it. Nothing is renamed or replaced without your choice. [Link: How Sistema handles an existing system]
-- **Work on my system.** Add a component, add a theme, run an audit, or plan what's next. [Link: Work on my system]
+### See every stage before you build on it
 
-### What happens when you paste it
+Your agent builds the system in stages. After each one, you see the result in your browser. Nothing moves on until you approve.
 
-Your agent works through four stages and stops for you twice.
+1. **It learns your project.** It reads what's there and asks only what's missing.
+2. **It proposes a direction.** Color, type, shape, and surfaces, together on one page.
+3. **You decide.** Ask for changes, or approve.
+4. **It builds the foundations.** Every value comes from Sistema's tools, compiled and wired into your app.
+5. **You see the whole system.** Every color, type style, and spacing step, next to what you approved.
 
-1. **Understand the project.** It reads what's already there, then asks only what it can't find: what the product is, who uses it, how dense it is, and which accessibility standard it must meet.
-2. **Set the direction.** It proposes a visual direction and builds a preview page with colors, type, shapes, and surfaces.
-3. **You approve the direction.** Open the page, ask for changes, or approve.
-4. **Build the foundations.** It generates color, type, shape, and spacing tokens with Sistema's tools, compiles them, and wires them into your app.
-5. **You approve the foundations.** A token check page shows everything that was built, next to what you approved.
+### Everything lands in your repo
 
-When it's done, your repository has:
-- token source files;
-- compiled CSS;
-- DESIGN.md;
-- a decision log;
-- a small state file;
-- a note in AGENTS.md, so every future session knows the system exists.
+- **Tokens.** Every color, type, shape, and spacing value, in one open format.
+- **CSS, wired in.** Your app uses the system from the first commit.
+- **DESIGN.md.** How the system looks and how to use it, for people and agents.
+- **A decision log.** What was decided and why, so nobody has to guess later.
+- **A note for your agent.** Every future session knows the system exists and follows it.
 
-From there you can go on to components and pages.
+### Foundations that grow with you
 
-### Why this matters
+- **One source of truth.** Tokens use the open DTCG format, so design tools can read them too. Figma variables export is planned.
+- **Accessible color by design.** Every ramp is built on contrast targets, and every pairing is checked against your standard. New colors fit without breaking it.
+- **Themes from day one.** Light and dark are two views of the same roles. Adding another theme is an addition, not a rewrite.
+- **Built for AI agents:**
+  - Tokens are named for their job (`bg-primary`, not `bg-blue-600`), so agents pick the right one.
+  - Tools calculate what agents would otherwise guess.
+  - "Done" means shown and checked, not claimed.
+  - Agents pick up where the last session left off.
 
-AI tools let anyone on a team build working screens quickly. Designers, developers, and product managers can test ideas with users sooner than before.
+[Owner check needed: plan 5 doesn't yet produce density or reduced-motion modes. The owner suggested them as examples of themeability. Either add them to the roadmap or keep the copy to light and dark, as above. See note N2 at the end of this file.]
 
-Speed has a cost when the foundations aren't decided. Each screen an agent builds invents its own colors, sizes, and spacing. The product drifts, design and code split apart, and agents report progress that later turns out to be partial.
+### Fast is good. Fast and consistent is better.
 
-What helps is foundations that are decided, written down, and checked. They also need to be in front of the agent at the moment it makes a choice.
+AI tools let anyone on a team build working screens quickly. Without decided foundations, each screen invents its own colors and spacing, and the product drifts.
 
-Settled foundations don't narrow what you can design. They widen it. When every screen already gets color, type, spacing, and accessibility right, you can try more layouts and ideas, and test them with users sooner. Your time goes to the design itself.
+Settled foundations don't narrow what you can design. They widen it. When every screen already gets color, type, spacing, and accessibility right, your time goes to trying ideas and testing them with users.
 
-### What Sistema provides
+### Everything your agent needs to get it right
 
-- **A method.** Three milestones (Direction, Foundations, and Patterns), then ongoing work on the system. [Link: How Sistema works]
-- **Opinions with reasons.** Sistema's defaults, why it holds them, and when you'd choose otherwise. [Link: Opinions]
-- **Guides.** Sistema's take on how each foundation works in practice. [Link: Guides]
-- **Tools.** Palette generation and contrast checking, so your agent calculates instead of estimating. [Link: Tools]
-- **Two ways in.** Paste a prompt, or connect the MCP server. Both reach the same content. [MCP: later]
+- **A method.** Direction, Foundations, and Patterns, then ongoing work. [Link]
+- **Opinions with reasons.** Defaults you can override, with when you'd want to. [Link]
+- **Guides.** How each foundation works in practice. [Link]
+- **Tools.** Palette and contrast, calculated, never estimated. [Link]
+- **Two ways in.** Paste a prompt, or connect the MCP server. [MCP: later]
 
-### What you can trust, and why
+### Proof, not promises
 
-- **You approve on rendered pages.** The agent builds a page you can open in your browser at each approval. When there's a real choice, it shows the options side by side.
-- **Every step shows evidence.** That means tool results, a passing build, or a page you can check, not a description of what was done.
-- **Nothing you already have changes without your choice.** Existing colors, names, and files are kept unless you decide otherwise.
+- Every step shows its evidence: a tool result, a passing build, or a page you can open.
+- Nothing you already have is renamed or replaced without your choice.
 
-### What Sistema stays out of
+### Sistema won't step on your toes
 
-Sistema has opinions about process, structure, and the quality floor. It doesn't decide what your product looks like, what it should do, or which framework you use beyond what the method needs. Those decisions are yours, and Sistema records them.
+Sistema has opinions about process, structure, and the quality floor. What your product looks like, what it does, and how it's built beyond that are your calls. Sistema just writes them down.
 
 ---
 
 ## How Sistema works
 
-### Is Sistema a fit for your team?
+### Your repo is the source of truth
 
 Sistema keeps every foundation decision in your repository: tokens, rules, decisions, and the instructions your agent reads. Design tools can receive exports from the repository, but they aren't the source.
 
@@ -103,13 +105,13 @@ Everything Sistema writes is plain markdown, JSON, and the DTCG token format, so
 
 **Direction.**
 - **The goal:** agree on what the product is and how it should feel, before any values exist.
-- **What you get:** a positioning statement, a visual direction, a preview page, and DESIGN.md.
-- **Done when:** you approve the preview page.
+- **What you get:** a positioning statement, a visual direction shown on one page, and DESIGN.md.
+- **Done when:** you approve the direction in your browser.
 
 **Foundations.**
 - **The goal:** turn the direction into a complete, checked set of tokens.
-- **What you get:** color, type, shape, and spacing tokens, compiled CSS wired into your app, and a token check page.
-- **Done when:** every required color pairing passes your accessibility standard in every theme, the build passes, and you approve the token check page.
+- **What you get:** color, type, shape, and spacing tokens, and compiled CSS wired into your app.
+- **Done when:** every required color pairing passes your accessibility standard in every theme, the build passes, and you approve the whole system, shown in your browser next to what you approved before.
 
 **Patterns.**
 - **The goal:** build the first components and pages on the tokens.
@@ -130,14 +132,14 @@ After the milestones, design system work becomes routine. Each session starts by
 
 A workflow is a whole run, such as Start or Work on my system. A play is one step inside it, such as generating the color scheme. You'll mostly use workflows. Each play also has its own page and prompt, for when you need one step on its own.
 
-### What your agent does at each step
+### Your agent shows its work
 
 - **It reads before it asks.** If your files answer a question, it doesn't ask you.
 - **It uses tools for anything it can calculate.** Palette ramps and contrast ratios come from Sistema's tools, never from estimates.
 - **It shows evidence before calling a step done.**
 - **It records what it decided.** Decisions and their reasons go in DECISIONS.md, and progress goes in `sistema.json`.
 
-### Review pages
+### You see it before you approve it
 
 At each approval, your agent builds a page in the `sistema-review/` folder. You open it in your browser and see the decision itself, such as:
 - your colors as ramps;
@@ -146,15 +148,15 @@ At each approval, your agent builds a page in the `sistema-review/` folder. You 
 
 When there's a choice to make, such as how to treat colors you already have, the page shows your current values next to each option before you're asked to choose.
 
-### Picking up later
+### Stop anytime, pick up anytime
 
 You can stop at any point. Sistema adds a short note to your project's AGENTS.md (or CLAUDE.md), which coding agents read at the start of every session. The next session finds its way back to where you left off, even if you only say "keep going."
 
-### Your files afterward
+### What's in your repo afterward
 
 | File | What it's for | Who edits it |
 |---|---|---|
-| `tokens/src/*.json` | Every token value, in DTCG format | You or your agent, through Sistema's plays |
+| `tokens/src/*.json` | Every token value, in DTCG format | You or your agent, through Sistema |
 | Compiled CSS | What your app uses | Generated. Don't edit it |
 | `DESIGN.md` | How the system looks and how to use it, for people and agents | Your agent writes it. Its front matter is generated |
 | `DECISIONS.md` | Every decision and why | Your agent adds entries, and you can too |
@@ -282,3 +284,29 @@ Sistema is a method and a set of tools for building a design system in a project
 [One line at the top of each human page, in small type.]
 
 For agents: a plain-text version of this page is at `[raw URL]`. All pages: `[site]/llms.txt`.
+
+---
+
+## Notes for the owner
+
+**N1. Visual milestones as a principle.** Owner direction (2026-11-16): every milestone is reviewed visually, so you understand how the system is coming together before moving on. This goes into V1.8 as a process opinion. The working wording is "You see every stage before you build on it."
+
+**N2. Themeability beyond light and dark.** The owner suggested density and motion preference as theme examples. Today Sistema records density as a project setting, which shapes the type and spacing scales, and requires components to respect reduced motion. It doesn't yet produce switchable density or motion modes as token themes. The copy above says only what exists. A "density and motion modes" capability could go on the roadmap (`color.add-theme` would generalize to `tokens.add-mode`) if the owner wants to claim it.
+
+**N3. No invented jargon.** Owner direction: user-facing copy doesn't use Sistema's internal names ("token check page", "style preview", "review page", "play") where plain words work. Internal names stay in file names and agent-facing text.
+
+## Headline deliberation
+
+The owner reviews this as it changes. Newest entries are last.
+
+| Date | Candidate | Notes |
+|---|---|---|
+| 2026-11-16 | A design system your AI tools actually follow. | First draft's recommendation. Owner: missing the idea that sound foundations open up design options. |
+| 2026-11-16 | "AI-friendly design foundations to open up the design latitude of your app" | Owner's sketch. Right balance of ideas, but clunky. |
+| 2026-11-16 | **Firm foundations for AI-built apps. More room to design.** | Chosen for now. Owner: "I don't think we've nailed it yet." |
+| 2026-11-16 | Give your agent firm foundations, and give your design more room. | Alternative |
+| 2026-11-16 | Design foundations your AI agent follows, so your app has room to grow. | Alternative |
+| 2026-11-16 | Decide the foundations once. Design freely from there. | Strongest on design freedom, but no AI |
+| 2026-11-16 | Foundations built for AI agents. Freedom built for designers. | Slogan-like; narrows the audience to designers |
+
+What the headline has to do: say that Sistema gives AI-built work solid foundations, and that those foundations give design more freedom, not less. It should be short enough to read at a glance, and speak to whoever drives the agent.
