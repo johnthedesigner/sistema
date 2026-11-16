@@ -67,11 +67,13 @@ const rulesFile: SourceFile = {
 `,
 }
 
-const guideStub: SourceFile = { path: 'kb/principles/color/architecture.md', text: '---\ntype: stub\npoints_to: architecture@2026-05-13.md\n---\n' }
-const guideBody: SourceFile = { path: 'kb/principles/color/architecture@2026-05-13.md', text: '---\ncategory: principles\n---\n# Color architecture\n\n## Dark mode: tonal shift\n\ntext' }
+const guide: SourceFile = {
+  path: 'content/guides/color/architecture.md',
+  text: '---\ntitle: Color architecture\ndescription: A guide description long enough to pass.\ntopic: color\nlast_reviewed: 2026-11-16\n---\n# Color architecture\n\n## Dark mode: tonal shift\n\ntext',
+}
 
 function corpus(contentFiles: SourceFile[]): Corpus {
-  return { campaignPrompts: [], kbFiles: [guideStub, guideBody], builtHtml: [], contentFiles }
+  return { campaignPrompts: [], kbFiles: [], builtHtml: [], contentFiles: [guide, ...contentFiles] }
 }
 
 function violations(c: Corpus, rule?: string) {
@@ -281,3 +283,14 @@ describe('opinions', () => {
     expect(violations(c, 'model.knowledge').map(v => v.message)).toEqual(['guide.color.architecture#nope: no heading with anchor #nope'])
   })
 })
+
+describe('guides (V1.12)', () => {
+  it('rejects a guide without a title, in the wrong folder, or with a mismatched topic', () => {
+    const noTitle = { path: 'content/guides/color/x.md', text: '---\ndescription: A guide description long enough to pass.\ntopic: color\nlast_reviewed: 2026-11-16\n---\n# X\n' }
+    const wrongTopic = { path: 'content/guides/shape/y.md', text: '---\ntitle: Y guide\ndescription: A guide description long enough to pass.\ntopic: color\nlast_reviewed: 2026-11-16\n---\n# Y\n' }
+    const msgs = violations(corpus([noTitle, wrongTopic]), 'model.schema').map(v => `${v.file} ${v.message}`)
+    expect(msgs.some(m => m.startsWith('content/guides/color/x.md title'))).toBe(true)
+    expect(msgs.some(m => m.includes("topic color doesn't match folder shape"))).toBe(true)
+  })
+})
+

@@ -5,7 +5,7 @@
 import matter from 'gray-matter'
 import yaml from 'js-yaml'
 import type { z } from 'zod'
-import { OpinionFrontmatter, PlayFrontmatter, RuleFile, WorkflowFrontmatter, opinionSections, type Rule } from './schema'
+import { GuideFrontmatter, OpinionFrontmatter, PlayFrontmatter, RuleFile, WorkflowFrontmatter, opinionSections, type Rule } from './schema'
 
 export interface ParseIssue {
   path: string // field path inside the file
@@ -19,6 +19,12 @@ export interface Play extends PlayFrontmatter {
   file: string
 }
 export interface Workflow extends WorkflowFrontmatter {
+  body: string
+  file: string
+}
+export interface Guide extends GuideFrontmatter {
+  /** guide.<topic>.<name> */
+  id: string
   body: string
   file: string
 }
@@ -70,6 +76,18 @@ export function parseWorkflow(file: string, text: string): Parsed<Workflow> {
   const result = WorkflowFrontmatter.safeParse(data)
   if (!result.success) return { ok: false, issues: issues(result.error) }
   return { ok: true, value: { ...result.data, body: content.trim(), file } }
+}
+
+export function parseGuide(file: string, text: string): Parsed<Guide> {
+  const m = file.match(/^content\/guides\/([a-z-]+)\/([a-z0-9-]+)\.md$/)
+  if (!m) return { ok: false, issues: [{ path: '(file)', message: 'guides live at content/guides/<topic>/<name>.md' }] }
+  const fm = safeFrontmatter(text)
+  if (!fm.ok) return fm
+  const result = GuideFrontmatter.safeParse(fm.data)
+  if (!result.success) return { ok: false, issues: issues(result.error) }
+  if (result.data.topic !== m[1]) return { ok: false, issues: [{ path: 'topic', message: `topic ${result.data.topic} doesn't match folder ${m[1]}` }] }
+  if (!fm.content.trim()) return { ok: false, issues: [{ path: 'body', message: 'guide has no content' }] }
+  return { ok: true, value: { ...result.data, id: `guide.${m[1]}.${m[2]}`, body: fm.content.trim(), file } }
 }
 
 export function parseOpinion(file: string, text: string): Parsed<Opinion> {
@@ -124,8 +142,8 @@ export function playPath(id: string): string {
   return `content/plays/${id.slice(0, dot)}/${id.slice(dot + 1)}.md`
 }
 
-/** Expected file for a guide ref during V1 (before V1.12 moves guides into content/guides). */
+/** The file for a guide ref: guide.color.architecture -> content/guides/color/architecture.md */
 export function guideFiles(ref: string): string[] {
   const [, topic, name] = ref.replace(/#.*$/, '').split('.')
-  return [`content/guides/${topic}/${name}.md`, `kb/principles/${topic}/${name}.md`]
+  return [`content/guides/${topic}/${name}.md`]
 }

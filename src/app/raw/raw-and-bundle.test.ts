@@ -28,6 +28,15 @@ function stubsWithPlaceholder(): Array<{ category: string; slug: string; path: s
     }
   }
   walk(KB)
+  // Guides (content/guides since V1.12) are served under the legacy principles category.
+  const guides = path.join(process.cwd(), 'content', 'guides')
+  for (const topic of fs.readdirSync(guides)) {
+    for (const f of fs.readdirSync(path.join(guides, topic))) {
+      if (fs.readFileSync(path.join(guides, topic, f), 'utf-8').includes('{{sistema_url}}')) {
+        out.push({ category: 'principles', slug: topic, path: [f.replace(/\.md$/, '')] })
+      }
+    }
+  }
   return out
 }
 

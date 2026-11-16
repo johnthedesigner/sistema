@@ -137,13 +137,13 @@ describe('content rules', () => {
     ])
   })
 
-  it('content.missing-title checks public guides only', () => {
-    const kbFiles = [
-      versioned('kb/principles/a/x@2026-05-13.md'),
-      versioned('kb/principles/a/y@2026-05-13.md', 'title: Why'),
-      versioned('kb/reference/standards/w/z@2026-05-13.md'),
+  it('content.missing-title checks guides only', () => {
+    const contentFiles = [
+      { path: 'content/guides/a/x.md', text: '---\ntopic: a\n---\nbody' },
+      { path: 'content/guides/a/y.md', text: '---\ntitle: Why\n---\nbody' },
     ]
-    expect(ids(corpus({ kbFiles }), 'content.missing-title')).toHaveLength(1)
+    const kbFiles = [versioned('kb/reference/standards/w/z@2026-05-13.md')]
+    expect(ids(corpus({ kbFiles, contentFiles }), 'content.missing-title')).toHaveLength(1)
   })
 
   it('content.universal-threshold ignores reference copies of standards', () => {
@@ -158,7 +158,7 @@ describe('content rules', () => {
       { path: 'content/plays/color/scheme.md', text: 'Check every pair with the contrast tool.' },
     ]
     const kbFiles = [
-      versioned('kb/principles/a/ok@2026-05-13.md', 'title: A', 'Under WCAG 2.2 AA, normal text needs 4.5:1.'),
+      versioned('kb/reference/x/ok@2026-05-13.md', 'title: A', 'Under WCAG 2.2 AA, normal text needs 4.5:1.'),
       versioned('kb/principles/a/bad@2026-05-13.md', 'title: B', 'Body line height must be at least 1.5.\nTouch targets should be 44px.\nText at 4.5:1.'),
     ]
     const found = ids(corpus({ kbFiles, contentFiles }), 'content.universal-threshold')

@@ -113,6 +113,21 @@ export const WorkflowFrontmatter = z
   .refine(w => Boolean(w.sequence) !== Boolean(w.routes), { message: 'a workflow has either a sequence or routes, not both' })
 export type WorkflowFrontmatter = z.infer<typeof WorkflowFrontmatter>
 
+/** A guide: Sistema's take on one foundation (D4, V1.12). Lives at content/guides/<topic>/<name>.md. */
+export const GuideFrontmatter = z
+  .object({
+    title: z.string().min(3),
+    description: z.string().min(20),
+    topic: z.enum(TOPICS),
+    /** External URLs and internal reference paths this guide synthesizes. */
+    sources: z.array(z.string()).default([]),
+    /** How to read the guide, when that isn't obvious from the title. */
+    note: z.string().optional(),
+    last_reviewed: z.iso.date(),
+  })
+  .strict()
+export type GuideFrontmatter = z.infer<typeof GuideFrontmatter>
+
 /**
  * Published opinions (plan 6, V1.8). `method` opinions are part of how Sistema
  * works and can't be overridden without losing part of the method; the other

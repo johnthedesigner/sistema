@@ -6,7 +6,7 @@
 import fs from 'fs'
 import path from 'path'
 import { resolveSistemaUrl } from '../placeholders'
-import { parseOpinion, parsePlay, parseRuleFile, parseWorkflow, type Opinion, type Play, type Workflow } from './parse'
+import { parseGuide, parseOpinion, parsePlay, parseRuleFile, parseWorkflow, type Guide, type Opinion, type Play, type Workflow } from './parse'
 import type { Rule } from './schema'
 
 export interface Catalog {
@@ -14,10 +14,12 @@ export interface Catalog {
   workflows: Workflow[]
   rules: Rule[]
   opinions: Opinion[]
+  guides: Guide[]
   playById: Map<string, Play>
   workflowById: Map<string, Workflow>
   ruleById: Map<string, Rule>
   opinionById: Map<string, Opinion>
+  guideById: Map<string, Guide>
 }
 
 function walk(dir: string, filter: (f: string) => boolean): string[] {
@@ -34,7 +36,7 @@ function fail(file: string, issues: Array<{ path: string; message: string }>): n
 
 const cache = new Map<string, Catalog>()
 
-/** Load every play, workflow, rule, and opinion under <root>/content. Cached per root. */
+/** Load every play, workflow, rule, opinion, and guide under <root>/content. Cached per root. */
 export function loadCatalog(root: string = process.cwd()): Catalog {
   const hit = cache.get(root)
   if (hit) return hit
@@ -61,15 +63,22 @@ export function loadCatalog(root: string = process.cwd()): Catalog {
     return r.ok ? r.value : fail(rel(abs), r.issues)
   })
 
+  const guides = walk(path.join(contentDir, 'guides'), f => f.endsWith('.md')).map(abs => {
+    const r = parseGuide(rel(abs), read(abs))
+    return r.ok ? r.value : fail(rel(abs), r.issues)
+  })
+
   const catalog: Catalog = {
     plays: plays.sort((a, b) => a.id.localeCompare(b.id)),
     workflows: workflows.sort((a, b) => a.id.localeCompare(b.id)),
     rules,
     opinions: opinions.sort((a, b) => a.id.localeCompare(b.id)),
+    guides: guides.sort((a, b) => a.id.localeCompare(b.id)),
     playById: new Map(plays.map(p => [p.id, p])),
     workflowById: new Map(workflows.map(w => [w.id, w])),
     ruleById: new Map(rules.map(r => [r.id, r])),
     opinionById: new Map(opinions.map(o => [o.id, o])),
+    guideById: new Map(guides.map(g => [g.id, g])),
   }
   cache.set(root, catalog)
   return catalog

@@ -28,11 +28,17 @@ export function ContentMeta({ frontmatter }: { frontmatter: ContentFrontmatter }
     status,
     version_label,
     retrieved,
+    last_reviewed,
   } = frontmatter
 
-  const retrievedDate = typeof retrieved === 'string'
-    ? retrieved
-    : new Date(retrieved as Date).toISOString().split('T')[0]
+  // Guides (content/guides) carry last_reviewed instead of retrieved.
+  const dateValue = retrieved ?? last_reviewed
+  const dateLabel = retrieved ? 'Retrieved' : 'Last reviewed'
+  const retrievedDate = !dateValue
+    ? null
+    : typeof dateValue === 'string'
+      ? dateValue
+      : new Date(dateValue as Date).toISOString().split('T')[0]
 
   return (
     <div className="flex flex-wrap items-center gap-2 text-sm text-on-surface-muted pb-6 mb-6 border-b border-border">
@@ -51,7 +57,7 @@ export function ContentMeta({ frontmatter }: { frontmatter: ContentFrontmatter }
           {version_label}
         </Pill>
       )}
-      <span className="text-on-surface-muted">Retrieved {retrievedDate}</span>
+      {retrievedDate && <span className="text-on-surface-muted">{dateLabel} {retrievedDate}</span>}
     </div>
   )
 }

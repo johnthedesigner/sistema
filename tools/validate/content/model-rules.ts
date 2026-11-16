@@ -7,6 +7,7 @@ import {
   guideFiles,
   headingAnchors,
   opinionPath,
+  parseGuide,
   parseOpinion,
   parsePlay,
   parseRuleFile,
@@ -45,6 +46,9 @@ export function loadModel(corpus: Corpus): Model {
       const r = parseWorkflow(f.path, f.text)
       if (r.ok) model.workflows.push(r.value)
       else r.issues.forEach(issue => model.errors.push({ file: f.path, issue }))
+    } else if (/^content\/guides\/.+\.md$/.test(f.path)) {
+      const r = parseGuide(f.path, f.text)
+      if (!r.ok) r.issues.forEach(issue => model.errors.push({ file: f.path, issue }))
     } else if (/^content\/opinions\/[^/]+\.md$/.test(f.path)) {
       const r = parseOpinion(f.path, f.text)
       if (r.ok) model.opinions.push(r.value)
@@ -64,7 +68,7 @@ function seqId(item: string): { id: string; optional: boolean } {
 }
 const strip = (t: string) => t.replace(/\?$/, '')
 
-/** Read a guide's markdown, following a kb stub to its versioned file if needed. */
+/** Read a guide's markdown. */
 function guideText(corpus: Corpus, ref: string): string | null {
   const byPath = new Map<string, SourceFile>()
   for (const f of [...(corpus.contentFiles ?? []), ...corpus.kbFiles]) byPath.set(f.path, f)
@@ -92,7 +96,7 @@ const TOOL_WORDS: Record<string, RegExp> = {
 const parses: Rule = {
   id: 'model.schema',
   level: 'code',
-  description: 'Every play, workflow, rule, and opinion file in content/ matches its schema.',
+  description: 'Every play, workflow, rule, opinion, and guide file in content/ matches its schema.',
   check: c => loadModel(c).errors.map(e => ({ file: e.file, line: 1, message: `${e.issue.path}: ${e.issue.message}` })),
 }
 

@@ -21,7 +21,7 @@ export const workflowUrl = (base: string, id: string) => `${base}/raw/workflows/
 export const workflowFullUrl = (base: string, id: string) => `${workflowUrl(base, id)}/full`
 export const stateSchemaUrl = (base: string) => `${base}/raw/schema/sistema.json`
 
-/** Guides live in kb/principles until V1.12 moves them to content/guides. */
+/** Guides live in content/guides; the legacy /raw/principles route serves them until V1.13 adds /raw/guides. */
 export function guideUrl(base: string, ref: string): { url: string; section?: string } {
   const [id, section] = ref.split('#')
   const [, topic, name] = id.split('.')

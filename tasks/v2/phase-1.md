@@ -149,11 +149,11 @@ Every rule embedded in plays and guides goes into `content/rules/`, and every re
 
 ### Task V1.12: Guides with addressable sections
 
-**Status:** not started
+**Status:** complete 2026-11-16. 18 guides in `content/guides/<topic>/<name>.md` with `GuideFrontmatter` (title, description, topic, sources, note, last_reviewed). `kb/principles/` is deleted (stubs, old versions, and topic indexes; git has them). The legacy `principles` routes read the new files through `kb.ts` until V1.13. Section anchors stay heading-derived; `model.knowledge` fails the build if a cited heading changes
 
 Move `kb/principles/` to `content/guides/` (D4), give each guide a required title, and give each section a stable anchor that plays cite. This is a structural move, not the V3 rewrite.
 
-- [ ] `content.missing-title` at 0; every `knowledge` reference resolves to an anchor
+- [x] `content.missing-title` at 0; every `knowledge` reference resolves to an anchor
 
 ### Task V1.13: Site reads the new model
 

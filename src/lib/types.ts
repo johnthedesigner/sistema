@@ -8,7 +8,8 @@ export interface ContentFrontmatter {
   content_type: ContentType
   status: ContentStatus
   version_label?: string
-  retrieved: string
+  retrieved?: string
+  last_reviewed?: string
   source_url?: string
   derived_from?: string[]
   sources?: string[]

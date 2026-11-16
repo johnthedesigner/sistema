@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 1 (Content model and narrative). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-1.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V1.11 — Rules registry seeding (V1.4 to V1.10 also complete)
-**Next task:** V1.12 — Guides with addressable sections (move `kb/principles/` to `content/guides/`)
+**Last completed task:** V1.12 — Guides moved to `content/guides/`
+**Next task:** V1.13 — Site reads the new model (new URLs, `llms.txt`, agents page, prompt box prerequisites)
 **Blockers:** none
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -66,4 +66,13 @@
 - **V1.6 to V1.9 (Track A):** IA research, the narrative (`narrative-draft.md`, with the headline still open), 20 published opinions (`content/opinions/`, with schema and checks), and the site structure (`site-structure.md` with a visual version). Owner decisions are recorded in each document. Density and motion modes are on the roadmap as `tokens.add-mode` (V3). The prompt box and the new URLs go into V1.13.
 - **V1.11:** `content.universal-threshold` now catches restated rule values (contrast ratios, target sizes, line-height and text-size minimums). Plays may not restate them. Guides may quote a value only on a line that names its standard. Edited the accessibility, color, and typography guides to cite rules. This was an in-place edit of the current versioned files, because D4 drops versioning for Sistema-authored content and V1.12 moves them. New rules: `color.contrast.large-text`, `typography.line-height.body` (AAA only), `typography.text-spacing` (WCAG 1.4.12), `tokens.naming.consistent`, `content.errors.no-exclamation`, `visual-language.direction.changes-propagate`, and four `ai.ui.*` rules. `typography.line-height.by-role` no longer sets universal ranges. Rules now render their `applies_when`.
 - 100 tests pass. The build passes. The remaining 21 `content.universal-threshold` warnings are all in legacy `_meta/` files, which V1.14 deletes.
+
+### 2026-11-16 — Task V1.12: Guides with addressable sections
+
+**What was done:**
+- Moved the current version of each of the 18 guides to `content/guides/<topic>/<name>.md`. Each now has a human title (also the H1), a description, its topic, its sources, and `last_reviewed`. The `note` field is kept where it existed. Deleted `kb/principles/` (stubs, older versions, and topic `_index.md` files).
+- `GuideFrontmatter` and `parseGuide` check the schema, the path, and that the topic matches the folder. Guides are in the catalog (`loadCatalog().guides`) and in `model.schema`. `guideFiles` now looks only in `content/guides`.
+- Legacy compatibility until V1.13: `kb.ts` maps the `principles` category to `content/guides` (no stubs), and generates topic index pages from guide titles and descriptions. The checker treats `kb/principles/...` paths as aliases, so legacy `/raw/principles` URLs and `sources` entries still resolve. `ContentMeta` shows "Last reviewed" for guides.
+- Section anchors stay derived from headings. They're stable because `model.knowledge` fails the build when a cited heading changes.
+- 102 tests pass. The build passes (227 pages).
 

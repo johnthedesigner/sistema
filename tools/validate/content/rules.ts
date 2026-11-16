@@ -80,8 +80,15 @@ function frontmatter(text: string): string | null {
   return m ? m[1] : null
 }
 
+/** Guides moved to content/guides in V1.12. Their legacy kb/principles paths still resolve (served by kb.ts). */
+function guideFilesOf(corpus: Corpus): SourceFile[] {
+  return (corpus.contentFiles ?? []).filter(f => /^content\/guides\/[^/]+\/[^/]+\.md$/.test(f.path))
+}
+
 function kbPathSet(corpus: Corpus): Set<string> {
-  return new Set(corpus.kbFiles.map(f => f.path))
+  const known = new Set(corpus.kbFiles.map(f => f.path))
+  for (const g of guideFilesOf(corpus)) known.add(g.path.replace('content/guides/', 'kb/principles/'))
+  return known
 }
 
 /** Map a /raw/<category>/<...> URL path to the stub file it should resolve to. */
@@ -222,7 +229,7 @@ const sourcesResolve: Rule = {
   check(corpus) {
     const known = kbPathSet(corpus)
     const out: Omit<Violation, 'rule' | 'level'>[] = []
-    for (const f of corpus.kbFiles) {
+    for (const f of [...corpus.kbFiles, ...guideFilesOf(corpus)]) {
       const fm = frontmatter(f.text)
       if (!fm) continue
       for (const m of matches(fm, /^\s+-\s+(kb\/\S+)\s*$/m)) {
@@ -348,11 +355,10 @@ const missingDescriptions: Rule = {
 const missingTitles: Rule = {
   id: 'content.missing-title',
   level: 'content',
-  description: 'Every public guide (kb/principles) has a human-written title, not one derived from its file name.',
+  description: 'Every guide (content/guides) has a human-written title, not one derived from its file name.',
   check(corpus) {
     const out: Omit<Violation, 'rule' | 'level'>[] = []
-    for (const f of corpus.kbFiles) {
-      if (!f.path.startsWith('kb/principles/') || !/@\d{4}-\d{2}-\d{2}\.md$/.test(f.path)) continue
+    for (const f of guideFilesOf(corpus)) {
       const fm = frontmatter(f.text)
       if (!fm || !/^title:\s*\S/m.test(fm)) out.push({ file: f.path, line: 1, message: 'no title in frontmatter' })
     }
