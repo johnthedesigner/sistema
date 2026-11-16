@@ -22,3 +22,12 @@
   severity: advisory
   applies_to: sistema-review/style-preview.html
   sources: [guide.visual-language.style-tile-format#3-technical-requirements]
+
+- id: visual-language.design-md.roles-not-values
+  statement: >-
+    DESIGN.md body sections name token roles and explain their use. Values appear only in the front matter,
+    which is generated from tokens/src/, and in the Overview's direction values.
+  reason: Values written by hand in two places drift. Role names stay true when values change.
+  layer: sistema-default
+  severity: advisory
+  applies_to: DESIGN.md

@@ -1,0 +1,9 @@
+- id: content.voice.baseline
+  statement: >-
+    Interface copy follows the cross-system baseline (plainspoken, genuine, helpful, direct; sentence case;
+    verb-plus-noun buttons) unless VOICE_AND_TONE.md records a product-specific exception and its reason.
+  reason: The baseline reflects what readers of interface copy need everywhere. Exceptions should be decisions, not drift.
+  layer: sistema-default
+  severity: advisory
+  applies_to: VOICE_AND_TONE.md, interface copy
+  sources: [guide.content.voice-and-tone#2-the-cross-system-voice-baseline]

@@ -1,0 +1,26 @@
+- id: typography.line-height.by-role
+  statement: >-
+    Line heights are unitless and fall within these ranges: body and long-form roles at least 1.5;
+    headings 1.1 to 1.3; display 1.0 to 1.1; labels and captions at least 1.3 when they can wrap.
+  reason: Body text below 1.5 is harder to read and fails WCAG 1.4.12 text spacing tolerance more easily. Large text needs less leading to hold together.
+  layer: sistema-default
+  severity: blocking
+  measure: { kind: range, min: 1.0, unit: unitless }
+  applies_to: tokens/src/typography.json
+  checked_by: [play.typography.scale evidence]
+  sources: [guide.typography.architecture#line-height]
+
+- id: typography.roles.distinct
+  statement: Type roles differ from their neighbors in weight, size, or letter spacing, not size alone, and each role has a stated purpose.
+  reason: Size-only hierarchies read as generic and collapse in dense interfaces where sizes are close together.
+  layer: sistema-default
+  severity: advisory
+  applies_to: tokens/src/typography.json
+  sources: [guide.quality.visual-quality-signals#2-the-ai-slop-test]
+
+- id: typography.fonts.self-hosted
+  statement: Typefaces are served by the project (font files in the repo, or downloaded at build time), with only the weights the roles use.
+  reason: Fetching fonts from a third party at runtime or in fragile build steps adds failures and privacy cost. Unused weights add load time.
+  layer: sistema-default
+  severity: advisory
+  applies_to: the app's font loading

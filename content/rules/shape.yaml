@@ -1,0 +1,11 @@
+- id: shape.radius.hierarchy
+  statement: >-
+    Radius forms a hierarchy by component family: small controls use a smaller radius than containers,
+    and floating layers use the largest. The full radius is limited to the families the direction names.
+  reason: A single radius on everything is the most common sign of an unconsidered system, and it erases the difference between controls and surfaces.
+  layer: sistema-default
+  severity: blocking
+  measure: { kind: presence }
+  applies_to: tokens/src/shape.json
+  checked_by: [play.shape.tokens evidence]
+  sources: [guide.shape.architecture#component-consistency]

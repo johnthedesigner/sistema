@@ -42,3 +42,11 @@
   layer: sistema-default
   severity: advisory
   applies_to: sistema-review/*.html
+
+- id: quality.shape.bans
+  statement: No uniform radius across all components, and no colored side-stripe accent borders on cards or alerts as the main way to signal status.
+  reason: Both are reflexive defaults that make a system look generated. Status needs a glyph and text, not only a colored edge.
+  layer: sistema-default
+  severity: advisory
+  applies_to: tokens/src/shape.json, components
+  sources: [guide.quality.visual-quality-signals#3-absolute-bans-for-design-system-token-decisions]

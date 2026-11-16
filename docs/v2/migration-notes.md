@@ -95,6 +95,70 @@ The renderer (`src/lib/content/render.ts`) now produces sections that every lega
 | Update living brief and decision log | **Renderer** |
 | Bootstrap only: "Before proceeding to Phase 4" checklist and pause | **Moved** to the workflow gate `foundations-approved` |
 
-## Placeholders (not converted)
+## visual-language.design-md (from generate-design-md and Bootstrap Step 3)
 
-`visual-language.design-md`, `content.voice-and-tone`, `typography.scale`, `shape.tokens`, and `spacing.tokens` are slice placeholders. Each tells the agent to record it as skipped. They are converted in V1.10.
+| Legacy instruction | Where it went |
+|---|---|
+| Read the living brief | Kept, step 1 (DESIGN.md Overview, the style preview, DECISIONS.md, `sistema.json`) |
+| Read the spec, token architecture, and visual language guides | The spec is linked in step 2. Guides go to the **renderer** with sections |
+| Generate the whole file, YAML front matter first | **Changed.** This play writes the body only. Front matter is generated from `tokens/src/` by `tokens.pipeline` (decision D6b), so values aren't written twice |
+| Every section present; mark undecided values `[default — review]` or `[TBD]` | Kept, steps 3 and 4, as `Provisional: … Set by <play id>`, which names who settles it |
+| Token names follow naming principles | Kept. Rule `tokens.naming.role`. **New:** the body names roles, not values (rule `visual-language.design-md.roles-not-values`), and later token plays use these names |
+| Don't reference any specific design system | Dropped as a play line. It's a property of the guides |
+| Output raw markdown only | Dropped (written to a file) |
+| Update living brief | **Renderer** |
+| — | **New:** the pointer line (rule `project.state.pointer`) |
+
+## content.voice-and-tone (from define-voice-and-tone)
+
+| Legacy instruction | Where it went |
+|---|---|
+| Read the living brief (product, audience, stance, density) | Kept, step 1, from DECISIONS.md and `sistema.json`. **Adds** reading existing copy in the repo |
+| Read three content guides, with a paragraph summary | **Renderer**, with sections. Summary dropped |
+| `project_context` variable | Kept as an override |
+| VOICE_AND_TONE.md with six sections and a template | Kept, step 3, as a section list rather than a fill-in template |
+| — | **New:** one question when the voice isn't clear (step 2); five annotated sample strings as evidence; a line in DESIGN.md pointing to the file (step 4) |
+| Baseline is the foundation; extend, don't replace | Moved to rule `content.voice.baseline` |
+
+## typography.scale (from generate-type-scale and Bootstrap Step 5)
+
+| Legacy instruction | Where it went |
+|---|---|
+| Read the living brief; confirm typeface and character, or ask | Kept, step 1, from the Direction values and the preview |
+| Read typography and quality guides | **Renderer**, with sections |
+| Explore ratios in the type scale tool page (optional) | Kept as "use the type scale tool if available" (step 2). The API arrives in V2 |
+| `typography_direction` variable | Kept as an override |
+| DTCG format example | Kept, step 4. **Adds** `font` family tokens and a `family` reference per role |
+| Minimum role list | Kept, step 3. DESIGN.md's role names take precedence |
+| Line height ranges and letter spacing direction | Moved to rule `typography.line-height.by-role` (blocking) |
+| Weight, size, and tracking vary across roles | Moved to rule `typography.roles.distinct` |
+| JSON is the source, CSS is compiled | Rule `tokens.source.dtcg` |
+| Update living brief | **Renderer** |
+| — | **New:** start from the approved preview and list changes; load the fonts in the app, self-hosted where possible (rule `typography.fonts.self-hosted`, from the new-project run) |
+
+## shape.tokens (from generate-shape-tokens and Bootstrap Step 6)
+
+| Legacy instruction | Where it went |
+|---|---|
+| Read the living brief for stance | Kept, step 1, from Direction values and the preview |
+| Read shape and quality guides | **Renderer**. **Adds** the depth guide, since elevation lives here (capability model, Section 8) |
+| `shape_direction` variable | Kept as an override |
+| DTCG radius and shadow example with component mapping in `$description` | Kept, step 4 |
+| Radius must not be uniform; there must be a hierarchy | Moved to rule `shape.radius.hierarchy` (blocking) |
+| Side-stripe ban | Moved to rule `quality.shape.bans` |
+| Explain the personality choice | Kept, steps 2 and 3, with the evidence |
+| Update living brief | **Renderer** |
+| — | **New:** the depth model per theme, with dark overrides in `shape.dark.json`; start from the preview |
+
+## spacing.tokens (from generate-spacing-tokens and Bootstrap Step 7)
+
+| Legacy instruction | Where it went |
+|---|---|
+| Read the living brief for density | Kept, step 1. **Adds** the type scale, the DESIGN.md Layout section, and the preview |
+| Read the token architecture guide | **Fixed.** It now cites the spacing guide (bug inventory: the missing spacing guide link) and the type-spacing section of the typography guide |
+| Three scale tiers on a 4px base | Kept, step 2. The base unit is now a choice (4px or 8px), per the spacing guide |
+| "Name tokens by their pixel value" | **Fixed.** The legacy text contradicted its own example (`space.4` = 16px). Steps are named by multiple of the base unit, matching Tailwind (step 3, rule `spacing.scale.base-unit`) |
+| Three semantic layout aliases | Kept, step 4 |
+| State the rationale | Kept, in the evidence |
+| Update living brief | **Renderer** |
+

@@ -1,0 +1,15 @@
+- id: spacing.scale.base-unit
+  statement: Every spacing step is a multiple (or half multiple) of one base unit, and steps are named by that multiple.
+  reason: A single base unit keeps spacing, type, and component sizes aligned, and multiple-based names mean the same thing in tokens and utilities.
+  layer: sistema-default
+  severity: advisory
+  applies_to: tokens/src/spacing.json
+  sources: [guide.spacing.layout#base-unit-4px-vs-8px]
+
+- id: spacing.never-arbitrary
+  statement: Components and layouts use spacing tokens or layout aliases, never one-off pixel values.
+  reason: One-off values are where spacing drifts first, and they can't be changed from one place.
+  layer: sistema-default
+  severity: advisory
+  applies_to: components and layout code
+  sources: [guide.spacing.layout#the-never-arbitrary-rule]
