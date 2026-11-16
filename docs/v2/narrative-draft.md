@@ -15,14 +15,17 @@ Placeholders like `[starter prompt]` mark where the site inserts live content. B
 
 ### Hero
 
-**Headline options** (pick one):
-1. A design system your AI tools actually follow.
-2. Design foundations your coding agent can build on.
-3. Decide the foundations once. Every screen follows them.
-4. Build your design system with your agent, one approved step at a time.
+**Headline.** The owner's direction (2026-11-16) is to pair AI-friendly foundations with the design freedom they give. Options, recommended first:
+1. Firm foundations for AI-built apps. More room to design.
+2. Give your agent firm foundations, and give your design more room.
+3. Design foundations your AI agent follows, so your app has room to grow.
+4. Decide the foundations once. Design freely from there.
+5. Foundations built for AI agents. Freedom built for designers.
 
 **Subhead:**
-Sistema guides your AI coding agent through building a design system in your repository, one step at a time. You approve each stage on a rendered page, and every value is calculated and checked rather than guessed.
+Sistema guides your AI coding agent through building a design system in your repository. Once colors, type, and spacing are decided and checked, every new screen starts from solid ground, and your time goes to design choices instead of fixing drift.
+
+**Supporting line** (under the subhead, smaller): You approve each stage on a rendered page, and every value is calculated, not guessed.
 
 **Primary action:** Start a design system
 
@@ -63,6 +66,8 @@ AI tools let anyone on a team build working screens quickly. Designers, develope
 Speed has a cost when the foundations aren't decided. Each screen an agent builds invents its own colors, sizes, and spacing. The product drifts, design and code split apart, and agents report progress that later turns out to be partial.
 
 What helps is foundations that are decided, written down, and checked. They also need to be in front of the agent at the moment it makes a choice.
+
+Settled foundations don't narrow what you can design. They widen it. When every screen already gets color, type, spacing, and accessibility right, you can try more layouts and ideas, and test them with users sooner. Your time goes to the design itself.
 
 ### What Sistema provides
 
