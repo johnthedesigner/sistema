@@ -13,8 +13,8 @@ const TOOLS = [
     slug: 'palette',
     href: '/tools/palette',
     title: 'Palette generator',
-    description: 'Generate 19-stop OKLCH color ramps from any seed hex. The same algorithm the generate-color-scheme play uses via the palette API. Export as CSS variables, Tailwind config, or Figma Variables.',
-    playRef: 'generate-color-scheme',
+    description: 'Generate 19-stop OKLCH color ramps from any seed hex. The same algorithm the color scheme play uses through the palette API. Export as CSS variables, Tailwind config, or Figma Variables.',
+    playRef: 'color.scheme',
     api: `${SITE_URL}/api/palette`,
   },
   {
@@ -22,15 +22,15 @@ const TOOLS = [
     href: '/tools/contrast',
     title: 'Contrast checker',
     description: 'Check any foreground/background pair against WCAG 2.2 AA and AAA thresholds. The same calculation plays use to verify semantic role pairings — also available as an API for use directly in your prompts.',
-    playRef: 'accessibility-audit',
+    playRef: 'accessibility.audit',
     api: `${SITE_URL}/api/contrast`,
   },
   {
     slug: 'type-scale',
     href: '/tools/type-scale',
     title: 'Type scale calculator',
-    description: 'Explore modular type scales — pick a base size and ratio to see how sizes distribute from caption to display. Use the output to inform your typography direction when running generate-type-scale.',
-    playRef: 'generate-type-scale',
+    description: 'Explore modular type scales — pick a base size and ratio to see how sizes distribute from caption to display. Use the output to inform your typography direction when running the type scale play.',
+    playRef: 'typography.scale',
     api: null,
   },
 ]
@@ -87,7 +87,7 @@ export default function ToolsPage() {
 
                 <div className="flex items-center gap-3">
                   <Link
-                    href={`/playbooks/${tool.playRef}`}
+                    href={`/plays/${tool.playRef}`}
                     className="pointer-events-auto inline-flex items-center h-[26px] px-2.5 text-[11.5px] font-mono border border-border rounded bg-surface-sunken text-on-surface-muted hover:text-on-surface hover:bg-surface transition-colors no-underline"
                   >
                     {tool.playRef}

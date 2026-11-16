@@ -6,7 +6,7 @@ sources:
   - kb/reference/foundations/color/perceptual-models
   - kb/reference/foundations/color/contrast-and-accessibility
   - kb/reference/standards/wcag/color-contrast
-  - kb/principles/color/architecture
+  - guide.color.architecture
 last_reviewed: 2026-11-16
 ---
 
@@ -18,7 +18,7 @@ This document specifies a complete algorithm for generating bespoke color shade 
 
 The output is a set of shade arrays — 19 stops per color, indexed 50–950 — where each stop has a predictable contrast ratio against white and against black. This predictability is the primary design goal: it enables cross-hue interchangeability for accessible UI. If `blue-600` meets a contrast target, then so does `green-600`, because both stops were selected by the same contrast criterion.
 
-For how to map these generated primitives to semantic roles (primary, surface, on-surface, etc.), see `kb/principles/color/architecture`.
+For how to map these generated primitives to semantic roles (primary, surface, on-surface, etc.), see the Color architecture guide.
 
 ---
 
@@ -279,7 +279,7 @@ Store as static JSON at build time. The dynamic API endpoint and the pre-generat
 
 ## 10 — What this algorithm does not cover
 
-**Semantic role mapping** — which stop becomes `--color-primary`, `--color-primary-container`, etc. — is a separate decision covered in `kb/principles/color/architecture`. This algorithm produces primitive palettes; semantic mapping is the next layer.
+**Semantic role mapping** — which stop becomes `--color-primary`, `--color-primary-container`, etc. — is a separate decision covered in the Color architecture guide. This algorithm produces primitive palettes; semantic mapping is the next layer.
 
 **Dark mode surface colors** — these require surface palettes (typically a desaturated seed or a neutral) with careful selection of the stop used for the main surface. The algorithm generates the palette; which stop to assign to `--color-surface` in dark mode is a token architecture decision.
 

@@ -166,11 +166,11 @@ Point the existing pages (play pages, play index, campaign pages, home quick car
 
 ### Task V1.14: Remove legacy content and enable content rules
 
-**Status:** not started
+**Status:** complete 2026-11-16. Deleted `_meta/TASK_PLAYBOOKS.md`, `_meta/CAMPAIGNS.md`, `_meta/campaigns/`, and `_meta/exemplars/`. `prebuild` runs `--strict-all`, so any violation blocks the build (checked by planting one). Retired the legacy-only rules (`ref.campaign-step`, `content.step-number`, `content.missing-description`). `ref.raw-url` now knows the model routes. Added `content.stale-path` and `output.internal-link`; the latter found and fixed links to `/playbooks` left on the tool and KB pages, and skips `/kb` pages (30 broken source links on DESIGN.md reference pages, removed in V1.16)
 
 Delete `_meta/TASK_PLAYBOOKS.md`, `_meta/CAMPAIGNS.md`, and `_meta/campaigns/` once nothing reads them. Make content-level rules blocking (`--strict-all` in `prebuild`).
 
-- [ ] Legacy files gone; content-level violations at 0; build blocks on any violation
+- [x] Legacy files gone; content-level violations at 0; build blocks on any violation
 
 ### Task V1.15: LIVING_BRIEF migration play
 

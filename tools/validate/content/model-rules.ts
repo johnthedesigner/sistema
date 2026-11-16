@@ -258,7 +258,7 @@ const producesConflict: Rule = {
 const knowledgeResolves: Rule = {
   id: 'model.knowledge',
   level: 'code',
-  description: 'Every guide ref (play knowledge, rule sources, opinion guides) names a guide that exists, and its #anchor is a heading in it.',
+  description: 'Every guide ref (play knowledge, rule sources, opinion guides, guide sources) names a guide that exists, and its #anchor is a heading in it.',
   check(c) {
     const out: Out[] = []
     const m = loadModel(c)
@@ -266,6 +266,9 @@ const knowledgeResolves: Rule = {
       ...m.plays.flatMap(p => p.knowledge.map(ref => ({ file: p.file, ref }))),
       ...m.rules.flatMap(r => r.sources.filter(s => s.startsWith('guide.')).map(ref => ({ file: r.file, ref }))),
       ...m.opinions.flatMap(o => o.guides.map(ref => ({ file: o.file, ref }))),
+      ...(c.contentFiles ?? [])
+        .filter(f => /^content\/guides\/.+\.md$/.test(f.path))
+        .flatMap(f => [...f.text.matchAll(/^\s+-\s+(guide\.\S+)\s*$/gm)].map(m => ({ file: f.path, ref: m[1] }))),
     ]
     for (const p of refs) {
       for (const ref of [p.ref]) {

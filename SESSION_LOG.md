@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 1 (Content model and narrative). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-1.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V1.13 — Site reads the new model
-**Next task:** V1.14 — Remove legacy content and make content rules blocking
+**Last completed task:** V1.14 — Legacy content removed; content rules blocking
+**Next task:** V1.15 — LIVING_BRIEF migration play
 **Blockers:** none
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -92,4 +92,14 @@
 - **Session routes are `{title, plays}`.** The session starter and `project.orient` accept a goal already stated in the prompt (needed by the V3 prompt box).
 - Checked every route on a production server (old routes return 404), and took screenshots at desktop and phone width with no horizontal scroll. 100 tests pass, and the build passes (216 pages, output checks 0).
 - **Deferred to V3:** entry pages `/start`, `/existing`, `/work`; `/reference/files/*`; the prompt box with suggestions; the narrative home page.
+
+### 2026-11-16 — Task V1.14: Remove legacy content and enable content rules
+
+**What was done:**
+- **Deleted** `_meta/TASK_PLAYBOOKS.md`, `_meta/CAMPAIGNS.md`, `_meta/campaigns/`, and `_meta/exemplars/`. Nothing read them after V1.13.
+- **The checker now reads only reference material (`kb/`) and the content model.** Retired `ref.campaign-step`, `content.step-number`, and `content.missing-description`; the schemas cover descriptions now. `ref.raw-url` resolves the model routes (plays, workflows and `/full`, guides, opinions, rules, agents, schema) as well as reference stubs. The `kb/principles` aliases are gone.
+- **Guide sources** that named other guides by `kb/principles` path are now guide IDs, and `model.knowledge` checks them. Six in-text `kb/principles` mentions now name the guide. The new `content.stale-path` rule keeps them out.
+- **New output rule `output.internal-link`:** every `href="/..."` in a built page must point at a built page. It found links to `/playbooks/...` on the tool pages and the KB page, which V1.13 missed. All fixed: they now point at `/plays/...`. It skips `/kb` pages, where the DESIGN.md reference pages have 30 broken source links. Those pages go in V1.16.
+- **`prebuild` runs `--strict-all`.** A planted literal date in a play made the check exit 1.
+- 98 tests pass. The build passes with 0 violations before and after.
 

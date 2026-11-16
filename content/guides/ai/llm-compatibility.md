@@ -5,7 +5,7 @@ topic: ai
 sources:
   - kb/reference/standards/design-md/overview
   - kb/reference/standards/design-md/spec
-  - kb/principles/tokens/architecture
+  - guide.tokens.architecture
 last_reviewed: 2026-05-13
 ---
 

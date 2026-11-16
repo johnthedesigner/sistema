@@ -73,7 +73,7 @@ const guide: SourceFile = {
 }
 
 function corpus(contentFiles: SourceFile[]): Corpus {
-  return { campaignPrompts: [], kbFiles: [], builtHtml: [], contentFiles: [guide, ...contentFiles] }
+  return { kbFiles: [], builtHtml: [], contentFiles: [guide, ...contentFiles] }
 }
 
 function violations(c: Corpus, rule?: string) {

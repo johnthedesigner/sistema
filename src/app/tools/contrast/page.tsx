@@ -32,12 +32,12 @@ export default function ContrastCheckerPage() {
             >
               Check any foreground/background pair against WCAG 2.2 AA and AAA thresholds.
               The same calculation used by the{' '}
-              <Link href="/playbooks/generate-color-scheme" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken">
-                generate-color-scheme
+              <Link href="/plays/color.scheme" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken">
+                color.scheme
               </Link>
               {' '}and{' '}
-              <Link href="/playbooks/accessibility-audit" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken">
-                accessibility-audit
+              <Link href="/plays/accessibility.audit" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken">
+                accessibility.audit
               </Link>
               {' '}plays via <span className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface">POST {SITE_URL}/api/contrast</span>.
             </p>

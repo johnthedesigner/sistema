@@ -206,7 +206,7 @@ export default function KBLandingPage() {
               Search the Knowledge Base
             </SearchButton>
             <Link
-              href="/playbooks"
+              href="/plays"
               className="inline-flex items-center h-[30px] px-3 text-[12.5px] font-medium rounded-radius-md text-on-primary bg-primary hover:opacity-90 transition-opacity no-underline"
             >
               Browse plays

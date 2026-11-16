@@ -4,7 +4,7 @@
  *   npm run check:content                 source rules, report only
  *   npm run check:content -- --output     also scan built pages (.next)
  *   npm run check:content -- --strict     exit 1 on any code-level violation
- *   npm run check:content -- --strict-all exit 1 on any violation (V1)
+ *   npm run check:content -- --strict-all exit 1 on any violation (prebuild, from V1.14)
  *   npm run check:content -- --json       machine-readable summary
  *
  * prebuild runs source rules; postbuild runs output rules. See ROADMAP V0.
@@ -39,11 +39,7 @@ function walk(relDir: string, filter: (p: string) => boolean): SourceFile[] {
 
 export function loadCorpus(includeOutput: boolean): Corpus {
   return {
-    playbooks: read('_meta/TASK_PLAYBOOKS.md'),
-    campaignsIndex: read('_meta/CAMPAIGNS.md'),
-    campaignPrompts: walk('_meta/campaigns', p => p.endsWith('.md')),
     kbFiles: walk('kb', p => /\.(md|json)$/.test(p)),
-    playDescriptions: read('src/lib/playbooks.ts'),
     // Built pages, plus prerendered /raw route responses (.body files).
     builtHtml: includeOutput ? walk('.next/server/app', p => p.endsWith('.html') || (p.includes('/raw/') && p.endsWith('.body'))) : [],
     contentFiles: walk('content', p => /\.(md|ya?ml)$/.test(p)),

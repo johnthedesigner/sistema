@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:tunnel": "node tools/dev-tunnel.mjs",
-    "prebuild": "npm run -s check:content -- --strict",
+    "prebuild": "npm run -s check:content -- --strict-all",
     "build": "next build",
     "postbuild": "npm run -s check:content -- --output-only --strict",
     "start": "next start",

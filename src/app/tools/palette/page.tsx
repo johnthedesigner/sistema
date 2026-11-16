@@ -49,8 +49,8 @@ export default function PalettePage() {
             style={{ fontSize: 15, lineHeight: 1.55, fontVariationSettings: "'opsz' 32" }}
           >
             22 palettes generated using the same lightness curve and chroma envelope as the{' '}
-            <Link href="/playbooks/generate-color-scheme" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken">
-              generate-color-scheme
+            <Link href="/plays/color.scheme" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken">
+              color.scheme
             </Link>{' '}
             play. Click any swatch to copy its hex.
           </p>
@@ -63,8 +63,8 @@ export default function PalettePage() {
 
       <p className="text-xs text-on-surface-muted mt-10">
         Generated using the algorithm in{' '}
-        <Link href="/kb/principles/color/palette-generation.md" className="underline hover:text-on-surface">
-          kb/principles/color/palette-generation
+        <Link href="/guides/color/palette-generation" className="underline hover:text-on-surface">
+          Palette generation guide
         </Link>
         . Custom seeds: <code className="font-mono">POST {SITE_URL}/api/palette</code>.
         Regenerate: <code className="font-mono">npm run palettes</code>.

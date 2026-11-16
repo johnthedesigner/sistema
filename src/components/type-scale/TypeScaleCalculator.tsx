@@ -204,7 +204,7 @@ export function TypeScaleCalculator() {
         </div>
         <p className="text-[11.5px] text-on-surface-subtle mt-3 m-0">
           Line heights are suggested defaults. The{' '}
-          <span className="font-mono text-[11px] bg-surface-raised border border-border rounded px-1 py-0.5">generate-type-scale</span>{' '}
+          <span className="font-mono text-[11px] bg-surface-raised border border-border rounded px-1 py-0.5">typography.scale</span>{' '}
           play adjusts these per role based on your product&apos;s density and stance.
         </p>
       </div>
@@ -252,7 +252,7 @@ export function TypeScaleCalculator() {
         {tab === 'dtcg' && (
           <p className="text-[11.5px] text-on-surface-subtle mt-3 m-0">
             DTCG JSON is a starting point for the{' '}
-            <span className="font-mono text-[11px] bg-surface-raised border border-border rounded px-1 py-0.5">generate-type-scale</span>{' '}
+            <span className="font-mono text-[11px] bg-surface-raised border border-border rounded px-1 py-0.5">typography.scale</span>{' '}
             play, which adds weights, letter-spacing, and named semantic roles based on your project context.
           </p>
         )}
@@ -267,7 +267,7 @@ export function TypeScaleCalculator() {
           Paste your chosen ratio and base size into the{' '}
           <code className="font-mono text-[12px] bg-surface border border-border rounded px-1 py-0.5 text-on-surface">typography_direction</code>{' '}
           variable when running{' '}
-          <code className="font-mono text-[12px] bg-surface border border-border rounded px-1 py-0.5 text-on-surface">generate-type-scale</code>.
+          <code className="font-mono text-[12px] bg-surface border border-border rounded px-1 py-0.5 text-on-surface">typography.scale</code>.
           The play applies this scale to semantic roles with context-appropriate weights and spacing.
         </p>
       </div>

@@ -261,7 +261,7 @@ Required state attributes:
 }
 ```
 
-See `kb/principles/motion/architecture` for the full motion system specification.
+See the Motion architecture guide for the full motion system specification.
 
 **Verify:** Enable "Reduce Motion" in OS accessibility settings (macOS: System Settings → Accessibility → Display; iOS: Settings → Accessibility → Motion). Reload the product. Confirm all non-essential animations stop. Functional transitions (state changes, overlay appearances) may remain brief; decorative animations must stop entirely.
 

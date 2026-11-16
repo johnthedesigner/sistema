@@ -29,10 +29,10 @@ export default function TypeScalePage() {
             Pick a base size and ratio to explore how a modular scale distributes across sizes.
             Use these values to inform the{' '}
             <Link
-              href="/playbooks/generate-type-scale"
+              href="/plays/typography.scale"
               className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken"
             >
-              generate-type-scale
+              typography.scale
             </Link>{' '}
             play — the play handles semantic roles, weights, and spacing from there.
           </p>

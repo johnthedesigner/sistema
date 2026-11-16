@@ -3,9 +3,9 @@ title: "Primitive ramp scalability"
 description: "Why a full primitive ramp for every hue lets a color system grow, and how semantic roles map onto ramp stops."
 topic: color
 sources:
-  - kb/principles/color/palette-generation
-  - kb/principles/color/architecture
-  - kb/principles/tokens/architecture
+  - guide.color.palette-generation
+  - guide.color.architecture
+  - guide.tokens.architecture
 last_reviewed: 2026-11-16
 ---
 
@@ -15,7 +15,7 @@ last_reviewed: 2026-11-16
 
 **Generate a full primitive color ramp before mapping any semantic roles.**
 
-A full ramp is a complete set of stops (50–950, 19 values) derived from a single seed color using the contrast-targeting algorithm in `kb/principles/color/palette-generation`. Every stop has a predictable contrast ratio against white and black, precomputed and documented.
+A full ramp is a complete set of stops (50–950, 19 values) derived from a single seed color using the contrast-targeting algorithm in the Palette generation guide. Every stop has a predictable contrast ratio against white and black, precomputed and documented.
 
 The alternative — hand-picking individual hex values for specific semantic roles — produces a color system that works at initial scope but creates compounding constraints as the product grows.
 
@@ -70,7 +70,7 @@ The heuristic: if you can describe a clear future scenario where you'd need a co
 
 ## The Sistema palette API
 
-The palette API at `POST {{sistema_url}}/api/palette` implements the full contrast-targeting algorithm from `kb/principles/color/palette-generation`.
+The palette API at `POST {{sistema_url}}/api/palette` implements the full contrast-targeting algorithm from the Palette generation guide.
 
 **Request:** `{ "colors": { "[name]": "#hex", ... } }` — one or more seed hex colors, keyed by name.
 
@@ -103,7 +103,7 @@ Surface role assignments (from neutral ramp):
 --color-border               → [neutral ramp, stop ~200–300]   /* subtle boundary */
 ```
 
-These are starting points. The actual stop assignments depend on the architecture model (tonal, step scale, named palette — see `kb/principles/color/architecture`) and the visual direction commitment level. But the principle is the same: every semantic role maps to a ramp stop, not a free-floating hex value.
+These are starting points. The actual stop assignments depend on the architecture model (tonal, step scale, named palette — see the Color architecture guide) and the visual direction commitment level. But the principle is the same: every semantic role maps to a ramp stop, not a free-floating hex value.
 
 ---
 

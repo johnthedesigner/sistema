@@ -4,8 +4,8 @@
  * Every rule is a pure function over a Corpus, so tests can build small
  * in-memory corpora. Rules are grouped by level:
  *   - code:    broken references and unresolved output. Blocking from V0.6.
- *   - content: problems in v1 play/campaign text. Report-only until V1
- *              moves that content into the new model.
+ *   - content: problems in the wording of plays and guides. Blocking from
+ *              V1.14 (prebuild runs --strict-all).
  */
 
 export type Level = 'code' | 'content'
@@ -16,11 +16,7 @@ export interface SourceFile {
 }
 
 export interface Corpus {
-  playbooks?: SourceFile // _meta/TASK_PLAYBOOKS.md
-  campaignsIndex?: SourceFile // _meta/CAMPAIGNS.md
-  campaignPrompts: SourceFile[] // _meta/campaigns/*.md
-  kbFiles: SourceFile[] // kb/**/* (md and json)
-  playDescriptions?: SourceFile // src/lib/playbooks.ts
+  kbFiles: SourceFile[] // kb/**/* (md and json): reference material
   builtHtml: SourceFile[] // .next/server/app/**/*.html (output mode only)
   contentFiles?: SourceFile[] // content/** (v2 content model)
 }
@@ -86,17 +82,28 @@ function guideFilesOf(corpus: Corpus): SourceFile[] {
 }
 
 function kbPathSet(corpus: Corpus): Set<string> {
-  const known = new Set(corpus.kbFiles.map(f => f.path))
-  for (const g of guideFilesOf(corpus)) known.add(g.path.replace('content/guides/', 'kb/principles/'))
-  return known
+  return new Set(corpus.kbFiles.map(f => f.path))
 }
 
-/** Map a /raw/<category>/<...> URL path to the stub file it should resolve to. */
+/** Map a /raw/<category>/<...> reference URL path to the stub file it should resolve to. */
 export function rawPathToStub(rawPath: string): string {
   const clean = rawPath.replace(/#.*$/, '').replace(/\.md$/, '').replace(/\/$/, '')
   const [category, ...rest] = clean.split('/')
-  const base = category === 'principles' ? `kb/principles` : `kb/reference/${category}`
-  return `${base}/${rest.join('/')}.md`
+  return `kb/reference/${category}/${rest.join('/')}.md`
+}
+
+/** Model-backed /raw routes (V1.13): plays, workflows, guides, opinions, rules, agents, schema. */
+function modelRawPaths(corpus: Corpus): Set<string> {
+  const out = new Set(['opinions', 'rules', 'agents', 'schema/sistema.json'])
+  for (const f of corpus.contentFiles ?? []) {
+    const play = f.path.match(/^content\/plays\/[^/]+\/[^/]+\.md$/) && f.text.match(/^id:\s*(\S+)/m)
+    if (play) out.add(`plays/${play[1]}`)
+    const wf = f.path.match(/^content\/workflows\/([^/]+)\.md$/)
+    if (wf) out.add(`workflows/${wf[1]}`).add(`workflows/${wf[1]}/full`)
+    const guide = f.path.match(/^content\/guides\/([^/]+)\/([^/]+)\.md$/)
+    if (guide) out.add(`guides/${guide[1]}/${guide[2]}`)
+  }
+  return out
 }
 
 /** Resolve a KB path from `sources` frontmatter (pre- or post-migration form). */
@@ -110,21 +117,14 @@ function kbSourceCandidates(kbPath: string): string[] {
 
 function agentTextFiles(corpus: Corpus): SourceFile[] {
   const files: SourceFile[] = []
-  if (corpus.playbooks) files.push(corpus.playbooks)
-  files.push(...corpus.campaignPrompts)
   files.push(...corpus.kbFiles.filter(f => /@\d{4}-\d{2}-\d{2}\.md$/.test(f.path)))
   files.push(...(corpus.contentFiles ?? []).filter(f => f.path.endsWith('.md')))
   return files
 }
 
-/** Plays, campaign prompts, and public guides (not reference copies of external sources). */
+/** Plays, workflows, guides, and opinions (not reference copies of external sources). */
 function sistemaAuthoredFiles(corpus: Corpus): SourceFile[] {
   return agentTextFiles(corpus).filter(f => !f.path.startsWith('kb/reference/'))
-}
-
-function playSlugs(corpus: Corpus): string[] {
-  if (!corpus.playbooks) return []
-  return [...matches(corpus.playbooks.text, /^## ([\w-]+) — /m)].map(m => m[1])
 }
 
 // ─── code-level rules ───────────────────────────────────────────────────────
@@ -132,14 +132,16 @@ function playSlugs(corpus: Corpus): string[] {
 const rawUrlResolves: Rule = {
   id: 'ref.raw-url',
   level: 'code',
-  description: 'Every {{sistema_url}}/raw/... URL in agent-facing text resolves to a KB stub.',
+  description: 'Every {{sistema_url}}/raw/... URL in agent-facing text resolves to a route the site serves.',
   check(corpus) {
     const known = kbPathSet(corpus)
+    const model = modelRawPaths(corpus)
     const out: Omit<Violation, 'rule' | 'level'>[] = []
     for (const f of agentTextFiles(corpus)) {
       for (const m of matches(f.text, /\{\{sistema_url\}\}\/raw\/([A-Za-z0-9/_.#-]+)/)) {
         if (m[1].includes('...')) continue // prose example like /raw/...
         const raw = m[1].replace(/[.,;:]+$/, '')
+        if (model.has(raw.replace(/#.*$/, '').replace(/\/$/, ''))) continue
         const stub = rawPathToStub(raw)
         if (!known.has(stub)) {
           out.push({ file: f.path, line: lineOf(f.text, m.index), message: `/raw/${raw} does not resolve (expected ${stub})` })
@@ -165,25 +167,6 @@ const sourceRelativeUrl: Rule = {
   },
 }
 
-const campaignStepsExist: Rule = {
-  id: 'ref.campaign-step',
-  level: 'code',
-  description: 'Every play slug listed in a campaign exists. (The loader drops unknown slugs silently.)',
-  check(corpus) {
-    const f = corpus.campaignsIndex
-    if (!f) return []
-    const slugs = new Set(playSlugs(corpus))
-    const fences = fencedRanges(f.text)
-    const out: Omit<Violation, 'rule' | 'level'>[] = []
-    for (const m of matches(f.text, /^\*\*Steps:\*\*\s*(.+)$/m)) {
-      if (inRanges(m.index, fences)) continue
-      for (const slug of m[1].split(',').map(s => s.trim()).filter(Boolean)) {
-        if (!slugs.has(slug)) out.push({ file: f.path, line: lineOf(f.text, m.index), message: `campaign step "${slug}" is not a play` })
-      }
-    }
-    return out
-  },
-}
 
 const stubTargetsExist: Rule = {
   id: 'ref.stub-target',
@@ -274,6 +257,38 @@ const outputRelativeUrl: Rule = {
   },
 }
 
+/** Site path of a built page: .next/server/app/a/b.html -> /a/b, index.html -> / */
+function builtPagePath(file: string): string | null {
+  const m = file.match(/(?:^|\/)server\/app\/(.+)\.html$/)
+  if (!m) return null
+  return m[1] === 'index' ? '/' : `/${m[1]}`
+}
+
+const outputInternalLinks: Rule = {
+  id: 'output.internal-link',
+  level: 'code',
+  description: 'Every internal link (href="/...") in a built page points at a page the build produced.',
+  check(corpus) {
+    const pages = new Set(corpus.builtHtml.map(f => builtPagePath(f.path)).filter((p): p is string => p !== null))
+    if (pages.size === 0) return []
+    const out: Omit<Violation, 'rule' | 'level'>[] = []
+    for (const f of corpus.builtHtml) {
+      const page = builtPagePath(f.path)
+      if (!page) continue
+      // Reference material pages (/kb) have known broken source links and are removed in V1.16.
+      if (page.startsWith('/kb/')) continue
+      const broken = new Set<string>()
+      for (const m of matches(f.text, /href="(\/[^"#?]*)/)) {
+        const href = m[1].replace(/\/$/, '') || '/'
+        if (/^\/(?:_next|api|raw)\//.test(href) || /\.(?:png|svg|ico|jpe?g|json|txt|xml|webmanifest|woff2?|css|js)$/.test(href)) continue
+        if (!pages.has(href)) broken.add(href)
+      }
+      if (broken.size) out.push({ file: f.path, line: 1, message: `links to missing pages: ${[...broken].join(', ')}` })
+    }
+    return out
+  },
+}
+
 // ─── content-level rules ────────────────────────────────────────────────────
 
 const literalDates: Rule = {
@@ -282,11 +297,7 @@ const literalDates: Rule = {
   description: 'Prompt templates contain no literal dates; they tell the agent to use today\'s date.',
   check(corpus) {
     const out: Omit<Violation, 'rule' | 'level'>[] = []
-    const files = [
-      ...(corpus.playbooks ? [corpus.playbooks] : []),
-      ...corpus.campaignPrompts,
-      ...(corpus.contentFiles ?? []).filter(f => f.path.endsWith('.md')),
-    ]
+    const files = (corpus.contentFiles ?? []).filter(f => f.path.endsWith('.md'))
     for (const f of files) {
       for (const m of matches(f.text, /\[20\d{2}-\d{2}-\d{2}\]/)) {
         out.push({ file: f.path, line: lineOf(f.text, m.index), message: `literal date ${m[0]} in a template` })
@@ -296,61 +307,7 @@ const literalDates: Rule = {
   },
 }
 
-const stepNumbers: Rule = {
-  id: 'content.step-number',
-  level: 'content',
-  description: 'Campaign substeps match their step, and steps refer to other steps by name, not number.',
-  check(corpus) {
-    const out: Omit<Violation, 'rule' | 'level'>[] = []
-    for (const f of corpus.campaignPrompts) {
-      let current: number | null = null
-      const lines = f.text.split('\n')
-      lines.forEach((text, i) => {
-        const heading = text.match(/^## Step (\d+)\b/)
-        if (heading) {
-          current = Number(heading[1])
-          return
-        }
-        if (current === null) return
-        const sub = text.match(/^\*\*Step (\d+)([a-z])\b/)
-        if (sub && Number(sub[1]) !== current) {
-          out.push({ file: f.path, line: i + 1, message: `substep ${sub[1]}${sub[2]} sits under Step ${current}` })
-          return
-        }
-        const before = text.match(/Before proceeding to Step (\d+)/)
-        if (before && Number(before[1]) !== current + 1) {
-          out.push({ file: f.path, line: i + 1, message: `"Before proceeding to Step ${before[1]}" sits under Step ${current}` })
-          return
-        }
-        const next = current + 1
-        for (const m of text.matchAll(/\b(in|from|to|of|by) Step (\d+)\b/g)) {
-          const n = Number(m[2])
-          // "proceed to Step N+1" in a pause prompt points forward on purpose.
-          const forwardPause = n === next && /proceed(?:ing)? to Step/.test(text.slice(Math.max(0, (m.index ?? 0) - 12), (m.index ?? 0) + m[0].length))
-          if (n !== current && !forwardPause) out.push({ file: f.path, line: i + 1, message: `refers to Step ${n} by number` })
-        }
-      })
-    }
-    return out
-  },
-}
 
-const missingDescriptions: Rule = {
-  id: 'content.missing-description',
-  level: 'content',
-  description: 'Every play has a description (today: an entry in PLAY_DESCRIPTIONS).',
-  check(corpus) {
-    const src = corpus.playDescriptions
-    if (!src || !corpus.playbooks) return []
-    const out: Omit<Violation, 'rule' | 'level'>[] = []
-    for (const m of matches(corpus.playbooks.text, /^## ([\w-]+) — /m)) {
-      if (!src.text.includes(`'${m[1]}':`)) {
-        out.push({ file: corpus.playbooks.path, line: lineOf(corpus.playbooks.text, m.index), message: `play ${m[1]} has no description` })
-      }
-    }
-    return out
-  },
-}
 
 const missingTitles: Rule = {
   id: 'content.missing-title',
@@ -361,6 +318,21 @@ const missingTitles: Rule = {
     for (const f of guideFilesOf(corpus)) {
       const fm = frontmatter(f.text)
       if (!fm || !/^title:\s*\S/m.test(fm)) out.push({ file: f.path, line: 1, message: 'no title in frontmatter' })
+    }
+    return out
+  },
+}
+
+const stalePrinciplesPath: Rule = {
+  id: 'content.stale-path',
+  level: 'content',
+  description: 'Sistema content never names kb/principles paths; guides moved to content/guides in V1.12. Name the guide instead.',
+  check(corpus) {
+    const out: Omit<Violation, 'rule' | 'level'>[] = []
+    for (const f of (corpus.contentFiles ?? []).filter(f => f.path.endsWith('.md'))) {
+      for (const m of matches(f.text, /kb\/principles\//)) {
+        out.push({ file: f.path, line: lineOf(f.text, m.index), message: 'names a kb/principles path; name the guide instead' })
+      }
     }
     return out
   },
@@ -408,18 +380,16 @@ const universalThresholds: Rule = {
 export const SOURCE_RULES: Rule[] = [
   rawUrlResolves,
   sourceRelativeUrl,
-  campaignStepsExist,
   stubTargetsExist,
   versionedFilesHaveStubs,
   sourcesResolve,
   literalDates,
-  stepNumbers,
-  missingDescriptions,
   missingTitles,
   universalThresholds,
+  stalePrinciplesPath,
 ]
 
-export const OUTPUT_RULES: Rule[] = [outputPlaceholder, outputRelativeUrl]
+export const OUTPUT_RULES: Rule[] = [outputPlaceholder, outputRelativeUrl, outputInternalLinks]
 
 export function runRules(rules: Rule[], corpus: Corpus): Violation[] {
   return rules.flatMap(r => r.check(corpus).map(v => ({ ...v, rule: r.id, level: r.level })))
