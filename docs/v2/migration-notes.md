@@ -162,3 +162,148 @@ The renderer (`src/lib/content/render.ts`) now produces sections that every lega
 | State the rationale | Kept, in the evidence |
 | Update living brief | **Renderer** |
 
+## color.add-theme (from generate-dark-mode)
+
+| Legacy instruction | Where it went |
+|---|---|
+| Read the color guide's dark mode section | **Renderer**, with sections, plus the token-level dark mode and tonal elevation sections |
+| Paste your palette and light mapping | Dropped as a form field. The play reads `tokens/src/color.json` (step 1) |
+| Tonal shift, no inversion; surfaces from the dark end; accents from lighter stops | Kept, step 2. Rule `color.dark.tonal-shift` |
+| Every on-* role meets 4.5:1 | **Moved** to rules `color.contrast.text` and `color.contrast.ui`, parameterized by standard |
+| Verify with the contrast tool | Kept, step 3, as one batch request |
+| Output `[data-theme="dark"]` CSS | **Changed** to `tokens/src/color.dark.json`, compiled by the pipeline (the session route runs it next) |
+| — | **New:** adding light to a dark-first system; asking which theme is primary; a side-by-side comparison page and approval (rule `quality.review.compare-visually`); updating `sistema.json` theme |
+
+## tokens.migrate-tailwind (from migrate-tailwind-tokens): retired into a route
+
+The capability model's fit test kept this as a play. After V1.5, `color.map-existing` and `tokens.pipeline` cover everything it did: reading a Tailwind color config, keeping values exactly, two-tier tokens, and wiring Tailwind 3 or 4 to the compiled properties. Keeping it would duplicate both plays and reintroduce its path conflict (`tokens/primitive/` and `tokens/semantic/` instead of `tokens/src/`). It is now the `workflow.session` route `bring-in-existing-colors` (map-existing, then pipeline).
+
+| Legacy instruction | Where it went |
+|---|---|
+| Extract primitives without changing values | `color.map-existing` steps 1 and 6, under rule `color.existing.consent` |
+| Define semantic roles | `color.map-existing` step 6 |
+| Write `tokens/primitive/colors.json` and `tokens/semantic/colors.json` | **Dropped.** Every play writes `tokens/src/*.json` (the path conflict the fit test flagged) |
+| Tailwind `theme.extend` reading custom properties so existing utilities keep working | `tokens.pipeline` step 5 (Tailwind 3 and 4 wiring) and step 6 (old names kept as aliases when the person chooses) |
+
+## components.specify (from specify-component)
+
+| Legacy instruction | Where it went |
+|---|---|
+| Read the living brief and two guides | Step 1 (DESIGN.md, tokens, DECISIONS.md, existing components). Guides go to the **renderer** |
+| Component name and token context form fields | `component` override. Token names are read from `tokens/src/` |
+| Spec structure: variants, sizes, states, token map, accessibility, behavior | Kept, step 2. **Adds** purpose, copy, and consistency with similar components |
+| 44×44 target, 3:1 focus, keyboard, accessible name | **Moved** to `accessibility.*` rules. The target size is now **parameterized by standard** (24px at WCAG 2.2 AA, 44px at AAA). 44px was a universal threshold, which plan 9.3 removes |
+| No hardcoded values | Rule `tokens.usage.no-raw-values` |
+| Output only the spec document | Written to `docs/components/<name>.md` |
+| Update living brief | **Renderer** |
+
+## components.implement (from implement-component)
+
+| Legacy instruction | Where it went |
+|---|---|
+| Read the living brief and two guides | Step 1 reads the spec. Guides go to the **renderer** |
+| Framework, styling, spec, and token form fields | Read from `sistema.json` (`stack`, `component_library`) and the spec. **Changed:** follow the existing components' conventions (step 2) |
+| Semantic tokens; ARIA and keyboard; visible focus at 3:1; 44×44 | **Moved** to rules (as in `components.specify`) |
+| Prop types and a usage example | Replaced by the showcase entry (step 4), which is the working example |
+| — | **New:** verification with the contrast tool, an automated scan in every theme, a keyboard walkthrough, a screenshot of the focus ring (the Tailwind 4 trap from the new-project run), and the build |
+
+## components.scaffold-core (from scaffold-core-components and Bootstrap Steps 9)
+
+The longest legacy play (139 lines). It shrinks because the token wiring now lives in `tokens.pipeline`.
+
+| Legacy instruction | Where it went |
+|---|---|
+| Read the living brief and two guides | Step 1. Guides go to the **renderer** |
+| Ask about shadcn/ui or alternatives; adapt to non-Tailwind stacks | Kept, step 2. **Adds** React Aria and native elements. The choice is recorded as `project.component_library` |
+| Generate `tailwind.config.ts` mapping every token (60-line example) | **Moved** to `tokens.pipeline` step 5, for Tailwind 3 and 4. Removed from this play |
+| Check the global CSS import path | Already in `tokens.pipeline` step 5 |
+| Load fonts with `next/font` | **Moved** to `typography.scale` step 5 |
+| File structure by functional group with a barrel export | Kept, step 4. **Adds** a shared focus ring style |
+| Install shadcn and generate at least 10 components | Kept, step 3, as an agreed list based on the product's first screens |
+| Per-component checks (tokens, states, focus, 44×44) | **Moved** to rules, with verification in step 7 |
+| Customize to the visual direction | Implicit. The tokens already are the direction. The play doesn't change token values |
+| Self-contained `component-preview.html` | **Changed** to a showcase route in the app, because real components can't render in a static file. The person opens it at the gate `components-approved` |
+| Update living brief | **Renderer**, plus DESIGN.md Components (step 8) |
+
+## components.page-examples (from generate-page-examples and Bootstrap Step 10)
+
+| Legacy instruction | Where it went |
+|---|---|
+| Suggest two page types from the product; confirm | Kept, step 1 |
+| Self-contained static HTML with token CSS | **Changed** to app routes built from the real components, so the pages test the system rather than a copy of it |
+| Realistic copy, no lorem ipsum | Kept, step 3, using VOICE_AND_TONE.md if present |
+| 1200px+ and 768px | Kept, step 4, with screenshots in every theme |
+| Pause for review | Optional play in `workflow.patterns` |
+
+## components.docs-site (from setup-documentation-site and Bootstrap Step 11)
+
+| Legacy instruction | Where it went |
+|---|---|
+| Recommend a single `docs/index.html`; confirm | **Changed** to a route in the app (step 1), reading tokens at runtime and importing real components, so it can't drift |
+| Token reference, gallery, usage notes, page links, direction summary | Kept, step 1 |
+| Update living brief | **Renderer** |
+
+## components.audit (from audit-component)
+
+| Legacy instruction | Where it went |
+|---|---|
+| Paste component code | Read from the repo (`component` override) |
+| Token usage, states, accessibility, API design | Kept, step 2. The accessibility part cites the shared `accessibility.*` rules and points to `accessibility.audit` for a full pass (the overlap the fit test flagged) |
+| Verdict, issues with line and severity, prioritized changes | Kept, step 3. Written to `docs/audits/` |
+
+## accessibility.audit (from accessibility-audit)
+
+| Legacy instruction | Where it went |
+|---|---|
+| Read the living brief and the floor | Step 1 reads the standard from `sistema.json`. Floor sections go to the **renderer** |
+| Scope form field | `scope` override |
+| Seven criteria per component | Kept, step 3. **Adds** reduced motion, focus loss, and checking the focus ring actually renders |
+| Contrast from the tool, exact ratios | Kept, as one batch request |
+| Fixed 4.5, 3, and 44 thresholds | **Moved** to rules parameterized by standard (plan 9.3) |
+| — | **New:** an automated scan in every theme first (step 2) |
+| Report by severity | Kept, step 5, in `docs/audits/` |
+
+## tokens.coverage-audit (from audit-token-coverage)
+
+| Legacy instruction | Where it went |
+|---|---|
+| Read the living brief and the token guide | Step 1 reads the tokens. Guides go to the **renderer** |
+| Search for hex, rgb, hsl, raw px, font values, and shadows; exclusions | Kept, step 2. **Adds** `oklch(`, Tailwind arbitrary values, and default palette classes |
+| Severity: blocking, recommended, minor | Kept, step 3. **Adds** separating "no matching token" gaps from violations |
+| Summary, prioritized list, fix order | Kept, step 4, in `docs/audits/` |
+
+## project.orient (from session-start)
+
+| Legacy instruction | Where it went |
+|---|---|
+| Read the living brief; summarize identity, decisions, state, open questions | Kept, steps 1 and 2, from `sistema.json`, DESIGN.md, and DECISIONS.md. Falls back to LIVING_BRIEF.md |
+| State the session goal; flag conflicts with decisions | Kept, steps 3 and 4 |
+| List of synthesis documents to load | Dropped. Each route's plays cite their own guide sections |
+| Confirm readiness | Replaced by choosing a route (step 5). It is the `start_with` play of `workflow.session` |
+
+## add-component: retired into a route
+
+`workflow.session` route `add-component` = `components.specify`, then `components.implement`. Its spec and implementation steps are those two plays. Its "update the living brief" step is the renderer's record section.
+
+## project.review (from design-system-retrospective)
+
+| Legacy instruction | Where it went |
+|---|---|
+| Read the living brief and the code | Steps 1 and 2, from DESIGN.md, DECISIONS.md, `sistema.json`, audits, tokens, and components |
+| Four questions and the report structure | Kept, step 3 |
+| Update the living brief | **Changed:** agree fixes with the person, then update DESIGN.md and DECISIONS.md (step 4) |
+
+## project.plan (from plan-next-iteration)
+
+| Legacy instruction | Where it went |
+|---|---|
+| Read the living brief | Step 1, from the v2 records and audits |
+| Maturity table | Kept, step 2, with tokens by category |
+| Priority order | Kept, step 3 |
+| Plan structure | Kept, step 4. Each task names its route or play. Written to `docs/plans/` |
+| Update the living brief | DECISIONS.md entry (step 5) |
+
+## Campaigns
+
+- **bootstrap:** split into `workflow.start` and `workflow.patterns`, linked by `continue_with`. Its standing quality directive is covered by the quality rules (`quality.*`) and by each play's evidence. Its 844-line copy of the plays is deleted in V1.14.
+- **audit-and-refactor:** retired. Assessment is `project.assess` in Start, and its audits are `workflow.session` routes.

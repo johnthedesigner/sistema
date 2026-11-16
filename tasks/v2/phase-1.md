@@ -133,11 +133,11 @@ Three modes (plan 7.1), with topic-organized reference and plays grouped under t
 
 ### Task V1.10: Remaining plays and workflows
 
-**Status:** not started
+**Status:** complete 2026-11-15. 22 plays and 3 workflows (`start`, `patterns`, `session`). `migrate-tailwind-tokens` was retired into a session route (see `migration-notes.md`), so the count is 22, not 23. Route workflows render, and requirements follow `continue_with` chains.
 
 Convert the rest per capability-model Section 7: `workflow.patterns`, `workflow.session`, and all plays. Add contracts first, then fix what the checks report. Includes the `migrate-tailwind-tokens` path conflict and the spacing guide link. Migration notes for each.
 
-- [ ] All 23 plays and 3 workflows converted; contract checks pass
+- [x] All plays (22) and 3 workflows converted; contract checks pass
 
 ### Task V1.11: Rules registry seeding
 

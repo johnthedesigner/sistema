@@ -243,8 +243,63 @@ function stateExample(workflow: Workflow, ctx: RenderContext): string {
   )
 }
 
+/** Plays a route workflow uses: the start play, then each route's plays, deduplicated. */
+export function routePlays(workflow: Workflow, plays: Map<string, Play>): Play[] {
+  const ids = [...(workflow.start_with ? [workflow.start_with] : []), ...Object.values(workflow.routes ?? {}).flat()]
+  return [...new Set(ids)].map(id => {
+    const play = plays.get(id)
+    if (!play) throw new Error(`${workflow.id}: unknown play ${id}`)
+    return play
+  })
+}
+
+/** Starter for a route workflow (workflow.session): orient, then one route per goal. */
+function renderRoutesStarter(workflow: Workflow, ctx: RenderContext): string {
+  const url = workflowUrl(ctx.base, workflow.id)
+  const start = workflow.start_with ? ctx.plays.get(workflow.start_with) : undefined
+  const tools = [...new Set(routePlays(workflow, ctx.plays).flatMap(p => p.tools))]
+  const routeLines = Object.entries(workflow.routes ?? {}).flatMap(([name, ids]) => {
+    const plays = ids.map(id => ctx.plays.get(id)!)
+    return [`- ${name}: ${plays.map(p => p.title).join(' → ')}`, ...plays.map(p => `    ${playUrl(ctx.base, p.id)}`)]
+  })
+
+  const parts = [
+    `# ${workflow.title}`,
+    workflow.description,
+    ...(workflow.body ? [workflow.body] : []),
+    'You are running a Sistema workflow. Each session starts by orienting, then follows one route.',
+    [
+      '## Routes',
+      '',
+      ...(start ? [`Start every session with **${start.title}**: ${start.description}`, `    ${playUrl(ctx.base, start.id)}`, ''] : []),
+      'Then follow the route that fits the goal:',
+      '',
+      ...routeLines,
+    ].join('\n'),
+    [
+      '## How to run it',
+      '',
+      ...(start ? [`1. Run ${start.title} (\`${start.id}\`). It reads the system's state, confirms the goal with the person, and picks a route.`] : ['1. Ask the person for the goal of this session, and pick the route that fits.']),
+      '2. Run the route\'s plays in order. Fetch each from its URL and follow it exactly.',
+      "3. When a play's evidence is shown, record it in `sistema.json` `steps` (this replaces the record of that play's previous run) and add its line to DECISIONS.md.",
+      '4. After each play, show one progress line, for example `add-component 1 of 2: specification done, implementation next`.',
+      "5. When the route is done, say so, and ask whether there is another goal for this session. If there is, confirm it and pick its route. If no route fits a goal, say so, and agree with the person how to proceed outside Sistema's plays.",
+      `6. Before ending any session, check \`sistema.json\` against the schema at ${stateSchemaUrl(ctx.base)} and fix anything that doesn't match.`,
+    ].join('\n'),
+    [
+      '## State: sistema.json',
+      '',
+      `Set \`workflow\` to \`${workflowSlug(workflow.id)}\` and \`milestone\` to \`maintain\`. Keep \`continue\` at this workflow's URL, ${url}: this workflow is the standing entry point for design system work, so the Sistema section in the agent instructions file keeps pointing here. Only play IDs go in \`steps\`. Work done outside a play goes in DECISIONS.md.`,
+    ].join('\n'),
+    ...(tools.length ? [renderTools(ctx.base, tools)] : []),
+    `If you cannot fetch URLs, use the full version, which includes every play: ${workflowFullUrl(ctx.base, workflow.id)}`,
+  ]
+  return parts.join('\n\n') + '\n'
+}
+
 /** The short paste-in starter (capability-model 9.2, revised in V1.5). */
 export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, workflows?: Map<string, Workflow>): string {
+  if (workflow.routes) return renderRoutesStarter(workflow, ctx)
   const { steps } = workflowSteps(workflow, ctx.plays)
   const tools = [...new Set(steps.flatMap(s => s.play.tools))]
   const next = workflow.continue_with ? workflows?.get(workflow.continue_with) : undefined
@@ -325,7 +380,9 @@ export function renderWorkflowFull(workflow: Workflow, ctx: RenderContext, workf
   const starter = renderWorkflowStarter(workflow, ctx, workflows)
     .replace(/\n\nIf you cannot fetch URLs, use the full version[^\n]*\n$/, '\n')
     .replace("3. Fetch the play's instructions from its URL and follow them exactly.", "3. Follow that play's instructions, included below.")
-  const { steps } = workflowSteps(workflow, ctx.plays)
-  const plays = steps.map(s => demote(renderPlay(s.play, ctx)).replace(/^## /, `## Play ${s.number}: `))
+    .replace("Fetch each from its URL and follow it exactly.", 'Follow each one, included below.')
+  const plays = workflow.routes
+    ? routePlays(workflow, ctx.plays).map((p, i) => demote(renderPlay(p, ctx)).replace(/^## /, `## Play ${i + 1}: `))
+    : workflowSteps(workflow, ctx.plays).steps.map(s => demote(renderPlay(s.play, ctx)).replace(/^## /, `## Play ${s.number}: `))
   return [starter.trimEnd(), ...plays.map(p => p.trimEnd())].join('\n\n---\n\n') + '\n'
 }

@@ -210,7 +210,7 @@ This maps all 25 plays and both campaigns, to check that the model holds up with
 | generate-shape-tokens | `shape.tokens` | create | foundations | Keep. Elevation stays here for now (see Section 8). |
 | generate-spacing-tokens | `spacing.tokens` | create | foundations | Keep. Add a reference to the spacing guide. |
 | generate-style-dictionary | `tokens.pipeline` | create | foundations | Keep. Its token check page is the evidence for the Foundations gate. |
-| migrate-tailwind-tokens | `tokens.migrate-tailwind` | change | foundations | Keep. **Output paths conflict:** it writes `tokens/primitive/colors.json` and `tokens/semantic/colors.json`, while every other step writes `tokens/src/*.json`. Contracts make conflicts like this fail the build. |
+| migrate-tailwind-tokens | (route) | | | **Retired in V1.10** into the `workflow.session` route `bring-in-existing-colors` (`color.map-existing`, then `tokens.pipeline`), which after V1.5 cover everything it did. This also removes its path conflict (`tokens/primitive/` and `tokens/semantic/` instead of `tokens/src/`). |
 | scaffold-core-components | `components.scaffold-core` | create | patterns | Keep. At 139 lines, it's the longest play and should probably split. |
 | specify-component | `components.specify` | create | patterns | Keep. |
 | implement-component | `components.implement` | create | patterns | Keep. |
@@ -226,7 +226,7 @@ This maps all 25 plays and both campaigns, to check that the model holds up with
 | **Campaign: bootstrap** | `workflow.start` + `workflow.patterns` | | | **Split** at the Foundations gate. The 844-line duplicate is deleted. |
 | **Campaign: audit-and-refactor** | `workflow.start` (Adopt door) + `workflow.session` | | | **Retire.** Assessment is now the first step of Start. Its audits become session routes. |
 
-**Result:** 25 plays become 23 steps (two merges, one retirement into a route, one reframe). 2 campaigns become 3 workflows. Every play has a place.
+**Result:** 25 plays become 22 steps (two merges, two retirements into routes, one reframe). 2 campaigns become 3 workflows. Every play has a place. *(V1.10: the migrate-tailwind retirement changed this from 23 to 22.)*
 
 ## 8. What the fit test found
 

@@ -14,7 +14,7 @@ import {
   type Play,
   type Workflow,
 } from '../../../src/lib/content/parse'
-import type { Rule as ContentRule } from '../../../src/lib/content/schema'
+import type { Rule as ContentRule, SequenceItem } from '../../../src/lib/content/schema'
 import type { Corpus, Rule, SourceFile, Violation } from './rules'
 
 type Out = Omit<Violation, 'rule' | 'level'>
@@ -122,6 +122,7 @@ const workflowRefs: Rule = {
       const ids = [
         ...(w.sequence ?? []).filter((i): i is string => typeof i === 'string').map(i => seqId(i).id),
         ...Object.values(w.routes ?? {}).flat(),
+        ...(w.start_with ? [w.start_with] : []),
       ]
       for (const id of ids) if (!plays.has(id)) out.push({ file: w.file, line: 1, message: `unknown play ${id}` })
       if (w.continue_with && !workflows.has(w.continue_with)) out.push({ file: w.file, line: 1, message: `unknown workflow ${w.continue_with}` })
@@ -130,17 +131,44 @@ const workflowRefs: Rule = {
   },
 }
 
+/** Tokens a workflow's sequence produces by its end: required plays' outputs and gates. */
+function producedBy(w: { sequence?: SequenceItem[] }, byId: Map<string, { produces: string[] }>): Set<string> {
+  const out = new Set<string>()
+  for (const item of w.sequence ?? []) {
+    if (typeof item !== 'string') {
+      out.add(`gate:${item.gate}`)
+      continue
+    }
+    const { id, optional } = seqId(item)
+    if (optional) continue
+    for (const prod of byId.get(id)?.produces.map(strip) ?? []) out.add(prod)
+  }
+  return out
+}
+
 const requiresSatisfied: Rule = {
   id: 'model.requires',
   level: 'code',
-  description: 'In every workflow sequence, each play\'s requires are produced by an earlier required play or gate.',
+  description: "In every workflow sequence, each play's requires are produced by an earlier required play or gate, or by a workflow that continues into this one.",
   check(c) {
     const m = loadModel(c)
     const byId = new Map(m.plays.map(p => [p.id, p]))
+    const byWorkflow = new Map(m.workflows.map(w => [w.id, w]))
+    // Everything available when a workflow starts: what its predecessors (via continue_with) produced, transitively.
+    const inherited = (id: string, seen = new Set<string>()): Set<string> => {
+      const acc = new Set<string>()
+      for (const pred of m.workflows.filter(w => w.continue_with === id)) {
+        if (seen.has(pred.id)) continue
+        seen.add(pred.id)
+        for (const t of inherited(pred.id, seen)) acc.add(t)
+        for (const t of producedBy(pred, byId)) acc.add(t)
+      }
+      return acc
+    }
     const out: Out[] = []
     for (const w of m.workflows) {
-      if (!w.sequence) continue
-      const available = new Set<string>()
+      if (!w.sequence || !byWorkflow.has(w.id)) continue
+      const available = inherited(w.id)
       const optionalOnly = new Set<string>()
       for (const item of w.sequence) {
         if (typeof item !== 'string') {

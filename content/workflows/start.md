@@ -17,6 +17,7 @@ sequence:
   - tokens.pipeline
   - gate: foundations-approved
     prompt: Open sistema-review/token-check.html and confirm the compiled tokens match what was approved. Note anything listed as approved but not yet tokenized.
+continue_with: workflow.patterns
 last_reviewed: 2026-11-15
 ---
 This works for a new project and for one that already has some of these pieces. The first play checks what exists, and finished work is skipped.

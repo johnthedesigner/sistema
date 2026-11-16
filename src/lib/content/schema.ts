@@ -105,6 +105,8 @@ export const WorkflowFrontmatter = z
     sequence: z.array(SequenceItem).optional(),
     routes: z.record(z.string(), z.array(PlayId)).optional(),
     continue_with: z.string().regex(/^workflow\.[a-z0-9-]+$/).optional(),
+    /** For route workflows: the play that runs first and picks a route. */
+    start_with: PlayId.optional(),
     last_reviewed: z.iso.date(),
   })
   .strict()
@@ -166,6 +168,8 @@ export const SistemaState = z
         density: z.enum(['dense', 'balanced', 'sparse']),
         platform: z.enum(['web', 'mobile', 'web-mobile']),
         stack: z.string(),
+        /** The component foundation chosen in components.scaffold-core, e.g. shadcn, base-ui, native. */
+        component_library: z.string(),
       })
       .partial()
       .strict()

@@ -155,6 +155,14 @@ describe('model.requires', () => {
     const msgs = violations(corpus([assess, direction, scheme, w, rulesFile]), 'model.requires').map(v => v.message)
     expect(msgs).toContain('color.scheme requires design-md#overview, but only an optional play produces it')
   })
+  it('lets a workflow use what the workflows continuing into it produced', () => {
+    const first = workflow('workflow.start', ['project.assess', 'visual-language.direction', { gate: 'direction-approved' }], 'continue_with: workflow.next\n')
+    const next = workflow('workflow.next', ['color.scheme'])
+    expect(violations(corpus([assess, direction, scheme, first, next, rulesFile]), 'model.requires')).toHaveLength(0)
+    // Without the link, the same sequence fails.
+    const unlinked = workflow('workflow.start', ['project.assess', 'visual-language.direction', { gate: 'direction-approved' }])
+    expect(violations(corpus([assess, direction, scheme, unlinked, next, rulesFile]), 'model.requires').length).toBeGreaterThan(0)
+  })
 })
 
 describe('model.milestone-order', () => {

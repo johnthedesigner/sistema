@@ -14,3 +14,16 @@
   severity: advisory
   applies_to: semantic tokens
   sources: [guide.tokens.architecture#name-for-role-not-value]
+
+- id: tokens.usage.no-raw-values
+  statement: >-
+    Components and pages use role tokens for color, type, radius, spacing, and shadow. No hex, rgb,
+    hsl, or one-off pixel values for anything a token covers. Token definition files, third-party
+    styles, and test fixtures are exempt.
+  reason: A raw value can't follow a theme or a change to the system, and it is where drift starts.
+  layer: sistema-default
+  severity: blocking
+  measure: { kind: presence }
+  applies_to: components and pages
+  checked_by: [play.tokens.coverage-audit evidence, play.components.audit evidence]
+  sources: [guide.tokens.architecture#the-tier-model]
