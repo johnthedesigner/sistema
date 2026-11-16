@@ -74,5 +74,5 @@
 - `GuideFrontmatter` and `parseGuide` check the schema, the path, and that the topic matches the folder. Guides are in the catalog (`loadCatalog().guides`) and in `model.schema`. `guideFiles` now looks only in `content/guides`.
 - Legacy compatibility until V1.13: `kb.ts` maps the `principles` category to `content/guides` (no stubs), and generates topic index pages from guide titles and descriptions. The checker treats `kb/principles/...` paths as aliases, so legacy `/raw/principles` URLs and `sources` entries still resolve. `ContentMeta` shows "Last reviewed" for guides.
 - Section anchors stay derived from headings. They're stable because `model.knowledge` fails the build when a cited heading changes.
-- 102 tests pass. The build passes (227 pages).
+- 101 tests pass. The build passes (227 pages).
 
