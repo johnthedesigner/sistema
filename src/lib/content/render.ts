@@ -122,8 +122,16 @@ function producersOf(token: string, ctx: RenderContext): string[] {
 
 // ─── play ───────────────────────────────────────────────────────────────────
 
-export function renderRule(rule: Rule): string {
-  const params = rule.parameters
+/**
+ * One rule for an agent. When the play calls a tool that checks this rule
+ * (`checked_by: [tool.<name>]`), the values by standard are left out: the tool
+ * applies them for the project's standard and reports the result.
+ */
+export function renderRule(rule: Rule, tools: ToolName[] = []): string {
+  const checker = tools.find(t => rule.checked_by.includes(`tool.${t}`))
+  const params = checker && rule.parameters
+    ? `\n  The ${TOOL_DOCS[checker].title.toLowerCase()} tool checks this for the standard in \`sistema.json\`. Use its result; don't apply a value yourself.`
+    : rule.parameters
     ? '\n  Values by standard: ' +
       Object.entries(rule.parameters)
         .map(([std, levels]) => `${std} ${Object.entries(levels).map(([lvl, v]) => `${lvl} ${v}`).join(', ')}`)
@@ -155,7 +163,7 @@ export function renderPlay(play: Play, ctx: RenderContext): string {
   if (play.rules.length) {
     const lines = play.rules.map(id => {
       const rule = ctx.rules.get(id)
-      return rule ? renderRule(rule) : `- **${id}**`
+      return rule ? renderRule(rule, play.tools) : `- **${id}**`
     })
     parts.push(`## Rules\n\n${lines.join('\n')}`)
   }

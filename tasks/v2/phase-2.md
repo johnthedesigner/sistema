@@ -77,13 +77,13 @@ Plan 13, layer 2: every tool's default output passes the registry rules it's sub
 
 ## Task V2.6: Tool index and shorter prompts
 
-**Status:** not started
+**Status:** done (2026-11-18). `/api/context` decision: keep it until V2.8, which replaces it with the new server-side capture and removes it. Removing it now would lose the only event from agents.
 
 - Publish a machine-readable index of the tool APIs at `GET /api`: each tool, its GET and POST forms, and a link to its documentation. Link it from `llms.txt` and `/raw/agents`.
 - Review play bodies for prompt length. Where a play explains something a guide section covers, cite the section instead. Fit review 2 found little of this, so expect small edits.
 - Decide whether to keep `/api/context`, a v1 analytics endpoint for prompt runs: keep and document it, or remove it.
 
-- [ ] `GET /api` lists every tool; plays cite sections rather than explaining them; `/api/context` decided
+- [x] `GET /api` lists every tool; plays cite sections rather than explaining them; `/api/context` decided
 
 ## Task V2.7: Usage analytics outline
 

@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 2 (Tools and paste-in improvements). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-2.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V2.5 — Consistency tests
-**Next task:** V2.6 — Tool index and shorter prompts
+**Last completed task:** V2.6 — Tool index and shorter prompts
+**Next task:** V2.7 — Usage analytics outline
 **Blockers:** none
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -125,3 +125,16 @@
   - Em dashes in the sample text and in the tools index title, description, and intro (which also said only two tools had APIs).
   - The contrast intro repeated "the same".
 - 146 tests (13 files). Build passes, 0 violations. Screenshots at 1280px (WCAG 2.2 and Section 508) and 390px, with no horizontal scroll.
+
+### 2026-11-18 — Task V2.6: Tool index and shorter prompts
+
+**What was done:**
+- `GET /api`: a JSON index of the three tools. Each entry has what the tool does, its GET form, a working example, its POST form and body, limits, and docs, all as absolute URLs. Limits now live in one place (`src/lib/tools/limits.ts`, plus the type scale's own), which the routes and the index both read. `llms.txt` and `/raw/agents` link to the index, and `/raw/agents` now documents all three tools. A test calls every example URL in the index and expects 200.
+- **Shorter prompts:**
+  - A rule that a tool in the play's contract checks (`checked_by: [tool.<name>]`) no longer lists its values for every standard. The play says the tool checks it for the project's standard and to use its result. Plays without the tool still list the values.
+  - `typography.line-height.body` is now also checked by `tool.type_scale`.
+  - The gain in length is small (`color.map-existing` went from 1,618 to 1,595 words). The real gain is that an agent can't apply another standard's value by mistake.
+  - The rest of each play is procedure. Fit review 2 already found that plays don't restate guides, so nothing else was trimmed.
+- `/api/context` stays until V2.8 replaces it.
+- **Known local issue:** twice, a build failed with `PageNotFoundError` for a page that exists, after earlier builds in the same `.next` folder. `rm -rf .next` fixes it. Vercel always builds fresh.
+- 149 tests (14 files). Build passes, 0 violations.

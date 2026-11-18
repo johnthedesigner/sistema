@@ -4,7 +4,7 @@ import path from 'path'
 import { describe, expect, it } from 'vitest'
 import { loadCatalog } from './load'
 import { parsePlay, parseWorkflow, type Play, type Workflow } from './parse'
-import { describeToken, renderOutline, renderPlay, renderWorkflowFull, renderWorkflowStarter, workflowSteps, type RenderContext } from './render'
+import { describeToken, renderOutline, renderPlay, renderRule, renderWorkflowFull, renderWorkflowStarter, workflowSteps, type RenderContext } from './render'
 import type { Rule } from './schema'
 
 const BASE = 'https://sistema.example'
@@ -124,10 +124,15 @@ describe('renderPlay', () => {
     expect(out).toContain(`GET ${BASE}/api/contrast?fg=`)
     expect(out).toMatch(/Never compute or estimate/)
   })
-  it('inlines rules with standard parameters', () => {
+  it('inlines rules; a rule its own tool checks points to the tool instead of listing values', () => {
     expect(out).toContain('**color.contrast.text** (Required)')
-    expect(out).toContain('wcag-2.2 AA 4.5, AAA 7')
     expect(out).toContain('Applies when: Normal-size text.')
+    expect(out).toContain('The contrast tool checks this for the standard in `sistema.json`.')
+    expect(out).not.toContain('wcag-2.2 AA 4.5, AAA 7')
+  })
+  it('lists values by standard when the play does not call the checking tool', () => {
+    const rule = ctx.rules.get('color.contrast.text')!
+    expect(renderRule(rule, [])).toContain('wcag-2.2 AA 4.5, AAA 7')
   })
   it('links guides absolutely with their section', () => {
     expect(out).toContain(`${BASE}/raw/guides/color/architecture (section: dark-mode)`)

@@ -2,6 +2,7 @@ import type { NextRequest } from 'next/server'
 import { ACCEPTED_FORMATS } from '@/lib/color'
 import { checkPair, chooseStandard } from '@/lib/tools/contrast'
 import { badRequest, json, options, readJson } from '@/lib/tools/http'
+import { LIMITS } from '@/lib/tools/limits'
 
 /**
  * Contrast (tool-apis.md section 2).
@@ -11,8 +12,8 @@ import { badRequest, json, options, readJson } from '@/lib/tools/http'
  * Always returns { standard, level, defaulted?, results: [...] }. In a batch, an invalid pair gets
  * { error } in its slot; a request with one pair that fails returns 400.
  */
-const MAX_GET_PAIRS = 50
-const MAX_POST_PAIRS = 200
+const MAX_GET_PAIRS = LIMITS.contrast.get_pairs
+const MAX_POST_PAIRS = LIMITS.contrast.post_pairs
 const EXAMPLE = '/api/contrast?fg=%23FFFFFF&bg=%231F5FD1&standard=wcag-2.2&level=AA'
 
 type PairInput = { foreground: unknown; background: unknown; label?: unknown }

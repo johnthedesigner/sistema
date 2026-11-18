@@ -38,7 +38,7 @@
     wcag-2.1: { AAA: 1.5 }
   applies_to: body and long-form text roles in tokens/src/typography.json
   applies_when: The project's standard sets a minimum (WCAG 1.4.8, AAA). Otherwise this rule doesn't apply, and typography.line-height.by-role covers the choice.
-  checked_by: [play.typography.scale evidence]
+  checked_by: [tool.type_scale, play.typography.scale evidence]
   sources: [guide.accessibility.floor#7-text-readability]
 
 - id: typography.text-spacing

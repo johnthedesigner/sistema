@@ -2,6 +2,7 @@ import type { NextRequest } from 'next/server'
 import { ACCEPTED_FORMATS, parseColor } from '@/lib/color'
 import { generatePalettes } from '@/lib/palette'
 import { badRequest, json, options, readJson, RESERVED_PARAMS } from '@/lib/tools/http'
+import { LIMITS } from '@/lib/tools/limits'
 
 /**
  * Palette (tool-apis.md section 3).
@@ -9,7 +10,7 @@ import { badRequest, json, options, readJson, RESERVED_PARAMS } from '@/lib/tool
  *   POST /api/palette { colors: { <name>: <color> } }
  * Returns { palettes: { <name>: { seed, seed_mapped?, stops: { "50".."950": { hex, oklch, contrast_white, contrast_black } } } } }.
  */
-const MAX_SEEDS = 12
+const MAX_SEEDS = LIMITS.palette.seeds
 const NAME_RE = /^[A-Za-z0-9][A-Za-z0-9_-]{0,39}$/
 const EXAMPLE = '/api/palette?primary=%231F5FD1&neutral=oklch(0.55%200.01%20260)'
 

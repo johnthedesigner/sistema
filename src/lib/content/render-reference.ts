@@ -92,7 +92,7 @@ export function renderRules(c: Catalog): string {
   ]
   for (const topic of TOPICS) {
     const rules = c.rules.filter(r => r.id.startsWith(`${topic}.`))
-    if (rules.length) parts.push(`## ${topic}\n\n${rules.map(renderRule).join('\n')}`)
+    if (rules.length) parts.push(`## ${topic}\n\n${rules.map(r => renderRule(r)).join('\n')}`)
   }
   return parts.join('\n\n') + '\n'
 }
@@ -114,8 +114,8 @@ export function renderAgents(c: Catalog, base: string): string {
     '# Sistema, for agents',
     "Sistema is a method and a set of tools for building a design system in a project's repository. Work is organized as workflows made of plays. Each play has a procedure, the rules it applies, and the evidence it must show before it's done.",
     howAgentsUseSistema(base),
-    renderTools(base, ['palette', 'contrast']),
-    `## More\n\n- Every workflow, play, and guide: ${base}/llms.txt\n- Opinions: ${opinionsUrl(base)}\n- Rules: ${rulesUrl(base)}`,
+    renderTools(base, ['palette', 'contrast', 'type_scale']),
+    `## More\n\n- Every tool, as JSON: ${base}/api\n- Every workflow, play, and guide: ${base}/llms.txt\n- Opinions: ${opinionsUrl(base)}\n- Rules: ${rulesUrl(base)}`,
   ].join('\n\n') + '\n'
 }
 
@@ -130,6 +130,6 @@ export function renderLlmsTxt(c: Catalog, base: string): string {
     `## Plays\n\n${c.plays.map(p => `- [${p.title}](${playUrl(base, p.id)}): ${p.description}`).join('\n')}`,
     `## Guides\n\n${guides.map(g => `- [${g.title}](${guideRawUrl(base, g.topic, guideName(g))}): ${g.description}`).join('\n')}`,
     `## File formats\n\n${c.files.map(f => `- [${f.title}](${fileRawUrl(base, f.name)}): ${f.description}`).join('\n')}`,
-    `## Reference\n\n- [Opinions](${opinionsUrl(base)}): the defaults Sistema holds, why, and when to choose otherwise.\n- [Rules](${rulesUrl(base)}): every rule plays apply, with values by accessibility standard.\n- [sistema.json schema](${stateSchemaUrl(base)}): the project state file.\n- [For agents](${base}/raw/agents): this guidance plus tool request shapes.\n- [Sources](${sourcesUrl(base)}): what Sistema draws on, with licenses.`,
+    `## Reference\n\n- [Opinions](${opinionsUrl(base)}): the defaults Sistema holds, why, and when to choose otherwise.\n- [Rules](${rulesUrl(base)}): every rule plays apply, with values by accessibility standard.\n- [sistema.json schema](${stateSchemaUrl(base)}): the project state file.\n- [Tool APIs](${base}/api): every tool's GET and POST forms, limits, and an example, as JSON.\n- [For agents](${base}/raw/agents): this guidance plus tool request shapes.\n- [Sources](${sourcesUrl(base)}): what Sistema draws on, with licenses.`,
   ].join('\n\n') + '\n'
 }
