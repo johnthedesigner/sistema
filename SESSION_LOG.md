@@ -176,3 +176,4 @@
   - Confirm events from the preview run arrive.
   - Build the dashboards in `docs/v2/analytics.md` section 8.
 - **Preview check found a bug:** `/raw/...?c=` returned "Not found" on Vercel, because the `/raw-with-id` function had no content files (it worked locally). Fixed with `outputFileTracingIncludes` `'/raw-with-id/**': ['./content/**/*']`. The key must be a glob: `[...path]` matched nothing. Noted in AGENTS.md.
+- **Preview run after the fix**, ID `test-3a943c8d-d4b8-431c-8a8d-bdf1c0a13ab1`: the starter, two plays, a guide, contrast, palette, type scale, and `/api` all returned 200. The starter's play links, its `continue` URL, and a play's tool URLs all carried the ID. The owner checks these events in PostHog: filter `c` = that ID, expecting `env: preview` and `internal: true`.
