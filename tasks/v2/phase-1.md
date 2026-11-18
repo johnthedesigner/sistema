@@ -174,11 +174,11 @@ Delete `_meta/TASK_PLAYBOOKS.md`, `_meta/CAMPAIGNS.md`, and `_meta/campaigns/` o
 
 ### Task V1.15: LIVING_BRIEF migration play
 
-**Status:** not started
+**Status:** complete (2026-11-17)
 
 A play that turns `LIVING_BRIEF.md` into DESIGN.md (D6 sections), DECISIONS.md, and `sistema.json`. Test it on Sistema's own root files, without committing the result. V3 applies it for real.
 
-- [ ] Play converts Sistema's own brief correctly in a dry run
+- [x] Play converts Sistema's own brief correctly in a dry run (`docs/v2/migration-dry-run.md`: 30 of 30 items placed, 9 of 9 log entries, valid `sistema.json`, 4 conflicts for the owner)
 
 ### Task V1.16: Reference material and Sources page
 

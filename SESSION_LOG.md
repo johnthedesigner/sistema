@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 1 (Content model and narrative). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-1.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V1.14 — Legacy content removed; content rules blocking
-**Next task:** V1.15 — LIVING_BRIEF migration play
+**Last completed task:** V1.15 — LIVING_BRIEF migration play
+**Next task:** V1.16 — Reference material and Sources page
 **Blockers:** none
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -103,3 +103,12 @@
 - **`prebuild` runs `--strict-all`.** A planted literal date in a play made the check exit 1.
 - 98 tests pass. The build passes with 0 violations before and after.
 
+### 2026-11-17 — Task V1.15: LIVING_BRIEF migration play
+
+**What was done:**
+- The owner asked for a backlog item: audit the guides (and plays, opinions, rules) for how closely they follow their sources, so close references are marked and the core is Sistema's own synthesis. Added to `_meta/BACKLOG.md` under "Originality and attribution", recommended before VF and after V1.16.
+- New play `project.migrate-brief` and rule `project.migrate.every-line-placed`. `project.assess` and `project.orient` run it first when `LIVING_BRIEF.md` exists and `sistema.json` doesn't. It is not a session route, so it doesn't add an item to the routes row on the home page.
+- Dry run on Sistema's own files (output in the scratchpad, not committed). Report: `docs/v2/migration-dry-run.md`. 30 of 30 brief items placed, 9 of 9 log entries carried over, `sistema.json` valid against the schema, 4 conflicts for the owner (canvas color, dark mode access, small-text link role, reduced motion).
+- The dry run changed the play: bare-YAML DESIGN.md gets wrapped in front matter lines, and superseded log entries are history, not conflicts.
+- Removed the `/raw` reference-material test group in `src/app/raw/raw.test.ts`. It had no cases after V1.14, which made the file fail; that was missed in the V1.14 report.
+- 99 tests pass. Build passes (218 pages), 0 violations.

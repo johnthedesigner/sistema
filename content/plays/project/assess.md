@@ -17,6 +17,8 @@ last_reviewed: 2026-11-15
 ---
 Your job is to understand this project before anything is decided. Read first. Ask only what the files do not answer.
 
+If the project has `LIVING_BRIEF.md` (an older Sistema state file) and no `sistema.json`, run the play at `{{sistema_url}}/raw/plays/project.migrate-brief` first, then come back here. Its outputs answer most of the questions below.
+
 1. **Read the project.** Look for each of these, and note what you find:
    - `sistema.json`, `DESIGN.md`, `DECISIONS.md`, and `LIVING_BRIEF.md` (an older Sistema state file)
    - `AGENTS.md` and `CLAUDE.md`
@@ -72,7 +74,7 @@ Your job is to understand this project before anything is decided. Read first. A
 
    Tell the person you added it, and why: a new session will find its way back to the workflow without them pasting anything.
 
-7. **Start DECISIONS.md** if it does not exist. Its first line is `This project follows Sistema. To continue, fetch the URL in sistema.json "continue".` Then a heading, and one line per decision. If `LIVING_BRIEF.md` exists, copy its decision log entries into DECISIONS.md and keep the file. Do not delete it.
+7. **Start DECISIONS.md** if it does not exist. Its first line is `This project follows Sistema. To continue, fetch the URL in sistema.json "continue".` Then a heading, and one line per decision.
 
 8. **Write the positioning statement** as the first DECISIONS.md entry, in 100 to 200 words. Say what the product is, who it serves, where it sits between expressive and utilitarian, and its platform and scale. Write it so a designer or another agent could act on it. The direction play builds on it. Under it, add a line headed "Inferred, not asked" that lists each fact you took from files or assumed, so the person can correct it.
 

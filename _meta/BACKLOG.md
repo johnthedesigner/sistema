@@ -27,6 +27,20 @@ Items discovered during development or piloting that are not urgent enough to fi
 
 - **Site-wide audit for AI writing patterns** — The VOICE_AND_TONE.md now defines a set of structural patterns to avoid (the "not just X — it's Y" family, contrast-first framing, ends-on-a-negative constructions, and others). The KB landing page descriptions have been cleaned, but the rest of the site has not been audited against this standard. Pages to check: home page subhead and credibility callout, playbook index and individual play descriptions (`PLAY_DESCRIPTIONS` in `playbooks/[slug]/page.tsx`, `PLAY_OUTPUTS` in `playbooks/page.tsx`), campaign descriptions (sourced from campaign markdown files), guide page body copy, sources page item descriptions, and KB category page copy at the system and file level. *Rule codified 2026-05-17.*
 
+## Originality and attribution
+
+- **Audit the guides (and plays, opinions, rules) for how closely they follow their sources** — Most guide text was drafted by AI from the reference material, while the owner focused on the method. The owner doesn't know the original sources well enough to judge whether any passage would read as copied from them. The standard to hold:
+  - The core of each guide is a synthesis across the breadth of the sources: its structure, framing and decision guidance are Sistema's own.
+  - Close reference to one source is allowed, but it must be marked as such where it appears (for example "This follows the approach in [source]"), not only listed in the sources at the bottom.
+  - No passage reproduces a source's wording, structure or examples so closely that a reader of the source would recognize it, unless it is quoted and credited.
+  - The aim is transparency. Avoid the extractive pattern of AI content that repackages others' work as its own.
+
+  **Suggested method:** for each guide, compare it with each source it lists. Flag (1) passages that are close paraphrase of one source, (2) sections whose structure or ordering mirrors one source, (3) examples, numbers or named concepts taken from one source without saying so, and (4) guides that depend mostly on a single source. For each flag, the fix is to rewrite it as synthesis, mark it as direct reference, or quote and credit it. Record the results per guide, alongside `_meta/LICENSE_AUDIT.md`. Run the same pass over plays, opinions and rules, which are shorter but also AI-drafted.
+
+  **Timing:** this should happen before the public launch (task VF), not stay open indefinitely. It fits well after V1.16, when guide sources become credit lines and the public Sources page exists, because that is where marked direct references will link. It also limits the earlier "KB reference files are too sparse" item: once reference material is internal (V1.16), fuller reference files raise less concern, but anything published must pass this audit.
+
+  *Owner request after reviewing the guides, 2026-11-17.*
+
 ## Test coverage
 
 - **Zero test coverage — full audit and baseline needed** — The codebase has no test files of any kind. The only runtime validation is TypeScript's type checker. Areas that warrant coverage: palette generation algorithm (`src/lib/palette.ts` — contrast-targeting math, gamut handling, stop selection); KB and playbook parsing (`src/lib/kb.ts`, `src/lib/playbooks.ts` — markdown parsing, slug extraction, variable detection); API routes (`/api/palette`, `/api/context` — request validation, error handling); sitemap and robots generation; and client-side prompt resolution (`resolveBody`, `extractVariables`, `emptyFallback` in `PlayDetail.tsx` — variable substitution, empty-field fallback text). Suggested stack: Vitest for unit/integration, Playwright for critical UI paths (copy prompt, examples modal, color mode selector persistence). *Identified 2026-05-17.* **In progress 2026-11-14:** v2 Task V0.2 adds the test runner and content checks. V2 adds tool tests.

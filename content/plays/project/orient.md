@@ -15,7 +15,7 @@ evidence: A short summary of the system's state, the session goal, any conflict 
 overrides: [goal]
 last_reviewed: 2026-11-15
 ---
-1. **Read the state:** `sistema.json`, DESIGN.md, the most recent entries in DECISIONS.md, the token files, and the component folder. If `LIVING_BRIEF.md` exists and DECISIONS.md doesn't, read it, and suggest moving to DECISIONS.md.
+1. **Read the state:** `sistema.json`, DESIGN.md, the most recent entries in DECISIONS.md, the token files, and the component folder. If `LIVING_BRIEF.md` exists and `sistema.json` doesn't, the project uses an older Sistema state file. Run the play at `{{sistema_url}}/raw/plays/project.migrate-brief` first, then come back here.
 
 2. **Summarize in four lines:** what the product is, what the system has (token categories, themes, component count), what is open (provisional items in DESIGN.md, gaps from recent audits), and the last decision recorded.
 

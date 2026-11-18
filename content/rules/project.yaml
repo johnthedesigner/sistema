@@ -43,3 +43,16 @@
   measure: { kind: presence }
   applies_to: sistema.json
   checked_by: [workflow starter end-of-session check]
+
+- id: project.migrate.every-line-placed
+  statement: >-
+    When a LIVING_BRIEF.md is moved into DESIGN.md, DECISIONS.md, and sistema.json, every item in the brief
+    has a destination or a stated reason it was left out, and every decision log entry appears in DECISIONS.md.
+  reason: >-
+    The brief holds decisions and their reasons that exist nowhere else. A migration that drops lines silently
+    loses them, and nobody notices until a later session undoes a deliberate choice.
+  layer: sistema-default
+  severity: blocking
+  measure: { kind: presence }
+  applies_to: project.migrate-brief
+  checked_by: [play.project.migrate-brief evidence]
