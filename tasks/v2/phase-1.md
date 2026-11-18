@@ -186,7 +186,7 @@ A play that turns `LIVING_BRIEF.md` into DESIGN.md (D6 sections), DECISIONS.md, 
 
 Move `kb/reference/` to internal `reference/` (D4), never routed. Replace the DESIGN.md spec fetch with a Sistema-owned page. Guide `sources` citations of reference material become plain credit lines. Add a public Sources page with licensing notes. No redirects.
 
-- [x] No route serves reference material; the Sources page credits every source; checks pass (`/kb` and `/raw/<reference>` return 404; 23 sources in `content/sources.yaml`; `model.sources` checks every credit)
+- [x] No route serves reference material; the Sources page credits every source; checks pass (`/kb` and `/raw/<reference>` return 404; 22 sources in `content/sources.yaml` (24 after V1.17 added Tailwind and shadcn); `model.sources` checks every credit)
 
 ### Task V1.17: "What uses this" lookup, last-reviewed check, fit review 2
 
@@ -198,7 +198,7 @@ Plan 8.2 lookup (`npm run uses -- <id>`) and the last-reviewed threshold check. 
 
 ### Task V1.18: Housekeeping and gate check
 
-**Status:** not started
+**Status:** done, waiting for the owner's gate approval (2026-11-17)
 
 Retro (`docs/v2/retro-phase-1.md`), AGENTS.md (KB rules rewritten for the new layout), `tasks/v2/phase-2.md`, archive logs to `logs/v2-phase-1.md`, and gate evidence.
 
