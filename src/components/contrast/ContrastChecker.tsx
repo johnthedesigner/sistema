@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useId } from 'react'
+import { useEffect, useState, useId } from 'react'
+import { trackToolPage } from '@/lib/analytics/browser'
 import { SITE_URL } from '@/lib/site-url'
 import { STANDARD_LABELS } from '@/lib/tools/levels'
 import type { ContrastTable } from '@/lib/tools/contrast'
@@ -96,6 +97,10 @@ export function ContrastChecker({ table }: { table: ContrastTable }) {
   const levels = Object.keys(table[standard] ?? {})
   const activeLevel = levels.includes(level) ? level : levels[0]
   const required = table[standard]?.[activeLevel] ?? {}
+
+  useEffect(() => {
+    trackToolPage('contrast', { foreground: fg, background: bg, standard, level: activeLevel })
+  }, [fg, bg, standard, activeLevel])
 
   const fgValid = isValidHex(fg)
   const bgValid = isValidHex(bg)

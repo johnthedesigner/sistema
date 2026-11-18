@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { getVisitId } from '@/lib/analytics/browser'
 import { PaletteSwatch } from './PaletteSwatch'
 import {
   STOPS, toCss, toTailwind, toFigmaCollection, downloadJson,
@@ -51,7 +52,7 @@ export function CustomSeedInput() {
       const res = await fetch('/api/palette', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ colors: { [paletteName]: inputHex } }),
+        body: JSON.stringify({ colors: { [paletteName]: inputHex }, c: getVisitId() }),
       })
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))

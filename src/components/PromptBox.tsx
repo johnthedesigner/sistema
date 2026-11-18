@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { instrumentRawUrls, trackCopy } from '@/lib/analytics'
-import { SITE_URL } from '@/lib/site-url'
+import { track } from '@vercel/analytics'
+import { promptForCopy } from '@/lib/analytics/browser'
 
 interface PromptBoxProps {
   label: string
@@ -31,8 +31,8 @@ export function PromptBox({
 
   // body arrives with {{sistema_url}} already resolved by the server loaders.
   async function handleCopy() {
-    await navigator.clipboard.writeText(instrumentRawUrls(body, playSlug, SITE_URL))
-    trackCopy(playSlug)
+    await navigator.clipboard.writeText(promptForCopy(body, playSlug))
+    track('prompt_copy', { play: playSlug })
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }

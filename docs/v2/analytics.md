@@ -1,6 +1,6 @@
 # Usage Analytics: Outline
 
-**Task:** V2.7 (decision D13). **Date:** 2026-11-18. **Status:** approved by the owner 2026-11-18, with changes recorded in section 7. Sections 3, 4, and 6 are updated to match.
+**Task:** V2.7 (decision D13). **Date:** 2026-11-18. **Status:** approved by the owner 2026-11-18, with changes recorded in section 7. Sections 3, 4, and 6 are updated to match. **Built in V2.8** (2026-11-18). Changes during the build: browser feature flag requests are turned off (`advanced_disable_flags`), and server events take location from Vercel's request headers, with PostHog's own IP lookup off per event, so no IP is ever sent.
 
 **Goal:** aggregate usage statistics, useful for a case study, that follow an anonymous ID from a visit to the site into what that visitor's agent does next: the prompt they copied, the plays their agent fetched, the tools it called, and later sessions on the same project. No names, emails, or IP addresses.
 

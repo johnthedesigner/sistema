@@ -272,6 +272,7 @@ function stateExample(workflow: Workflow, ctx: RenderContext): string {
       },
       gates: { 'direction-approved': { date: '<YYYY-MM-DD>', by: '<who approved>', note: '<optional: what changed at approval>' } },
       routing: { 'color.scheme': 'color.map-existing' },
+      telemetry: { id: '<the c value from this workflow URL, if it has one>' },
     },
     null,
     2,
@@ -324,7 +325,7 @@ function renderRoutesStarter(workflow: Workflow, ctx: RenderContext): string {
     [
       '## State: sistema.json',
       '',
-      `Set \`workflow\` to \`${workflowSlug(workflow.id)}\` and \`milestone\` to \`maintain\`. Keep \`continue\` at this workflow's URL, ${url}: this workflow is the standing entry point for design system work, so the Sistema section in the agent instructions file keeps pointing here. Only play IDs go in \`steps\`. Work done outside a play goes in DECISIONS.md.`,
+      `Set \`workflow\` to \`${workflowSlug(workflow.id)}\` and \`milestone\` to \`maintain\`. Keep \`continue\` at this workflow's URL, ${url}: this workflow is the standing entry point for design system work, so the Sistema section in the agent instructions file keeps pointing here. If the URL you fetched this from has a \`c\` parameter, keep it on \`continue\` and record it in \`sistema.json\` as \`telemetry.id\`. It is an anonymous usage ID: Sistema counts how its workflows, plays, and tools are used, and records nothing about the person or the project's code. Only play IDs go in \`steps\`. Work done outside a play goes in DECISIONS.md.`,
     ].join('\n'),
     ...(tools.length ? [renderToolSummary(tools)] : []),
     `If you cannot fetch URLs, use the full version, which includes every play: ${workflowFullUrl(ctx.base, workflow.id)}`,
@@ -380,7 +381,7 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
       stateExample(workflow, ctx),
       '```',
       '',
-      `\`continue\` is this workflow's URL: ${url}. The first play also adds a short Sistema section to the project's AGENTS.md or CLAUDE.md that points to it, so a new session finds its way back. If that section is missing when you resume, add it as \`project.assess\` describes.`,
+      `\`continue\` is this workflow's URL: ${url}. The first play also adds a short Sistema section to the project's AGENTS.md or CLAUDE.md that points to it, so a new session finds its way back. If that section is missing when you resume, add it as \`project.assess\` describes. If the URL you fetched this from has a \`c\` parameter, keep it on \`continue\` and record it in \`sistema.json\` as \`telemetry.id\`. It is an anonymous usage ID: Sistema counts how its workflows, plays, and tools are used, and records nothing about the person or the project's code.`,
     ].join('\n'),
     ...(tools.length ? [renderToolSummary(tools)] : []),
     [

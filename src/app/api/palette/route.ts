@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server'
 import { ACCEPTED_FORMATS, parseColor } from '@/lib/color'
 import { generatePalettes } from '@/lib/palette'
-import { badRequest, json, options, readJson, RESERVED_PARAMS } from '@/lib/tools/http'
+import { badRequest, json, options, readJson, RESERVED_PARAMS, trackToolCall } from '@/lib/tools/http'
 import { LIMITS } from '@/lib/tools/limits'
 
 /**
@@ -13,6 +13,13 @@ import { LIMITS } from '@/lib/tools/limits'
 const MAX_SEEDS = LIMITS.palette.seeds
 const NAME_RE = /^[A-Za-z0-9][A-Za-z0-9_-]{0,39}$/
 const EXAMPLE = '/api/palette?primary=%231F5FD1&neutral=oklch(0.55%200.01%20260)'
+
+/** Respond, then record the call with its seeds and status. */
+function tracked(request: Request, colors: Record<string, unknown>, bodyId?: unknown) {
+  const res = respond(colors)
+  trackToolCall(request, 'palette', { c: bodyId, status: res.status, items: Object.keys(colors).length, seeds: colors })
+  return res
+}
 
 function respond(colors: Record<string, unknown>) {
   const entries = Object.entries(colors)
@@ -57,16 +64,18 @@ function respond(colors: Record<string, unknown>) {
 export function GET(request: NextRequest) {
   const colors: Record<string, string> = {}
   for (const [name, value] of request.nextUrl.searchParams) if (name !== 'c') colors[name] = value
-  return respond(colors)
+  return tracked(request, colors)
 }
 
 export async function POST(request: NextRequest) {
   const body = await readJson(request)
-  const colors = typeof body === 'object' && body !== null ? (body as Record<string, unknown>).colors : undefined
+  const b = typeof body === 'object' && body !== null ? (body as Record<string, unknown>) : {}
+  const colors = b.colors
   if (typeof colors !== 'object' || colors === null || Array.isArray(colors)) {
+    trackToolCall(request, 'palette', { c: b.c, status: 400, error: 'invalid body' })
     return badRequest(`Send JSON: { "colors": { "<name>": "<color>" } }, with colors as ${ACCEPTED_FORMATS}.`, EXAMPLE)
   }
-  return respond(colors as Record<string, unknown>)
+  return tracked(request, colors as Record<string, unknown>, b.c)
 }
 
 export const OPTIONS = options

@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 2 (Tools and paste-in improvements). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-2.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V2.7 — Usage analytics outline (approved)
-**Next task:** V2.8 — Usage analytics build
+**Last completed task:** V2.8 — Usage analytics build
+**Next task:** V2.9 — Housekeeping and gate check
 **Blockers:** none
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -152,3 +152,26 @@
   - The ID lives in memory for one visit. It's carried in copied prompts as `c`, injected into `/raw` output by middleware plus a dynamic handler, and stored in `sistema.json` `telemetry.id`. Tool URLs and MCP carry it too.
   - Events: `$pageview`, `prompt_copied`, `prompt_selected`, `tool_page_used`, `agent_fetch`, `tool_call`, `api_index`, and `mcp_*`. Funnel and dashboards are defined. Test traffic is excluded through `env: preview` and the `test-` and `internal-` ID prefixes.
 - Owner approved, with changes: keep all location data, no opt-out of any kind, and tool inputs (colors, roles) may be recorded. D13 and the V2.8 task are updated.
+
+### 2026-11-18 — Task V2.8: Usage analytics build
+
+**What was done:**
+- **Browser** (`src/lib/analytics/browser.ts`, `PostHogProvider`):
+  - One visit ID in memory (`internal-` prefix with `?internal`). PostHog is started once, before child effects, with memory persistence, no person profiles, bootstrapped to the visit ID, and autocapture, replay, surveys, and flags off.
+  - `$pageview` on each navigation. `prompt_copied`, with `c` added to the prompt's Sistema URLs. `tool_page_used` (debounced, skipping the first render) on the contrast and type scale pages. The palette page sends `c` with its API call.
+- **Server:**
+  - `src/middleware.ts` sends `agent_fetch` for `/raw` and `/llms.txt`, and rewrites `/raw/...?c=<id>` to `src/app/raw-with-id/[...path]`. That route reuses each `/raw` handler and adds `c` to every Sistema URL (`withVisitId`, which also covers template URLs like `/raw/plays/<id>`).
+  - The tool routes send `tool_call` with inputs and status through `after()`. `/api` sends `api_index`.
+  - Events (`src/lib/analytics/server.ts`) have no IP and no profile, use Vercel header location with `$geoip_disable`, include the agent family and user agent, and are tagged with `env` and `internal`. Nothing is sent from local development unless asked.
+- **Content model:** `sistema.json` gains `telemetry: { id }`. The starters say what `c` is and to keep it on `continue`. `project.assess` records it. `/raw/agents` explains it.
+- **Removed:** `instrumentRawUrls`, the per-copy `sid`, the "Sistema context" line, and `/api/context`.
+- **Site:** `/privacy` page, a footer link, and a sitemap entry.
+- **Tests (162):** URL injection and edge cases, agent families, path kinds, server payloads (no IP, Vercel location, internal flag), the `/raw-with-id` handler for every path kind, the middleware rewrite rules, and the `telemetry` schema.
+- **Checked end to end:**
+  - Playwright with requests to PostHog intercepted and decoded: no cookies or storage, one distinct ID across client navigation, the expected events, and no `$ip`.
+  - Server events to a local capture endpoint: correct events and properties, and the IP from a forged `x-forwarded-for` absent from every payload.
+  - Found: PostHog drops events from automated browsers, which is why the first runs saw none.
+- **Owner actions:**
+  - In PostHog, set IP data capture to discard (Settings > Project > General), and keep location lookup on.
+  - Confirm events from the preview run arrive.
+  - Build the dashboards in `docs/v2/analytics.md` section 8.

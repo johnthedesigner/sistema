@@ -38,6 +38,7 @@ const FOOTER_NAV = [
       { label: 'Contrast checker', href: '/tools/contrast' },
       { label: 'Type scale calculator', href: '/tools/type-scale' },
       { label: 'Sources', href: '/sources' },
+      { label: 'Privacy', href: '/privacy' },
     ],
   },
 ]

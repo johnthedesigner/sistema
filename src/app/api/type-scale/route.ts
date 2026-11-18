@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server'
 import { computeTypeScale, type Naming, type TypeScaleInput } from '@/lib/type-scale'
-import { badRequest, json, options, readJson } from '@/lib/tools/http'
+import { badRequest, json, options, readJson, trackToolCall } from '@/lib/tools/http'
 import { chooseStandard, knownStandards, ruleValue, rulesFrom } from '@/lib/tools/standards'
 
 /**
@@ -12,6 +12,14 @@ import { chooseStandard, knownStandards, ruleValue, rulesFrom } from '@/lib/tool
  * its line-height minimum (typography.line-height.body). Guide ranges come back as notes.
  */
 const EXAMPLE = '/api/type-scale?base=16&ratio=major-third&down=2&up=6&roles=caption:-2,label:-1,body:0,heading-sm:2,heading-lg:4,display:6'
+
+/** Respond, then record the call with its inputs and status. */
+function tracked(request: Request, input: TypeScaleInput, standardRaw: unknown, levelRaw: unknown, bodyId?: unknown) {
+  const res = respond(input, standardRaw, levelRaw)
+  const { base, ratio, down, up, names, roles } = input
+  trackToolCall(request, 'type_scale', { c: bodyId, status: res.status, base, ratio, down, up, names, roles, standard: standardRaw, level: levelRaw })
+  return res
+}
 
 function respond(input: TypeScaleInput, standardRaw: unknown, levelRaw: unknown) {
   const result = computeTypeScale(input)
@@ -52,9 +60,13 @@ const num = (v: string | null) => (v === null || v === '' ? undefined : Number(v
 export function GET(request: NextRequest) {
   const q = request.nextUrl.searchParams
   const roles = parseRoles(q.get('roles'))
-  if (typeof roles === 'string') return badRequest(roles, EXAMPLE)
+  if (typeof roles === 'string') {
+    trackToolCall(request, 'type_scale', { status: 400, error: roles })
+    return badRequest(roles, EXAMPLE)
+  }
   const ratioRaw = q.get('ratio') ?? undefined
-  return respond(
+  return tracked(
+    request,
     {
       base: num(q.get('base')),
       ratio: ratioRaw !== undefined && /^[\d.]+$/.test(ratioRaw) ? Number(ratioRaw) : ratioRaw,
@@ -76,7 +88,7 @@ export async function POST(request: NextRequest) {
   if (b.roles !== undefined && (typeof b.roles !== 'object' || b.roles === null || Array.isArray(b.roles))) {
     return badRequest('"roles" must be an object such as { "body": 0, "caption": -2 }.', EXAMPLE)
   }
-  return respond(b as TypeScaleInput, b.standard, b.level)
+  return tracked(request, b as TypeScaleInput, b.standard, b.level, b.c)
 }
 
 export const OPTIONS = options

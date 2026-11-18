@@ -105,6 +105,7 @@ function howAgentsUseSistema(base: string): string {
     `- For ongoing work (components, themes, audits, reviews, planning), fetch ${workflowUrl(base, 'workflow.session')} and follow it.`,
     '- If `sistema.json` exists in the project root, read it first and fetch the URL in its `continue` field before doing anything else.',
     '- Use the palette and contrast tools for any value they calculate. Never estimate those values.',
+    '- Sistema links may carry a `c` parameter: an anonymous usage ID. Keep it on the URLs you fetch and on `continue`. It counts how plays and tools are used and identifies no one.',
     `- Check \`sistema.json\` against the schema at ${stateSchemaUrl(base)} before ending a session.`,
   ].join('\n')
 }

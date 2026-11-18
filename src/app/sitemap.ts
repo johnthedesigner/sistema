@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry('/agents', 0.6),
     entry('/tools', 0.6),
     entry('/sources', 0.5),
+    entry('/privacy', 0.3),
     ...c.workflows.map(w => entry(workflowHref(w.id), 0.8)),
     ...c.plays.map(p => entry(playHref(p.id), 0.7)),
     ...c.guides.map(g => entry(`/guides/${g.topic}/${g.id.split('.')[2]}`, 0.7)),

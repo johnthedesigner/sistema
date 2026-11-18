@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useEffect, useState, useMemo } from 'react'
+import { trackToolPage } from '@/lib/analytics/browser'
 import { SITE_URL } from '@/lib/site-url'
 import { computeTypeScale, DEFAULTS, LIMITS, NAMING, RATIOS, type Naming } from '@/lib/type-scale'
 
@@ -57,6 +58,10 @@ export function TypeScaleCalculator() {
     return r.ok ? r.scale : null
   }, [base, ratio, names])
   const stops = scale?.steps ?? []
+
+  useEffect(() => {
+    trackToolPage('type_scale', { base, ratio, names })
+  }, [base, ratio, names])
   const apiUrl = `${SITE_URL}/api/type-scale?base=${base}&ratio=${typeof ratio === 'number' ? ratio : ratioName}&names=${names}`
 
   const cssOutput = stops

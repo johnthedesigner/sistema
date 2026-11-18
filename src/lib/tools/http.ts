@@ -4,7 +4,8 @@
  * the optional anonymous ID `c` (ignored in calculations; used for analytics
  * from V2.8).
  */
-import { NextResponse } from 'next/server'
+import { after, NextResponse } from 'next/server'
+import { capture } from '@/lib/analytics/server'
 import { SITE_URL } from '@/lib/site-url'
 
 export const CORS_HEADERS = {
@@ -37,3 +38,22 @@ export async function readJson(request: Request): Promise<unknown | null> {
 
 /** Query parameters reserved by every tool. `c` is the anonymous analytics ID. */
 export const RESERVED_PARAMS = new Set(['c', 'standard', 'level', 'format'])
+
+/**
+ * Record a tool call (docs/v2/analytics.md section 3) after the response is sent.
+ * Outside a request (tests), this does nothing.
+ */
+export function trackToolCall(request: Request, tool: string, properties: Record<string, unknown>): void {
+  trackEvent(request, 'tool_call', { tool, ...properties })
+}
+
+/** Send a usage event after the response. Outside a request (tests), this does nothing. */
+export function trackEvent(request: Request, event: string, properties: Record<string, unknown>): void {
+  const fromBody = typeof properties.c === 'string' ? properties.c : undefined
+  const visitId = new URL(request.url).searchParams.get('c') ?? fromBody
+  try {
+    after(() => capture({ event, visitId, properties: { method: request.method, ...properties } }, request.headers))
+  } catch {
+    // No request scope (unit tests): nothing to send.
+  }
+}

@@ -117,11 +117,11 @@ Write `docs/v2/analytics.md` for owner review. It covers:
 
 ## Task V2.8: Usage analytics build (site, prompts, tools)
 
-**Status:** not started
+**Status:** done (2026-11-18), apart from the owner checking events in PostHog from the preview run
 
 Build to the V2.7 outline (`docs/v2/analytics.md`): one ID across browser and server, the ID carried by copied prompts, `/raw` output, and `sistema.json`, server-side events for `/raw` and `/api`, the privacy note, and test-traffic exclusion. No opt-out. Tests: the ID survives from a copied prompt through a `/raw` fetch to a tool call, no event contains an IP address, and the site writes nothing to browser storage. Check events arriving in PostHog from a real run against the preview.
 
-- [ ] A single anonymous ID links a site visit, a copied prompt, agent fetches, and tool calls in PostHog; nothing is stored on the device; tests pass
+- [x] A single anonymous ID links a site visit, a copied prompt, agent fetches, and tool calls; nothing is stored on the device; tests pass (checked with a local capture endpoint and Playwright; the owner confirms arrival in PostHog)
 
 ## Task V2.9: Housekeeping and gate check
 

@@ -9,7 +9,7 @@ const HANDLERS: Record<string, (r: NextRequest) => Response | Promise<Response>>
 
 describe('/api index', () => {
   it('lists every tool with absolute URLs, limits, and docs', async () => {
-    const body = await index().json()
+    const body = await index(new Request('http://x/api')).json()
     expect(body.tools.map((t: { name: string }) => t.name)).toEqual(['contrast', 'palette', 'type_scale'])
     for (const t of body.tools) {
       for (const url of [t.get, t.example, t.post.url, t.docs]) expect(url, t.name).toMatch(/^https?:\/\//)
@@ -18,7 +18,7 @@ describe('/api index', () => {
   })
 
   it('every example URL in the index works', async () => {
-    const body = await index().json()
+    const body = await index(new Request('http://x/api')).json()
     for (const t of body.tools) {
       const url = new URL(t.example)
       const res = await HANDLERS[t.name](new NextRequest(`http://x${url.pathname}${url.search}`))

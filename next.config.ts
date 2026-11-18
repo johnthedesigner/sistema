@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   // resolved against it on the server (src/lib/placeholders.ts).
   env: {
     NEXT_PUBLIC_SITE_URL: resolveSiteUrl(process.env),
+    // Tags analytics events so dashboards can keep to production (docs/v2/analytics.md).
+    NEXT_PUBLIC_DEPLOY_ENV: process.env.VERCEL_ENV ?? 'development',
   },
   // Pin the workspace root to this repo. Without this, a package-lock.json in a
   // parent folder makes Next infer the wrong root and `next start` serves 404s.

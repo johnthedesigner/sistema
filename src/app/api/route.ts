@@ -1,5 +1,5 @@
 import { SITE_URL } from '@/lib/site-url'
-import { json, options } from '@/lib/tools/http'
+import { json, options, trackEvent } from '@/lib/tools/http'
 import { LIMITS } from '@/lib/tools/limits'
 import { LIMITS as TYPE_LIMITS, NAMING, RATIOS } from '@/lib/type-scale'
 
@@ -7,7 +7,8 @@ import { LIMITS as TYPE_LIMITS, NAMING, RATIOS } from '@/lib/type-scale'
  * GET /api: a machine-readable index of the tool APIs (tool-apis.md section 5).
  * Every URL is absolute. Each tool also accepts an optional anonymous ID `c`.
  */
-export function GET() {
+export function GET(request: Request) {
+  trackEvent(request, 'api_index', {})
   const u = (path: string) => `${SITE_URL}${path}`
   return json({
     name: 'Sistema tool APIs',

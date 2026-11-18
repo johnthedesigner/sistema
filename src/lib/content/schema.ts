@@ -276,6 +276,8 @@ export const SistemaState = z
       )
       .default({}),
     routing: z.record(PlayId, PlayId).default({}),
+    /** The anonymous usage ID (`c`) from the URL the workflow was fetched with (docs/v2/analytics.md). */
+    telemetry: z.object({ id: z.string().min(1) }).strict().optional(),
   })
   .strict()
 export type SistemaState = z.infer<typeof SistemaState>
