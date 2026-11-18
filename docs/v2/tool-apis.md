@@ -98,17 +98,17 @@ Stops stay 50 to 950 (19 stops), placed by contrast against white, as now. Seed 
 {
   "base": 16, "ratio": 1.25, "names": "numeric",
   "steps": [
-    { "step": -2, "name": "1", "role": "caption", "px": 10, "rem": 0.625, "line_height": 1.5,
-      "notes": ["10px is below the size most interface text uses; check legibility for this typeface"] },
-    { "step": 0, "name": "3", "role": "body", "px": 16, "rem": 1, "line_height": 1.5 },
-    { "step": 6, "name": "9", "role": "display", "px": 61, "rem": 3.8125, "line_height": 1.1 }
+    { "step": -2, "name": "1", "roles": ["caption"], "px": 10, "rem": 0.625, "line_height": 1.4,
+      "notes": ["10px is below the size most interface text uses; check legibility for this typeface."] },
+    { "step": 0, "name": "3", "roles": ["body"], "px": 16, "rem": 1, "line_height": 1.5 },
+    { "step": 6, "name": "9", "roles": ["display"], "px": 61, "rem": 3.8125, "line_height": 1.1 }
   ],
   "checks": [{ "rule": "typography.line-height.by-role", "pass": true }]
 }
 ```
 
 **How it relates to the rules and guides:**
-- **Line height is suggested per size.** It falls as size grows, following the typography guide's "Per-size calibration", and is always unitless. It's a starting suggestion. The play still sets the final value per role, for its typeface and measure.
+- **Line height is suggested per size.** It falls as size grows, following the typography guide's "Per-size calibration", and is always unitless. Body text (the step with the `body` role, or the base step) uses the body range at any size. *(Added in V2.4. More than one role can sit on a step, so the field is `roles`, a list.)* It's a starting suggestion. The play still sets the final value per role, for its typeface and measure.
 - **Checks only test what a calculation can prove:** every step has a unitless line height, and, when a `standard` is given, body text meets that standard's line-height requirement (rule `typography.line-height.body`). Weight and tracking aren't the tool's job, so `typography.roles.distinct` stays with the play.
 - **Guide ranges become notes, not failures,** for example a very small size or a display line height above the guide's range. This follows the opinion that guide numbers are guidance.
 - **Naming isn't assumed.** The tool names steps in the convention asked for and places roles only where the caller names them. This matches the typography guide's "Naming type".

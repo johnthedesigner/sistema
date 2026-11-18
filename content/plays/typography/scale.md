@@ -24,13 +24,15 @@ last_reviewed: 2026-11-15
 ---
 1. **Read the direction:** the typographic character and typefaces in the DESIGN.md Overview "Direction values", the type specimens in `sistema-review/style-preview.html`, the role names in the DESIGN.md Typography section if it exists, and the density in `sistema.json`. If this play runs on its own, use `typography_direction` when given. If no typeface was chosen, ask.
 
-2. **Choose the scale approach** from the guide: modular, hand-tuned, or the middle path. Use the type scale tool for the sizes if it is available. Record the choice and the reason.
+2. **Choose the scale approach** from the guide: modular, hand-tuned, or the middle path. Record the choice and the reason.
 
 3. **Choose how type is named,** using the guide's section "Naming type." If DESIGN.md already names the roles, keep those names. Otherwise, if `project.component_library` is set, follow that library's convention. Otherwise propose one approach for the product's expected complexity, say why, and let the person choose. Record the choice in DECISIONS.md.
 
-4. **Define the roles or steps.** For each, set size, weight, line height (unitless), and letter spacing. Start from the preview's specimens. If a value must change, list it as a change from the approved preview.
+4. **Get the sizes from the type scale tool.** Call it with the base size, ratio, and naming convention you chose, the roles placed on their steps, and the standard in `sistema.json`. Do not calculate sizes yourself. For a hand-tuned scale, call it with the closest ratio and record each size you change and why.
 
-5. **Write `tokens/src/typography.json`** as DTCG JSON:
+5. **Define the roles or steps.** For each, set size, weight, line height (unitless), and letter spacing. Start from the tool's sizes and line heights and the preview's specimens. If a value must change, list it as a change from the approved preview or the tool's suggestion. Any check the tool reports as failed must pass before you continue.
+
+6. **Write `tokens/src/typography.json`** as DTCG JSON:
 
    ```json
    {
@@ -53,8 +55,8 @@ last_reviewed: 2026-11-15
 
    Every role has a `$description` naming its purpose.
 
-6. **Load the typefaces in the app.** Prefer files served by the project: for Next.js, `next/font/local`, or `next/font/google`, which downloads at build time. Include only the weights the roles use. If the font can't be self-hosted, say why. Make sure the `font` tokens' first family matches the loaded font's name.
+7. **Load the typefaces in the app.** Prefer files served by the project: for Next.js, `next/font/local`, or `next/font/google`, which downloads at build time. Include only the weights the roles use. If the font can't be self-hosted, say why. Make sure the `font` tokens' first family matches the loaded font's name.
 
-7. **Check quality.** Roles must differ by weight, size, or tracking, not size alone. Check line heights against the rule below. Fix what fails.
+8. **Check quality.** Roles must differ by weight, size, or tracking, not size alone. Check line heights against the rule below. Fix what fails.
 
-8. If DESIGN.md has a Typography section, update its role list to match. Then show the evidence table.
+9. If DESIGN.md has a Typography section, update its role list to match. Then show the evidence table.

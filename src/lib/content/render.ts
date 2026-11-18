@@ -66,8 +66,24 @@ export const TOOL_DOCS: Record<ToolName, ToolDoc> = {
   },
   type_scale: {
     title: 'Type scale',
-    usage: () => 'Not yet available as an API. Until it is, follow the type scale guidance cited in this play and record the values you chose.',
+    usage: base =>
+      [
+        `GET ${base}/api/type-scale?base=<px>&ratio=<name or number>&down=<n>&up=<n>&names=<numeric|tailwind|steps>&roles=<role>:<step>,...&standard=<standard>`,
+        `  Example: ${base}/api/type-scale?base=16&ratio=major-third&down=2&up=6&names=tailwind&roles=caption:-2,label:-1,body:0,heading-sm:2,heading-lg:4,display:6&standard=wcag-2.2%20AA`,
+        '  Defaults: base 16, major-third (1.25), 2 steps down, 6 up, numbered names. Ratio names: minor-second, major-second, minor-third, major-third, perfect-fourth, augmented-fourth, perfect-fifth, golden-ratio. Use the naming convention chosen for the project, and place the project\'s roles on steps. Pass the project\'s standard exactly as sistema.json has it.',
+        `POST ${base}/api/type-scale  {"base": 16, "ratio": "major-third", "names": "tailwind", "roles": {"body": 0, "caption": -2}, "standard": "wcag-2.2 AA"}`,
+        'Returns: {"base", "ratio", "names", "steps": [{"step", "name", "roles"?, "px", "rem", "line_height", "notes"?}], "notes"?, "checks": [{"rule", "pass", ...}]}  (line heights are starting suggestions; notes are advice from the typography guide, not failures)',
+      ].join('\n'),
   },
+}
+
+/** For workflow starters: name the tools without their full usage, which each play carries. */
+export function renderToolSummary(tools: ToolName[]): string {
+  if (tools.length === 0) return ''
+  const names = tools.map(t => TOOL_DOCS[t].title.toLowerCase())
+  const list =
+    names.length === 1 ? names[0] : names.length === 2 ? `${names[0]} and ${names[1]}` : `${names.slice(0, -1).join(', ')}, and ${names[names.length - 1]}`
+  return `## Tools\n\nThis workflow uses Sistema's ${list} ${names.length === 1 ? 'tool' : 'tools'}. Each play shows how to call the ones it needs. Use them. Never compute or estimate their results yourself.`
 }
 
 export function renderTools(base: string, tools: ToolName[]): string {
@@ -302,7 +318,7 @@ function renderRoutesStarter(workflow: Workflow, ctx: RenderContext): string {
       '',
       `Set \`workflow\` to \`${workflowSlug(workflow.id)}\` and \`milestone\` to \`maintain\`. Keep \`continue\` at this workflow's URL, ${url}: this workflow is the standing entry point for design system work, so the Sistema section in the agent instructions file keeps pointing here. Only play IDs go in \`steps\`. Work done outside a play goes in DECISIONS.md.`,
     ].join('\n'),
-    ...(tools.length ? [renderTools(ctx.base, tools)] : []),
+    ...(tools.length ? [renderToolSummary(tools)] : []),
     `If you cannot fetch URLs, use the full version, which includes every play: ${workflowFullUrl(ctx.base, workflow.id)}`,
   ]
   return parts.join('\n\n') + '\n'
@@ -358,7 +374,7 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
       '',
       `\`continue\` is this workflow's URL: ${url}. The first play also adds a short Sistema section to the project's AGENTS.md or CLAUDE.md that points to it, so a new session finds its way back. If that section is missing when you resume, add it as \`project.assess\` describes.`,
     ].join('\n'),
-    ...(tools.length ? [renderTools(ctx.base, tools)] : []),
+    ...(tools.length ? [renderToolSummary(tools)] : []),
     [
       '## When this workflow is done',
       '',

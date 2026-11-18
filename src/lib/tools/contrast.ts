@@ -4,16 +4,13 @@
  * color.contrast.ui) for the requested standard and level, so the API follows
  * the project's standard like every play does. Default: WCAG 2.2 AA (D11).
  */
-import fs from 'fs'
-import path from 'path'
 import { wcagContrast } from 'culori'
 import { parseColor, type ParsedColor } from '@/lib/color'
-import { parseRuleFile } from '@/lib/content/parse'
 import type { Rule } from '@/lib/content/schema'
+import { chooseStandard as choose, knownStandards, ruleValue, rulesFrom, type StandardChoice } from './standards'
 
 export const DEFAULT_STANDARD = 'wcag-2.2'
 export const DEFAULT_LEVEL = 'AA'
-const LEVELS = ['A', 'AA', 'AAA'] as const
 
 export const CONTRAST_CHECKS = {
   text: 'color.contrast.text',
@@ -22,53 +19,18 @@ export const CONTRAST_CHECKS = {
 } as const
 type CheckName = keyof typeof CONTRAST_CHECKS
 
-let cached: Rule[] | null = null
-
-/** The three contrast rules, read from content/rules/color.yaml (bundled with the route; see next.config.ts). */
-export function contrastRules(rulesFile = path.join(process.cwd(), 'content', 'rules', 'color.yaml')): Rule[] {
-  if (cached) return cached
-  const parsed = parseRuleFile(fs.readFileSync(rulesFile, 'utf-8'))
-  if (!parsed.ok) throw new Error(`Invalid rules file: ${parsed.issues.map(i => i.message).join('; ')}`)
+/** The three contrast rules, read from content/rules/color.yaml. */
+export function contrastRules(): Rule[] {
   const ids = new Set<string>(Object.values(CONTRAST_CHECKS))
-  cached = parsed.value.filter(r => ids.has(r.id))
-  return cached
+  return rulesFrom('color').filter(r => ids.has(r.id))
 }
 
-export function knownStandards(rules = contrastRules()): string[] {
-  return [...new Set(rules.flatMap(r => Object.keys(r.parameters ?? {})))].sort()
-}
-
-export type StandardChoice =
-  | { ok: true; standard: string; level: string; defaulted: boolean }
-  | { ok: false; error: string }
-
-/**
- * Read the standard and level. Accepts them separately (standard=wcag-2.2&level=AA)
- * or combined, as sistema.json stores them (standard=wcag-2.2 AA).
- */
+/** Contrast always has a standard: WCAG 2.2 AA unless one is given (D11). */
 export function chooseStandard(standardRaw: unknown, levelRaw: unknown, rules = contrastRules()): StandardChoice {
-  if (standardRaw === undefined || standardRaw === null || standardRaw === '') {
-    return { ok: true, standard: DEFAULT_STANDARD, level: typeof levelRaw === 'string' && levelRaw ? levelRaw.toUpperCase() : DEFAULT_LEVEL, defaulted: true }
-  }
-  if (typeof standardRaw !== 'string') return { ok: false, error: '"standard" must be a string, for example wcag-2.2' }
-  const [std, combinedLevel] = standardRaw.trim().toLowerCase().split(/\s+/)
-  const level = (typeof levelRaw === 'string' && levelRaw ? levelRaw : combinedLevel ?? DEFAULT_LEVEL).toUpperCase()
-  const known = knownStandards(rules)
-  if (!known.includes(std)) return { ok: false, error: `Unknown standard "${standardRaw}". Known standards: ${known.join(', ')}` }
-  if (!(LEVELS as readonly string[]).includes(level)) return { ok: false, error: `Unknown level "${level}". Use A, AA, or AAA.` }
-  return { ok: true, standard: std, level, defaulted: false }
+  return choose(standardRaw, levelRaw, knownStandards(rules), { standard: DEFAULT_STANDARD, level: DEFAULT_LEVEL })!
 }
 
-/** The required ratio for a rule at a level: that level's value, or the nearest lower level the standard defines. */
-export function requiredRatio(rule: Rule, standard: string, level: string): number | null {
-  const values = rule.parameters?.[standard]
-  if (!values) return null
-  for (let i = LEVELS.indexOf(level as (typeof LEVELS)[number]); i >= 0; i--) {
-    const v = values[LEVELS[i]]
-    if (typeof v === 'number') return v
-  }
-  return null
-}
+export const requiredRatio = ruleValue
 
 export interface Check {
   rule: string

@@ -4,7 +4,7 @@ import { SITE_URL } from '@/lib/site-url'
 import { ContrastChecker } from '@/components/contrast/ContrastChecker'
 
 export const metadata: Metadata = {
-  title: 'Contrast Checker — Sistema Tools',
+  title: 'Contrast checker',
   description: 'Check WCAG 2.2 contrast ratios between any two colors. The same algorithm used by Sistema plays to verify semantic color role pairings.',
   robots: { index: false, follow: false },
 }

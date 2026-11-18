@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { TypeScaleCalculator } from '@/components/type-scale/TypeScaleCalculator'
 
 export const metadata: Metadata = {
-  title: 'Type Scale Calculator — Sistema',
+  title: 'Type scale calculator',
   robots: { index: false, follow: false },
 }
 
@@ -34,7 +34,7 @@ export default function TypeScalePage() {
             >
               typography.scale
             </Link>{' '}
-            play — the play handles semantic roles, weights, and spacing from there.
+            play, which calls the same calculation and then sets weights, letter spacing, and roles.
           </p>
         </div>
 

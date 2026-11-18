@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 2 (Tools and paste-in improvements). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-2.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V2.3 — Palette documentation and tests
-**Next task:** V2.4 — Type scale API and page defaults
+**Last completed task:** V2.4 — Type scale API and page defaults
+**Next task:** V2.5 — Consistency tests
 **Blockers:** none
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -89,3 +89,18 @@
 - **Input documented** where agents look: error messages and the tool docs in plays and `/raw/agents` (V2.2), and now the palette page, which links to Tool APIs.
 - **Plays checked:** the three plays that use the palette (`color.scheme`, `color.map-existing`, `visual-language.direction`) have it in their contract, so their generated tool block shows the GET form. `color.add-theme` reuses existing ramps and needs only contrast.
 - 130 tests (11 files). Build passes, 0 violations.
+
+### 2026-11-18 — Task V2.4: Type scale API and page defaults
+
+**What was done:**
+- `src/lib/type-scale.ts` `computeTypeScale`: one calculation, safe to run in the browser, used by the API and the page.
+  - Defaults (D12): base 16, major third, two steps down, six up, numbered names.
+  - Names can be `numeric`, `tailwind`, or `steps`. Roles are placed on steps only where the caller names them, and several roles may share a step.
+  - Line heights follow the guide's per-size bands. Body text (the `body` step, or the base step) gets the body range at any size.
+  - Advisory notes cover sizes under 12px and ratios above 1.333 with many steps.
+- `GET`/`POST /api/type-scale` (`src/app/api/type-scale/route.ts`). Checks: `typography.line-height.by-role` always, and `typography.line-height.body` when the standard sets a minimum (WCAG AAA). Standards come from the shared `src/lib/tools/standards.ts`; contrast now uses it too. `next.config.ts` bundles the typography rules with the route.
+- **Type scale page:** uses the same calculation and defaults. The 9px caption is gone (smallest step is now 10px, with a note). The made-up role suggestions are replaced by notes, and a step-name picker and the API URL are added. On phones, notes sit under their row. The em dashes in the page intro and the tool page titles are removed.
+- **`typography.scale` play:** calls the tool (a new step 4) and doesn't calculate sizes itself. Every check the tool reports must pass. The tool docs show the GET form with naming, roles, and standard.
+- Workflow starters now name their tools in one paragraph instead of repeating each tool's full usage, which each play carries. Adding the type scale docs had put the Start starter at its 140-line limit. Also fixed "contrast, and palette" for two items.
+- One build failed with a stale `.next` after an interrupted build. A clean rebuild passed.
+- 136 tests (12 files). Build passes, 0 violations. Screenshots at 1280px and 390px, with no horizontal scroll.

@@ -166,8 +166,9 @@ describe('workflow rendering', () => {
     expect(out).toContain('"in-progress"')
     expect(out).toContain(`${BASE}/raw/schema/sistema.json`)
     // Tools, end of workflow, full version.
-    expect(out).toContain(`GET ${BASE}/api/palette?`)
-    expect(out).toContain('"pairs"')
+    // The starter names the tools; each play carries their full usage.
+    expect(out).toMatch(/uses Sistema's (palette and contrast|contrast and palette) tools\./)
+    expect(out).not.toContain(`GET ${BASE}/api/palette?`)
     expect(out).toContain(`continue with Build patterns: ${BASE}/raw/workflows/patterns`)
     expect(out).toContain(`${BASE}/raw/workflows/start/full`)
     expect(out).not.toMatch(LITERAL_DATE)

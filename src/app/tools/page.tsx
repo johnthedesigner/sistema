@@ -29,9 +29,9 @@ const TOOLS = [
     slug: 'type-scale',
     href: '/tools/type-scale',
     title: 'Type scale calculator',
-    description: 'Explore modular type scales — pick a base size and ratio to see how sizes distribute from caption to display. Use the output to inform your typography direction when running the type scale play.',
+    description: 'Pick a base size and ratio to see how sizes distribute, with a suggested line height for each and the step names your component library uses. The same calculation the type scale play gets from the API.',
     playRef: 'typography.scale',
-    api: null,
+    api: `${SITE_URL}/api/type-scale`,
   },
 ]
 

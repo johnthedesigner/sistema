@@ -11,9 +11,10 @@ const nextConfig: NextConfig = {
   // Pin the workspace root to this repo. Without this, a package-lock.json in a
   // parent folder makes Next infer the wrong root and `next start` serves 404s.
   outputFileTracingRoot: path.join(__dirname),
-  // The contrast API reads its required values from the rules registry at request time.
+  // The tool APIs read required values from the rules registry at request time.
   outputFileTracingIncludes: {
     '/api/contrast': ['./content/rules/color.yaml'],
+    '/api/type-scale': ['./content/rules/color.yaml', './content/rules/typography.yaml'],
   },
 }
 

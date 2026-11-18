@@ -7,7 +7,7 @@ import { PaletteControls } from '@/components/palette/PaletteControls'
 import { CustomSeedInput } from '@/components/palette/CustomSeedInput'
 
 export const metadata: Metadata = {
-  title: 'Palette Tool',
+  title: 'Palette tool',
   robots: { index: false, follow: false },
 }
 

@@ -61,11 +61,11 @@ Add GET with query parameters to contrast and palette, as approved in V2.0 (for 
 
 ## Task V2.4: Type scale API and page defaults
 
-**Status:** not started
+**Status:** done (2026-11-18)
 
 Build the type scale API to the V2.0 outline. It applies the registry rules that can be checked by calculation: line height per role, unitless, and roles that differ by more than size where roles are named. It flags guide ranges as advice, not failures. Fix the page so its defaults come from the same code and pass the registry; today it suggests a 9px caption and a display line height below 1. The type scale play then calls the API.
 
-- [ ] API and page share one implementation; defaults pass the registry; `typography.scale` names the tool and its contract includes it
+- [x] API and page share one implementation; defaults pass the registry; `typography.scale` names the tool and its contract includes it
 
 ## Task V2.5: Consistency tests
 
