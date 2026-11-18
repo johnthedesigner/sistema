@@ -69,11 +69,11 @@ Build the type scale API to the V2.0 outline. It applies the registry rules that
 
 ## Task V2.5: Consistency tests
 
-**Status:** not started
+**Status:** done (2026-11-18)
 
 Plan 13, layer 2: every tool's default output passes the registry rules it's subject to, in tests that run on every build. Contrast results must match published WCAG examples. The contrast page (`ContrastChecker.tsx`) still calculates in the browser with fixed WCAG 2.x values. Have it use the same registry-based checks as the API, with a standard picker. Review what the content checker already covers (rule references, tools named in plays) and add only what's missing.
 
-- [ ] Tool defaults are tested against the registry on every build
+- [x] Tool defaults are tested against the registry on every build
 
 ## Task V2.6: Tool index and shorter prompts
 

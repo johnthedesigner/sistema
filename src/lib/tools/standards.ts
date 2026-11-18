@@ -7,8 +7,9 @@ import fs from 'fs'
 import path from 'path'
 import { parseRuleFile } from '@/lib/content/parse'
 import type { Rule } from '@/lib/content/schema'
+import { LEVELS, valueAtLevel } from './levels'
 
-export const LEVELS = ['A', 'AA', 'AAA'] as const
+export { LEVELS }
 
 const cache = new Map<string, Rule[]>()
 
@@ -56,11 +57,5 @@ export function chooseStandard(
 
 /** A rule's value at a level: that level's, or the nearest lower level the standard defines. */
 export function ruleValue(rule: Rule, standard: string, level: string): number | null {
-  const values = rule.parameters?.[standard]
-  if (!values) return null
-  for (let i = LEVELS.indexOf(level as (typeof LEVELS)[number]); i >= 0; i--) {
-    const v = values[LEVELS[i]]
-    if (typeof v === 'number') return v
-  }
-  return null
+  return valueAtLevel(rule.parameters?.[standard], level)
 }

@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 2 (Tools and paste-in improvements). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-2.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V2.4 — Type scale API and page defaults
-**Next task:** V2.5 — Consistency tests
+**Last completed task:** V2.5 — Consistency tests
+**Next task:** V2.6 — Tool index and shorter prompts
 **Blockers:** none
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -104,3 +104,24 @@
 - Workflow starters now name their tools in one paragraph instead of repeating each tool's full usage, which each play carries. Adding the type scale docs had put the Start starter at its 140-line limit. Also fixed "contrast, and palette" for two items.
 - One build failed with a stale `.next` after an interrupted build. A clean rebuild passed.
 - 136 tests (12 files). Build passes, 0 violations. Screenshots at 1280px and 390px, with no horizontal scroll.
+
+### 2026-11-18 — Task V2.5: Consistency tests
+
+**What was done:**
+- `src/lib/tools/consistency.test.ts` (plan 13, layer 2):
+  - Contrast matches published values (21:1, 1:1, 4.54:1 for `#767676` on white). It also matches an independent implementation of the WCAG formula for 300 random pairs, and is symmetric.
+  - Every check a tool reports names a rule that exists. The tools read the same rule values the content model loads, and the contrast page's table matches what the API requires.
+  - The default type scale meets every body line-height minimum in the registry. Body text meets the strictest minimum at 6 base sizes × 3 ratios. Every default line height is unitless and in a sane range.
+  - Contrast's default standard (D11) is defined for all three checks.
+- Already covered by the content checker, so not duplicated: rule references (`model.rule-refs`) and tools named in play text (`model.tools-named`).
+- **Contrast page:**
+  - No more fixed WCAG 2.x values. The page's server side builds a table from the registry (`contrastTable`), and the component has Standard and Level pickers.
+  - A level is offered only where the registry defines it (Section 508 and EN 301 549 offer AA only). A check the standard doesn't set says so.
+  - Each check shows its rule, and the copied API URL includes the chosen standard.
+  - Browser-safe helpers are in `src/lib/tools/levels.ts`.
+- **Fixes found in screenshots:**
+  - Color inputs were pushed right on phones.
+  - The rating badge stretched full width on phones.
+  - Em dashes in the sample text and in the tools index title, description, and intro (which also said only two tools had APIs).
+  - The contrast intro repeated "the same".
+- 146 tests (13 files). Build passes, 0 violations. Screenshots at 1280px (WCAG 2.2 and Section 508) and 390px, with no horizontal scroll.

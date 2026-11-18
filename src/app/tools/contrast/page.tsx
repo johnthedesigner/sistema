@@ -2,10 +2,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SITE_URL } from '@/lib/site-url'
 import { ContrastChecker } from '@/components/contrast/ContrastChecker'
+import { contrastTable } from '@/lib/tools/contrast'
 
 export const metadata: Metadata = {
   title: 'Contrast checker',
-  description: 'Check WCAG 2.2 contrast ratios between any two colors. The same algorithm used by Sistema plays to verify semantic color role pairings.',
+  description: 'Check the contrast between two colors against WCAG 2.2, WCAG 2.1, Section 508, or EN 301 549, using the same rules Sistema plays check.',
   robots: { index: false, follow: false },
 }
 
@@ -30,8 +31,7 @@ export default function ContrastCheckerPage() {
               className="text-on-surface-muted font-serif font-normal m-0"
               style={{ fontSize: 15, lineHeight: 1.55 }}
             >
-              Check any foreground/background pair against WCAG 2.2 AA and AAA thresholds.
-              The same calculation used by the{' '}
+              Check any foreground and background pair against the standard your project follows. The required values come from Sistema&apos;s rules. The{' '}
               <Link href="/plays/color.scheme" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken">
                 color.scheme
               </Link>
@@ -39,11 +39,11 @@ export default function ContrastCheckerPage() {
               <Link href="/plays/accessibility.audit" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken">
                 accessibility.audit
               </Link>
-              {' '}plays via <span className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface">GET {SITE_URL}/api/contrast</span>.
+              {' '}plays run the same checks through <span className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface break-all">GET {SITE_URL}/api/contrast</span>.
             </p>
           </div>
 
-          <ContrastChecker />
+          <ContrastChecker table={contrastTable()} />
 
         </div>
       </div>

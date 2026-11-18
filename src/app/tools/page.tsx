@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { SITE_URL } from '@/lib/site-url'
 
 export const metadata: Metadata = {
-  title: 'Tools — Sistema',
-  description: 'Computational tools for design system work — palette generation, contrast checking, and more.',
+  title: 'Tools',
+  description: 'Palette, contrast, and type scale tools for design system work, each with a page and an API.',
   robots: { index: false, follow: false },
 }
 
@@ -21,7 +21,7 @@ const TOOLS = [
     slug: 'contrast',
     href: '/tools/contrast',
     title: 'Contrast checker',
-    description: 'Check any foreground/background pair against WCAG 2.2 AA and AAA thresholds. The same calculation plays use to verify semantic role pairings — also available as an API for use directly in your prompts.',
+    description: 'Check any foreground and background pair against the accessibility standard your project follows, using the same rules plays check. Also an API that checks many pairs at once.',
     playRef: 'accessibility.audit',
     api: `${SITE_URL}/api/contrast`,
   },
@@ -54,8 +54,7 @@ export default function ToolsPage() {
             className="text-on-surface-muted font-serif font-normal m-0"
             style={{ maxWidth: 620, fontSize: 15, lineHeight: 1.55 }}
           >
-            Each tool has a human-facing interface. Two also expose a machine-facing API endpoint that plays can call directly —
-            replacing AI-estimated values with exact calculations.
+            Each tool has a page you can use and an API that plays call, so agents get exact values instead of estimates.
           </p>
         </div>
 

@@ -32,6 +32,28 @@ export function chooseStandard(standardRaw: unknown, levelRaw: unknown, rules = 
 
 export const requiredRatio = ruleValue
 
+/** Required ratios by standard, level, and check, for the contrast page (which can't read the rules itself). */
+export type ContrastTable = Record<string, Record<string, Partial<Record<CheckName, number>>>>
+
+export function contrastTable(rules = contrastRules()): ContrastTable {
+  const table: ContrastTable = {}
+  for (const standard of knownStandards(rules)) {
+    table[standard] = {}
+    // Offer a level only if some contrast rule defines it for this standard.
+    const levels = ['AA', 'AAA'].filter(l => rules.some(r => typeof r.parameters?.[standard]?.[l] === 'number'))
+    for (const level of levels) {
+      const row: Partial<Record<CheckName, number>> = {}
+      for (const [name, id] of Object.entries(CONTRAST_CHECKS) as Array<[CheckName, string]>) {
+        const rule = rules.find(r => r.id === id)
+        const v = rule ? ruleValue(rule, standard, level) : null
+        if (v !== null) row[name] = v
+      }
+      table[standard][level] = row
+    }
+  }
+  return table
+}
+
 export interface Check {
   rule: string
   required: number
