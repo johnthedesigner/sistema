@@ -43,6 +43,7 @@ export function renderFileRaw(file: FileFormat, sources: Map<string, SourceEntry
 
 export const SOURCE_KIND_LABELS: Record<(typeof SOURCE_KINDS)[number], string> = {
   'design-system': 'Design systems and style guides',
+  library: 'Libraries and frameworks',
   standard: 'Standards and formats',
   research: 'Research and reference writing',
   'agent-skill': 'Agent skills',

@@ -41,6 +41,10 @@ elevation-4: strong shadow      → tooltips, popovers
 - Under-designed: flat shadows with the wrong blur/opacity look like borders, not depth
 - Dark mode: shadows become invisible or very subtle on dark surfaces because dark objects on dark backgrounds don't cast visible shadows. This forces a secondary strategy for dark mode (see hybrid approach below).
 
+### Shadow color
+
+Take shadow colors from the neutral ramp, tinted toward the surface they fall on, rather than pure black at low opacity. Pure black reads as grey and slightly dirty on warm or tinted surfaces, and it looks harsher as opacity rises. A tinted shadow sits in the same color world as the surface. In a dark theme, shadows need more opacity to read at all, and floating layers usually need a lighter surface as well (see the hybrid approach below).
+
 ### Model 2 — Tonal surface elevation
 
 Surfaces at higher elevations are lighter than lower-elevation surfaces. No shadows — depth is communicated entirely through surface color tones.

@@ -15,6 +15,7 @@ knowledge:
   - guide.shape.architecture#component-consistency
   - guide.shape.architecture#the-pill-full-radius-using-sparingly-vs-as-a-default
   - guide.depth.architecture#when-to-use-each-model
+  - guide.depth.architecture#shadow-color
   - guide.depth.architecture#the-hybrid-approach
   - guide.quality.visual-quality-signals#3-absolute-bans-for-design-system-token-decisions
 rules: [shape.radius.hierarchy, quality.shape.bans, tokens.source.dtcg, tokens.naming.role]
@@ -44,7 +45,7 @@ last_reviewed: 2026-11-15
    }
    ```
 
-   Shadow colors use the neutral ramp, tinted to the surface, not pure black. If dark values differ, put only the changed tokens in `tokens/src/shape.dark.json`.
+   Take shadow colors as the depth guide describes in "Shadow color." If dark values differ, put only the changed tokens in `tokens/src/shape.dark.json`.
 
 5. **Check quality** against the shape bans. Start from the preview's values. If a value must change, list it as a change from the approved preview.
 

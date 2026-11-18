@@ -23,7 +23,7 @@ The tokens are compiled and wired into the app (`tokens.pipeline`). This play bu
 
 1. **Read the system:** DESIGN.md (Components, and Do's and Don'ts), `tokens/src/`, the compiled token CSS, `sistema.json`, and DECISIONS.md. Note the product's density and its first screens, from the positioning statement.
 
-2. **Choose the component foundation with the person.** Recommend one for the stack and explain why:
+2. **Choose the component foundation with the person.** If `project.component_library` is already set, confirm it and move on. Otherwise recommend one for the stack and explain why:
    - shadcn/ui for React with Tailwind (copied into the repo; Radix or Base UI primitives underneath)
    - Base UI, Radix, or React Aria directly for unstyled primitives
    - native elements only, for a small set

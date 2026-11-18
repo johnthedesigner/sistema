@@ -190,11 +190,11 @@ Move `kb/reference/` to internal `reference/` (D4), never routed. Replace the DE
 
 ### Task V1.17: "What uses this" lookup, last-reviewed check, fit review 2
 
-**Status:** not started
+**Status:** complete (2026-11-17)
 
 Plan 8.2 lookup (`npm run uses -- <id>`) and the last-reviewed threshold check. Then fit review 2 with the owner: the full catalog against capability-model Section 7, and no play restates a guide.
 
-- [ ] Lookup and review check work; owner approves fit review 2
+- [x] Lookup and review check work; owner approves fit review 2 (`docs/v2/fit-review-2.md`, answers in section 7)
 
 ### Task V1.18: Housekeeping and gate check
 

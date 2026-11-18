@@ -9,11 +9,15 @@ sources:
   - { source: atlassian, url: "https://atlassian.design/foundations/typography" }
   - { source: ant-design, url: "https://ant.design/docs/spec/font" }
   - { source: primer, url: "https://github.com/primer/design/blob/main/content/foundations/typography.mdx" }
+  - { source: tailwind, url: "https://tailwindcss.com/docs/font-size" }
+  - { source: tailwind, url: "https://tailwindcss.com/docs/theme" }
+  - { source: shadcn, url: "https://ui.shadcn.com/docs/components/radix/typography" }
+  - { source: shadcn, url: "https://ui.shadcn.com/docs/typeset" }
   - { source: typographic-scale, url: "https://spencermortensen.com/articles/typographic-scale/" }
   - { source: practical-typography, url: "https://practicaltypography.com/typography-in-ten-minutes.html" }
   - { source: practical-typography, url: "https://practicaltypography.com/body-text.html" }
   - { source: practical-typography, url: "https://practicaltypography.com/line-spacing.html" }
-last_reviewed: 2026-11-16
+last_reviewed: 2026-11-17
 ---
 
 # Typography architecture
@@ -91,51 +95,51 @@ Most production design systems use a hybrid: a loosely modular structure as a gu
 
 ---
 
-## Role taxonomy: named roles vs. numeric steps
+## Naming type
 
-This is the second major structural decision, and it has more influence on how your system communicates than on how it looks.
+How a type system names its sizes shapes how people use it. A name can say what the text is for (`body`, `heading-lg`), how big it is (`text-sm`, size 3), or both. Design systems and libraries differ here more than almost anywhere else, and there is no single right answer. The best choice depends on what the project builds on and how complex it will get.
 
-### Named roles (semantic taxonomy)
+### Four approaches
 
-Named roles assign communicative meaning to each size: `display`, `headline`, `title`, `body`, `label`. The name tells a developer what the text *is for*, not how large it is.
+| Approach | Example names | Used by |
+|---|---|---|
+| **Role families, each in sizes** | `display-lg`, `headline-md`, `title-sm`, `body-md`, `label-sm` | Material Design (display, headline, title, body, label, each large, medium, small) |
+| **A heading ladder plus body** | `heading-xl` to `heading-xs`, `body`, `body-sm`, `code`; or numbered, `heading-01` to `heading-07` | Atlassian (named sizes); Carbon (numbered, with separate sets for product UI and expressive pages) |
+| **Numbered steps** | sizes `1` to `9` | Radix Themes; Ant Design (`fontSize`, `fontSizeSM`, `fontSizeLG`, `fontSizeHeading1` to `5`) |
+| **Magnitude sizes, roles in components** | `text-xs` to `text-9xl` | Tailwind; shadcn/ui, which ships no type tokens and styles each element by combining a size with weight, tracking, and color. Primer pairs a size scale (`xs` to `2xl`) with a few named roles |
 
-**What named roles enable:**
-- Communication: a developer reading `type-role-body-large` knows what it does. They can use it correctly without seeing the pixel value.
-- Role-based theming: you can change the body text size system-wide by updating the `body` token, without knowing which components use it
-- Cross-system legibility: named roles are familiar across design systems; a new team member can read the role names and understand the hierarchy
+**What each is good at:**
+- **Role families** give the most guidance. Every name says what it's for, so teams drift less. The cost is a large set (often 15 roles) and names that can feel wrong when a size is right but the role isn't.
+- **A heading ladder** is simpler: one family for hierarchy, a few body sizes, and specialist roles like `code` and `caption`. It fits most product interfaces.
+- **Numbered steps** give the most freedom. Components choose a step, and the meaning lives in the component. They suit libraries that other teams compose with.
+- **Magnitude sizes** match utility-first CSS. They make a size easy to apply anywhere, which is also their risk: without roles, the same element gets different sizes in different places.
 
-**The tradeoff:**
-- Named roles couple the token to a semantic intent. If a designer wants to use `headline-small` for a non-heading context because it's the right size, they're either misusing the name or revealing that the scale doesn't have a size for that use case
-- Adding a new step between existing named roles requires careful naming that fits the existing pattern
+Long-form content (docs, articles, chat messages) is often styled differently from interface text: from a few controls, such as base size, line height, and the space between blocks, from which heading sizes and spacing are derived. shadcn/ui's Typeset works this way. It complements any of the four approaches rather than replacing them.
 
-**The 5-role pattern** (display / headline / title / body / label) emerged from mobile typography practice and maps well to most product UIs. Each role may have 2–4 size variants (large / medium / small / xsmall) to cover the range within that role's purpose.
+### Choosing an approach
 
-### Numeric steps
+1. **If DESIGN.md already names type roles, keep them.** Renaming costs more than it gains.
+2. **If a component library is chosen, follow its convention,** so tokens map onto its components without translation:
 
-Numeric steps (1 through N) assign no semantic meaning — they're a size ladder. Step 5 is larger than step 4; what it means in context is up to the component consuming it.
+   | Library | Follow |
+   |---|---|
+   | shadcn/ui, or plain Tailwind | Tailwind's magnitude sizes, plus role tokens for the roles the product uses (see below) |
+   | Radix Themes | Its numbered steps (1 to 9) |
+   | Material UI, or Material components | Material's role families |
+   | Carbon | Carbon's type sets |
 
-**What numeric steps enable:**
-- Composability: a component can use any step for any purpose, and the system doesn't prescribe what that purpose is
-- Easy extension: add step 10 without naming implications
-- Developer ergonomics: `size="6"` is predictable and composable; no need to remember semantic distinctions
+3. **Otherwise, size it to the product's expected complexity:**
+   - **One product, one team, a modest number of screens:** a heading ladder with about six to eight roles.
+   - **Several teams, many screens, or content-heavy products:** role families, because names that state purpose keep teams consistent.
+   - **A component library for others to build with:** numbered steps underneath, with roles defined by the components.
 
-**The tradeoff:**
-- Numbers communicate nothing about purpose. A team with 5 engineers will make 5 different size choices for the same UI element because the scale doesn't constrain the choice
-- Without semantic names, the system can't enforce that the same role looks consistent across all components
+   Propose one, say why, and let the person choose. It's a matter of judgment, not a rule.
 
-### Decision framework
+### Two tiers, whatever the names
 
-**Use named roles when:**
-- You want the type system to actively constrain and communicate purpose
-- Multiple teams are consuming the system and consistency across those teams matters
-- The system serves a product context where semantic hierarchy (this is a heading, this is body text) is meaningful
+Sistema's token model has two tiers (opinion `two-tiers`), and that holds for type too. The convention decides how the size scale is named. On top of it, the product's roles (`body`, `label`, `heading-lg`, and so on) are semantic tokens that point at sizes and set weight, line height, and tracking. Rule `typography.roles.distinct` applies to those roles.
 
-**Use numeric steps when:**
-- You are building a library for other developers to compose with, not a system that prescribes usage
-- The consuming team will make their own component-level decisions about hierarchy
-- You want maximum flexibility at the cost of system-level prescription
-
-**Mixed approach:** Named roles at the token/design level, numeric implementation internally. Define `type-body-default` as an alias for the equivalent numeric step. Developers who know the system use named tokens; the underlying scale is still numeric and composable.
+With Tailwind, role tokens can be theme variables too. Declaring `--text-body` (with its own line height, tracking, and weight) creates a `text-body` utility beside `text-sm`. Components then use the role, and the magnitude scale stays available for one-off cases.
 
 ---
 
@@ -235,7 +239,7 @@ Typography and spacing are not independent. Every decision in the type scale has
 |---|---|---|
 | Scale construction | Hand-tuned or modular? | Modular if consistency > specific values; hand-tuned if specific values > consistency |
 | Ratio | Dense or editorial? | 1.125–1.200 for dense; 1.250–1.333 for mixed; 1.333+ for editorial-only |
-| Role taxonomy | Library or system? | Numeric steps for composable libraries; named roles for prescriptive systems |
+| Naming type | Is a component library chosen? | Follow its convention. Otherwise size it to the product's complexity: a heading ladder for one team, role families for many, numbered steps for a library others build on |
 | Line height | Specified per role? | Always. One global value is wrong for both ends of the scale |
 | Variable fonts | 4+ weights needed? | Yes: consider variable font. 2–3 weights: load static files |
 | Spacing relationship | 8px grid? | Verify body line height is a multiple of the grid base; adjust either if not |

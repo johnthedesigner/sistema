@@ -76,6 +76,24 @@
   license: Not yet recorded
   note: Believed to be published under a Creative Commons non-commercial license. To confirm.
 
+# ─── Libraries and frameworks ────────────────────────────────────────────────
+
+- id: tailwind
+  name: Tailwind CSS
+  publisher: Tailwind Labs
+  url: https://tailwindcss.com/docs
+  kind: library
+  tier: 2
+  license: No open license stated for the documentation (the framework's code is MIT)
+
+- id: shadcn
+  name: shadcn/ui
+  publisher: shadcn
+  url: https://ui.shadcn.com/docs
+  kind: library
+  tier: 1
+  license: MIT (the repository, including its documentation)
+
 # ─── Standards and formats ───────────────────────────────────────────────────
 
 - id: wcag

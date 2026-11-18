@@ -54,6 +54,7 @@ If the project has `LIVING_BRIEF.md` (an older Sistema state file) and no `siste
    - Web, mobile, or both? One team or several? Roughly how many components: under 20, 20 to 60, or more?
    - Which accessibility standard and level must it meet? Help the person choose for their use case. WCAG 2.2 AA fits most web products. Section 508 or EN 301 549 applies where the law requires it. Some audiences call for AAA criteria. Record the choice exactly, for example `wcag-2.2 AA`.
    - What stack is it built on? Sistema's default path is web with React and Tailwind. Other stacks are supported more loosely.
+   - Is a component library planned or already in use, for example shadcn/ui, Radix Themes, Material UI, or Carbon? If so, record it as `project.component_library`. The type, spacing, and radius plays follow that library's naming so tokens map onto its components. "Not decided yet" is a fine answer; the component scaffold play decides it later.
 
    **If the project already has colors,** tell the person how Sistema handles them before going on: nothing existing changes without their choice. The color play will show their current colors next to a few options on a comparison page, and they decide for each hue. Common options are keeping the colors exactly, keeping them and completing the ramps around them, or using them as seeds for new, even ramps. Don't ask them to choose now.
 

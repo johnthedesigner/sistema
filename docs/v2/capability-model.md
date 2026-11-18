@@ -326,7 +326,7 @@ This barely changes. The difference is that it reads `sistema.json` and DECISION
 | `sistema.json` schema and DESIGN.md section list | **Decided (D6a, D7):** spec's 8 sections; schema finalized during the slice | V1 slice |
 | Motion step | Don't build it now. Add it under Growth when a project asks for it. | Later |
 | Components guide | Write it before `workflow.patterns` is considered complete | V3 |
-| Split `components.scaffold-core` | Decide once its contract is written | V1 migration |
+| Split `components.scaffold-core` | **Decided (fit review 2):** not split; 28 lines of procedure after migration | Done |
 
 ## 11. Validate with a thin vertical slice before migrating everything
 

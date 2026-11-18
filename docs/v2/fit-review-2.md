@@ -1,6 +1,6 @@
 # Fit Review 2: The Full Catalog
 
-**Task:** V1.17. **Date:** 2026-11-17. **Status:** awaiting owner review.
+**Task:** V1.17. **Date:** 2026-11-17. **Status:** approved by the owner on 2026-11-17 (answers in section 7). Applied the same day.
 
 This review checks the migrated catalog against the capability model: every v1 play has a place (Section 7), the findings in Section 8 are resolved or scheduled, and no play restates a guide (Section 11).
 
@@ -88,3 +88,11 @@ I haven't changed either. The audit decides between rewriting them as synthesis 
 2. **Close the scaffold-core decision** without splitting it?
 3. **Move the four pieces of knowledge** in section 3 into their guides now, as part of V1.17?
 4. **Type role names:** the guide fix in section 3 needs one default set. I recommend the play's names (`display`, `heading-lg`, `heading-sm`, `body`, `body-sm`, `label`, `caption`, `code`): they say what the text is for, and Sistema's own site already uses names close to them. Or keep the guide's five-role set?
+
+## 7. Owner answers (2026-11-17)
+
+1. **Catalog:** approved structurally and conceptually. All content needs another review once everything currently planned is in place.
+2. **Scaffold-core:** not split. Decision closed.
+3. **Knowledge in plays:** moved now. The spacing step sets and step naming are in the spacing guide ("Starting step sets by density", "Naming the steps"), and shadow color is in the depth guide ("Shadow color"). The plays cite those sections.
+4. **Type role names:** no single Sistema default. The owner asked how the play's list came about. It hadn't been chosen through any comparison: it was written in V1.10 from Sistema's own site tokens. The typography guide's role section was rewritten as "Naming type". It describes four approaches with the systems that use each: role families, a heading ladder, numbered steps, and magnitude sizes with roles in components. It then explains how to choose: keep existing names, follow the component library's convention if one is chosen, otherwise size the approach to the product's complexity and let the person choose. `typography.scale` follows that order. `project.assess` now asks whether a component library is planned and records it in `project.component_library`; `components.scaffold-core` confirms it if set. Tailwind and shadcn/ui went through intake first (`reference/design-systems/tailwind`, `reference/design-systems/shadcn`; sources `tailwind` tier 2, `shadcn` tier 1 MIT).
+

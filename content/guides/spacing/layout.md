@@ -41,18 +41,29 @@ The spacing scale should connect three levels of the UI as a coherent system:
 
 A scale that only works at one level fails at the others. A 4-step scale (8, 16, 24, 32) is insufficient for component-internal use. A scale with too many steps (Atlassian's 14-step scale from 2px to 80px) gives designers too much freedom and produces inconsistent results without strong convention.
 
-A practical starting scale for a mixed product:
+A practical starting scale for a mixed product, on a 4px base (names follow "Naming the steps" below):
 
-| Step | Value | Typical use |
+| Token | Value | Typical use |
 |---|---|---|
-| 1 | 4px | Icon gaps, badge padding, tight insets |
-| 2 | 8px | Button padding (vertical), small component gaps |
-| 3 | 12px | Component padding (tight), between label and input |
-| 4 | 16px | Standard component padding, between list items |
-| 5 | 24px | Between components in a section, card padding |
-| 6 | 32px | Section gaps, sidebar padding |
-| 7 | 48px | Major layout gaps, section vertical padding |
-| 8 | 64px | Large section whitespace, hero padding |
+| `space.1` | 4px | Icon gaps, badge padding, tight insets |
+| `space.2` | 8px | Button padding (vertical), small component gaps |
+| `space.3` | 12px | Component padding (tight), between label and input |
+| `space.4` | 16px | Standard component padding, between list items |
+| `space.6` | 24px | Between components in a section, card padding |
+| `space.8` | 32px | Section gaps, sidebar padding |
+| `space.12` | 48px | Major layout gaps, section vertical padding |
+| `space.16` | 64px | Large section whitespace, hero padding |
+
+## Naming the steps
+
+Name each step by its multiple of the base unit. On a 4px base, `space.4` is 4 × 4px = 16px and `space.12` is 48px. A half step uses a hyphen: `space.0-5` is 2px.
+
+This has three advantages over numbering steps in order (1, 2, 3…):
+- The name tells you the value, so nobody needs a lookup table.
+- Adding a step later doesn't renumber the others. A 20px step slots in as `space.5`.
+- It matches the convention of utility-first CSS frameworks such as Tailwind, where `p-4` is four base units. Tokens and utility classes then mean the same thing in code.
+
+Layout aliases sit on top of the steps and say what they're for: `page-gutter`, `section-gap`, `component-gap`, and any the product repeats, such as a table row height. Each alias refers to a step rather than holding its own value.
 
 ---
 
@@ -63,6 +74,18 @@ The density axis governs how tight or generous spacing is throughout a product. 
 Dense products (data-heavy apps, admin tools, dashboards) need: tighter component padding, smaller gaps between elements, and smaller step values used throughout the scale. A button with 8px vertical padding instead of 16px, a table row at 32px tall instead of 48px.
 
 Spacious products (editorial, onboarding, marketing) need: generous padding, visible whitespace between sections, larger step values as defaults.
+
+### Starting step sets by density
+
+These are starting points on a 4px base, to adjust to the product:
+
+| Density | Steps (px) | Why |
+|---|---|---|
+| Dense | 2, 4, 6, 8, 12, 16, 20, 24, 32, 48 | Many small steps, for tight component internals and compact rows |
+| Balanced | 4, 8, 12, 16, 20, 24, 32, 40, 48, 64 | Even coverage from component internals to page sections |
+| Sparse | 4, 8, 16, 24, 32, 48, 64, 80, 96, 128 | Fewer small steps, more large ones for generous layout |
+
+If density varies within the product (dense tables inside a balanced layout), keep the small steps for component internals and the large ones for layout, rather than defining two scales.
 
 **Design the density before designing the scale.** A scale calibrated for a dense dashboard will feel cramped if repurposed for a marketing page; a spacious scale will waste screen space in a dense application.
 

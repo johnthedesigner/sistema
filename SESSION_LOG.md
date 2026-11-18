@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 1 (Content model and narrative). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-1.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V1.16 — Reference material internal; Sources page
-**Next task:** V1.17 — "What uses this" lookup, last-reviewed check, fit review 2
+**Last completed task:** V1.17 — "What uses this" lookup, last-reviewed check, fit review 2
+**Next task:** V1.18 — Housekeeping and gate check
 **Blockers:** none
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -126,11 +126,16 @@
 - 103 tests pass. Build passes, 0 violations. Screenshots of /sources, the DESIGN.md page, and guide credits at 1280px and 390px, no horizontal scroll.
 - Open: the GitHub repository is public, so `reference/` is still readable there even though the site no longer serves it.
 
-### 2026-11-17 — Task V1.17: lookup, review check, fit review 2 (in progress)
+### 2026-11-17 — Task V1.17: lookup, review check, fit review 2
 
 **What was done:**
 - Owner: `reference/` may stay visible on GitHub; the concern was presenting it as end-user content. Added `reference/README.md` marking it as internal working notes. Owner confirmed Impeccable's author is Paul Bakaus.
 - `npm run uses -- <id>` (`tools/validate/content/uses.ts`): lists every reference to a play, workflow, rule, opinion, guide (optionally a section), file format, source, gate, or state token, from frontmatter fields and text mentions (including URL forms), skipping an item's own definition. Tests in `uses.test.ts`.
 - `review.last-reviewed`: a new `review` level that's reported but never blocks a build. It flags items reviewed more than 180 days ago. It currently flags 13 guides that still carry their May dates.
 - `docs/v2/fit-review-2.md`: every v1 play and campaign has a place (25 plays became 23, 2 campaigns became 3 workflows). Section 8 findings are resolved except the components guide (V3). Recommends closing the scaffold-core split. No play shares a 7-word phrase with a guide. Four pieces of knowledge in plays belong in guides. Two passages added to the backlog source-closeness audit (Mailchimp voice traits, Material's five type roles).
-- 108 tests pass. Waiting on owner answers to fit review 2, section 6.
+- Owner answers (fit review 2, section 7): catalog approved structurally, with a full content review to come once everything planned is in place; scaffold-core not split; knowledge moved from plays to guides; no single default set of type roles.
+- Moved knowledge into guides: spacing "Starting step sets by density" and "Naming the steps" (the starting scale table now uses multiple-of-base names), and depth "Shadow color". `spacing.tokens` and `shape.tokens` cite them.
+- Intake: Tailwind (tier 2: docs repository has no license, framework is MIT) and shadcn/ui (tier 1, MIT). Firecrawl, one page per call, 60 seconds apart: Tailwind theme, font-size, border-radius, padding; shadcn theming. Theming code blocks and the typography and Typeset pages came from GitHub raw (Firecrawl returned 0 pages for typography). New `reference/design-systems/tailwind` (4 entries) and `shadcn` (2 entries). New source kind `library`.
+- Typography guide: "Role taxonomy" rewritten as "Naming type": four approaches with who uses each, Typeset-style control for long-form content, how to choose (keep existing names, then follow the component library, then size to complexity and let the person choose), and two tiers whatever the names. `typography.scale` follows it. `project.assess` asks whether a component library is planned; `components.scaffold-core` confirms it if set.
+- Capability model Section 10: scaffold-core split closed.
+- 108 tests pass. Build passes, 0 violations; 13 guides flagged for review (May dates).

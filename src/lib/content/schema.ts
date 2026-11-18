@@ -120,7 +120,7 @@ export type WorkflowFrontmatter = z.infer<typeof WorkflowFrontmatter>
  * intake tiers in AGENTS.md: 1 open license, 2 official public docs with no
  * open license, 3 public research or writing with no open license.
  */
-export const SOURCE_KINDS = ['design-system', 'standard', 'research', 'agent-skill'] as const
+export const SOURCE_KINDS = ['design-system', 'library', 'standard', 'research', 'agent-skill'] as const
 export const SourceEntry = z
   .object({
     id: z.string().regex(slug),
