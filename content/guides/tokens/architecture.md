@@ -3,10 +3,10 @@ title: "Token architecture"
 description: "Token tiers, naming, dark mode at the token level, common failure modes, and how to decide the structure."
 topic: tokens
 sources:
-  - kb/reference/design-systems/material/guidance/foundations/design-tokens
-  - kb/reference/design-systems/atlassian/guidance/foundations/design-tokens
-  - kb/reference/design-systems/radix/guidance/foundations/design-tokens
-  - kb/reference/design-systems/ant-design/guidance/foundations/design-tokens
+  - { source: material, url: "https://m3.material.io/foundations/design-tokens" }
+  - { source: atlassian, url: "https://atlassian.design/tokens/design-tokens" }
+  - { source: radix, url: "https://www.radix-ui.com/themes/docs/theme/overview" }
+  - { source: ant-design, url: "https://ant.design/docs/react/customize-theme" }
 last_reviewed: 2026-05-13
 ---
 

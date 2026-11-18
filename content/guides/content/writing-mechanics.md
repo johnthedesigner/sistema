@@ -3,11 +3,11 @@ title: "Writing mechanics"
 description: "Capitalization, punctuation, numbers, grammar, and inclusive language for interface copy."
 topic: content
 sources:
-  - kb/reference/design-systems/polaris/guidance/content/grammar-and-mechanics
-  - kb/reference/design-systems/mailchimp/guidance/content/grammar-and-mechanics
-  - kb/reference/design-systems/carbon/guidance/content/writing-style
-  - kb/reference/design-systems/atlassian/guidance/content/language-and-grammar
-  - kb/reference/design-systems/mailchimp/guidance/content/writing-for-accessibility
+  - { source: polaris, url: "https://polaris.shopify.com/content/grammar-and-mechanics" }
+  - { source: mailchimp, url: "https://styleguide.mailchimp.com/grammar-and-mechanics/" }
+  - { source: carbon, url: "https://carbondesignsystem.com/guidelines/content/writing-style/" }
+  - { source: atlassian, url: "https://atlassian.design/foundations/content/language-and-grammar" }
+  - { source: mailchimp, url: "https://styleguide.mailchimp.com/writing-for-accessibility/" }
 last_reviewed: 2026-05-17
 ---
 

@@ -1,9 +1,6 @@
 import type { MetadataRoute } from 'next'
-import { listSystems, type KBCategory } from '@/lib/kb'
-import { catalog, playHref, workflowHref } from '@/lib/content/site'
+import { catalog, fileHref, playHref, workflowHref } from '@/lib/content/site'
 import { SITE_URL } from '@/lib/site-url'
-
-const REFERENCE_CATEGORIES: KBCategory[] = ['design-systems', 'standards', 'foundations', 'skills']
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
@@ -31,7 +28,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...c.workflows.map(w => entry(workflowHref(w.id), 0.8)),
     ...c.plays.map(p => entry(playHref(p.id), 0.7)),
     ...c.guides.map(g => entry(`/guides/${g.topic}/${g.id.split('.')[2]}`, 0.7)),
-    // Reference material stays public until V1.16 makes it internal.
-    ...REFERENCE_CATEGORIES.flatMap(cat => listSystems(cat).map(slug => entry(`/kb/${cat}/${slug}`, 0.4))),
+    ...c.files.map(f => entry(fileHref(f.id), 0.6)),
   ]
 }

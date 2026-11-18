@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 1 (Content model and narrative). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-1.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V1.15 — LIVING_BRIEF migration play
-**Next task:** V1.16 — Reference material and Sources page
+**Last completed task:** V1.16 — Reference material internal; Sources page
+**Next task:** V1.17 — "What uses this" lookup, last-reviewed check, fit review 2
 **Blockers:** none
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -112,3 +112,16 @@
 - The dry run changed the play: bare-YAML DESIGN.md gets wrapped in front matter lines, and superseded log entries are history, not conflicts.
 - Removed the `/raw` reference-material test group in `src/app/raw/raw.test.ts`. It had no cases after V1.14, which made the file fail; that was missed in the V1.14 report.
 - 99 tests pass. Build passes (218 pages), 0 violations.
+
+### 2026-11-17 — Task V1.16: Reference material and Sources page
+
+**What was done:**
+- Backlog: added "Orchestrated autonomous agents" (owner note): approval without a live conversation, parallel writes to shared state, plays that fan out, machine-checkable evidence, ways in besides a pasted prompt, design system work as a platform service.
+- `kb/reference/` moved to `reference/` (git mv). `kb/` is gone. Removed the `/kb` pages, the `/raw/<category>/...` route, `src/lib/kb.ts`, `src/components/kb/`, and the source logos.
+- New `content/sources.yaml`: 23 sources with publisher, URL, kind, intake tier, and license as recorded. Mailchimp, Primer, and Modular Scale licenses are marked "not yet recorded". Impeccable's author corrected to Paul Bakaus (the reference notes said Philip).
+- Guide `sources` are now credits `{source, url}`, converted from each cited reference file's `source_url` and `derived_from`. Guide-to-guide links moved to `related`. Guide pages and `/raw/guides` end with "Draws on".
+- New file format type (`content/files/`, `/reference/files/[name]`, `/raw/files/[name]`) with a Sistema-owned DESIGN.md page that says which parts follow the Google Stitch format. Plays now fetch `{{sistema_url}}/raw/files/design-md#sections` and `#front-matter` instead of the reference copy of the spec.
+- New `/sources` (rebuilt from the registry, with license, tier, and the guides that use each source) and `/raw/sources`. Fixed its "open an issue" link, which pointed at another project's repository.
+- Checker: `referenceFiles` reads `reference/`; `ref.raw-url` accepts only routes the site serves; `ref.sources` replaced by `model.sources`; `content.stale-path` flags any `kb/` path; the `/kb` exception in `output.internal-link` is gone.
+- 103 tests pass. Build passes, 0 violations. Screenshots of /sources, the DESIGN.md page, and guide credits at 1280px and 390px, no horizontal scroll.
+- Open: the GitHub repository is public, so `reference/` is still readable there even though the site no longer serves it.

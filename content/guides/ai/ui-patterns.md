@@ -3,8 +3,8 @@ title: "AI interface patterns"
 description: "Patterns for interfaces that show AI output: conversation, streaming, uncertainty, input, errors, and feedback."
 topic: ai
 sources:
-  - kb/reference/standards/design-md/overview
-  - kb/reference/standards/design-md/spec
+  - { source: design-md, url: "https://stitch.withgoogle.com/docs/design-md/overview" }
+  - { source: design-md, url: "https://stitch.withgoogle.com/docs/design-md/specification" }
 last_reviewed: 2026-05-13
 ---
 

@@ -3,9 +3,9 @@ title: "Spacing and layout"
 description: "Base units, spacing scales as one system, density, breakpoints, and why spacing values are never arbitrary."
 topic: spacing
 sources:
-  - kb/reference/design-systems/radix/guidance/foundations/spacing
-  - kb/reference/design-systems/atlassian/guidance/foundations/design-tokens
-  - kb/reference/design-systems/material/guidance/foundations/design-tokens
+  - { source: radix, url: "https://www.radix-ui.com/themes/docs/theme/spacing" }
+  - { source: atlassian, url: "https://atlassian.design/tokens/design-tokens" }
+  - { source: material, url: "https://m3.material.io/foundations/design-tokens" }
 last_reviewed: 2026-05-13
 ---
 

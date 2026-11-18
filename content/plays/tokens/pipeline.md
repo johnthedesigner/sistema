@@ -39,7 +39,7 @@ The JSON files in `tokens/src/` are the only place token values are written. Eve
 
 6. **Replace old sources.** If DECISIONS.md lists old sources to replace (for example, a Tailwind theme block or hard-coded values in components), point them at the role tokens now, so nothing still uses the old values. If the person chose to keep old names (for example, existing Tailwind utilities like `bg-brand-500`), define those names as aliases of the new tokens instead of rewriting their uses. Change only what that list names. Keep a list of every file outside `tokens/` you change. Then run the app's build. It must pass.
 
-7. **Regenerate DESIGN.md front matter.** Write the token values from `tokens/src/` into DESIGN.md's YAML front matter, using the token schema in the DESIGN.md specification (section "Design tokens (YAML front matter)"): `{{sistema_url}}/raw/standards/design-md/spec`. In short:
+7. **Regenerate DESIGN.md front matter.** Write the token values from `tokens/src/` into DESIGN.md's YAML front matter, using the keys and value types in `{{sistema_url}}/raw/files/design-md#front-matter`. In short:
 
    ```yaml
    name: <sistema.json project.name>

@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { catalog, playHref, playsForTopic, ruleHref, TOPIC_LABELS } from '@/lib/content/site'
+import { catalog, guideHref, playHref, playsForTopic, ruleHref, TOPIC_LABELS } from '@/lib/content/site'
+import { Credits } from '@/components/site/Credits'
 import { Markdown, headingsOf } from '@/components/site/Markdown'
 import { AgentNote, Container, GITHUB_BLOB, RailBox, RailLink } from '@/components/site/ui'
 
@@ -81,6 +82,22 @@ export default async function GuidePage({ params }: { params: Promise<{ topic: s
                 </ul>
               </section>
             )}
+            {guide.related.length > 0 && (
+              <section className="mt-8">
+                <h2 className="font-serif font-medium m-0 mb-3" style={{ fontSize: 20 }}>Builds on</h2>
+                <ul className="m-0 pl-4 list-disc text-[14px] leading-[1.7]">
+                  {guide.related.map(ref => {
+                    const g = c.guideById.get(ref.split('#')[0])
+                    return g ? (
+                      <li key={ref}>
+                        <Link href={guideHref(ref)} className="text-primary">{g.title}</Link>
+                      </li>
+                    ) : null
+                  })}
+                </ul>
+              </section>
+            )}
+            <Credits credits={guide.sources} sources={c.sourceById} />
             <p className="mt-8 text-[12.5px]"><a href={`${GITHUB_BLOB}/${guide.file}`} className="text-primary no-underline">Edit on GitHub</a></p>
           </article>
 

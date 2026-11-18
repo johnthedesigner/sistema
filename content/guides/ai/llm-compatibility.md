@@ -3,8 +3,9 @@ title: "LLM compatibility"
 description: "How to name tokens, structure files, and write DESIGN.md so AI agents read a design system correctly."
 topic: ai
 sources:
-  - kb/reference/standards/design-md/overview
-  - kb/reference/standards/design-md/spec
+  - { source: design-md, url: "https://stitch.withgoogle.com/docs/design-md/overview" }
+  - { source: design-md, url: "https://stitch.withgoogle.com/docs/design-md/specification" }
+related:
   - guide.tokens.architecture
 last_reviewed: 2026-05-13
 ---
@@ -127,7 +128,7 @@ DESIGN.md is a single-file design system summary that AI coding agents read at t
 
 It is the highest-leverage single file in a design system for AI-assisted development. A model with a well-written DESIGN.md produces more consistent output than a model with access to the full token file but no DESIGN.md — because DESIGN.md provides role, rationale, and intent alongside values.
 
-For the full format specification, see `kb/reference/standards/design-md/spec`.
+For the full format, see the DESIGN.md page in the reference section: `{{sistema_url}}/raw/files/design-md`.
 
 ---
 

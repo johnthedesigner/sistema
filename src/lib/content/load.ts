@@ -6,8 +6,8 @@
 import fs from 'fs'
 import path from 'path'
 import { resolveSistemaUrl } from '../placeholders'
-import { parseGuide, parseOpinion, parsePlay, parseRuleFile, parseWorkflow, type Guide, type Opinion, type Play, type Workflow } from './parse'
-import type { Rule } from './schema'
+import { parseFileFormat, parseGuide, parseOpinion, parsePlay, parseRuleFile, parseSources, parseWorkflow, type FileFormat, type Guide, type Opinion, type Play, type Workflow } from './parse'
+import type { Rule, SourceEntry } from './schema'
 
 export interface Catalog {
   plays: Play[]
@@ -15,11 +15,15 @@ export interface Catalog {
   rules: Rule[]
   opinions: Opinion[]
   guides: Guide[]
+  files: FileFormat[]
+  sources: SourceEntry[]
   playById: Map<string, Play>
   workflowById: Map<string, Workflow>
   ruleById: Map<string, Rule>
   opinionById: Map<string, Opinion>
   guideById: Map<string, Guide>
+  fileById: Map<string, FileFormat>
+  sourceById: Map<string, SourceEntry>
 }
 
 function walk(dir: string, filter: (f: string) => boolean): string[] {
@@ -68,17 +72,30 @@ export function loadCatalog(root: string = process.cwd()): Catalog {
     return r.ok ? r.value : fail(rel(abs), r.issues)
   })
 
+  const files = walk(path.join(contentDir, 'files'), f => f.endsWith('.md')).map(abs => {
+    const r = parseFileFormat(rel(abs), read(abs))
+    return r.ok ? r.value : fail(rel(abs), r.issues)
+  })
+
+  const sourcesFile = path.join(contentDir, 'sources.yaml')
+  const parsedSources = fs.existsSync(sourcesFile) ? parseSources(read(sourcesFile)) : { ok: true as const, value: [] }
+  const sources = parsedSources.ok ? parsedSources.value : fail('content/sources.yaml', parsedSources.issues)
+
   const catalog: Catalog = {
     plays: plays.sort((a, b) => a.id.localeCompare(b.id)),
     workflows: workflows.sort((a, b) => a.id.localeCompare(b.id)),
     rules,
     opinions: opinions.sort((a, b) => a.id.localeCompare(b.id)),
     guides: guides.sort((a, b) => a.id.localeCompare(b.id)),
+    files: files.sort((a, b) => a.id.localeCompare(b.id)),
+    sources,
     playById: new Map(plays.map(p => [p.id, p])),
     workflowById: new Map(workflows.map(w => [w.id, w])),
     ruleById: new Map(rules.map(r => [r.id, r])),
     opinionById: new Map(opinions.map(o => [o.id, o])),
     guideById: new Map(guides.map(g => [g.id, g])),
+    fileById: new Map(files.map(f => [f.id, f])),
+    sourceById: new Map(sources.map(s => [s.id, s])),
   }
   cache.set(root, catalog)
   return catalog

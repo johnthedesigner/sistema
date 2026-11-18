@@ -5,7 +5,7 @@
 import matter from 'gray-matter'
 import yaml from 'js-yaml'
 import type { z } from 'zod'
-import { GuideFrontmatter, OpinionFrontmatter, PlayFrontmatter, RuleFile, WorkflowFrontmatter, opinionSections, type Rule } from './schema'
+import { FileFormatFrontmatter, GuideFrontmatter, OpinionFrontmatter, PlayFrontmatter, RuleFile, SourceList, WorkflowFrontmatter, opinionSections, type Rule, type SourceEntry } from './schema'
 
 export interface ParseIssue {
   path: string // field path inside the file
@@ -25,6 +25,13 @@ export interface Workflow extends WorkflowFrontmatter {
 export interface Guide extends GuideFrontmatter {
   /** guide.<topic>.<name> */
   id: string
+  body: string
+  file: string
+}
+export interface FileFormat extends FileFormatFrontmatter {
+  /** file.<name> */
+  id: string
+  name: string
   body: string
   file: string
 }
@@ -88,6 +95,35 @@ export function parseGuide(file: string, text: string): Parsed<Guide> {
   if (result.data.topic !== m[1]) return { ok: false, issues: [{ path: 'topic', message: `topic ${result.data.topic} doesn't match folder ${m[1]}` }] }
   if (!fm.content.trim()) return { ok: false, issues: [{ path: 'body', message: 'guide has no content' }] }
   return { ok: true, value: { ...result.data, id: `guide.${m[1]}.${m[2]}`, body: fm.content.trim(), file } }
+}
+
+export function parseFileFormat(file: string, text: string): Parsed<FileFormat> {
+  const m = file.match(/^content\/files\/([a-z0-9-]+)\.md$/)
+  if (!m) return { ok: false, issues: [{ path: '(file)', message: 'file format pages live at content/files/<name>.md' }] }
+  const fm = safeFrontmatter(text)
+  if (!fm.ok) return fm
+  const result = FileFormatFrontmatter.safeParse(fm.data)
+  if (!result.success) return { ok: false, issues: issues(result.error) }
+  if (!fm.content.trim()) return { ok: false, issues: [{ path: 'body', message: 'file format page has no content' }] }
+  return { ok: true, value: { ...result.data, id: `file.${m[1]}`, name: m[1], body: fm.content.trim(), file } }
+}
+
+/** content/sources.yaml: the registry of sources, with unique ids. */
+export function parseSources(text: string): Parsed<SourceEntry[]> {
+  let data: unknown
+  try {
+    data = yaml.load(text)
+  } catch (e) {
+    return { ok: false, issues: [{ path: '(root)', message: `invalid YAML: ${(e as Error).message}` }] }
+  }
+  const result = SourceList.safeParse(data ?? [])
+  if (!result.success) return { ok: false, issues: issues(result.error) }
+  const seen = new Set<string>()
+  for (const [i, s] of result.data.entries()) {
+    if (seen.has(s.id)) return { ok: false, issues: [{ path: `${i}.id`, message: `duplicate source id ${s.id}` }] }
+    seen.add(s.id)
+  }
+  return { ok: true, value: result.data }
 }
 
 export function parseOpinion(file: string, text: string): Parsed<Opinion> {

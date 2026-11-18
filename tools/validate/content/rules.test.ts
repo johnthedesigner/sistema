@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { OUTPUT_RULES, SOURCE_RULES, rawPathToStub, runRules, type Corpus } from './rules'
+import { OUTPUT_RULES, SOURCE_RULES, runRules, type Corpus } from './rules'
 
 const ALL = [...SOURCE_RULES, ...OUTPUT_RULES]
 
 function corpus(partial: Partial<Corpus>): Corpus {
-  return { kbFiles: [], builtHtml: [], ...partial }
+  return { referenceFiles: [], builtHtml: [], ...partial }
 }
 
 function ids(c: Corpus, rule: string) {
@@ -19,27 +19,25 @@ const versioned = (path: string, fm = 'category: standards', body = 'body') => (
 const play = (body: string, path = 'content/plays/color/scheme.md') => ({ path, text: `---\nid: color.scheme\n---\n${body}` })
 const guide = (body: string, path = 'content/guides/color/architecture.md') => ({ path, text: `---\ntitle: Color architecture\n---\n${body}` })
 
-describe('rawPathToStub', () => {
-  it('maps reference categories', () => {
-    expect(rawPathToStub('standards/design-md/spec.md')).toBe('kb/reference/standards/design-md/spec.md')
-    expect(rawPathToStub('standards/wcag/contrast#ratio')).toBe('kb/reference/standards/wcag/contrast.md')
-  })
-})
-
 describe('ref.raw-url', () => {
-  const kb = [stub('kb/reference/standards/design-md/spec.md', 'spec@2026-05-13.md')]
   const workflow = { path: 'content/workflows/start.md', text: '---\nid: workflow.start\n---\n' }
-  it('passes for reference stubs and model routes', () => {
+  const file = { path: 'content/files/design-md.md', text: '---\ntitle: DESIGN.md\n---\nbody' }
+  it('passes for the routes the site serves', () => {
     const text = [
-      'Read `{{sistema_url}}/raw/standards/design-md/spec`.',
+      'Read `{{sistema_url}}/raw/files/design-md#sections`.',
       'Then {{sistema_url}}/raw/plays/color.scheme and {{sistema_url}}/raw/workflows/start/full.',
-      'See {{sistema_url}}/raw/guides/color/architecture#dark-mode and {{sistema_url}}/raw/opinions.',
+      'See {{sistema_url}}/raw/guides/color/architecture#dark-mode, {{sistema_url}}/raw/opinions, and {{sistema_url}}/raw/sources.',
     ].join('\n')
-    const c = corpus({ kbFiles: kb, contentFiles: [play(text), workflow, guide('x')] })
+    const c = corpus({ contentFiles: [play(text), workflow, guide('x'), file] })
     expect(ids(c, 'ref.raw-url')).toHaveLength(0)
   })
+  it('fails for reference material, which is internal', () => {
+    const referenceFiles = [stub('reference/standards/design-md/spec.md', 'spec@2026-05-13.md')]
+    const c = corpus({ referenceFiles, contentFiles: [play('Read {{sistema_url}}/raw/standards/design-md/spec.')] })
+    expect(ids(c, 'ref.raw-url')).toHaveLength(1)
+  })
   it('fails for a route that does not exist, and reports the line', () => {
-    const c = corpus({ kbFiles: kb, contentFiles: [play('one\nRead {{sistema_url}}/raw/guides/color/missing.')] })
+    const c = corpus({ contentFiles: [play('one\nRead {{sistema_url}}/raw/guides/color/missing.')] })
     const v = ids(c, 'ref.raw-url')
     expect(v).toHaveLength(1)
     expect(v[0].line).toBe(5)
@@ -58,33 +56,16 @@ describe('ref.relative-url', () => {
 
 describe('ref.stub-target and ref.orphan-version', () => {
   it('passes for a stub with its versioned file', () => {
-    const kbFiles = [stub('kb/reference/standards/a/x.md', 'x@2026-05-13.md'), versioned('kb/reference/standards/a/x@2026-05-13.md')]
-    const c = corpus({ kbFiles })
+    const referenceFiles = [stub('reference/standards/a/x.md', 'x@2026-05-13.md'), versioned('reference/standards/a/x@2026-05-13.md')]
+    const c = corpus({ referenceFiles })
     expect(ids(c, 'ref.stub-target')).toHaveLength(0)
     expect(ids(c, 'ref.orphan-version')).toHaveLength(0)
   })
   it('fails for a stub pointing nowhere and a versioned file with no stub', () => {
-    const kbFiles = [stub('kb/reference/standards/a/x.md', 'x@2026-01-01.md'), versioned('kb/reference/standards/a/y@2026-05-13.md')]
-    const c = corpus({ kbFiles })
+    const referenceFiles = [stub('reference/standards/a/x.md', 'x@2026-01-01.md'), versioned('reference/standards/a/y@2026-05-13.md')]
+    const c = corpus({ referenceFiles })
     expect(ids(c, 'ref.stub-target')).toHaveLength(1)
     expect(ids(c, 'ref.orphan-version')).toHaveLength(1)
-  })
-})
-
-describe('ref.sources', () => {
-  const target = stub('kb/reference/standards/wcag/contrast.md', 'contrast@2026-05-12.md')
-  it('resolves pre-migration paths and directory indexes, in guides too', () => {
-    const kbFiles = [
-      target,
-      { path: 'kb/reference/standards/wcag/_index.md', text: '# WCAG' },
-      stub('kb/reference/design-systems/p/assets/tokens/colors.json', 'colors@2026-05-12.json'),
-    ]
-    const g = { path: 'content/guides/a/x.md', text: '---\nsources:\n  - kb/standards/wcag/contrast\n  - kb/reference/standards/wcag\n  - kb/design-systems/p/assets/tokens/colors\n---\nbody' }
-    expect(ids(corpus({ kbFiles, contentFiles: [g] }), 'ref.sources')).toHaveLength(0)
-  })
-  it('fails for a missing source', () => {
-    const g = { path: 'content/guides/a/x.md', text: '---\nsources:\n  - kb/reference/nope/missing\n---\nbody' }
-    expect(ids(corpus({ contentFiles: [g] }), 'ref.sources')).toHaveLength(1)
   })
 })
 
@@ -124,13 +105,13 @@ describe('content rules', () => {
       { path: 'content/guides/a/x.md', text: '---\ntopic: a\n---\nbody' },
       { path: 'content/guides/a/y.md', text: '---\ntitle: Why\n---\nbody' },
     ]
-    const kbFiles = [versioned('kb/reference/standards/w/z@2026-05-13.md')]
-    expect(ids(corpus({ kbFiles, contentFiles }), 'content.missing-title')).toHaveLength(1)
+    const referenceFiles = [versioned('reference/standards/w/z@2026-05-13.md')]
+    expect(ids(corpus({ referenceFiles, contentFiles }), 'content.missing-title')).toHaveLength(1)
   })
 
   it('content.universal-threshold ignores reference copies of standards', () => {
-    const kbFiles = [versioned('kb/reference/standards/wcag/c@2026-05-12.md', 'x: y', 'at least 44 x 44 CSS pixels')]
-    expect(ids(corpus({ kbFiles, contentFiles: [play('touch target ≥ 44×44px')] }), 'content.universal-threshold')).toHaveLength(1)
+    const referenceFiles = [versioned('reference/standards/wcag/c@2026-05-12.md', 'x: y', 'at least 44 x 44 CSS pixels')]
+    expect(ids(corpus({ referenceFiles, contentFiles: [play('touch target ≥ 44×44px')] }), 'content.universal-threshold')).toHaveLength(1)
   })
 
   it('content.universal-threshold: plays may not restate values; guides may when they name the standard', () => {
@@ -142,8 +123,9 @@ describe('content rules', () => {
     ]
     expect(ids(corpus({ contentFiles }), 'content.universal-threshold')).toHaveLength(4)
   })
-  it('content.stale-path flags kb/principles paths in content', () => {
+  it('content.stale-path flags kb/ paths in content', () => {
     expect(ids(corpus({ contentFiles: [guide('See `kb/principles/color/architecture`.')] }), 'content.stale-path')).toHaveLength(1)
+    expect(ids(corpus({ contentFiles: [guide('See `kb/reference/standards/design-md/spec`.')] }), 'content.stale-path')).toHaveLength(1)
     expect(ids(corpus({ contentFiles: [guide('See the Color architecture guide.')] }), 'content.stale-path')).toHaveLength(0)
   })
 })

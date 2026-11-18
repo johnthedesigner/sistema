@@ -60,6 +60,9 @@ export function guideHref(ref: string): string {
   return `/guides/${topic}/${name}${section ? `#${section}` : ''}`
 }
 
+export const fileHref = (id: string) => `/reference/files/${id.replace(/^file\./, '')}`
+export const sourceHref = (id: string) => `/sources#${id}`
+
 /** Absolute plain-text URL for a site path, for agent notes. */
 export const absolute = (path: string) => `${SITE_URL}${path}`
 

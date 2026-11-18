@@ -30,3 +30,22 @@ describe('/raw/guides', () => {
     })
   }
 })
+
+describe('/raw/files and /raw/sources (V1.16)', () => {
+  it('serves the DESIGN.md format page with its credits', async () => {
+    const { GET } = await import('./files/[name]/route')
+    const res = await GET(new Request('http://localhost/raw/files/design-md'), { params: Promise.resolve({ name: 'design-md' }) })
+    expect(res.status).toBe(200)
+    const text = await res.text()
+    expect(text.startsWith('# DESIGN.md')).toBe(true)
+    expect(text).toContain('## Sections')
+    expect(text).toContain('## Draws on')
+    expect(text).toContain('DESIGN.md format (Google Stitch)')
+  })
+  it('lists every registered source with its license', async () => {
+    const { GET } = await import('./sources/route')
+    const text = await GET().text()
+    expect(text).toContain('Web Content Accessibility Guidelines (WCAG) 2.2 (W3C)')
+    expect((text.match(/License:/g) ?? []).length).toBeGreaterThan(20)
+  })
+})

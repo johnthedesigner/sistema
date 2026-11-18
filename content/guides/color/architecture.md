@@ -3,14 +3,15 @@ title: "Color architecture"
 description: "The main color system models and when to use each, semantic roles and pairings, dark mode by tonal shift, and neutral palettes."
 topic: color
 sources:
-  - kb/reference/design-systems/material/guidance/foundations/color-system
-  - kb/reference/design-systems/material/guidance/foundations/color-roles
-  - kb/reference/design-systems/radix/guidance/foundations/color-system
-  - kb/reference/design-systems/carbon/guidance/foundations/color-system
-  - kb/reference/design-systems/ant-design/guidance/foundations/color-system
-  - kb/reference/foundations/color/perceptual-models
-  - kb/reference/foundations/color/contrast-and-accessibility
-  - kb/reference/standards/wcag/color-contrast
+  - { source: material, url: "https://m3.material.io/styles/color/system/how-the-system-works" }
+  - { source: material, url: "https://m3.material.io/styles/color/roles" }
+  - { source: radix, url: "https://www.radix-ui.com/themes/docs/theme/color" }
+  - { source: carbon, url: "https://carbondesignsystem.com/elements/color/overview/" }
+  - { source: ant-design, url: "https://ant.design/docs/spec/colors" }
+  - { source: oklab, url: "https://bottosson.github.io/posts/oklab/" }
+  - { source: material-color-science, url: "https://material.io/blog/science-of-color-design" }
+  - { source: wcag, url: "https://www.w3.org/TR/WCAG22/" }
+  - { source: apca, url: "https://git.apcacontrast.com/documentation/APCAeasyIntro" }
 last_reviewed: 2026-11-16
 ---
 

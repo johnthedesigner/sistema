@@ -2,7 +2,8 @@
 title: "Primitive ramp scalability"
 description: "Why a full primitive ramp for every hue lets a color system grow, and how semantic roles map onto ramp stops."
 topic: color
-sources:
+sources: []
+related:
   - guide.color.palette-generation
   - guide.color.architecture
   - guide.tokens.architecture

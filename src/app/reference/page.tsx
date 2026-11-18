@@ -14,8 +14,9 @@ export default function ReferencePage() {
     { href: '/reference/rules', title: 'Rules', meta: `${c.rules.length} rules`, desc: 'The checkable requirements plays apply, with values for each accessibility standard.' },
     { href: '/workflows', title: 'Workflows', meta: `${c.workflows.length} workflows`, desc: 'Each workflow in full: its plays in order and where you approve.' },
     { href: '/plays', title: 'Plays', meta: `${c.plays.length} plays`, desc: 'Every step, with what it needs, what it produces, and what it shows.' },
+    ...c.files.map(f => ({ href: `/reference/files/${f.name}`, title: f.title, meta: 'file format', desc: f.description })),
     { href: '/reference/tools', title: 'Tool APIs', meta: '2 APIs', desc: 'How agents call the palette and contrast tools.' },
-    { href: '/sources', title: 'Sources', meta: 'credits', desc: 'The design systems, standards, and research Sistema learned from.' },
+    { href: '/sources', title: 'Sources', meta: `${c.sources.length} sources`, desc: 'The design systems, standards, and research Sistema learned from, and how each is licensed.' },
   ]
   return (
     <main>

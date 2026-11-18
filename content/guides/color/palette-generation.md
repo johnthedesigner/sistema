@@ -3,9 +3,11 @@ title: "Palette generation"
 description: "How Sistema's palette tool builds OKLCH ramps: contrast-targeted stops, gamut-relative chroma, and the output format."
 topic: color
 sources:
-  - kb/reference/foundations/color/perceptual-models
-  - kb/reference/foundations/color/contrast-and-accessibility
-  - kb/reference/standards/wcag/color-contrast
+  - { source: oklab, url: "https://bottosson.github.io/posts/oklab/" }
+  - { source: material-color-science, url: "https://material.io/blog/science-of-color-design" }
+  - { source: wcag, url: "https://www.w3.org/TR/WCAG22/" }
+  - { source: apca, url: "https://git.apcacontrast.com/documentation/APCAeasyIntro" }
+related:
   - guide.color.architecture
 last_reviewed: 2026-11-16
 ---

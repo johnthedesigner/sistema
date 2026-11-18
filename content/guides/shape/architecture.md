@@ -3,9 +3,9 @@ title: "Shape architecture"
 description: "How corner radius signals personality, how to build a radius scale, and where full rounding fits."
 topic: shape
 sources:
-  - kb/reference/design-systems/material/guidance/foundations/shape
-  - kb/reference/design-systems/radix/guidance/foundations/radius
-  - kb/reference/design-systems/atlassian/guidance/foundations/design-tokens
+  - { source: material, url: "https://m3.material.io/styles/shape" }
+  - { source: radix, url: "https://www.radix-ui.com/themes/docs/theme/radius" }
+  - { source: atlassian, url: "https://atlassian.design/tokens/design-tokens" }
 last_reviewed: 2026-05-13
 ---
 

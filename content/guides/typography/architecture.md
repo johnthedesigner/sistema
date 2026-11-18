@@ -3,14 +3,16 @@ title: "Typography architecture"
 description: "Density first, type roles, scale construction, legibility, and how type relates to the spacing system."
 topic: typography
 sources:
-  - kb/reference/design-systems/material/guidance/foundations/typography
-  - kb/reference/design-systems/carbon/guidance/foundations/typography
-  - kb/reference/design-systems/radix/guidance/foundations/typography
-  - kb/reference/design-systems/atlassian/guidance/foundations/typography
-  - kb/reference/design-systems/ant-design/guidance/foundations/typography
-  - kb/reference/design-systems/primer/guidance/foundations/typography
-  - kb/reference/foundations/typography/type-scales
-  - kb/reference/foundations/typography/legibility
+  - { source: material, url: "https://m3.material.io/styles/typography" }
+  - { source: carbon, url: "https://carbondesignsystem.com/elements/typography/overview/" }
+  - { source: radix, url: "https://www.radix-ui.com/themes/docs/theme/typography" }
+  - { source: atlassian, url: "https://atlassian.design/foundations/typography" }
+  - { source: ant-design, url: "https://ant.design/docs/spec/font" }
+  - { source: primer, url: "https://github.com/primer/design/blob/main/content/foundations/typography.mdx" }
+  - { source: typographic-scale, url: "https://spencermortensen.com/articles/typographic-scale/" }
+  - { source: practical-typography, url: "https://practicaltypography.com/typography-in-ten-minutes.html" }
+  - { source: practical-typography, url: "https://practicaltypography.com/body-text.html" }
+  - { source: practical-typography, url: "https://practicaltypography.com/line-spacing.html" }
 last_reviewed: 2026-11-16
 ---
 

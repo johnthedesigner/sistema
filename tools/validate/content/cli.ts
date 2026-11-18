@@ -39,7 +39,7 @@ function walk(relDir: string, filter: (p: string) => boolean): SourceFile[] {
 
 export function loadCorpus(includeOutput: boolean): Corpus {
   return {
-    kbFiles: walk('kb', p => /\.(md|json)$/.test(p)),
+    referenceFiles: walk('reference', p => /\.(md|json)$/.test(p)),
     // Built pages, plus prerendered /raw route responses (.body files).
     builtHtml: includeOutput ? walk('.next/server/app', p => p.endsWith('.html') || (p.includes('/raw/') && p.endsWith('.body'))) : [],
     contentFiles: walk('content', p => /\.(md|ya?ml)$/.test(p)),

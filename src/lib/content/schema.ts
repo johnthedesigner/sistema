@@ -115,19 +115,57 @@ export const WorkflowFrontmatter = z
 export type WorkflowFrontmatter = z.infer<typeof WorkflowFrontmatter>
 
 /** A guide: Sistema's take on one foundation (D4, V1.12). Lives at content/guides/<topic>/<name>.md. */
+/**
+ * Sources Sistema draws on (content/sources.yaml, V1.16). Tier follows the
+ * intake tiers in AGENTS.md: 1 open license, 2 official public docs with no
+ * open license, 3 public research or writing with no open license.
+ */
+export const SOURCE_KINDS = ['design-system', 'standard', 'research', 'agent-skill'] as const
+export const SourceEntry = z
+  .object({
+    id: z.string().regex(slug),
+    name: z.string().min(2),
+    publisher: z.string().min(2),
+    url: z.url(),
+    kind: z.enum(SOURCE_KINDS),
+    tier: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+    license: z.string().min(3),
+    note: z.string().optional(),
+  })
+  .strict()
+export type SourceEntry = z.infer<typeof SourceEntry>
+export const SourceList = z.array(SourceEntry)
+
+/** A credit line: a page of a registered source that a guide or format page draws on. */
+export const Credit = z.object({ source: z.string().regex(slug), url: z.url() }).strict()
+export type Credit = z.infer<typeof Credit>
+
 export const GuideFrontmatter = z
   .object({
     title: z.string().min(3),
     description: z.string().min(20),
     topic: z.enum(TOPICS),
-    /** External URLs and internal reference paths this guide synthesizes. */
-    sources: z.array(z.string()).default([]),
+    /** Pages of registered sources this guide draws on, shown as credit lines. */
+    sources: z.array(Credit).default([]),
+    /** Other Sistema guides this one builds on. */
+    related: z.array(GuideRef).default([]),
     /** How to read the guide, when that isn't obvious from the title. */
     note: z.string().optional(),
     last_reviewed: z.iso.date(),
   })
   .strict()
 export type GuideFrontmatter = z.infer<typeof GuideFrontmatter>
+
+/** Sistema's pages on the file formats it reads and writes (content/files/<name>.md). */
+export const FileFormatFrontmatter = z
+  .object({
+    title: z.string().min(3),
+    description: z.string().min(20),
+    sources: z.array(Credit).default([]),
+    last_reviewed: z.iso.date(),
+  })
+  .strict()
+export type FileFormatFrontmatter = z.infer<typeof FileFormatFrontmatter>
 
 /**
  * Published opinions (plan 6, V1.8). `method` opinions are part of how Sistema

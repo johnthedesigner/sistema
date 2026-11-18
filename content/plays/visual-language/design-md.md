@@ -23,7 +23,7 @@ DESIGN.md is the reference every agent in the repo reads before touching the int
 
 1. **Read the approved direction:** the DESIGN.md Overview and its "Direction values", `sistema-review/style-preview.html`, the positioning statement in DECISIONS.md, and `sistema.json` for theme and density.
 
-2. **Read the specification** for the section order and what each section covers: `{{sistema_url}}/raw/standards/design-md/spec` (section "Sections (markdown body)").
+2. **Read the specification** for the section order and what each section covers: `{{sistema_url}}/raw/files/design-md#sections`.
 
 3. **Write each section after Overview,** in the specification's order. Keep Overview as it is.
    - **Colors:** the color roles the system will have (from rule `color.roles.required`, plus any the preview introduced), what each is for, and which pairs go together. Say how color is used: where it appears, where it doesn't, and what it never signals on its own.

@@ -3,8 +3,8 @@ title: "Visual quality signals"
 description: "Signs of generic, AI-default design in token and style decisions, and how to correct them."
 topic: quality
 sources:
-  - kb/reference/skills/impeccable/overview
-  - kb/reference/skills/anthropic-frontend-design/skill
+  - { source: impeccable, url: "https://github.com/pbakaus/impeccable" }
+  - { source: anthropic-frontend-design, url: "https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md" }
 note: "These quality criteria are interpreted through the lens of design system building: token value decisions, component style defaults, and visual language establishment. They are NOT about individual UI implementation choices. Apply them when generating token values, writing component specs, or evaluating visual direction artifacts."
 last_reviewed: 2026-05-15
 ---

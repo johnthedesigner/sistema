@@ -3,11 +3,11 @@ title: "UI copy patterns"
 description: "Patterns for interface copy: buttons, navigation, forms, errors, empty states, confirmations, and progressive disclosure."
 topic: content
 sources:
-  - kb/reference/design-systems/polaris/guidance/content/actionable-language
-  - kb/reference/design-systems/polaris/guidance/content/error-messages
-  - kb/reference/design-systems/carbon/guidance/content/writing-style
-  - kb/reference/design-systems/atlassian/guidance/content/language-and-grammar
-  - kb/reference/design-systems/mailchimp/guidance/content/voice-and-tone
+  - { source: polaris, url: "https://polaris.shopify.com/content/actionable-language" }
+  - { source: polaris, url: "https://polaris.shopify.com/content/error-messages" }
+  - { source: carbon, url: "https://carbondesignsystem.com/guidelines/content/writing-style/" }
+  - { source: atlassian, url: "https://atlassian.design/foundations/content/language-and-grammar" }
+  - { source: mailchimp, url: "https://styleguide.mailchimp.com/voice-and-tone/" }
 last_reviewed: 2026-05-17
 ---
 

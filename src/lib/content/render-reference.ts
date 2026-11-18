@@ -3,9 +3,9 @@
  * llms.txt. Every URL is absolute (built from ctx.base).
  */
 import type { Catalog } from './load'
-import type { Guide } from './parse'
-import { guideRawUrl, opinionsUrl, playUrl, renderRule, renderTools, rulesUrl, stateSchemaUrl, workflowUrl } from './render'
-import { OPINION_GROUPS, TOPICS } from './schema'
+import type { FileFormat, Guide } from './parse'
+import { fileRawUrl, guideRawUrl, opinionsUrl, sourcesUrl, playUrl, renderRule, renderTools, rulesUrl, stateSchemaUrl, workflowUrl } from './render'
+import { OPINION_GROUPS, SOURCE_KINDS, TOPICS, type Credit, type SourceEntry } from './schema'
 
 const OPINION_GROUP_TITLES: Record<string, string> = {
   method: 'How Sistema works',
@@ -18,9 +18,53 @@ const OPINION_GROUP_TITLES: Record<string, string> = {
 const guideName = (g: Guide) => g.id.split('.')[2]
 const ORDER = ['workflow.start', 'workflow.patterns', 'workflow.session']
 
-export function renderGuideRaw(guide: Guide): string {
+/** "Draws on" lines: one per source, with the pages used. Plain text, so agents read them as credits, not links to follow. */
+export function renderCredits(credits: Credit[], sources: Map<string, SourceEntry>): string {
+  if (!credits.length) return ''
+  const bySource = new Map<string, string[]>()
+  for (const cr of credits) bySource.set(cr.source, [...(bySource.get(cr.source) ?? []), cr.url])
+  const lines = [...bySource].map(([id, urls]) => {
+    const s = sources.get(id)
+    return `- ${s ? `${s.name} (${s.publisher})` : id}: ${urls.join(', ')}`
+  })
+  return `## Draws on\n\n${lines.join('\n')}`
+}
+
+export function renderGuideRaw(guide: Guide, sources: Map<string, SourceEntry> = new Map()): string {
   const body = guide.body.replace(/^# .*\n+/, '')
-  return [`# ${guide.title}`, guide.description, `Last reviewed: ${guide.last_reviewed}`, ...(guide.note ? [guide.note] : []), body].join('\n\n') + '\n'
+  const credits = renderCredits(guide.sources, sources)
+  return [`# ${guide.title}`, guide.description, `Last reviewed: ${guide.last_reviewed}`, ...(guide.note ? [guide.note] : []), body, ...(credits ? [credits] : [])].join('\n\n') + '\n'
+}
+
+export function renderFileRaw(file: FileFormat, sources: Map<string, SourceEntry> = new Map()): string {
+  const credits = renderCredits(file.sources, sources)
+  return [`# ${file.title}`, file.description, `Last reviewed: ${file.last_reviewed}`, file.body, ...(credits ? [credits] : [])].join('\n\n') + '\n'
+}
+
+export const SOURCE_KIND_LABELS: Record<(typeof SOURCE_KINDS)[number], string> = {
+  'design-system': 'Design systems and style guides',
+  standard: 'Standards and formats',
+  research: 'Research and reference writing',
+  'agent-skill': 'Agent skills',
+}
+
+export const TIER_LABELS: Record<1 | 2 | 3, string> = {
+  1: 'Open license',
+  2: 'Public documentation, no open license; synthesized, not reproduced',
+  3: 'Public writing, no open license; synthesized with credit, not reproduced',
+}
+
+export function renderSources(c: Catalog): string {
+  const parts = [
+    '# Sources',
+    "Sistema's guides are its own synthesis. These are the sources they draw on. Each guide lists the pages it used under \"Draws on\". Sistema doesn't reproduce these sources, and the site doesn't publish copies of them.",
+  ]
+  for (const kind of SOURCE_KINDS) {
+    const items = c.sources.filter(s => s.kind === kind)
+    if (!items.length) continue
+    parts.push(`## ${SOURCE_KIND_LABELS[kind]}\n\n${items.map(s => `- ${s.name} (${s.publisher}), ${s.url}. License: ${s.license}.${s.note ? ` ${s.note}` : ''}`).join('\n')}`)
+  }
+  return parts.join('\n\n') + '\n'
 }
 
 export function renderOpinions(c: Catalog): string {
@@ -84,6 +128,7 @@ export function renderLlmsTxt(c: Catalog, base: string): string {
     `## Workflows\n\n${workflows.map(w => `- [${w.title}](${workflowUrl(base, w.id)}): ${w.description}`).join('\n')}`,
     `## Plays\n\n${c.plays.map(p => `- [${p.title}](${playUrl(base, p.id)}): ${p.description}`).join('\n')}`,
     `## Guides\n\n${guides.map(g => `- [${g.title}](${guideRawUrl(base, g.topic, guideName(g))}): ${g.description}`).join('\n')}`,
-    `## Reference\n\n- [Opinions](${opinionsUrl(base)}): the defaults Sistema holds, why, and when to choose otherwise.\n- [Rules](${rulesUrl(base)}): every rule plays apply, with values by accessibility standard.\n- [sistema.json schema](${stateSchemaUrl(base)}): the project state file.\n- [For agents](${base}/raw/agents): this guidance plus tool request shapes.`,
+    `## File formats\n\n${c.files.map(f => `- [${f.title}](${fileRawUrl(base, f.name)}): ${f.description}`).join('\n')}`,
+    `## Reference\n\n- [Opinions](${opinionsUrl(base)}): the defaults Sistema holds, why, and when to choose otherwise.\n- [Rules](${rulesUrl(base)}): every rule plays apply, with values by accessibility standard.\n- [sistema.json schema](${stateSchemaUrl(base)}): the project state file.\n- [For agents](${base}/raw/agents): this guidance plus tool request shapes.\n- [Sources](${sourcesUrl(base)}): what Sistema draws on, with licenses.`,
   ].join('\n\n') + '\n'
 }

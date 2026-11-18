@@ -3,11 +3,11 @@ title: "Visual language"
 description: "A framework for turning a product's positioning into a specific visual direction before any values exist."
 topic: visual-language
 sources:
-  - kb/reference/skills/designer-skills/grill-me
-  - kb/reference/skills/designer-skills/design-brief
-  - kb/reference/skills/designer-skills/frontend-design
-  - kb/reference/skills/anthropic-frontend-design/skill
-  - kb/reference/skills/impeccable/overview
+  - { source: designer-skills, url: "https://github.com/julianoczkowski/designer-skills/tree/main/grill-me" }
+  - { source: designer-skills, url: "https://github.com/julianoczkowski/designer-skills/tree/main/design-brief" }
+  - { source: designer-skills, url: "https://github.com/julianoczkowski/designer-skills/tree/main/frontend-design" }
+  - { source: anthropic-frontend-design, url: "https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md" }
+  - { source: impeccable, url: "https://github.com/pbakaus/impeccable" }
 note: "This document is interpreted through the lens of design system building: aesthetic philosophies are vocabulary for translating positioning briefs into token decisions, not templates for UI implementation. The goal is to establish a specific, defensible visual direction before any token values are generated."
 last_reviewed: 2026-05-15
 ---

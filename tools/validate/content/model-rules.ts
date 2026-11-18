@@ -7,10 +7,12 @@ import {
   guideFiles,
   headingAnchors,
   opinionPath,
+  parseFileFormat,
   parseGuide,
   parseOpinion,
   parsePlay,
   parseRuleFile,
+  parseSources,
   parseWorkflow,
   playPath,
   type Opinion,
@@ -18,7 +20,7 @@ import {
   type Play,
   type Workflow,
 } from '../../../src/lib/content/parse'
-import type { Rule as ContentRule, SequenceItem } from '../../../src/lib/content/schema'
+import type { Credit, Rule as ContentRule, SequenceItem, SourceEntry } from '../../../src/lib/content/schema'
 import type { Corpus, Rule, SourceFile, Violation } from './rules'
 
 type Out = Omit<Violation, 'rule' | 'level'>
@@ -28,6 +30,9 @@ interface Model {
   workflows: Workflow[]
   rules: Array<ContentRule & { file: string }>
   opinions: Opinion[]
+  /** Credits from guides and file format pages, with the file they're in. */
+  credits: Array<Credit & { file: string }>
+  sources: SourceEntry[]
   errors: Array<{ file: string; issue: ParseIssue }>
 }
 
@@ -36,7 +41,7 @@ const cache = new WeakMap<Corpus, Model>()
 export function loadModel(corpus: Corpus): Model {
   const hit = cache.get(corpus)
   if (hit) return hit
-  const model: Model = { plays: [], workflows: [], rules: [], opinions: [], errors: [] }
+  const model: Model = { plays: [], workflows: [], rules: [], opinions: [], credits: [], sources: [], errors: [] }
   for (const f of corpus.contentFiles ?? []) {
     if (/^content\/plays\/.+\.md$/.test(f.path)) {
       const r = parsePlay(f.path, f.text)
@@ -48,7 +53,16 @@ export function loadModel(corpus: Corpus): Model {
       else r.issues.forEach(issue => model.errors.push({ file: f.path, issue }))
     } else if (/^content\/guides\/.+\.md$/.test(f.path)) {
       const r = parseGuide(f.path, f.text)
-      if (!r.ok) r.issues.forEach(issue => model.errors.push({ file: f.path, issue }))
+      if (r.ok) model.credits.push(...r.value.sources.map(c => ({ ...c, file: f.path })))
+      else r.issues.forEach(issue => model.errors.push({ file: f.path, issue }))
+    } else if (/^content\/files\/[^/]+\.md$/.test(f.path)) {
+      const r = parseFileFormat(f.path, f.text)
+      if (r.ok) model.credits.push(...r.value.sources.map(c => ({ ...c, file: f.path })))
+      else r.issues.forEach(issue => model.errors.push({ file: f.path, issue }))
+    } else if (f.path === 'content/sources.yaml') {
+      const r = parseSources(f.text)
+      if (r.ok) model.sources = r.value
+      else r.issues.forEach(issue => model.errors.push({ file: f.path, issue }))
     } else if (/^content\/opinions\/[^/]+\.md$/.test(f.path)) {
       const r = parseOpinion(f.path, f.text)
       if (r.ok) model.opinions.push(r.value)
@@ -70,17 +84,10 @@ const strip = (t: string) => t.replace(/\?$/, '')
 
 /** Read a guide's markdown. */
 function guideText(corpus: Corpus, ref: string): string | null {
-  const byPath = new Map<string, SourceFile>()
-  for (const f of [...(corpus.contentFiles ?? []), ...corpus.kbFiles]) byPath.set(f.path, f)
+  const byPath = new Map<string, SourceFile>((corpus.contentFiles ?? []).map(f => [f.path, f]))
   for (const candidate of guideFiles(ref)) {
     const f = byPath.get(candidate)
-    if (!f) continue
-    const target = f.text.match(/^points_to:\s*(\S+)/m)?.[1]
-    if (target) {
-      const versioned = byPath.get(`${candidate.slice(0, candidate.lastIndexOf('/'))}/${target}`)
-      return versioned ? versioned.text : null
-    }
-    return f.text
+    if (f) return f.text
   }
   return null
 }
@@ -258,7 +265,7 @@ const producesConflict: Rule = {
 const knowledgeResolves: Rule = {
   id: 'model.knowledge',
   level: 'code',
-  description: 'Every guide ref (play knowledge, rule sources, opinion guides, guide sources) names a guide that exists, and its #anchor is a heading in it.',
+  description: 'Every guide ref (play knowledge, rule sources, opinion guides, related guides) names a guide that exists, and its #anchor is a heading in it.',
   check(c) {
     const out: Out[] = []
     const m = loadModel(c)
@@ -282,6 +289,17 @@ const knowledgeResolves: Rule = {
       }
     }
     return out
+  },
+}
+
+const creditsResolve: Rule = {
+  id: 'model.sources',
+  level: 'code',
+  description: 'Every credit in a guide or file format page names a source in content/sources.yaml.',
+  check(c) {
+    const m = loadModel(c)
+    const ids = new Set(m.sources.map(s => s.id))
+    return m.credits.filter(cr => !ids.has(cr.source)).map(cr => ({ file: cr.file, line: 1, message: `credit names unknown source ${cr.source}; add it to content/sources.yaml` }))
   },
 }
 
@@ -315,6 +333,7 @@ export const MODEL_RULES: Rule[] = [
   milestoneOrder,
   producesConflict,
   knowledgeResolves,
+  creditsResolve,
   rulesResolve,
   toolsNamed,
 ]

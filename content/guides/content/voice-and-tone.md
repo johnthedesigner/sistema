@@ -3,10 +3,10 @@ title: "Voice and tone"
 description: "How to define a product's voice and adjust tone by situation, starting from a baseline that major systems share."
 topic: content
 sources:
-  - kb/reference/design-systems/mailchimp/guidance/content/voice-and-tone
-  - kb/reference/design-systems/polaris/guidance/content/voice-and-tone
-  - kb/reference/design-systems/carbon/guidance/content/voice-and-tone
-  - kb/reference/design-systems/atlassian/guidance/content/voice-and-tone
+  - { source: mailchimp, url: "https://styleguide.mailchimp.com/voice-and-tone/" }
+  - { source: polaris, url: "https://polaris.shopify.com/content/voice-and-tone" }
+  - { source: carbon, url: "https://carbondesignsystem.com/guidelines/content/overview/" }
+  - { source: atlassian, url: "https://atlassian.design/foundations/content/voice-tone" }
 last_reviewed: 2026-05-17
 ---
 

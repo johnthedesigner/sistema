@@ -23,6 +23,8 @@ export const stateSchemaUrl = (base: string) => `${base}/raw/schema/sistema.json
 
 export const guideRawUrl = (base: string, topic: string, name: string) => `${base}/raw/guides/${topic}/${name}`
 export const opinionsUrl = (base: string) => `${base}/raw/opinions`
+export const fileRawUrl = (base: string, name: string) => `${base}/raw/files/${name}`
+export const sourcesUrl = (base: string) => `${base}/raw/sources`
 export const rulesUrl = (base: string) => `${base}/raw/rules`
 
 /** A guide ref (guide.<topic>.<name>#section) as its plain-text URL and section. */

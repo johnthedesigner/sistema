@@ -73,7 +73,7 @@ const guide: SourceFile = {
 }
 
 function corpus(contentFiles: SourceFile[]): Corpus {
-  return { kbFiles: [], builtHtml: [], contentFiles: [guide, ...contentFiles] }
+  return { referenceFiles: [], builtHtml: [], contentFiles: [guide, ...contentFiles] }
 }
 
 function violations(c: Corpus, rule?: string) {
@@ -294,3 +294,31 @@ describe('guides (V1.12)', () => {
   })
 })
 
+
+describe('model.sources (V1.16)', () => {
+  const sources: SourceFile = {
+    path: 'content/sources.yaml',
+    text: '- id: wcag\n  name: WCAG 2.2\n  publisher: W3C\n  url: https://www.w3.org/TR/WCAG22/\n  kind: standard\n  tier: 1\n  license: W3C Document License\n',
+  }
+  const credited = (source: string): SourceFile => ({
+    path: 'content/guides/accessibility/floor.md',
+    text: `---\ntitle: Accessibility floor\ndescription: A guide description long enough to pass.\ntopic: accessibility\nsources:\n  - { source: ${source}, url: "https://www.w3.org/TR/WCAG22/" }\nlast_reviewed: 2026-11-17\n---\nbody`,
+  })
+  it('passes when every credit names a registered source', () => {
+    expect(violations(corpus([sources, credited('wcag')]), 'model.sources')).toEqual([])
+  })
+  it('fails for an unregistered source, and for a credit in a file format page', () => {
+    const file: SourceFile = {
+      path: 'content/files/design-md.md',
+      text: '---\ntitle: DESIGN.md\ndescription: A file format description long enough.\nsources:\n  - { source: stitch, url: "https://stitch.withgoogle.com/" }\nlast_reviewed: 2026-11-17\n---\nbody',
+    }
+    expect(violations(corpus([sources, credited('w3c'), file]), 'model.sources')).toHaveLength(2)
+  })
+  it('rejects a duplicate source id and a guide credit given as a bare path', () => {
+    const dup: SourceFile = { path: 'content/sources.yaml', text: sources.text + sources.text }
+    const bare: SourceFile = { ...credited('wcag'), text: credited('wcag').text.replace(/  - \{.*\}/, '  - kb/reference/standards/wcag/color-contrast') }
+    const msgs = violations(corpus([dup, bare]), 'model.schema').map(v => v.message)
+    expect(msgs.some(m => m.includes('duplicate source id'))).toBe(true)
+    expect(msgs.some(m => m.startsWith('sources'))).toBe(true)
+  })
+})

@@ -16,7 +16,7 @@ export interface SourceFile {
 }
 
 export interface Corpus {
-  kbFiles: SourceFile[] // kb/**/* (md and json): reference material
+  referenceFiles: SourceFile[] // reference/**/* (md and json): internal reference material, never routed
   builtHtml: SourceFile[] // .next/server/app/**/*.html (output mode only)
   contentFiles?: SourceFile[] // content/** (v2 content model)
 }
@@ -76,25 +76,17 @@ function frontmatter(text: string): string | null {
   return m ? m[1] : null
 }
 
-/** Guides moved to content/guides in V1.12. Their legacy kb/principles paths still resolve (served by kb.ts). */
 function guideFilesOf(corpus: Corpus): SourceFile[] {
   return (corpus.contentFiles ?? []).filter(f => /^content\/guides\/[^/]+\/[^/]+\.md$/.test(f.path))
 }
 
-function kbPathSet(corpus: Corpus): Set<string> {
-  return new Set(corpus.kbFiles.map(f => f.path))
+function referencePathSet(corpus: Corpus): Set<string> {
+  return new Set(corpus.referenceFiles.map(f => f.path))
 }
 
-/** Map a /raw/<category>/<...> reference URL path to the stub file it should resolve to. */
-export function rawPathToStub(rawPath: string): string {
-  const clean = rawPath.replace(/#.*$/, '').replace(/\.md$/, '').replace(/\/$/, '')
-  const [category, ...rest] = clean.split('/')
-  return `kb/reference/${category}/${rest.join('/')}.md`
-}
-
-/** Model-backed /raw routes (V1.13): plays, workflows, guides, opinions, rules, agents, schema. */
+/** The /raw routes the site serves: plays, workflows, guides, file formats, opinions, rules, sources, agents, schema. */
 function modelRawPaths(corpus: Corpus): Set<string> {
-  const out = new Set(['opinions', 'rules', 'agents', 'schema/sistema.json'])
+  const out = new Set(['opinions', 'rules', 'sources', 'agents', 'schema/sistema.json'])
   for (const f of corpus.contentFiles ?? []) {
     const play = f.path.match(/^content\/plays\/[^/]+\/[^/]+\.md$/) && f.text.match(/^id:\s*(\S+)/m)
     if (play) out.add(`plays/${play[1]}`)
@@ -102,30 +94,17 @@ function modelRawPaths(corpus: Corpus): Set<string> {
     if (wf) out.add(`workflows/${wf[1]}`).add(`workflows/${wf[1]}/full`)
     const guide = f.path.match(/^content\/guides\/([^/]+)\/([^/]+)\.md$/)
     if (guide) out.add(`guides/${guide[1]}/${guide[2]}`)
+    const file = f.path.match(/^content\/files\/([^/]+)\.md$/)
+    if (file) out.add(`files/${file[1]}`)
   }
   return out
 }
 
-/** Resolve a KB path from `sources` frontmatter (pre- or post-migration form). */
-function kbSourceCandidates(kbPath: string): string[] {
-  let p = kbPath.replace(/\.md$/, '').replace(/\/$/, '')
-  for (const cat of ['design-systems', 'standards', 'foundations', 'skills']) {
-    if (p.startsWith(`kb/${cat}/`)) p = p.replace(`kb/${cat}/`, `kb/reference/${cat}/`)
-  }
-  return [`${p}.md`, `${p}.json`, `${p}/_index.md`]
-}
-
+/** Plays, workflows, guides, file formats, and opinions. Reference material is internal and never served. */
 function agentTextFiles(corpus: Corpus): SourceFile[] {
-  const files: SourceFile[] = []
-  files.push(...corpus.kbFiles.filter(f => /@\d{4}-\d{2}-\d{2}\.md$/.test(f.path)))
-  files.push(...(corpus.contentFiles ?? []).filter(f => f.path.endsWith('.md')))
-  return files
+  return (corpus.contentFiles ?? []).filter(f => f.path.endsWith('.md'))
 }
-
-/** Plays, workflows, guides, and opinions (not reference copies of external sources). */
-function sistemaAuthoredFiles(corpus: Corpus): SourceFile[] {
-  return agentTextFiles(corpus).filter(f => !f.path.startsWith('kb/reference/'))
-}
+const sistemaAuthoredFiles = agentTextFiles
 
 // ─── code-level rules ───────────────────────────────────────────────────────
 
@@ -134,17 +113,14 @@ const rawUrlResolves: Rule = {
   level: 'code',
   description: 'Every {{sistema_url}}/raw/... URL in agent-facing text resolves to a route the site serves.',
   check(corpus) {
-    const known = kbPathSet(corpus)
     const model = modelRawPaths(corpus)
     const out: Omit<Violation, 'rule' | 'level'>[] = []
     for (const f of agentTextFiles(corpus)) {
       for (const m of matches(f.text, /\{\{sistema_url\}\}\/raw\/([A-Za-z0-9/_.#-]+)/)) {
         if (m[1].includes('...')) continue // prose example like /raw/...
         const raw = m[1].replace(/[.,;:]+$/, '')
-        if (model.has(raw.replace(/#.*$/, '').replace(/\/$/, ''))) continue
-        const stub = rawPathToStub(raw)
-        if (!known.has(stub)) {
-          out.push({ file: f.path, line: lineOf(f.text, m.index), message: `/raw/${raw} does not resolve (expected ${stub})` })
+        if (!model.has(raw.replace(/#.*$/, '').replace(/\/$/, ''))) {
+          out.push({ file: f.path, line: lineOf(f.text, m.index), message: `/raw/${raw} is not a route the site serves` })
         }
       }
     }
@@ -173,9 +149,9 @@ const stubTargetsExist: Rule = {
   level: 'code',
   description: 'Every stub points_to a file that exists.',
   check(corpus) {
-    const known = kbPathSet(corpus)
+    const known = referencePathSet(corpus)
     const out: Omit<Violation, 'rule' | 'level'>[] = []
-    for (const f of corpus.kbFiles) {
+    for (const f of corpus.referenceFiles) {
       const fm = frontmatter(f.text)
       if (!fm || !/^type:\s*stub\s*$/m.test(fm)) continue
       const target = fm.match(/^points_to:\s*(\S+)/m)?.[1]
@@ -195,9 +171,9 @@ const versionedFilesHaveStubs: Rule = {
   level: 'code',
   description: 'Every versioned file (name@date.ext) has a stub at name.ext.',
   check(corpus) {
-    const known = kbPathSet(corpus)
+    const known = referencePathSet(corpus)
     const out: Omit<Violation, 'rule' | 'level'>[] = []
-    for (const f of corpus.kbFiles) {
+    for (const f of corpus.referenceFiles) {
       const m = f.path.match(/^(.*)@\d{4}-\d{2}-\d{2}(\.\w+)$/)
       if (m && !known.has(`${m[1]}${m[2]}`)) out.push({ file: f.path, line: 1, message: `no stub at ${m[1]}${m[2]}` })
     }
@@ -205,25 +181,7 @@ const versionedFilesHaveStubs: Rule = {
   },
 }
 
-const sourcesResolve: Rule = {
-  id: 'ref.sources',
-  level: 'code',
-  description: 'Every KB path in `sources` frontmatter resolves.',
-  check(corpus) {
-    const known = kbPathSet(corpus)
-    const out: Omit<Violation, 'rule' | 'level'>[] = []
-    for (const f of [...corpus.kbFiles, ...guideFilesOf(corpus)]) {
-      const fm = frontmatter(f.text)
-      if (!fm) continue
-      for (const m of matches(fm, /^\s+-\s+(kb\/\S+)\s*$/m)) {
-        if (!kbSourceCandidates(m[1]).some(c => known.has(c))) {
-          out.push({ file: f.path, line: lineOf(fm, m.index) + 1, message: `source ${m[1]} does not resolve` })
-        }
-      }
-    }
-    return out
-  },
-}
+// ref.sources was retired in V1.16: guides credit registered sources (model.sources).
 
 // raw.placeholder was retired in V0.3: /raw and /bundle now resolve {{sistema_url}}
 // server-side, and src/app/raw/raw-and-bundle.test.ts checks the real handlers.
@@ -275,8 +233,6 @@ const outputInternalLinks: Rule = {
     for (const f of corpus.builtHtml) {
       const page = builtPagePath(f.path)
       if (!page) continue
-      // Reference material pages (/kb) have known broken source links and are removed in V1.16.
-      if (page.startsWith('/kb/')) continue
       const broken = new Set<string>()
       for (const m of matches(f.text, /href="(\/[^"#?]*)/)) {
         const href = m[1].replace(/\/$/, '') || '/'
@@ -326,12 +282,12 @@ const missingTitles: Rule = {
 const stalePrinciplesPath: Rule = {
   id: 'content.stale-path',
   level: 'content',
-  description: 'Sistema content never names kb/principles paths; guides moved to content/guides in V1.12. Name the guide instead.',
+  description: 'Sistema content never names kb/ paths. Guides moved to content/guides (V1.12) and reference material is internal (V1.16). Name the guide, or credit the source.',
   check(corpus) {
     const out: Omit<Violation, 'rule' | 'level'>[] = []
     for (const f of (corpus.contentFiles ?? []).filter(f => f.path.endsWith('.md'))) {
-      for (const m of matches(f.text, /kb\/principles\//)) {
-        out.push({ file: f.path, line: lineOf(f.text, m.index), message: 'names a kb/principles path; name the guide instead' })
+      for (const m of matches(f.text, /\bkb\/(?:principles|reference|design-systems|standards|foundations|skills)\//)) {
+        out.push({ file: f.path, line: lineOf(f.text, m.index), message: `names a ${m[0]} path; name the guide or credit the source instead` })
       }
     }
     return out
@@ -382,7 +338,6 @@ export const SOURCE_RULES: Rule[] = [
   sourceRelativeUrl,
   stubTargetsExist,
   versionedFilesHaveStubs,
-  sourcesResolve,
   literalDates,
   missingTitles,
   universalThresholds,

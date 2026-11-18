@@ -3,9 +3,9 @@ title: "Depth and elevation"
 description: "The two ways systems express depth (shadow and surface tone), when to use each, layering, and z-index."
 topic: depth
 sources:
-  - kb/reference/design-systems/material/guidance/foundations/color-roles
-  - kb/reference/design-systems/atlassian/guidance/foundations/design-tokens
-  - kb/reference/design-systems/carbon/guidance/foundations/color-system
+  - { source: material, url: "https://m3.material.io/styles/color/roles" }
+  - { source: atlassian, url: "https://atlassian.design/tokens/design-tokens" }
+  - { source: carbon, url: "https://carbondesignsystem.com/elements/color/overview/" }
 last_reviewed: 2026-05-13
 ---
 

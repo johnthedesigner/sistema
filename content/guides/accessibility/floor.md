@@ -3,10 +3,9 @@ title: "Accessibility floor"
 description: "The accessibility requirements every system is checked against, by area (contrast, keyboard, focus, targets, semantics, motion, and text), with the rule behind each and how to verify it."
 topic: accessibility
 sources:
-  - kb/reference/standards/wcag/color-contrast
-  - kb/reference/standards/wcag/keyboard-and-focus
-  - kb/reference/standards/wcag/components
-  - kb/reference/foundations/color/contrast-and-accessibility
+  - { source: wcag, url: "https://www.w3.org/TR/WCAG22/" }
+  - { source: apca, url: "https://git.apcacontrast.com/documentation/APCAeasyIntro" }
+  - { source: material-color-science, url: "https://material.io/blog/science-of-color-design" }
 last_reviewed: 2026-11-16
 ---
 

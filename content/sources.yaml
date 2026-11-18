@@ -1,0 +1,199 @@
+# Sources Sistema draws on (V1.16). Guides and file format pages credit these
+# by id. The public Sources page renders this file.
+#
+# tier (AGENTS.md "KB content intake"):
+#   1  explicitly licensed (Creative Commons, MIT, Apache, W3C)
+#   2  official public documentation, no open license; used for synthesis only
+#   3  public research or writing, no open license; synthesis with attribution only
+# license: what the source states, or that nothing has been recorded yet.
+# The attribution audit (BACKLOG, "Originality and attribution") confirms these.
+
+# ─── Design systems ──────────────────────────────────────────────────────────
+
+- id: material
+  name: Material Design 3
+  publisher: Google
+  url: https://m3.material.io
+  kind: design-system
+  tier: 2
+  license: No open license stated for the documentation
+
+- id: carbon
+  name: Carbon Design System
+  publisher: IBM
+  url: https://carbondesignsystem.com
+  kind: design-system
+  tier: 2
+  license: No open license stated for the documentation
+
+- id: atlassian
+  name: Atlassian Design System
+  publisher: Atlassian
+  url: https://atlassian.design
+  kind: design-system
+  tier: 2
+  license: No open license stated for the documentation
+
+- id: primer
+  name: Primer
+  publisher: GitHub
+  url: https://primer.style
+  kind: design-system
+  tier: 2
+  license: Not yet recorded for the documentation repository
+  note: Read from the primer/design repository on GitHub.
+
+- id: ant-design
+  name: Ant Design
+  publisher: Ant Group
+  url: https://ant.design
+  kind: design-system
+  tier: 2
+  license: No open license stated for the documentation
+
+- id: radix
+  name: Radix Themes
+  publisher: WorkOS
+  url: https://www.radix-ui.com/themes
+  kind: design-system
+  tier: 2
+  license: No open license stated for the documentation
+
+- id: polaris
+  name: Polaris
+  publisher: Shopify
+  url: https://polaris.shopify.com
+  kind: design-system
+  tier: 2
+  license: No open license stated for the documentation
+
+- id: mailchimp
+  name: Mailchimp Content Style Guide
+  publisher: Mailchimp
+  url: https://styleguide.mailchimp.com
+  kind: design-system
+  tier: 2
+  license: Not yet recorded
+  note: Believed to be published under a Creative Commons non-commercial license. To confirm.
+
+# ─── Standards and formats ───────────────────────────────────────────────────
+
+- id: wcag
+  name: Web Content Accessibility Guidelines (WCAG) 2.2
+  publisher: W3C
+  url: https://www.w3.org/TR/WCAG22/
+  kind: standard
+  tier: 1
+  license: W3C Document License
+
+- id: css-fonts
+  name: CSS Fonts Module Level 4
+  publisher: W3C CSS Working Group
+  url: https://drafts.csswg.org/css-fonts-4/
+  kind: standard
+  tier: 1
+  license: W3C Document License
+
+- id: design-md
+  name: DESIGN.md format
+  publisher: Google Stitch
+  url: https://stitch.withgoogle.com/docs/design-md/specification
+  kind: standard
+  tier: 2
+  license: No open license stated
+
+# ─── Research and reference writing ──────────────────────────────────────────
+
+- id: oklab
+  name: A perceptual color space for image processing (Oklab)
+  publisher: Björn Ottosson
+  url: https://bottosson.github.io/posts/oklab/
+  kind: research
+  tier: 3
+  license: Code MIT; article text has no license stated
+  note: Used for the color model's properties, which are facts, not for its prose.
+
+- id: material-color-science
+  name: The science of color and design (Material Design blog)
+  publisher: Google
+  url: https://material.io/blog/science-of-color-design
+  kind: research
+  tier: 2
+  license: No open license stated
+
+- id: apca
+  name: APCA documentation
+  publisher: Andrew Somers (Myndex)
+  url: https://git.apcacontrast.com/documentation/APCAeasyIntro
+  kind: research
+  tier: 2
+  license: No open license stated for the documentation
+
+- id: typographic-scale
+  name: The typographic scale
+  publisher: Spencer Mortensen
+  url: https://spencermortensen.com/articles/typographic-scale/
+  kind: research
+  tier: 3
+  license: All rights reserved
+  note: Used only for the mathematics of modular scales, which is not copyrightable.
+
+- id: modular-scale
+  name: Modular Scale
+  publisher: Tim Brown and Scott Kellum
+  url: https://www.modularscale.com
+  kind: research
+  tier: 3
+  license: Not yet recorded
+  note: Supplementary; ratio names and values only.
+
+- id: practical-typography
+  name: Practical Typography
+  publisher: Matthew Butterick
+  url: https://practicaltypography.com
+  kind: research
+  tier: 3
+  license: No reproduction without permission; fair use excepted
+  note: Synthesized only. Nothing is reproduced.
+
+- id: webtypography
+  name: The Elements of Typographic Style Applied to the Web
+  publisher: Richard Rutter
+  url: https://webtypography.net
+  kind: research
+  tier: 1
+  license: CC BY-NC 4.0
+
+- id: mdn
+  name: MDN Web Docs
+  publisher: Mozilla
+  url: https://developer.mozilla.org/en-US/docs/Web/CSS
+  kind: research
+  tier: 1
+  license: CC BY-SA 2.5
+
+# ─── Agent skills ────────────────────────────────────────────────────────────
+
+- id: impeccable
+  name: Impeccable
+  publisher: Paul Bakaus
+  url: https://github.com/pbakaus/impeccable
+  kind: agent-skill
+  tier: 1
+  license: Apache 2.0
+
+- id: anthropic-frontend-design
+  name: frontend-design skill
+  publisher: Anthropic
+  url: https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design
+  kind: agent-skill
+  tier: 2
+  license: See the LICENSE file in the anthropics/claude-code repository
+
+- id: designer-skills
+  name: designer-skills
+  publisher: Julian Oczkowski
+  url: https://github.com/julianoczkowski/designer-skills
+  kind: agent-skill
+  tier: 1
+  license: Apache 2.0

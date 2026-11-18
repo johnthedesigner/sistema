@@ -182,11 +182,11 @@ A play that turns `LIVING_BRIEF.md` into DESIGN.md (D6 sections), DECISIONS.md, 
 
 ### Task V1.16: Reference material and Sources page
 
-**Status:** not started
+**Status:** complete (2026-11-17)
 
 Move `kb/reference/` to internal `reference/` (D4), never routed. Replace the DESIGN.md spec fetch with a Sistema-owned page. Guide `sources` citations of reference material become plain credit lines. Add a public Sources page with licensing notes. No redirects.
 
-- [ ] No route serves reference material; the Sources page credits every source; checks pass
+- [x] No route serves reference material; the Sources page credits every source; checks pass (`/kb` and `/raw/<reference>` return 404; 23 sources in `content/sources.yaml`; `model.sources` checks every credit)
 
 ### Task V1.17: "What uses this" lookup, last-reviewed check, fit review 2
 

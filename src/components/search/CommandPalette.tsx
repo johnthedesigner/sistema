@@ -11,7 +11,8 @@ const TYPE_CONFIG: Record<SearchEntryType, { label: string; bg: string; color: s
   guide: { label: 'guide', bg: 'var(--stage-5-bg)', color: 'var(--stage-5-text)' },
   opinion: { label: 'opinion', bg: 'var(--stage-1-bg)', color: 'var(--stage-1-text)' },
   rule: { label: 'rule', bg: 'var(--color-surface-sunken)', color: 'var(--color-on-surface-muted)' },
-  kb: { label: 'source', bg: 'var(--color-surface-sunken)', color: 'var(--color-on-surface-muted)' },
+  file: { label: 'file format', bg: 'var(--color-surface-sunken)', color: 'var(--color-on-surface-muted)' },
+  source: { label: 'source', bg: 'var(--color-surface-sunken)', color: 'var(--color-on-surface-muted)' },
   tool: { label: 'tool', bg: 'var(--color-brand-yellow-50)', color: 'var(--color-on-surface-muted)' },
 }
 

@@ -3,8 +3,8 @@ title: "Motion architecture"
 description: "Easing, duration, and motion tokens, with reduced motion handled from the start."
 topic: motion
 sources:
-  - kb/reference/design-systems/ant-design/guidance/foundations/design-tokens
-  - kb/reference/design-systems/atlassian/guidance/foundations/design-tokens
+  - { source: ant-design, url: "https://ant.design/docs/react/customize-theme" }
+  - { source: atlassian, url: "https://atlassian.design/tokens/design-tokens" }
 last_reviewed: 2026-05-13
 ---
 

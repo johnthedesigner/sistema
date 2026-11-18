@@ -13,5 +13,5 @@ export async function GET(_req: Request, { params }: { params: Promise<{ topic: 
   const { topic, name } = await params
   const guide = loadCatalog().guideById.get(`guide.${topic}.${name}`)
   if (!guide) return new Response('Not found', { status: 404 })
-  return textResponse(renderGuideRaw(guide))
+  return textResponse(renderGuideRaw(guide, loadCatalog().sourceById))
 }

@@ -1,25 +1,5 @@
-import fs from 'fs'
-import path from 'path'
-import { listSystems, type KBCategory } from './kb'
-import { catalog, guideHref, MILESTONE_LABELS, opinionHref, playHref, ruleHref, TOPIC_LABELS, workflowHref } from './content/site'
+import { catalog, fileHref, guideHref, MILESTONE_LABELS, opinionHref, playHref, ruleHref, sourceHref, TOPIC_LABELS, workflowHref } from './content/site'
 import type { SearchEntry } from './search'
-
-const KB_BASE = path.join(process.cwd(), 'kb', 'reference')
-
-// Reference material stays searchable until V1.16 makes it internal.
-const REFERENCE: Array<{ category: KBCategory; meta: string }> = [
-  { category: 'design-systems', meta: 'design systems' },
-  { category: 'standards', meta: 'standards' },
-  { category: 'foundations', meta: 'foundations' },
-  { category: 'skills', meta: 'agent skills' },
-]
-
-function readKBTitle(category: KBCategory, slug: string): string {
-  const indexPath = path.join(KB_BASE, category, slug, '_index.md')
-  if (!fs.existsSync(indexPath)) return slug.replace(/-/g, ' ')
-  const match = fs.readFileSync(indexPath, 'utf-8').match(/^# (.+)$/m)
-  return match ? match[1].replace(/ — .*$/, '').trim() : slug.replace(/-/g, ' ')
-}
 
 export function buildSearchIndex(): SearchEntry[] {
   const c = catalog()
@@ -48,10 +28,11 @@ export function buildSearchIndex(): SearchEntry[] {
   for (const r of c.rules) {
     entries.push({ type: 'rule', title: r.id, slug: r.id, href: ruleHref(r.id), tags: [], description: r.statement, meta: r.severity === 'blocking' ? 'required' : 'advisory' })
   }
-  for (const { category, meta } of REFERENCE) {
-    for (const slug of listSystems(category)) {
-      entries.push({ type: 'kb', title: readKBTitle(category, slug), slug, href: `/kb/${category}/${slug}`, tags: [], description: '', meta })
-    }
+  for (const f of c.files) {
+    entries.push({ type: 'file', title: f.title, slug: f.id, href: fileHref(f.id), tags: [], description: f.description, meta: 'file format' })
+  }
+  for (const s of c.sources) {
+    entries.push({ type: 'source', title: s.name, slug: s.id, href: sourceHref(s.id), tags: [], description: s.publisher, meta: 'source' })
   }
   for (const [slug, title, desc] of [
     ['palette', 'Palette tool', 'OKLCH palettes generated from seed colors'],

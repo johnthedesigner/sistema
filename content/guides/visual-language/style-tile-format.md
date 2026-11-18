@@ -3,10 +3,10 @@ title: "Style preview format"
 description: "What the style preview page contains, its technical requirements, and what approving it means."
 topic: visual-language
 sources:
-  - kb/reference/skills/designer-skills/design-brief
-  - kb/reference/skills/designer-skills/frontend-design
-  - kb/reference/skills/anthropic-frontend-design/skill
-  - kb/reference/skills/impeccable/overview
+  - { source: designer-skills, url: "https://github.com/julianoczkowski/designer-skills/tree/main/design-brief" }
+  - { source: designer-skills, url: "https://github.com/julianoczkowski/designer-skills/tree/main/frontend-design" }
+  - { source: anthropic-frontend-design, url: "https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md" }
+  - { source: impeccable, url: "https://github.com/pbakaus/impeccable" }
 note: "Interpreted through the lens of design system building. The style-preview.html artifact described here is a human review checkpoint before token generation. It is not a prototype or a UI mockup. Its purpose is to establish and confirm a specific visual direction before any token values are committed."
 last_reviewed: 2026-05-15
 ---
