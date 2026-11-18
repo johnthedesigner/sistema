@@ -1,8 +1,8 @@
 # Usage Analytics: Outline
 
-**Task:** V2.7 (decision D13). **Date:** 2026-11-18. **Status:** awaiting owner review.
+**Task:** V2.7 (decision D13). **Date:** 2026-11-18. **Status:** approved by the owner 2026-11-18, with changes recorded in section 7. Sections 3, 4, and 6 are updated to match.
 
-**Goal:** aggregate usage statistics, useful for a case study, that follow an anonymous ID from a visit to the site into what that visitor's agent does next: the prompt they copied, the plays their agent fetched, the tools it called, and later sessions on the same project. No personal data.
+**Goal:** aggregate usage statistics, useful for a case study, that follow an anonymous ID from a visit to the site into what that visitor's agent does next: the prompt they copied, the plays their agent fetched, the tools it called, and later sessions on the same project. No names, emails, or IP addresses.
 
 **Constraint (owner, 2026-11-18):** no tracking across visits. Nothing is stored on the visitor's device: no cookies, localStorage, sessionStorage, or fingerprint. A visit is never linked to an earlier or later visit. The aim is to avoid the EU consent banner obligation.
 
@@ -46,7 +46,7 @@ All events are anonymous (`$process_person_profile: false`). Server events use `
 | `prompt_selected` | browser | a suggestion in the prompt box is chosen (V3) | `kind`, `id` |
 | `tool_page_used` | browser | a tool page is used, debounced | `tool`, `standard` (contrast) |
 | `agent_fetch` | server | an agent fetches `/raw/...` | `kind` (workflow, workflow_full, play, guide, file, rules, opinions, sources, agents, llms), `id`, `agent` (family from the user agent, such as claude, cursor, openai, other), `c` |
-| `tool_call` | server | a tool API is called | `tool`, `method`, `items` (pairs, seeds, or steps), `standard`, `status`, `error` (kind only, never the input) |
+| `tool_call` | server | a tool API is called | `tool`, `method`, `items` (pairs, seeds, or steps), `standard`, `status`, `error`, and the inputs (colors, seed names, base size, ratio, naming, role names) |
 | `api_index` | server | `/api` is fetched | `agent` |
 | `mcp_*` | server (V4) | MCP connect and tool calls | the same properties as above |
 
@@ -55,21 +55,19 @@ All events are anonymous (`$process_person_profile: false`). Server events use `
 - **Progress and drop-off by play,** and time from copy to each milestone.
 - **Which workflows, routes, and plays people start from.**
 - **Tool use:** calls per run, batch sizes, error rates, and standards chosen.
+- **What people build:** the seed colors, ratios, naming conventions, and roles they choose.
 - **Which agents people use.**
 
 **What they can't show:** approvals and anything else that happens only on the person's machine. A finished workflow is inferred from the next fetch, not reported. I don't recommend adding a "report that you finished" instruction to the prompts just for analytics.
 
 ## 4. Privacy
 
-- **No personal data:** no names, emails, IP addresses, or input values (colors, project names). Tool events record counts and outcomes, not inputs.
-- **IP addresses:** in PostHog, set *Settings > Project > General > IP data capture* to discard. (The browser option `ip: false` no longer has any effect.) PostHog derives location from the IP before discarding it. Section 7 asks whether to keep country-level location for the case study or turn it off.
+- **No personal data:** no names, emails, or IP addresses. Tool inputs (colors, ratios, role names) are recorded, since they carry no privacy risk and show what people build (owner, 2026-11-18).
+- **IP addresses:** in PostHog, set *Settings > Project > General > IP data capture* to discard. (The browser option `ip: false` no longer has any effect.) PostHog derives location from the IP before discarding it, and all of that location data is kept (owner, 2026-11-18).
 - **Server events** are sent from Vercel's servers, so they carry no visitor IP.
-- **A plain-language note on the site** says what's collected, that nothing is stored on the device, how the ID travels, and how to opt out. The site footer links to it, and the agents page mentions it.
-- **Opt-out:**
-  - *Browser:* if the browser sends Global Privacy Control, PostHog doesn't start, and copied prompts carry no `c`.
-  - *Project:* `"telemetry": false` in `sistema.json`. The starter then tells the agent to use `c=off`, and requests with `c=off` send nothing.
-  - *Requests without `c`* are still counted, without any ID, so tool and play popularity stays measurable.
-- **Not chosen: PostHog's cookieless mode.** It stores nothing on the device, but it ignores opt-out, needs a project setting, and links visits on PostHog's servers through a hash. That works against "no tracking across visits." Memory-only storage is simpler and clearly within the constraint.
+- **A plain-language note on the site** says what's collected, that nothing is stored on the device, and how the ID travels. The site footer links to it, and the agents page mentions it.
+- **No opt-out** (owner, 2026-11-18). Projects can't opt out, and there's no browser opt-out. The privacy safeguard is the constraint itself: nothing on the device and no linking across visits. Requests without `c` are counted with a random ID.
+- **Not chosen: PostHog's cookieless mode.** It stores nothing on the device, but it needs a project setting and links visits on PostHog's servers through a hash. That works against "no tracking across visits." Memory-only storage is simpler and clearly within the constraint.
 
 ## 5. Test traffic
 
@@ -80,23 +78,22 @@ All events are anonymous (`$process_person_profile: false`). Server events use `
 ## 6. Changes (built in V2.8)
 
 - **Browser:**
-  - Re-initialize PostHog: memory-only storage, no person profiles, GPC respected, and autocapture off (it records clicks on every element, which adds noise without helping the funnel).
+  - Re-initialize PostHog: memory-only storage, no person profiles, and autocapture off (it records clicks on every element, which adds noise without helping the funnel).
   - Copying a prompt adds `c` to the prompt's Sistema URLs.
   - Remove the per-copy `sid`, the "Sistema context" line, and the `instrumentRawUrls` rewriting.
 - **Server:**
   - Middleware for `/raw` and `/api`: it sends the event to PostHog without blocking the response (`POST https://us.i.posthog.com/i/v0/e/` with `$process_person_profile: false`), and rewrites `/raw` requests that carry `c` to the handler that injects it.
   - Delete `/api/context`.
 - **Content model:**
-  - `sistema.json` schema gains the optional `telemetry`.
+  - `sistema.json` schema gains the optional `telemetry` (`{ "id" }`).
   - `project.assess` records `telemetry.id` from the URL it was fetched with.
-  - The starter's resume step keeps `c` on `continue`, and the starter honors `"telemetry": false`.
+  - The starter's resume step keeps `c` on `continue`.
 - **Site:** the privacy note page, a footer link, and a line on the agents page.
 - **Tests:**
   - `c` survives from a copied prompt through a `/raw` fetch into a tool URL.
-  - `c=off` sends nothing.
-  - No event payload contains an IP address, a color value, or other input.
+  - No event payload contains an IP address.
   - The browser code writes nothing to cookies or storage, checked in a real browser with Playwright.
-- **Owner's PostHog settings:** discard IP data, set location capture to match decision 7.3, and build the dashboards (section 8).
+- **Owner's PostHog settings:** discard IP data, keep location lookup on, and build the dashboards (section 8).
 
 ## 7. Questions for the owner
 
@@ -112,3 +109,11 @@ All events are anonymous (`$process_person_profile: false`). Server events use `
 - **Tool calls per day** by tool, with error rate.
 - **Agent families** over time.
 - **Time from copy to activation** and from activation to Start finished (medians).
+
+### Owner answers (2026-11-18)
+
+1. **Design:** approved.
+2. **How `/raw` gets the ID:** middleware plus a dynamic handler for requests with `c`.
+3. **Location:** keep all location data PostHog derives.
+4. **Opt-out:** none. Projects can't opt out. The safeguard is no linking across visits and nothing stored on the device. Recording tool inputs such as colors and role names is fine.
+

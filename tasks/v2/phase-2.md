@@ -87,7 +87,7 @@ Plan 13, layer 2: every tool's default output passes the registry rules it's sub
 
 ## Task V2.7: Usage analytics outline
 
-**Status:** not started
+**Status:** done (2026-11-18). Approved with changes: keep all location data, no opt-out, and tool inputs may be recorded. See `docs/v2/analytics.md` section 7.
 
 Owner request, decision D13: detailed usage data, attributable to one person through an anonymous ID, from first visit through later use of the site, prompts, tools, and (in V4) the MCP server. Today:
 - PostHog runs in the browser with its own anonymous ID.
@@ -113,15 +113,15 @@ Write `docs/v2/analytics.md` for owner review. It covers:
 - **Excluding test traffic** from the owner, slice runs, and the V5 harness (an internal flag or ID list).
 - **Dashboards:** the funnel and retention views to set up in PostHog.
 
-- [ ] Owner approves the analytics outline
+- [x] Owner approves the analytics outline
 
 ## Task V2.8: Usage analytics build (site, prompts, tools)
 
 **Status:** not started
 
-Build to the V2.7 outline: one ID across browser and server, the ID carried by copied prompts, `/raw` output, and `sistema.json`, server-side events for `/raw` and `/api`, the opt-out, the privacy note, and test-traffic exclusion. Tests: the ID survives from a copied prompt through a `/raw` fetch to a tool call, opted-out requests send nothing, no event contains an IP address or personal data, and the site writes nothing to browser storage. Check events arriving in PostHog from a real run against the preview.
+Build to the V2.7 outline (`docs/v2/analytics.md`): one ID across browser and server, the ID carried by copied prompts, `/raw` output, and `sistema.json`, server-side events for `/raw` and `/api`, the privacy note, and test-traffic exclusion. No opt-out. Tests: the ID survives from a copied prompt through a `/raw` fetch to a tool call, no event contains an IP address, and the site writes nothing to browser storage. Check events arriving in PostHog from a real run against the preview.
 
-- [ ] A single anonymous ID links a site visit, a copied prompt, agent fetches, and tool calls in PostHog; opt-out works; tests pass
+- [ ] A single anonymous ID links a site visit, a copied prompt, agent fetches, and tool calls in PostHog; nothing is stored on the device; tests pass
 
 ## Task V2.9: Housekeeping and gate check
 
@@ -129,4 +129,4 @@ Build to the V2.7 outline: one ID across browser and server, the ID carried by c
 
 Retro (`docs/v2/retro-phase-2.md`), AGENTS.md updates, `tasks/v2/phase-3.md` (which starts with `tokens.add-mode`), and archive the session log to `logs/v2-phase-2.md`.
 
-- [ ] Gate (plan 15, Phase 2): all tool tests pass; all tool defaults pass the registry; every play contract's required tools appear in its text; every tool works through GET. Usage analytics links one anonymous ID from site to agent to tools, with opt-out. Owner approves.
+- [ ] Gate (plan 15, Phase 2): all tool tests pass; all tool defaults pass the registry; every play contract's required tools appear in its text; every tool works through GET. Usage analytics links one anonymous ID from site to agent to tools, with nothing stored on the device. Owner approves.

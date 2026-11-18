@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 2 (Tools and paste-in improvements). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-2.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V2.6 — Tool index and shorter prompts
-**Next task:** V2.7 — Usage analytics outline
+**Last completed task:** V2.7 — Usage analytics outline (approved)
+**Next task:** V2.8 — Usage analytics build
 **Blockers:** none
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -138,3 +138,17 @@
 - `/api/context` stays until V2.8 replaces it.
 - **Known local issue:** twice, a build failed with `PageNotFoundError` for a page that exists, after earlier builds in the same `.next` folder. `rm -rf .next` fixes it. Vercel always builds fresh.
 - 149 tests (14 files). Build passes, 0 violations.
+
+### 2026-11-18 — Task V2.7: Usage analytics outline
+
+**What was done:**
+- Checked PostHog's docs:
+  - `persistence: 'memory'` stores nothing on the device.
+  - `person_profiles: 'never'` builds no person profiles.
+  - `ip: false` is deprecated and does nothing. IP discarding is a project setting.
+  - Cookieless mode needs a project setting and links visits on PostHog's servers.
+  - Server capture: `POST https://us.i.posthog.com/i/v0/e/` with `$process_person_profile: false`.
+- `docs/v2/analytics.md`:
+  - The ID lives in memory for one visit. It's carried in copied prompts as `c`, injected into `/raw` output by middleware plus a dynamic handler, and stored in `sistema.json` `telemetry.id`. Tool URLs and MCP carry it too.
+  - Events: `$pageview`, `prompt_copied`, `prompt_selected`, `tool_page_used`, `agent_fetch`, `tool_call`, `api_index`, and `mcp_*`. Funnel and dashboards are defined. Test traffic is excluded through `env: preview` and the `test-` and `internal-` ID prefixes.
+- Owner approved, with changes: keep all location data, no opt-out of any kind, and tool inputs (colors, roles) may be recorded. D13 and the V2.8 task are updated.
