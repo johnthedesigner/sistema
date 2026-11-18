@@ -99,7 +99,7 @@ Write `docs/v2/analytics.md` for owner review. It covers:
 
 - **The funnel and the events.** For example: landing, pages viewed, workflow or play or route chosen in the prompt box, prompt copied, first agent fetch with that ID (activation), each play fetched (progress), approvals recorded, workflow finished, a return session through `continue`, tool calls (tool, batch size, error or success), and later, MCP connect and tool use. List each event's name and properties.
 - **How the ID travels.**
-  1. The browser's PostHog ID becomes the person's ID.
+  1. The browser's PostHog ID becomes the person's ID for that visit only (see the constraint below).
   2. Copied prompts carry it in the starter URL.
   3. The starter and every `/raw` page fetched with it emit Sistema URLs that carry it.
   4. `project.assess` records it in `sistema.json` (a new optional field), so resumed sessions and later workflows keep it.
@@ -108,18 +108,18 @@ Write `docs/v2/analytics.md` for owner review. It covers:
   Compare the ways to make static `/raw` output carry the ID: render on request with caching, rewrite at the edge, or ask the agent to append it. Recommend one.
 - **Server-side capture** for `/raw`, `/api`, and later the MCP route, probably in Next.js middleware with a non-blocking send to PostHog. Record the agent family from the user agent, never the IP address.
 - **Privacy and opt-out:** anonymous IDs only, no personal data, IP addresses not kept, and a plain-language note on the site. Projects opt out with a `sistema.json` setting, and the browser honors Global Privacy Control.
-  ⚑ The owner decides on consent: a consent banner, cookieless tracking until consent, or anonymous tracking without a banner. Note the trade-off for following a person across sessions.
+  **Constraint (owner, 2026-11-18): no tracking across visits.** Nothing is stored on the visitor's device, so there are no cookies, localStorage, or other browser storage, and no persistent fingerprint. A site visit is never linked to earlier or later visits. Check PostHog's cookieless or memory-only settings and confirm nothing is written to the device. The aim is to avoid the EU consent banner obligation, so no banner is planned.
 - **Removing what's there:** the per-copy `sid`, the "Sistema context" line, and `/api/context`, which the new design replaces.
 - **Excluding test traffic** from the owner, slice runs, and the V5 harness (an internal flag or ID list).
 - **Dashboards:** the funnel and retention views to set up in PostHog.
 
-- [ ] Owner approves the analytics outline and the consent approach
+- [ ] Owner approves the analytics outline
 
 ## Task V2.8: Usage analytics build (site, prompts, tools)
 
 **Status:** not started
 
-Build to the V2.7 outline: one ID across browser and server, the ID carried by copied prompts, `/raw` output, and `sistema.json`, server-side events for `/raw` and `/api`, the opt-out, the privacy note, and test-traffic exclusion. Tests: the ID survives from a copied prompt through a `/raw` fetch to a tool call, opted-out requests send nothing, and no event contains an IP address or personal data. Check events arriving in PostHog from a real run against the preview.
+Build to the V2.7 outline: one ID across browser and server, the ID carried by copied prompts, `/raw` output, and `sistema.json`, server-side events for `/raw` and `/api`, the opt-out, the privacy note, and test-traffic exclusion. Tests: the ID survives from a copied prompt through a `/raw` fetch to a tool call, opted-out requests send nothing, no event contains an IP address or personal data, and the site writes nothing to browser storage. Check events arriving in PostHog from a real run against the preview.
 
 - [ ] A single anonymous ID links a site visit, a copied prompt, agent fetches, and tool calls in PostHog; opt-out works; tests pass
 

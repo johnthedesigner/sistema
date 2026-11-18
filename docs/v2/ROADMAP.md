@@ -185,7 +185,7 @@ Open decisions are set to the latest point where they can be settled without blo
 | Narrative, opinions, IA approvals | V1 gate | V2 start |
 | Reference project product and location | V3 start | Guide worked examples |
 | Token validator and dark mode mapping as tools | V5 evaluation results | V5 gate |
-| Analytics consent approach (banner, cookieless until consent, or no banner) | V2.7 | Analytics build (V2.8) |
+| Analytics consent approach | **Decided (D13, 2026-11-18):** no tracking across visits and nothing stored on the device, so no banner | Done |
 
 V0.7 prepares a decision brief for the "V1 start" items. Each one gets options, a recommendation, and what changes downstream. That way V1 opens with a single decision session instead of stalling on each item in turn.
 
