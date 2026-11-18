@@ -8,7 +8,8 @@
  *              V1.14 (prebuild runs --strict-all).
  */
 
-export type Level = 'code' | 'content'
+/** `review` findings are reported but never fail a build, even with --strict-all. */
+export type Level = 'code' | 'content' | 'review'
 
 export interface SourceFile {
   path: string // repo-relative, forward slashes
@@ -19,6 +20,8 @@ export interface Corpus {
   referenceFiles: SourceFile[] // reference/**/* (md and json): internal reference material, never routed
   builtHtml: SourceFile[] // .next/server/app/**/*.html (output mode only)
   contentFiles?: SourceFile[] // content/** (v2 content model)
+  /** Today's date (YYYY-MM-DD), for review-age checks. Omitted in most tests. */
+  today?: string
 }
 
 export interface Violation {
@@ -333,6 +336,28 @@ const universalThresholds: Rule = {
   },
 }
 
+/** Items not reviewed for this many days are flagged (plan 8.2). */
+export const REVIEW_DAYS = 180
+
+const reviewDue: Rule = {
+  id: 'review.last-reviewed',
+  level: 'review',
+  description: `Plays, workflows, guides, opinions, and file format pages reviewed more than ${REVIEW_DAYS} days ago are flagged for review. Reported only; never blocks a build.`,
+  check(corpus) {
+    if (!corpus.today) return []
+    const now = Date.parse(corpus.today)
+    const out: Omit<Violation, 'rule' | 'level'>[] = []
+    for (const f of (corpus.contentFiles ?? []).filter(f => f.path.endsWith('.md'))) {
+      const fm = frontmatter(f.text)
+      const date = fm?.match(/^last_reviewed:\s*(\d{4}-\d{2}-\d{2})/m)?.[1]
+      if (!date) continue
+      const days = Math.floor((now - Date.parse(date)) / 86_400_000)
+      if (days > REVIEW_DAYS) out.push({ file: f.path, line: 1, message: `last reviewed ${date}, ${days} days ago` })
+    }
+    return out
+  },
+}
+
 export const SOURCE_RULES: Rule[] = [
   rawUrlResolves,
   sourceRelativeUrl,
@@ -342,6 +367,7 @@ export const SOURCE_RULES: Rule[] = [
   missingTitles,
   universalThresholds,
   stalePrinciplesPath,
+  reviewDue,
 ]
 
 export const OUTPUT_RULES: Rule[] = [outputPlaceholder, outputRelativeUrl, outputInternalLinks]

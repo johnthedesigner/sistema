@@ -12,6 +12,7 @@
     "lint": "eslint .",
     "test": "vitest run",
     "check:content": "tsx tools/validate/content/cli.ts",
+    "uses": "tsx tools/validate/content/uses.ts",
     "palettes": "npx tsx tools/generate-palette-library.ts",
     "tokens": "node style-dictionary.config.mjs",
     "favicons": "node tools/generate-favicons.mjs",

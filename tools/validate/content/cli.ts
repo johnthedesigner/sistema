@@ -43,6 +43,7 @@ export function loadCorpus(includeOutput: boolean): Corpus {
     // Built pages, plus prerendered /raw route responses (.body files).
     builtHtml: includeOutput ? walk('.next/server/app', p => p.endsWith('.html') || (p.includes('/raw/') && p.endsWith('.body'))) : [],
     contentFiles: walk('content', p => /\.(md|ya?ml)$/.test(p)),
+    today: new Date().toISOString().slice(0, 10),
   }
 }
 
@@ -69,7 +70,7 @@ function main() {
   } else {
     for (const r of rules) {
       const list = byRule.get(r.id) ?? []
-      const mark = list.length === 0 ? 'ok  ' : r.level === 'code' ? 'FAIL' : 'warn'
+      const mark = list.length === 0 ? 'ok  ' : r.level === 'code' ? 'FAIL' : r.level === 'review' ? 'note' : 'warn'
       console.log(`${mark} ${r.id} (${r.level}) — ${list.length}`)
       // In --strict builds, content-level rules are summarized, not listed.
       if (args.has('--strict') && r.level === 'content') continue
@@ -77,11 +78,14 @@ function main() {
       if (list.length > 50) console.log(`       … ${list.length - 50} more`)
     }
     const code = violations.filter(v => v.level === 'code').length
-    console.log(`\n${violations.length} violation(s): ${code} code-level, ${violations.length - code} content-level`)
+    const content = violations.filter(v => v.level === 'content').length
+    const review = violations.length - code - content
+    console.log(`\n${code + content} violation(s): ${code} code-level, ${content} content-level${review ? `; ${review} item(s) due for review` : ''}`)
   }
 
   const codeCount = violations.filter(v => v.level === 'code').length
-  if (args.has('--strict-all') && violations.length > 0) process.exit(1)
+  const blocking = violations.filter(v => v.level !== 'review').length
+  if (args.has('--strict-all') && blocking > 0) process.exit(1)
   if (args.has('--strict') && codeCount > 0) process.exit(1)
 }
 

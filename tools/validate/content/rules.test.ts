@@ -129,3 +129,12 @@ describe('content rules', () => {
     expect(ids(corpus({ contentFiles: [guide('See the Color architecture guide.')] }), 'content.stale-path')).toHaveLength(0)
   })
 })
+
+describe('review.last-reviewed', () => {
+  const dated = (date: string) => ({ path: 'content/guides/a/x.md', text: `---\ntitle: X\nlast_reviewed: ${date}\n---\nbody` })
+  it('flags items older than the threshold, and only when today is known', () => {
+    expect(ids(corpus({ contentFiles: [dated('2026-01-01')], today: '2026-11-17' }), 'review.last-reviewed')).toHaveLength(1)
+    expect(ids(corpus({ contentFiles: [dated('2026-11-01')], today: '2026-11-17' }), 'review.last-reviewed')).toHaveLength(0)
+    expect(ids(corpus({ contentFiles: [dated('2026-01-01')] }), 'review.last-reviewed')).toHaveLength(0)
+  })
+})

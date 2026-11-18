@@ -39,6 +39,10 @@ Items discovered during development or piloting that are not urgent enough to fi
 
   **Timing:** this should happen before the public launch (task VF), not stay open indefinitely. It fits well after V1.16, when guide sources become credit lines and the public Sources page exists, because that is where marked direct references will link. It also limits the earlier "KB reference files are too sparse" item: once reference material is internal (V1.16), fuller reference files raise less concern, but anything published must pass this audit.
 
+  **First examples (found in fit review 2, `docs/v2/fit-review-2.md` section 4):** the voice and tone guide, rule `content.voice.baseline`, and `content.voice-and-tone` present "plainspoken, genuine, helpful, direct" as a cross-system baseline, but "plainspoken" and "genuine" are Mailchimp's named voice traits. The typography guide's "5-role pattern (display / headline / title / body / label)" is Material Design's role set.
+
+  **Note:** `reference/` stays visible in the public repository. That's fine; it's marked as internal working notes (`reference/README.md`) and isn't presented as Sistema content.
+
   *Owner request after reviewing the guides, 2026-11-17.*
 
 ## Orchestrated autonomous agents
