@@ -137,4 +137,4 @@ Archived in V1.18, 2026-11-17. Retro: `docs/v2/retro-phase-1.md`. Entries are ol
 - Corrected the V1.16 source count in `tasks/v2/phase-1.md` (22, not 23).
 - Updated the agent's memory: the source intake note now describes the v2 layout. The notes on `/guide` maintenance and campaign sync are marked obsolete, since the permission check blocked deleting them.
 - Gate evidence: all 23 plays and 3 workflows render as a web page and as `/raw` plain text, and each workflow also has a `/full` starter. No `/raw` output has an unresolved placeholder. 0 content violations with every rule blocking. CI passes on v2.
-- Waiting for the owner's go on the Phase 1 gate.
+- **The owner approved the Phase 1 gate** (2026-11-17).

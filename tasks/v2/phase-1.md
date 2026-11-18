@@ -198,8 +198,8 @@ Plan 8.2 lookup (`npm run uses -- <id>`) and the last-reviewed threshold check. 
 
 ### Task V1.18: Housekeeping and gate check
 
-**Status:** done, waiting for the owner's gate approval (2026-11-17)
+**Status:** done; gate approved by the owner (2026-11-17)
 
 Retro (`docs/v2/retro-phase-1.md`), AGENTS.md (KB rules rewritten for the new layout), `tasks/v2/phase-2.md`, archive logs to `logs/v2-phase-1.md`, and gate evidence.
 
-- [ ] Gate: every play and workflow renders from the model in each channel (web, raw, starter); no restated rules; owner approved narrative, IA, opinions, state model, and both fit reviews
+- [x] Gate: every play and workflow renders from the model in each channel (web, raw, starter); no restated rules; owner approved narrative, IA, opinions, state model, and both fit reviews
