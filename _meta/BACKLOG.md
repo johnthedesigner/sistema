@@ -41,6 +41,20 @@ Items discovered during development or piloting that are not urgent enough to fi
 
   *Owner request after reviewing the guides, 2026-11-17.*
 
+## Orchestrated autonomous agents
+
+- **Make Sistema work well with platforms that orchestrate many autonomous agents** — Sistema assumes one coding agent working with one person, who approves each stage. Enterprise engineering platforms instead run many autonomous agents in parallel under an orchestrator, often with no person in the loop for each task. The owner works on such a platform and wants to know what Sistema would need to work well there. The changes could be small (mentions on existing pages, a guide) or larger (different plays or use cases). Questions to explore:
+  - **Approval without a live conversation.** The method depends on a person approving at gates (opinion `person-approves`, `see-every-stage`). With autonomous agents, approval could happen asynchronously: the gate's review page attached to a pull request, and the gate recorded when the PR is approved. Decide whether that is an override of the opinion or a second way to meet it.
+  - **Parallel work on shared files.** `sistema.json`, DECISIONS.md, and the token sources assume one writer at a time. Many agents adding components at once would conflict. Options: one entry file per decision, or per component, merged later; plays that only read shared state and propose changes; a single agent that owns the token sources.
+  - **Plays that fan out well.** Check plays (`components.audit`, `accessibility.audit`, `tokens.coverage-audit`) can run per component or per folder in parallel and be merged into one report. `components.implement` from an approved spec is also well suited. Direction and Foundations need taste and approval, so they suit a person more than a swarm.
+  - **Machine-checkable evidence.** Orchestrators accept or reject work automatically. Rules with measures, tool-produced evidence (contrast batches, token validation), and `sistema.json` already help. A play's evidence could be required in a fixed, machine-readable form, and blocking rules could run as CI checks.
+  - **Ways in besides a pasted prompt.** The MCP server (V4) and plain URLs per play already suit an orchestrator better than copying from the site. A guide for platform teams could explain how to hand Sistema plays to agents as tasks, for example one ticket per route.
+  - **Design system work as a platform service.** A central design system team uses Sistema with people approving, and product teams' agents consume the result (DESIGN.md, tokens, rules) and run check plays. This may be the main use case to describe.
+
+  Start by writing up these use cases and checking them against the capability model before changing any plays.
+
+  *Owner note, 2026-11-17.*
+
 ## Test coverage
 
 - **Zero test coverage — full audit and baseline needed** — The codebase has no test files of any kind. The only runtime validation is TypeScript's type checker. Areas that warrant coverage: palette generation algorithm (`src/lib/palette.ts` — contrast-targeting math, gamut handling, stop selection); KB and playbook parsing (`src/lib/kb.ts`, `src/lib/playbooks.ts` — markdown parsing, slug extraction, variable detection); API routes (`/api/palette`, `/api/context` — request validation, error handling); sitemap and robots generation; and client-side prompt resolution (`resolveBody`, `extractVariables`, `emptyFallback` in `PlayDetail.tsx` — variable substitution, empty-field fallback text). Suggested stack: Vitest for unit/integration, Playwright for critical UI paths (copy prompt, examples modal, color mode selector persistence). *Identified 2026-05-17.* **In progress 2026-11-14:** v2 Task V0.2 adds the test runner and content checks. V2 adds tool tests.
