@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 2 (Tools and paste-in improvements). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-2.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V2.2 — GET on every tool API
-**Next task:** V2.3 — Palette documentation and tests
+**Last completed task:** V2.3 — Palette documentation and tests
+**Next task:** V2.4 — Type scale API and page defaults
 **Blockers:** none
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -76,3 +76,16 @@
 - Removed the `/systems` to `/kb` redirect from `next.config.ts` (`/kb` was removed in V1.16).
 - 126 tests. Build passes, 0 violations. Checked on `next start` with real GET, error, and OPTIONS requests.
 - Not yet changed: the contrast page still computes in the browser with fixed WCAG values. V2.5 brings tool page defaults in line with the registry.
+
+### 2026-11-18 — Task V2.3: Palette documentation and tests
+
+**What was done:**
+- `src/lib/palette.test.ts`:
+  - The committed `public/palettes/library.json` matches the algorithm for all 22 seeds.
+  - Every stop is in sRGB, and stops get darker in order.
+  - Each stop is within 5% of its contrast target against white (`1.01 × (19/1.01)^(i/18)`).
+  - A snapshot of two fixed seeds fails on any unintended algorithm change.
+- **Duplicate removed:** `tools/generate-palette-library.ts` had its own copy of the algorithm (a workaround for an old culori import issue). It now imports `generatePalette` from `src/lib/palette.ts`. Regenerating gave a byte-identical `library.json`, so the copies had not drifted. AGENTS.md is updated.
+- **Input documented** where agents look: error messages and the tool docs in plays and `/raw/agents` (V2.2), and now the palette page, which links to Tool APIs.
+- **Plays checked:** the three plays that use the palette (`color.scheme`, `color.map-existing`, `visual-language.direction`) have it in their contract, so their generated tool block shows the GET form. `color.add-theme` reuses existing ramps and needs only contrast.
+- 130 tests (11 files). Build passes, 0 violations.

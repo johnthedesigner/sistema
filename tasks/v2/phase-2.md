@@ -51,13 +51,13 @@ Add GET with query parameters to contrast and palette, as approved in V2.0 (for 
 
 ## Task V2.3: Palette documentation and tests
 
-**Status:** not started
+**Status:** done (2026-11-18)
 
 - Document the palette input where agents look: the error messages, `/raw/agents`, and the tool page.
 - Confirm every play that calls the palette tool uses the documented shape.
 - Add tool tests: fixed seeds produce stable stops (a snapshot that fails on unintended change), every stop is in sRGB, and the stops' contrast against white follows the documented curve.
 
-- [ ] Palette route and algorithm tests pass; play prompts match the documented shape
+- [x] Palette route and algorithm tests pass; play prompts match the documented shape
 
 ## Task V2.4: Type scale API and page defaults
 

@@ -66,8 +66,10 @@ export default function PalettePage() {
         <Link href="/guides/color/palette-generation" className="underline hover:text-on-surface">
           Palette generation guide
         </Link>
-        . Custom seeds: <code className="font-mono">GET {SITE_URL}/api/palette?name=color</code>.
-        Regenerate: <code className="font-mono">npm run palettes</code>.
+        . Agents get ramps for any seeds from{' '}
+        <code className="font-mono break-all">GET {SITE_URL}/api/palette?primary=%231F5FD1&amp;neutral=…</code>, one named seed per
+        parameter, as hex, <code className="font-mono">rgb()</code>, or <code className="font-mono">oklch()</code>. See{' '}
+        <Link href="/reference/tools#palette" className="underline hover:text-on-surface">Tool APIs</Link> for the full request and response.
       </p>
       </div>
     </main>

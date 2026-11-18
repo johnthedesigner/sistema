@@ -1,0 +1,48 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`generatePalette > stays stable for fixed seeds (fails on any unintended change to the algorithm) 1`] = `
+{
+  "#1F5FD1": [
+    "#f8fafc",
+    "#e6ecf5",
+    "#cfdbef",
+    "#b8cbea",
+    "#a1bbe8",
+    "#8bade7",
+    "#759ee6",
+    "#6090e6",
+    "#4b82e5",
+    "#3674e5",
+    "#2367e0",
+    "#1e5ccc",
+    "#1952b7",
+    "#1648a2",
+    "#133f8d",
+    "#103578",
+    "#0c2b61",
+    "#091f48",
+    "#040f28",
+  ],
+  "#FFCC33": [
+    "#fef9ee",
+    "#fbeac2",
+    "#fdd670",
+    "#f5c32f",
+    "#e2b42a",
+    "#d1a626",
+    "#c09922",
+    "#b18c1f",
+    "#a2801b",
+    "#947517",
+    "#866a14",
+    "#795f11",
+    "#6c550e",
+    "#604b0b",
+    "#534108",
+    "#473606",
+    "#392c04",
+    "#2a2002",
+    "#170f01",
+  ],
+}
+`;

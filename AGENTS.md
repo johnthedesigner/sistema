@@ -116,10 +116,10 @@ Keep `--limit` at 25 or lower (1 for single pages), scrape subsections separatel
 - **shadcn/ui** docs and examples are in `shadcn-ui/ui` under `apps/v4/content/docs` and `apps/v4/examples`.
 
 ### Palette generation
-`src/lib/palette.ts` tapers chroma relative to the hue's maximum in-gamut chroma, not by an absolute value. For each L from 0.02 to 0.985, `C = maxChroma(L, hue) × saturation × (1 + rawTaper) / 2`, with `saturation = seed.c / maxChroma(seed.l, hue)` and `rawTaper = min(1, sin(πL) / sin(π × seed.l))`. Stops are chosen by contrast against white on a log curve, `1.01 × (19/1.01)^(i/18)`. After changing it, run `npm run palettes`, commit `public/palettes/library.json`, and check greens and yellows first.
+`src/lib/palette.ts` tapers chroma relative to the hue's maximum in-gamut chroma, not by an absolute value. For each L from 0.02 to 0.985, `C = maxChroma(L, hue) × saturation × (1 + rawTaper) / 2`, with `saturation = seed.c / maxChroma(seed.l, hue)` and `rawTaper = min(1, sin(πL) / sin(π × seed.l))`. Stops are chosen by contrast against white on a log curve, `1.01 × (19/1.01)^(i/18)`. After changing it, run `npm run palettes`, commit `public/palettes/library.json`, update the snapshot in `src/lib/palette.test.ts` only if the change is intended, and check greens and yellows first. A test fails if the committed library and the algorithm disagree.
 
-### culori in tsx scripts
-culori v4 is ESM-only. In `tools/` scripts, load it with `createRequire(import.meta.url)('culori')`. `toGamut` needs two arguments: `toGamut('rgb', 'oklch')`.
+### culori and shared code in tsx scripts
+`tools/` scripts run under tsx and can import `src/lib` modules directly. `tools/generate-palette-library.ts` imports `generatePalette`, so the library and the API share one algorithm. Don't copy algorithms into scripts. `toGamut` needs two arguments: `toGamut('rgb', 'oklch')`.
 
 ### Site token pipeline
 `style-dictionary.config.mjs` builds `tokens/primitive/` and `tokens/semantic/` into `src/styles/tokens/generated.css` and `tokens.mjs` (`npm run tokens`). `color.dark-*` names compile into the `[data-theme="dark"]` block. These are the site's v1 tokens; V3 moves them to the method's layout.
