@@ -1,6 +1,6 @@
 # Tool APIs: Outline
 
-**Task:** V2.0. **Date:** 2026-11-17. **Status:** awaiting owner review.
+**Task:** V2.0. **Date:** 2026-11-17. **Status:** approved by the owner 2026-11-17. Decision A: default to WCAG 2.2 AA (D11). Decision B: advisory notes for small sizes (D12). Analytics adds an optional ID parameter (section 1), detailed in task V2.7.
 
 This sets the public shape of every tool API before V2 builds them. In V4, the MCP server exposes the same tools (`palette`, `contrast`, `type_scale`), so these shapes are expensive to change later. Items marked ⚑ need your decision; everything else is a recommendation you can just accept.
 
@@ -14,6 +14,7 @@ This sets the public shape of every tool API before V2 builds them. In V4, the M
 - **JSON only.** Agents read JSON well, so there's no plain-text format.
 - **Open to any origin** (CORS `*`), so browser-based agents and the tool pages can call them.
 - **No authentication and no state.** The same input always gives the same output.
+- **An optional anonymous ID, `c`.** Every tool accepts `c=<uuid>` (or the same field in a POST body) and ignores it when calculating. It only attributes the call to an anonymous user for usage analytics (decision D13). Prompts and `sistema.json` carry it, so agents pass it without being asked. The details are in the analytics outline (task V2.7).
 - **An index** at `GET /api` lists each tool, its GET and POST forms, limits, and a link to its documentation page.
 
 ## 2. Contrast

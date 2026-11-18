@@ -1,6 +1,6 @@
 # v2 Phase 2 Task File: Tools and paste-in improvements
 
-**Phase goal:** every tool an agent needs works through a plain GET, accepts the color formats Sistema promotes, and has tests with known answers. The tools' default output passes the rules registry, and agents can find every tool from one index.
+**Phase goal:** every tool an agent needs works through a plain GET, accepts the color formats Sistema promotes, and has tests with known answers. The tools' default output passes the rules registry, and agents can find every tool from one index. Usage can be followed from a first visit to an agent's later use of plays and tools, through one anonymous ID (decision D13).
 **Plan references:** plan Sections 10 (tools) and 13 (testing, layers 2 and 3), plan 15 Phase 2; ROADMAP V2; capability-model Section 6 (the tool surface the MCP server will expose in V4).
 **Starting point (end of V1):**
 - Contrast (`POST /api/contrast`) accepts single pairs and batches of pairs, hex only. It has route tests.
@@ -20,7 +20,7 @@
 
 ## Task V2.0: Tool API outline
 
-**Status:** not started
+**Status:** done (2026-11-17). Approved with decisions D11 (contrast defaults to WCAG 2.2 AA, stated in the response) and D12 (advisory notes for small type sizes, no minimum rule). `docs/v2/tool-apis.md`.
 
 Before building, outline the public shape of every tool API in one document (`docs/v2/tool-apis.md`). These shapes become the MCP tools in V4, so changing them later is expensive. For each tool, cover:
 - the GET form and the POST form
@@ -31,7 +31,7 @@ Before building, outline the public shape of every tool API in one document (`do
 
 For the type scale, propose how naming conventions are handled (roles, steps, or magnitude sizes; see the typography guide's "Naming type") and which registry rules it applies. Owner review.
 
-- [ ] Owner approves the API outline
+- [x] Owner approves the API outline
 
 ## Task V2.1: Shared color parsing
 
@@ -85,10 +85,48 @@ Plan 13, layer 2: every tool's default output passes the registry rules it's sub
 
 - [ ] `GET /api` lists every tool; plays cite sections rather than explaining them; `/api/context` decided
 
-## Task V2.7: Housekeeping and gate check
+## Task V2.7: Usage analytics outline
+
+**Status:** not started
+
+Owner request, decision D13: detailed usage data, attributable to one person through an anonymous ID, from first visit through later use of the site, prompts, tools, and (in V4) the MCP server. Today:
+- PostHog runs in the browser with its own anonymous ID.
+- Copying a prompt adds a per-copy `sid`, which isn't linked to that ID, and a "Sistema context" line.
+- `/raw` pages are static, so agent fetches aren't recorded.
+- The tool APIs record nothing.
+
+Write `docs/v2/analytics.md` for owner review. It covers:
+
+- **The funnel and the events.** For example: landing, pages viewed, workflow or play or route chosen in the prompt box, prompt copied, first agent fetch with that ID (activation), each play fetched (progress), approvals recorded, workflow finished, a return session through `continue`, tool calls (tool, batch size, error or success), and later, MCP connect and tool use. List each event's name and properties.
+- **How the ID travels.**
+  1. The browser's PostHog ID becomes the person's ID.
+  2. Copied prompts carry it in the starter URL.
+  3. The starter and every `/raw` page fetched with it emit Sistema URLs that carry it.
+  4. `project.assess` records it in `sistema.json` (a new optional field), so resumed sessions and later workflows keep it.
+  5. Tool calls pass it as `c`.
+
+  Compare the ways to make static `/raw` output carry the ID: render on request with caching, rewrite at the edge, or ask the agent to append it. Recommend one.
+- **Server-side capture** for `/raw`, `/api`, and later the MCP route, probably in Next.js middleware with a non-blocking send to PostHog. Record the agent family from the user agent, never the IP address.
+- **Privacy and opt-out:** anonymous IDs only, no personal data, IP addresses not kept, and a plain-language note on the site. Projects opt out with a `sistema.json` setting, and the browser honors Global Privacy Control.
+  ⚑ The owner decides on consent: a consent banner, cookieless tracking until consent, or anonymous tracking without a banner. Note the trade-off for following a person across sessions.
+- **Removing what's there:** the per-copy `sid`, the "Sistema context" line, and `/api/context`, which the new design replaces.
+- **Excluding test traffic** from the owner, slice runs, and the V5 harness (an internal flag or ID list).
+- **Dashboards:** the funnel and retention views to set up in PostHog.
+
+- [ ] Owner approves the analytics outline and the consent approach
+
+## Task V2.8: Usage analytics build (site, prompts, tools)
+
+**Status:** not started
+
+Build to the V2.7 outline: one ID across browser and server, the ID carried by copied prompts, `/raw` output, and `sistema.json`, server-side events for `/raw` and `/api`, the opt-out, the privacy note, and test-traffic exclusion. Tests: the ID survives from a copied prompt through a `/raw` fetch to a tool call, opted-out requests send nothing, and no event contains an IP address or personal data. Check events arriving in PostHog from a real run against the preview.
+
+- [ ] A single anonymous ID links a site visit, a copied prompt, agent fetches, and tool calls in PostHog; opt-out works; tests pass
+
+## Task V2.9: Housekeeping and gate check
 
 **Status:** not started
 
 Retro (`docs/v2/retro-phase-2.md`), AGENTS.md updates, `tasks/v2/phase-3.md` (which starts with `tokens.add-mode`), and archive the session log to `logs/v2-phase-2.md`.
 
-- [ ] Gate (plan 15, Phase 2): all tool tests pass; all tool defaults pass the registry; every play contract's required tools appear in its text; every tool works through GET. Owner approves.
+- [ ] Gate (plan 15, Phase 2): all tool tests pass; all tool defaults pass the registry; every play contract's required tools appear in its text; every tool works through GET. Usage analytics links one anonymous ID from site to agent to tools, with opt-out. Owner approves.

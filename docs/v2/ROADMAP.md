@@ -133,25 +133,25 @@ The order is: decisions, then a thin vertical slice, then a fit review, then ful
 
 ### V2: Tools and paste-in improvements
 
-Expected tasks: contrast batch mode and `oklch()` and `rgb()` input; GET support for every tool API; palette input documentation; type scale API and fixed page defaults that read from the registry; a plain machine-readable index (`/api` or `/index.txt`); shorter prompts that point to guide sections; tool tests and consistency tests (plan 13, layers 2 and 3); every play names its required tools.
+Expected tasks: contrast batch mode and `oklch()` and `rgb()` input; GET support for every tool API; palette input documentation; type scale API and fixed page defaults that read from the registry; a plain machine-readable index (`/api` or `/index.txt`); shorter prompts that point to guide sections; tool tests and consistency tests (plan 13, layers 2 and 3); every play names its required tools. **Usage analytics** (decision D13, added 2026-11-17): one anonymous ID per person, followed from the site through copied prompts, agent fetches, and tool calls, with server-side events, opt-out, and test traffic excluded.
 
 **Gate:** plan 15, Phase 2 gate.
 
 ### V3: Reference project, guides, and site
 
-First task: **`tokens.add-mode`** (owner decision, 2026-11-16). `color.add-theme` generalizes into a step that adds a mode to the token system: color themes, density (compact and comfortable spacing and type), and reduced motion. The reference project then exercises it, and the home page can claim it. Then, expected order: the reference project is built by running `workflow.start` and then `workflow.patterns`, which makes it the main end-to-end test of the method. The four guide rewrites (color, tokens, typography, quality signals) follow the reference project, because the guides' worked examples come from it. Guides are outlined first, then drafted. The site restructure into three modes comes next. The site's own design system (DESIGN.md, DECISIONS.md, sistema.json) goes through the method last. That last task also resolves the root `DESIGN.md` and `LIVING_BRIEF.md` that exist today.
+First task: **`tokens.add-mode`** (owner decision, 2026-11-16). `color.add-theme` generalizes into a step that adds a mode to the token system: color themes, density (compact and comfortable spacing and type), and reduced motion. The reference project then exercises it, and the home page can claim it. Then, expected order: the reference project is built by running `workflow.start` and then `workflow.patterns`, which makes it the main end-to-end test of the method. The four guide rewrites (color, tokens, typography, quality signals) follow the reference project, because the guides' worked examples come from it. Guides are outlined first, then drafted. The site restructure into three modes comes next. The site restructure also instruments the new pages (prompt box choices, entry pages) with the V2 analytics events and adds the privacy note to the site. The site's own design system (DESIGN.md, DECISIONS.md, sistema.json) goes through the method last. That last task also resolves the root `DESIGN.md` and `LIVING_BRIEF.md` that exist today.
 
 **Gate:** plan 15, Phase 3 gate.
 
 ### V4: MCP server
 
-Expected first task: verify the current versions and APIs of `mcp-handler`, the MCP TypeScript SDK, and Zod before writing code. The plan names versions that may have changed. Then build the route with the fixed tool surface in capability-model Section 6 (`search`, `read`, `next_step`, `palette`, `contrast`, `type_scale`), plus one MCP prompt per workflow. Then build the connect page and the copy-or-run option, and test in each client. Generating Agent Skills from the same files is a small follow-on here, since the content model already supports it.
+Expected first task: verify the current versions and APIs of `mcp-handler`, the MCP TypeScript SDK, and Zod before writing code. The plan names versions that may have changed. Then build the route with the fixed tool surface in capability-model Section 6 (`search`, `read`, `next_step`, `palette`, `contrast`, `type_scale`), plus one MCP prompt per workflow. Then build the connect page and the copy-or-run option, and test in each client. The MCP route records the same analytics events as `/raw` and `/api`, attributed through the anonymous ID that the connect page puts in the server URL (decision D13). Generating Agent Skills from the same files is a small follow-on here, since the content model already supports it.
 
 **Gate:** plan 15, Phase 4 gate.
 
 ### V5: Test harness and evaluations
 
-Expected tasks: build the harness with a spending cap; write behavior tests centered on running `workflow.start` from beginning to end (new project and Adopt path), with per-step tests second; run the three-way comparison (setup A runs from the `v1-baseline` tag); evaluate tool candidates with thresholds set **before** the runs; update site claims to match the results.
+Expected tasks: build the harness with a spending cap, and mark its traffic as internal so it stays out of usage analytics; write behavior tests centered on running `workflow.start` from beginning to end (new project and Adopt path), with per-step tests second; run the three-way comparison (setup A runs from the `v1-baseline` tag); evaluate tool candidates with thresholds set **before** the runs; update site claims to match the results.
 
 **Gate:** plan 15, Phase 5 gate.
 
@@ -185,6 +185,7 @@ Open decisions are set to the latest point where they can be settled without blo
 | Narrative, opinions, IA approvals | V1 gate | V2 start |
 | Reference project product and location | V3 start | Guide worked examples |
 | Token validator and dark mode mapping as tools | V5 evaluation results | V5 gate |
+| Analytics consent approach (banner, cookieless until consent, or no banner) | V2.7 | Analytics build (V2.8) |
 
 V0.7 prepares a decision brief for the "V1 start" items. Each one gets options, a recommendation, and what changes downstream. That way V1 opens with a single decision session instead of stalling on each item in turn.
 

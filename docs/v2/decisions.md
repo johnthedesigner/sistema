@@ -35,3 +35,18 @@ Also accepted, as listed under "Assumed unless you object":
 - **Guide IDs** are `guide.<topic>.<name>#<anchor>`, because several topics have more than one guide (color has three). D4's `content/guides/<topic>.md` becomes `content/guides/<topic>/<name>.md`. Anchors are GitHub-style heading slugs.
 - **Optional items:** a `?` suffix marks an optional output (in `produces`) or an optional play (in a workflow sequence). An optional play's outputs cannot satisfy a required play's `requires`.
 - **Shared outputs:** a `change` play may write a file that a `create` play also produces (for example `color.map-existing` and `color.scheme`). Two `create` plays may not.
+
+## 2026-11-17 — V2.0 tool API outline (`tool-apis.md`)
+
+Approved by the owner, with:
+
+| # | Decision | Detail |
+|---|---|---|
+| D11 | Contrast default | With no standard given, contrast checks against WCAG 2.2 AA and says so in the response (`"defaulted": true`). Plays always pass the project's standard. |
+| D12 | Small type sizes | The type scale defaults to a major third ratio with two steps down (10px and 13px under a 16px base). Sizes under 12px get an advisory note. There is no minimum-size rule. |
+
+## 2026-11-17 — Usage analytics (owner request)
+
+| # | Decision | Detail |
+|---|---|---|
+| D13 | Usage analytics | Capture detailed usage that can be attributed to one person through an anonymous ID (a UUID, no personal data). Follow that person across the acquisition funnel on the site and into later use: copied prompts, agent fetches of plays and workflows, tool calls, and the MCP server. Built in V2 (site, prompts, tools), extended in V4 (MCP), with test traffic excluded in V5. The outline (`docs/v2/analytics.md`, task V2.7) settles the event list, how the ID travels, privacy, and opt-out. |
