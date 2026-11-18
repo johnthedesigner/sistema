@@ -175,3 +175,4 @@
   - In PostHog, set IP data capture to discard (Settings > Project > General), and keep location lookup on.
   - Confirm events from the preview run arrive.
   - Build the dashboards in `docs/v2/analytics.md` section 8.
+- **Preview check found a bug:** `/raw/...?c=` returned "Not found" on Vercel, because the `/raw-with-id` function had no content files (it worked locally). Fixed with `outputFileTracingIncludes` `'/raw-with-id/**': ['./content/**/*']`. The key must be a glob: `[...path]` matched nothing. Noted in AGENTS.md.
