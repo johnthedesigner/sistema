@@ -1,6 +1,6 @@
 # AGENTS.md — Sistema
 
-> **v2 overhaul in progress (branch `v2`).** Start every session with `SESSION_LOG.md` "Current State", then `docs/v2/ROADMAP.md` and the current `tasks/v2/phase-N.md`. The plan is `docs/v2/SISTEMA_PLAN.md`, amended by `docs/v2/capability-model.md` and `docs/v2/PLAN_CORRECTIONS.md`. This file is updated at the end of each v2 phase (last: V1.18).
+> **v2 overhaul in progress (branch `v2`).** Start every session with `SESSION_LOG.md` "Current State", then `docs/v2/ROADMAP.md` and the current `tasks/v2/phase-N.md`. The plan is `docs/v2/SISTEMA_PLAN.md`, amended by `docs/v2/capability-model.md` and `docs/v2/PLAN_CORRECTIONS.md`. This file is updated at the end of each v2 phase (last: V2.9).
 
 ## What this repository is
 
@@ -100,6 +100,20 @@ If the status can't be determined and the source doesn't fit tier 2, stop and re
 
 ### Content checker and tests
 `tools/validate/content/` holds pure rules over a corpus: `rules.ts` covers source and output rules, `model-rules.ts` covers contract rules. Levels: `code` and `content` block the build (prebuild runs `--strict-all`); `review` reports only (for example `review.last-reviewed`, 180 days). Add a rule as a pure function with a passing and a failing test. `npm run check:content -- --output` after a build shows everything. `npm test` runs Vitest; route handlers can be tested by calling the exported `GET` (see `src/app/raw/raw.test.ts`). `npm run lint` is the ESLint CLI.
+
+### Tool APIs
+Shapes are in `docs/v2/tool-apis.md`. Every tool:
+- answers GET and POST with the same response, and is listed in `GET /api` (`src/app/api/route.ts`);
+- accepts colors through `parseColor` (`src/lib/color.ts`);
+- returns errors through `badRequest`, with a working example URL, and records calls with `trackToolCall` (both in `src/lib/tools/http.ts`).
+
+Limits live in `src/lib/tools/limits.ts` and the type scale's `LIMITS`.
+
+Required values come from the rules registry, never from code. Server code reads them with `rulesFrom` and `ruleValue` (`src/lib/tools/standards.ts`). Pages get them as props built on the server, for example `contrastTable`, and use the browser-safe `valueAtLevel` (`src/lib/tools/levels.ts`).
+
+A tool's calculation lives in one module that the API, the page, and the tests share (`src/lib/palette.ts`, `src/lib/type-scale.ts`, `src/lib/tools/contrast.ts`). `src/lib/tools/consistency.test.ts` checks tool output against WCAG and the registry.
+
+A rule whose `checked_by` names a tool in a play's contract renders in that play without its values by standard.
 
 ### Usage analytics
 Design: `docs/v2/analytics.md` (decision D13). Nothing is stored on the visitor's device and visits are never linked. One visit ID lives in memory (`src/lib/analytics/browser.ts`), PostHog is started with it (`persistence: 'memory'`, `person_profiles: 'never'`), and copied prompts carry it as `c`. `src/middleware.ts` sends `agent_fetch` for `/raw` and `/llms.txt`, and rewrites `/raw/...?c=` to `/raw-with-id`, which adds `c` to every Sistema URL. Tool routes send `tool_call` through `trackToolCall` (`src/lib/tools/http.ts`), after the response. Server events (`src/lib/analytics/server.ts`) carry no IP; location comes from Vercel headers with `$geoip_disable`. Local builds send nothing unless `ANALYTICS_SEND_IN_DEV=1` (server) or `NEXT_PUBLIC_ANALYTICS_SEND_IN_DEV=1` (browser, at build time). `NEXT_PUBLIC_ANALYTICS_DEBUG=1` turns on PostHog's console logging. PostHog drops browser events from automated browsers (`navigator.webdriver`, or HeadlessChrome in `userAgentData`), so a Playwright check must hide both. Any new agent-facing URL is covered by `withVisitId` only if it starts with the site origin and `/raw` or `/api`. Routes that read files at request time (`/raw-with-id`, the tool APIs) list them in `outputFileTracingIncludes` in `next.config.ts`, with glob keys (`/raw-with-id/**`, not `[...path]`). Without it they work locally and fail on Vercel. Check `.next/server/app/<route>/route.js.nft.json` after a build.

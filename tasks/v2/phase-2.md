@@ -125,7 +125,7 @@ Build to the V2.7 outline (`docs/v2/analytics.md`): one ID across browser and se
 
 ## Task V2.9: Housekeeping and gate check
 
-**Status:** not started
+**Status:** done, waiting for the owner's gate approval (2026-11-18)
 
 Retro (`docs/v2/retro-phase-2.md`), AGENTS.md updates, `tasks/v2/phase-3.md` (which starts with `tokens.add-mode`), and archive the session log to `logs/v2-phase-2.md`.
 
