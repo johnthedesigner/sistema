@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 2 (Tools and paste-in improvements). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-2.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V2.0 — Tool API outline (approved; D11, D12)
-**Next task:** V2.1 — Shared color parsing
+**Last completed task:** V2.1 — Shared color parsing
+**Next task:** V2.2 — GET on every tool API (with the outline's response shapes)
 **Blockers:** none
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -46,3 +46,17 @@
   - Every tool accepts an optional anonymous ID `c`.
   - ROADMAP: V3 instruments the new pages and adds a privacy note, V4's MCP route records the same events, and V5's harness traffic is marked internal. The consent decision is in the schedule.
 - The V2.7 outline doesn't depend on V2.1 to V2.6. It can be brought forward if the owner wants to settle consent sooner.
+- Owner, 2026-11-18: no tracking across visits. Nothing is stored on the visitor's device, so no consent banner is planned (added to D13, V2.7, V2.8, and the ROADMAP decision schedule).
+
+### 2026-11-18 — Task V2.1: Shared color parsing
+
+**What was done:**
+- `src/lib/color.ts` `parseColor` accepts:
+  - hex (3 or 6 digits, with or without `#`)
+  - `rgb()` in modern, legacy, and percentage syntax (`rgba` only when fully opaque)
+  - `oklch()`
+
+  It returns uppercase hex, `oklch(L C H)`, and a `mapped` flag when out-of-gamut OKLCH was mapped into sRGB. It rejects named colors, `hsl()`, transparency, and malformed input with a message that names the accepted formats.
+- Contrast and palette use it. The palette now has route tests: hex, `rgb()`, and bare hex give identical stops; OKLCH seeds work, including out of gamut; and invalid seeds get a message naming the formats. Tool docs in plays mention the new formats.
+- The response reshaping in the outline (registry-based checks, OKLCH echo, `results` for single pairs) is left for V2.2, so the APIs are rebuilt once alongside GET.
+- 118 tests pass. Build passes, 0 violations.

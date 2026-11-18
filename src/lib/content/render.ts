@@ -47,7 +47,7 @@ export const TOOL_DOCS: Record<ToolName, ToolDoc> = {
     usage: base =>
       [
         `POST ${base}/api/palette`,
-        'Body: {"colors": {"<name>": "#rrggbb", ...}}  (6-digit hex; send every seed in one request)',
+        'Body: {"colors": {"<name>": "<color>", ...}}  (each color as hex, rgb(), or oklch(); send every seed in one request)',
         'Returns: {"palettes": {"<name>": {"seed": "#...", "stops": {"50": {"hex", "contrast_white", "contrast_black"}, ... "950": {...}}}}}',
       ].join('\n'),
   },
@@ -56,7 +56,7 @@ export const TOOL_DOCS: Record<ToolName, ToolDoc> = {
     usage: base =>
       [
         `POST ${base}/api/contrast`,
-        'Body: {"pairs": [{"foreground": "#hex", "background": "#hex", "label": "on-primary on primary"}, ...]}  (send every pair in one request, up to 200)',
+        'Body: {"pairs": [{"foreground": "<color>", "background": "<color>", "label": "on-primary on primary"}, ...]}  (colors as hex, rgb(), or oklch(); send every pair in one request, up to 200)',
         'Returns: {"results": [{"label", "ratio": 4.83, "passes": {"aa_text", "aa_large_text", "aa_ui", "aaa_text", "aaa_large_text"}}, ...]}  (same order; an invalid pair gets {"error"})',
       ].join('\n'),
   },

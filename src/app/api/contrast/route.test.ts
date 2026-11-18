@@ -14,6 +14,16 @@ describe('/api/contrast', () => {
     expect(body.passes.aa_text).toBe(true)
   })
 
+  it('accepts rgb() and oklch() colors', async () => {
+    const res = await post({ pairs: [
+      { foreground: 'rgb(255 255 255)', background: 'oklch(0.52 0.19 261)' },
+      { foreground: '#FFF', background: 'rgb(31, 95, 209)' },
+    ] })
+    const { results } = await res.json()
+    expect(results[0].ratio).toBeGreaterThan(5)
+    expect(results[1].ratio).toBeCloseTo(5.81, 2)
+  })
+
   it('rejects an invalid single pair', async () => {
     const res = await post({ foreground: 'red', background: '#fff' })
     expect(res.status).toBe(400)

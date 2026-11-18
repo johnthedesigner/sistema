@@ -1,14 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { wcagContrast } from 'culori'
-
-const HEX_RE = /^#?([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/
-
-function normalizeHex(raw: string): string | null {
-  const m = raw.trim().match(HEX_RE)
-  if (!m) return null
-  const h = m[1]
-  return '#' + (h.length === 3 ? h.split('').map(c => c + c).join('') : h)
-}
+import { ACCEPTED_FORMATS, parseColor } from '@/lib/color'
 
 const MAX_PAIRS = 200
 
@@ -17,12 +9,14 @@ type Checked = { foreground: string; background: string; ratio: number; passes: 
 /** Contrast for one pair. Returns an error object instead of throwing, so a batch reports each pair. */
 function checkPair(foreground: unknown, background: unknown): Checked {
   if (typeof foreground !== 'string' || typeof background !== 'string') {
-    return { error: '"foreground" and "background" must be hex color strings' }
+    return { error: `"foreground" and "background" must be color strings: ${ACCEPTED_FORMATS}` }
   }
-  const fg = normalizeHex(foreground)
-  const bg = normalizeHex(background)
-  if (!fg) return { error: `Invalid foreground color: "${foreground}"` }
-  if (!bg) return { error: `Invalid background color: "${background}"` }
+  const pf = parseColor(foreground)
+  const pb = parseColor(background)
+  if (!pf.ok) return { error: `Invalid foreground color. ${pf.error}` }
+  if (!pb.ok) return { error: `Invalid background color. ${pb.error}` }
+  const fg = pf.color.hex
+  const bg = pb.color.hex
 
   const ratio = Math.round(wcagContrast(fg, bg) * 100) / 100
   return {
@@ -54,7 +48,7 @@ export async function POST(request: NextRequest) {
 
   if (typeof body !== 'object' || body === null) {
     return NextResponse.json(
-      { error: 'Request body must be { foreground: "#hex", background: "#hex" } or { pairs: [...] }' },
+      { error: 'Request body must be { foreground, background } or { pairs: [{ foreground, background }, ...] }, with colors as ' + ACCEPTED_FORMATS },
       { status: 400 },
     )
   }

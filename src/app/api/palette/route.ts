@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { generatePalettes } from '@/lib/palette'
+import { ACCEPTED_FORMATS, parseColor } from '@/lib/color'
 
 export async function POST(request: NextRequest) {
   let body: unknown
@@ -17,24 +18,20 @@ export async function POST(request: NextRequest) {
     (body as Record<string, unknown>).colors === null
   ) {
     return NextResponse.json(
-      { error: 'Request body must be { colors: { [name]: "#hex" } }' },
+      { error: `Request body must be { colors: { [name]: color } }, with colors as ${ACCEPTED_FORMATS}` },
       { status: 400 }
     )
   }
 
   const colors = (body as { colors: Record<string, unknown> }).colors
 
-  // Validate all values are hex strings
+  // Parse every seed; the palette is built from its sRGB hex.
   const invalid: string[] = []
+  const seeds: Record<string, string> = {}
   for (const [name, value] of Object.entries(colors)) {
-    if (typeof value !== 'string') {
-      invalid.push(`${name}: must be a string`)
-    } else {
-      const normalized = value.startsWith('#') ? value : '#' + value
-      if (!/^#[0-9a-fA-F]{6}$/.test(normalized)) {
-        invalid.push(`${name}: "${value}" is not a valid 6-digit hex color`)
-      }
-    }
+    const parsed = parseColor(value)
+    if (parsed.ok) seeds[name] = parsed.color.hex
+    else invalid.push(`${name}: ${parsed.error}`)
   }
 
   if (invalid.length > 0) {
@@ -45,7 +42,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const palettes = generatePalettes(colors as Record<string, string>)
+    const palettes = generatePalettes(seeds)
     return NextResponse.json({ palettes })
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error'

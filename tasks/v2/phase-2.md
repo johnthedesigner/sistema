@@ -35,11 +35,11 @@ For the type scale, propose how naming conventions are handled (roles, steps, or
 
 ## Task V2.1: Shared color parsing
 
-**Status:** not started
+**Status:** done (2026-11-18)
 
 One parser used by every tool. It accepts hex, `rgb()`, and `oklch()`, and returns a clear error naming the accepted formats. Use culori, which the palette code already uses. Contrast and palette both switch to it. Tests cover each format, edge cases (3-digit hex, percentages, out-of-gamut OKLCH mapped to sRGB), and invalid input.
 
-- [ ] Contrast and palette accept hex, `rgb()`, and `oklch()`; tests pass
+- [x] Contrast and palette accept hex, `rgb()`, and `oklch()`; tests pass
 
 ## Task V2.2: GET on every tool API
 
