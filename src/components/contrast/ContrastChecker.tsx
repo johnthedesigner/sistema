@@ -235,13 +235,13 @@ export function ContrastChecker() {
         <div className="flex-1 min-w-0">
           <p className="text-[12.5px] font-semibold text-on-surface mb-0.5">Use this in your AI prompts</p>
           <p className="text-[12px] text-on-surface-muted m-0 leading-[1.45] font-mono break-all">
-            POST {SITE_URL}/api/contrast {'{ "foreground": "#hex", "background": "#hex" }'}
+            GET {SITE_URL}/api/contrast?fg=…&amp;bg=…
           </p>
         </div>
         <button
           onClick={() => {
             if (!bothValid) return
-            const cmd = `POST ${SITE_URL}/api/contrast\n{ "foreground": "${fg}", "background": "${bg}" }`
+            const cmd = `${SITE_URL}/api/contrast?fg=${encodeURIComponent(fg)}&bg=${encodeURIComponent(bg)}`
             navigator.clipboard.writeText(cmd)
           }}
           disabled={!bothValid}

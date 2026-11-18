@@ -43,11 +43,11 @@ One parser used by every tool. It accepts hex, `rgb()`, and `oklch()`, and retur
 
 ## Task V2.2: GET on every tool API
 
-**Status:** not started
+**Status:** done (2026-11-18)
 
 Add GET with query parameters to contrast and palette, as approved in V2.0 (for example `/api/contrast?fg=...&bg=...`). Keep POST for batches. Route tests call each GET the way an agent with a GET-only fetch tool would. Update the tool documentation renderer (`renderTools`), `/reference/tools`, and `/raw/agents`.
 
-- [ ] Every tool answers a GET; documentation shows the GET form first
+- [x] Every tool answers a GET; documentation shows the GET form first (type scale gets its API in V2.4)
 
 ## Task V2.3: Palette documentation and tests
 

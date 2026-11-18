@@ -66,7 +66,7 @@ export default function PalettePage() {
         <Link href="/guides/color/palette-generation" className="underline hover:text-on-surface">
           Palette generation guide
         </Link>
-        . Custom seeds: <code className="font-mono">POST {SITE_URL}/api/palette</code>.
+        . Custom seeds: <code className="font-mono">GET {SITE_URL}/api/palette?name=color</code>.
         Regenerate: <code className="font-mono">npm run palettes</code>.
       </p>
       </div>

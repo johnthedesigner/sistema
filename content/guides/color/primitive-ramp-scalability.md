@@ -71,7 +71,7 @@ The heuristic: if you can describe a clear future scenario where you'd need a co
 
 ## The Sistema palette API
 
-The palette API at `POST {{sistema_url}}/api/palette` implements the full contrast-targeting algorithm from the Palette generation guide.
+The palette API at `{{sistema_url}}/api/palette` implements the full contrast-targeting algorithm from the Palette generation guide.
 
 **Request:** `{ "colors": { "[name]": "#hex", ... } }` — one or more seed hex colors, keyed by name.
 

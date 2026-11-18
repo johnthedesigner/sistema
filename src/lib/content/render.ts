@@ -46,18 +46,22 @@ export const TOOL_DOCS: Record<ToolName, ToolDoc> = {
     title: 'Palette',
     usage: base =>
       [
-        `POST ${base}/api/palette`,
-        'Body: {"colors": {"<name>": "<color>", ...}}  (each color as hex, rgb(), or oklch(); send every seed in one request)',
-        'Returns: {"palettes": {"<name>": {"seed": "#...", "stops": {"50": {"hex", "contrast_white", "contrast_black"}, ... "950": {...}}}}}',
+        `GET ${base}/api/palette?<name>=<color>&<name>=<color>`,
+        `  Example: ${base}/api/palette?primary=%231F5FD1&neutral=oklch(0.55%200.01%20260)`,
+        '  One query parameter per named seed, up to 12. Colors as hex, rgb(), or oklch(), URL-encoded (# is %23). Send every seed in one request.',
+        `POST ${base}/api/palette  {"colors": {"<name>": "<color>", ...}}`,
+        'Returns: {"palettes": {"<name>": {"seed": "#...", "stops": {"50": {"hex", "oklch", "contrast_white", "contrast_black"}, ... "950": {...}}}}}',
       ].join('\n'),
   },
   contrast: {
     title: 'Contrast',
     usage: base =>
       [
-        `POST ${base}/api/contrast`,
-        'Body: {"pairs": [{"foreground": "<color>", "background": "<color>", "label": "on-primary on primary"}, ...]}  (colors as hex, rgb(), or oklch(); send every pair in one request, up to 200)',
-        'Returns: {"results": [{"label", "ratio": 4.83, "passes": {"aa_text", "aa_large_text", "aa_ui", "aaa_text", "aaa_large_text"}}, ...]}  (same order; an invalid pair gets {"error"})',
+        `GET ${base}/api/contrast?fg=<color>&bg=<color>&label=<name>&standard=<standard>`,
+        `  Example: ${base}/api/contrast?fg=%23FFFFFF&bg=%231F5FD1&label=on-primary&standard=wcag-2.2%20AA`,
+        '  Repeat fg, bg, and label for more pairs (up to 50); they pair by position. Pass the project\'s standard exactly as sistema.json project.a11y_standard has it. Without one, checks use WCAG 2.2 AA.',
+        `POST ${base}/api/contrast  {"standard": "wcag-2.2 AA", "pairs": [{"foreground", "background", "label"}, ...]}  (up to 200 pairs)`,
+        'Returns: {"standard", "level", "results": [{"label", "ratio": 5.81, "checks": {"text": {"rule", "required", "pass"}, "large_text": {...}, "ui": {...}}}, ...]}  (same order; an invalid pair gets {"error"}; a check the standard does not set is left out)',
       ].join('\n'),
   },
   type_scale: {

@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 2 (Tools and paste-in improvements). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-2.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V2.1 — Shared color parsing
-**Next task:** V2.2 — GET on every tool API (with the outline's response shapes)
+**Last completed task:** V2.2 — GET on every tool API
+**Next task:** V2.3 — Palette documentation and tests
 **Blockers:** none
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -60,3 +60,19 @@
 - Contrast and palette use it. The palette now has route tests: hex, `rgb()`, and bare hex give identical stops; OKLCH seeds work, including out of gamut; and invalid seeds get a message naming the formats. Tool docs in plays mention the new formats.
 - The response reshaping in the outline (registry-based checks, OKLCH echo, `results` for single pairs) is left for V2.2, so the APIs are rebuilt once alongside GET.
 - 118 tests pass. Build passes, 0 violations.
+
+### 2026-11-18 — Task V2.2: GET on every tool API
+
+**What was done:**
+- **Contrast:**
+  - GET with repeated `fg`, `bg`, and `label`, paired by position (up to 50). POST takes `pairs` (up to 200) or a single pair.
+  - The response is always `{standard, level, defaulted?, results}`. Each result has the colors as hex and OKLCH, the ratio, and `checks` for text, large text, and UI, each naming its rule and required value.
+  - Required values come from the rules registry (`src/lib/tools/contrast.ts`, reading `content/rules/color.yaml`, which `next.config.ts` bundles with the route). The standard can be given separately or combined, as `sistema.json` stores it (`wcag-2.2 AA`). Without one, it defaults to WCAG 2.2 AA and says so (D11).
+  - A level the standard doesn't define falls back to the nearest lower level. A check the standard doesn't set (UI contrast under Section 508) is left out.
+  - **Bug fixed:** passing is now judged on the unrounded ratio. Before, 4.495 would have rounded to 4.5 and passed.
+- **Palette:** GET treats each query parameter as a named seed (up to 12). Names may use letters, digits, `-`, and `_`. `c`, `standard`, `level`, and `format` are reserved. Each stop gains `oklch`, and `seed_mapped` flags an out-of-gamut seed.
+- **Every tool:** CORS open, a working example URL in every error, and the optional `c` ID accepted and ignored. Shared handling is in `src/lib/tools/http.ts`.
+- Tool docs (plays, `/raw/agents`, `/reference/tools`) show the GET form first and tell agents to pass the project's standard. The contrast and palette pages and one guide line now show GET.
+- Removed the `/systems` to `/kb` redirect from `next.config.ts` (`/kb` was removed in V1.16).
+- 126 tests. Build passes, 0 violations. Checked on `next start` with real GET, error, and OPTIONS requests.
+- Not yet changed: the contrast page still computes in the browser with fixed WCAG values. V2.5 brings tool page defaults in line with the registry.

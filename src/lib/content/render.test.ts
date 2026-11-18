@@ -120,8 +120,8 @@ describe('renderPlay', () => {
     expect(out).toContain('(from `project.assess`)')
   })
   it('documents tools with absolute URLs and request shapes', () => {
-    expect(out).toContain(`POST ${BASE}/api/palette`)
-    expect(out).toContain(`POST ${BASE}/api/contrast`)
+    expect(out).toContain(`GET ${BASE}/api/palette?`)
+    expect(out).toContain(`GET ${BASE}/api/contrast?fg=`)
     expect(out).toMatch(/Never compute or estimate/)
   })
   it('inlines rules with standard parameters', () => {
@@ -166,7 +166,7 @@ describe('workflow rendering', () => {
     expect(out).toContain('"in-progress"')
     expect(out).toContain(`${BASE}/raw/schema/sistema.json`)
     // Tools, end of workflow, full version.
-    expect(out).toContain(`POST ${BASE}/api/palette`)
+    expect(out).toContain(`GET ${BASE}/api/palette?`)
     expect(out).toContain('"pairs"')
     expect(out).toContain(`continue with Build patterns: ${BASE}/raw/workflows/patterns`)
     expect(out).toContain(`${BASE}/raw/workflows/start/full`)

@@ -73,7 +73,7 @@ This sets the public shape of every tool API before V2 builds them. In V4, the M
 } } } }
 ```
 
-Stops stay 50 to 950 (19 stops), placed by contrast against white, as now. Seed names may be any lowercase name. A seed called `standard`, `level`, or `format` is rejected with a message, so those names stay free for future options.
+Stops stay 50 to 950 (19 stops), placed by contrast against white, as now. Seed names use letters, digits, hyphens, and underscores, up to 40 characters. A seed called `standard`, `level`, or `format` is rejected with a message, so those names stay free for future options. (`c`, the anonymous ID, is reserved too.)
 
 ## 4. Type scale (new)
 
