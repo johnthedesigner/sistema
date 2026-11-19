@@ -26,7 +26,7 @@ The JSON files in `tokens/src/` are the only place token values are written. Eve
 2. **Pick the output path** from the stack and folder layout. For Next.js with a `src/` folder, use `src/styles/tokens/`. Without one, use `styles/tokens/`. For other stacks, follow the project's layout. Ask one question only if it is unclear.
 
 3. **Write `style-dictionary.config.mjs`** for Style Dictionary v5:
-   - Source: every JSON file in `tokens/src/`. Files named `<category>.<mode>.json` are modes, not defaults.
+   - Source: every JSON file in `tokens/src/`. Files named `<category>.<mode>.json` are modes, not defaults. `palette.json` is the primitive tier: role tokens refer to it, but it isn't output as custom properties or Tailwind utilities, so code can only use roles.
    - Output: CSS custom properties named `--<category>-<name>`, for example `--color-primary`, `--radius-md`, `--space-4`.
    - Modes: output each mode file's values under its selector.
      - `color.dark.json` goes under `[data-theme="dark"]`, with a `@media (prefers-color-scheme: dark)` fallback.
@@ -63,7 +63,7 @@ The JSON files in `tokens/src/` are the only place token values are written. Eve
 
 8. **Build `sistema-review/token-check.html`.** It loads the compiled CSS by a relative path and shows:
    - the workflow outline strip at the top;
-   - every color role as a labeled swatch with its value, and each primitive ramp as a continuous strip;
+   - every color role as a labeled swatch with its value and the primitive it refers to, and each ramp in `palette.json` as a continuous strip;
    - every type role as a live specimen, every radius as a box at that radius, and every spacing step as a bar of that width;
    - next to each color role, whether it matches the value shown in the approved style preview, and for each one that differs, why;
    - a section "Approved but not yet tokenized" listing direction values (from the DESIGN.md Overview) whose category has no tokens yet because its play was skipped;

@@ -16,7 +16,7 @@ knowledge:
   - guide.visual-language.style-tile-format#2-required-sections
   - guide.quality.visual-quality-signals#2-the-ai-slop-test
   - guide.quality.visual-quality-signals#4-oklch-color-commitment-levels
-rules: [visual-language.style-tile.sections, visual-language.style-tile.self-contained, color.ramps.from-tool, color.preview.ramp-strips, quality.review.outline, quality.color.first-order-reflex, quality.color.bans, color.contrast.text]
+rules: [visual-language.style-tile.sections, visual-language.style-tile.self-contained, color.ramps.from-tool, color.preview.ramp-strips, quality.review.outline, quality.color.first-order-reflex, quality.color.bans, color.contrast.text, shape.radius.hierarchy]
 evidence: sistema-review/style-preview.html with all seven sections and every color taken from a palette tool ramp, the DESIGN.md Overview section, and the person's explicit approval.
 overrides: []
 last_reviewed: 2026-11-15
@@ -38,7 +38,8 @@ The output is a direction and a page that shows it, for a person to approve. No 
 
 5. **Build `sistema-review/style-preview.html`**, with the seven sections the style tile format requires:
    - Start the page with the workflow outline strip, and end it with the line naming the `continue` URL from `sistema.json`.
-   - Show each ramp as a continuous strip, with every color as hex and OKLCH.
+   - Show each ramp as a continuous strip, with every color as hex and OKLCH. Build every swatch on the page from the tool's response, not by typing values, so each swatch is exactly the stop its label names.
+   - Shape samples follow `shape.radius.hierarchy` now, so the values approved here don't have to change when the shape play applies it.
    - Load the chosen typefaces from Google Fonts or a font CDN if they are available there. Otherwise, say on the page which font is shown instead.
    - Check every text pairing you show with the contrast tool, batched (one POST takes up to 200 pairs), and label the ratio. Flag any pairing that does not meet the standard in `sistema.json`.
 

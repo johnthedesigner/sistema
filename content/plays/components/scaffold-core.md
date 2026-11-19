@@ -30,6 +30,22 @@ The tokens are compiled and wired into the app (`tokens.pipeline`). This play bu
 
    Record the choice as `project.component_library` in `sistema.json`.
 
+   **If the foundation is shadcn/ui,** point its theme variables at the role tokens instead of keeping its default values, in one file (for example `src/styles/shadcn-theme.css`) imported after the compiled tokens. Don't edit the components' classes.
+
+   | shadcn variable | Role token |
+   |---|---|
+   | `--background`, `--foreground` | `surface`, `on-surface` |
+   | `--card`, `--card-foreground` | `surface-raised`, `on-surface` |
+   | `--popover`, `--popover-foreground` | `surface-overlay`, `on-surface` |
+   | `--primary`, `--primary-foreground` | `primary`, `on-primary` |
+   | `--secondary`, `--secondary-foreground` | `secondary`, `on-secondary` |
+   | `--muted`, `--muted-foreground` | a subdued surface (such as `surface-hover`), `on-surface-muted` |
+   | `--accent`, `--accent-foreground` | the hover or selected surface, `on-surface` |
+   | `--destructive` | `error` |
+   | `--border`, `--input`, `--ring` | `border`, the input border (`border` or `border-strong`), `border-focus` |
+
+   shadcn derives `--radius-sm` to `--radius-4xl` from one `--radius`. Set each level the components use to the system's radius tokens directly, so the hierarchy holds. Add shadcn's variables to the token check page, record the mapping in DECISIONS.md, and if a role has no match, say so rather than inventing a value.
+
 3. **Choose the core set.** Propose the components the product's first screens need, usually 8 to 12. A typical set is button, text field, select, checkbox, switch, tag or badge, inline message, panel or card, menu, dialog, tooltip, and a table for data-heavy products. Agree on the list with the person.
 
 4. **Set up the structure:** one folder (for example `src/components/ui/`) with one file per component or per small family, and an `index.ts` that exports every public component. Put the shared focus ring style in one place, so every component uses the same one.

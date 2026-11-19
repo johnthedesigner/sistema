@@ -7,7 +7,7 @@ kind: create
 milestone: foundations
 entry: true
 requires: ["design-md#overview", "gate:direction-approved", "project:a11y-standard", "project:theme"]
-produces: [tokens/src/color.json, "tokens/src/color.dark.json?"]
+produces: [tokens/src/palette.json, tokens/src/color.json, "tokens/src/color.dark.json?"]
 tools: [palette, contrast]
 knowledge:
   - guide.color.architecture#the-decision-framework
@@ -24,13 +24,13 @@ last_reviewed: 2026-11-15
 
 2. **Choose the color model** that fits the product, using the decision framework in the color guide. Record the choice and the reason.
 
-3. **Generate ramps with the palette tool.** Send every seed (primary, neutral, and any secondary) in one request. Do not compute or adjust ramps yourself. For error, success, and warning, use the pre-built ramps in `{{sistema_url}}/palettes/library.json` (red, amber, and green, or the closest fit) unless DESIGN.md names custom ones.
+3. **Generate ramps with the palette tool.** Send every seed (primary, neutral, and any secondary) in one request. Do not compute or adjust ramps yourself. For error, success, and warning, use the pre-built ramps in `{{sistema_url}}/palettes/library.json` (red, amber, and green, or the closest fit) unless DESIGN.md names custom ones. Write every ramp you use to `tokens/src/palette.json` as the primitive tier, exactly as the tool or library gave it: `{"palette": {"<ramp>": {"<stop>": {"$type": "color", "$value": "#..."}}}}`.
 
-4. **Assign the roles** in `color.roles.required` from the returned stops. Where the approved preview used a stop for a role, use the same stop. If a role must change, for example to pass contrast, list it in the evidence as a change from the approved preview. Write `tokens/src/color.json` as DTCG JSON, with the structure `{"color": {"<role>": {"$type": "color", "$value": "#...", "$description": "..."}}}`. In each `$description`, note the ramp and stop you used.
+4. **Assign the roles** in `color.roles.required` from the returned stops. Where the approved preview used a stop for a role, use the same stop. If a role must change, for example to pass contrast, list it in the evidence as a change from the approved preview. Write `tokens/src/color.json` as DTCG JSON, with each role referring to its primitive: `{"color": {"<role>": {"$type": "color", "$value": "{palette.primary.600}", "$description": "..."}}}`. Say what the role is for in each `$description`.
 
 5. **Dark theme.** If the theme is `light-dark` or `dark`, assign dark values by tonal shift from the same ramps. Write `tokens/src/color.dark.json` with only the roles that change.
 
-6. **Verify with the contrast tool.** Send all pairs together; one POST takes up to 200. Check every on-* role against the surface or container it sits on, and `border-focus` against `surface`, in every theme. Find the required values in the rules below, for the standard in `sistema.json`. When a pairing fails, move to a different stop and check again. Do not write a failing pair, and do not estimate a ratio.
+6. **Verify with the contrast tool.** Send all pairs together; one POST takes up to 200. Check every color used as text, as an icon, or as an essential indicator against the surface it sits on, in every theme: every `on-*` role, feedback colors used as text (such as error text on a surface), links, and `border-focus`. Find the required values in the rules below, for the standard in `sistema.json`. When a pairing fails, move to a different stop and check again. Do not write a failing pair, and do not estimate a ratio.
 
 7. **Check quality.** Compare the result against the first-order reflex, the color bans, and the commitment level. Fix what you can. Explain anything you keep on purpose.
 

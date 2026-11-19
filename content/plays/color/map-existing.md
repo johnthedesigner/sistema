@@ -7,7 +7,7 @@ kind: change
 milestone: foundations
 entry: true
 requires: ["design-md#overview", "gate:direction-approved", "project:a11y-standard", "project:theme"]
-produces: [tokens/src/color.json, "tokens/src/color.dark.json?", sistema-review/color.map-existing.html]
+produces: [tokens/src/palette.json, tokens/src/color.json, "tokens/src/color.dark.json?", sistema-review/color.map-existing.html]
 tools: [palette, contrast]
 knowledge:
   - guide.color.architecture#the-decision-framework
@@ -46,7 +46,7 @@ Use this play when the project already has colors in another format, for example
 
 7. **Verify with the contrast tool.** Send every on-* pairing and `border-focus`, in every theme, batched (one POST takes up to 200 pairs), against the standard in `sistema.json`. When a pairing fails, propose the nearest passing stop from the same ramp, and ask before changing any existing value.
 
-8. **Write `tokens/src/color.json`**, and `tokens/src/color.dark.json` if the theme includes dark, as DTCG JSON. Each `$description` notes where the value came from: an existing location, or a palette ramp and stop.
+8. **Write the primitive tier to `tokens/src/palette.json`:** every ramp in use, and any existing value kept exactly, as `{"palette": {"<ramp>": {"<stop>": {"$type": "color", "$value": "#..."}}}}`. Then write `tokens/src/color.json`, and `tokens/src/color.dark.json` if the theme includes dark, as DTCG JSON with each role referring to its primitive (`"{palette.primary.600}"`). Each `$description` notes where the value came from: an existing location, or a ramp and stop.
 
 9. **Leave the old sources alone.** Do not edit the Tailwind config, existing CSS, or components in this play. The token pipeline play replaces them with compiled output. In DECISIONS.md, list the old sources the pipeline should replace, and any old names that now map to a different stop.
 
