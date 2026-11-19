@@ -39,6 +39,8 @@ The token pipeline play writes the front matter from `tokens/src/` on every comp
 | `spacing` | Spacing levels, each a dimension or a number |
 | `components` | Optional. Per-component values, which may reference other tokens |
 
+**Themes and modes:** the front matter holds the default theme's values only; the format has no place for dark or other modes. The Colors section says how the dark theme differs, by role, and the token files hold every mode's values.
+
 **Value types:** colors are sRGB hex. Dimensions are a number with `px`, `em`, or `rem`. Line height may be unitless, which is preferred. A reference to another token is its path in curly braces, for example `"{colors.primary}"`. Outside `components`, a reference must point at a single value, not a group.
 
 A short example:

@@ -1,0 +1,79 @@
+{
+  "sistema": "2",
+  "workflow": "start",
+  "continue": "https://sistema-git-v2-jtd-604ef502.vercel.app/raw/workflows/session?c=internal-1882ecfe-477f-46e6-92ce-5f1c6ec43eab",
+  "milestone": "maintain",
+  "project": {
+    "name": "Relay",
+    "a11y_standard": "wcag-2.2 AA",
+    "theme": "light-dark",
+    "theme_primary": "light",
+    "density": "dense",
+    "platform": "web",
+    "stack": "react-tailwind",
+    "component_library": "shadcn/ui"
+  },
+  "steps": {
+    "project.assess": {
+      "status": "complete",
+      "date": "2026-11-18",
+      "evidence": "Fresh create-next-app (Next 15.5, Tailwind v4); all Start outputs missing; positioning in DECISIONS.md; AGENTS.md Sistema section added"
+    },
+    "visual-language.direction": {
+      "status": "complete",
+      "date": "2026-11-18",
+      "evidence": "sistema-review/style-preview.html (7 sections, palette-tool ramps, contrast-tool checked) and DESIGN.md Overview; approved with no changes"
+    },
+    "visual-language.design-md": {
+      "status": "complete",
+      "date": "2026-11-18",
+      "evidence": "DESIGN.md has all eight sections in spec order, naming roles not values; 9 provisional items each assigned to a play"
+    },
+    "content.voice-and-tone": {
+      "status": "complete",
+      "date": "2026-11-18",
+      "evidence": "VOICE_AND_TONE.md (6 sections; energetic, positive, plainspoken; never childish or patronizing) with 5 annotated sample strings; DESIGN.md points to it"
+    },
+    "color.scheme": {
+      "status": "complete",
+      "date": "2026-11-18",
+      "evidence": "tokens/src/color.json (35 roles) + color.dark.json; 86 pairings (43 per theme) pass wcag-2.2 AA via contrast tool; 2 dark stops changed from preview"
+    },
+    "typography.scale": {
+      "status": "complete",
+      "date": "2026-11-18",
+      "evidence": "tokens/src/typography.json: 8 roles on a 14px major-second scale (type scale tool, checks pass), data roles hand-tuned to 13px; Atkinson Hyperlegible Next + Mono via next/font/google; next build passes"
+    },
+    "shape.tokens": {
+      "status": "complete",
+      "date": "2026-11-18",
+      "evidence": "tokens/src/shape.json + shape.dark.json: 7 radius levels mapped to families (floating layers largest), 2 shadow levels + scrim per theme; DESIGN.md Shapes and Elevation updated"
+    },
+    "spacing.tokens": {
+      "status": "complete",
+      "date": "2026-11-18",
+      "evidence": "tokens/src/spacing.json: 4px base, dense steps 2-48px named by multiple, 9 layout aliases referencing steps; DESIGN.md Layout updated"
+    },
+    "tokens.pipeline": {
+      "status": "complete",
+      "date": "2026-11-18",
+      "evidence": "npm run tokens compiles 112 tokens + 38 dark overrides to src/styles/tokens/; Tailwind 4 theme wired into globals.css; DESIGN.md front matter generated; next build passes; token-check.html approved"
+    }
+  },
+  "gates": {
+    "direction-approved": {
+      "date": "2026-11-18",
+      "by": "owner",
+      "note": "Approved with no changes"
+    },
+    "foundations-approved": {
+      "date": "2026-11-18",
+      "by": "owner",
+      "note": "Approved with no changes"
+    }
+  },
+  "routing": {},
+  "telemetry": {
+    "id": "internal-1882ecfe-477f-46e6-92ce-5f1c6ec43eab"
+  }
+}

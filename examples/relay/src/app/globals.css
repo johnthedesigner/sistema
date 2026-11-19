@@ -1,0 +1,12 @@
+@import "tailwindcss";
+/* Design tokens, compiled from tokens/src/ by `npm run tokens`. */
+@import "../styles/tokens/tokens.css";
+@import "../styles/tokens/tailwind-theme.css";
+
+body {
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+  font-family: var(--font-sans);
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-line-height);
+}

@@ -1,0 +1,235 @@
+{
+  "font": {
+    "sans": {
+      "$type": "fontFamily",
+      "$value": [
+        "Atkinson Hyperlegible Next",
+        "system-ui",
+        "sans-serif"
+      ],
+      "$description": "All interface text. Loaded with next/font/google (weights 400, 600, 700)."
+    },
+    "mono": {
+      "$type": "fontFamily",
+      "$value": [
+        "Atkinson Hyperlegible Mono",
+        "ui-monospace",
+        "monospace"
+      ],
+      "$description": "IDs, times, phone numbers, numeric columns. Loaded with next/font/google (weight 400)."
+    }
+  },
+  "size": {
+    "$description": "Magnitude scale (Tailwind-style names) from the type scale tool: base 14px, major-second (1.125), rounded by the tool. For one-off use; components use the type roles.",
+    "xs": {
+      "$type": "dimension",
+      "$value": "11px"
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "12px"
+    },
+    "base": {
+      "$type": "dimension",
+      "$value": "14px"
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "16px"
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "18px"
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": "20px"
+    }
+  },
+  "type": {
+    "title": {
+      "$description": "Page title, one per screen (e.g. Today's board). Hierarchy by weight and slight negative tracking.",
+      "family": {
+        "$type": "fontFamily",
+        "$value": "{font.sans}"
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "{size.2xl}"
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 700
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.3
+      },
+      "letter-spacing": {
+        "$type": "dimension",
+        "$value": "-0.01em"
+      }
+    },
+    "heading": {
+      "$description": "Panel and section headings, dialog titles.",
+      "family": {
+        "$type": "fontFamily",
+        "$value": "{font.sans}"
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "{size.lg}"
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 700
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.375
+      },
+      "letter-spacing": {
+        "$type": "dimension",
+        "$value": "0em"
+      }
+    },
+    "body": {
+      "$description": "Default reading text: notes, descriptions, form values.",
+      "family": {
+        "$type": "fontFamily",
+        "$value": "{font.sans}"
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "{size.base}"
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.43
+      },
+      "letter-spacing": {
+        "$type": "dimension",
+        "$value": "0em"
+      }
+    },
+    "body-strong": {
+      "$description": "Emphasis in body text and key values in detail views (assigned tech, arrival time).",
+      "family": {
+        "$type": "fontFamily",
+        "$value": "{font.sans}"
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "{size.base}"
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 600
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.43
+      },
+      "letter-spacing": {
+        "$type": "dimension",
+        "$value": "0em"
+      }
+    },
+    "data": {
+      "$description": "Table cells and dense list rows. Hand-tuned 13px, between scale steps sm and base.",
+      "family": {
+        "$type": "fontFamily",
+        "$value": "{font.sans}"
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "13px"
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.385
+      },
+      "letter-spacing": {
+        "$type": "dimension",
+        "$value": "0em"
+      }
+    },
+    "data-mono": {
+      "$description": "Job IDs, times, phone numbers, numeric columns: fixed-width so columns align.",
+      "family": {
+        "$type": "fontFamily",
+        "$value": "{font.mono}"
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "13px"
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 400
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.385
+      },
+      "letter-spacing": {
+        "$type": "dimension",
+        "$value": "0em"
+      }
+    },
+    "label": {
+      "$description": "Form labels, column headers, chip and button text.",
+      "family": {
+        "$type": "fontFamily",
+        "$value": "{font.sans}"
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "{size.sm}"
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 600
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.333
+      },
+      "letter-spacing": {
+        "$type": "dimension",
+        "$value": "0.01em"
+      }
+    },
+    "overline": {
+      "$description": "Small group labels above fields or sections. Written in sentence case, set uppercase by style (text-transform).",
+      "family": {
+        "$type": "fontFamily",
+        "$value": "{font.sans}"
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "{size.xs}"
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 600
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.3
+      },
+      "letter-spacing": {
+        "$type": "dimension",
+        "$value": "0.06em"
+      }
+    }
+  }
+}

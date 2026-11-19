@@ -41,6 +41,7 @@ The JSON files in `tokens/src/` are the only place token values are written. Eve
 5. **Wire the CSS in.** Import the compiled CSS from the global stylesheet, and check the import path against the real folder layout.
    - **Tailwind 4:** generate a second file with an `@theme inline reference { ... }` block that maps each role token to its custom property, for example `--color-primary: var(--color-primary);`. Expose role tokens only, not primitive ramps. Map the other categories to Tailwind's namespaces: type roles to `--text-<role>` (with `--text-<role>--line-height`, `--text-<role>--font-weight`, and `--text-<role>--letter-spacing`), font families to `--font-<name>`, radii to `--radius-<level>`, spacing steps to `--spacing-<step>`, and shadows to `--shadow-<level>`. `reference` stops Tailwind from re-declaring the variables, which would make each one refer to itself. Also add `--color-*: initial;` in an `@theme` block, so Tailwind's default palette is removed and only the system's colors exist, unless the person wants to keep it.
    - **Tailwind 3:** extend `theme.colors` (and the other categories) in the Tailwind config with `var(--color-primary)` and so on. Role tokens only.
+   - A type role that also needs a font family or a text transform (a mono data style, an uppercase overline) can't be expressed by a `--text-<role>` variable alone. Generate a utility for it with `@utility` (for example `text-overline`) that sets every property the role needs.
    - After building, search the compiled CSS for any custom property that refers to itself (`--x: var(--x)`) and fix the cause.
 
 6. **Replace old sources.** If DECISIONS.md lists old sources to replace (for example, a Tailwind theme block or hard-coded values in components), point them at the role tokens now, so nothing still uses the old values. If the person chose to keep old names (for example, existing Tailwind utilities like `bg-brand-500`), define those names as aliases of the new tokens instead of rewriting their uses. Change only what that list names. Keep a list of every file outside `tokens/` you change. Then run the app's build. It must pass.
@@ -61,7 +62,7 @@ The JSON files in `tokens/src/` are the only place token values are written. Eve
 
    Generate it from the same script, so it can't drift. Add a comment saying it is generated and must not be edited. Do not change the body sections.
 
-8. **Build `sistema-review/token-check.html`.** It loads the compiled CSS by a relative path and shows:
+8. **Build `sistema-review/token-check.html`** from the same compile script, so `npm run tokens` regenerates it whenever tokens change. It loads the compiled CSS by a relative path and shows:
    - the workflow outline strip at the top;
    - every color role as a labeled swatch with its value and the primitive it refers to, and each ramp in `palette.json` as a continuous strip;
    - every type role as a live specimen, every radius as a box at that radius, and every spacing step as a bar of that width;

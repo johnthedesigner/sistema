@@ -50,11 +50,11 @@ Generalize `color.add-theme` into a play that adds a mode to an existing token s
 
 ## Task V3.2: Reference project, Direction and Foundations
 
-**Status:** not started
+**Status:** done (2026-11-18). Both approvals given with no changes. 35 findings in `docs/v2/reference-run.md`, all fixed or logged.
 
 Run `workflow.start` on Relay (D14) from the paste-in starter, against the Vercel preview. The run uses a Claude subagent (D17): it starts with only the paste-in prompt, works in a directory outside this repo, and is told not to read the Sistema source. Its visit ID starts with `internal-`. At each gate, the review page goes to the owner, who approves or asks for changes. First set up `examples/` so it's excluded from the site's tsconfig, ESLint, Vitest, file tracing, and content checker (D15). Record every place a play was unclear, wrong, or skipped in `docs/v2/reference-run.md`, and fix the plays. Both approval gates use the owner's approval. Commit the project's `sistema.json`, DESIGN.md, DECISIONS.md, tokens, and review pages.
 
-- [ ] The project reaches Foundations approved, every check passes, and the run findings are fixed or logged
+- [x] The project reaches Foundations approved, every check passes, and the run findings are fixed or logged
 
 ## Task V3.3: Reference project, Patterns
 

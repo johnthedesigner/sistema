@@ -195,7 +195,9 @@ describe('workflow rendering', () => {
   it('points continue at the session workflow when there is one, and lists its routes as later options', () => {
     const session = { ...start, id: 'workflow.session', title: 'Work on the system', sequence: undefined, routes: { 'add-mode': { title: 'Add a mode', plays: ['color.scheme'] } } } as unknown as typeof start
     const out = renderWorkflowStarter(start, ctx, new Map([...workflows, ['workflow.session', session]]))
-    expect(out).toContain(`Set \`continue\` in \`sistema.json\` to ${BASE}/raw/workflows/session`)
+    expect(out).toContain(`set \`continue\` to ${BASE}/raw/workflows/session`)
+    expect(out).toContain('`workflow` to `session`, and `milestone` to `maintain`')
+    expect(out).toContain('This project follows Sistema. "Start a design system" is finished.')
     expect(out).toContain(`whenever it's needed: add a mode (${BASE}/raw/workflows/session).`)
   })
 

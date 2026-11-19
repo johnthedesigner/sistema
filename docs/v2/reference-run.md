@@ -71,3 +71,27 @@ The run stopped inside `content.voice-and-tone` to ask the missing half of its q
 | 27 | Guide conflicts: Do's and Don'ts limited to 6 to 10, but the voice play adds an 11th; all-caps banned by the writing guide but an approved overline is uppercase; "7 am" times by the writing guide while the preview used 24-hour; the typography guide's base spacing of 50 to 75% of line height against the spacing guide's 4px base; the shape guide names radii by role while the play's example names them by size. | **Open**, for the guide rewrites (V3.4) and the content guides' review. |
 | 28 | `color.scheme` says to check every `on-*` role, which misses feedback colors used as text, where both dark failures were. | **Fixed.** `color.scheme` checks every color used as text, as an icon, or as an essential indicator: `on-*` roles, feedback colors used as text, links, and `border-focus`. |
 
+## Stage 5: the end of Start (2026-11-18)
+
+The owner approved the token check with no changes. The run recorded the approval and closed the workflow as instructed:
+- It landed the finish first: what Relay now has, where to see it, and the full outline marked done.
+- It offered the Patterns workflow and the session routes as options for any time.
+- It asked for feedback and didn't start anything.
+
+`continue` moved to the session workflow, keeping `c`. All nine steps are complete, both approvals are recorded, and the app builds. The result is copied into `examples/relay/` (without `node_modules`, `.next`, or git history).
+
+| # | Finding | Done |
+|---|---|---|
+| 29 | The type scale example URL was still wrong in the run's copy. | Already fixed (#22). The run had fetched the play before the deploy, and the preview now serves the right URL. |
+| 30 | After the last play, `milestone` had no defined value, and `workflow` was unclear. | **Fixed.** The end sets `workflow` to `session` and `milestone` to `maintain`. |
+| 31 | No exact wording was given for the "finished" pointer line, so agents would each write their own. | **Fixed.** The exact sentence is given. |
+| 32 | Nothing regenerates `token-check.html` when tokens change. | **Fixed.** The pipeline generates it from the compile script. |
+| 33 | Tailwind `--text-<role>` can't carry a font family or text transform (the mono data and uppercase overline roles). | **Fixed.** The pipeline generates an `@utility` for such roles. |
+| 34 | DESIGN.md front matter has no place for dark values. | **Documented.** The format page says front matter holds the default theme only, the Colors section says how dark differs by role, and the token files hold every mode. |
+| 35 | The workflow ends on a feedback question whose answer belongs in DECISIONS.md. | Working as designed. The owner can answer it. |
+
+**What the run shows overall:**
+- The method works end to end on the default stack: two approvals, nine plays, all tool-checked, and the closing landed as the owner asked.
+- 35 findings in all, most fixed between stages. The open ones are the guide conflicts (#11, #27), for V3.4.
+- The largest kind of problem was content that disagrees with itself (guides against plays, rules applied late). The fixes are rules applied earlier, data-driven previews, and the new `model.rules-mentioned` check.
+

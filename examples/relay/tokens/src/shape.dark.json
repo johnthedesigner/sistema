@@ -1,0 +1,51 @@
+{
+  "shadow": {
+    "1": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px",
+          "color": "#0F101166"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "12px",
+          "spread": "0px",
+          "color": "#0F101180"
+        }
+      ],
+      "$description": "Dark: same layers, neutral 950 at 40% and 50%, since shadows barely read on dark surfaces; surface-overlay (a lighter tone) carries most of the depth."
+    },
+    "2": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "2px",
+          "blur": "4px",
+          "spread": "0px",
+          "color": "#0F101180"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "12px",
+          "blur": "32px",
+          "spread": "0px",
+          "color": "#0F101199"
+        }
+      ],
+      "$description": "Dark: neutral 950 at 50% and 60%, on surface-overlay."
+    }
+  },
+  "color": {
+    "scrim": {
+      "$type": "color",
+      "$value": "#0F1011A6",
+      "$description": "Dark: neutral 950 at 65%, so dialogs stand out from an already dark page."
+    }
+  }
+}
