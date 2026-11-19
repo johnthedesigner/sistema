@@ -18,7 +18,7 @@ last_reviewed: 2026-05-15
 
 A positioning brief answers questions about product type, user context, density, and brand stance. This document provides the framework to translate those abstract answers into specific visual directions — preliminary decisions about color temperature, typographic character, radius personality, and surface treatment that then guide token generation.
 
-Read this document before running `establish-visual-language`. Reference it when generating `style-preview.html` to ensure the visual choices connect to the positioning brief. The output of this translation is not final token values — it is a specific, named direction that can be reviewed and adjusted before any tokens are committed.
+Read this document before running the `visual-language.direction` play. Reference it when generating `style-preview.html` to ensure the visual choices connect to the positioning brief. The output of this translation is not final token values — it is a specific, named direction that can be reviewed and adjusted before any tokens are committed.
 
 ---
 
@@ -156,10 +156,10 @@ This is a structured mapping from the answers in a positioning brief to specific
 
 | Positioning | OKLCH commitment level | Starting point |
 |---|---|---|
-| Utilitarian / functional tool | Level 1 — Restrained | C < 15 for all surfaces |
-| Professional B2B, moderate personality | Level 2 — Committed | C 8–20 for surfaces, hue-tinted neutrals |
-| Expressive consumer product | Level 3 — Full palette | C 15–30 for surfaces, multiple chromatic accents |
-| Bold brand statement | Level 4 — Drenched | C 25+ for surfaces, maximum chroma primaries |
+| Utilitarian / functional tool | Level 1 — Restrained | Surface chroma below about 0.015 |
+| Professional B2B, moderate personality | Level 2 — Committed | Surface chroma about 0.01 to 0.03, hue-tinted neutrals |
+| Expressive consumer product | Level 3 — Full palette | Surface chroma about 0.03 to 0.06, multiple chromatic accents |
+| Bold brand statement | Level 4 — Drenched | Surface chroma about 0.06 and up, maximum-chroma primaries |
 
 ### 3.2 — Density → typographic character
 

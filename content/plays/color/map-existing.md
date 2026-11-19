@@ -44,7 +44,7 @@ Use this play when the project already has colors in another format, for example
 
 6. **Map values to roles.** Assign values to the roles in `color.roles.required` where they fit the job, following the chosen option for each hue. A brand blue used on buttons becomes `primary`, for example. Keep chosen existing values exactly. Do not rename or move an existing value to a different stop unless the person chose an option that does.
 
-7. **Verify with the contrast tool.** Send every on-* pairing and `border-focus`, in every theme, in one batch request, against the standard in `sistema.json`. When a pairing fails, propose the nearest passing stop from the same ramp, and ask before changing any existing value.
+7. **Verify with the contrast tool.** Send every on-* pairing and `border-focus`, in every theme, batched (one POST takes up to 200 pairs), against the standard in `sistema.json`. When a pairing fails, propose the nearest passing stop from the same ramp, and ask before changing any existing value.
 
 8. **Write `tokens/src/color.json`**, and `tokens/src/color.dark.json` if the theme includes dark, as DTCG JSON. Each `$description` notes where the value came from: an existing location, or a palette ramp and stop.
 

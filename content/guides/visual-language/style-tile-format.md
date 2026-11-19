@@ -17,13 +17,13 @@ last_reviewed: 2026-05-15
 
 This document specifies exactly what `style-preview.html` must contain and how it is evaluated. It is a machine-executable spec: an agent given this document can generate a conforming artifact without additional research.
 
-`style-preview.html` is the visual direction artifact produced by the `establish-visual-language` play. It is a static HTML file that demonstrates the design system's visual language before any tokens are generated. Its purpose is human review and approval, not browser rendering of a UI.
+`style-preview.html` is the visual direction artifact produced by the `visual-language.direction` play. It is a static HTML file that demonstrates the design system's visual language before any tokens are generated. Its purpose is human review and approval, not browser rendering of a UI.
 
 ---
 
 ## 1 — What style-preview.html is
 
-A single self-contained HTML file that renders all visual language decisions — color, typography, shape, and surface treatment — in a reviewable form. It contains no JavaScript application logic. All CSS is inline or in a `<style>` block. No external dependencies.
+A single self-contained HTML file that renders all visual language decisions — color, typography, shape, and surface treatment — in a reviewable form. It contains no JavaScript application logic. All CSS is inline or in a `<style>` block. The only external file allowed is one font stylesheet for the chosen typefaces (for example from Google Fonts). Type sizes, radii, and elevation shown here are the direction's proposal: the later plays settle them, and the token check page lists any value that changed.
 
 **What it is not:**
 - A prototype of a specific screen
@@ -274,7 +274,7 @@ The file must contain all seven sections in this order. Each section has a requi
 
 ## 3 — Technical requirements
 
-- **Self-contained:** No external CSS or JavaScript. All styles inline or in a `<style>` block.
+- **Self-contained:** No external CSS or JavaScript apart from one font stylesheet. All styles inline or in a `<style>` block.
 - **File size:** Under 150KB. No base64-encoded images unless essential.
 - **Rendering:** Must be readable when opened directly in a browser from the filesystem (no server required).
 - **Color values:** All color values shown as both hex and OKLCH. OKLCH values allow easy evaluation against the commitment level framework.

@@ -22,7 +22,7 @@ last_reviewed: 2026-11-15
 2. **Check each area:**
    - **Tokens:** every value a token covers uses a role token. List each raw value with its file, line, and the token it should use.
    - **States:** hover, focus, active, and disabled, plus the states its pattern needs, each changing the right token.
-   - **Accessibility:** the rules below, for the standard in `sistema.json`. Check color pairings with the contrast tool, in one batch request. Don't estimate ratios. For a full accessibility pass across components, use `accessibility.audit`.
+   - **Accessibility:** the rules below, for the standard in `sistema.json`. Check color pairings with the contrast tool, batched (one POST takes up to 200 pairs). Don't estimate ratios. For a full accessibility pass across components, use `accessibility.audit`.
    - **API:** prop names and defaults consistent with similar components, and no props that only one caller uses.
 
 3. **Rate each issue:** blocking (breaks a blocking rule), recommended, or minor. Give the verdict, and the changes in the order to make them.

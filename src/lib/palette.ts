@@ -1,5 +1,6 @@
 import { oklch, formatHex, wcagContrast, toGamut } from 'culori'
 import type { Oklch } from 'culori'
+import { formatOklch } from './color'
 
 const mapToGamut = toGamut('rgb', 'oklch')
 
@@ -8,6 +9,8 @@ type StopValue = (typeof STOPS)[number]
 
 export interface PaletteStop {
   hex: string
+  /** oklch(L C H), on the scale CSS and the palette tool use. */
+  oklch: string
   contrast_white: number
   contrast_black: number
 }
@@ -130,6 +133,7 @@ export function generatePalette(seedHex: string): PaletteResult {
 
     stops[String(stop) as unknown as StopValue] = {
       hex: best.hex,
+      oklch: formatOklch(oklch(best.hex) as Oklch),
       contrast_white: round2(best.contrastWhite),
       contrast_black: round2(best.contrastBlack),
     }

@@ -39,7 +39,7 @@ The tokens are compiled and wired into the app (`tokens.pipeline`). This play bu
 6. **Build the showcase:** a route in the app (for example `/sistema-review/components`) that shows every component in each variant and state, with a theme switch. Put the workflow outline strip at the top.
 
 7. **Verify:**
-   - Check every new color pairing with the contrast tool, in one batch request.
+   - Check every new color pairing with the contrast tool, batched (one POST takes up to 200 pairs).
    - Run an automated accessibility scan (for example axe) on the showcase in every theme.
    - Check by keyboard that focus rings render, in a screenshot.
    - Run the build.

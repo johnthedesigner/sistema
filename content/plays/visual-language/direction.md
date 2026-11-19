@@ -40,7 +40,7 @@ The output is a direction and a page that shows it, for a person to approve. No 
    - Start the page with the workflow outline strip, and end it with the line naming the `continue` URL from `sistema.json`.
    - Show each ramp as a continuous strip, with every color as hex and OKLCH.
    - Load the chosen typefaces from Google Fonts or a font CDN if they are available there. Otherwise, say on the page which font is shown instead.
-   - Check every text pairing you show with the contrast tool, in one batch request, and label the ratio. Flag any pairing that does not meet the standard in `sistema.json`.
+   - Check every text pairing you show with the contrast tool, batched (one POST takes up to 200 pairs), and label the ratio. Flag any pairing that does not meet the standard in `sistema.json`.
 
 6. **Write the DESIGN.md Overview section.** Create DESIGN.md if it does not exist, starting with the comment `<!-- This project follows Sistema. To continue, fetch the URL in sistema.json "continue". -->`, then using the section headings in this order: Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts. Fill only Overview for now. It holds the brief, plus a short list headed "Direction values": commitment level, primary seed, neutral seed, any secondary seed, the ramp stops the preview used for each color role, typographic character, and radius personality. Later plays read these values, so state them exactly.
 

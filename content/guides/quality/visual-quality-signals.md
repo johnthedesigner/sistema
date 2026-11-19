@@ -99,45 +99,47 @@ This framework establishes how much chromatic presence a design system's color p
 
 Apply this framework when generating color tokens. The level must match the positioning brief.
 
+**About the numbers.** Chroma here is OKLCH chroma, on the same scale the palette tool reports (0 is gray; the most saturated sRGB colors reach about 0.37). The ranges are Sistema's starting guidance for each level, not values from a published standard: use them to place a palette, and record a reason when you go outside them.
+
 ### Level 1 — Restrained
 
-**Chroma budget:** 0–15 for all surface and neutral tokens; 30–50 for primary action colors only.
+**Chroma budget:** about 0 to 0.015 for surface and neutral tokens; about 0.08 to 0.16 for primary action colors.
 
-**Character:** Color is functional, not expressive. Surfaces read as neutral. The primary color appears only at interactive elements. No chromatic variation in the neutral ramp.
+**Character:** Color is functional, not expressive. Surfaces read as neutral. The primary color appears only at interactive elements. Neutrals may carry a faint temperature (warm or cool, at very low chroma) so they aren't a dead gray, but no hue you'd name at a glance.
 
 **Appropriate for:** Dense data tools, medical/financial applications, enterprise admin interfaces, developer tools where color carries semantic meaning (error/success/warning) and must not be decorative.
 
-**Token signal:** Surface backgrounds in OKLCH have C < 5. Border colors have C < 8. Only primary and semantic role colors exceed C 20.
+**Token signal:** surface backgrounds have chroma below about 0.01, and borders below about 0.02. Only primary and semantic role colors go above about 0.05.
 
 ### Level 2 — Committed
 
-**Chroma budget:** 8–20 for surfaces; 40–70 for primary; moderate hue presence in neutral ramp.
+**Chroma budget:** about 0.01 to 0.03 for surfaces; about 0.12 to 0.20 for primary; moderate hue presence in the neutral ramp.
 
 **Character:** Color is clearly intentional but not dominant. Surfaces have warmth or coolness. The neutral ramp has a consistent hue temperature that reinforces the primary. Hovering over the page, you can name a color temperature.
 
 **Appropriate for:** Most SaaS products, productivity tools with expressive branding, consumer-facing web applications with moderate personality.
 
-**Token signal:** Surface backgrounds in OKLCH have C 8–15. Neutral ramp has consistent hue affinity with primary. Secondary colors are meaningfully distinct from primary.
+**Token signal:** surface backgrounds have chroma of about 0.01 to 0.03. The neutral ramp has a consistent hue affinity with the primary. Secondary colors are meaningfully distinct from the primary.
 
 ### Level 3 — Full palette
 
-**Chroma budget:** 15–30 for surfaces; 60–90 for primary; expressive secondary and accent colors.
+**Chroma budget:** about 0.03 to 0.06 for surfaces; about 0.15 to 0.25 for primary; expressive secondary and accent colors.
 
 **Character:** Color is a primary design element. Multiple distinct hues are in simultaneous use. Surface colors have clear personality. The system has a chromatic signature that persists even in muted contexts.
 
 **Appropriate for:** Consumer apps with strong brand personality, marketing sites, creative tools, products where visual delight is a core value proposition.
 
-**Token signal:** Surface backgrounds in OKLCH have C 15–25. Multiple chromatic roles (primary, secondary, accent) use distinct hues with intentional harmonic relationships. Container and surface-raised colors carry visible hue.
+**Token signal:** surface backgrounds have chroma of about 0.03 to 0.06. Multiple chromatic roles (primary, secondary, accent) use distinct hues with intentional harmonic relationships. Container and surface-raised colors carry visible hue.
 
 ### Level 4 — Drenched
 
-**Chroma budget:** 25+ for surfaces; maximum chroma for primaries; high-saturation treatment across the system.
+**Chroma budget:** about 0.06 and up for surfaces; the highest in-gamut chroma for primaries; high saturation across the system.
 
 **Character:** Color is a dominant, assertive presence. Backgrounds are saturated. Contrasts are high-chroma. The product makes a strong color statement that cannot be missed.
 
 **Appropriate for:** Bold brand experiences, special-purpose marketing pages, products where visual intensity is part of the brand promise. Requires exceptional care with accessibility — WCAG must be verified for every surface pairing.
 
-**Token signal:** Surface backgrounds in OKLCH have C 25+. Must verify every text/background pairing manually. Dark mode at this level typically cannot use standard tonal shift logic — requires complete re-specification.
+**Token signal:** surface backgrounds have chroma of about 0.06 or more. Must verify every text/background pairing manually. Dark mode at this level typically cannot use standard tonal shift logic — requires complete re-specification.
 
 ---
 

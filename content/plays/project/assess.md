@@ -41,7 +41,7 @@ If the project has `LIVING_BRIEF.md` (an older Sistema state file) and no `siste
 
    - **Conforms:** it exists where Sistema expects it, in the expected format (DTCG JSON for tokens).
    - **Differs:** the values exist, but somewhere else or in another format. Examples: colors only in a Tailwind config, CSS custom properties with no JSON source, SCSS variables.
-   - **Missing:** nothing exists yet.
+   - **Missing:** nothing exists yet. Starter values from a framework template count as missing, for example the `--background` and `--foreground` colors create-next-app adds. Note them in DECISIONS.md so the token pipeline replaces them.
 
    Do not judge quality here. Each later play checks its own outputs before skipping.
 
@@ -51,7 +51,7 @@ If the project has `LIVING_BRIEF.md` (an older Sistema state file) and no `siste
    - Where does it sit between expressive (personality, distinctiveness) and utilitarian (clarity, efficiency)?
    - Is there an existing brand color or visual direction to honor? Any colors to avoid?
    - Light theme, dark theme, or both? If both, which is primary?
-   - Web, mobile, or both? One team or several? Roughly how many components: under 20, 20 to 60, or more?
+   - Web, mobile, or both? One team or several? Roughly how many components: under 20, 20 to 60, or more? (Platform goes in `sistema.json`; team size and component count go in the positioning statement.)
    - Which accessibility standard and level must it meet? Help the person choose for their use case. WCAG 2.2 AA fits most web products. Section 508 or EN 301 549 applies where the law requires it. Some audiences call for AAA criteria. Record the choice exactly, for example `wcag-2.2 AA`.
    - What stack is it built on? Sistema's default path is web with React and Tailwind. Other stacks are supported more loosely.
    - Is a component library planned or already in use, for example shadcn/ui, Radix Themes, Material UI, or Carbon? If so, record it as `project.component_library`. The type, spacing, and radius plays follow that library's naming so tokens map onto its components. "Not decided yet" is a fine answer; the component scaffold play decides it later.

@@ -27,7 +27,7 @@ last_reviewed: 2026-11-15
 2. **Run an automated scan** (for example axe) on the showcase or the pages that show these components, in every theme. Scans catch only part of the problems, so continue with the checks below.
 
 3. **Check each component:**
-   - **Contrast:** every text and UI pairing in every state and theme, in one batch request to the contrast tool. Report the exact ratios.
+   - **Contrast:** every text and UI pairing in every state and theme, batched (one POST takes up to 200 pairs) to the contrast tool. Report the exact ratios.
    - **Keyboard:** reachable, operable with the expected keys, no traps, focus returns after overlays close, and focus isn't dropped to the page body.
    - **Focus:** visible, actually rendered (take a screenshot), meets `color.contrast.ui` against its surroundings, and not hidden behind sticky content.
    - **Targets:** the clickable area meets the minimum for the standard.

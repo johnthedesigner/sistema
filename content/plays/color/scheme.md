@@ -30,7 +30,7 @@ last_reviewed: 2026-11-15
 
 5. **Dark theme.** If the theme is `light-dark` or `dark`, assign dark values by tonal shift from the same ramps. Write `tokens/src/color.dark.json` with only the roles that change.
 
-6. **Verify with the contrast tool.** Send all pairs in one batch request. Check every on-* role against the surface or container it sits on, and `border-focus` against `surface`, in every theme. Find the required values in the rules below, for the standard in `sistema.json`. When a pairing fails, move to a different stop and check again. Do not write a failing pair, and do not estimate a ratio.
+6. **Verify with the contrast tool.** Send all pairs together; one POST takes up to 200. Check every on-* role against the surface or container it sits on, and `border-focus` against `surface`, in every theme. Find the required values in the rules below, for the standard in `sistema.json`. When a pairing fails, move to a different stop and check again. Do not write a failing pair, and do not estimate a ratio.
 
 7. **Check quality.** Compare the result against the first-order reflex, the color bans, and the commitment level. Fix what you can. Explain anything you keep on purpose.
 

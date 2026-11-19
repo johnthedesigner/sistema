@@ -51,10 +51,7 @@ function respond(colors: Record<string, unknown>) {
   const out: Record<string, unknown> = {}
   for (const [name, p] of Object.entries(palettes)) {
     const stops = Object.fromEntries(
-      Object.entries(p.stops).map(([stop, s]) => {
-        const c = parseColor(s.hex)
-        return [stop, { hex: s.hex.toUpperCase(), oklch: c.ok ? c.color.oklch : null, contrast_white: s.contrast_white, contrast_black: s.contrast_black }]
-      }),
+      Object.entries(p.stops).map(([stop, s]) => [stop, { hex: s.hex.toUpperCase(), oklch: s.oklch, contrast_white: s.contrast_white, contrast_black: s.contrast_black }]),
     )
     out[name] = { seed: p.seed.toUpperCase(), ...(mapped.has(name) ? { seed_mapped: true } : {}), stops }
   }

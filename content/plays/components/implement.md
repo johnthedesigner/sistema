@@ -27,7 +27,7 @@ last_reviewed: 2026-11-15
 4. **Add it to the showcase** (the review route `components.scaffold-core` created), in every variant and state, in every theme.
 
 5. **Verify:**
-   - Check any color pairing the component introduces with the contrast tool, in one batch request.
+   - Check any color pairing the component introduces with the contrast tool, batched (one POST takes up to 200 pairs).
    - Run an automated accessibility scan (for example axe) on the showcase in every theme.
    - Walk through it with the keyboard: Tab in, operate it, dismiss it, Tab out. Confirm the focus ring actually renders in a screenshot.
    - Run the build.
