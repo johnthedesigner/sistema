@@ -125,8 +125,8 @@ Build to the V2.7 outline (`docs/v2/analytics.md`): one ID across browser and se
 
 ## Task V2.9: Housekeeping and gate check
 
-**Status:** done, waiting for the owner's gate approval (2026-11-18)
+**Status:** done; gate approved by the owner (2026-11-18), with PostHog delivery carried into Phase 3
 
 Retro (`docs/v2/retro-phase-2.md`), AGENTS.md updates, `tasks/v2/phase-3.md` (which starts with `tokens.add-mode`), and archive the session log to `logs/v2-phase-2.md`.
 
-- [ ] Gate (plan 15, Phase 2): all tool tests pass; all tool defaults pass the registry; every play contract's required tools appear in its text; every tool works through GET. Usage analytics links one anonymous ID from site to agent to tools, with nothing stored on the device. Owner approves.
+- [x] Gate (plan 15, Phase 2): all tool tests pass; all tool defaults pass the registry; every play contract's required tools appear in its text; every tool works through GET. Usage analytics links one anonymous ID from site to agent to tools, with nothing stored on the device. Owner approves.

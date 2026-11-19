@@ -168,4 +168,4 @@ Archived in V2.9, 2026-11-18. Retro: `docs/v2/retro-phase-2.md`. Entries are old
   - Every tool works through GET (contrast, palette, type scale, and `/api`, checked on the preview).
   - Analytics links one ID from site to agent to tools with nothing stored on the device (Playwright and local capture checks).
   - **Open:** delivery to PostHog is unconfirmed, because the Vercel Preview environment has no PostHog key. The owner will fix it later, and it's carried into V3.
-- Waiting for the owner's go on the Phase 2 gate.
+- **The owner approved the Phase 2 gate** (2026-11-18), with the PostHog delivery check carried into Phase 3.
