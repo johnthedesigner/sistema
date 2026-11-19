@@ -314,6 +314,21 @@ const rulesResolve: Rule = {
   },
 }
 
+const rulesMentioned: Rule = {
+  id: 'model.rules-mentioned',
+  level: 'code',
+  description: "Every rule a play's procedure mentions is in its contract, so the rule's text is rendered into the play.",
+  check(c) {
+    const m = loadModel(c)
+    const ids = m.rules.map(r => r.id)
+    return m.plays.flatMap(p =>
+      ids
+        .filter(id => !p.rules.includes(id) && new RegExp(`(?<![\\w.-])${id.replace(/\./g, '\\.')}(?![\\w-])`).test(p.body))
+        .map(id => ({ file: p.file, line: 1, message: `the procedure mentions rule ${id}, but the contract's rules don't include it` })),
+    )
+  },
+}
+
 const toolsNamed: Rule = {
   id: 'model.tools-named',
   level: 'code',
@@ -335,5 +350,6 @@ export const MODEL_RULES: Rule[] = [
   knowledgeResolves,
   creditsResolve,
   rulesResolve,
+  rulesMentioned,
   toolsNamed,
 ]

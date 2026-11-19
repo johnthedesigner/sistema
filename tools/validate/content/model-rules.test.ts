@@ -322,3 +322,12 @@ describe('model.sources (V1.16)', () => {
     expect(msgs.some(m => m.startsWith('sources'))).toBe(true)
   })
 })
+
+describe('model.rules-mentioned', () => {
+  it('flags a rule named in the procedure but missing from the contract', () => {
+    const p = play({ id: 'color.mentions', rules: [], body: 'Assign the roles in `color.contrast.text` and check them.' })
+    expect(violations(corpus([p, rulesFile]), 'model.rules-mentioned')).toHaveLength(1)
+    const ok = play({ id: 'color.mentions', rules: ['color.contrast.text'], body: 'Assign the roles in `color.contrast.text` and check them.' })
+    expect(violations(corpus([ok, rulesFile]), 'model.rules-mentioned')).toHaveLength(0)
+  })
+})

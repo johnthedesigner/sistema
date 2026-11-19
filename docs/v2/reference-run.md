@@ -32,3 +32,18 @@ Each finding is listed with what was done about it.
 - The `AGENTS.md` pointer was created.
 - The palette tool was used for ramps.
 - Contrast failures were found by the tool and fixed by moving stops, not by guessing.
+
+## Stage 2: DESIGN.md (2026-11-18)
+
+**Plays completed:** `visual-language.direction` (the gate is recorded), `visual-language.design-md`. The run stopped before the optional `content.voice-and-tone` to ask whether the person wants it. The owner said yes, with the voice "energetic, positive, and plainspoken".
+
+| # | Finding | Done |
+|---|---|---|
+| 12 | `visual-language.design-md` tells the agent to use rule `color.roles.required`, but the rule wasn't in its contract, so its text wasn't in the play. Guessing a per-rule URL returned 404. | **Fixed.** The rule is added to the contract. New check `model.rules-mentioned` fails the build when a procedure mentions a rule its contract doesn't include. |
+| 13 | `color.roles.required` didn't fit the direction's output: it requires secondary roles when there's no second hue, and has no info, link, strong border, hover, or feedback container roles. | **Fixed in the rule.** Secondary roles point to the neutral ramp when there's no second hue. Extra roles are allowed when DESIGN.md lists them. The core set is unchanged. |
+| 14 | The starter didn't say to ask before an optional play, only what to record when declined. | **Fixed.** Before an optional play, say what it gives in one sentence, ask, and mention it can be added later. |
+| 15 | Type role naming: `design-md` suggested `display`, `heading-lg`, and so on, while the preview used other names, and shadcn/ui has no type names. | **Fixed.** Use the preview's names. The type scale play may rename them to follow the project's naming convention. |
+| 16 | Nothing said what to put in a gate's `by`. | **Fixed:** the approver's name, or "owner". |
+| 17 | The pointer comment was "at the top" in the plays, but "right after the front matter" in the DESIGN.md format. | **Fixed:** right after the front matter. |
+| 18 | Layout can't name a base unit before the spacing play runs. | No change. It's correctly marked provisional, which is what provisional items are for. |
+
