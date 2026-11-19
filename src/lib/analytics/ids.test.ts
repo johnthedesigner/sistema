@@ -59,3 +59,16 @@ describe('ids and agents', () => {
     expect(rawKind('/raw/agents')).toEqual({ kind: 'agents' })
   })
 })
+
+describe('tool docs carry the visit ID', () => {
+  it('adds c to the end of every tool URL in the docs, after all placeholders', async () => {
+    const { TOOL_DOCS } = await import('../content/render')
+    for (const [name, doc] of Object.entries(TOOL_DOCS)) {
+      const out = withVisitId(doc.usage(B), ID, B)
+      for (const line of out.split('\n').filter(l => l.includes(`${B}/api/`))) {
+        const url = line.match(new RegExp(`${B.replace(/\./g, '\\.')}/api/\\S+`))![0].replace(/[.,;:)]+$/, '')
+        expect(url.endsWith(`c=${ID}`), `${name}: ${url}`).toBe(true)
+      }
+    }
+  })
+})

@@ -38,7 +38,7 @@ export function GET(request: Request) {
       {
         name: 'type_scale',
         does: 'Type sizes from a base and ratio, named in the convention you choose, with roles placed on steps, suggested line heights, and checks against your standard.',
-        get: u('/api/type-scale?base=<px>&ratio=<name or number>&down=<n>&up=<n>&names=<convention>&roles=<role>:<step>,...&standard=<standard>'),
+        get: u('/api/type-scale?base=<px>&ratio=<ratio>&down=<n>&up=<n>&names=<naming>&roles=<role>:<step>,<role>:<step>&standard=<standard>'),
         example: u('/api/type-scale?base=16&ratio=major-third&names=tailwind&roles=caption:-2,label:-1,body:0,heading-lg:4&standard=wcag-2.2%20AA'),
         post: { url: u('/api/type-scale'), body: '{"base": 16, "ratio": "major-third", "names": "tailwind", "roles": {"body": 0}, "standard": "wcag-2.2 AA"}' },
         limits: { base_px: TYPE_LIMITS.base, ratio: TYPE_LIMITS.ratio, down: TYPE_LIMITS.down, up: TYPE_LIMITS.up, names: NAMING, ratio_names: Object.keys(RATIOS) },

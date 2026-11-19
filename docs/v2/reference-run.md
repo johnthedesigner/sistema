@@ -57,3 +57,17 @@ The run stopped inside `content.voice-and-tone` to ask the missing half of its q
 | 20 | The voice play never checked the chosen voice against the positioning or the approved direction. | **Fixed.** If they pull against each other, say so, ask how the voice behaves in those moments, and record the answer as a limit. |
 | 21 | `in-progress` was only defined for a play waiting at an approval. | **Fixed.** It also covers a play waiting on an answer. |
 
+## Stage 4: Foundations, up to the approval (2026-11-18)
+
+**Plays completed:** `content.voice-and-tone`, `color.scheme`, `typography.scale`, `shape.tokens`, `spacing.tokens`, and `tokens.pipeline` (waiting at the Foundations approval). All 86 color pairings pass WCAG 2.2 AA; two dark feedback colors had to move a stop to pass. The compile rejects mode files that add or overlap tokens, which the run tested.
+
+| # | Finding | Done |
+|---|---|---|
+| 22 | The type scale tool's example URL had `c=` inside the `<name or number>` placeholder, because the spaces ended the URL. | **Fixed.** Placeholders no longer contain spaces, and a test checks that every tool doc URL ends with `c`. |
+| 23 | A required shape rule (floating layers get the largest radius) is checked only in `shape.tokens`, so the approved preview broke it, and an approved value changed afterwards. | **Open.** Direction should check the rules later plays will enforce on what it shows, or mark such values provisional. Fix before the next run. |
+| 24 | The token check asks for primitive ramps, but `color.scheme` stores only role tokens, so there are no compiled ramps to show. | **Open.** Decide whether ramps are stored as primitives (`tokens/src/palette.json`, not output), as the two-tier opinion implies, or shown from the palette tool data. |
+| 25 | The approved preview had a swatch that didn't match its labelled stop (dark primary-hover). The token check caught it. | **Open.** Direction should build swatches from the stop data, never type them by hand, and check them. |
+| 26 | shadcn/ui isn't connected: nothing maps its variables (`background`, `foreground`, `ring`, `destructive`, `--radius`) to the role tokens, and the pipeline removes Tailwind's default palette. | **Open, needed before V3.3.** `components.scaffold-core` (or the pipeline, when `component_library` is shadcn) should map shadcn's variables to role tokens. |
+| 27 | Guide conflicts: Do's and Don'ts limited to 6 to 10, but the voice play adds an 11th; all-caps banned by the writing guide but an approved overline is uppercase; "7 am" times by the writing guide while the preview used 24-hour; the typography guide's base spacing of 50 to 75% of line height against the spacing guide's 4px base; the shape guide names radii by role while the play's example names them by size. | **Open**, for the guide rewrites (V3.4) and the content guides' review. |
+| 28 | `color.scheme` says to check every `on-*` role, which misses feedback colors used as text, where both dark failures were. | **Open.** Say "every color used as text or as an essential indicator", not only `on-*` roles. |
+

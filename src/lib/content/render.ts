@@ -68,9 +68,9 @@ export const TOOL_DOCS: Record<ToolName, ToolDoc> = {
     title: 'Type scale',
     usage: base =>
       [
-        `GET ${base}/api/type-scale?base=<px>&ratio=<name or number>&down=<n>&up=<n>&names=<numeric|tailwind|steps>&roles=<role>:<step>,...&standard=<standard>`,
+        `GET ${base}/api/type-scale?base=<px>&ratio=<ratio>&down=<n>&up=<n>&names=<naming>&roles=<role>:<step>,<role>:<step>&standard=<standard>`,
         `  Example: ${base}/api/type-scale?base=16&ratio=major-third&down=2&up=6&names=tailwind&roles=caption:-2,label:-1,body:0,heading-sm:2,heading-lg:4,display:6&standard=wcag-2.2%20AA`,
-        '  Defaults: base 16, major-third (1.25), 2 steps down, 6 up, numbered names. Ratio names: minor-second, major-second, minor-third, major-third, perfect-fourth, augmented-fourth, perfect-fifth, golden-ratio. Use the naming convention chosen for the project, and place the project\'s roles on steps. Pass the project\'s standard exactly as sistema.json has it.',
+        '  <ratio> is a number or a name; <naming> is numeric, tailwind, or steps. Defaults: base 16, major-third (1.25), 2 steps down, 6 up, numbered names. Ratio names: minor-second, major-second, minor-third, major-third, perfect-fourth, augmented-fourth, perfect-fifth, golden-ratio. Use the naming convention chosen for the project, and place the project\'s roles on steps. Pass the project\'s standard exactly as sistema.json has it.',
         `POST ${base}/api/type-scale  {"base": 16, "ratio": "major-third", "names": "tailwind", "roles": {"body": 0, "caption": -2}, "standard": "wcag-2.2 AA"}`,
         'Returns: {"base", "ratio", "names", "steps": [{"step", "name", "roles"?, "px", "rem", "line_height", "notes"?}], "notes"?, "checks": [{"rule", "pass", ...}]}  (line heights are starting suggestions; notes are advice from the typography guide, not failures)',
       ].join('\n'),
