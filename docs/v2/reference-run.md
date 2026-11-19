@@ -95,3 +95,15 @@ The owner approved the token check with no changes. The run recorded the approva
 - 35 findings in all, most fixed between stages. The open ones are the guide conflicts (#11, #27), for V3.4.
 - The largest kind of problem was content that disagrees with itself (guides against plays, rules applied late). The fixes are rules applied earlier, data-driven previews, and the new `model.rules-mentioned` check.
 
+## Stage 6: Patterns, from a new session (2026-11-18)
+
+A fresh subagent started with "Let's build Relay's first components." It found its way in with no help: `AGENTS.md`, then `sistema.json` `continue` (the session workflow), then `project.orient`, whose step 5 routed it to the Patterns workflow, then `components.scaffold-core`. It set up shadcn/ui with the variable mapping, then stopped to agree on the core component set and the job statuses. The owner answered: the 12 proposed components, no changes; the statuses from the style preview (Unassigned, Assigned, En route, On site, Parts hold, Running late, Done).
+
+| # | Finding | Done |
+|---|---|---|
+| 36 | `shadcn init` changes more than the play said: it swaps the font (Geist), writes its own colors and `@theme` names that collide with role names, puts dark mode on a `.dark` class, and its `cn` helper drops custom `text-<role>` utilities. | **Fixed.** `components.scaffold-core` lists each one to check and undo after init, including registering type roles with tailwind-merge. |
+| 37 | The style's components disagree with DESIGN.md (button radius, opacity-derived colors), while the play said not to edit component classes. | **Fixed.** Components are copied to be edited: change the component, not the system, and record each change in DECISIONS.md. The one-file rule now applies only to the color mapping. |
+| 38 | The play didn't say who chooses the primitives library and style preset. | **Fixed.** Record them in DECISIONS.md. The CLI default is acceptable unless the person has a preference. |
+| 39 | Reaching Patterns takes two hops through the session workflow and `project.orient`. | **Kept**, per D22 (Start's follow-ups are options). Orient's routing worked in this run. |
+| 40 | Orient's "confirm the goal" didn't say whether to wait for a reply; Patterns treats its own first run as a resume; and the Patterns outline omits `project.orient`. | **Open**, small: clarify in `project.orient` and the starter during V3.3. |
+

@@ -30,7 +30,7 @@ The tokens are compiled and wired into the app (`tokens.pipeline`). This play bu
 
    Record the choice as `project.component_library` in `sistema.json`.
 
-   **If the foundation is shadcn/ui,** point its theme variables at the role tokens instead of keeping its default values, in one file (for example `src/styles/shadcn-theme.css`) imported after the compiled tokens. Don't edit the components' classes.
+   **If the foundation is shadcn/ui,** point its theme variables at the role tokens instead of keeping its default values, in one file (for example `src/styles/shadcn-theme.css`) imported after the compiled tokens, rather than changing colors in each component.
 
    | shadcn variable | Role token |
    |---|---|
@@ -45,6 +45,20 @@ The tokens are compiled and wired into the app (`tokens.pipeline`). This play bu
    | `--border`, `--input`, `--ring` | `border`, the input border (`border` or `border-strong`), `border-focus` |
 
    shadcn derives `--radius-sm` to `--radius-4xl` from one `--radius`. Set each level the components use to the system's radius tokens directly, so the hierarchy holds. Add shadcn's variables to the token check page, record the mapping in DECISIONS.md, and if a role has no match, say so rather than inventing a value.
+
+   **After `shadcn init`, check what it changed.** The CLI does more than add components:
+   - It may add its own font (for example Geist) as `--font-sans` in the root layout. Restore the project's approved typefaces.
+   - It writes default `:root` and `.dark` color values and `@theme` names that can collide with role names (`--color-primary`, `--color-border`). Replace its values with the mapping above, and keep one definition per name.
+   - Its `dark:` variant follows a `.dark` class. Point it at the project's theme switch (for example `[data-theme="dark"]` and the system setting).
+   - Its `cn` helper uses tailwind-merge, which treats custom text utilities (`text-body`, `text-label`) as colors and drops them next to a text color. Register the project's type role names with tailwind-merge as font sizes, and check that `cn("text-body text-on-surface")` keeps both.
+
+   Record which primitives the style uses (Base UI or Radix) and which style preset, in DECISIONS.md.
+
+   **Where shadcn's component styles disagree with DESIGN.md, change the component, not the system.** Components are copied into the project to be edited. Two common cases:
+   - Radius: a style may give buttons a different radius level than DESIGN.md assigns to controls. Change the class to the level DESIGN.md names.
+   - Transparency: styles often make hover and subtle colors by lowering opacity (`bg-primary/80`). Where DESIGN.md or the color bans rule out opacity-derived colors, use the role tokens for those states instead.
+
+   Note each change in DECISIONS.md, so later updates of a component can reapply it.
 
 3. **Choose the core set.** Propose the components the product's first screens need, usually 8 to 12. A typical set is button, text field, select, checkbox, switch, tag or badge, inline message, panel or card, menu, dialog, tooltip, and a table for data-heavy products. Agree on the list with the person.
 

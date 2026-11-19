@@ -92,7 +92,7 @@ Build the approved IA (`docs/v2/site-structure.md`):
 - `/reference/files/*` for each file format
 - the narrative home page, with the headline settled
 
-Instrument the new pages with the V2 analytics events (`prompt_selected`). Show the main pages to the owner at each step, as visual milestones.
+Instrument the new pages with the V2 analytics events (`prompt_selected`). Also redesign the review pages plays produce (style preview, token check, comparison pages), per BACKLOG "Review pages": quieter and easier to read, Sistema's frame around the project's own tokens, from a shared template. Show the main pages to the owner at each step, as visual milestones.
 
 - [ ] Owner approves the site structure in the browser; every page passes the checks at desktop and phone width
 

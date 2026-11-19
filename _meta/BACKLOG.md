@@ -59,6 +59,17 @@ Items discovered during development or piloting that are not urgent enough to fi
 
   *Owner note, 2026-11-17.*
 
+## Review pages
+
+- **Redesign the review pages that plays produce** (`style-preview.html`, `token-check.html`, comparison pages such as `tokens.add-mode.html`) — Seen in the Relay run, these pages are noisy and hard to read: too many labels, dense tables of hex values, and no visual hierarchy. They need the same design update the Sistema site gets in V3.6 and V3.7:
+  - **Easier to read, less noisy:** lead with what the person is approving, and move values, ratios, and stop numbers to a quieter layer (hover, a details toggle, or a secondary table).
+  - **Beautiful in a way that is both classic and current:** typography-led, generous whitespace, restrained chrome.
+  - **On-brand for Sistema** in their frame (header, outline strip, footer), **while adapting to the project they're for.** The content area renders in the project's own tokens, so the person sees their system, not Sistema's.
+
+  Likely shape: a shared page template (layout, type, frame) that plays fill with the project's data, defined in the style tile format guide and the token check spec, with a reference rendering from Relay. Do it alongside the site restructure (V3.6), so both use the same design work, and before the guides cite screenshots of these pages.
+
+  *Owner request during the Relay run, 2026-11-18.*
+
 ## Test coverage
 
 - **Zero test coverage — full audit and baseline needed** — The codebase has no test files of any kind. The only runtime validation is TypeScript's type checker. Areas that warrant coverage: palette generation algorithm (`src/lib/palette.ts` — contrast-targeting math, gamut handling, stop selection); KB and playbook parsing (`src/lib/kb.ts`, `src/lib/playbooks.ts` — markdown parsing, slug extraction, variable detection); API routes (`/api/palette`, `/api/context` — request validation, error handling); sitemap and robots generation; and client-side prompt resolution (`resolveBody`, `extractVariables`, `emptyFallback` in `PlayDetail.tsx` — variable substitution, empty-field fallback text). Suggested stack: Vitest for unit/integration, Playwright for critical UI paths (copy prompt, examples modal, color mode selector persistence). *Identified 2026-05-17.* **In progress 2026-11-14:** v2 Task V0.2 adds the test runner and content checks. V2 adds tool tests.
