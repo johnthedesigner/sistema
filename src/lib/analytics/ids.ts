@@ -15,16 +15,32 @@ const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 /**
  * Add `c=<id>` to every Sistema /raw and /api URL in a text, so an agent passes the
  * visit ID on without being asked. Anchors stay at the end; existing queries are kept;
- * URLs that already carry `c` and trailing punctuation are left alone.
+ * URLs that already carry `c` are left alone. Parentheses inside a URL (as in
+ * `oklch(0.55 0.01 260)`) stay part of it; an unbalanced closing parenthesis and
+ * trailing punctuation belong to the surrounding text.
  */
 export function withVisitId(text: string, id: string, base: string): string {
-  const origin = escape(base.replace(/\/$/, ''))
-  const re = new RegExp(`${origin}(/(?:raw|api)(?:/[^\\s\`'"()\\]?#]*?|(?=[?#\\s\`'"()\\]]|$)))(\\?[^\\s\`'"()\\]#]*)?(#[A-Za-z0-9_-]*)?(?=[.,;:!]*(?:[\\s\`'"()\\]]|$))`, 'g')
-  return text.replace(re, (_m, path: string, query: string | undefined, hash: string | undefined) => {
-    const q = query ?? ''
-    if (/[?&]c=/.test(q)) return `${base.replace(/\/$/, '')}${path}${q}${hash ?? ''}`
-    const joined = q ? `${q}&c=${id}` : `?c=${id}`
-    return `${base.replace(/\/$/, '')}${path}${joined}${hash ?? ''}`
+  const origin = base.replace(/\/$/, '')
+  const re = new RegExp(`${escape(origin)}/(?:raw|api)(?=[/?#\\s\`'"()\\],.;:!]|$)[^\\s\`'"\\]]*`, 'g')
+  return text.replace(re, (match: string) => {
+    let url = match
+    let tail = ''
+    // Trim what belongs to the sentence: trailing punctuation and unbalanced ')'.
+    for (;;) {
+      const last = url.slice(-1)
+      const opens = (url.match(/\(/g) ?? []).length
+      const closes = (url.match(/\)/g) ?? []).length
+      if (/[.,;:!]/.test(last) || (last === ')' && closes > opens)) {
+        tail = last + tail
+        url = url.slice(0, -1)
+      } else break
+    }
+    const hashAt = url.indexOf('#')
+    const hash = hashAt >= 0 ? url.slice(hashAt) : ''
+    const beforeHash = hashAt >= 0 ? url.slice(0, hashAt) : url
+    if (/[?&]c=/.test(beforeHash)) return match
+    const joined = beforeHash.includes('?') ? `${beforeHash}&c=${id}` : `${beforeHash}?c=${id}`
+    return `${joined}${hash}${tail}`
   })
 }
 

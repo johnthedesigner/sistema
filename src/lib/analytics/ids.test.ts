@@ -14,6 +14,8 @@ describe('withVisitId', () => {
       '`' + `${B}/raw/files/design-md#sections` + '`',
       `Index: ${B}/api`,
       `Template: ${B}/raw/plays/<id>.`,
+      `Palette: ${B}/api/palette?primary=%231F5FD1&neutral=oklch(0.55%200.01%20260)`,
+      `(see ${B}/api/palette?n=oklch(0.5%200.1%20200)).`,
     ].join('\n')
     const out = withVisitId(text, ID, B)
     expect(out).toContain(`${B}/raw/workflows/start?c=${ID} and follow`)
@@ -23,6 +25,8 @@ describe('withVisitId', () => {
     expect(out).toContain('`' + `${B}/raw/files/design-md?c=${ID}#sections` + '`')
     expect(out).toContain(`Index: ${B}/api?c=${ID}`)
     expect(out).toContain(`Template: ${B}/raw/plays/<id>?c=${ID}.`)
+    expect(out).toContain(`Palette: ${B}/api/palette?primary=%231F5FD1&neutral=oklch(0.55%200.01%20260)&c=${ID}`)
+    expect(out).toContain(`(see ${B}/api/palette?n=oklch(0.5%200.1%20200)&c=${ID}).`)
   })
 
   it('leaves other URLs, other sites, and URLs that already carry c alone', () => {
