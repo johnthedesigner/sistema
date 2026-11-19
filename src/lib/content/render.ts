@@ -407,7 +407,7 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
     [
       '## State: sistema.json',
       '',
-      'Use exactly this shape. Only play IDs go in `steps`. Status is one of `pending`, `in-progress`, `complete`, or `skipped`. `milestone` is one of `direction`, `foundations`, `patterns`, or `maintain`. Work done outside a play goes in DECISIONS.md, not in `steps`.',
+      'Use exactly this shape. Only play IDs go in `steps`. Status is one of `pending`, `in-progress` (started and waiting at an approval or on an answer from the person), `complete`, or `skipped`. `milestone` is one of `direction`, `foundations`, `patterns`, or `maintain`. Work done outside a play goes in DECISIONS.md, not in `steps`.',
       '',
       '```json',
       stateExample(workflow, ctx),

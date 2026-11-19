@@ -47,3 +47,13 @@ Each finding is listed with what was done about it.
 | 17 | The pointer comment was "at the top" in the plays, but "right after the front matter" in the DESIGN.md format. | **Fixed:** right after the front matter. |
 | 18 | Layout can't name a base unit before the spacing play runs. | No change. It's correctly marked provisional, which is what provisional items are for. |
 
+## Stage 3: voice and tone (2026-11-18)
+
+The run stopped inside `content.voice-and-tone` to ask the missing half of its question, "one way it must never sound". It also raised that "energetic, positive" pulls against the utilitarian brief and a product that mostly reports problems. The owner answered: never childish or patronizing.
+
+| # | Finding | Done |
+|---|---|---|
+| 19 | The voice play had no rule for a partial answer. | **Fixed.** Ask one follow-up for the missing part. |
+| 20 | The voice play never checked the chosen voice against the positioning or the approved direction. | **Fixed.** If they pull against each other, say so, ask how the voice behaves in those moments, and record the answer as a limit. |
+| 21 | `in-progress` was only defined for a play waiting at an approval. | **Fixed.** It also covers a play waiting on an answer. |
+

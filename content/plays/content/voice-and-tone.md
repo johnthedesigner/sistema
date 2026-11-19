@@ -28,7 +28,9 @@ The output is the writing reference for the product, the copy equivalent of DESI
 
 1. **Read the project:** the positioning statement in DECISIONS.md, `sistema.json` for density and stance, and any existing copy in the product (a README, marketing copy, or interface strings) that shows how the team already writes. If this play runs on its own, use `project_context` when given.
 
-2. **Ask one question if the voice isn't clear yet:** "Name two or three words for how the product should sound, and one way it must never sound." Skip it if DECISIONS.md or existing copy already answers it.
+2. **Ask one question if the voice isn't clear yet:** "Name two or three words for how the product should sound, and one way it must never sound." Skip it if DECISIONS.md or existing copy already answers it. If the answer leaves out part of the question, ask one follow-up for the missing part.
+
+   **Check the answer against the positioning statement and the approved direction.** If the voice pulls against them (for example, a playful voice for a utilitarian tool, or an upbeat voice for a product that mostly reports problems), say so in a sentence and ask how the voice should behave in those moments. Record the answer as a limit on the trait.
 
 3. **Write `VOICE_AND_TONE.md`** at the project root with these sections:
    1. **Voice:** a two- or three-word label, one sentence on what makes it different from the baseline, how this product reads each baseline trait (plainspoken, genuine, helpful, direct), up to two traits of its own with their limits, and two or three things the voice never does.
