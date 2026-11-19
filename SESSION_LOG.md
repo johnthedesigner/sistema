@@ -56,3 +56,13 @@
   - The tests caught a list-joining bug for a single route.
   - `project.orient` routes to the Patterns workflow when the goal is first components and Patterns hasn't run.
 - `capability-model.md` updated. 163 tests. Build passes, 0 violations.
+
+### 2026-11-18 — Task V3.2: Relay, Direction and Foundations (in progress)
+
+**What was done so far:**
+- `examples/` is excluded from the site's tsconfig and ESLint, and from deploys through `.vercelignore`. Vitest and the content checker already only read `src/`, `tools/validate/`, `content/`, and `reference/`. `examples/README.md` added.
+- The Relay run folder is `/Users/johnlivornese/Repos/relay`: a fresh Next.js 15.5 and Tailwind v4 app (create-next-app, `src/`, TypeScript, ESLint), outside this repo.
+- The run started with a subagent (D17):
+  - Its only input is the paste-in prompt against the preview, with visit ID `internal-1882ecfe-477f-46e6-92ce-5f1c6ec43eab`, plus the person's brief (product, users, density, stance, no brand, light-dark, web, WCAG 2.2 AA, Next.js, Tailwind v4, shadcn planned, no typeface preference).
+  - It's told not to read Sistema's source. It stops for any question the brief doesn't cover, and at every approval.
+  - It logs everything in the run folder's `RUN_LOG.md`.
