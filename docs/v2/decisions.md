@@ -50,3 +50,14 @@ Approved by the owner, with:
 | # | Decision | Detail |
 |---|---|---|
 | D13 | Usage analytics | Capture detailed usage that can be attributed to one person through an anonymous ID (a UUID, no personal data). Follow that person across the acquisition funnel on the site and into later use: copied prompts, agent fetches of plays and workflows, tool calls, and the MCP server. Built in V2 (site, prompts, tools), extended in V4 (MCP), with test traffic excluded in V5. The outline (`docs/v2/analytics.md`, task V2.7) settles the event list, how the ID travels, privacy, and opt-out. **No tracking across visits** (owner, 2026-11-18): nothing is stored on the visitor's device (no cookies or browser storage), so a site visit isn't linked to earlier or later visits. This is meant to avoid the EU consent banner obligation. Design approved 2026-11-18 (`docs/v2/analytics.md`): keep all location data, no opt-out for projects or browsers, and tool inputs (colors, roles) may be recorded. |
+
+## 2026-11-18 — V3.0 decision brief (`decision-brief-v3.md`)
+
+| # | Decision | Detail |
+|---|---|---|
+| D14 | Reference project | A B2B operations dashboard: "Relay", a dispatch dashboard for a small field-service company (5 to 20 desktop users, all day, dense, WCAG 2.2 AA). |
+| D15 | Where it lives | `examples/relay/` in this repo, kept out of the site's build, type check, lint, tests, file tracing, and content checker. |
+| D16 | Its stack | Sistema's default: Next.js with React, Tailwind CSS v4, and shadcn/ui as the component foundation. |
+| D17 | Who runs it | Claude runs it through a subagent; the owner approves at each gate. To keep the run honest, the subagent starts with only the paste-in prompt, works in a directory outside this repo, and is told not to read the Sistema source. Every question it asks, and every place it hesitates or works around a play, is logged. The result is copied into `examples/relay/`. |
+| D18 | Guide template | Sistema's position; the options and how to choose; rules (from the registry); worked example (reference project); failure modes; checking the work. Guides end with links to their plays and contain no procedure. |
+| D19 | Components guide scope | How to build components on the system: foundation choice, anatomy, states and variants, token use, the accessibility baseline per component family, naming and API conventions, and documentation. No per-component specs. |

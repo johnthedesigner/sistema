@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 3 (Reference project, guides, and site). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-3.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V2.9 — Housekeeping and gate check. Phase 2 gate approved by the owner 2026-11-18.
-**Next task:** V3.0 — Decisions for V3
+**Last completed task:** V3.0 — Decisions for V3 (D14 to D19)
+**Next task:** V3.1 — `tokens.add-mode` (outline first)
 **Blockers:** none. Open item: PostHog key missing from the Vercel Preview environment (owner, later; needed before V3.6)
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -30,3 +30,13 @@
   - Analytics links one ID from site to agent to tools with nothing stored on the device (Playwright and local capture checks).
   - **Open:** delivery to PostHog is unconfirmed, because the Vercel Preview environment has no PostHog key. The owner will fix it later, and it's carried into V3.
 - **The owner approved the Phase 2 gate** (2026-11-18), with the PostHog delivery check carried into Phase 3.
+
+### 2026-11-18 — Task V3.0: Decisions for V3
+
+**What was done:**
+- `docs/v2/decision-brief-v3.md`, restated in more detail at the owner's request.
+- Owner decisions (D14 to D19 in `docs/v2/decisions.md`):
+  - Relay, a B2B dispatch dashboard, in `examples/relay/`, on the default stack (Next.js, Tailwind v4, shadcn/ui).
+  - Run by a Claude subagent, with the owner approving at gates (D17, option B). Safeguards: only the paste-in prompt, a directory outside the repo, no reading the Sistema source, and every question and workaround logged.
+  - The adjusted guide template, with "options and how to choose" in place of a procedure.
+  - Components guide scope A.

@@ -29,7 +29,7 @@
 
 ## Task V3.0: Decisions for V3
 
-**Status:** not started
+**Status:** done (2026-11-18). D14 to D19 in `docs/v2/decisions.md`: Relay (a B2B dispatch dashboard) in `examples/relay/`, on Next.js, Tailwind v4, and shadcn/ui, run by a Claude subagent with the owner approving at gates. The adjusted guide template. Components guide scope A.
 
 A short decision brief (`docs/v2/decision-brief-v3.md`), with options and a recommendation for each:
 - **The reference project:** what product (plan recommendation: a fictional B2B dashboard) and where it lives (recommendation: a folder in this repo).
@@ -38,7 +38,7 @@ A short decision brief (`docs/v2/decision-brief-v3.md`), with options and a reco
 
 Owner review.
 
-- [ ] Owner decides the reference project's product and location, and approves the guide template
+- [x] Owner decides the reference project's product and location, and approves the guide template
 
 ## Task V3.1: `tokens.add-mode`
 
@@ -52,7 +52,7 @@ Generalize `color.add-theme` into a play that adds a mode to an existing token s
 
 **Status:** not started
 
-Run `workflow.start` on the reference project from the paste-in starter, against the Vercel preview, with the agent following the plays as written. Record every place a play was unclear, wrong, or skipped in `docs/v2/reference-run.md`, and fix the plays. Both approval gates use the owner's approval. Commit the project's `sistema.json`, DESIGN.md, DECISIONS.md, tokens, and review pages.
+Run `workflow.start` on Relay (D14) from the paste-in starter, against the Vercel preview. The run uses a Claude subagent (D17): it starts with only the paste-in prompt, works in a directory outside this repo, and is told not to read the Sistema source. Its visit ID starts with `internal-`. At each gate, the review page goes to the owner, who approves or asks for changes. First set up `examples/` so it's excluded from the site's tsconfig, ESLint, Vitest, file tracing, and content checker (D15). Record every place a play was unclear, wrong, or skipped in `docs/v2/reference-run.md`, and fix the plays. Both approval gates use the owner's approval. Commit the project's `sistema.json`, DESIGN.md, DECISIONS.md, tokens, and review pages.
 
 - [ ] The project reaches Foundations approved, every check passes, and the run findings are fixed or logged
 

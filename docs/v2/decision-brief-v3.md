@@ -1,6 +1,6 @@
 # V3 Decision Brief
 
-**Task:** V3.0. **Date:** 2026-11-18. **Status:** awaiting owner decisions.
+**Task:** V3.0. **Date:** 2026-11-18. **Status:** decided by the owner 2026-11-18: every recommendation accepted except D17, where the owner chose B (Claude runs it, owner approves at gates). Recorded in `decisions.md`.
 
 Six decisions shape Phase 3. Each has options, a recommendation, and what it changes. The first four are about the reference project, which the guides' worked examples, the behavior tests (V5), and the site's explanation of the method all build on. Plan 9.4 says to keep it small on purpose.
 
