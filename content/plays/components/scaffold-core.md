@@ -14,7 +14,7 @@ knowledge:
   - guide.accessibility.floor#3-focus-visibility
   - guide.accessibility.floor#5-semantic-structure-and-aria
   - guide.tokens.architecture#tier-3-component-tokens-scoped-overrides
-rules: [tokens.usage.no-raw-values, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.reduced-motion, accessibility.focus-not-lost, quality.review.outline]
+rules: [tokens.usage.no-raw-values, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.reduced-motion, accessibility.focus-not-lost, quality.review.outline, components.busy.keep-focus, components.toast.scope, components.css.one-utility-per-property]
 evidence: The component foundation and why, the list of components built, the showcase route, an automated accessibility scan with zero violations in every theme, and a passing build.
 overrides: []
 last_reviewed: 2026-11-15
@@ -56,7 +56,7 @@ The tokens are compiled and wired into the app (`tokens.pipeline`). This play bu
 
 7. **Verify:**
    - Check every new color pairing with the contrast tool, batched (one POST takes up to 200 pairs).
-   - Run an automated accessibility scan (for example axe) on the showcase in every theme.
+   - Run an automated accessibility scan (for example axe) on the showcase in every theme. If you use Playwright, run it with a fixed, small number of workers (for example `--workers=2`), so a slow machine doesn't look like flaky tests.
    - Check by keyboard that focus rings render, in a screenshot.
    - Run the build.
 

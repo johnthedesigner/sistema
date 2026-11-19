@@ -83,4 +83,4 @@ Items discovered during development or piloting that are not urgent enough to fi
   - Never put two utilities for the same property on one element. Tailwind orders the CSS rules, not the class order.
   - Run Playwright with a fixed, small number of workers on a loaded machine, so slow runs aren't mistaken for flaky tests.
 
-  *From the V1.4 new-project run, 2026-11-15.*
+  *From the V1.4 new-project run, 2026-11-15.* **Applied 2026-11-18 (V3.3):** the focus ring is in `accessibility.focus-visible`, fonts in `typography.fonts.self-hosted`, and busy controls, toasts, and conflicting utilities in the new `content/rules/components.yaml`. Playwright workers are in the component plays' test steps.

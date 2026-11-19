@@ -13,7 +13,7 @@ knowledge:
   - guide.accessibility.floor#3-focus-visibility
   - guide.accessibility.floor#4-touch-and-pointer-targets
   - guide.accessibility.floor#6-motion
-rules: [tokens.usage.no-raw-values, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.reduced-motion, accessibility.focus-not-lost]
+rules: [tokens.usage.no-raw-values, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.reduced-motion, accessibility.focus-not-lost, components.busy.keep-focus, components.toast.scope, components.css.one-utility-per-property]
 evidence: The component file, its entry in the showcase, the result of an automated accessibility scan with zero violations in every theme, a keyboard walkthrough of each state, and contrast results for any new color pairing.
 overrides: [component]
 last_reviewed: 2026-11-15
@@ -28,7 +28,7 @@ last_reviewed: 2026-11-15
 
 5. **Verify:**
    - Check any color pairing the component introduces with the contrast tool, batched (one POST takes up to 200 pairs).
-   - Run an automated accessibility scan (for example axe) on the showcase in every theme.
+   - Run an automated accessibility scan (for example axe) on the showcase in every theme. If you use Playwright, run it with a fixed, small number of workers (for example `--workers=2`), so a slow machine doesn't look like flaky tests.
    - Walk through it with the keyboard: Tab in, operate it, dismiss it, Tab out. Confirm the focus ring actually renders in a screenshot.
    - Run the build.
 

@@ -1,0 +1,35 @@
+- id: components.busy.keep-focus
+  statement: >-
+    While a control's action runs, the control keeps focus: it is marked busy (for example
+    aria-busy, or aria-disabled with a spinner) and ignores repeat presses, instead of being disabled.
+  reason: >-
+    Disabling the focused control drops keyboard focus to the page body, so keyboard and screen reader
+    users lose their place. Found in the V1.4 slice runs.
+  layer: sistema-default
+  severity: blocking
+  measure: { kind: presence }
+  applies_to: buttons and other controls that start an action
+  checked_by: [play.components.implement evidence, play.components.scaffold-core evidence]
+
+- id: components.toast.scope
+  statement: >-
+    Toasts carry confirmations and undo only. An error the person must act on stays inline, where it
+    can't time out. A toast with an action never dismisses itself, and hovering or focusing a toast
+    pauses its timer.
+  reason: >-
+    A message that disappears before someone can read or act on it is lost, and that matters most for
+    errors and for people who read or move slowly. Found in the V1.4 slice runs.
+  layer: sistema-default
+  severity: advisory
+  applies_to: toast and notification components
+
+- id: components.css.one-utility-per-property
+  statement: >-
+    An element never gets two utility classes that set the same property. To change a default, merge
+    classes with a helper that removes the conflicting one (shadcn/ui's cn, which uses tailwind-merge).
+  reason: >-
+    Tailwind orders its CSS rules, not the class names, so when two utilities set the same property,
+    which one wins doesn't depend on the order you wrote them. Found in the V1.4 slice runs.
+  layer: sistema-default
+  severity: advisory
+  applies_to: component markup using utility CSS
