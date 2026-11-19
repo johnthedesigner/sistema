@@ -36,13 +36,13 @@ Every guide, rule, tool, and step belongs to one topic. Topics form the shared n
 | `project` | none (living brief spec) | assess, orient, review, plan | Process and state. Replaces "stewardship." |
 | `visual-language` | overview, style-tile-format | direction, design-md | Kept as its own topic so it isn't confused with the Direction milestone |
 | `content` | voice-and-tone, writing-mechanics, ui-copy-patterns | voice-and-tone | |
-| `color` | architecture, palette-generation, primitive-ramp-scalability | scheme, map-existing, add-theme | |
+| `color` | architecture, palette-generation, primitive-ramp-scalability | scheme, map-existing | `color.add-theme` retired into `tokens.add-mode` (V3.1) |
 | `typography` | architecture | scale | |
 | `shape` | architecture | tokens | |
 | `depth` | architecture | none | The shape step covers elevation. **Gap**, see Section 8. |
 | `spacing` | layout | tokens | The step doesn't reference its own guide today. |
 | `motion` | architecture | none | **Gap**, see Section 8. |
-| `tokens` | architecture | pipeline, migrate-tailwind, coverage-audit | |
+| `tokens` | architecture | pipeline, coverage-audit, add-mode | `migrate-tailwind` retired in V1.10; `add-mode` added in V3.1 |
 | `components` | none | scaffold-core, specify, implement, audit, page-examples, docs-site | **Gap:** no components guide |
 | `accessibility` | floor | audit | Cross-cutting. Many steps cite its rules. |
 | `quality` | visual-quality-signals | none | Cross-cutting. Provides advisory rules. |
@@ -205,7 +205,7 @@ This maps all 25 plays and both campaigns, to check that the model holds up with
 | define-voice-and-tone | `content.voice-and-tone` | create | direction | Keep. Optional in Start. |
 | generate-color-scheme | `color.scheme` | create | foundations | Keep. Shrinks from 118 lines to about 40 (Section 9). |
 | generate-color-roles | `color.map-existing` | change | foundations | Keep. Used when color exists but doesn't conform. |
-| generate-dark-mode | `color.add-theme` | change | maintain | **Reframe** as adding a theme to an existing scheme. A first-time dark theme is part of `color.scheme`. |
+| generate-dark-mode | `color.add-theme`, then `tokens.add-mode` (V3.1) | change | maintain | **Reframe** as adding a theme to an existing scheme. *(V3.1: generalized to any mode: theme, density, or reduced motion.)* A first-time dark theme is part of `color.scheme`. |
 | generate-type-scale | `typography.scale` | create | foundations | Keep. Uses the type scale tool once V2 adds the API. |
 | generate-shape-tokens | `shape.tokens` | create | foundations | Keep. Elevation stays here for now (see Section 8). |
 | generate-spacing-tokens | `spacing.tokens` | create | foundations | Keep. Add a reference to the spacing guide. |

@@ -253,6 +253,14 @@ export const SistemaState = z
         stack: z.string(),
         /** The component foundation chosen in components.scaffold-core, e.g. shadcn, base-ui, native. */
         component_library: z.string(),
+        /**
+         * Modes beyond the theme (tokens.add-mode), by kind. The first value is the default,
+         * for example { "density": ["comfortable", "compact"], "motion": ["standard", "reduced"] }.
+         */
+        modes: z
+          .object({ density: z.array(z.string().min(1)).min(2), motion: z.array(z.string().min(1)).min(2) })
+          .partial()
+          .strict(),
       })
       .partial()
       .strict()

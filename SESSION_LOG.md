@@ -4,8 +4,8 @@
 
 **Phase:** v2 Phase 3 (Reference project, guides, and site). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-3.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V3.0 — Decisions for V3 (D14 to D19)
-**Next task:** V3.1 — `tokens.add-mode` (outline first)
+**Last completed task:** V3.1 — `tokens.add-mode`
+**Next task:** V3.2 — Reference project (Relay), Direction and Foundations
 **Blockers:** none. Open item: PostHog key missing from the Vercel Preview environment (owner, later; needed before V3.6)
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
@@ -40,3 +40,19 @@
   - Run by a Claude subagent, with the owner approving at gates (D17, option B). Safeguards: only the paste-in prompt, a directory outside the repo, no reading the Sistema source, and every question and workaround logged.
   - The adjusted guide template, with "options and how to choose" in place of a procedure.
   - Components guide scope A.
+
+### 2026-11-18 — Task V3.1: `tokens.add-mode`
+
+**What was done:**
+- `docs/v2/add-mode-outline.md` approved, with the owner's questions answered (D20 to D22). Precedent for keeping theme separate from the other kinds of mode was checked in the reference notes: Radix `appearance` and `scaling`, Ant's combinable dark and compact algorithms, and Atlassian's `colorMode`.
+- **Tokens guide:** new section "Modes: theme, density, and motion": three independent kinds, one kind per token, override-only files, selectors, and density by remap or by scaling. New credits: Atlassian get-started, Radix spacing, Tailwind theme. A Tailwind `motion-reduce:` claim was dropped because the reference notes don't cover it.
+- **New play `tokens.add-mode`:** theme, compact density, and reduced motion, each with its checks. It creates the minimal motion tokens when a project has none. Comparison page and `project.modes`.
+- **Rules:** `tokens.modes.overrides-only`, `tokens.modes.one-kind`, `tokens.modes.no-component-changes`.
+- **Retired:** `color.add-theme`. The session route is now "Add a mode".
+- **Schema:** `project.modes` (density and motion).
+- **`tokens.pipeline`:** compiles every mode file to its selector, fails on unknown names or overlapping kinds, and the check page gets a switch per kind of mode.
+- **Workflow ending (D22):** "Land it" first, then `continue` moves to the session workflow, then follow-ups as two short bullets for any time, without asking to start one.
+  - The first edit duplicated a function, because a marker string appeared earlier in the file. The file was restored and the edit redone.
+  - The tests caught a list-joining bug for a single route.
+  - `project.orient` routes to the Patterns workflow when the goal is first components and Patterns hasn't run.
+- `capability-model.md` updated. 163 tests. Build passes, 0 violations.

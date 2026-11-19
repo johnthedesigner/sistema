@@ -1,12 +1,15 @@
 ---
 title: "Token architecture"
-description: "Token tiers, naming, dark mode at the token level, common failure modes, and how to decide the structure."
+description: "Token tiers, naming, dark mode and other modes at the token level, common failure modes, and how to decide the structure."
 topic: tokens
 sources:
   - { source: material, url: "https://m3.material.io/foundations/design-tokens" }
   - { source: atlassian, url: "https://atlassian.design/tokens/design-tokens" }
   - { source: radix, url: "https://www.radix-ui.com/themes/docs/theme/overview" }
   - { source: ant-design, url: "https://ant.design/docs/react/customize-theme" }
+  - { source: atlassian, url: "https://atlassian.design/get-started" }
+  - { source: radix, url: "https://www.radix-ui.com/themes/docs/theme/spacing" }
+  - { source: tailwind, url: "https://tailwindcss.com/docs/theme" }
 last_reviewed: 2026-05-13
 ---
 
@@ -179,6 +182,42 @@ Two complete CSS files (`light.css`, `dark.css`), each defining the full token s
 Do not create dark-mode-specific token names (`--color-surface-dark`). Dark mode is a context for existing tokens, not a parallel naming scheme. If you find yourself writing `color: var(--color-text-dark)`, you've given up the semantic contract — components now need to know what theme is active.
 
 ---
+
+## Modes: theme, density, and motion
+
+A *mode* is a set of token values that replaces some of the defaults while it's active, without changing components. Dark theme is the familiar one, but it isn't the only one. Design systems commonly treat three kinds separately:
+
+| Kind | Typical modes | Changes | Examples |
+|---|---|---|---|
+| Theme | light, dark, sometimes high contrast | Color roles | Radix Themes' `appearance`, Atlassian's `colorMode`, Ant Design's dark algorithm |
+| Density | comfortable, compact | Spacing inside components, control heights, sometimes type sizes | Radix Themes' `scaling`, Ant Design's compact algorithm |
+| Motion | standard, reduced | Durations and easing | The operating system's reduced-motion setting, read through the `prefers-reduced-motion` media query |
+
+### Keep the kinds independent
+
+Each kind is switched separately, and they combine: a page can be dark, compact, and reduced-motion at once. Ant Design makes the same point by letting its dark and compact algorithms be applied together. Two practices keep combinations safe:
+- **Each token belongs to one kind.** Color tokens change only with theme, spacing tokens only with density, and duration tokens only with motion. Then no two modes compete for the same value.
+- **A mode only replaces tokens that already exist.** It never adds new ones. Components keep using the same role tokens in every mode, so adding a mode needs no component changes. A component that breaks in a mode was using a raw value.
+
+### How modes are stored and switched
+
+Store each mode's values as a file holding only what changes, beside the defaults, such as `color.dark.json`, `spacing.compact.json`, and `motion.reduced.json`. Compile each to a selector:
+
+```css
+[data-theme="dark"] { /* changed color roles */ }
+[data-density="compact"] { /* changed spacing and control heights */ }
+@media (prefers-reduced-motion: reduce) { :root { /* changed durations */ } }
+```
+
+Theme usually also follows the operating system setting (see the approaches above). Reduced motion should always follow it, with an optional in-app switch as well. Density is a product choice, and it can apply to part of a page: a compact table inside a comfortable layout.
+
+### Density: remap or scale
+
+There are two ways to make a compact mode, and both are common:
+- **Remap chosen tokens:** compact sets new values for specific spacing steps and control heights. This gives the most control, and dense data tables usually need it.
+- **Scale everything:** compact changes one base value, and everything derived from it shrinks together. Radix Themes does this with `scaling`. In Tailwind, it means changing `--spacing`. It's simpler but blunter.
+
+Either way, compact controls must still meet the project's minimum target size, and body text keeps its required line height. The spacing guide's "Density axis" covers how much to tighten.
 
 ## Dark mode values: the tonal shift problem
 

@@ -23,4 +23,4 @@ last_reviewed: 2026-11-15
 
 4. **Check for conflicts.** If the goal contradicts a recorded decision (for example, a new accent color in a restrained system), say so, and ask whether to change the decision or the goal. Record a changed decision in DECISIONS.md.
 
-5. **Choose the route** from the workflow's routes that fits the goal, and say which plays it runs. If none fits, say so, and agree with the person how to proceed outside Sistema's plays.
+5. **Choose the route** from the workflow's routes that fits the goal, and say which plays it runs. If the goal is building the system's first components and `sistema.json` shows the Patterns workflow hasn't run, follow `{{sistema_url}}/raw/workflows/patterns` instead. If none fits, say so, and agree with the person how to proceed outside Sistema's plays.

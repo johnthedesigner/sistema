@@ -174,7 +174,11 @@ describe('workflow rendering', () => {
     // The starter names the tools; each play carries their full usage.
     expect(out).toMatch(/uses Sistema's (palette and contrast|contrast and palette) tools\./)
     expect(out).not.toContain(`GET ${BASE}/api/palette?`)
-    expect(out).toContain(`continue with Build patterns: ${BASE}/raw/workflows/patterns`)
+    // The end lands the finish, then offers later work as options.
+    expect(out).toContain('1. **Land it.** Tell the person they have completed "Start a design system".')
+    expect(out).toMatch(new RegExp(`- Build patterns: .+\\(${BASE}/raw/workflows/patterns\\)\\.`))
+    expect(out).toContain('These are options for any time, not next steps')
+    expect(out).toContain("Don't ask whether to start one now.")
     expect(out).toContain(`${BASE}/raw/workflows/start/full`)
     expect(out).not.toMatch(LITERAL_DATE)
     expect(out).not.toMatch(RELATIVE_URL)
@@ -188,11 +192,18 @@ describe('workflow rendering', () => {
     expect(new Set(lines).size).toBe(lines.length)
   })
 
-  it('says there is no next workflow when none is set', () => {
+  it('points continue at the session workflow when there is one, and lists its routes as later options', () => {
+    const session = { ...start, id: 'workflow.session', title: 'Work on the system', sequence: undefined, routes: { 'add-mode': { title: 'Add a mode', plays: ['color.scheme'] } } } as unknown as typeof start
+    const out = renderWorkflowStarter(start, ctx, new Map([...workflows, ['workflow.session', session]]))
+    expect(out).toContain(`Set \`continue\` in \`sistema.json\` to ${BASE}/raw/workflows/session`)
+    expect(out).toContain(`whenever it's needed: add a mode (${BASE}/raw/workflows/session).`)
+  })
+
+  it('removes continue and says further work is outside Sistema when nothing follows', () => {
     const solo = { ...start, continue_with: undefined }
-    const out = renderWorkflowStarter(solo, ctx, workflows)
-    expect(out).toContain('there is no next Sistema workflow yet')
+    const out = renderWorkflowStarter(solo, ctx, new Map([[start.id, solo]]))
     expect(out).toContain('Remove `continue`')
+    expect(out).toContain("Further work is outside Sistema's process for now")
   })
 
   it('renders a full version with every play inline and no fetch instructions', () => {

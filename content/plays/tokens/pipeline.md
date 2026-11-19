@@ -13,7 +13,8 @@ knowledge:
   - guide.tokens.architecture#the-tier-model
   - guide.tokens.architecture#dark-mode-at-the-token-level
   - guide.tokens.architecture#common-failure-modes
-rules: [tokens.source.dtcg, tokens.naming.role, tokens.naming.consistent, color.preview.ramp-strips, quality.review.outline]
+  - guide.tokens.architecture#how-modes-are-stored-and-switched
+rules: [tokens.source.dtcg, tokens.naming.role, tokens.naming.consistent, tokens.modes.overrides-only, tokens.modes.one-kind, color.preview.ramp-strips, quality.review.outline]
 evidence: The compile command's successful output, the list of compiled files, every file outside tokens/ that this play changed, a passing app build, and sistema-review/token-check.html showing every token. The person reviews token-check.html at the gate that follows.
 overrides: []
 last_reviewed: 2026-11-15
@@ -25,9 +26,14 @@ The JSON files in `tokens/src/` are the only place token values are written. Eve
 2. **Pick the output path** from the stack and folder layout. For Next.js with a `src/` folder, use `src/styles/tokens/`. Without one, use `styles/tokens/`. For other stacks, follow the project's layout. Ask one question only if it is unclear.
 
 3. **Write `style-dictionary.config.mjs`** for Style Dictionary v5:
-   - Source: every JSON file in `tokens/src/`.
+   - Source: every JSON file in `tokens/src/`. Files named `<category>.<mode>.json` are modes, not defaults.
    - Output: CSS custom properties named `--<category>-<name>`, for example `--color-primary`, `--radius-md`, `--space-4`.
-   - Dark theme: if `color.dark.json` exists, output its values under `[data-theme="dark"]`, with a `@media (prefers-color-scheme: dark)` fallback.
+   - Modes: output each mode file's values under its selector.
+     - `color.dark.json` goes under `[data-theme="dark"]`, with a `@media (prefers-color-scheme: dark)` fallback.
+     - `*.compact.json` goes under `[data-density="compact"]`.
+     - `motion.reduced.json` goes under `@media (prefers-reduced-motion: reduce)` and under `[data-motion="reduced"]`.
+
+     Fail the compile if a mode file names a token the defaults don't have, or if two kinds of mode change the same token.
    - Add `"tokens": "node style-dictionary.config.mjs"` to `package.json` scripts. Install `style-dictionary` as a dev dependency if it is missing. If the install is blocked, ask the person to approve it or run it, and continue once it is in place.
 
 4. **Compile.** Run `npm run tokens`. If it fails, find the cause and fix it before going on. Do not skip a failed compile.
@@ -61,6 +67,7 @@ The JSON files in `tokens/src/` are the only place token values are written. Eve
    - every type role as a live specimen, every radius as a box at that radius, and every spacing step as a bar of that width;
    - next to each color role, whether it matches the value shown in the approved style preview, and for each one that differs, why;
    - a section "Approved but not yet tokenized" listing direction values (from the DESIGN.md Overview) whose category has no tokens yet because its play was skipped;
+   - a switch for each kind of mode the system has (theme, density, motion), so the person can see every token in each mode;
    - at the end, the line naming the `continue` URL from `sistema.json`.
 
 9. Show the evidence: the compile output, the compiled file paths, the files outside `tokens/` you changed, the build result, and a summary of what `token-check.html` shows.

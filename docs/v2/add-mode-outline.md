@@ -1,6 +1,6 @@
 # `tokens.add-mode`: Outline
 
-**Task:** V3.1 (owner decision N2, 2026-11-16). **Date:** 2026-11-18. **Status:** awaiting owner review.
+**Task:** V3.1 (owner decision N2, 2026-11-16). **Date:** 2026-11-18. **Status:** approved by the owner 2026-11-18 (D20 to D22), and built. In the build, the rule `tokens.modes.one-axis` is named `tokens.modes.one-kind`, and mode knowledge moved into the tokens guide ("Modes: theme, density, and motion") so the play cites it rather than explaining it.
 
 **What it does:** adds a *mode* to a project's token system. A mode is a named set of token values that replaces some of the defaults when it's active, without touching components. There are three kinds of mode, called *axes*:
 

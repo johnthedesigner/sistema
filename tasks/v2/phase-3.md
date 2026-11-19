@@ -42,11 +42,11 @@ Owner review.
 
 ## Task V3.1: `tokens.add-mode`
 
-**Status:** not started
+**Status:** done (2026-11-18). D20 to D22.
 
 Generalize `color.add-theme` into a play that adds a mode to an existing token system: color themes, density (compact and comfortable spacing and type), and reduced motion. Outline the contract and procedure first, including how modes compile (CSS custom properties per mode selector) and how the token check page shows them. Owner review, then build. Add rules where a mode needs a checkable requirement. Retire or keep `color.add-theme` as a route into the new play, and update the session routes.
 
-- [ ] Owner approves the outline; the play, rules, and route are in the model and pass the checks
+- [x] Owner approves the outline; the play, rules, and route are in the model and pass the checks
 
 ## Task V3.2: Reference project, Direction and Foundations
 

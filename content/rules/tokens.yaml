@@ -37,3 +37,33 @@
   severity: advisory
   applies_to: tokens/src/*.json
   sources: [guide.ai.llm-compatibility#12-consistent-naming-patterns-across-categories]
+
+- id: tokens.modes.overrides-only
+  statement: >-
+    A mode file (such as color.dark.json, spacing.compact.json, or motion.reduced.json) holds only tokens
+    that already exist in the defaults, under the same names. It defines no new tokens.
+  reason: Components use the same role tokens in every mode. A token that exists only in one mode leaves components with nothing to use in the others.
+  layer: sistema-default
+  severity: blocking
+  measure: { kind: presence }
+  applies_to: tokens/src/*.<mode>.json
+  checked_by: [play.tokens.add-mode evidence, play.tokens.pipeline evidence]
+  sources: [guide.tokens.architecture#keep-the-kinds-independent]
+
+- id: tokens.modes.one-kind
+  statement: Each token is changed by at most one kind of mode (theme, density, or motion), so modes combine without conflict.
+  reason: When two kinds of mode change the same token, the result depends on which selector wins, and combinations such as dark and compact break.
+  layer: sistema-default
+  severity: blocking
+  measure: { kind: presence }
+  applies_to: tokens/src/*.<mode>.json
+  checked_by: [play.tokens.add-mode evidence, play.tokens.pipeline evidence]
+  sources: [guide.tokens.architecture#keep-the-kinds-independent]
+
+- id: tokens.modes.no-component-changes
+  statement: Adding a mode changes no component code. A component that breaks in a mode is fixed to use role tokens.
+  reason: Modes work because components use role tokens. A per-mode fix in a component hides a raw value that will break the next mode too.
+  layer: sistema-default
+  severity: advisory
+  applies_to: components when a mode is added
+  sources: [guide.tokens.architecture#keep-the-kinds-independent]

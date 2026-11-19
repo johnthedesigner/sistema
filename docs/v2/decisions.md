@@ -61,3 +61,11 @@ Approved by the owner, with:
 | D17 | Who runs it | Claude runs it through a subagent; the owner approves at each gate. To keep the run honest, the subagent starts with only the paste-in prompt, works in a directory outside this repo, and is told not to read the Sistema source. Every question it asks, and every place it hesitates or works around a play, is logged. The result is copied into `examples/relay/`. |
 | D18 | Guide template | Sistema's position; the options and how to choose; rules (from the registry); worked example (reference project); failure modes; checking the work. Guides end with links to their plays and contain no procedure. |
 | D19 | Components guide scope | How to build components on the system: foundation choice, anatomy, states and variants, token use, the accessibility baseline per component family, naming and API conventions, and documentation. No per-component specs. |
+
+## 2026-11-18 — V3.1 `tokens.add-mode` outline (`add-mode-outline.md`)
+
+| # | Decision | Detail |
+|---|---|---|
+| D20 | Modes model | Three independent kinds of mode (theme, density, motion). Each mode is a file of only the changed tokens, compiled to `[data-theme]` (with the OS fallback), `[data-density]`, and the `prefers-reduced-motion` media query plus `[data-motion]`. Precedent: Radix Themes (`appearance` apart from `scaling`), Ant Design (dark and compact algorithms combine), Atlassian (`colorMode`). |
+| D21 | Plays and state | `color.add-theme` retires into `tokens.add-mode`, and the session route becomes "Add a mode". `sistema.json` keeps `project.theme` and `theme_primary` and adds `project.modes` for density and motion. When a project has no motion tokens, the play creates the motion guide's minimal set before adding reduced motion. |
+| D22 | Ending a workflow | Modes aren't offered inside Start. At the end of a workflow, the agent lands the finish first: what the project now has and where to see it, with every step done. `continue` moves to "Work on the system", and follow-ups (the next workflow, the session routes) are mentioned briefly as options for any time, not as next steps. The agent doesn't ask whether to start one. |

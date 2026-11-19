@@ -333,6 +333,38 @@ function renderRoutesStarter(workflow: Workflow, ctx: RenderContext): string {
   return parts.join('\n\n') + '\n'
 }
 
+/**
+ * The end of a sequence workflow (owner, 2026-11-18): land the finish first, so the
+ * person knows they're done, then offer what comes next as options for any time,
+ * not as a push to keep going. `continue` moves to the standing session workflow.
+ */
+function workflowEnd(workflow: Workflow, ctx: RenderContext, next: Workflow | undefined, workflows?: Map<string, Workflow>): string {
+  const session = workflows?.get('workflow.session')
+  const entry = session ? workflowUrl(ctx.base, session.id) : undefined
+  const sentence = (t: string) => (t.charAt(0).toLowerCase() + t.slice(1)).replace(/\.$/, '')
+  const later: string[] = []
+  if (next && next.id !== 'workflow.session') later.push(`   - ${next.title}: ${sentence(next.description)} (${workflowUrl(ctx.base, next.id)}).`)
+  if (session?.routes) {
+    const routes = Object.values(session.routes).map(r => r.title.charAt(0).toLowerCase() + r.title.slice(1))
+    const list = routes.length <= 2 ? routes.join(' or ') : `${routes.slice(0, -1).join('; ')}; or ${routes[routes.length - 1]}`
+    later.push(`   - ${session.title}, whenever it's needed: ${list} (${entry}).`)
+  }
+  return [
+    '## When this workflow is done',
+    '',
+    'After the last approval, close the workflow clearly. The person should come away knowing they have finished.',
+    '',
+    `1. **Land it.** Tell the person they have completed "${workflow.title}". In a few sentences, say what their project now has, naming the files and decisions this workflow produced, and where to see it (the review pages). Show the final outline with every step done. Make this the main message.`,
+    entry
+      ? `2. **Update the pointers.** Set \`continue\` in \`sistema.json\` to ${entry}, keeping its \`c\` parameter if it has one. Update the Sistema section in the agent instructions file and the pointer lines in DECISIONS.md, DESIGN.md, and the review pages to say this workflow is finished and that later design system work starts there.`
+      : '2. **Update the pointers.** Remove `continue` from `sistema.json`, and update the Sistema section in the agent instructions file and the pointer lines in DECISIONS.md, DESIGN.md, and the review pages to say this workflow is finished.',
+    later.length
+      ? `3. **Then, briefly, mention what they can do later.** These are options for any time, not next steps:\n${later.join('\n')}\n\n   Say they can ask their agent to work on the design system whenever they want one. Don't ask whether to start one now. If the person asks to, start it.`
+      : "3. **Then say what else is possible.** Further work is outside Sistema's process for now, so the person can decide how to go on.",
+    '4. Ask: "Was anything in this process unclear, or would you change anything?" Add any answer to DECISIONS.md.',
+  ].join('\n')
+}
+
 /** The short paste-in starter (capability-model 9.2, revised in V1.5). */
 export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, workflows?: Map<string, Workflow>): string {
   if (workflow.routes) return renderRoutesStarter(workflow, ctx)
@@ -384,16 +416,7 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
       `\`continue\` is this workflow's URL: ${url}. The first play also adds a short Sistema section to the project's AGENTS.md or CLAUDE.md that points to it, so a new session finds its way back. If that section is missing when you resume, add it as \`project.assess\` describes. If the URL you fetched this from has a \`c\` parameter, keep it on \`continue\` and record it in \`sistema.json\` as \`telemetry.id\`. It is an anonymous usage ID: Sistema counts how its workflows, plays, and tools are used, and records nothing about the person or the project's code.`,
     ].join('\n'),
     ...(tools.length ? [renderToolSummary(tools)] : []),
-    [
-      '## When this workflow is done',
-      '',
-      'After the last approval:',
-      `1. Tell the person the "${workflow.title}" workflow is complete, and show the final outline.`,
-      next
-        ? `2. Offer to continue with ${next.title}: ${workflowUrl(ctx.base, next.id)}. If they accept, set \`continue\` to that URL. If not, remove \`continue\` and update the pointer lines in the agent instructions file, DECISIONS.md, DESIGN.md, and the review pages to say the workflow is finished.`
-        : '2. Say that there is no next Sistema workflow yet, and that further work (for example, building components) is outside Sistema\'s process, so they can decide how to go on. Remove `continue` from `sistema.json`. Change the Sistema section in the agent instructions file, and the pointer lines in DECISIONS.md, DESIGN.md, and the review pages, to say the workflow is finished and DESIGN.md is the reference.',
-      '3. Ask: "Was anything in this process unclear, or would you change anything?" Add any answer to DECISIONS.md.',
-    ].join('\n'),
+    workflowEnd(workflow, ctx, next, workflows),
     `If you cannot fetch URLs, use the full version, which includes every play: ${workflowFullUrl(ctx.base, workflow.id)}`,
   ]
   return parts.join('\n\n') + '\n'
