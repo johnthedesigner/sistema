@@ -1,0 +1,965 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dark surface steps</title>
+<style>
+:root{--bg:#f6f6f4;--fg:#1d1d1f;--mut:#5f5f66;--line:#e2e2de;--card:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 system-ui,-apple-system,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:40px 20px 80px}
+h1{font-size:28px;margin:0 0 8px;letter-spacing:-.02em}h2{font-size:18px;margin:0 0 4px}
+.lede{max-width:70ch;color:var(--mut)}
+.v{background:var(--card);border-radius:14px;padding:20px;margin:28px 0;box-shadow:0 1px 2px rgb(0 0 0/.05),0 4px 16px -6px rgb(0 0 0/.08)}
+.desc{margin:0 0 10px;color:var(--mut)}
+.steps{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;margin-bottom:12px;color:var(--mut)}
+.steps b{color:var(--fg);font-weight:600}.steps em{font-style:normal;color:#6b35cd;font-weight:600}
+.sw i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin:0 4px 0 8px;box-shadow:0 0 0 1px rgb(0 0 0/.12)}
+iframe{width:100%;height:760px;border:0;border-radius:10px;display:block;background:#000}
+nav.jump{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}nav.jump a{font-size:13px;padding:5px 10px;border-radius:99px;background:var(--card);color:var(--fg);text-decoration:none;box-shadow:0 0 0 1px var(--line)}
+code{font-size:13px;background:#ececea;padding:1px 5px;border-radius:4px}
+@media (max-width:600px){iframe{height:620px}.v{padding:14px}}
+</style></head><body><main>
+<h1>Dark surface steps</h1>
+<p class="lede">Relay's board with the direction as answered (Quiet, violet 550, tinted grays, 8px, scaled chips, shadow separation, Atkinson), in dark mode four ways. Only the page, panel, featured, menu, and hover surfaces change. The numbers are OKLCH lightness differences, which track how big a step looks. In light mode, the page is neutral 50 and the panels are white: a step of <b>0.012</b>.</p>
+<nav class="jump"><a href="#light">Light reference</a><a href="#a">A. Current</a><a href="#b">B. One stop</a><a href="#c">C. A darker page below 950, panels 950</a><a href="#d">D. Half step</a></nav>
+<section class="v" id="light"><h2>Light reference</h2><p class="desc">Page neutral 50, panels white, featured white on a much stronger shadow.</p>
+<div class="steps"><span><b>Page to panel</b> 0.012</span></div>
+<iframe title="Light reference" srcdoc="<!doctype html>
+<html lang=&quot;en&quot; data-theme=&quot;light&quot;>
+<head>
+<meta charset=&quot;utf-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;>
+<title>Specimen</title>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;><link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&amp;display=swap&quot;>
+<style>
+:root{--canvas:#FBFBFC;--surface:#FFFFFF;--surface-subtle:#FBFBFC;--surface-hover:#E9E8EC;--row-hover:#FBFBFC;--surface-overlay:#FFFFFF;--surface-featured:#FFFFFF;--surface-inverse:#24222A;--on-inverse:#FBFBFC;--on-inverse-muted:#AEACB6;--surface-brand:#6B35CD;--on-brand:#FFFFFF;--on-brand-muted:#DED7FF;--text:#24222A;--text-secondary:#5A5862;--text-tertiary:#696771;--text-disabled:#9C9AA5;--hairline:#DCDBE1;--border-control:#8B8993;--border-quiet:#CECDD5;--primary:#7A47E0;--primary-hover:#5E26B9;--on-primary:#FFFFFF;--accent-subtle:#E9E5FF;--on-accent-subtle:#450E91;--link:#6B35CD;--focus:#885CED;--selected-row:#FBFBFF;--success-container:#CCF2D1;--on-success-container:#003F17;--success-dot:#127936;--warning-container:#FFE3D0;--on-warning-container:#562A00;--warning-dot:#C97526;--error-container:#FFE2DD;--on-error-container:#710408;--error-dot:#C72A27;--info-container:#DDE9FF;--on-info-container:#002991;--info-dot:#255FE0;--neutral-container:#E9E8EC;--on-neutral-container:#4D4B54;--neutral-dot:#9C9AA5;--chart-1:#885CED;--chart-2:#BFBDC7;--chart-area:#E9E5FF;--image-1:#E9E8EC;--image-2:#E9E5FF;--image-ink:#36353D;--image-accent:#9672F7;--nav-bg:#FBFBFC;--nav-text:#5A5862;--nav-selected:#E9E8EC;--on-nav-selected:#24222A;--r-control:8px;--r-chip:5px;--r-small:6px;--r-panel:12px;--r-featured:14px;--r-overlay:10px;--sh-none:none;--sh-control:0 1px 2px rgb(17 16 20 / 0.06);--sh-panel:0 1px 2px rgb(17 16 20 / 0.05), 0 2px 6px rgb(17 16 20 / 0.04);--sh-featured:0 1px 2px rgb(17 16 20 / 0.04), 0 6px 16px -4px rgb(17 16 20 / 0.08), 0 24px 48px -12px rgb(17 16 20 / 0.14);--sh-overlay:0 0 0 1px rgb(17 16 20 / 0.06), 0 4px 8px -2px rgb(17 16 20 / 0.08), 0 16px 32px -8px rgb(17 16 20 / 0.16);--control-h:28px;--row-h:34px;--pad:16px;--gap:12px;--page:20px;--fs-title:20px;--fw-title:600;--lh-title:1.2;--ls-title:-0.02em;--fs-heading:15px;--fw-heading:600;--lh-heading:1.3;--ls-heading:-0.01em;--fs-metric:24px;--fw-metric:500;--lh-metric:1.1;--ls-metric:-0.025em;--fs-body:13px;--fw-body:400;--lh-body:1.5;--ls-body:0em;--fs-body-strong:13px;--fw-body-strong:500;--lh-body-strong:1.5;--ls-body-strong:0em;--fs-small:12px;--fw-small:400;--lh-small:1.45;--ls-small:0em;--fs-label:11px;--fw-label:500;--lh-label:1.3;--ls-label:0.02em;--font:'Atkinson Hyperlegible Next',ui-sans-serif,system-ui,sans-serif;--display:'Atkinson Hyperlegible Next','Atkinson Hyperlegible Next',ui-sans-serif,system-ui,sans-serif;color-scheme:light}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--canvas)}
+body{font-family:var(--font);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--text);-webkit-font-smoothing:antialiased;min-width:1120px}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+.i{width:16px;height:16px;flex:none}
+.eyebrow{font-size:var(--fs-small);color:var(--text-secondary)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--text-secondary);font-size:var(--fs-small);font-variant-numeric:tabular-nums}
+.field{display:flex;align-items:center;gap:8px;height:var(--control-h);padding:0 10px;border:1px solid var(--border-control);border-radius:var(--r-control);background:var(--surface);color:var(--text-tertiary)}
+.field.filled{color:var(--text)}
+.field.focus{border-color:var(--focus);box-shadow:0 0 0 3px var(--accent-subtle)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:var(--control-h);padding:0 14px;border-radius:var(--r-control);font-weight:500;white-space:nowrap}
+.btn.primary{background:var(--primary);color:var(--on-primary);box-shadow:var(--sh-control)}
+.btn.secondary{background:var(--surface);border:1px solid var(--border-quiet);box-shadow:var(--sh-control)}
+.btn.ghost{color:var(--text-secondary);padding:0 10px}
+.btn.on-brand{background:rgb(255 255 255 / .16);color:var(--on-brand);padding:0 14px}
+.btn.on-inverse{background:var(--on-inverse);color:var(--surface-inverse)}
+.btn.lg{height:calc(var(--control-h) + 10px);padding:0 20px;font-size:calc(var(--fs-body) + 1px)}
+.panel{background:var(--surface);border-radius:var(--r-panel);box-shadow:var(--sh-panel)}
+.featured{background:var(--surface-featured);border-radius:var(--r-featured);box-shadow:var(--sh-featured)}
+.brandblock{background:var(--surface-brand);color:var(--on-brand);border-radius:var(--r-featured)}
+.inverse{background:var(--surface-inverse);color:var(--on-inverse)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 9px 0 8px;border-radius:var(--r-chip);font-size:var(--fs-small);font-weight:500;line-height:1;white-space:nowrap}
+.chip i{width:6px;height:6px;border-radius:99px}
+.tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:var(--r-chip);font-size:var(--fs-small);font-weight:500;background:var(--accent-subtle);color:var(--on-accent-subtle)}
+.cb{width:16px;height:16px;border:1px solid var(--border-control);border-radius:calc(var(--r-small) * .6);display:inline-grid;place-items:center;background:var(--surface);flex:none}
+.cb.on{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.ck{width:12px;height:12px;stroke-width:2}
+.icon-btn{width:28px;height:28px;display:inline-grid;place-items:center;border-radius:var(--r-control);color:var(--text-tertiary)}
+.icon-btn.open{background:var(--surface-hover);color:var(--text)}
+.tabs{display:inline-flex;gap:2px;padding:2px;background:var(--surface-hover);border-radius:calc(var(--r-control) + 2px)}
+.tabs button{height:calc(var(--control-h) - 6px);padding:0 10px;border-radius:var(--r-control);font-size:var(--fs-small);font-weight:500;color:var(--text-secondary)}
+.tabs button.on{background:var(--surface);color:var(--text);box-shadow:var(--sh-control)}
+.select{display:inline-flex;align-items:center;gap:8px;height:calc(var(--control-h) - 2px);padding:0 10px;border:1px solid var(--border-control);border-radius:var(--r-control);font-size:var(--fs-small);font-weight:500;background:var(--surface)}
+.menu{position:absolute;width:168px;background:var(--surface-overlay);border-radius:var(--r-overlay);box-shadow:var(--sh-overlay);padding:5px;z-index:2}
+.menu div{display:flex;align-items:center;height:calc(var(--control-h) - 2px);padding:0 10px;border-radius:calc(var(--r-overlay) - 5px)}
+.menu div.on{background:var(--surface-hover)}
+.menu hr{border:0;height:6px}
+.menu div.danger{color:var(--on-error-container)}
+.toast{position:fixed;right:28px;bottom:24px;display:flex;align-items:center;gap:14px;background:var(--surface-inverse);color:var(--on-inverse);padding:10px 10px 10px 14px;border-radius:var(--r-overlay);box-shadow:var(--sh-overlay);font-weight:500;z-index:3}
+.toast .ok{width:18px;height:18px;border-radius:99px;background:var(--success-dot);display:grid;place-items:center;color:#fff}
+.toast button{color:var(--on-inverse);font-weight:600;padding:4px 10px;border-radius:var(--r-small);background:rgb(127 127 127 / .18)}
+.mark{width:22px;height:22px;border-radius:calc(var(--r-small) + 1px);background:var(--primary);display:inline-grid;place-items:center;flex:none}
+.mark:after{content:&quot;&quot;;width:8px;height:8px;border-radius:2px;background:var(--on-primary)}
+
+
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+/* Navigation */
+.nav{background:var(--nav-bg);color:var(--nav-text);padding:18px 12px;display:flex;flex-direction:column;gap:2px}
+.brandmark{display:flex;align-items:center;gap:10px;padding:2px 10px 18px;font-weight:600;font-size:var(--fs-heading);letter-spacing:-0.01em;color:var(--text)}
+.brandmark b{width:22px;height:22px;border-radius:calc(var(--r-small) + 1px);background:var(--primary);display:grid;place-items:center}
+.brandmark b:after{content:&quot;&quot;;width:8px;height:8px;border-radius:2px;background:var(--on-primary)}
+.nav a{display:flex;align-items:center;gap:10px;height:calc(var(--control-h) + 0px);padding:0 10px;border-radius:var(--r-control);text-decoration:none;color:inherit;font-weight:500}
+.nav a.on{background:var(--nav-selected);color:var(--on-nav-selected)}
+.nav a .count{margin-left:auto;font-size:var(--fs-small);font-variant-numeric:tabular-nums;opacity:.8}
+.nav h6{font-size:var(--fs-label);font-weight:500;letter-spacing:var(--ls-label);opacity:.75;padding:20px 10px 6px}
+.nav .me{margin-top:auto;display:flex;align-items:center;gap:10px;padding:10px;font-weight:500}
+.nav .me i{width:26px;height:26px;border-radius:999px;background:var(--accent-subtle);color:var(--on-accent-subtle);display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:600}
+/* Main */
+main{padding:var(--page) calc(var(--page) + 8px) calc(var(--page) + 24px);display:flex;flex-direction:column;gap:var(--gap);min-width:0}
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:calc(var(--gap) - 4px)}
+.eyebrow{font-size:var(--fs-small);color:var(--text-secondary);margin-bottom:4px}
+h1{font-family:var(--display);font-size:var(--fs-title);font-weight:var(--fw-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
+h2{font-family:var(--display);font-size:var(--fs-heading);font-weight:var(--fw-heading);letter-spacing:var(--ls-heading)}
+.actions{display:flex;gap:8px;align-items:center}
+.actions .field{width:240px}
+.thead .tabs{margin-left:8px}
+.thead .select{margin-left:auto}
+.tablepanel .menu{right:calc(var(--pad) + 4px)}
+/* Panels: quiet levels */
+/* Row 1: one featured item, one brand block */
+.row1{display:grid;grid-template-columns:1.85fr 1fr;gap:var(--gap)}
+.featured{padding:calc(var(--pad) + 6px) calc(var(--pad) + 8px);display:flex;flex-direction:column;gap:14px;position:relative}
+.featured .lead{display:flex;align-items:center;gap:8px;font-size:var(--fs-small);font-weight:500;color:var(--link)}
+.featured .lead i{width:7px;height:7px;border-radius:99px;background:var(--primary);box-shadow:0 0 0 4px var(--accent-subtle)}
+.featured h3{font-family:var(--display);font-size:calc(var(--fs-title) + 2px);font-weight:600;letter-spacing:-0.02em;line-height:1.2}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--text-secondary);font-size:var(--fs-small);font-variant-numeric:tabular-nums}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:4px}
+.steps li{font-size:var(--fs-small);color:var(--text-tertiary);display:flex;flex-direction:column;gap:8px}
+.steps li span{height:4px;border-radius:99px;background:var(--border-quiet)}
+.steps li.done span{background:var(--primary)}
+.steps li.now span{background:linear-gradient(90deg,var(--primary) 55%,var(--border-quiet) 55%)}
+.steps li.now{color:var(--text);font-weight:500}
+.featured .acts{display:flex;gap:8px;margin-top:4px}
+.brandblock{padding:calc(var(--pad) + 6px) calc(var(--pad) + 4px);display:flex;flex-direction:column;gap:6px}
+.brandblock .lbl{font-size:var(--fs-small);color:var(--on-brand-muted);font-weight:500}
+.brandblock .big{font-family:var(--display);font-size:calc(var(--fs-metric) + 14px);font-weight:600;letter-spacing:-0.035em;line-height:1.05;font-variant-numeric:tabular-nums;margin-top:auto}
+.brandblock p{color:var(--on-brand-muted);font-size:var(--fs-small);max-width:30ch}
+.brandblock .btn{margin-top:10px;align-self:flex-start}
+/* Metrics: one quiet panel, divided by space only */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);padding:var(--pad) calc(var(--pad) + 4px)}
+.metric .v{font-family:var(--display);font-size:var(--fs-metric);font-weight:var(--fw-metric);letter-spacing:var(--ls-metric);line-height:var(--lh-metric);font-variant-numeric:tabular-nums;margin-top:6px}
+.metric .l{font-size:var(--fs-small);color:var(--text-secondary)}
+.metric .n{font-size:var(--fs-small);color:var(--on-warning-container);margin-top:4px}
+/* Table */
+.tablepanel{padding:6px 0 8px;position:relative}
+.thead{display:flex;align-items:center;gap:16px;padding:calc(var(--pad) - 6px) var(--pad) 12px}
+table{width:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums}
+th{font-size:var(--fs-label);font-weight:500;letter-spacing:var(--ls-label);color:var(--text-tertiary);text-align:left;padding:0 12px 8px;white-space:nowrap}
+td{height:var(--row-h);padding:0 12px;border-top:1px solid var(--hairline);white-space:nowrap}
+tr:first-child td{border-top-color:transparent}
+td.id{font-weight:500}
+td.muted{color:var(--text-secondary)}
+td.num,th.num{text-align:right}
+td.sel-col,th.sel-col{width:44px;padding-left:var(--pad);padding-right:0}
+td.more-col{width:48px;padding-right:calc(var(--pad) - 6px);text-align:right}
+tr.sel td{background:var(--selected-row)}
+tr.hov td{background:var(--row-hover)}
+tr.sel td:first-child,tr.hov td:first-child{border-radius:var(--r-small) 0 0 var(--r-small)}
+tr.sel td:last-child,tr.hov td:last-child{border-radius:0 var(--r-small) var(--r-small) 0}
+tr.sel td,tr.sel+tr td,tr.hov td,tr.hov+tr td{border-top-color:transparent}
+.tablepanel table{padding:0 8px}
+/* Floating layers */
+
+</style>
+</head>
+<body>
+<div class=&quot;app&quot;>
+  <aside class=&quot;nav&quot;>
+    <div class=&quot;brandmark&quot;><b></b>Relay</div>
+    <a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><rect x=&quot;2.5&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;2.5&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/></svg>Board</a><a class=&quot;on&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M2.5 5 8 2.5 13.5 5v6L8 13.5 2.5 11z&quot;/><path d=&quot;M2.5 5 8 7.5 13.5 5M8 7.5v6&quot;/></svg>Requests<span class=&quot;count&quot;>147</span></a><a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M1.5 4.5h8v6.5h-8zM9.5 7h3l2 2.2V11h-5&quot;/><circle cx=&quot;4.5&quot; cy=&quot;11.5&quot; r=&quot;1.3&quot;/><circle cx=&quot;11.5&quot; cy=&quot;11.5&quot; r=&quot;1.3&quot;/></svg>Techs</a><a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3.5 2h9v12l-2-1.2L8.5 14l-2-1.2L4.5 14l-1-.6z&quot;/><path d=&quot;M6 5.5h4M6 8h4&quot;/></svg>Customers</a><a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><rect x=&quot;2.5&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;2.5&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/></svg>Reports</a>
+    <h6>Reports</h6>
+    <a><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M2.5 13.5h11M4.5 11V8M8 11V4.5M11.5 11V6.5&quot;/></svg>Weekly summary</a><a><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 2.5 14 13H2z&quot;/><path d=&quot;M8 6.5v3M8 11.2v.1&quot;/></svg>Exceptions</a>
+    <div class=&quot;me&quot;><i>AK</i>Ana Kovač</div>
+  </aside>
+  <main>
+    <header class=&quot;top&quot;>
+      <div><p class=&quot;eyebrow&quot;>Friday, 20 November</p><h1>Today&amp;#39;s board</h1></div>
+      <div class=&quot;actions&quot;>
+        <span class=&quot;field focus&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;7&quot; cy=&quot;7&quot; r=&quot;4.5&quot;/><path d=&quot;m10.5 10.5 3 3&quot;/></svg>Search jobs, customers, techs</span>
+        <button class=&quot;btn secondary&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 2.5v8M4.8 7.5 8 10.7l3.2-3.2M3 13.5h10&quot;/></svg>Export</button>
+        <button class=&quot;btn primary&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 3v10M3 8h10&quot;/></svg>New job</button>
+      </div>
+    </header>
+    <section class=&quot;row1&quot;>
+      <article class=&quot;featured&quot;>
+        <span class=&quot;lead&quot;><i></i>Needs a tech now</span>
+        <h3>No heat, 2-storey house · Hartley residence</h3>
+        <div class=&quot;meta&quot;><span>JOB-20431</span><span>14 Alder Lane</span><span>Window 10–12 am</span><span>Furnace, gas</span></div>
+        <ol class=&quot;steps&quot;><li class=&quot;done&quot;><span></span>Called in</li><li class=&quot;done&quot;><span></span>Triaged</li><li class=&quot;now&quot;><span></span>Assign tech</li><li class=&quot;&quot;><span></span>En route</li><li class=&quot;&quot;><span></span>On site</li></ol>
+        <div class=&quot;acts&quot;><button class=&quot;btn primary&quot;>Assign tech</button><button class=&quot;btn ghost&quot;>Open job<svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3 8h10M9 4l4 4-4 4&quot;/></svg></button></div>
+      </article>
+      <article class=&quot;brandblock&quot;>
+        <span class=&quot;lbl&quot;>Jobs done today</span>
+        <span class=&quot;big&quot;>18 of 31</span>
+        <p>On pace for the day. 4 techs have open slots after 2 pm.</p>
+        <button class=&quot;btn on-brand&quot;>See tech schedule<svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3 8h10M9 4l4 4-4 4&quot;/></svg></button>
+      </article>
+    </section>
+    <section class=&quot;panel metrics&quot;>
+      <div class=&quot;metric&quot;><div class=&quot;l&quot;>Unassigned</div><div class=&quot;v&quot;>4</div></div><div class=&quot;metric&quot;><div class=&quot;l&quot;>Running late</div><div class=&quot;v&quot;>2</div></div><div class=&quot;metric&quot;><div class=&quot;l&quot;>On site now</div><div class=&quot;v&quot;>9</div></div><div class=&quot;metric&quot;><div class=&quot;l&quot;>Requests waiting</div><div class=&quot;v&quot;>3</div></div>
+    </section>
+    <section class=&quot;panel tablepanel&quot;>
+      <div class=&quot;thead&quot;><h2>All jobs today</h2>
+        <div class=&quot;tabs&quot;><button class=&quot;on&quot;>All</button><button class=&quot;&quot;>Unassigned</button><button class=&quot;&quot;>Running late</button><button class=&quot;&quot;>Parts hold</button></div>
+        <span class=&quot;select&quot;>Tech: All<svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;m4.5 6.5 3.5 3.5 3.5-3.5&quot;/></svg></span>
+      </div>
+      <table>
+        <thead><tr><th class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></th><th class=&quot;&quot;>Job</th><th class=&quot;&quot;>Customer</th><th class=&quot;&quot;>Tech</th><th class=&quot;&quot;>Window</th><th class=&quot;&quot;>Status</th><th class=&quot;num&quot;>Type</th><th></th></tr></thead>
+        <tbody><tr class=&quot;sel&quot;><td class=&quot;sel-col&quot;><span class=&quot;cb on&quot;><svg class=&quot;ck&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;m3.5 8.5 3 3 6-7&quot;/></svg></span></td><td class=&quot;id&quot;>JOB-20431</td><td class=&quot;&quot;>Hartley residence</td><td class=&quot; muted&quot;>—</td><td class=&quot; muted&quot;>10–12 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--neutral-container);color:var(--on-neutral-container)&quot;><i style=&quot;background:var(--neutral-dot)&quot;></i>Unassigned</span></td><td class=&quot; num&quot;>Furnace</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20417</td><td class=&quot;&quot;>Pine St Laundromat</td><td class=&quot; muted&quot;>D. Okafor</td><td class=&quot; muted&quot;>8–10 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--warning-container);color:var(--on-warning-container)&quot;><i style=&quot;background:var(--warning-dot)&quot;></i>Running late</span></td><td class=&quot; num&quot;>Water heater</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn open&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr class=&quot;hov&quot;><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20422</td><td class=&quot;&quot;>Brightwater Dental</td><td class=&quot; muted&quot;>K. Byrne</td><td class=&quot; muted&quot;>9–11 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--success-container);color:var(--on-success-container)&quot;><i style=&quot;background:var(--success-dot)&quot;></i>On site</span></td><td class=&quot; num&quot;>AC service</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20425</td><td class=&quot;&quot;>Lindqvist residence</td><td class=&quot; muted&quot;>M. Ruiz</td><td class=&quot; muted&quot;>11–1 pm</td><td><span class=&quot;chip&quot; style=&quot;background:var(--info-container);color:var(--on-info-container)&quot;><i style=&quot;background:var(--info-dot)&quot;></i>En route</span></td><td class=&quot; num&quot;>Leak</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20409</td><td class=&quot;&quot;>Cedar Court Apts</td><td class=&quot; muted&quot;>S. Patel</td><td class=&quot; muted&quot;>8–10 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--error-container);color:var(--on-error-container)&quot;><i style=&quot;background:var(--error-dot)&quot;></i>Parts hold</span></td><td class=&quot; num&quot;>Boiler</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20428</td><td class=&quot;&quot;>Hollis Bakery</td><td class=&quot; muted&quot;>A. Mensah</td><td class=&quot; muted&quot;>1–3 pm</td><td><span class=&quot;chip&quot; style=&quot;background:var(--neutral-container);color:var(--on-neutral-container)&quot;><i style=&quot;background:var(--neutral-dot)&quot;></i>Assigned</span></td><td class=&quot; num&quot;>Drain</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20401</td><td class=&quot;&quot;>Ruiz residence</td><td class=&quot; muted&quot;>K. Byrne</td><td class=&quot; muted&quot;>7–9 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--success-container);color:var(--on-success-container)&quot;><i style=&quot;background:var(--success-dot)&quot;></i>Done</span></td><td class=&quot; num&quot;>Thermostat</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr></tbody>
+      </table>
+      <div class=&quot;menu&quot; style=&quot;top:calc(var(--pad) + var(--control-h) + 30px + var(--row-h) * 2)&quot;>
+        <div class=&quot;on&quot;>Open job</div><div class=&quot;&quot;>Reassign tech</div><div class=&quot;&quot;>Change window</div><hr><div class=&quot; danger&quot;>Put on parts hold</div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class=&quot;toast&quot;><span class=&quot;ok&quot;><svg class=&quot;ck&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;m3.5 8.5 3 3 6-7&quot;/></svg></span>JOB-20420 assigned to D. Okafor, arriving 10:40 am<button>Undo</button></div>
+</body>
+</html>" loading="lazy"></iframe></section>
+<section class="v" id="a">
+  <h2>A. Current: page 950, panels 850</h2><p class="desc">Mirrored stop numbers, two stops apart. What the specimen and the color play produce today.</p>
+  <div class="steps">
+    <span><b>Page to panel</b> 0.081 <em>7.0× light</em></span>
+    <span><b>Panel to featured</b> 0.036</span>
+    <span><b>Page to menu</b> 0.117</span>
+    <span class="sw"><i style="background:#111014"></i>#111014 <i style="background:#24222A"></i>#24222A <i style="background:#2C2B33"></i>#2C2B33 <i style="background:#2C2B33"></i>#2C2B33</span>
+  </div>
+  <iframe title="A. Current: page 950, panels 850" srcdoc="<!doctype html>
+<html lang=&quot;en&quot; data-theme=&quot;dark&quot;>
+<head>
+<meta charset=&quot;utf-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;>
+<title>Specimen</title>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;><link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&amp;display=swap&quot;>
+<style>
+:root{--canvas:#111014;--surface:#24222A;--surface-subtle:#111014;--surface-hover:#2C2B33;--row-hover:#2C2B33;--surface-overlay:#2C2B33;--surface-featured:#2C2B33;--surface-inverse:#E9E8EC;--on-inverse:#24222A;--on-inverse-muted:#5A5862;--surface-brand:#6B35CD;--on-brand:#FFFFFF;--on-brand-muted:#DED7FF;--text:#FBFBFC;--text-secondary:#AEACB6;--text-tertiary:#9C9AA5;--text-disabled:#5A5862;--hairline:#36353D;--border-control:#797782;--border-quiet:#413F48;--primary:#9672F7;--primary-hover:#A589FC;--on-primary:#18013B;--accent-subtle:#3A067D;--on-accent-subtle:#D1C7FF;--link:#A589FC;--focus:#A589FC;--selected-row:#2F0368;--success-container:#002A0D;--on-success-container:#85E298;--success-dot:#3EB05E;--warning-container:#3A1B00;--on-warning-container:#FDC295;--warning-dot:#E08535;--error-container:#4F0103;--on-error-container:#FFBEB6;--error-dot:#FA7064;--info-container:#00176B;--on-info-container:#B5CFFF;--info-dot:#699AFC;--neutral-container:#36353D;--on-neutral-container:#CECDD5;--neutral-dot:#8B8993;--chart-1:#A589FC;--chart-2:#5A5862;--chart-area:#2F0368;--image-1:#2C2B33;--image-2:#2F0368;--image-ink:#CECDD5;--image-accent:#A589FC;--nav-bg:#111014;--nav-text:#AEACB6;--nav-selected:#2C2B33;--on-nav-selected:#FBFBFC;--r-control:8px;--r-chip:5px;--r-small:6px;--r-panel:12px;--r-featured:14px;--r-overlay:10px;--sh-none:none;--sh-control:0 1px 2px rgb(0 0 0 / 0.18);--sh-panel:0 1px 2px rgb(0 0 0 / 0.15000000000000002), 0 2px 6px rgb(0 0 0 / 0.12);--sh-featured:0 1px 2px rgb(0 0 0 / 0.12), 0 6px 16px -4px rgb(0 0 0 / 0.24), 0 24px 48px -12px rgb(0 0 0 / 0.42000000000000004);--sh-overlay:0 0 0 1px rgb(0 0 0 / 0.18), 0 4px 8px -2px rgb(0 0 0 / 0.24), 0 16px 32px -8px rgb(0 0 0 / 0.48);--control-h:28px;--row-h:34px;--pad:16px;--gap:12px;--page:20px;--fs-title:20px;--fw-title:600;--lh-title:1.2;--ls-title:-0.02em;--fs-heading:15px;--fw-heading:600;--lh-heading:1.3;--ls-heading:-0.01em;--fs-metric:24px;--fw-metric:500;--lh-metric:1.1;--ls-metric:-0.025em;--fs-body:13px;--fw-body:400;--lh-body:1.5;--ls-body:0em;--fs-body-strong:13px;--fw-body-strong:500;--lh-body-strong:1.5;--ls-body-strong:0em;--fs-small:12px;--fw-small:400;--lh-small:1.45;--ls-small:0em;--fs-label:11px;--fw-label:500;--lh-label:1.3;--ls-label:0.02em;--font:'Atkinson Hyperlegible Next',ui-sans-serif,system-ui,sans-serif;--display:'Atkinson Hyperlegible Next','Atkinson Hyperlegible Next',ui-sans-serif,system-ui,sans-serif;color-scheme:dark}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--canvas)}
+body{font-family:var(--font);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--text);-webkit-font-smoothing:antialiased;min-width:1120px}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+.i{width:16px;height:16px;flex:none}
+.eyebrow{font-size:var(--fs-small);color:var(--text-secondary)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--text-secondary);font-size:var(--fs-small);font-variant-numeric:tabular-nums}
+.field{display:flex;align-items:center;gap:8px;height:var(--control-h);padding:0 10px;border:1px solid var(--border-control);border-radius:var(--r-control);background:var(--surface);color:var(--text-tertiary)}
+.field.filled{color:var(--text)}
+.field.focus{border-color:var(--focus);box-shadow:0 0 0 3px var(--accent-subtle)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:var(--control-h);padding:0 14px;border-radius:var(--r-control);font-weight:500;white-space:nowrap}
+.btn.primary{background:var(--primary);color:var(--on-primary);box-shadow:var(--sh-control)}
+.btn.secondary{background:var(--surface);border:1px solid var(--border-quiet);box-shadow:var(--sh-control)}
+.btn.ghost{color:var(--text-secondary);padding:0 10px}
+.btn.on-brand{background:rgb(255 255 255 / .16);color:var(--on-brand);padding:0 14px}
+.btn.on-inverse{background:var(--on-inverse);color:var(--surface-inverse)}
+.btn.lg{height:calc(var(--control-h) + 10px);padding:0 20px;font-size:calc(var(--fs-body) + 1px)}
+.panel{background:var(--surface);border-radius:var(--r-panel);box-shadow:var(--sh-panel)}
+.featured{background:var(--surface-featured);border-radius:var(--r-featured);box-shadow:var(--sh-featured),inset 0 1px 0 rgb(255 255 255 / .06)}
+.brandblock{background:var(--surface-brand);color:var(--on-brand);border-radius:var(--r-featured)}
+.inverse{background:var(--surface-inverse);color:var(--on-inverse)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 9px 0 8px;border-radius:var(--r-chip);font-size:var(--fs-small);font-weight:500;line-height:1;white-space:nowrap}
+.chip i{width:6px;height:6px;border-radius:99px}
+.tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:var(--r-chip);font-size:var(--fs-small);font-weight:500;background:var(--accent-subtle);color:var(--on-accent-subtle)}
+.cb{width:16px;height:16px;border:1px solid var(--border-control);border-radius:calc(var(--r-small) * .6);display:inline-grid;place-items:center;background:var(--surface);flex:none}
+.cb.on{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.ck{width:12px;height:12px;stroke-width:2}
+.icon-btn{width:28px;height:28px;display:inline-grid;place-items:center;border-radius:var(--r-control);color:var(--text-tertiary)}
+.icon-btn.open{background:var(--surface-hover);color:var(--text)}
+.tabs{display:inline-flex;gap:2px;padding:2px;background:var(--surface-hover);border-radius:calc(var(--r-control) + 2px)}
+.tabs button{height:calc(var(--control-h) - 6px);padding:0 10px;border-radius:var(--r-control);font-size:var(--fs-small);font-weight:500;color:var(--text-secondary)}
+.tabs button.on{background:var(--surface);color:var(--text);box-shadow:var(--sh-control)}
+.select{display:inline-flex;align-items:center;gap:8px;height:calc(var(--control-h) - 2px);padding:0 10px;border:1px solid var(--border-control);border-radius:var(--r-control);font-size:var(--fs-small);font-weight:500;background:var(--surface)}
+.menu{position:absolute;width:168px;background:var(--surface-overlay);border-radius:var(--r-overlay);box-shadow:var(--sh-overlay),inset 0 1px 0 rgb(255 255 255 / .06);padding:5px;z-index:2}
+.menu div{display:flex;align-items:center;height:calc(var(--control-h) - 2px);padding:0 10px;border-radius:calc(var(--r-overlay) - 5px)}
+.menu div.on{background:var(--surface-hover)}
+.menu hr{border:0;height:6px}
+.menu div.danger{color:var(--on-error-container)}
+.toast{position:fixed;right:28px;bottom:24px;display:flex;align-items:center;gap:14px;background:var(--surface-inverse);color:var(--on-inverse);padding:10px 10px 10px 14px;border-radius:var(--r-overlay);box-shadow:var(--sh-overlay);font-weight:500;z-index:3}
+.toast .ok{width:18px;height:18px;border-radius:99px;background:var(--success-dot);display:grid;place-items:center;color:#fff}
+.toast button{color:var(--on-inverse);font-weight:600;padding:4px 10px;border-radius:var(--r-small);background:rgb(127 127 127 / .18)}
+.mark{width:22px;height:22px;border-radius:calc(var(--r-small) + 1px);background:var(--primary);display:inline-grid;place-items:center;flex:none}
+.mark:after{content:&quot;&quot;;width:8px;height:8px;border-radius:2px;background:var(--on-primary)}
+
+
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+/* Navigation */
+.nav{background:var(--nav-bg);color:var(--nav-text);padding:18px 12px;display:flex;flex-direction:column;gap:2px}
+.brandmark{display:flex;align-items:center;gap:10px;padding:2px 10px 18px;font-weight:600;font-size:var(--fs-heading);letter-spacing:-0.01em;color:var(--text)}
+.brandmark b{width:22px;height:22px;border-radius:calc(var(--r-small) + 1px);background:var(--primary);display:grid;place-items:center}
+.brandmark b:after{content:&quot;&quot;;width:8px;height:8px;border-radius:2px;background:var(--on-primary)}
+.nav a{display:flex;align-items:center;gap:10px;height:calc(var(--control-h) + 0px);padding:0 10px;border-radius:var(--r-control);text-decoration:none;color:inherit;font-weight:500}
+.nav a.on{background:var(--nav-selected);color:var(--on-nav-selected)}
+.nav a .count{margin-left:auto;font-size:var(--fs-small);font-variant-numeric:tabular-nums;opacity:.8}
+.nav h6{font-size:var(--fs-label);font-weight:500;letter-spacing:var(--ls-label);opacity:.75;padding:20px 10px 6px}
+.nav .me{margin-top:auto;display:flex;align-items:center;gap:10px;padding:10px;font-weight:500}
+.nav .me i{width:26px;height:26px;border-radius:999px;background:var(--accent-subtle);color:var(--on-accent-subtle);display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:600}
+/* Main */
+main{padding:var(--page) calc(var(--page) + 8px) calc(var(--page) + 24px);display:flex;flex-direction:column;gap:var(--gap);min-width:0}
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:calc(var(--gap) - 4px)}
+.eyebrow{font-size:var(--fs-small);color:var(--text-secondary);margin-bottom:4px}
+h1{font-family:var(--display);font-size:var(--fs-title);font-weight:var(--fw-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
+h2{font-family:var(--display);font-size:var(--fs-heading);font-weight:var(--fw-heading);letter-spacing:var(--ls-heading)}
+.actions{display:flex;gap:8px;align-items:center}
+.actions .field{width:240px}
+.thead .tabs{margin-left:8px}
+.thead .select{margin-left:auto}
+.tablepanel .menu{right:calc(var(--pad) + 4px)}
+/* Panels: quiet levels */
+/* Row 1: one featured item, one brand block */
+.row1{display:grid;grid-template-columns:1.85fr 1fr;gap:var(--gap)}
+.featured{padding:calc(var(--pad) + 6px) calc(var(--pad) + 8px);display:flex;flex-direction:column;gap:14px;position:relative}
+.featured .lead{display:flex;align-items:center;gap:8px;font-size:var(--fs-small);font-weight:500;color:var(--link)}
+.featured .lead i{width:7px;height:7px;border-radius:99px;background:var(--primary);box-shadow:0 0 0 4px var(--accent-subtle)}
+.featured h3{font-family:var(--display);font-size:calc(var(--fs-title) + 2px);font-weight:600;letter-spacing:-0.02em;line-height:1.2}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--text-secondary);font-size:var(--fs-small);font-variant-numeric:tabular-nums}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:4px}
+.steps li{font-size:var(--fs-small);color:var(--text-tertiary);display:flex;flex-direction:column;gap:8px}
+.steps li span{height:4px;border-radius:99px;background:var(--border-quiet)}
+.steps li.done span{background:var(--primary)}
+.steps li.now span{background:linear-gradient(90deg,var(--primary) 55%,var(--border-quiet) 55%)}
+.steps li.now{color:var(--text);font-weight:500}
+.featured .acts{display:flex;gap:8px;margin-top:4px}
+.brandblock{padding:calc(var(--pad) + 6px) calc(var(--pad) + 4px);display:flex;flex-direction:column;gap:6px}
+.brandblock .lbl{font-size:var(--fs-small);color:var(--on-brand-muted);font-weight:500}
+.brandblock .big{font-family:var(--display);font-size:calc(var(--fs-metric) + 14px);font-weight:600;letter-spacing:-0.035em;line-height:1.05;font-variant-numeric:tabular-nums;margin-top:auto}
+.brandblock p{color:var(--on-brand-muted);font-size:var(--fs-small);max-width:30ch}
+.brandblock .btn{margin-top:10px;align-self:flex-start}
+/* Metrics: one quiet panel, divided by space only */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);padding:var(--pad) calc(var(--pad) + 4px)}
+.metric .v{font-family:var(--display);font-size:var(--fs-metric);font-weight:var(--fw-metric);letter-spacing:var(--ls-metric);line-height:var(--lh-metric);font-variant-numeric:tabular-nums;margin-top:6px}
+.metric .l{font-size:var(--fs-small);color:var(--text-secondary)}
+.metric .n{font-size:var(--fs-small);color:var(--on-warning-container);margin-top:4px}
+/* Table */
+.tablepanel{padding:6px 0 8px;position:relative}
+.thead{display:flex;align-items:center;gap:16px;padding:calc(var(--pad) - 6px) var(--pad) 12px}
+table{width:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums}
+th{font-size:var(--fs-label);font-weight:500;letter-spacing:var(--ls-label);color:var(--text-tertiary);text-align:left;padding:0 12px 8px;white-space:nowrap}
+td{height:var(--row-h);padding:0 12px;border-top:1px solid var(--hairline);white-space:nowrap}
+tr:first-child td{border-top-color:transparent}
+td.id{font-weight:500}
+td.muted{color:var(--text-secondary)}
+td.num,th.num{text-align:right}
+td.sel-col,th.sel-col{width:44px;padding-left:var(--pad);padding-right:0}
+td.more-col{width:48px;padding-right:calc(var(--pad) - 6px);text-align:right}
+tr.sel td{background:var(--selected-row)}
+tr.hov td{background:var(--row-hover)}
+tr.sel td:first-child,tr.hov td:first-child{border-radius:var(--r-small) 0 0 var(--r-small)}
+tr.sel td:last-child,tr.hov td:last-child{border-radius:0 var(--r-small) var(--r-small) 0}
+tr.sel td,tr.sel+tr td,tr.hov td,tr.hov+tr td{border-top-color:transparent}
+.tablepanel table{padding:0 8px}
+/* Floating layers */
+
+</style>
+</head>
+<body>
+<div class=&quot;app&quot;>
+  <aside class=&quot;nav&quot;>
+    <div class=&quot;brandmark&quot;><b></b>Relay</div>
+    <a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><rect x=&quot;2.5&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;2.5&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/></svg>Board</a><a class=&quot;on&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M2.5 5 8 2.5 13.5 5v6L8 13.5 2.5 11z&quot;/><path d=&quot;M2.5 5 8 7.5 13.5 5M8 7.5v6&quot;/></svg>Requests<span class=&quot;count&quot;>147</span></a><a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M1.5 4.5h8v6.5h-8zM9.5 7h3l2 2.2V11h-5&quot;/><circle cx=&quot;4.5&quot; cy=&quot;11.5&quot; r=&quot;1.3&quot;/><circle cx=&quot;11.5&quot; cy=&quot;11.5&quot; r=&quot;1.3&quot;/></svg>Techs</a><a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3.5 2h9v12l-2-1.2L8.5 14l-2-1.2L4.5 14l-1-.6z&quot;/><path d=&quot;M6 5.5h4M6 8h4&quot;/></svg>Customers</a><a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><rect x=&quot;2.5&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;2.5&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/></svg>Reports</a>
+    <h6>Reports</h6>
+    <a><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M2.5 13.5h11M4.5 11V8M8 11V4.5M11.5 11V6.5&quot;/></svg>Weekly summary</a><a><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 2.5 14 13H2z&quot;/><path d=&quot;M8 6.5v3M8 11.2v.1&quot;/></svg>Exceptions</a>
+    <div class=&quot;me&quot;><i>AK</i>Ana Kovač</div>
+  </aside>
+  <main>
+    <header class=&quot;top&quot;>
+      <div><p class=&quot;eyebrow&quot;>Friday, 20 November</p><h1>Today&amp;#39;s board</h1></div>
+      <div class=&quot;actions&quot;>
+        <span class=&quot;field focus&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;7&quot; cy=&quot;7&quot; r=&quot;4.5&quot;/><path d=&quot;m10.5 10.5 3 3&quot;/></svg>Search jobs, customers, techs</span>
+        <button class=&quot;btn secondary&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 2.5v8M4.8 7.5 8 10.7l3.2-3.2M3 13.5h10&quot;/></svg>Export</button>
+        <button class=&quot;btn primary&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 3v10M3 8h10&quot;/></svg>New job</button>
+      </div>
+    </header>
+    <section class=&quot;row1&quot;>
+      <article class=&quot;featured&quot;>
+        <span class=&quot;lead&quot;><i></i>Needs a tech now</span>
+        <h3>No heat, 2-storey house · Hartley residence</h3>
+        <div class=&quot;meta&quot;><span>JOB-20431</span><span>14 Alder Lane</span><span>Window 10–12 am</span><span>Furnace, gas</span></div>
+        <ol class=&quot;steps&quot;><li class=&quot;done&quot;><span></span>Called in</li><li class=&quot;done&quot;><span></span>Triaged</li><li class=&quot;now&quot;><span></span>Assign tech</li><li class=&quot;&quot;><span></span>En route</li><li class=&quot;&quot;><span></span>On site</li></ol>
+        <div class=&quot;acts&quot;><button class=&quot;btn primary&quot;>Assign tech</button><button class=&quot;btn ghost&quot;>Open job<svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3 8h10M9 4l4 4-4 4&quot;/></svg></button></div>
+      </article>
+      <article class=&quot;brandblock&quot;>
+        <span class=&quot;lbl&quot;>Jobs done today</span>
+        <span class=&quot;big&quot;>18 of 31</span>
+        <p>On pace for the day. 4 techs have open slots after 2 pm.</p>
+        <button class=&quot;btn on-brand&quot;>See tech schedule<svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3 8h10M9 4l4 4-4 4&quot;/></svg></button>
+      </article>
+    </section>
+    <section class=&quot;panel metrics&quot;>
+      <div class=&quot;metric&quot;><div class=&quot;l&quot;>Unassigned</div><div class=&quot;v&quot;>4</div></div><div class=&quot;metric&quot;><div class=&quot;l&quot;>Running late</div><div class=&quot;v&quot;>2</div></div><div class=&quot;metric&quot;><div class=&quot;l&quot;>On site now</div><div class=&quot;v&quot;>9</div></div><div class=&quot;metric&quot;><div class=&quot;l&quot;>Requests waiting</div><div class=&quot;v&quot;>3</div></div>
+    </section>
+    <section class=&quot;panel tablepanel&quot;>
+      <div class=&quot;thead&quot;><h2>All jobs today</h2>
+        <div class=&quot;tabs&quot;><button class=&quot;on&quot;>All</button><button class=&quot;&quot;>Unassigned</button><button class=&quot;&quot;>Running late</button><button class=&quot;&quot;>Parts hold</button></div>
+        <span class=&quot;select&quot;>Tech: All<svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;m4.5 6.5 3.5 3.5 3.5-3.5&quot;/></svg></span>
+      </div>
+      <table>
+        <thead><tr><th class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></th><th class=&quot;&quot;>Job</th><th class=&quot;&quot;>Customer</th><th class=&quot;&quot;>Tech</th><th class=&quot;&quot;>Window</th><th class=&quot;&quot;>Status</th><th class=&quot;num&quot;>Type</th><th></th></tr></thead>
+        <tbody><tr class=&quot;sel&quot;><td class=&quot;sel-col&quot;><span class=&quot;cb on&quot;><svg class=&quot;ck&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;m3.5 8.5 3 3 6-7&quot;/></svg></span></td><td class=&quot;id&quot;>JOB-20431</td><td class=&quot;&quot;>Hartley residence</td><td class=&quot; muted&quot;>—</td><td class=&quot; muted&quot;>10–12 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--neutral-container);color:var(--on-neutral-container)&quot;><i style=&quot;background:var(--neutral-dot)&quot;></i>Unassigned</span></td><td class=&quot; num&quot;>Furnace</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20417</td><td class=&quot;&quot;>Pine St Laundromat</td><td class=&quot; muted&quot;>D. Okafor</td><td class=&quot; muted&quot;>8–10 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--warning-container);color:var(--on-warning-container)&quot;><i style=&quot;background:var(--warning-dot)&quot;></i>Running late</span></td><td class=&quot; num&quot;>Water heater</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn open&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr class=&quot;hov&quot;><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20422</td><td class=&quot;&quot;>Brightwater Dental</td><td class=&quot; muted&quot;>K. Byrne</td><td class=&quot; muted&quot;>9–11 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--success-container);color:var(--on-success-container)&quot;><i style=&quot;background:var(--success-dot)&quot;></i>On site</span></td><td class=&quot; num&quot;>AC service</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20425</td><td class=&quot;&quot;>Lindqvist residence</td><td class=&quot; muted&quot;>M. Ruiz</td><td class=&quot; muted&quot;>11–1 pm</td><td><span class=&quot;chip&quot; style=&quot;background:var(--info-container);color:var(--on-info-container)&quot;><i style=&quot;background:var(--info-dot)&quot;></i>En route</span></td><td class=&quot; num&quot;>Leak</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20409</td><td class=&quot;&quot;>Cedar Court Apts</td><td class=&quot; muted&quot;>S. Patel</td><td class=&quot; muted&quot;>8–10 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--error-container);color:var(--on-error-container)&quot;><i style=&quot;background:var(--error-dot)&quot;></i>Parts hold</span></td><td class=&quot; num&quot;>Boiler</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20428</td><td class=&quot;&quot;>Hollis Bakery</td><td class=&quot; muted&quot;>A. Mensah</td><td class=&quot; muted&quot;>1–3 pm</td><td><span class=&quot;chip&quot; style=&quot;background:var(--neutral-container);color:var(--on-neutral-container)&quot;><i style=&quot;background:var(--neutral-dot)&quot;></i>Assigned</span></td><td class=&quot; num&quot;>Drain</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20401</td><td class=&quot;&quot;>Ruiz residence</td><td class=&quot; muted&quot;>K. Byrne</td><td class=&quot; muted&quot;>7–9 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--success-container);color:var(--on-success-container)&quot;><i style=&quot;background:var(--success-dot)&quot;></i>Done</span></td><td class=&quot; num&quot;>Thermostat</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr></tbody>
+      </table>
+      <div class=&quot;menu&quot; style=&quot;top:calc(var(--pad) + var(--control-h) + 30px + var(--row-h) * 2)&quot;>
+        <div class=&quot;on&quot;>Open job</div><div class=&quot;&quot;>Reassign tech</div><div class=&quot;&quot;>Change window</div><hr><div class=&quot; danger&quot;>Put on parts hold</div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class=&quot;toast&quot;><span class=&quot;ok&quot;><svg class=&quot;ck&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;m3.5 8.5 3 3 6-7&quot;/></svg></span>JOB-20420 assigned to D. Okafor, arriving 10:40 am<button>Undo</button></div>
+</body>
+</html>" loading="lazy"></iframe>
+</section>
+<section class="v" id="b">
+  <h2>B. One stop: page 950, panels 900</h2><p class="desc">The smallest step the ramp has at the dark end. No new values.</p>
+  <div class="steps">
+    <span><b>Page to panel</b> 0.043 <em>3.7× light</em></span>
+    <span><b>Panel to featured</b> 0.039</span>
+    <span><b>Page to menu</b> 0.117</span>
+    <span class="sw"><i style="background:#111014"></i>#111014 <i style="background:#1B1920"></i>#1B1920 <i style="background:#24222A"></i>#24222A <i style="background:#2C2B33"></i>#2C2B33</span>
+  </div>
+  <iframe title="B. One stop: page 950, panels 900" srcdoc="<!doctype html>
+<html lang=&quot;en&quot; data-theme=&quot;dark&quot;>
+<head>
+<meta charset=&quot;utf-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;>
+<title>Specimen</title>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;><link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&amp;display=swap&quot;>
+<style>
+:root{--canvas:#111014;--surface:#1B1920;--surface-subtle:#111014;--surface-hover:#24222A;--row-hover:#24222A;--surface-overlay:#2C2B33;--surface-featured:#24222A;--surface-inverse:#E9E8EC;--on-inverse:#24222A;--on-inverse-muted:#5A5862;--surface-brand:#6B35CD;--on-brand:#FFFFFF;--on-brand-muted:#DED7FF;--text:#FBFBFC;--text-secondary:#AEACB6;--text-tertiary:#9C9AA5;--text-disabled:#5A5862;--hairline:#36353D;--border-control:#797782;--border-quiet:#413F48;--primary:#9672F7;--primary-hover:#A589FC;--on-primary:#18013B;--accent-subtle:#3A067D;--on-accent-subtle:#D1C7FF;--link:#A589FC;--focus:#A589FC;--selected-row:#2F0368;--success-container:#002A0D;--on-success-container:#85E298;--success-dot:#3EB05E;--warning-container:#3A1B00;--on-warning-container:#FDC295;--warning-dot:#E08535;--error-container:#4F0103;--on-error-container:#FFBEB6;--error-dot:#FA7064;--info-container:#00176B;--on-info-container:#B5CFFF;--info-dot:#699AFC;--neutral-container:#36353D;--on-neutral-container:#CECDD5;--neutral-dot:#8B8993;--chart-1:#A589FC;--chart-2:#5A5862;--chart-area:#2F0368;--image-1:#2C2B33;--image-2:#2F0368;--image-ink:#CECDD5;--image-accent:#A589FC;--nav-bg:#111014;--nav-text:#AEACB6;--nav-selected:#24222A;--on-nav-selected:#FBFBFC;--r-control:8px;--r-chip:5px;--r-small:6px;--r-panel:12px;--r-featured:14px;--r-overlay:10px;--sh-none:none;--sh-control:0 1px 2px rgb(0 0 0 / 0.18);--sh-panel:0 1px 2px rgb(0 0 0 / 0.15000000000000002), 0 2px 6px rgb(0 0 0 / 0.12);--sh-featured:0 1px 2px rgb(0 0 0 / 0.12), 0 6px 16px -4px rgb(0 0 0 / 0.24), 0 24px 48px -12px rgb(0 0 0 / 0.42000000000000004);--sh-overlay:0 0 0 1px rgb(0 0 0 / 0.18), 0 4px 8px -2px rgb(0 0 0 / 0.24), 0 16px 32px -8px rgb(0 0 0 / 0.48);--control-h:28px;--row-h:34px;--pad:16px;--gap:12px;--page:20px;--fs-title:20px;--fw-title:600;--lh-title:1.2;--ls-title:-0.02em;--fs-heading:15px;--fw-heading:600;--lh-heading:1.3;--ls-heading:-0.01em;--fs-metric:24px;--fw-metric:500;--lh-metric:1.1;--ls-metric:-0.025em;--fs-body:13px;--fw-body:400;--lh-body:1.5;--ls-body:0em;--fs-body-strong:13px;--fw-body-strong:500;--lh-body-strong:1.5;--ls-body-strong:0em;--fs-small:12px;--fw-small:400;--lh-small:1.45;--ls-small:0em;--fs-label:11px;--fw-label:500;--lh-label:1.3;--ls-label:0.02em;--font:'Atkinson Hyperlegible Next',ui-sans-serif,system-ui,sans-serif;--display:'Atkinson Hyperlegible Next','Atkinson Hyperlegible Next',ui-sans-serif,system-ui,sans-serif;color-scheme:dark}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--canvas)}
+body{font-family:var(--font);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--text);-webkit-font-smoothing:antialiased;min-width:1120px}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+.i{width:16px;height:16px;flex:none}
+.eyebrow{font-size:var(--fs-small);color:var(--text-secondary)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--text-secondary);font-size:var(--fs-small);font-variant-numeric:tabular-nums}
+.field{display:flex;align-items:center;gap:8px;height:var(--control-h);padding:0 10px;border:1px solid var(--border-control);border-radius:var(--r-control);background:var(--surface);color:var(--text-tertiary)}
+.field.filled{color:var(--text)}
+.field.focus{border-color:var(--focus);box-shadow:0 0 0 3px var(--accent-subtle)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:var(--control-h);padding:0 14px;border-radius:var(--r-control);font-weight:500;white-space:nowrap}
+.btn.primary{background:var(--primary);color:var(--on-primary);box-shadow:var(--sh-control)}
+.btn.secondary{background:var(--surface);border:1px solid var(--border-quiet);box-shadow:var(--sh-control)}
+.btn.ghost{color:var(--text-secondary);padding:0 10px}
+.btn.on-brand{background:rgb(255 255 255 / .16);color:var(--on-brand);padding:0 14px}
+.btn.on-inverse{background:var(--on-inverse);color:var(--surface-inverse)}
+.btn.lg{height:calc(var(--control-h) + 10px);padding:0 20px;font-size:calc(var(--fs-body) + 1px)}
+.panel{background:var(--surface);border-radius:var(--r-panel);box-shadow:var(--sh-panel)}
+.featured{background:var(--surface-featured);border-radius:var(--r-featured);box-shadow:var(--sh-featured),inset 0 1px 0 rgb(255 255 255 / .06)}
+.brandblock{background:var(--surface-brand);color:var(--on-brand);border-radius:var(--r-featured)}
+.inverse{background:var(--surface-inverse);color:var(--on-inverse)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 9px 0 8px;border-radius:var(--r-chip);font-size:var(--fs-small);font-weight:500;line-height:1;white-space:nowrap}
+.chip i{width:6px;height:6px;border-radius:99px}
+.tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:var(--r-chip);font-size:var(--fs-small);font-weight:500;background:var(--accent-subtle);color:var(--on-accent-subtle)}
+.cb{width:16px;height:16px;border:1px solid var(--border-control);border-radius:calc(var(--r-small) * .6);display:inline-grid;place-items:center;background:var(--surface);flex:none}
+.cb.on{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.ck{width:12px;height:12px;stroke-width:2}
+.icon-btn{width:28px;height:28px;display:inline-grid;place-items:center;border-radius:var(--r-control);color:var(--text-tertiary)}
+.icon-btn.open{background:var(--surface-hover);color:var(--text)}
+.tabs{display:inline-flex;gap:2px;padding:2px;background:var(--surface-hover);border-radius:calc(var(--r-control) + 2px)}
+.tabs button{height:calc(var(--control-h) - 6px);padding:0 10px;border-radius:var(--r-control);font-size:var(--fs-small);font-weight:500;color:var(--text-secondary)}
+.tabs button.on{background:var(--surface);color:var(--text);box-shadow:var(--sh-control)}
+.select{display:inline-flex;align-items:center;gap:8px;height:calc(var(--control-h) - 2px);padding:0 10px;border:1px solid var(--border-control);border-radius:var(--r-control);font-size:var(--fs-small);font-weight:500;background:var(--surface)}
+.menu{position:absolute;width:168px;background:var(--surface-overlay);border-radius:var(--r-overlay);box-shadow:var(--sh-overlay),inset 0 1px 0 rgb(255 255 255 / .06);padding:5px;z-index:2}
+.menu div{display:flex;align-items:center;height:calc(var(--control-h) - 2px);padding:0 10px;border-radius:calc(var(--r-overlay) - 5px)}
+.menu div.on{background:var(--surface-hover)}
+.menu hr{border:0;height:6px}
+.menu div.danger{color:var(--on-error-container)}
+.toast{position:fixed;right:28px;bottom:24px;display:flex;align-items:center;gap:14px;background:var(--surface-inverse);color:var(--on-inverse);padding:10px 10px 10px 14px;border-radius:var(--r-overlay);box-shadow:var(--sh-overlay);font-weight:500;z-index:3}
+.toast .ok{width:18px;height:18px;border-radius:99px;background:var(--success-dot);display:grid;place-items:center;color:#fff}
+.toast button{color:var(--on-inverse);font-weight:600;padding:4px 10px;border-radius:var(--r-small);background:rgb(127 127 127 / .18)}
+.mark{width:22px;height:22px;border-radius:calc(var(--r-small) + 1px);background:var(--primary);display:inline-grid;place-items:center;flex:none}
+.mark:after{content:&quot;&quot;;width:8px;height:8px;border-radius:2px;background:var(--on-primary)}
+
+
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+/* Navigation */
+.nav{background:var(--nav-bg);color:var(--nav-text);padding:18px 12px;display:flex;flex-direction:column;gap:2px}
+.brandmark{display:flex;align-items:center;gap:10px;padding:2px 10px 18px;font-weight:600;font-size:var(--fs-heading);letter-spacing:-0.01em;color:var(--text)}
+.brandmark b{width:22px;height:22px;border-radius:calc(var(--r-small) + 1px);background:var(--primary);display:grid;place-items:center}
+.brandmark b:after{content:&quot;&quot;;width:8px;height:8px;border-radius:2px;background:var(--on-primary)}
+.nav a{display:flex;align-items:center;gap:10px;height:calc(var(--control-h) + 0px);padding:0 10px;border-radius:var(--r-control);text-decoration:none;color:inherit;font-weight:500}
+.nav a.on{background:var(--nav-selected);color:var(--on-nav-selected)}
+.nav a .count{margin-left:auto;font-size:var(--fs-small);font-variant-numeric:tabular-nums;opacity:.8}
+.nav h6{font-size:var(--fs-label);font-weight:500;letter-spacing:var(--ls-label);opacity:.75;padding:20px 10px 6px}
+.nav .me{margin-top:auto;display:flex;align-items:center;gap:10px;padding:10px;font-weight:500}
+.nav .me i{width:26px;height:26px;border-radius:999px;background:var(--accent-subtle);color:var(--on-accent-subtle);display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:600}
+/* Main */
+main{padding:var(--page) calc(var(--page) + 8px) calc(var(--page) + 24px);display:flex;flex-direction:column;gap:var(--gap);min-width:0}
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:calc(var(--gap) - 4px)}
+.eyebrow{font-size:var(--fs-small);color:var(--text-secondary);margin-bottom:4px}
+h1{font-family:var(--display);font-size:var(--fs-title);font-weight:var(--fw-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
+h2{font-family:var(--display);font-size:var(--fs-heading);font-weight:var(--fw-heading);letter-spacing:var(--ls-heading)}
+.actions{display:flex;gap:8px;align-items:center}
+.actions .field{width:240px}
+.thead .tabs{margin-left:8px}
+.thead .select{margin-left:auto}
+.tablepanel .menu{right:calc(var(--pad) + 4px)}
+/* Panels: quiet levels */
+/* Row 1: one featured item, one brand block */
+.row1{display:grid;grid-template-columns:1.85fr 1fr;gap:var(--gap)}
+.featured{padding:calc(var(--pad) + 6px) calc(var(--pad) + 8px);display:flex;flex-direction:column;gap:14px;position:relative}
+.featured .lead{display:flex;align-items:center;gap:8px;font-size:var(--fs-small);font-weight:500;color:var(--link)}
+.featured .lead i{width:7px;height:7px;border-radius:99px;background:var(--primary);box-shadow:0 0 0 4px var(--accent-subtle)}
+.featured h3{font-family:var(--display);font-size:calc(var(--fs-title) + 2px);font-weight:600;letter-spacing:-0.02em;line-height:1.2}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--text-secondary);font-size:var(--fs-small);font-variant-numeric:tabular-nums}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:4px}
+.steps li{font-size:var(--fs-small);color:var(--text-tertiary);display:flex;flex-direction:column;gap:8px}
+.steps li span{height:4px;border-radius:99px;background:var(--border-quiet)}
+.steps li.done span{background:var(--primary)}
+.steps li.now span{background:linear-gradient(90deg,var(--primary) 55%,var(--border-quiet) 55%)}
+.steps li.now{color:var(--text);font-weight:500}
+.featured .acts{display:flex;gap:8px;margin-top:4px}
+.brandblock{padding:calc(var(--pad) + 6px) calc(var(--pad) + 4px);display:flex;flex-direction:column;gap:6px}
+.brandblock .lbl{font-size:var(--fs-small);color:var(--on-brand-muted);font-weight:500}
+.brandblock .big{font-family:var(--display);font-size:calc(var(--fs-metric) + 14px);font-weight:600;letter-spacing:-0.035em;line-height:1.05;font-variant-numeric:tabular-nums;margin-top:auto}
+.brandblock p{color:var(--on-brand-muted);font-size:var(--fs-small);max-width:30ch}
+.brandblock .btn{margin-top:10px;align-self:flex-start}
+/* Metrics: one quiet panel, divided by space only */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);padding:var(--pad) calc(var(--pad) + 4px)}
+.metric .v{font-family:var(--display);font-size:var(--fs-metric);font-weight:var(--fw-metric);letter-spacing:var(--ls-metric);line-height:var(--lh-metric);font-variant-numeric:tabular-nums;margin-top:6px}
+.metric .l{font-size:var(--fs-small);color:var(--text-secondary)}
+.metric .n{font-size:var(--fs-small);color:var(--on-warning-container);margin-top:4px}
+/* Table */
+.tablepanel{padding:6px 0 8px;position:relative}
+.thead{display:flex;align-items:center;gap:16px;padding:calc(var(--pad) - 6px) var(--pad) 12px}
+table{width:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums}
+th{font-size:var(--fs-label);font-weight:500;letter-spacing:var(--ls-label);color:var(--text-tertiary);text-align:left;padding:0 12px 8px;white-space:nowrap}
+td{height:var(--row-h);padding:0 12px;border-top:1px solid var(--hairline);white-space:nowrap}
+tr:first-child td{border-top-color:transparent}
+td.id{font-weight:500}
+td.muted{color:var(--text-secondary)}
+td.num,th.num{text-align:right}
+td.sel-col,th.sel-col{width:44px;padding-left:var(--pad);padding-right:0}
+td.more-col{width:48px;padding-right:calc(var(--pad) - 6px);text-align:right}
+tr.sel td{background:var(--selected-row)}
+tr.hov td{background:var(--row-hover)}
+tr.sel td:first-child,tr.hov td:first-child{border-radius:var(--r-small) 0 0 var(--r-small)}
+tr.sel td:last-child,tr.hov td:last-child{border-radius:0 var(--r-small) var(--r-small) 0}
+tr.sel td,tr.sel+tr td,tr.hov td,tr.hov+tr td{border-top-color:transparent}
+.tablepanel table{padding:0 8px}
+/* Floating layers */
+
+</style>
+</head>
+<body>
+<div class=&quot;app&quot;>
+  <aside class=&quot;nav&quot;>
+    <div class=&quot;brandmark&quot;><b></b>Relay</div>
+    <a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><rect x=&quot;2.5&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;2.5&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/></svg>Board</a><a class=&quot;on&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M2.5 5 8 2.5 13.5 5v6L8 13.5 2.5 11z&quot;/><path d=&quot;M2.5 5 8 7.5 13.5 5M8 7.5v6&quot;/></svg>Requests<span class=&quot;count&quot;>147</span></a><a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M1.5 4.5h8v6.5h-8zM9.5 7h3l2 2.2V11h-5&quot;/><circle cx=&quot;4.5&quot; cy=&quot;11.5&quot; r=&quot;1.3&quot;/><circle cx=&quot;11.5&quot; cy=&quot;11.5&quot; r=&quot;1.3&quot;/></svg>Techs</a><a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3.5 2h9v12l-2-1.2L8.5 14l-2-1.2L4.5 14l-1-.6z&quot;/><path d=&quot;M6 5.5h4M6 8h4&quot;/></svg>Customers</a><a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><rect x=&quot;2.5&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;2.5&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/></svg>Reports</a>
+    <h6>Reports</h6>
+    <a><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M2.5 13.5h11M4.5 11V8M8 11V4.5M11.5 11V6.5&quot;/></svg>Weekly summary</a><a><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 2.5 14 13H2z&quot;/><path d=&quot;M8 6.5v3M8 11.2v.1&quot;/></svg>Exceptions</a>
+    <div class=&quot;me&quot;><i>AK</i>Ana Kovač</div>
+  </aside>
+  <main>
+    <header class=&quot;top&quot;>
+      <div><p class=&quot;eyebrow&quot;>Friday, 20 November</p><h1>Today&amp;#39;s board</h1></div>
+      <div class=&quot;actions&quot;>
+        <span class=&quot;field focus&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;7&quot; cy=&quot;7&quot; r=&quot;4.5&quot;/><path d=&quot;m10.5 10.5 3 3&quot;/></svg>Search jobs, customers, techs</span>
+        <button class=&quot;btn secondary&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 2.5v8M4.8 7.5 8 10.7l3.2-3.2M3 13.5h10&quot;/></svg>Export</button>
+        <button class=&quot;btn primary&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 3v10M3 8h10&quot;/></svg>New job</button>
+      </div>
+    </header>
+    <section class=&quot;row1&quot;>
+      <article class=&quot;featured&quot;>
+        <span class=&quot;lead&quot;><i></i>Needs a tech now</span>
+        <h3>No heat, 2-storey house · Hartley residence</h3>
+        <div class=&quot;meta&quot;><span>JOB-20431</span><span>14 Alder Lane</span><span>Window 10–12 am</span><span>Furnace, gas</span></div>
+        <ol class=&quot;steps&quot;><li class=&quot;done&quot;><span></span>Called in</li><li class=&quot;done&quot;><span></span>Triaged</li><li class=&quot;now&quot;><span></span>Assign tech</li><li class=&quot;&quot;><span></span>En route</li><li class=&quot;&quot;><span></span>On site</li></ol>
+        <div class=&quot;acts&quot;><button class=&quot;btn primary&quot;>Assign tech</button><button class=&quot;btn ghost&quot;>Open job<svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3 8h10M9 4l4 4-4 4&quot;/></svg></button></div>
+      </article>
+      <article class=&quot;brandblock&quot;>
+        <span class=&quot;lbl&quot;>Jobs done today</span>
+        <span class=&quot;big&quot;>18 of 31</span>
+        <p>On pace for the day. 4 techs have open slots after 2 pm.</p>
+        <button class=&quot;btn on-brand&quot;>See tech schedule<svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3 8h10M9 4l4 4-4 4&quot;/></svg></button>
+      </article>
+    </section>
+    <section class=&quot;panel metrics&quot;>
+      <div class=&quot;metric&quot;><div class=&quot;l&quot;>Unassigned</div><div class=&quot;v&quot;>4</div></div><div class=&quot;metric&quot;><div class=&quot;l&quot;>Running late</div><div class=&quot;v&quot;>2</div></div><div class=&quot;metric&quot;><div class=&quot;l&quot;>On site now</div><div class=&quot;v&quot;>9</div></div><div class=&quot;metric&quot;><div class=&quot;l&quot;>Requests waiting</div><div class=&quot;v&quot;>3</div></div>
+    </section>
+    <section class=&quot;panel tablepanel&quot;>
+      <div class=&quot;thead&quot;><h2>All jobs today</h2>
+        <div class=&quot;tabs&quot;><button class=&quot;on&quot;>All</button><button class=&quot;&quot;>Unassigned</button><button class=&quot;&quot;>Running late</button><button class=&quot;&quot;>Parts hold</button></div>
+        <span class=&quot;select&quot;>Tech: All<svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;m4.5 6.5 3.5 3.5 3.5-3.5&quot;/></svg></span>
+      </div>
+      <table>
+        <thead><tr><th class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></th><th class=&quot;&quot;>Job</th><th class=&quot;&quot;>Customer</th><th class=&quot;&quot;>Tech</th><th class=&quot;&quot;>Window</th><th class=&quot;&quot;>Status</th><th class=&quot;num&quot;>Type</th><th></th></tr></thead>
+        <tbody><tr class=&quot;sel&quot;><td class=&quot;sel-col&quot;><span class=&quot;cb on&quot;><svg class=&quot;ck&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;m3.5 8.5 3 3 6-7&quot;/></svg></span></td><td class=&quot;id&quot;>JOB-20431</td><td class=&quot;&quot;>Hartley residence</td><td class=&quot; muted&quot;>—</td><td class=&quot; muted&quot;>10–12 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--neutral-container);color:var(--on-neutral-container)&quot;><i style=&quot;background:var(--neutral-dot)&quot;></i>Unassigned</span></td><td class=&quot; num&quot;>Furnace</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20417</td><td class=&quot;&quot;>Pine St Laundromat</td><td class=&quot; muted&quot;>D. Okafor</td><td class=&quot; muted&quot;>8–10 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--warning-container);color:var(--on-warning-container)&quot;><i style=&quot;background:var(--warning-dot)&quot;></i>Running late</span></td><td class=&quot; num&quot;>Water heater</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn open&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr class=&quot;hov&quot;><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20422</td><td class=&quot;&quot;>Brightwater Dental</td><td class=&quot; muted&quot;>K. Byrne</td><td class=&quot; muted&quot;>9–11 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--success-container);color:var(--on-success-container)&quot;><i style=&quot;background:var(--success-dot)&quot;></i>On site</span></td><td class=&quot; num&quot;>AC service</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20425</td><td class=&quot;&quot;>Lindqvist residence</td><td class=&quot; muted&quot;>M. Ruiz</td><td class=&quot; muted&quot;>11–1 pm</td><td><span class=&quot;chip&quot; style=&quot;background:var(--info-container);color:var(--on-info-container)&quot;><i style=&quot;background:var(--info-dot)&quot;></i>En route</span></td><td class=&quot; num&quot;>Leak</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20409</td><td class=&quot;&quot;>Cedar Court Apts</td><td class=&quot; muted&quot;>S. Patel</td><td class=&quot; muted&quot;>8–10 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--error-container);color:var(--on-error-container)&quot;><i style=&quot;background:var(--error-dot)&quot;></i>Parts hold</span></td><td class=&quot; num&quot;>Boiler</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20428</td><td class=&quot;&quot;>Hollis Bakery</td><td class=&quot; muted&quot;>A. Mensah</td><td class=&quot; muted&quot;>1–3 pm</td><td><span class=&quot;chip&quot; style=&quot;background:var(--neutral-container);color:var(--on-neutral-container)&quot;><i style=&quot;background:var(--neutral-dot)&quot;></i>Assigned</span></td><td class=&quot; num&quot;>Drain</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20401</td><td class=&quot;&quot;>Ruiz residence</td><td class=&quot; muted&quot;>K. Byrne</td><td class=&quot; muted&quot;>7–9 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--success-container);color:var(--on-success-container)&quot;><i style=&quot;background:var(--success-dot)&quot;></i>Done</span></td><td class=&quot; num&quot;>Thermostat</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr></tbody>
+      </table>
+      <div class=&quot;menu&quot; style=&quot;top:calc(var(--pad) + var(--control-h) + 30px + var(--row-h) * 2)&quot;>
+        <div class=&quot;on&quot;>Open job</div><div class=&quot;&quot;>Reassign tech</div><div class=&quot;&quot;>Change window</div><hr><div class=&quot; danger&quot;>Put on parts hold</div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class=&quot;toast&quot;><span class=&quot;ok&quot;><svg class=&quot;ck&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;m3.5 8.5 3 3 6-7&quot;/></svg></span>JOB-20420 assigned to D. Okafor, arriving 10:40 am<button>Undo</button></div>
+</body>
+</html>" loading="lazy"></iframe>
+</section>
+<section class="v" id="c">
+  <h2>C. A darker page below 950, panels 950</h2><p class="desc">The ramp gets a dark end value, the counterpart of white in light mode, set at twice the light step below 950.</p>
+  <div class="steps">
+    <span><b>Page to panel</b> 0.023 <em>2.0× light</em></span>
+    <span><b>Panel to featured</b> 0.043</span>
+    <span><b>Page to menu</b> 0.105</span>
+    <span class="sw"><i style="background:#0C0B0F"></i>#0C0B0F <i style="background:#111014"></i>#111014 <i style="background:#1B1920"></i>#1B1920 <i style="background:#24222A"></i>#24222A</span>
+  </div>
+  <iframe title="C. A darker page below 950, panels 950" srcdoc="<!doctype html>
+<html lang=&quot;en&quot; data-theme=&quot;dark&quot;>
+<head>
+<meta charset=&quot;utf-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;>
+<title>Specimen</title>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;><link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&amp;display=swap&quot;>
+<style>
+:root{--canvas:#0C0B0F;--surface:#111014;--surface-subtle:#0C0B0F;--surface-hover:#1B1920;--row-hover:#1B1920;--surface-overlay:#24222A;--surface-featured:#1B1920;--surface-inverse:#E9E8EC;--on-inverse:#24222A;--on-inverse-muted:#5A5862;--surface-brand:#6B35CD;--on-brand:#FFFFFF;--on-brand-muted:#DED7FF;--text:#FBFBFC;--text-secondary:#AEACB6;--text-tertiary:#9C9AA5;--text-disabled:#5A5862;--hairline:#36353D;--border-control:#797782;--border-quiet:#413F48;--primary:#9672F7;--primary-hover:#A589FC;--on-primary:#18013B;--accent-subtle:#3A067D;--on-accent-subtle:#D1C7FF;--link:#A589FC;--focus:#A589FC;--selected-row:#2F0368;--success-container:#002A0D;--on-success-container:#85E298;--success-dot:#3EB05E;--warning-container:#3A1B00;--on-warning-container:#FDC295;--warning-dot:#E08535;--error-container:#4F0103;--on-error-container:#FFBEB6;--error-dot:#FA7064;--info-container:#00176B;--on-info-container:#B5CFFF;--info-dot:#699AFC;--neutral-container:#36353D;--on-neutral-container:#CECDD5;--neutral-dot:#8B8993;--chart-1:#A589FC;--chart-2:#5A5862;--chart-area:#2F0368;--image-1:#2C2B33;--image-2:#2F0368;--image-ink:#CECDD5;--image-accent:#A589FC;--nav-bg:#0C0B0F;--nav-text:#AEACB6;--nav-selected:#1B1920;--on-nav-selected:#FBFBFC;--r-control:8px;--r-chip:5px;--r-small:6px;--r-panel:12px;--r-featured:14px;--r-overlay:10px;--sh-none:none;--sh-control:0 1px 2px rgb(0 0 0 / 0.18);--sh-panel:0 1px 2px rgb(0 0 0 / 0.15000000000000002), 0 2px 6px rgb(0 0 0 / 0.12);--sh-featured:0 1px 2px rgb(0 0 0 / 0.12), 0 6px 16px -4px rgb(0 0 0 / 0.24), 0 24px 48px -12px rgb(0 0 0 / 0.42000000000000004);--sh-overlay:0 0 0 1px rgb(0 0 0 / 0.18), 0 4px 8px -2px rgb(0 0 0 / 0.24), 0 16px 32px -8px rgb(0 0 0 / 0.48);--control-h:28px;--row-h:34px;--pad:16px;--gap:12px;--page:20px;--fs-title:20px;--fw-title:600;--lh-title:1.2;--ls-title:-0.02em;--fs-heading:15px;--fw-heading:600;--lh-heading:1.3;--ls-heading:-0.01em;--fs-metric:24px;--fw-metric:500;--lh-metric:1.1;--ls-metric:-0.025em;--fs-body:13px;--fw-body:400;--lh-body:1.5;--ls-body:0em;--fs-body-strong:13px;--fw-body-strong:500;--lh-body-strong:1.5;--ls-body-strong:0em;--fs-small:12px;--fw-small:400;--lh-small:1.45;--ls-small:0em;--fs-label:11px;--fw-label:500;--lh-label:1.3;--ls-label:0.02em;--font:'Atkinson Hyperlegible Next',ui-sans-serif,system-ui,sans-serif;--display:'Atkinson Hyperlegible Next','Atkinson Hyperlegible Next',ui-sans-serif,system-ui,sans-serif;color-scheme:dark}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--canvas)}
+body{font-family:var(--font);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--text);-webkit-font-smoothing:antialiased;min-width:1120px}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+.i{width:16px;height:16px;flex:none}
+.eyebrow{font-size:var(--fs-small);color:var(--text-secondary)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--text-secondary);font-size:var(--fs-small);font-variant-numeric:tabular-nums}
+.field{display:flex;align-items:center;gap:8px;height:var(--control-h);padding:0 10px;border:1px solid var(--border-control);border-radius:var(--r-control);background:var(--surface);color:var(--text-tertiary)}
+.field.filled{color:var(--text)}
+.field.focus{border-color:var(--focus);box-shadow:0 0 0 3px var(--accent-subtle)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:var(--control-h);padding:0 14px;border-radius:var(--r-control);font-weight:500;white-space:nowrap}
+.btn.primary{background:var(--primary);color:var(--on-primary);box-shadow:var(--sh-control)}
+.btn.secondary{background:var(--surface);border:1px solid var(--border-quiet);box-shadow:var(--sh-control)}
+.btn.ghost{color:var(--text-secondary);padding:0 10px}
+.btn.on-brand{background:rgb(255 255 255 / .16);color:var(--on-brand);padding:0 14px}
+.btn.on-inverse{background:var(--on-inverse);color:var(--surface-inverse)}
+.btn.lg{height:calc(var(--control-h) + 10px);padding:0 20px;font-size:calc(var(--fs-body) + 1px)}
+.panel{background:var(--surface);border-radius:var(--r-panel);box-shadow:var(--sh-panel)}
+.featured{background:var(--surface-featured);border-radius:var(--r-featured);box-shadow:var(--sh-featured),inset 0 1px 0 rgb(255 255 255 / .06)}
+.brandblock{background:var(--surface-brand);color:var(--on-brand);border-radius:var(--r-featured)}
+.inverse{background:var(--surface-inverse);color:var(--on-inverse)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 9px 0 8px;border-radius:var(--r-chip);font-size:var(--fs-small);font-weight:500;line-height:1;white-space:nowrap}
+.chip i{width:6px;height:6px;border-radius:99px}
+.tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:var(--r-chip);font-size:var(--fs-small);font-weight:500;background:var(--accent-subtle);color:var(--on-accent-subtle)}
+.cb{width:16px;height:16px;border:1px solid var(--border-control);border-radius:calc(var(--r-small) * .6);display:inline-grid;place-items:center;background:var(--surface);flex:none}
+.cb.on{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.ck{width:12px;height:12px;stroke-width:2}
+.icon-btn{width:28px;height:28px;display:inline-grid;place-items:center;border-radius:var(--r-control);color:var(--text-tertiary)}
+.icon-btn.open{background:var(--surface-hover);color:var(--text)}
+.tabs{display:inline-flex;gap:2px;padding:2px;background:var(--surface-hover);border-radius:calc(var(--r-control) + 2px)}
+.tabs button{height:calc(var(--control-h) - 6px);padding:0 10px;border-radius:var(--r-control);font-size:var(--fs-small);font-weight:500;color:var(--text-secondary)}
+.tabs button.on{background:var(--surface);color:var(--text);box-shadow:var(--sh-control)}
+.select{display:inline-flex;align-items:center;gap:8px;height:calc(var(--control-h) - 2px);padding:0 10px;border:1px solid var(--border-control);border-radius:var(--r-control);font-size:var(--fs-small);font-weight:500;background:var(--surface)}
+.menu{position:absolute;width:168px;background:var(--surface-overlay);border-radius:var(--r-overlay);box-shadow:var(--sh-overlay),inset 0 1px 0 rgb(255 255 255 / .06);padding:5px;z-index:2}
+.menu div{display:flex;align-items:center;height:calc(var(--control-h) - 2px);padding:0 10px;border-radius:calc(var(--r-overlay) - 5px)}
+.menu div.on{background:var(--surface-hover)}
+.menu hr{border:0;height:6px}
+.menu div.danger{color:var(--on-error-container)}
+.toast{position:fixed;right:28px;bottom:24px;display:flex;align-items:center;gap:14px;background:var(--surface-inverse);color:var(--on-inverse);padding:10px 10px 10px 14px;border-radius:var(--r-overlay);box-shadow:var(--sh-overlay);font-weight:500;z-index:3}
+.toast .ok{width:18px;height:18px;border-radius:99px;background:var(--success-dot);display:grid;place-items:center;color:#fff}
+.toast button{color:var(--on-inverse);font-weight:600;padding:4px 10px;border-radius:var(--r-small);background:rgb(127 127 127 / .18)}
+.mark{width:22px;height:22px;border-radius:calc(var(--r-small) + 1px);background:var(--primary);display:inline-grid;place-items:center;flex:none}
+.mark:after{content:&quot;&quot;;width:8px;height:8px;border-radius:2px;background:var(--on-primary)}
+
+
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+/* Navigation */
+.nav{background:var(--nav-bg);color:var(--nav-text);padding:18px 12px;display:flex;flex-direction:column;gap:2px}
+.brandmark{display:flex;align-items:center;gap:10px;padding:2px 10px 18px;font-weight:600;font-size:var(--fs-heading);letter-spacing:-0.01em;color:var(--text)}
+.brandmark b{width:22px;height:22px;border-radius:calc(var(--r-small) + 1px);background:var(--primary);display:grid;place-items:center}
+.brandmark b:after{content:&quot;&quot;;width:8px;height:8px;border-radius:2px;background:var(--on-primary)}
+.nav a{display:flex;align-items:center;gap:10px;height:calc(var(--control-h) + 0px);padding:0 10px;border-radius:var(--r-control);text-decoration:none;color:inherit;font-weight:500}
+.nav a.on{background:var(--nav-selected);color:var(--on-nav-selected)}
+.nav a .count{margin-left:auto;font-size:var(--fs-small);font-variant-numeric:tabular-nums;opacity:.8}
+.nav h6{font-size:var(--fs-label);font-weight:500;letter-spacing:var(--ls-label);opacity:.75;padding:20px 10px 6px}
+.nav .me{margin-top:auto;display:flex;align-items:center;gap:10px;padding:10px;font-weight:500}
+.nav .me i{width:26px;height:26px;border-radius:999px;background:var(--accent-subtle);color:var(--on-accent-subtle);display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:600}
+/* Main */
+main{padding:var(--page) calc(var(--page) + 8px) calc(var(--page) + 24px);display:flex;flex-direction:column;gap:var(--gap);min-width:0}
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:calc(var(--gap) - 4px)}
+.eyebrow{font-size:var(--fs-small);color:var(--text-secondary);margin-bottom:4px}
+h1{font-family:var(--display);font-size:var(--fs-title);font-weight:var(--fw-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
+h2{font-family:var(--display);font-size:var(--fs-heading);font-weight:var(--fw-heading);letter-spacing:var(--ls-heading)}
+.actions{display:flex;gap:8px;align-items:center}
+.actions .field{width:240px}
+.thead .tabs{margin-left:8px}
+.thead .select{margin-left:auto}
+.tablepanel .menu{right:calc(var(--pad) + 4px)}
+/* Panels: quiet levels */
+/* Row 1: one featured item, one brand block */
+.row1{display:grid;grid-template-columns:1.85fr 1fr;gap:var(--gap)}
+.featured{padding:calc(var(--pad) + 6px) calc(var(--pad) + 8px);display:flex;flex-direction:column;gap:14px;position:relative}
+.featured .lead{display:flex;align-items:center;gap:8px;font-size:var(--fs-small);font-weight:500;color:var(--link)}
+.featured .lead i{width:7px;height:7px;border-radius:99px;background:var(--primary);box-shadow:0 0 0 4px var(--accent-subtle)}
+.featured h3{font-family:var(--display);font-size:calc(var(--fs-title) + 2px);font-weight:600;letter-spacing:-0.02em;line-height:1.2}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--text-secondary);font-size:var(--fs-small);font-variant-numeric:tabular-nums}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:4px}
+.steps li{font-size:var(--fs-small);color:var(--text-tertiary);display:flex;flex-direction:column;gap:8px}
+.steps li span{height:4px;border-radius:99px;background:var(--border-quiet)}
+.steps li.done span{background:var(--primary)}
+.steps li.now span{background:linear-gradient(90deg,var(--primary) 55%,var(--border-quiet) 55%)}
+.steps li.now{color:var(--text);font-weight:500}
+.featured .acts{display:flex;gap:8px;margin-top:4px}
+.brandblock{padding:calc(var(--pad) + 6px) calc(var(--pad) + 4px);display:flex;flex-direction:column;gap:6px}
+.brandblock .lbl{font-size:var(--fs-small);color:var(--on-brand-muted);font-weight:500}
+.brandblock .big{font-family:var(--display);font-size:calc(var(--fs-metric) + 14px);font-weight:600;letter-spacing:-0.035em;line-height:1.05;font-variant-numeric:tabular-nums;margin-top:auto}
+.brandblock p{color:var(--on-brand-muted);font-size:var(--fs-small);max-width:30ch}
+.brandblock .btn{margin-top:10px;align-self:flex-start}
+/* Metrics: one quiet panel, divided by space only */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);padding:var(--pad) calc(var(--pad) + 4px)}
+.metric .v{font-family:var(--display);font-size:var(--fs-metric);font-weight:var(--fw-metric);letter-spacing:var(--ls-metric);line-height:var(--lh-metric);font-variant-numeric:tabular-nums;margin-top:6px}
+.metric .l{font-size:var(--fs-small);color:var(--text-secondary)}
+.metric .n{font-size:var(--fs-small);color:var(--on-warning-container);margin-top:4px}
+/* Table */
+.tablepanel{padding:6px 0 8px;position:relative}
+.thead{display:flex;align-items:center;gap:16px;padding:calc(var(--pad) - 6px) var(--pad) 12px}
+table{width:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums}
+th{font-size:var(--fs-label);font-weight:500;letter-spacing:var(--ls-label);color:var(--text-tertiary);text-align:left;padding:0 12px 8px;white-space:nowrap}
+td{height:var(--row-h);padding:0 12px;border-top:1px solid var(--hairline);white-space:nowrap}
+tr:first-child td{border-top-color:transparent}
+td.id{font-weight:500}
+td.muted{color:var(--text-secondary)}
+td.num,th.num{text-align:right}
+td.sel-col,th.sel-col{width:44px;padding-left:var(--pad);padding-right:0}
+td.more-col{width:48px;padding-right:calc(var(--pad) - 6px);text-align:right}
+tr.sel td{background:var(--selected-row)}
+tr.hov td{background:var(--row-hover)}
+tr.sel td:first-child,tr.hov td:first-child{border-radius:var(--r-small) 0 0 var(--r-small)}
+tr.sel td:last-child,tr.hov td:last-child{border-radius:0 var(--r-small) var(--r-small) 0}
+tr.sel td,tr.sel+tr td,tr.hov td,tr.hov+tr td{border-top-color:transparent}
+.tablepanel table{padding:0 8px}
+/* Floating layers */
+
+</style>
+</head>
+<body>
+<div class=&quot;app&quot;>
+  <aside class=&quot;nav&quot;>
+    <div class=&quot;brandmark&quot;><b></b>Relay</div>
+    <a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><rect x=&quot;2.5&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;2.5&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/></svg>Board</a><a class=&quot;on&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M2.5 5 8 2.5 13.5 5v6L8 13.5 2.5 11z&quot;/><path d=&quot;M2.5 5 8 7.5 13.5 5M8 7.5v6&quot;/></svg>Requests<span class=&quot;count&quot;>147</span></a><a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M1.5 4.5h8v6.5h-8zM9.5 7h3l2 2.2V11h-5&quot;/><circle cx=&quot;4.5&quot; cy=&quot;11.5&quot; r=&quot;1.3&quot;/><circle cx=&quot;11.5&quot; cy=&quot;11.5&quot; r=&quot;1.3&quot;/></svg>Techs</a><a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3.5 2h9v12l-2-1.2L8.5 14l-2-1.2L4.5 14l-1-.6z&quot;/><path d=&quot;M6 5.5h4M6 8h4&quot;/></svg>Customers</a><a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><rect x=&quot;2.5&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;2.5&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/></svg>Reports</a>
+    <h6>Reports</h6>
+    <a><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M2.5 13.5h11M4.5 11V8M8 11V4.5M11.5 11V6.5&quot;/></svg>Weekly summary</a><a><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 2.5 14 13H2z&quot;/><path d=&quot;M8 6.5v3M8 11.2v.1&quot;/></svg>Exceptions</a>
+    <div class=&quot;me&quot;><i>AK</i>Ana Kovač</div>
+  </aside>
+  <main>
+    <header class=&quot;top&quot;>
+      <div><p class=&quot;eyebrow&quot;>Friday, 20 November</p><h1>Today&amp;#39;s board</h1></div>
+      <div class=&quot;actions&quot;>
+        <span class=&quot;field focus&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;7&quot; cy=&quot;7&quot; r=&quot;4.5&quot;/><path d=&quot;m10.5 10.5 3 3&quot;/></svg>Search jobs, customers, techs</span>
+        <button class=&quot;btn secondary&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 2.5v8M4.8 7.5 8 10.7l3.2-3.2M3 13.5h10&quot;/></svg>Export</button>
+        <button class=&quot;btn primary&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 3v10M3 8h10&quot;/></svg>New job</button>
+      </div>
+    </header>
+    <section class=&quot;row1&quot;>
+      <article class=&quot;featured&quot;>
+        <span class=&quot;lead&quot;><i></i>Needs a tech now</span>
+        <h3>No heat, 2-storey house · Hartley residence</h3>
+        <div class=&quot;meta&quot;><span>JOB-20431</span><span>14 Alder Lane</span><span>Window 10–12 am</span><span>Furnace, gas</span></div>
+        <ol class=&quot;steps&quot;><li class=&quot;done&quot;><span></span>Called in</li><li class=&quot;done&quot;><span></span>Triaged</li><li class=&quot;now&quot;><span></span>Assign tech</li><li class=&quot;&quot;><span></span>En route</li><li class=&quot;&quot;><span></span>On site</li></ol>
+        <div class=&quot;acts&quot;><button class=&quot;btn primary&quot;>Assign tech</button><button class=&quot;btn ghost&quot;>Open job<svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3 8h10M9 4l4 4-4 4&quot;/></svg></button></div>
+      </article>
+      <article class=&quot;brandblock&quot;>
+        <span class=&quot;lbl&quot;>Jobs done today</span>
+        <span class=&quot;big&quot;>18 of 31</span>
+        <p>On pace for the day. 4 techs have open slots after 2 pm.</p>
+        <button class=&quot;btn on-brand&quot;>See tech schedule<svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3 8h10M9 4l4 4-4 4&quot;/></svg></button>
+      </article>
+    </section>
+    <section class=&quot;panel metrics&quot;>
+      <div class=&quot;metric&quot;><div class=&quot;l&quot;>Unassigned</div><div class=&quot;v&quot;>4</div></div><div class=&quot;metric&quot;><div class=&quot;l&quot;>Running late</div><div class=&quot;v&quot;>2</div></div><div class=&quot;metric&quot;><div class=&quot;l&quot;>On site now</div><div class=&quot;v&quot;>9</div></div><div class=&quot;metric&quot;><div class=&quot;l&quot;>Requests waiting</div><div class=&quot;v&quot;>3</div></div>
+    </section>
+    <section class=&quot;panel tablepanel&quot;>
+      <div class=&quot;thead&quot;><h2>All jobs today</h2>
+        <div class=&quot;tabs&quot;><button class=&quot;on&quot;>All</button><button class=&quot;&quot;>Unassigned</button><button class=&quot;&quot;>Running late</button><button class=&quot;&quot;>Parts hold</button></div>
+        <span class=&quot;select&quot;>Tech: All<svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;m4.5 6.5 3.5 3.5 3.5-3.5&quot;/></svg></span>
+      </div>
+      <table>
+        <thead><tr><th class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></th><th class=&quot;&quot;>Job</th><th class=&quot;&quot;>Customer</th><th class=&quot;&quot;>Tech</th><th class=&quot;&quot;>Window</th><th class=&quot;&quot;>Status</th><th class=&quot;num&quot;>Type</th><th></th></tr></thead>
+        <tbody><tr class=&quot;sel&quot;><td class=&quot;sel-col&quot;><span class=&quot;cb on&quot;><svg class=&quot;ck&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;m3.5 8.5 3 3 6-7&quot;/></svg></span></td><td class=&quot;id&quot;>JOB-20431</td><td class=&quot;&quot;>Hartley residence</td><td class=&quot; muted&quot;>—</td><td class=&quot; muted&quot;>10–12 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--neutral-container);color:var(--on-neutral-container)&quot;><i style=&quot;background:var(--neutral-dot)&quot;></i>Unassigned</span></td><td class=&quot; num&quot;>Furnace</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20417</td><td class=&quot;&quot;>Pine St Laundromat</td><td class=&quot; muted&quot;>D. Okafor</td><td class=&quot; muted&quot;>8–10 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--warning-container);color:var(--on-warning-container)&quot;><i style=&quot;background:var(--warning-dot)&quot;></i>Running late</span></td><td class=&quot; num&quot;>Water heater</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn open&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr class=&quot;hov&quot;><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20422</td><td class=&quot;&quot;>Brightwater Dental</td><td class=&quot; muted&quot;>K. Byrne</td><td class=&quot; muted&quot;>9–11 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--success-container);color:var(--on-success-container)&quot;><i style=&quot;background:var(--success-dot)&quot;></i>On site</span></td><td class=&quot; num&quot;>AC service</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20425</td><td class=&quot;&quot;>Lindqvist residence</td><td class=&quot; muted&quot;>M. Ruiz</td><td class=&quot; muted&quot;>11–1 pm</td><td><span class=&quot;chip&quot; style=&quot;background:var(--info-container);color:var(--on-info-container)&quot;><i style=&quot;background:var(--info-dot)&quot;></i>En route</span></td><td class=&quot; num&quot;>Leak</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20409</td><td class=&quot;&quot;>Cedar Court Apts</td><td class=&quot; muted&quot;>S. Patel</td><td class=&quot; muted&quot;>8–10 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--error-container);color:var(--on-error-container)&quot;><i style=&quot;background:var(--error-dot)&quot;></i>Parts hold</span></td><td class=&quot; num&quot;>Boiler</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20428</td><td class=&quot;&quot;>Hollis Bakery</td><td class=&quot; muted&quot;>A. Mensah</td><td class=&quot; muted&quot;>1–3 pm</td><td><span class=&quot;chip&quot; style=&quot;background:var(--neutral-container);color:var(--on-neutral-container)&quot;><i style=&quot;background:var(--neutral-dot)&quot;></i>Assigned</span></td><td class=&quot; num&quot;>Drain</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20401</td><td class=&quot;&quot;>Ruiz residence</td><td class=&quot; muted&quot;>K. Byrne</td><td class=&quot; muted&quot;>7–9 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--success-container);color:var(--on-success-container)&quot;><i style=&quot;background:var(--success-dot)&quot;></i>Done</span></td><td class=&quot; num&quot;>Thermostat</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr></tbody>
+      </table>
+      <div class=&quot;menu&quot; style=&quot;top:calc(var(--pad) + var(--control-h) + 30px + var(--row-h) * 2)&quot;>
+        <div class=&quot;on&quot;>Open job</div><div class=&quot;&quot;>Reassign tech</div><div class=&quot;&quot;>Change window</div><hr><div class=&quot; danger&quot;>Put on parts hold</div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class=&quot;toast&quot;><span class=&quot;ok&quot;><svg class=&quot;ck&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;m3.5 8.5 3 3 6-7&quot;/></svg></span>JOB-20420 assigned to D. Okafor, arriving 10:40 am<button>Undo</button></div>
+</body>
+</html>" loading="lazy"></iframe>
+</section>
+<section class="v" id="d">
+  <h2>D. Half step: page 950, panels between 950 and 900</h2><p class="desc">Panels sit halfway between two stops, recorded as a mix of them.</p>
+  <div class="steps">
+    <span><b>Page to panel</b> 0.020 <em>1.7× light</em></span>
+    <span><b>Panel to featured</b> 0.022</span>
+    <span><b>Page to menu</b> 0.081</span>
+    <span class="sw"><i style="background:#111014"></i>#111014 <i style="background:#16141A"></i>#16141A <i style="background:#1B1920"></i>#1B1920 <i style="background:#24222A"></i>#24222A</span>
+  </div>
+  <iframe title="D. Half step: page 950, panels between 950 and 900" srcdoc="<!doctype html>
+<html lang=&quot;en&quot; data-theme=&quot;dark&quot;>
+<head>
+<meta charset=&quot;utf-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;>
+<title>Specimen</title>
+<link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;><link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin>
+<link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&amp;display=swap&quot;>
+<style>
+:root{--canvas:#111014;--surface:#16141A;--surface-subtle:#111014;--surface-hover:#1B1920;--row-hover:#1B1920;--surface-overlay:#24222A;--surface-featured:#1B1920;--surface-inverse:#E9E8EC;--on-inverse:#24222A;--on-inverse-muted:#5A5862;--surface-brand:#6B35CD;--on-brand:#FFFFFF;--on-brand-muted:#DED7FF;--text:#FBFBFC;--text-secondary:#AEACB6;--text-tertiary:#9C9AA5;--text-disabled:#5A5862;--hairline:#36353D;--border-control:#797782;--border-quiet:#413F48;--primary:#9672F7;--primary-hover:#A589FC;--on-primary:#18013B;--accent-subtle:#3A067D;--on-accent-subtle:#D1C7FF;--link:#A589FC;--focus:#A589FC;--selected-row:#2F0368;--success-container:#002A0D;--on-success-container:#85E298;--success-dot:#3EB05E;--warning-container:#3A1B00;--on-warning-container:#FDC295;--warning-dot:#E08535;--error-container:#4F0103;--on-error-container:#FFBEB6;--error-dot:#FA7064;--info-container:#00176B;--on-info-container:#B5CFFF;--info-dot:#699AFC;--neutral-container:#36353D;--on-neutral-container:#CECDD5;--neutral-dot:#8B8993;--chart-1:#A589FC;--chart-2:#5A5862;--chart-area:#2F0368;--image-1:#2C2B33;--image-2:#2F0368;--image-ink:#CECDD5;--image-accent:#A589FC;--nav-bg:#111014;--nav-text:#AEACB6;--nav-selected:#1B1920;--on-nav-selected:#FBFBFC;--r-control:8px;--r-chip:5px;--r-small:6px;--r-panel:12px;--r-featured:14px;--r-overlay:10px;--sh-none:none;--sh-control:0 1px 2px rgb(0 0 0 / 0.18);--sh-panel:0 1px 2px rgb(0 0 0 / 0.15000000000000002), 0 2px 6px rgb(0 0 0 / 0.12);--sh-featured:0 1px 2px rgb(0 0 0 / 0.12), 0 6px 16px -4px rgb(0 0 0 / 0.24), 0 24px 48px -12px rgb(0 0 0 / 0.42000000000000004);--sh-overlay:0 0 0 1px rgb(0 0 0 / 0.18), 0 4px 8px -2px rgb(0 0 0 / 0.24), 0 16px 32px -8px rgb(0 0 0 / 0.48);--control-h:28px;--row-h:34px;--pad:16px;--gap:12px;--page:20px;--fs-title:20px;--fw-title:600;--lh-title:1.2;--ls-title:-0.02em;--fs-heading:15px;--fw-heading:600;--lh-heading:1.3;--ls-heading:-0.01em;--fs-metric:24px;--fw-metric:500;--lh-metric:1.1;--ls-metric:-0.025em;--fs-body:13px;--fw-body:400;--lh-body:1.5;--ls-body:0em;--fs-body-strong:13px;--fw-body-strong:500;--lh-body-strong:1.5;--ls-body-strong:0em;--fs-small:12px;--fw-small:400;--lh-small:1.45;--ls-small:0em;--fs-label:11px;--fw-label:500;--lh-label:1.3;--ls-label:0.02em;--font:'Atkinson Hyperlegible Next',ui-sans-serif,system-ui,sans-serif;--display:'Atkinson Hyperlegible Next','Atkinson Hyperlegible Next',ui-sans-serif,system-ui,sans-serif;color-scheme:dark}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--canvas)}
+body{font-family:var(--font);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--text);-webkit-font-smoothing:antialiased;min-width:1120px}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+.i{width:16px;height:16px;flex:none}
+.eyebrow{font-size:var(--fs-small);color:var(--text-secondary)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--text-secondary);font-size:var(--fs-small);font-variant-numeric:tabular-nums}
+.field{display:flex;align-items:center;gap:8px;height:var(--control-h);padding:0 10px;border:1px solid var(--border-control);border-radius:var(--r-control);background:var(--surface);color:var(--text-tertiary)}
+.field.filled{color:var(--text)}
+.field.focus{border-color:var(--focus);box-shadow:0 0 0 3px var(--accent-subtle)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:var(--control-h);padding:0 14px;border-radius:var(--r-control);font-weight:500;white-space:nowrap}
+.btn.primary{background:var(--primary);color:var(--on-primary);box-shadow:var(--sh-control)}
+.btn.secondary{background:var(--surface);border:1px solid var(--border-quiet);box-shadow:var(--sh-control)}
+.btn.ghost{color:var(--text-secondary);padding:0 10px}
+.btn.on-brand{background:rgb(255 255 255 / .16);color:var(--on-brand);padding:0 14px}
+.btn.on-inverse{background:var(--on-inverse);color:var(--surface-inverse)}
+.btn.lg{height:calc(var(--control-h) + 10px);padding:0 20px;font-size:calc(var(--fs-body) + 1px)}
+.panel{background:var(--surface);border-radius:var(--r-panel);box-shadow:var(--sh-panel)}
+.featured{background:var(--surface-featured);border-radius:var(--r-featured);box-shadow:var(--sh-featured),inset 0 1px 0 rgb(255 255 255 / .06)}
+.brandblock{background:var(--surface-brand);color:var(--on-brand);border-radius:var(--r-featured)}
+.inverse{background:var(--surface-inverse);color:var(--on-inverse)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 9px 0 8px;border-radius:var(--r-chip);font-size:var(--fs-small);font-weight:500;line-height:1;white-space:nowrap}
+.chip i{width:6px;height:6px;border-radius:99px}
+.tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:var(--r-chip);font-size:var(--fs-small);font-weight:500;background:var(--accent-subtle);color:var(--on-accent-subtle)}
+.cb{width:16px;height:16px;border:1px solid var(--border-control);border-radius:calc(var(--r-small) * .6);display:inline-grid;place-items:center;background:var(--surface);flex:none}
+.cb.on{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.ck{width:12px;height:12px;stroke-width:2}
+.icon-btn{width:28px;height:28px;display:inline-grid;place-items:center;border-radius:var(--r-control);color:var(--text-tertiary)}
+.icon-btn.open{background:var(--surface-hover);color:var(--text)}
+.tabs{display:inline-flex;gap:2px;padding:2px;background:var(--surface-hover);border-radius:calc(var(--r-control) + 2px)}
+.tabs button{height:calc(var(--control-h) - 6px);padding:0 10px;border-radius:var(--r-control);font-size:var(--fs-small);font-weight:500;color:var(--text-secondary)}
+.tabs button.on{background:var(--surface);color:var(--text);box-shadow:var(--sh-control)}
+.select{display:inline-flex;align-items:center;gap:8px;height:calc(var(--control-h) - 2px);padding:0 10px;border:1px solid var(--border-control);border-radius:var(--r-control);font-size:var(--fs-small);font-weight:500;background:var(--surface)}
+.menu{position:absolute;width:168px;background:var(--surface-overlay);border-radius:var(--r-overlay);box-shadow:var(--sh-overlay),inset 0 1px 0 rgb(255 255 255 / .06);padding:5px;z-index:2}
+.menu div{display:flex;align-items:center;height:calc(var(--control-h) - 2px);padding:0 10px;border-radius:calc(var(--r-overlay) - 5px)}
+.menu div.on{background:var(--surface-hover)}
+.menu hr{border:0;height:6px}
+.menu div.danger{color:var(--on-error-container)}
+.toast{position:fixed;right:28px;bottom:24px;display:flex;align-items:center;gap:14px;background:var(--surface-inverse);color:var(--on-inverse);padding:10px 10px 10px 14px;border-radius:var(--r-overlay);box-shadow:var(--sh-overlay);font-weight:500;z-index:3}
+.toast .ok{width:18px;height:18px;border-radius:99px;background:var(--success-dot);display:grid;place-items:center;color:#fff}
+.toast button{color:var(--on-inverse);font-weight:600;padding:4px 10px;border-radius:var(--r-small);background:rgb(127 127 127 / .18)}
+.mark{width:22px;height:22px;border-radius:calc(var(--r-small) + 1px);background:var(--primary);display:inline-grid;place-items:center;flex:none}
+.mark:after{content:&quot;&quot;;width:8px;height:8px;border-radius:2px;background:var(--on-primary)}
+
+
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+/* Navigation */
+.nav{background:var(--nav-bg);color:var(--nav-text);padding:18px 12px;display:flex;flex-direction:column;gap:2px}
+.brandmark{display:flex;align-items:center;gap:10px;padding:2px 10px 18px;font-weight:600;font-size:var(--fs-heading);letter-spacing:-0.01em;color:var(--text)}
+.brandmark b{width:22px;height:22px;border-radius:calc(var(--r-small) + 1px);background:var(--primary);display:grid;place-items:center}
+.brandmark b:after{content:&quot;&quot;;width:8px;height:8px;border-radius:2px;background:var(--on-primary)}
+.nav a{display:flex;align-items:center;gap:10px;height:calc(var(--control-h) + 0px);padding:0 10px;border-radius:var(--r-control);text-decoration:none;color:inherit;font-weight:500}
+.nav a.on{background:var(--nav-selected);color:var(--on-nav-selected)}
+.nav a .count{margin-left:auto;font-size:var(--fs-small);font-variant-numeric:tabular-nums;opacity:.8}
+.nav h6{font-size:var(--fs-label);font-weight:500;letter-spacing:var(--ls-label);opacity:.75;padding:20px 10px 6px}
+.nav .me{margin-top:auto;display:flex;align-items:center;gap:10px;padding:10px;font-weight:500}
+.nav .me i{width:26px;height:26px;border-radius:999px;background:var(--accent-subtle);color:var(--on-accent-subtle);display:grid;place-items:center;font-style:normal;font-size:11px;font-weight:600}
+/* Main */
+main{padding:var(--page) calc(var(--page) + 8px) calc(var(--page) + 24px);display:flex;flex-direction:column;gap:var(--gap);min-width:0}
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:calc(var(--gap) - 4px)}
+.eyebrow{font-size:var(--fs-small);color:var(--text-secondary);margin-bottom:4px}
+h1{font-family:var(--display);font-size:var(--fs-title);font-weight:var(--fw-title);line-height:var(--lh-title);letter-spacing:var(--ls-title)}
+h2{font-family:var(--display);font-size:var(--fs-heading);font-weight:var(--fw-heading);letter-spacing:var(--ls-heading)}
+.actions{display:flex;gap:8px;align-items:center}
+.actions .field{width:240px}
+.thead .tabs{margin-left:8px}
+.thead .select{margin-left:auto}
+.tablepanel .menu{right:calc(var(--pad) + 4px)}
+/* Panels: quiet levels */
+/* Row 1: one featured item, one brand block */
+.row1{display:grid;grid-template-columns:1.85fr 1fr;gap:var(--gap)}
+.featured{padding:calc(var(--pad) + 6px) calc(var(--pad) + 8px);display:flex;flex-direction:column;gap:14px;position:relative}
+.featured .lead{display:flex;align-items:center;gap:8px;font-size:var(--fs-small);font-weight:500;color:var(--link)}
+.featured .lead i{width:7px;height:7px;border-radius:99px;background:var(--primary);box-shadow:0 0 0 4px var(--accent-subtle)}
+.featured h3{font-family:var(--display);font-size:calc(var(--fs-title) + 2px);font-weight:600;letter-spacing:-0.02em;line-height:1.2}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--text-secondary);font-size:var(--fs-small);font-variant-numeric:tabular-nums}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:4px}
+.steps li{font-size:var(--fs-small);color:var(--text-tertiary);display:flex;flex-direction:column;gap:8px}
+.steps li span{height:4px;border-radius:99px;background:var(--border-quiet)}
+.steps li.done span{background:var(--primary)}
+.steps li.now span{background:linear-gradient(90deg,var(--primary) 55%,var(--border-quiet) 55%)}
+.steps li.now{color:var(--text);font-weight:500}
+.featured .acts{display:flex;gap:8px;margin-top:4px}
+.brandblock{padding:calc(var(--pad) + 6px) calc(var(--pad) + 4px);display:flex;flex-direction:column;gap:6px}
+.brandblock .lbl{font-size:var(--fs-small);color:var(--on-brand-muted);font-weight:500}
+.brandblock .big{font-family:var(--display);font-size:calc(var(--fs-metric) + 14px);font-weight:600;letter-spacing:-0.035em;line-height:1.05;font-variant-numeric:tabular-nums;margin-top:auto}
+.brandblock p{color:var(--on-brand-muted);font-size:var(--fs-small);max-width:30ch}
+.brandblock .btn{margin-top:10px;align-self:flex-start}
+/* Metrics: one quiet panel, divided by space only */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);padding:var(--pad) calc(var(--pad) + 4px)}
+.metric .v{font-family:var(--display);font-size:var(--fs-metric);font-weight:var(--fw-metric);letter-spacing:var(--ls-metric);line-height:var(--lh-metric);font-variant-numeric:tabular-nums;margin-top:6px}
+.metric .l{font-size:var(--fs-small);color:var(--text-secondary)}
+.metric .n{font-size:var(--fs-small);color:var(--on-warning-container);margin-top:4px}
+/* Table */
+.tablepanel{padding:6px 0 8px;position:relative}
+.thead{display:flex;align-items:center;gap:16px;padding:calc(var(--pad) - 6px) var(--pad) 12px}
+table{width:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums}
+th{font-size:var(--fs-label);font-weight:500;letter-spacing:var(--ls-label);color:var(--text-tertiary);text-align:left;padding:0 12px 8px;white-space:nowrap}
+td{height:var(--row-h);padding:0 12px;border-top:1px solid var(--hairline);white-space:nowrap}
+tr:first-child td{border-top-color:transparent}
+td.id{font-weight:500}
+td.muted{color:var(--text-secondary)}
+td.num,th.num{text-align:right}
+td.sel-col,th.sel-col{width:44px;padding-left:var(--pad);padding-right:0}
+td.more-col{width:48px;padding-right:calc(var(--pad) - 6px);text-align:right}
+tr.sel td{background:var(--selected-row)}
+tr.hov td{background:var(--row-hover)}
+tr.sel td:first-child,tr.hov td:first-child{border-radius:var(--r-small) 0 0 var(--r-small)}
+tr.sel td:last-child,tr.hov td:last-child{border-radius:0 var(--r-small) var(--r-small) 0}
+tr.sel td,tr.sel+tr td,tr.hov td,tr.hov+tr td{border-top-color:transparent}
+.tablepanel table{padding:0 8px}
+/* Floating layers */
+
+</style>
+</head>
+<body>
+<div class=&quot;app&quot;>
+  <aside class=&quot;nav&quot;>
+    <div class=&quot;brandmark&quot;><b></b>Relay</div>
+    <a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><rect x=&quot;2.5&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;2.5&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/></svg>Board</a><a class=&quot;on&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M2.5 5 8 2.5 13.5 5v6L8 13.5 2.5 11z&quot;/><path d=&quot;M2.5 5 8 7.5 13.5 5M8 7.5v6&quot;/></svg>Requests<span class=&quot;count&quot;>147</span></a><a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M1.5 4.5h8v6.5h-8zM9.5 7h3l2 2.2V11h-5&quot;/><circle cx=&quot;4.5&quot; cy=&quot;11.5&quot; r=&quot;1.3&quot;/><circle cx=&quot;11.5&quot; cy=&quot;11.5&quot; r=&quot;1.3&quot;/></svg>Techs</a><a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3.5 2h9v12l-2-1.2L8.5 14l-2-1.2L4.5 14l-1-.6z&quot;/><path d=&quot;M6 5.5h4M6 8h4&quot;/></svg>Customers</a><a class=&quot;&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><rect x=&quot;2.5&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;2.5&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;2.5&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/><rect x=&quot;9&quot; y=&quot;9&quot; width=&quot;4.5&quot; height=&quot;4.5&quot; rx=&quot;1&quot;/></svg>Reports</a>
+    <h6>Reports</h6>
+    <a><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M2.5 13.5h11M4.5 11V8M8 11V4.5M11.5 11V6.5&quot;/></svg>Weekly summary</a><a><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 2.5 14 13H2z&quot;/><path d=&quot;M8 6.5v3M8 11.2v.1&quot;/></svg>Exceptions</a>
+    <div class=&quot;me&quot;><i>AK</i>Ana Kovač</div>
+  </aside>
+  <main>
+    <header class=&quot;top&quot;>
+      <div><p class=&quot;eyebrow&quot;>Friday, 20 November</p><h1>Today&amp;#39;s board</h1></div>
+      <div class=&quot;actions&quot;>
+        <span class=&quot;field focus&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;7&quot; cy=&quot;7&quot; r=&quot;4.5&quot;/><path d=&quot;m10.5 10.5 3 3&quot;/></svg>Search jobs, customers, techs</span>
+        <button class=&quot;btn secondary&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 2.5v8M4.8 7.5 8 10.7l3.2-3.2M3 13.5h10&quot;/></svg>Export</button>
+        <button class=&quot;btn primary&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 3v10M3 8h10&quot;/></svg>New job</button>
+      </div>
+    </header>
+    <section class=&quot;row1&quot;>
+      <article class=&quot;featured&quot;>
+        <span class=&quot;lead&quot;><i></i>Needs a tech now</span>
+        <h3>No heat, 2-storey house · Hartley residence</h3>
+        <div class=&quot;meta&quot;><span>JOB-20431</span><span>14 Alder Lane</span><span>Window 10–12 am</span><span>Furnace, gas</span></div>
+        <ol class=&quot;steps&quot;><li class=&quot;done&quot;><span></span>Called in</li><li class=&quot;done&quot;><span></span>Triaged</li><li class=&quot;now&quot;><span></span>Assign tech</li><li class=&quot;&quot;><span></span>En route</li><li class=&quot;&quot;><span></span>On site</li></ol>
+        <div class=&quot;acts&quot;><button class=&quot;btn primary&quot;>Assign tech</button><button class=&quot;btn ghost&quot;>Open job<svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3 8h10M9 4l4 4-4 4&quot;/></svg></button></div>
+      </article>
+      <article class=&quot;brandblock&quot;>
+        <span class=&quot;lbl&quot;>Jobs done today</span>
+        <span class=&quot;big&quot;>18 of 31</span>
+        <p>On pace for the day. 4 techs have open slots after 2 pm.</p>
+        <button class=&quot;btn on-brand&quot;>See tech schedule<svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3 8h10M9 4l4 4-4 4&quot;/></svg></button>
+      </article>
+    </section>
+    <section class=&quot;panel metrics&quot;>
+      <div class=&quot;metric&quot;><div class=&quot;l&quot;>Unassigned</div><div class=&quot;v&quot;>4</div></div><div class=&quot;metric&quot;><div class=&quot;l&quot;>Running late</div><div class=&quot;v&quot;>2</div></div><div class=&quot;metric&quot;><div class=&quot;l&quot;>On site now</div><div class=&quot;v&quot;>9</div></div><div class=&quot;metric&quot;><div class=&quot;l&quot;>Requests waiting</div><div class=&quot;v&quot;>3</div></div>
+    </section>
+    <section class=&quot;panel tablepanel&quot;>
+      <div class=&quot;thead&quot;><h2>All jobs today</h2>
+        <div class=&quot;tabs&quot;><button class=&quot;on&quot;>All</button><button class=&quot;&quot;>Unassigned</button><button class=&quot;&quot;>Running late</button><button class=&quot;&quot;>Parts hold</button></div>
+        <span class=&quot;select&quot;>Tech: All<svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;m4.5 6.5 3.5 3.5 3.5-3.5&quot;/></svg></span>
+      </div>
+      <table>
+        <thead><tr><th class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></th><th class=&quot;&quot;>Job</th><th class=&quot;&quot;>Customer</th><th class=&quot;&quot;>Tech</th><th class=&quot;&quot;>Window</th><th class=&quot;&quot;>Status</th><th class=&quot;num&quot;>Type</th><th></th></tr></thead>
+        <tbody><tr class=&quot;sel&quot;><td class=&quot;sel-col&quot;><span class=&quot;cb on&quot;><svg class=&quot;ck&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;m3.5 8.5 3 3 6-7&quot;/></svg></span></td><td class=&quot;id&quot;>JOB-20431</td><td class=&quot;&quot;>Hartley residence</td><td class=&quot; muted&quot;>—</td><td class=&quot; muted&quot;>10–12 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--neutral-container);color:var(--on-neutral-container)&quot;><i style=&quot;background:var(--neutral-dot)&quot;></i>Unassigned</span></td><td class=&quot; num&quot;>Furnace</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20417</td><td class=&quot;&quot;>Pine St Laundromat</td><td class=&quot; muted&quot;>D. Okafor</td><td class=&quot; muted&quot;>8–10 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--warning-container);color:var(--on-warning-container)&quot;><i style=&quot;background:var(--warning-dot)&quot;></i>Running late</span></td><td class=&quot; num&quot;>Water heater</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn open&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr class=&quot;hov&quot;><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20422</td><td class=&quot;&quot;>Brightwater Dental</td><td class=&quot; muted&quot;>K. Byrne</td><td class=&quot; muted&quot;>9–11 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--success-container);color:var(--on-success-container)&quot;><i style=&quot;background:var(--success-dot)&quot;></i>On site</span></td><td class=&quot; num&quot;>AC service</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20425</td><td class=&quot;&quot;>Lindqvist residence</td><td class=&quot; muted&quot;>M. Ruiz</td><td class=&quot; muted&quot;>11–1 pm</td><td><span class=&quot;chip&quot; style=&quot;background:var(--info-container);color:var(--on-info-container)&quot;><i style=&quot;background:var(--info-dot)&quot;></i>En route</span></td><td class=&quot; num&quot;>Leak</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20409</td><td class=&quot;&quot;>Cedar Court Apts</td><td class=&quot; muted&quot;>S. Patel</td><td class=&quot; muted&quot;>8–10 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--error-container);color:var(--on-error-container)&quot;><i style=&quot;background:var(--error-dot)&quot;></i>Parts hold</span></td><td class=&quot; num&quot;>Boiler</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20428</td><td class=&quot;&quot;>Hollis Bakery</td><td class=&quot; muted&quot;>A. Mensah</td><td class=&quot; muted&quot;>1–3 pm</td><td><span class=&quot;chip&quot; style=&quot;background:var(--neutral-container);color:var(--on-neutral-container)&quot;><i style=&quot;background:var(--neutral-dot)&quot;></i>Assigned</span></td><td class=&quot; num&quot;>Drain</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr><tr><td class=&quot;sel-col&quot;><span class=&quot;cb&quot;></span></td><td class=&quot;id&quot;>JOB-20401</td><td class=&quot;&quot;>Ruiz residence</td><td class=&quot; muted&quot;>K. Byrne</td><td class=&quot; muted&quot;>7–9 am</td><td><span class=&quot;chip&quot; style=&quot;background:var(--success-container);color:var(--on-success-container)&quot;><i style=&quot;background:var(--success-dot)&quot;></i>Done</span></td><td class=&quot; num&quot;>Thermostat</td><td class=&quot;more-col&quot;><button class=&quot;icon-btn&quot; aria-label=&quot;More&quot;><svg class=&quot;i&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><circle cx=&quot;3.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;8&quot; cy=&quot;8&quot; r=&quot;.6&quot;/><circle cx=&quot;12.5&quot; cy=&quot;8&quot; r=&quot;.6&quot;/></svg></button></td></tr></tbody>
+      </table>
+      <div class=&quot;menu&quot; style=&quot;top:calc(var(--pad) + var(--control-h) + 30px + var(--row-h) * 2)&quot;>
+        <div class=&quot;on&quot;>Open job</div><div class=&quot;&quot;>Reassign tech</div><div class=&quot;&quot;>Change window</div><hr><div class=&quot; danger&quot;>Put on parts hold</div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class=&quot;toast&quot;><span class=&quot;ok&quot;><svg class=&quot;ck&quot; viewBox=&quot;0 0 16 16&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot;><path d=&quot;m3.5 8.5 3 3 6-7&quot;/></svg></span>JOB-20420 assigned to D. Okafor, arriving 10:40 am<button>Undo</button></div>
+</body>
+</html>" loading="lazy"></iframe>
+</section>
+</main></body></html>
