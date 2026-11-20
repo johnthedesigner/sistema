@@ -134,3 +134,11 @@ The owner asked for fewer borders (keep them where they show function: inputs, s
 | 52 | The contrast tool reports pass or fail even for decorative boundaries no standard requires, so the run had to label "fail" lines as not required. | **Open**, small: allow a `purpose: "decorative"` or `informational` pair that reports the ratio without a check. |
 | 53 | My own dev server on the run's folder came up unstyled after the run's production builds (shared `.next`). | Not a Sistema issue. When reviewing, use the run's screenshots or a fresh build. |
 
+
+## Stage 9: owner review of the result's look (2026-11-19)
+
+The owner judged the foundations and the revision process sound, but the look dated and noisy ("more MS Office than Linear"), and the review pages ugly. The run followed Sistema's content faithfully, so the cause is in the guides and the direction play.
+
+| # | Finding | Done |
+|---|---|---|
+| 54 | The visual-language guide maps "utilitarian" and "data-heavy" to a style (sharp radius, outlines, near-gray), treating a goal as an aesthetic. The direction play has the agent answer taste questions itself, in framework vocabulary, and the person approves a named style rather than seeing options on their product. The trap list misses "outlined everything" and "sharp means serious". | **Open.** Proposal in `docs/v2/aesthetic-baseline.md`: a craft baseline, taste questions asked visually, a specimen tool, and a Relay re-run as the test. The current revision is held unapproved. |
