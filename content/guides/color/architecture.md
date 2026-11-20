@@ -58,7 +58,7 @@ Besides the surface ladder (surface, raised, overlay), every system Sistema buil
 
 How to choose the stops:
 
-- **Quiet levels take small steps.** Neighboring stops near white (and near black in dark themes) are close on purpose; pick the subtle surface from them, not from the middle of the ramp.
+- **Quiet levels take small steps.** Neighboring stops near white (and near black in dark themes) are close on purpose; pick the subtle surface from them, not from the middle of the ramp. In a dark theme, quiet levels are one stop apart (see "Stops in a dark theme" below).
 - **Emphasis takes big steps.** The inverse and brand surfaces sit far from the page so they read as blocks, not as another level.
 - **Check every pairing.** Each `on-*` role, and any muted text you put on these surfaces, goes to the contrast tool like any other pair.
 - **Shadows on color.** A shadow on a brand surface reads differently from the same shadow on a neutral one; Fluent adjusts shadow strength by the surface's lightness for this reason ([Fluent](https://fluent2.microsoft.design/elevation)).
@@ -235,6 +235,23 @@ These are starting points, not rigid rules. Verify contrast in dark mode explici
 - Design at least three surface tiers: base surface (~tone 10–12), raised surface (~tone 14–16), elevated surface (~tone 18–20)
 - Reduce chroma on colored backgrounds in dark mode — tinted surfaces at full chroma look oversaturated
 - Verify focus ring visibility on dark surfaces — a blue focus ring that meets the non-text ratio against white may not meet it against a dark neutral
+
+### Stops in a dark theme
+
+On ramps from Sistema's palette tool, text and fills mirror cleanly, but surfaces don't.
+
+- **Text and fills: mirror the stop.** The palette's contrast curve is close to symmetric, so a role at stop *n* on the light page has nearly the same contrast at stop 1000 − *n* on the dark page. On the neutral ramp, stop 550 on stop 50 is 5.41:1 in light, and stop 450 on stop 950 is 5.52:1 in dark. Mirroring is the starting point; the contrast tool still checks every pair.
+- **Surfaces: match the step, not the stop.** The light theme's quiet step is page 50 to white, a lightness difference of about 0.012 in OKLCH, smaller than any step between two stops. Mirrored stop numbers (page 950, panels 850) make the dark step about seven times larger, and quiet panels then compete with the featured item. Step one stop at a time instead (`color.dark.surface-steps`):
+
+| Role | Light theme | Dark theme |
+|---|---|---|
+| Page | 50 | 950 |
+| Panel | white | 900 |
+| Hover | one stop darker than what it sits on | one stop lighter than what it sits on |
+| Featured | white, on the featured shadow | 850, plus the featured shadow |
+| Menus and dialogs | white, on the overlay shadow | 800, plus the overlay shadow |
+
+The dark steps are still larger than the light ones (about 0.045 against 0.012) because the ramp has no finer stop at that end, and a little extra helps where shadows barely show. The order of strength is the same in both themes: panels lift least, then the featured item, then floating layers.
 
 ---
 

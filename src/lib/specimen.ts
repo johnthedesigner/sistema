@@ -205,13 +205,16 @@ export function buildSpecimen(raw: SpecimenInput = {}): SpecimenResult {
     c['image-ink'] = s('neutral', 750)
     c['image-accent'] = s('accent', 450)
   } else {
+    // Quiet levels step one stop at a time (color.dark.surface-steps): page 950,
+    // panels 900. Mirroring the light stops gave a step about seven times the
+    // light theme's (D29).
     c.canvas = s('neutral', 950)
-    c.surface = separation === 'line' ? s('neutral', 950) : s('neutral', 850)
+    c.surface = separation === 'line' ? s('neutral', 950) : s('neutral', 900)
     c['surface-subtle'] = s('neutral', 950)
-    c['surface-hover'] = s('neutral', 800)
-    c['row-hover'] = s('neutral', 800)
+    c['surface-hover'] = s('neutral', 850)
+    c['row-hover'] = s('neutral', 850)
     c['surface-overlay'] = s('neutral', 800)
-    c['surface-featured'] = s('neutral', 800)
+    c['surface-featured'] = s('neutral', 850)
     c['surface-inverse'] = s('neutral', 150)
     c['on-inverse'] = s('neutral', 850)
     c['on-inverse-muted'] = s('neutral', 600)

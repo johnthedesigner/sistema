@@ -181,7 +181,7 @@ With `EASE` = 0 this is an even logarithmic curve. The easing makes the steps fi
 
 **Why a logarithmic base:** a linear or plain ease-in-out distribution over the same 1.01–19 range places stop 500 at about 10:1, putting roughly half the stops near black. The logarithmic base keeps stop 500 at 4.38:1, in the working range of the palette. The easing is applied on top of it, so the midpoint doesn't move.
 
-**Reading the extremes:** stops 50 to 200 are surface and tint steps (canvas, hover, selected, container); stops 800 to 950 are the dark-theme equivalents. Use neighboring stops for neighboring surfaces: the steps there are deliberately small.
+**Reading the extremes:** stops 50 to 200 are surface and tint steps (canvas, hover, selected, container); stops 800 to 950 are the dark-theme equivalents. Use neighboring stops for neighboring surfaces: the steps there are deliberately small. Even so, one dark stop is a bigger step than the light theme's page-to-white step, so dark surfaces step one stop at a time (the color guide's "Stops in a dark theme").
 
 ---
 

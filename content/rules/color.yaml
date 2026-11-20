@@ -69,6 +69,20 @@
   applies_to: tokens/src/color.dark.json
   sources: [guide.color.architecture#dark-mode-the-tonal-shift]
 
+- id: color.dark.surface-steps
+  statement: >-
+    In a dark theme, quiet surfaces step one stop at a time at the dark end of the neutral ramp (page 950, panels
+    900, hover one stop lighter than what it sits on), and featured and floating surfaces step further (featured
+    850, menus and dialogs 800). Surface stops are chosen by the size of the step, not by mirroring the light
+    theme's stop numbers.
+  reason: >-
+    The light theme's quiet step (page 50 to white) is smaller than any step between two stops. Mirrored stop
+    numbers made dark panels step about seven times as far, so quiet panels competed with the featured item.
+  layer: sistema-default
+  severity: advisory
+  applies_to: tokens/src/color.dark.json and review pages
+  sources: [guide.color.architecture#stops-in-a-dark-theme]
+
 - id: color.ramps.from-tool
   statement: Primitive ramps come from the palette tool, never from values computed or estimated by hand.
   reason: Hand-computed ramps are inconsistent between runs and drift from the algorithm the guides describe.
