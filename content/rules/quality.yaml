@@ -125,8 +125,8 @@
 
 - id: quality.craft.status-as-detail
   statement: >-
-    Inline messages, banners, and alerts sit on a neutral surface and carry their status color in the icon, the
-    title, or an edge. Tinted status fills are used for small marks (chips, badges), not for blocks of content.
+    Inline messages, banners, and alerts sit on a neutral surface and carry their status color in the icon and
+    the title. Tinted status fills are used for small marks (chips, badges), not for blocks of content.
   reason: >-
     Large status fills turn every notice into an alarm, and in a dark theme the container stops become deep,
     saturated blocks that outweigh the content.

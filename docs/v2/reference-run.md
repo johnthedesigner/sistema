@@ -175,3 +175,8 @@ The run wrote DESIGN.md, rebuilt every foundation (violet accent, tinted neutral
 | 71 | No place for white in `palette.json`, and `quality.color.bans` doesn't say which surface "no pure white" means. | **Open.** |
 | 72 | The token check page shows colors only as swatches, so selection and message treatments can't be judged there; the owner couldn't find them. | **Open.** The foundations review should show key uses (a selected row by status chips, a message, a highlighted menu item) in both themes, or send the person to the showcase with directions. |
 | 73 | The accent selected row and status-filled messages were right in light and far too heavy in dark. | **Fixed** (D30): quiet states, status as detail, one decision for both themes; specimen selected row now neutral with an accent edge. |
+| 74 | `/raw/opinions/<id>` and `/raw/rules/<id>` return 404; only the full lists exist, and plays name opinions and rules without links. | **Open.** Add per-item routes, or link the plays to anchors in the lists. |
+| 75 | The color play still builds dark feedback containers by mirroring (150 to 850), which produced the deep blocks; it doesn't say containers are for small marks. | **Open.** State the use in the color play and in the containers' descriptions. |
+| 76 | "Selected is a neutral step past hover" has no required role; the run added `surface-selected`. | **Open.** Add it to `color.roles.required`. |
+| 77 | Graying the selection lowered contrast under control edges; the pair list should include control edges on the selected surface. | **Open.** With #47 and #70. |
+| 78 | "Or an edge" on messages conflicted with the ban on colored side stripes. | **Fixed:** status color is in the icon and the title only. |

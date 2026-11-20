@@ -68,7 +68,7 @@ The tokens are compiled and wired into the app (`tokens.pipeline`). This play bu
 5. **Build each component** on the chosen foundation, with role tokens only, every interactive state, and the keyboard behavior its pattern expects. Follow the spec in `docs/components/` where one exists. Apply the craft baseline as you go; foundation presets often break it:
    - Borders only where DESIGN.md's Elevation & Depth section gives them a job (fields, selects, checkboxes, secondary buttons). Panels, chips, tooltips, and menus separate by tone or shadow, and containers don't get inner dividers by default.
    - Quiet states: hover a small tone change, focus the shared ring, selected a neutral step stronger than hover with an accent detail (the checked box, an edge).
-   - Status as detail: inline messages and banners sit on a neutral surface and carry their status in the icon, the title, or an edge. Tinted status fills are for small marks such as chips.
+   - Status as detail: inline messages and banners sit on a neutral surface and carry their status in the icon and the title. Tinted status fills are for small marks such as chips.
    - Both themes: build and review each component in light and dark side by side. If a treatment works in only one theme, change the treatment, not just the dark value.
    - Medium weight for labels, tabular figures for numbers, one icon set, nested radius following the outer radius.
    - Short, eased-out motion on floating layers only, none on menus opened from the keyboard many times a day.

@@ -54,7 +54,7 @@ Each item is an opinion with its reasons, when you'd choose otherwise, and how t
 | One typeface, set with care | A well-made sans, medium weight for labels and emphasis, tighter tracking at large sizes, tabular figures for data. | `opinion.one-typeface-set-well` |
 | Consistent rhythm | A 4px grid, one control height per density, aligned edges, generous outer spacing even when the inside is dense. | `opinion.consistent-rhythm` |
 | Quiet states | Hover is a small tone change, pressed a little more, focus a crisp ring with an offset, selected a neutral step stronger than hover with an accent detail. | `opinion.quiet-states` |
-| Status as detail | Messages and banners sit on a neutral surface; the status color is in the icon, the title, or an edge. Tinted fills are for small marks such as chips. | `opinion.status-as-detail` |
+| Status as detail | Messages and banners sit on a neutral surface; the status color is in the icon and the title. Tinted fills are for small marks such as chips. | `opinion.status-as-detail` |
 | One decision for both themes | Each treatment (what is gray, what carries color, how strong a selection is) is decided once and works in light and dark. Dark values translate it; they don't change it. | `opinion.both-themes` |
 | One icon set | One set, its stroke matched to the text weight. | `opinion.one-icon-set` |
 | Short motion | Short, eased-out transitions on state changes and floating layers only. | `opinion.short-motion` |
