@@ -122,3 +122,15 @@ The run built all 12 components on shadcn/ui (base-nova on Base UI), with a show
 | 47 | "Check every new color pairing" gives no way to find the pairings. Easy to miss: text on a selected row, the focus ring on every surface, status dots on their chips. | **Open.** Give the play a pairing checklist by component family. |
 | 48 | Agreeing the component list didn't settle the Assigned status color, which the preview never showed. The run chose neutral gray and flagged it at the approval. | Acceptable. Flagging taste choices at the approval is the right behavior. |
 
+## Stage 8: revising approved foundations at component review (2026-11-19)
+
+The owner asked for fewer borders (keep them where they show function: inputs, secondary buttons; remove them where stylistic: tooltips, panels, chips, dividers) and rounder shapes. The run changed the radius tokens (from 2, 3, 4, 6, 8px to 3, 4, 6, 10, 12px, hierarchy kept) and removed borders from panels, chips, inline messages, floating layers, and dividers. It kept edges on controls and the thin row lines in the table. It recompiled, updated DESIGN.md and DECISIONS.md, re-ran contrast and axe (0 failures), and built a before and after page. The owner's observation that Sistema tends toward the same lined, sharp look led to a proposal on variety (see the session log).
+
+| # | Finding | Done |
+|---|---|---|
+| 49 | There's no path for changing an approved foundation during component review. `components.scaffold-core` "does not change token values", the session routes have no "change a token value", and `shape.tokens` is written for a first run. The run re-ran parts of `shape.tokens` and the pipeline, and noted the change on the Foundations gate. | **Open.** Add a way to revise a foundation: a session route, or a step in the component plays saying that when the person asks to change a foundation value, you re-run that play's procedure, recompile, record it, and note it on the gate. Also decide whether the gate needs re-approval. |
+| 50 | DESIGN.md prose stated the border approach in six sections, and nothing generates or checks it, so a change is easy to leave half-done. | **Open.** Consider stating each decision once in DESIGN.md (for example under Elevation & Depth) and referring to it elsewhere, plus a review step that searches DESIGN.md for the changed decision. |
+| 51 | The person's taste conflicted with a guide's recommendation (the depth guide: shadows or borders for data-dense apps). | **Handled well:** the run followed the person, measured the result, and showed the trade-off. That should be written down as the expected behavior when taste and guidance differ. |
+| 52 | The contrast tool reports pass or fail even for decorative boundaries no standard requires, so the run had to label "fail" lines as not required. | **Open**, small: allow a `purpose: "decorative"` or `informational` pair that reports the ratio without a check. |
+| 53 | My own dev server on the run's folder came up unstyled after the run's production builds (shared `.next`). | Not a Sistema issue. When reviewing, use the run's screenshots or a fresh build. |
+
