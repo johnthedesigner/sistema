@@ -4,6 +4,7 @@ description: "Signs of generic, AI-default design in token and style decisions, 
 topic: quality
 sources:
   - { source: impeccable, url: "https://github.com/pbakaus/impeccable" }
+  - { source: nngroup-hierarchy, url: "https://www.nngroup.com/articles/visual-hierarchy-ux-definition/" }
   - { source: anthropic-frontend-design, url: "https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md" }
 note: "These quality criteria are interpreted through the lens of design system building: token value decisions, component style defaults, and visual language establishment. They are NOT about individual UI implementation choices. Apply them when generating token values, writing component specs, or evaluating visual direction artifacts."
 last_reviewed: 2026-05-15
@@ -68,6 +69,19 @@ These avoid first-order reflexes but land in a different predictable pocket — 
 | "Friendly SaaS" | Rounded corners (12–16px), pastel primaries, generous padding, illustrated empty states |
 
 **Second-order traps are not wrong as aesthetic directions. They are a problem when chosen without connecting to the specific product's context.** A product positioned as "precise and technical" that outputs "dark sophisticated" tokens has not been positioned — it has been aesthetically assigned.
+
+### 2.3 — Plain-looking traps
+
+These are the opposite pocket: a system that avoids every flashy reflex and still looks dated, because "serious" or "functional" was read as a style. They are easy to miss, because each choice looks defensible on its own.
+
+| Trap | What it looks like | Instead |
+|---|---|---|
+| Outlined everything | A border on every panel, card, chip, tooltip, and menu, and dividers inside containers | Separate by tone, space, or shadow; keep borders where the edge is the affordance or helps follow rows |
+| Sharp means serious | Radius of 0 to 3px everywhere because the product is professional or technical | A middle radius scaled by element; most current professional tools are not sharp |
+| Gray means professional | Neutral gray with no tint, and the accent removed from everything but one button | A slightly tinted neutral, and the accent where it marks action, selection, and the brand |
+| Even steps everywhere | Page, panel, and menu as three equal steps of gray, nothing allowed to lead | Quiet levels plus one featured item or a block of color, by the role of the content |
+
+Check a review page for these by naming the function of each border and divider, and by squinting at it: if nothing leads, or the lines are what you see first, the trap has caught it.
 
 ---
 
@@ -162,3 +176,5 @@ Apply this framework when generating color tokens. The level must match the posi
 
 ### When reviewing a style-preview.html artifact:
 Ask: could these visual decisions have come from any product, or do they reflect specific choices made for this product? If the answer is "any product," return the artifact with specific questions about what should be different.
+
+Then check it against the plain-looking traps (2.3): name the function of every border and divider on the page, and squint at the composition to see what leads.

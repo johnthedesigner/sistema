@@ -14,10 +14,11 @@ knowledge:
   - guide.accessibility.floor#3-focus-visibility
   - guide.accessibility.floor#5-semantic-structure-and-aria
   - guide.tokens.architecture#tier-3-component-tokens-scoped-overrides
-rules: [tokens.usage.no-raw-values, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.reduced-motion, accessibility.focus-not-lost, quality.review.outline, components.busy.keep-focus, components.toast.scope, components.css.one-utility-per-property]
+  - guide.visual-language.overview#the-craft-baseline
+rules: [tokens.usage.no-raw-values, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.reduced-motion, accessibility.focus-not-lost, quality.review.outline, components.busy.keep-focus, components.toast.scope, components.css.one-utility-per-property, quality.craft.borders-have-a-job, quality.craft.nested-radius, quality.craft.quiet-states, quality.craft.type-weights, quality.craft.one-icon-set, quality.craft.motion, quality.craft.emphasis-scarce]
 evidence: The component foundation and why, the list of components built, the showcase route, an automated accessibility scan with zero violations in every theme, and a passing build.
 overrides: []
-last_reviewed: 2026-11-15
+last_reviewed: 2026-11-20
 ---
 The tokens are compiled and wired into the app (`tokens.pipeline`). This play builds the first components on them. It does not change token values. If a component needs a value the system doesn't have, stop and say which play adds it.
 
@@ -64,7 +65,12 @@ The tokens are compiled and wired into the app (`tokens.pipeline`). This play bu
 
 4. **Set up the structure:** one folder (for example `src/components/ui/`) with one file per component or per small family, and an `index.ts` that exports every public component. Put the shared focus ring style in one place, so every component uses the same one.
 
-5. **Build each component** on the chosen foundation, with role tokens only, every interactive state, and the keyboard behavior its pattern expects. Follow the spec in `docs/components/` where one exists.
+5. **Build each component** on the chosen foundation, with role tokens only, every interactive state, and the keyboard behavior its pattern expects. Follow the spec in `docs/components/` where one exists. Apply the craft baseline as you go; foundation presets often break it:
+   - Borders only where DESIGN.md's Elevation & Depth section gives them a job (fields, selects, checkboxes, secondary buttons). Panels, chips, tooltips, and menus separate by tone or shadow, and containers don't get inner dividers by default.
+   - Quiet states: hover a small tone change, focus the shared ring, selected the accent at low strength.
+   - Medium weight for labels, tabular figures for numbers, one icon set, nested radius following the outer radius.
+   - Short, eased-out motion on floating layers only, none on menus opened from the keyboard many times a day.
+   - Featured, brand, and inverse surfaces only where the emphasis map puts them.
 
 6. **Build the showcase:** a route in the app (for example `/sistema-review/components`) that shows every component in each variant and state, with a theme switch. Put the workflow outline strip at the top.
 

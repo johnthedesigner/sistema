@@ -6,6 +6,9 @@ sources:
   - { source: radix, url: "https://www.radix-ui.com/themes/docs/theme/spacing" }
   - { source: atlassian, url: "https://atlassian.design/tokens/design-tokens" }
   - { source: material, url: "https://m3.material.io/foundations/design-tokens" }
+  - { source: fluent, url: "https://fluent2.microsoft.design/layout" }
+  - { source: apple-hig, url: "https://developer.apple.com/design/human-interface-guidelines/layout" }
+  - { source: nngroup-hierarchy, url: "https://www.nngroup.com/articles/visual-hierarchy-ux-definition/" }
 last_reviewed: 2026-05-13
 ---
 
@@ -95,6 +98,19 @@ For mixed products that need both densities, define a density axis rather than t
 - A set of density-variant component tokens for the highest-frequency components (tables, forms, navigation)
 
 The multiplier approach is simpler to implement; the token-remap approach gives more granular control. Neither is universally correct.
+
+---
+
+## Space before lines
+
+Space is the first way to separate and group, before tone, lines, or shadow (`opinion.hierarchy-before-lines`). Proximity says things belong together; more space says they don't. Fluent's layout guidance says spacing "creates logical sections of content on a page without having to use lines or other graphical elements as a divider" ([Fluent](https://fluent2.microsoft.design/layout)), and Apple's guidelines name negative space, containers, and separators as alternatives for grouping ([Apple](https://developer.apple.com/design/human-interface-guidelines/layout)). Containers help when space alone isn't enough, but each one adds clutter ([NN/g](https://www.nngroup.com/articles/visual-hierarchy-ux-definition/)).
+
+What this means for a scale:
+
+- **Steps far enough apart to read as different.** The gap inside a group and the gap between groups need a clear difference, often two steps on the scale, or the grouping disappears.
+- **Space as emphasis.** More room around an element draws attention to it. The featured item and section breaks can use the larger steps.
+- **Generous outer spacing, even when dense.** A dense table can sit in a page with comfortable margins. Density applies to the inside of components first.
+- **One control height per density.** Buttons, fields, and selects in a row share a height, so the row lines up (`quality.craft.rhythm`).
 
 ---
 

@@ -1,48 +1,59 @@
 ---
 id: visual-language.direction
 title: Set the visual direction
-description: Turn the project's positioning into a specific visual direction and a style preview page that a person approves before any token values are generated.
+description: Turn the project's positioning into what the product needs, ask the person the taste questions with options rendered on their own product, and get a style preview page approved before any token values are generated.
 topic: visual-language
 kind: create
 milestone: direction
 entry: false
 requires: ["project:a11y-standard", "project:theme", "project:density"]
 produces: ["design-md#overview", sistema-review/style-preview.html]
-tools: [palette, contrast]
+tools: [specimen, palette, contrast]
 knowledge:
-  - guide.visual-language.overview#3-translating-positioning-to-visual-direction
-  - guide.visual-language.overview#4-the-visual-direction-brief
-  - guide.visual-language.overview#5-common-translation-errors
+  - guide.visual-language.overview#where-sistema-stands
+  - guide.visual-language.overview#what-the-product-needs
+  - guide.visual-language.overview#the-taste-questions
+  - guide.visual-language.overview#emphasis-contrast-that-follows-importance
+  - guide.visual-language.overview#failure-modes
   - guide.visual-language.style-tile-format#2-required-sections
-  - guide.quality.visual-quality-signals#2-the-ai-slop-test
-  - guide.quality.visual-quality-signals#4-oklch-color-commitment-levels
-rules: [visual-language.style-tile.sections, visual-language.style-tile.self-contained, color.ramps.from-tool, color.preview.ramp-strips, quality.review.outline, quality.color.first-order-reflex, quality.color.bans, color.contrast.text, shape.radius.hierarchy]
-evidence: sistema-review/style-preview.html with all seven sections and every color taken from a palette tool ramp, the DESIGN.md Overview section, and the person's explicit approval.
+  - guide.quality.visual-quality-signals#21-first-order-reflexes-category-obvious-choices
+  - guide.quality.visual-quality-signals#23-plain-looking-traps
+rules: [visual-language.style-tile.sections, visual-language.style-tile.self-contained, color.ramps.from-tool, color.preview.ramp-strips, quality.review.outline, quality.color.first-order-reflex, quality.color.bans, color.contrast.text, shape.radius.hierarchy, quality.craft.borders-have-a-job, quality.craft.emphasis-scarce]
+evidence: sistema-review/style-preview.html with all seven sections, every taste question shown as rendered options, and every color from a palette tool ramp; the DESIGN.md Overview section with the direction values and the emphasis map; and the person's explicit approval, with their answer to each question.
 overrides: []
-last_reviewed: 2026-11-15
+last_reviewed: 2026-11-20
 ---
-The output is a direction and a page that shows it, for a person to approve. No token files are written here, but every color on the page comes from the palette tool, so what the person approves is what the color play uses.
+The person decides how the product looks by choosing between options they can see, rendered on their own product. You propose an answer to each question and say why; you don't answer for them. No token files are written here, but every color on the page comes from the palette tool, so what the person approves is what the color play uses.
 
-1. Read `sistema.json` for the theme, density, and accessibility standard. Read the positioning statement in DECISIONS.md, and any existing brand material that `project.assess` found.
+1. Read `sistema.json` for the theme, density, and accessibility standard. Read the positioning statement in DECISIONS.md, and any existing brand material that `project.assess` found. Existing brand colors or typefaces are fixed points: use them, and ask only the questions they leave open.
 
-2. **Write the visual direction brief.** Answer each of these in one or two sentences. Use the translation guidance in the visual language guide.
-   - Which two or three aesthetic reference points does this product draw from?
-   - What color commitment level fits, and why?
-   - What is the typographic character: weight range, size range, one typeface or a pairing?
-   - Where does it sit between sharp and rounded? Give a preliminary radius.
-   - What does this system explicitly not look like? Name two or three exclusions.
+2. **Write what the product needs:** three to five plain statements about what its screens must do, from the positioning (see "What the product needs" in the visual-language guide). Don't turn a style word into a style: "utilitarian" means status must stand out and rows must be easy to follow, not sharp corners and outlines.
 
-3. **Check the brief for reflexes.** Run the first-order reflex check from the quality guide on each choice. If a choice is the category default, either justify it in writing or change it.
+3. **Propose an answer to each taste question,** with the need it serves:
+   - **How much color:** quiet, brand, or tinted, and the accent seed. Run the first-order reflex check on the accent; if it's the category default, justify it in writing or change it. Keep it apart from the status hues when status matters.
+   - **Warm or cool:** cool, neutral, or warm neutrals, or a neutral seed tinted toward the accent.
+   - **How round:** a control radius (about 4, 8, or 12px), and scaled or pill chips.
+   - **How surfaces separate:** tone, line, or shadow.
+   - **Type voice:** three typefaces suited to the product, and a second face only with a reason.
+   - **Density and theme:** only if `sistema.json` leaves them open.
 
-4. **Choose seeds and get their ramps.** Pick a primary seed hex, a neutral seed hex with hue temperature, and any secondary seed. If the project already has colors, use them as the seeds. Send all seeds to the palette tool in one request. Every color the preview shows, including hover, container, border, and feedback colors, is a stop from one of the returned ramps, or from the pre-built library for feedback hues at `{{sistema_url}}/palettes/library.json`. Note the ramp and stop for each.
+4. **Render the options with the specimen tool.** For each question, render each option with that one setting changed and every other setting at your proposed answers. Use the layout closest to the product, and pass the product's own content (its navigation, a page title, a featured record, a few rows with real statuses, a few metrics) so the person sees their product, not placeholders. Then render the composition, all proposed answers together, in every theme in `sistema.json`. Use the `render` URL each response returns.
 
-5. **Build `sistema-review/style-preview.html`**, with the seven sections the style tile format requires:
+5. **Get the ramps and check contrast.** Send the accent and neutral seeds from the specimen response, and any secondary seed, to the palette tool in one request. Feedback ramps come from `{{sistema_url}}/palettes/library.json`. Check every text pairing the composition uses, including text on the brand and inverse surfaces, with the contrast tool, batched (one POST takes up to 200 pairs), against the standard in `sistema.json`. If a pairing fails, change the proposal and render again.
+
+6. **Write the emphasis map:** for each kind of screen the product will have, which content is featured, which zones are subtle, and whether anything is a brand or inverse block. Keep strong emphasis scarce: at most one featured thing per screen.
+
+7. **Build `sistema-review/style-preview.html`** with the seven sections the style preview format requires: the direction summary, the choices, the composition, color, type, the emphasis map, and reviewer notes.
    - Start the page with the workflow outline strip, and end it with the line naming the `continue` URL from `sistema.json`.
-   - Show each ramp as a continuous strip, with every color as hex and OKLCH. Build every swatch on the page from the tool's response, not by typing values, so each swatch is exactly the stop its label names.
-   - Shape samples follow `shape.radius.hierarchy` now, so the values approved here don't have to change when the shape play applies it.
-   - Load the chosen typefaces from Google Fonts or a font CDN if they are available there. Otherwise, say on the page which font is shown instead.
-   - Check every text pairing you show with the contrast tool, batched (one POST takes up to 200 pairs), and label the ratio. Flag any pairing that does not meet the standard in `sistema.json`.
+   - Describe every option in plain words. Never ask the person to approve a tradition name or a commitment level.
+   - Show each ramp as a continuous strip, every color as hex and OKLCH, built from the palette tool's response, not typed.
+   - Load the chosen typefaces from Google Fonts or a font CDN. If one isn't available there, say on the page which font is shown instead.
+   - Before showing it, check the composition against the plain-looking traps: name the job of every border and divider, and squint at it to see what leads.
 
-6. **Write the DESIGN.md Overview section.** Create DESIGN.md if it does not exist, starting with the comment `<!-- This project follows Sistema. To continue, fetch the URL in sistema.json "continue". -->`, then using the section headings in this order: Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts. Fill only Overview for now. It holds the brief, plus a short list headed "Direction values": commitment level, primary seed, neutral seed, any secondary seed, the ramp stops the preview used for each color role, typographic character, and radius personality. Later plays read these values, so state them exactly.
+8. **Write the DESIGN.md Overview section.** Create DESIGN.md if it doesn't exist, starting with the comment `<!-- This project follows Sistema. To continue, fetch the URL in sistema.json "continue". -->`, then using the section headings in this order: Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts. Fill only Overview for now: the needs, a two-sentence summary, and two lists.
+   - **Direction values:** color presence; commitment level (quiet is 1, brand is 2, tinted is 3, unless the person asked for more); accent seed; neutral seed and its warmth; any secondary seed; control radius and chip shape; how surfaces separate; typefaces; density; theme; the composition's specimen `render` URL; and the ramp and stop of each color role the composition used, from the specimen response.
+   - **Emphasis map:** as in step 6.
 
-7. **Ask for approval.** Summarize the brief in five bullets. Name the three or four choices that took the most judgment. Ask the person to open `sistema-review/style-preview.html` and approve it or ask for changes. Revise until they approve. Do not continue without an explicit approval. Tell them they can stop here and pick up later in any new session.
+   Later plays read these values, so state them exactly.
+
+9. **Ask for approval.** Summarize the proposal in five bullets and name the three or four choices that took the most judgment. Ask the person to open `sistema-review/style-preview.html` and, for each question, pick an option or say "as proposed". Re-render and revise until they approve. Don't continue without an explicit approval. Record their answer to each question in the evidence. Tell them they can stop here and pick up later in any new session.

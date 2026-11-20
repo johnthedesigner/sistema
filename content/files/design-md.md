@@ -74,7 +74,7 @@ The body has these eight sections, in this order, each as a `##` heading. Sistem
 
 | Section | What Sistema puts there | Written by |
 |---|---|---|
-| Overview | The product, its audience, where it sits between expressive and utilitarian, and the approved direction | `visual-language.direction` |
+| Overview | The product, what its screens need, the approved direction (its direction values), and the emphasis map | `visual-language.direction` |
 | Colors | Each color role, what it's for, which pairs go together, and what color never signals on its own | `visual-language.design-md` |
 | Typography | Type roles by name, the typefaces, and how hierarchy is built | `visual-language.design-md` |
 | Layout | The base spacing unit, density, how spacing grows from inside components to between sections, and the grid or container rules | `visual-language.design-md` |
@@ -90,6 +90,8 @@ The format also accepts some alternate names: "Brand & Style" for Overview, "Lay
 **Roles, not values.** The body names roles (`primary`, `on-surface`, `body`, `radius-md`) and explains when to use them. It doesn't repeat hex codes or pixel values, which live in the front matter. That way the body stays true when values change. (Rule `visual-language.design-md.roles-not-values`.)
 
 **Provisional items.** Where the direction left something open, the section says so in one line: `Provisional: <what is undecided>. Set by <play id>.` The play named there settles it later.
+
+**The emphasis map.** Overview records, per kind of screen, which content is featured, which zones are subtle, and what, if anything, is a brand or inverse block. It's stated once there, and page and component work reads it.
 
 **Decisions live elsewhere.** DESIGN.md says what the system is. Why each choice was made goes in DECISIONS.md, and workflow progress goes in `sistema.json`.
 

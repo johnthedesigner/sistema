@@ -1,22 +1,22 @@
 ---
 id: opinion.look-is-yours
-title: "Sistema doesn't decide what your product looks like"
+title: "Sistema sets the craft; the look is yours"
 group: boundary
-default: "Taste, product direction, and brand stay with you, and where a step offers a taste-based approach, it's a starting point, not a default."
-description: "When to use: understanding what Sistema has opinions about, and what it leaves to you."
-rules: []
-guides: []
-last_reviewed: 2026-11-16
+default: "Sistema starts every project from a contemporary craft baseline, and the taste choices (how much color, warm or cool, how round, how surfaces separate, the type, the density) stay with you, chosen from options you can see on your own product."
+description: "When to use: understanding what Sistema decides about how your product looks, and what it asks you."
+rules: ["quality.craft.borders-have-a-job", "quality.craft.emphasis-scarce"]
+guides: ["guide.visual-language.overview#where-sistema-stands", "guide.visual-language.overview#the-taste-questions"]
+last_reviewed: 2026-11-20
 ---
 
 ## Why
 
-Sistema's opinions cover process, structure, and the quality floor. Those make work consistent without making products look alike. How your product looks is a design decision, and it belongs to the people making it.
+Some visual decisions are craft: experienced designers broadly agree on them today, such as hierarchy from type and space before lines, borders only where they do a job, and radius that scales with the element. Leaving those open makes products look unconsidered, so Sistema sets them by default (the craft baseline). Other decisions are taste, where products should differ. Those are yours, and Sistema asks about each one by showing you the options rendered on your own product, so you choose what you see rather than a name for a style. Brand and product direction stay with you too.
 
 ## When you'd choose otherwise
 
-You want a strong starting point.
+You have an established visual language, a brand book, or a designer who has already made these choices, or a craft item doesn't fit your product.
 
 ## If you override it
 
-Ask the agent for a recommendation. It will offer one, and it will say that it's a matter of taste.
+Tell the agent what's already decided; the direction play uses it and asks only what's left. To set aside a craft item, record it in DECISIONS.md with the reason; the matching review rule then accepts it.

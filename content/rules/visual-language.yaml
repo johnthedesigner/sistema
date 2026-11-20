@@ -1,8 +1,9 @@
 - id: visual-language.style-tile.sections
   statement: >-
-    sistema-review/style-preview.html contains all seven sections: visual direction statement, color palette,
-    typography specimens, shape and radius specimens, surface treatment, color in context, and reviewer notes.
-  reason: The person approving the direction needs to see every decision before values are generated from it.
+    sistema-review/style-preview.html contains all seven sections: direction summary, the choices (each taste
+    question shown as options rendered on the product's content), the composition, color, type, the emphasis
+    map, and reviewer notes.
+  reason: The person approving the direction needs to see every decision, as it would look, before values are generated from it.
   layer: sistema-default
   severity: blocking
   measure: { kind: presence }
@@ -12,9 +13,9 @@
 
 - id: visual-language.style-tile.self-contained
   statement: >-
-    The style preview is one self-contained file. The only external resource allowed is one stylesheet
-    link to Google Fonts or a font CDN for the chosen typefaces. If a typeface can't be loaded that way,
-    the page says which font is shown instead. Every color is shown as hex and OKLCH.
+    The style preview is one file. The only external resources allowed are one stylesheet link to Google
+    Fonts or a font CDN for the chosen typefaces, and the specimen tool's renderings. If a typeface can't be
+    loaded that way, the page says which font is shown instead. Every color is shown as hex and OKLCH.
   reason: >-
     It must open from the file system for review. The person must see the typeface they are approving,
     or know they aren't. OKLCH makes the commitment level visible.

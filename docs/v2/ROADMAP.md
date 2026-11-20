@@ -153,6 +153,8 @@ Expected first task: verify the current versions and APIs of `mcp-handler`, the 
 
 Expected tasks: build the harness with a spending cap, and mark its traffic as internal so it stays out of usage analytics; write behavior tests centered on running `workflow.start` from beginning to end (new project and Adopt path), with per-step tests second; run the three-way comparison (setup A runs from the `v1-baseline` tag); evaluate tool candidates with thresholds set **before** the runs; update site claims to match the results.
 
+**Variety test (D25):** run three short briefs (a dense B2B tool, a consumer app, a content site) through `visual-language.direction`. The owner judges whether the three results are distinct from each other and each looks intended, and whether each would pass an experienced designer's review today.
+
 **Gate:** plan 15, Phase 5 gate.
 
 ### V6: Figma export

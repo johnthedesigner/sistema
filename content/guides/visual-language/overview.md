@@ -1,220 +1,199 @@
 ---
 title: "Visual language"
-description: "A framework for turning a product's positioning into a specific visual direction before any values exist."
+description: "How Sistema sets a product's look: a contemporary craft baseline every project starts from, the taste questions the person answers by seeing options on their own product, and emphasis that follows importance."
 topic: visual-language
 sources:
-  - { source: designer-skills, url: "https://github.com/julianoczkowski/designer-skills/tree/main/grill-me" }
+  - { source: linear, url: "https://linear.app/now/how-we-redesigned-the-linear-ui" }
+  - { source: geist, url: "https://vercel.com/geist/materials" }
+  - { source: radix, url: "https://www.radix-ui.com/themes/docs/components/theme" }
+  - { source: apple-hig, url: "https://developer.apple.com/design/human-interface-guidelines/materials" }
+  - { source: spectrum, url: "https://spectrum.adobe.com/foundations/attention-hierarchy" }
+  - { source: fluent, url: "https://fluent2.microsoft.design/elevation" }
+  - { source: fluent, url: "https://fluent2.microsoft.design/layout" }
+  - { source: polaris, url: "https://cdn.jsdelivr.net/npm/@shopify/polaris-tokens@9.4.2/dist/esm/src/themes/base/color.mjs" }
+  - { source: material, url: "https://m3.material.io/styles/color/roles" }
+  - { source: nngroup-hierarchy, url: "https://www.nngroup.com/articles/visual-hierarchy-ux-definition/" }
+  - { source: comeau-shadows, url: "https://www.joshwcomeau.com/css/designing-shadows/" }
+  - { source: rauno-interaction, url: "https://rauno.me/craft/interaction-design" }
+  - { source: kowalski-animation, url: "https://emilkowal.ski/ui/great-animations" }
   - { source: designer-skills, url: "https://github.com/julianoczkowski/designer-skills/tree/main/design-brief" }
-  - { source: designer-skills, url: "https://github.com/julianoczkowski/designer-skills/tree/main/frontend-design" }
   - { source: anthropic-frontend-design, url: "https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md" }
   - { source: impeccable, url: "https://github.com/pbakaus/impeccable" }
-note: "This document is interpreted through the lens of design system building: aesthetic philosophies are vocabulary for translating positioning briefs into token decisions, not templates for UI implementation. The goal is to establish a specific, defensible visual direction before any token values are generated."
-last_reviewed: 2026-05-15
+related:
+  - guide.quality.visual-quality-signals
+  - guide.visual-language.style-tile-format
+  - guide.depth.architecture
+  - guide.color.architecture
+last_reviewed: 2026-11-20
 ---
 
 # Visual language
 
-## How to use this document
+## Where Sistema stands
 
-A positioning brief answers questions about product type, user context, density, and brand stance. This document provides the framework to translate those abstract answers into specific visual directions — preliminary decisions about color temperature, typographic character, radius personality, and surface treatment that then guide token generation.
+A product's look comes from two kinds of decision, and Sistema treats them differently.
 
-Read this document before running the `visual-language.direction` play. Reference it when generating `style-preview.html` to ensure the visual choices connect to the positioning brief. The output of this translation is not final token values — it is a specific, named direction that can be reviewed and adjusted before any tokens are committed.
+- **Craft** is what experienced product designers broadly agree on today: hierarchy from type and space before lines, borders only where they do a job, radius that scales with the element, quiet elevation, one accent used for meaning. Sistema holds these as a baseline every project starts from (the `craft` opinions). A project can override any of them, and records why.
+- **Taste** is where products should differ: how much color, warm or cool, how round, how surfaces separate, the voice of the type, density. Sistema asks the person about each one, and shows the options rendered on their own product, so they choose what they see rather than a name for a style.
 
----
+"Functional" means no styling that is purely decorative. It does not mean bare. A style earns its place by doing something for the person using the product: showing what matters, what can be clicked, what belongs together, what the product is, or how a moment should feel. Color, depth, a distinctive typeface, and a bold block of brand color can all be functional. Removing everything removable leaves a word-processor document, not a calm interface.
 
-## 1 — The translation problem
+The baseline is not "look like Linear". It's a set of principles several current systems share, each credited where it's described. Linear's redesign held most of its brand hue out of the chrome and pushed content contrast up ([Linear](https://linear.app/now/how-we-redesigned-the-linear-ui)); Vercel's Geist ties radius and shadow to a small set of elevation roles ([Geist](https://vercel.com/geist/materials)); Radix Themes expresses taste as a few parameters that restyle every component ([Radix](https://www.radix-ui.com/themes/docs/components/theme)); Spectrum 2 keeps high-attention treatments to one element or group per page ([Spectrum](https://spectrum.adobe.com/foundations/attention-hierarchy)).
 
-Positioning brief answers are typically abstract:
-- "Expressive but not loud"
-- "Precise and technical"
-- "Warm and approachable"
+## The craft baseline
 
-These abstractions do not directly generate token values. There is a missing step: translating brand stance language into specific visual vocabulary before choosing values.
+Each item is an opinion with its reasons, when you'd choose otherwise, and how to override it. The checkable parts are advisory review rules, so a deliberate choice can win.
 
-The translation step is where most AI-generated design systems fail. The agent receives "modern and professional" and outputs medium-blue primary, Inter Regular body text, and `#F8F9FA` surfaces — not because these are wrong, but because the translation never happened. The values came from training data frequency, not from the positioning brief.
-
-**The goal of this document:** give the agent a structured vocabulary for performing that translation explicitly.
-
----
-
-## 2 — Aesthetic reference points
-
-These eight frameworks are vocabulary, not templates. A product does not "use Swiss/International style" — it draws on specific principles from that tradition that are relevant to its positioning. The agent should identify which 2–3 reference points resonate with the positioning brief, then extract the specific principles that apply.
-
-### 2.1 — Functionalist / Dieter Rams influence
-
-**Core principle:** Every visual element must have a reason to exist. If it can be removed without loss of information or usability, remove it.
-
-**Design system implications:**
-- Color: Restrained commitment level (Level 1–2). Color carries semantic load, not decorative purpose.
-- Typography: Neutral sans-serif with strong weight hierarchy. Body text is optimized for legibility, not character.
-- Shape: Minimal radius (2–4px) or none. Decorative border treatments are absent.
-- Surfaces: Subtle differentiation through spacing and structure rather than color or shadow.
-- Pattern signal: components communicate function through form, not decoration.
-
-**When it applies:** Enterprise tools, developer products, data-heavy dashboards, any context where cognitive load reduction is the primary value.
-
-### 2.2 — Swiss / International Typographic Style
-
-**Core principle:** Grid, hierarchy, and typographic structure carry the design. Photography and illustration are documentary, not decorative. White space is structural.
-
-**Design system implications:**
-- Typography: Strong typographic hierarchy with distinct size/weight combinations. Display sizes are large and confident.
-- Grid: Explicit column structure. Spacing tokens follow strict geometric ratios.
-- Color: Often minimal — neutral palette with one or two functional accent colors. Or: highly deliberate chromatic choices if color is used.
-- Radius: None or very minimal. Sharp corners signal structural precision.
-- Pattern signal: Type does most of the work. Components are architecturally clean.
-
-**When it applies:** B2B SaaS, publishing tools, documentation systems, financial products where clarity and authority matter.
-
-### 2.3 — Japanese Minimalism (Ma principle)
-
-**Core principle:** Negative space is as intentional as occupied space. Visual quiet is not emptiness — it is the deliberate absence of unnecessary elements to let meaning surface.
-
-**Design system implications:**
-- Density: Content-sparse. Generous padding, even at smaller breakpoints.
-- Color: Restrained to committed. Palette often draws from natural, desaturated sources: stone, paper, ink, earth.
-- Typography: Often mixed type scales with visible contrast between display and body. Careful weight selection.
-- Surface: Off-white or warm neutral with minimal border usage. Differentiation through space, not containers.
-- Pattern signal: Components breathe. Hover states are subtle. Absence of shadow is a deliberate choice.
-
-**When it applies:** High-end consumer products, wellness or lifestyle brands, products where premium positioning requires visual restraint.
-
-### 2.4 — Brutalist / Raw
-
-**Core principle:** Structure is exposed rather than concealed. UI elements communicate their mechanical nature. Visual hierarchy is achieved through contrast and scale, not polish.
-
-**Design system implications:**
-- Color: Either hyper-minimal (black/white) or maximum-contrast color with no intermediate tones.
-- Typography: Monospace or geometric sans. Size and weight used aggressively. Tracking can be extreme.
-- Shape: Zero radius universally, or extremely deliberate radius exceptions.
-- Borders: Borders at full weight (2px+), not as decoration but as structural elements.
-- Shadow: None, or purely functional (no decorative elevation).
-- Pattern signal: No defensive UX hedging. States are clear and abrupt.
-
-**When it applies:** Developer tools with attitude, creative platforms, products where technical authenticity is part of the brand.
-
-### 2.5 — Scandinavian / Nordic
-
-**Core principle:** Warmth, craft, and functionality coexist. Natural material references (wood, linen, stone) without being rustic. Accessible without being generic.
-
-**Design system implications:**
-- Color: Warm neutrals with low-saturation accent colors. Palette draws from natural rather than synthetic references.
-- Typography: Humanist sans-serifs. Friendly but not playful. Line height is generous.
-- Surface: Warm off-whites, soft dividers. Components feel tactile without being skeuomorphic.
-- Radius: Medium (6–10px). Not sharp, not aggressively rounded. Proportional to component size.
-- Pattern signal: UI feels crafted, not manufactured. Micro-interactions have warmth.
-
-**When it applies:** Consumer productivity tools, health and wellness apps, e-commerce with artisanal or quality positioning.
-
-### 2.6 — Art Deco / Geometric
-
-**Core principle:** Symmetry, ornament, and geometric precision. Luxury expressed through deliberate complexity and material richness.
-
-**Design system implications:**
-- Color: Often high contrast with gold, cream, or jewel tones as accent. Full palette or drenched commitment level.
-- Typography: Display typography with strong geometric structure. Often mixed serif/sans. Track heavily on uppercase labels.
-- Shape: Symmetrical, precise. Radius either zero (sharp geometric) or very large (pill shapes). No middle ground.
-- Borders: Used as design elements, not just separators. Double borders, decorative rules.
-- Pattern signal: Components feel considered and intentional. Empty states are designed, not placeholders.
-
-**When it applies:** Luxury brands, premium consumer products, hospitality and lifestyle products, editorial publishing.
-
-### 2.7 — Neo-Memphis / Post-Digital
-
-**Core principle:** Deliberate recombination of visual references. Color and form are expressive, knowing, sometimes ironic. Breaks rules explicitly.
-
-**Design system implications:**
-- Color: Full palette or drenched. Multiple chromatic accents in simultaneous use. Color is assertive.
-- Typography: Unexpected pairings — geometric sans with slab serif, or compressed grotesque with wide display. Mixed weights.
-- Shape: Mixed radius — some components sharp, some pill-shaped. Deliberate inconsistency as a design choice.
-- Surface: Textured or patterned backgrounds are possible. Color blocks used structurally.
-- Pattern signal: The system has personality that reads as intentional rather than accidental.
-
-**When it applies:** Creative tools, youth-oriented consumer products, entertainment and media, brands that position against convention.
-
-### 2.8 — Editorial / Magazine
-
-**Core principle:** Typography is the primary design medium. Layout creates visual tension and rhythm. Content is the hero.
-
-**Design system implications:**
-- Typography: Display roles at large sizes (60px+), strong weight contrast, varied tracking by role. Serif display paired with neutral body is common.
-- Color: Often controlled — sometimes nearly monochromatic, sometimes high-contrast. Color amplifies content, not the chrome.
-- Density: Content-sparse at the UI level; content is rich and detailed.
-- White space: Used to create breathing room around content, not as wasted space.
-- Pattern signal: Components step back. Content containers are minimal. Typography does the hierarchical work.
-
-**When it applies:** Publishing platforms, news tools, content-focused products, documentation and knowledge systems.
-
----
-
-## 3 — Translating positioning to visual direction
-
-This is a structured mapping from the answers in a positioning brief to specific preliminary visual directions. Run this translation step to produce the visual direction brief that feeds `establish-visual-language`.
-
-### 3.1 — Brand stance → commitment level
-
-| Positioning | OKLCH commitment level | Starting point |
+| Item | In short | Opinion |
 |---|---|---|
-| Utilitarian / functional tool | Level 1 — Restrained | Surface chroma below about 0.015 |
-| Professional B2B, moderate personality | Level 2 — Committed | Surface chroma about 0.01 to 0.03, hue-tinted neutrals |
-| Expressive consumer product | Level 3 — Full palette | Surface chroma about 0.03 to 0.06, multiple chromatic accents |
-| Bold brand statement | Level 4 — Drenched | Surface chroma about 0.06 and up, maximum-chroma primaries |
+| Hierarchy before lines | Type, space, and tone carry hierarchy. A border is used where the edge is the affordance (fields, selects, checkboxes, secondary buttons) or helps the eye follow data. | `opinion.hierarchy-before-lines` |
+| Neutral ground, one accent | Surfaces and chrome are near-neutral with a slight tint. The accent marks the primary action, selection, focus, and links. Status colors are the only other color. | `opinion.neutral-ground-one-accent` |
+| Text in tones | Three or four text tones from the neutral ramp, never pure black. Secondary text carries much of the hierarchy. | `opinion.text-tones` |
+| Radius by size | Small elements smaller, containers larger, floating layers largest; a nested radius is the outer radius minus the padding. | `opinion.radius-by-size` |
+| Elevation for what floats and what leads | Menus, popovers, dialogs, toasts, and the featured item get soft, layered shadows. Ordinary panels sit on the page. | `opinion.elevation-by-role` |
+| One typeface, set with care | A well-made sans, medium weight for labels and emphasis, tighter tracking at large sizes, tabular figures for data. | `opinion.one-typeface-set-well` |
+| Consistent rhythm | A 4px grid, one control height per density, aligned edges, generous outer spacing even when the inside is dense. | `opinion.consistent-rhythm` |
+| Quiet states | Hover is a small tone change, pressed a little more, focus a crisp ring with an offset, selected the accent at low strength. | `opinion.quiet-states` |
+| One icon set | One set, its stroke matched to the text weight. | `opinion.one-icon-set` |
+| Short motion | Short, eased-out transitions on state changes and floating layers only. | `opinion.short-motion` |
+| Contrast follows importance | Most levels separate quietly; a few separate strongly, chosen by the role of the content. | `opinion.contrast-follows-importance` |
 
-### 3.2 — Density → typographic character
+Several of these are starting points that a taste answer moves. "Neutral ground, one accent" is where the color question starts; the person can take it a long way. The radius default sits in the middle and the roundness question moves it.
 
-| Density | Type approach |
+## What the product needs
+
+Start from what the screens must do, not from a style word. A brief that says "utilitarian" describes a goal: status must stand out, rows must be easy to follow, controls must be obvious, nothing should compete with the work. None of that calls for sharp corners or an outline on every surface. Linear, Vercel's dashboard, and Stripe's dashboard are all utilitarian, and none look like that.
+
+Write the needs as plain statements, for example:
+
+- The thing that needs action now (the next job, the failed payment) must be the first thing seen.
+- People scan long lists all day, so rows must be easy to follow without heavy lines.
+- Status is the main signal, so status colors must be the strongest color on screen.
+- The brand matters on the marketing pages, much less inside the tool.
+
+Each taste question below is then answered by asking which option serves these needs, and the proposal says so in those words.
+
+## The taste questions
+
+Each question is shown, never only described. The options are rendered on the product's own content (its navigation, a row of its records, its status chips, a button pair, a field, a menu) with the specimen tool, so every option is rendered the same way and only the decision differs. The agent proposes one option per question and says why, in terms of what the product needs. The person picks.
+
+### How much color
+
+How far the accent reaches beyond actions and focus.
+
+| Option | What the person sees | Suits |
+|---|---|---|
+| Quiet | Almost all neutral; color only on the main button, selection, and status | Dense tools where status must be the strongest signal |
+| Brand | The accent also marks the navigation's current item and selected rows | Most products; recognizably theirs without competing with status |
+| Tinted | A deep accent block carries the navigation, and the page takes a faint accent tint | Products where the brand is part of the experience, consumer apps, marketing |
+
+The accent itself is a separate choice: check it against the category default (the first-order reflex in the quality guide), and keep it apart from the status hues if status matters.
+
+### Warm or cool
+
+The temperature of the neutral ramp, which sets every surface, border, and gray text. Show the same screen with cool, neutral, and warm grays. Cool reads technical and crisp; warm reads softer and more editorial; neutral is the quietest. The neutral can also be tinted toward the accent, which makes the whole interface feel of a piece.
+
+### How round
+
+The radius of controls, with every other radius scaled from it (chips smaller, panels larger, floating layers largest). Show about 4px, 8px, and 12px on buttons, fields, and a panel, and pills as a separate option for chips. Sharpness doesn't mean seriousness: most current professional tools sit in the middle.
+
+### How surfaces separate
+
+How quiet zones and panels separate from the page. This is the quiet level; strong emphasis is handled by the emphasis roles below.
+
+| Option | What the person sees |
 |---|---|
-| Dense (tables, dashboards) | Compact scale with strong label/data role distinction. Body size 13–14px. Weight differentiation over size differentiation. |
-| Balanced | Moderate scale. Both content roles and UI roles. Body size 14–16px. |
-| Sparse (marketing, focused flows) | Expressive scale. Display roles at large sizes. Body optimized for reading, not scanning. |
+| Tone | No outlines; panels a shade lighter than the page |
+| Line | Fine outlines on panels, on a white page |
+| Shadow | Panels lifted with a soft shadow |
 
-### 3.3 — Tone → radius personality
+### Type voice
 
-| Tone | Radius personality |
+Show three typefaces chosen for the product, each setting the same heading, a row of data, and a label. Choose for the product's character and its text: a dense tool needs clear figures and a compact width; a reading product needs comfortable text and can take a more expressive display face. A second face (for display or for code) needs a reason.
+
+### Density and theme
+
+These usually come from Start (`sistema.json`). If the person is unsure about density, show the same table at compact, comfortable, and spacious row heights. If the theme is light and dark, show the chosen options in both.
+
+## Emphasis: contrast that follows importance
+
+In a well-designed product the contrast between levels is not uniform. Most structural zones separate from the page only slightly, so the page reads as one calm field. One thing, such as the job in progress or the plan to choose, stands out much more, through lift, tone, or color. A footer or a key band can be a saturated block of brand color. The variation follows the role the content plays.
+
+A real product is less like an essay (title, heading, paragraph) and more like a large restaurant menu: whole pages, sections, promotions, mains against sides, food against drink. A single even ladder of levels can't guide attention through that on purpose; it reads as noise, or, stripped back, as a document. Research says the same: hierarchy comes from contrast between an element and its context, and if everything is contrasted, nothing stands out ([NN/g](https://www.nngroup.com/articles/visual-hierarchy-ux-definition/)). Spectrum 2 states it as a rule of thumb: one element or group with high attention per page ([Spectrum](https://spectrum.adobe.com/foundations/attention-hierarchy)).
+
+### Emphasis surfaces
+
+Every system Sistema builds has these color roles, alongside the ordinary surface ladder (`color.roles.required`):
+
+| Role | What it's for |
 |---|---|
-| Sharp precision / technical | 0–3px on all interactive elements. Sharp corners signal precision. |
-| Balanced / professional | 4–8px. Radius hierarchy: small for inline, medium for containers. |
-| Friendly / approachable | 8–12px. Consistent rounding across component family. |
-| Rounded / playful | 12–20px. Pill shapes common. Full-radius on badges/chips. |
+| `surface-subtle` | A quiet zone: a sidebar, a toolbar band, an inset well |
+| `surface-featured` | The one thing on the screen that should lead, lifted further than a panel |
+| `surface-inverse` | A dark block on a light page (or the reverse): a quote, a newsletter band, a toast |
+| `surface-brand` | A saturated block in the brand color: a key metric, a promotion, a footer band |
 
-### 3.4 — Platform → surface treatment
+Each has its own text roles and is checked for contrast like any other pairing. Polaris names surfaces by prominence rather than depth and has brand and inverse families ([Polaris tokens](https://cdn.jsdelivr.net/npm/@shopify/polaris-tokens@9.4.2/dist/esm/src/themes/base/color.mjs)); Material has inverse surfaces and containers ([Material](https://m3.material.io/styles/color/roles)).
 
-| Context | Surface approach |
-|---|---|
-| Web app, moderate density | Light: off-white surface with 2–3 elevation levels. Borders as separators, not decoration. |
-| Consumer mobile | Elevation-based surfaces. Cards use shadow. Limited border usage. |
-| Data-heavy tool | Minimal elevation. Borders at low contrast. Color used only for semantic signals. |
-| Marketing / landing | White surface, strong type hierarchy, color used expressively in sections. |
+These roles are opinionated parts of the foundation, not questions. Asking a person to approve semantic roles one by one is the wrong level of detail. The color and depth plays choose their values from the direction, and the person sees the result on the composition in the review page. A product that never uses one simply doesn't apply it.
 
----
+### Ways to separate and lift
 
-## 4 — The visual direction brief
+The system offers a small set of treatments, each with its tokens, and each screen chooses one per context from the role of the content, not from how deeply it's nested:
 
-Before generating `style-preview.html`, produce a visual direction brief as a structured short document. This is the artifact that is reviewed before any tokens are generated.
+| Treatment | Quiet | Strong |
+|---|---|---|
+| Space | A larger gap between groups | A section break with generous space above |
+| Tone | `surface-subtle` against the surface | An inset well, or a tinted container |
+| Hairline | A hairline rule between rows | A control border |
+| Shadow | A soft lift (only when the project separates panels by shadow) | The featured shadow |
+| Color block | An accent-tinted container | `surface-brand` or `surface-inverse` |
 
-**Required sections:**
+Space is the first tool; Fluent's layout guidance makes the same point: spacing creates sections "without having to use lines" ([Fluent](https://fluent2.microsoft.design/layout)). The depth guide covers shadow strength, light sources, and dark themes.
 
-**Aesthetic reference points** (2–3 sentences): Which 2–3 traditions or frameworks does this product draw from? Be specific: "Draws from Swiss/International precision in its typographic hierarchy and from Scandinavian warmth in its surface treatment. Avoids decorative complexity."
+### The emphasis map
 
-**Color commitment level** (1 sentence + 1 sentence justification): State the OKLCH commitment level and explain why it matches the positioning.
+The direction records, per kind of screen, which content plays which role, for example: "the job in progress is featured; the sidebar is subtle; the daily total is a brand block; nothing is inverse." DESIGN.md states it once, in the Overview's direction values. Page and component work reads it instead of deciding emphasis screen by screen. Without real screens it's a first guess, and it's revised when they exist.
 
-**Typographic character** (2–3 sentences): What does the type system feel like? Name the weight range, the body size range, whether mixed typefaces are used, what the display scale does.
+## Design traditions as vocabulary
 
-**Shape personality** (1 sentence): Where on the sharp ↔ rounded spectrum. Numeric estimate of primary radius.
+Traditions such as Swiss typography, Dieter Rams' functionalism, Scandinavian design, editorial layout, or brutalism are useful words for explaining why an option suits a product ("a strict grid and type-led hierarchy, as in Swiss design"). They are never what the person approves, and they don't decide values on their own. The first Relay run showed why: "functionalist" was read as "minimal radius and outlines", and the result looked dated. If a tradition comes up, take the specific principle that serves the product's needs and show it as an option.
 
-**Surface treatment** (2 sentences): How surfaces are differentiated. Whether borders, elevation, or spatial separation is the primary differentiator.
+## Rules
 
-**What this system does not look like** (2–3 bullet points): Explicit exclusions. These are as important as the inclusions because they prevent second-order trap drift during token generation.
+The direction is checked against these rules:
 
----
+- `visual-language.style-tile.sections` and `visual-language.style-tile.self-contained`: what the direction page contains.
+- `quality.color.first-order-reflex` and `quality.color.bans`: the accent and neutral choices.
+- `shape.radius.hierarchy`: radius scaled by element.
+- The craft review rules, `quality.craft.*`, advisory: borders with a job, text tones, elevation by role, scarce emphasis, quiet states, weights, and motion.
 
-## 5 — Common translation errors
+## Worked example: Relay
 
-**Error: Applying multiple conflicting frameworks** — Brutalist typography + Scandinavian warmth + Neo-Memphis color simultaneously. Each framework implies incompatible decisions. Choose a primary framework and borrow specific elements from secondary ones.
+Relay is a dispatch dashboard for a small field-service company: dispatchers use it all day on desktop to assign jobs, track status, and handle requests. Its brief said "utilitarian".
 
-**Error: Treating aesthetic reference points as personality labels** — Saying "this product is Swiss/International" and then generating tokens without asking what that specifically implies. The framework is a vocabulary tool, not a label.
+The first run translated that into a style: "Functionalist primary, Swiss secondary, commitment level 1", radius from 2 to 8px, and outlines on panels, chips, tooltips, menus, and dividers. Every value was defensible on its own, and the result looked dated and noisy. The owner's review: too many borders, outlines, and dividers.
 
-**Error: Ignoring density when applying framework** — A dense data tool with Neo-Memphis color treatment will produce a visually hostile interface. Density constraints override aesthetic ambition in cases of conflict.
+With the questions, the same brief becomes needs first: the next unassigned job must be the first thing seen; status is the strongest signal; dispatchers follow long lists all day. Those point to quiet color (brand at most, so status stays strongest), separation by tone rather than lines, a middle radius, a compact sans with tabular figures, and an emphasis map in which the job in progress is featured. Each option is then shown on Relay's own jobs list before anyone approves it.
 
-**Error: Second-order trap from framework association** — "Brutalist" suggesting zero-radius AND monospace AND black/white AND bold borders simultaneously, without evaluating which of those elements actually fits the product. Take only the specific principles that apply.
+## Failure modes
+
+- **A style word instead of needs.** "Precise", "professional", or "utilitarian" turned straight into sharp corners, gray, and outlines.
+- **Answering the taste questions for the person.** The agent picks every option and shows only the result, so the person approves a page rather than choices.
+- **Codewords on the review page.** "Level 2, Swiss" instead of the rendered options in plain words.
+- **Even steps everywhere.** Page, panel, and menu as three equal steps of gray, and nothing allowed to lead.
+- **Everything featured.** Several featured cards and brand blocks on one screen, so none leads.
+- **Options that differ in more than one thing.** If the roundness options also change color, the person can't tell what they're choosing.
+
+## Checking the work
+
+- Squint at the composition (or blur it): the featured item and the primary action should be what reads first, then the content, with the chrome last ([NN/g](https://www.nngroup.com/articles/visual-hierarchy-ux-definition/)).
+- Every border and divider on the page has a job you can name.
+- Each taste question was shown with its options rendered on the product's content, and the person picked.
+- The proposal for each question names the product need it serves.
+- The emphasis map is in DESIGN.md, and the composition follows it.
+
+## Plays
+
+- `visual-language.direction` sets the direction and asks the taste questions.
+- `visual-language.design-md` writes DESIGN.md from the approved direction.
+- `color.scheme`, `shape.tokens`, and `spacing.tokens` build the foundations from it.

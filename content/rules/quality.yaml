@@ -50,3 +50,104 @@
   severity: advisory
   applies_to: tokens/src/shape.json, components
   sources: [guide.quality.visual-quality-signals#3-absolute-bans-for-design-system-token-decisions]
+
+- id: quality.craft.borders-have-a-job
+  statement: >-
+    Every border and divider has a function you can name: it marks where to click or type, helps the eye
+    follow rows of data, or separates where space and tone can't. Panels, cards, chips, tooltips, and menus
+    separate by tone, space, or shadow unless DECISIONS.md says otherwise.
+  reason: Outlines on everything turn a screen into a grid of boxes, and the things that matter stop standing out.
+  layer: sistema-default
+  severity: advisory
+  applies_to: tokens/src/shape.json, components, and review pages
+  sources: [guide.visual-language.overview#the-craft-baseline, guide.quality.visual-quality-signals#23-plain-looking-traps]
+
+- id: quality.craft.accent-for-meaning
+  statement: >-
+    The accent appears on the primary action, selection, focus, links, and the brand emphasis surfaces, and
+    as far beyond them as the direction's color presence allows. Status colors are the only other color in the chrome.
+  reason: Color spent on decoration stops signaling what can be acted on, and competes with status.
+  layer: sistema-default
+  severity: advisory
+  applies_to: color roles and components
+  sources: [guide.visual-language.overview#how-much-color]
+
+- id: quality.craft.text-tones
+  statement: Text uses three or four tones from the neutral ramp (primary, secondary, tertiary, disabled), and none is pure black.
+  reason: Tones carry hierarchy without extra size, weight, or lines.
+  layer: sistema-default
+  severity: advisory
+  applies_to: the text color roles
+  sources: [guide.visual-language.overview#the-craft-baseline]
+
+- id: quality.craft.nested-radius
+  statement: A shape nested inside another uses the outer radius minus the padding between them, and never a larger radius than its container.
+  reason: Inner corners that don't follow the outer corner look misaligned.
+  layer: sistema-default
+  severity: advisory
+  applies_to: components
+  sources: [guide.shape.architecture#component-consistency]
+
+- id: quality.craft.elevation-by-role
+  statement: >-
+    Shadows go on floating layers (menus, popovers, dialogs, toasts) and the featured surface, and on panels only
+    when the direction separates panels by shadow. All shadows share one light source, and dark themes also raise
+    surfaces by tone.
+  reason: A shadow on everything stops meaning anything and adds noise.
+  layer: sistema-default
+  severity: advisory
+  applies_to: tokens/src/shape.json and components
+  sources: [guide.depth.architecture#emphasis-and-separation]
+
+- id: quality.craft.type-weights
+  statement: Labels and emphasis use a medium weight rather than bold, and numbers in tables and metrics use tabular figures.
+  reason: Bold everywhere looks heavy and flattens hierarchy; proportional figures misalign columns.
+  layer: sistema-default
+  severity: advisory
+  applies_to: type tokens and components
+  sources: [guide.visual-language.overview#the-craft-baseline]
+
+- id: quality.craft.rhythm
+  statement: Spacing values come from the spacing scale on its base grid, and each density has one control height shared by buttons, fields, and selects.
+  reason: Rhythm and alignment are felt more than seen; mismatched control heights make a row look broken.
+  layer: sistema-default
+  severity: advisory
+  applies_to: tokens/src/spacing.json and components
+  sources: [guide.spacing.layout#space-before-lines]
+
+- id: quality.craft.quiet-states
+  statement: Hover is a small tone change, pressed a little more, focus a ring in the focus color with an offset, and selected the accent at low strength.
+  reason: Loud states make a busy screen busier; consistent quiet states read as one system.
+  layer: sistema-default
+  severity: advisory
+  applies_to: components
+  sources: [guide.visual-language.overview#the-craft-baseline]
+
+- id: quality.craft.one-icon-set
+  statement: Components use one icon set, with its stroke weight matched to the adjacent text, unless DECISIONS.md names a second set and its use.
+  reason: Mixed sets have different grids and weights, and look unfinished.
+  layer: sistema-default
+  severity: advisory
+  applies_to: components
+  sources: [guide.visual-language.overview#the-craft-baseline]
+
+- id: quality.craft.motion
+  statement: >-
+    Transitions are short and eased out, on state changes and floating layers only. Surfaces opened many times
+    a day from the keyboard, such as a command menu, open without entrance motion.
+  reason: Motion that explains helps; motion for its own sake makes a product feel slow.
+  layer: sistema-default
+  severity: advisory
+  applies_to: motion tokens and components
+  sources: [guide.visual-language.overview#the-craft-baseline]
+
+- id: quality.craft.emphasis-scarce
+  statement: >-
+    Strong emphasis (the featured surface, brand and inverse blocks) is applied by the role of the content, as the
+    emphasis map in DESIGN.md records, with at most one featured element or group per screen. Quiet levels
+    (page, zones, panels) differ by small steps.
+  reason: If every level differs by the same amount, or everything is featured, nothing leads.
+  layer: sistema-default
+  severity: advisory
+  applies_to: review pages, page examples, and components
+  sources: [guide.visual-language.overview#emphasis-contrast-that-follows-importance]

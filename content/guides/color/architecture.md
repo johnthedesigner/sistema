@@ -12,6 +12,8 @@ sources:
   - { source: material-color-science, url: "https://material.io/blog/science-of-color-design" }
   - { source: wcag, url: "https://www.w3.org/TR/WCAG22/" }
   - { source: apca, url: "https://git.apcacontrast.com/documentation/APCAeasyIntro" }
+  - { source: polaris, url: "https://cdn.jsdelivr.net/npm/@shopify/polaris-tokens@9.4.2/dist/esm/src/themes/base/color.mjs" }
+  - { source: fluent, url: "https://fluent2.microsoft.design/elevation" }
 last_reviewed: 2026-11-16
 ---
 
@@ -40,6 +42,28 @@ Dark mode is not an inversion of light mode. Naive lightness inversion produces 
 
 **4. The never-hardcode principle**
 No component should reference a raw color value. This is what makes theming, dark mode, and accessibility audits tractable. Any hex value in a component style is technical debt. The color system is only as useful as its adoption in the component layer.
+
+---
+
+## Emphasis surfaces
+
+Besides the surface ladder (surface, raised, overlay), every system Sistema builds has four emphasis surfaces, so a screen can let one thing lead instead of stepping evenly through levels (see the visual-language guide on emphasis):
+
+| Role | Light theme, typically | Dark theme, typically |
+|---|---|---|
+| `surface-subtle` | One small step off the surface, from the neutral ramp | One step darker than the surface |
+| `surface-featured` | The surface color; it leads by lift (the depth guide's featured shadow) | One step lighter than the surface, plus the featured shadow |
+| `surface-inverse` with `on-surface-inverse` | A near-black from the neutral ramp, with light text | A near-white, with dark text |
+| `surface-brand` with `on-surface-brand` | A deep stop of the primary ramp, deep enough for light text | The same, or a step lighter, still with light text |
+
+How to choose the stops:
+
+- **Quiet levels take small steps.** Neighboring stops near white (and near black in dark themes) are close on purpose; pick the subtle surface from them, not from the middle of the ramp.
+- **Emphasis takes big steps.** The inverse and brand surfaces sit far from the page so they read as blocks, not as another level.
+- **Check every pairing.** Each `on-*` role, and any muted text you put on these surfaces, goes to the contrast tool like any other pair.
+- **Shadows on color.** A shadow on a brand surface reads differently from the same shadow on a neutral one; Fluent adjusts shadow strength by the surface's lightness for this reason ([Fluent](https://fluent2.microsoft.design/elevation)).
+
+Polaris names surfaces by prominence and has brand and inverse families, in both large-area (surface) and small-area (fill) versions ([Polaris tokens](https://cdn.jsdelivr.net/npm/@shopify/polaris-tokens@9.4.2/dist/esm/src/themes/base/color.mjs)). Material has inverse surfaces and containers for the same jobs.
 
 ---
 

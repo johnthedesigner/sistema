@@ -70,9 +70,9 @@ Run `workflow.patterns` on the reference project: the core components, page exam
 **Status:** in progress (approved 2026-11-20, D23 to D25; `docs/v2/aesthetic-baseline.md`)
 
 The Relay run came out technically sound but dated and noisy, because the visual-language guide turned "utilitarian" into a style and the direction play answered taste questions in framework vocabulary. Steps:
-1. **Source intake:** every candidate in BACKLOG "Sources for contemporary visual craft" that meets the intake criteria, through the standard process, cited in the content it supports.
-2. **The specimen tool:** a fourth tool that renders components and a small composition (page, zones, featured item, color block) from a few parameters. Show the owner its default rendering and variations as a visual milestone; that also tests the baseline.
-3. **Content:**
+1. **Done. Source intake:** every candidate in BACKLOG "Sources for contemporary visual craft" that meets the intake criteria, through the standard process, cited in the content it supports.
+2. **Done (approved by the owner). The specimen tool:** a fourth tool that renders components and a small composition (page, zones, featured item, color block) from a few parameters. Show the owner its default rendering and variations as a visual milestone; that also tests the baseline.
+3. **Done (2026-11-20), with the palette rules (D26). Content:**
    - the `craft` opinion group and its advisory review rules;
    - the new traps (outlined everything, sharp means serious, gray means professional);
    - the emphasis surfaces and separation treatments in the color roles and the depth, spacing, and color guides;
@@ -81,7 +81,7 @@ The Relay run came out technically sound but dated and noisy, because the visual
    - the shape, depth, and color plays checked against the baseline;
    - `opinion.look-is-yours` rewritten.
 4. **Re-run Relay from Direction** through Foundations and the components, with the owner at the gates, recording findings as in V3.2. This also exercises revising an approved foundation (finding #49). Then copy Relay into `examples/relay/`.
-5. **Add a variety test to V5:** three different briefs through Direction, judged by the owner for distinctness.
+5. **Add a variety test to V5:** three different briefs through Direction, judged by the owner for distinctness. **Done:** added to the V5 section of `docs/v2/ROADMAP.md`.
 
 - [ ] Owner approves the specimen tool's rendering, then Relay's re-run direction, foundations, and components; every check passes
 

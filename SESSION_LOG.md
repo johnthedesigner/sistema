@@ -13,6 +13,16 @@
 
 ## Session log
 
+### 2026-11-20 — V3.4: content (craft baseline, taste questions, emphasis)
+
+**What was done:**
+- New opinion group `craft` with eleven opinions (hierarchy before lines, neutral ground and one accent, text tones, radius by size, elevation by role, one typeface, rhythm, quiet states, one icon set, short motion, contrast follows importance), and eleven advisory `quality.craft.*` review rules.
+- Visual-language guide rewritten (D18 shape): craft and taste, what the product needs, the taste questions shown as rendered options, emphasis surfaces, ways to separate and lift, the emphasis map, traditions as vocabulary only, Relay as the worked example. Style preview format rewritten around the choices, the composition, and the emphasis map.
+- Direction play rewritten: needs first, the agent proposes and the person picks per question, options rendered with the specimen tool on the product's content, emphasis map in DESIGN.md Overview.
+- `color.roles.required` gains the emphasis surfaces; color, depth, and spacing guides gain sections on them; shape, color, spacing, DESIGN.md, and component scaffold plays apply the baseline. Quality guide gains the plain-looking traps. `opinion.look-is-yours` rewritten.
+- V5 variety test added to the roadmap.
+- **Next:** Relay re-run from Direction with the owner at the gates.
+
 ### 2026-11-20 — V3.4: palette rules adopted (D26)
 
 **What was done:**

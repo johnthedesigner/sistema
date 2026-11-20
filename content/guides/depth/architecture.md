@@ -6,6 +6,10 @@ sources:
   - { source: material, url: "https://m3.material.io/styles/color/roles" }
   - { source: atlassian, url: "https://atlassian.design/tokens/design-tokens" }
   - { source: carbon, url: "https://carbondesignsystem.com/elements/color/overview/" }
+  - { source: geist, url: "https://vercel.com/geist/materials" }
+  - { source: fluent, url: "https://fluent2.microsoft.design/elevation" }
+  - { source: comeau-shadows, url: "https://www.joshwcomeau.com/css/designing-shadows/" }
+  - { source: spectrum, url: "https://spectrum.adobe.com/foundations/attention-hierarchy" }
 last_reviewed: 2026-05-13
 ---
 
@@ -115,6 +119,40 @@ elevation-surface-modal:   light → #ffffff,    dark → tone-22  + shadow-prom
 ```
 
 The surface colors do the work in dark mode; the shadows do the work in light mode. The same token names work in both contexts.
+
+---
+
+## Emphasis and separation
+
+Elevation does two jobs: it shows what floats above the page, and it shows what matters. Fluent uses elevation to "convey levels of importance", not only layering ([Fluent](https://fluent2.microsoft.design/elevation)), and closer things are noticed first ([Comeau](https://www.joshwcomeau.com/css/designing-shadows/)). Both jobs work only if most things don't have it. Geist names over-elevating as a common source of visual noise and asks for the lowest elevation that still reads ([Geist](https://vercel.com/geist/materials)).
+
+Sistema's default (`opinion.elevation-by-role`) gives each shadow a role rather than a number:
+
+| Shadow | Used for | Character |
+|---|---|---|
+| `shadow.control` (optional) | Buttons and fields that should feel touchable | A barely visible edge shadow |
+| `shadow.raised` | Panels, only when the direction separates panels by shadow | Soft and close |
+| `shadow.featured` | The one featured surface on a screen | Much further: a clear lift above everything else on the page |
+| `shadow.overlay` | Menus, popovers, dialogs, toasts | Far, with a faint edge so the layer reads against anything beneath it |
+
+How to build them:
+
+- **One light source.** Every shadow shares the same direction and the same ratio of vertical to horizontal offset. As a shadow gets "higher", its offset and blur grow and its opacity falls.
+- **Layered.** Each shadow stacks two or three layers: a tight one that defines the edge and a wide, faint one that implies distance (Fluent calls them key and ambient). A single blurred shadow tends to look like a soft border.
+- **Tinted.** Take the shadow color from the darkest neutral stop, not pure black (see "Shadow color" above).
+- **Dark themes.** Shadows need more opacity to read, and raised, featured, and overlay surfaces also step lighter (the color guide's emphasis surfaces).
+
+### Choosing a treatment by role
+
+Shadow is one of several ways to separate and lift; the others are space, tone, a hairline, an inset well, and a block of color (the visual-language guide lists them with quiet and strong versions). Choose per context from the role of the content:
+
+- A zone that frames the work (sidebar, toolbar): quiet, by tone.
+- A group of related controls or records: space first; a panel by tone if it needs a boundary.
+- The one item that should lead: strong, by the featured shadow or a block of color, not both.
+- Something above the page: the overlay shadow.
+- Rows of data: a hairline only if the eye needs help following them.
+
+Spectrum 2 states the limit as a rule of thumb: only one element or group should have high attention on a page ([Spectrum](https://spectrum.adobe.com/foundations/attention-hierarchy)).
 
 ---
 

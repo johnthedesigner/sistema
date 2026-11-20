@@ -7,6 +7,7 @@ sources:
   - { source: material-color-science, url: "https://material.io/blog/science-of-color-design" }
   - { source: wcag, url: "https://www.w3.org/TR/WCAG22/" }
   - { source: apca, url: "https://git.apcacontrast.com/documentation/APCAeasyIntro" }
+  - { source: stripe-color, url: "https://stripe.com/blog/accessible-color-systems" }
 related:
   - guide.color.architecture
 last_reviewed: 2026-11-16
@@ -126,11 +127,11 @@ function softLimit(target, limit):              // SOFT_LIMIT = 6
 
 Clipping would put a kink in the ramp wherever the limit starts to bind. The soft limit keeps chroma a smooth curve from end to end.
 
-The usual alternative, used by Sistema's earlier palette tool and by many generators, scales chroma as a share of each hue's own maximum at each lightness. That keeps every hue "equally saturated" relative to its gamut, but because yellows and greens can reach far higher chroma at high lightness, their tints come out much more colorful than blue or violet tints. Material's tonal palettes take the approach used here: chroma is held as an absolute value and reduced only where the gamut requires it ([Material color science](https://material.io/blog/science-of-color-design)).
+The usual alternative, used by Sistema's earlier palette tool and by many generators, scales chroma as a share of each hue's own maximum at each lightness. That keeps every hue "equally saturated" relative to its gamut, but because yellows and greens can reach far higher chroma at high lightness, their tints come out much more colorful than blue or violet tints. Material's tonal palettes take the approach used here: chroma is held as an absolute value and reduced only where the gamut requires it ([Material color science](https://material.io/blog/science-of-color-design)). Stripe set the same goal when it rebuilt its palette: consistent visual weight, so no hue looks more important than another at the same level ([Stripe](https://stripe.com/blog/accessible-color-systems)).
 
 ### Yellows lean warm as they darken
 
-Screens can't show a dark yellow: as yellow loses lightness at a fixed hue it becomes olive. Hues within 38° of 92° (yellows, ambers, limes) turn toward orange in proportion to how dark the stop is, up to 34° at black:
+Screens can't show a dark yellow ("really dark yellow isn't a thing", as Stripe's palette work put it): as yellow loses lightness at a fixed hue it becomes olive. Hues within 38° of 92° (yellows, ambers, limes) turn toward orange in proportion to how dark the stop is, up to 34° at black:
 
 ```
 function yellowTurn(H, L):                      // YELLOW = { center: 92, halfWidth: 38, maxTurn: 34 }

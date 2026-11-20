@@ -11,6 +11,7 @@ const OPINION_GROUP_TITLES: Record<string, string> = {
   method: 'How Sistema works',
   process: 'Process',
   structure: 'Structure',
+  craft: 'Craft baseline',
   'quality-floor': 'Quality floor',
   boundary: "What Sistema doesn't set",
 }

@@ -172,7 +172,7 @@ export type FileFormatFrontmatter = z.infer<typeof FileFormatFrontmatter>
  * works and can't be overridden without losing part of the method; the other
  * groups are defaults a project may override in DECISIONS.md.
  */
-export const OPINION_GROUPS = ['method', 'process', 'structure', 'quality-floor', 'boundary'] as const
+export const OPINION_GROUPS = ['method', 'process', 'structure', 'craft', 'quality-floor', 'boundary'] as const
 export type OpinionGroup = (typeof OPINION_GROUPS)[number]
 export const OpinionId = z.string().regex(/^opinion\.[a-z0-9]+(?:-[a-z0-9]+)*$/, 'opinion id must be opinion.<name>')
 

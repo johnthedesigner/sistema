@@ -16,11 +16,12 @@ knowledge:
   - guide.spacing.layout#starting-step-sets-by-density
   - guide.spacing.layout#naming-the-steps
   - guide.spacing.layout#the-never-arbitrary-rule
+  - guide.spacing.layout#space-before-lines
   - guide.typography.architecture#how-typography-interacts-with-the-spacing-system
-rules: [spacing.scale.base-unit, spacing.never-arbitrary, tokens.source.dtcg]
+rules: [spacing.scale.base-unit, spacing.never-arbitrary, tokens.source.dtcg, quality.craft.rhythm]
 evidence: The base unit, every step with its value, the layout aliases with what each is for and why it maps to its step, and tokens/src/spacing.json.
 overrides: []
-last_reviewed: 2026-11-15
+last_reviewed: 2026-11-20
 ---
 1. **Read the project:** density in `sistema.json`, the DESIGN.md Layout section if it exists, the type scale in `tokens/src/typography.json` if it exists (spacing should fit the body line height), and the spacing shown in `sistema-review/style-preview.html`.
 
@@ -28,7 +29,7 @@ last_reviewed: 2026-11-15
 
 3. **Name each step** as the spacing guide describes in "Naming the steps."
 
-4. **Define the layout aliases** that pages repeat, as references to steps: at least `page-gutter`, `section-gap`, and `component-gap`, plus any the direction calls for. Each alias says what it is for.
+4. **Define the layout aliases** that pages repeat, as references to steps: at least `page-gutter`, `section-gap`, and `component-gap`, plus `control-height` for the density and any the direction calls for. Each alias says what it is for. Space is the first way to separate groups, so keep the gap inside a group and the gap between groups clearly apart (often two steps), and keep outer spacing generous even when the density is compact.
 
 5. **Write `tokens/src/spacing.json`** as DTCG JSON:
 

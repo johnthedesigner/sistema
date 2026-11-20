@@ -44,6 +44,7 @@ export const OPINION_GROUP_LABELS: Record<OpinionGroup, { title: string; intro: 
   method: { title: 'How Sistema works', intro: "These are part of the method. Setting one aside means Sistema can't do part of its job." },
   process: { title: 'Process', intro: 'How the work runs.' },
   structure: { title: 'Structure', intro: 'How the system is built.' },
+  craft: { title: 'Craft baseline', intro: 'How a system looks well made, whatever its style. Every project starts here and can override any of it.' },
   'quality-floor': { title: 'Quality floor', intro: 'What every system meets.' },
   boundary: { title: "What Sistema doesn't set", intro: 'Where Sistema stops and your decisions begin.' },
 }
