@@ -87,6 +87,12 @@ Our KB content synthesizes these established principles as established standards
 | bottosson.github.io/posts/oklab/ | 3 | **Cleared** — code is MIT; prose has no copyright claim; content is mathematical synthesis | None |
 | spencermortensen.com/articles/typographic-scale/ | 3 | **Acceptable** — mathematical ratios not copyrightable; synthesis does not reproduce analysis | Non-blocking: add modularscale.com as supplementary citation |
 | practicaltypography.com | 3 | **Acceptable under fair use** — principles are established typographic canon; fair use applies to educational synthesis | Non-blocking: supplement with webtypography.net + Google Fonts Knowledge (pending in PENDING_SOURCES.md) |
+| linear.app/now (interface redesign, 2026-11-20) | 3 | **Flagged, pending audit**: company blog, no licence; used for principles (restrained chrome, generated themes) | Synthesis with attribution only; audit before VF |
+| stripe.com/blog/accessible-color-systems (2026-11-20) | 3 | **Flagged, pending audit**: company blog, no licence | Synthesis with attribution only; audit before VF |
+| nngroup.com visual hierarchy (2026-11-20) | 3 | **Flagged, pending audit**: all rights reserved; research findings and established principles | Synthesis with attribution only; audit before VF |
+| joshwcomeau.com designing shadows (2026-11-20) | 3 | **Flagged, pending audit**: technique article, no licence; techniques are not copyrightable, wording is | Synthesis with attribution only; no code or wording reproduced |
+| rauno.me interaction design (2026-11-20) | 3 | **Flagged, pending audit**: essay, no licence | Synthesis with attribution only |
+| emilkowal.ski great animations (2026-11-20) | 3 | **Flagged, pending audit**: essay, no licence | Synthesis with attribution only |
 
 **Blocking violations:** None.
 

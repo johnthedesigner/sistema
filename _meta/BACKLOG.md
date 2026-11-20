@@ -80,9 +80,13 @@ Sistema's references are strong on structure (token architecture, color science,
 
 Excluded unless the owner decides otherwise: paid books and courses (Refactoring UI, for example), which the intake process doesn't permit.
 
-Do the intake as step 2 of the aesthetic-baseline plan, choosing the few that support the baseline and the emphasis roles, rather than all at once.
+**Intake done 2026-11-20 (V3.4):** all candidates taken in except Adobe Spectrum's background-layers and drop-shadow pages, which need a login (its public attention-hierarchy page was used). Reference notes are in `reference/design-systems/{geist,fluent,apple-hig,spectrum,linear,stripe}`, `reference/design-systems/radix` (theme settings), `reference/design-systems/polaris` (surface roles), and `reference/foundations/visual-craft/`. Ten new entries in `content/sources.yaml`. Tier 3 entries are flagged in `_meta/LICENSE_AUDIT.md`.
 
 *Owner request, 2026-11-19.*
+
+## Palette
+
+- **No ramp stop between white and stop 50, or between 50 and 100.** Quiet surface separation (a page a shade off white) can only use white, 50, and 100, and 100 is already a visible gray (about 1.19:1 against white). The specimen tool works within this, but finer light stops (for example 25 and 75), or a light-end distribution that isn't purely logarithmic, would allow subtler page and zone tones. Same at the dark end for dark themes. Found building the specimen tool (V3.4). Changing the ramp changes `library.json` and the palette snapshot; decide with the owner.
 
 ## Review pages
 

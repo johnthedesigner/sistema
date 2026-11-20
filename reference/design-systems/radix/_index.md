@@ -61,6 +61,7 @@ Key characteristics:
 | `radix/guidance/foundations/radius` | Radius — Global radius prop (none/small/medium/large/full), CSS variable tokens, component-level overrides | guidance | latest |
 | `radix/implementation/getting-started` | Getting started — Installation, Theme component setup, ThemePanel | implementation | latest |
 | `radix/design-md/DESIGN` | Radix Themes DESIGN.md — visual language specification for AI coding tools | design-md | latest |
+| `radix/guidance/foundations/theme-settings` | Theme settings as parameters: accent, gray, panel background, radius factor, scaling | guidance | latest |
 
 ---
 
@@ -70,3 +71,4 @@ Key characteristics:
 |---|---|
 | 2026-05-12 | Initial capture — color system, typography, design tokens, getting started, DESIGN.md |
 | 2026-05-13 | Added spacing and radius KB files; updated DESIGN.md to v2 (incorporates all 6 topic areas) |
+| 2026-11-20 | Added theme settings note (Theme component props, radius factor) for the aesthetic baseline |

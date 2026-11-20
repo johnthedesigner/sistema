@@ -76,6 +76,39 @@
   license: Not yet recorded
   note: Believed to be published under a Creative Commons non-commercial license. To confirm.
 
+- id: geist
+  name: Geist
+  publisher: Vercel
+  url: https://vercel.com/geist
+  kind: design-system
+  tier: 2
+  license: No open license stated for the documentation
+
+- id: fluent
+  name: Fluent 2
+  publisher: Microsoft
+  url: https://fluent2.microsoft.design
+  kind: design-system
+  tier: 2
+  license: No open license stated for the documentation
+
+- id: apple-hig
+  name: Human Interface Guidelines
+  publisher: Apple
+  url: https://developer.apple.com/design/human-interface-guidelines
+  kind: design-system
+  tier: 2
+  license: No open license stated for the documentation
+
+- id: spectrum
+  name: Spectrum
+  publisher: Adobe
+  url: https://spectrum.adobe.com
+  kind: design-system
+  tier: 2
+  license: No open license stated for the documentation
+  note: Only public pages are used; some foundation pages require a login.
+
 # ─── Libraries and frameworks ────────────────────────────────────────────────
 
 - id: tailwind
@@ -189,6 +222,60 @@
   kind: research
   tier: 1
   license: CC BY-SA 2.5
+
+- id: linear
+  name: How we redesigned the Linear UI
+  publisher: Linear
+  url: https://linear.app/now/how-we-redesigned-the-linear-ui
+  kind: research
+  tier: 3
+  license: No open license stated
+  note: Synthesized with attribution only.
+
+- id: stripe-color
+  name: Designing accessible color systems
+  publisher: Stripe
+  url: https://stripe.com/blog/accessible-color-systems
+  kind: research
+  tier: 3
+  license: No open license stated
+  note: Synthesized with attribution only.
+
+- id: nngroup-hierarchy
+  name: Visual Hierarchy in UX
+  publisher: Nielsen Norman Group (Kelley Gordon)
+  url: https://www.nngroup.com/articles/visual-hierarchy-ux-definition/
+  kind: research
+  tier: 3
+  license: All rights reserved
+  note: Synthesized with attribution only.
+
+- id: comeau-shadows
+  name: Designing Beautiful Shadows in CSS
+  publisher: Josh W. Comeau
+  url: https://www.joshwcomeau.com/css/designing-shadows/
+  kind: research
+  tier: 3
+  license: No open license stated
+  note: Synthesized with attribution only.
+
+- id: rauno-interaction
+  name: Invisible Details of Interaction Design
+  publisher: Rauno Freiberg
+  url: https://rauno.me/craft/interaction-design
+  kind: research
+  tier: 3
+  license: No open license stated
+  note: Synthesized with attribution only.
+
+- id: kowalski-animation
+  name: Great Animations
+  publisher: Emil Kowalski
+  url: https://emilkowal.ski/ui/great-animations
+  kind: research
+  tier: 3
+  license: No open license stated
+  note: Synthesized with attribution only.
 
 # ─── Agent skills ────────────────────────────────────────────────────────────
 
