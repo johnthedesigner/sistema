@@ -161,3 +161,17 @@ A fresh run redid Relay's direction with the rewritten play and the specimen too
 | 64 | The specimen's plain gray (`neutral=neutral`) still carries a slight tint, and `quality.color.bans` asks for a neutral with temperature; the play doesn't connect them. | **Open.** Name the plain option honestly ("nearly neutral") and link the ban. |
 | 65 | Unclear how Quiet color presence treats the brand block and the dark selected row. | **Open.** Say in the guide's "How much color" table. |
 | 66 | In dark mode, quiet panels stood out more than in light. Mirrored surface stops made the dark step about seven times the light one. | **Fixed** (D29): `color.dark.surface-steps`, the color guide's "Stops in a dark theme", the color scheme play, and the specimen tool. |
+
+## Stage 11: foundations rebuilt from the approved direction (2026-11-20)
+
+The run wrote DESIGN.md, rebuilt every foundation (violet accent, tinted neutral, Atkinson, 8px, shadow separation, compact), brought the components and showcase in line, and stopped at foundations-approved. Build, axe and 160 contrast pairs pass. The owner found the dark selected row and dark inline messages far too deeply colored, which led to D30.
+
+| # | Finding | Done |
+|---|---|---|
+| 67 | Specimen role names (canvas, row-hover, text-tertiary, the dots) don't map onto `color.roles.required`, so "use the stop the composition used" needed a hand-made mapping. | **Open.** Align the specimen's role names with the required roles, or publish the mapping. |
+| 68 | The color guide's emphasis table says dark `surface-subtle` is a step darker than the surface; "Stops in a dark theme" makes it the page. | **Open.** Reconcile the two tables. |
+| 69 | "Hover one stop darker than what it sits on" gives neutral 50 on white, which is nearly invisible. | **Open.** State hover as a minimum visible step, not a stop count. |
+| 70 | The color play's pair list misses component pairs (a checkbox edge on a selected row), and nothing asks for component pairs to be rechecked when a stop changes. | **Open.** With #47. |
+| 71 | No place for white in `palette.json`, and `quality.color.bans` doesn't say which surface "no pure white" means. | **Open.** |
+| 72 | The token check page shows colors only as swatches, so selection and message treatments can't be judged there; the owner couldn't find them. | **Open.** The foundations review should show key uses (a selected row by status chips, a message, a highlighted menu item) in both themes, or send the person to the showcase with directions. |
+| 73 | The accent selected row and status-filled messages were right in light and far too heavy in dark. | **Fixed** (D30): quiet states, status as detail, one decision for both themes; specimen selected row now neutral with an accent edge. |

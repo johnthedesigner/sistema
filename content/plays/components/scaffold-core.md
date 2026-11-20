@@ -15,7 +15,7 @@ knowledge:
   - guide.accessibility.floor#5-semantic-structure-and-aria
   - guide.tokens.architecture#tier-3-component-tokens-scoped-overrides
   - guide.visual-language.overview#the-craft-baseline
-rules: [tokens.usage.no-raw-values, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.reduced-motion, accessibility.focus-not-lost, quality.review.outline, components.busy.keep-focus, components.toast.scope, components.css.one-utility-per-property, quality.craft.borders-have-a-job, quality.craft.nested-radius, quality.craft.quiet-states, quality.craft.type-weights, quality.craft.one-icon-set, quality.craft.motion, quality.craft.emphasis-scarce]
+rules: [tokens.usage.no-raw-values, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.reduced-motion, accessibility.focus-not-lost, quality.review.outline, components.busy.keep-focus, components.toast.scope, components.css.one-utility-per-property, quality.craft.borders-have-a-job, quality.craft.nested-radius, quality.craft.quiet-states, quality.craft.status-as-detail, quality.craft.both-themes, quality.craft.type-weights, quality.craft.one-icon-set, quality.craft.motion, quality.craft.emphasis-scarce]
 evidence: The component foundation and why, the list of components built, the showcase route, an automated accessibility scan with zero violations in every theme, and a passing build.
 overrides: []
 last_reviewed: 2026-11-20
@@ -67,7 +67,9 @@ The tokens are compiled and wired into the app (`tokens.pipeline`). This play bu
 
 5. **Build each component** on the chosen foundation, with role tokens only, every interactive state, and the keyboard behavior its pattern expects. Follow the spec in `docs/components/` where one exists. Apply the craft baseline as you go; foundation presets often break it:
    - Borders only where DESIGN.md's Elevation & Depth section gives them a job (fields, selects, checkboxes, secondary buttons). Panels, chips, tooltips, and menus separate by tone or shadow, and containers don't get inner dividers by default.
-   - Quiet states: hover a small tone change, focus the shared ring, selected the accent at low strength.
+   - Quiet states: hover a small tone change, focus the shared ring, selected a neutral step stronger than hover with an accent detail (the checked box, an edge).
+   - Status as detail: inline messages and banners sit on a neutral surface and carry their status in the icon, the title, or an edge. Tinted status fills are for small marks such as chips.
+   - Both themes: build and review each component in light and dark side by side. If a treatment works in only one theme, change the treatment, not just the dark value.
    - Medium weight for labels, tabular figures for numbers, one icon set, nested radius following the outer radius.
    - Short, eased-out motion on floating layers only, none on menus opened from the keyboard many times a day.
    - Featured, brand, and inverse surfaces only where the emphasis map puts them.

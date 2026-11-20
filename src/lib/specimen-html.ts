@@ -191,6 +191,7 @@ td.num,th.num{text-align:right}
 td.sel-col,th.sel-col{width:44px;padding-left:var(--pad);padding-right:0}
 td.more-col{width:48px;padding-right:calc(var(--pad) - 6px);text-align:right}
 tr.sel td{background:var(--selected-row)}
+tr.sel td:first-child{box-shadow:inset 2px 0 0 var(--primary)}
 tr.hov td{background:var(--row-hover)}
 tr.sel td:first-child,tr.hov td:first-child{border-radius:var(--r-small) 0 0 var(--r-small)}
 tr.sel td:last-child,tr.hov td:last-child{border-radius:0 var(--r-small) var(--r-small) 0}

@@ -2,7 +2,7 @@
 id: opinion.quiet-states
 title: "Interactive states are quiet"
 group: craft
-default: "Hover is a small tone change, pressed a little more, focus a crisp ring with an offset, and selected the accent at low strength."
+default: "Hover is a small tone change, pressed a little more, focus a crisp ring with an offset, and selected a neutral step a little stronger than hover, with the accent only as a detail (a checked box, an edge)."
 description: "When to use: designing hover, pressed, focus, and selected states."
 rules: ["quality.craft.quiet-states"]
 guides: ["guide.visual-language.overview#the-craft-baseline"]

@@ -116,11 +116,36 @@
   sources: [guide.spacing.layout#space-before-lines]
 
 - id: quality.craft.quiet-states
-  statement: Hover is a small tone change, pressed a little more, focus a ring in the focus color with an offset, and selected the accent at low strength.
+  statement: Hover is a small tone change, pressed a little more, focus a ring in the focus color with an offset, and selected a neutral step stronger than hover, with the accent only as a detail (a checked box, an edge), so selection never outshouts status.
   reason: Loud states make a busy screen busier; consistent quiet states read as one system.
   layer: sistema-default
   severity: advisory
   applies_to: components
+  sources: [guide.visual-language.overview#the-craft-baseline]
+
+- id: quality.craft.status-as-detail
+  statement: >-
+    Inline messages, banners, and alerts sit on a neutral surface and carry their status color in the icon, the
+    title, or an edge. Tinted status fills are used for small marks (chips, badges), not for blocks of content.
+  reason: >-
+    Large status fills turn every notice into an alarm, and in a dark theme the container stops become deep,
+    saturated blocks that outweigh the content.
+  layer: sistema-default
+  severity: advisory
+  applies_to: components
+  sources: [guide.visual-language.overview#the-craft-baseline]
+
+- id: quality.craft.both-themes
+  statement: >-
+    Each visual treatment is one decision for every theme: what is neutral, what carries color, and how strong a
+    selection, message, or emphasis is. Dark values translate the decision; a treatment that works in only one
+    theme is changed, not patched in the other. Components are reviewed in light and dark side by side.
+  reason: >-
+    The same stop distance reads differently on a dark page, so a choice tuned in light can turn loud in dark.
+    Treating dark as a translation of one decision keeps the system consistent and catches those cases.
+  layer: sistema-default
+  severity: advisory
+  applies_to: components, color roles, and review pages
   sources: [guide.visual-language.overview#the-craft-baseline]
 
 - id: quality.craft.one-icon-set

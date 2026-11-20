@@ -187,7 +187,7 @@ export function buildSpecimen(raw: SpecimenInput = {}): SpecimenResult {
     c['on-accent-subtle'] = s('accent', 750)
     c.link = s('accent', 600)
     c.focus = s('accent', 500)
-    c['selected-row'] = s('accent', 50)
+    c['selected-row'] = s('neutral', 100) // neutral, a step past hover; the accent is the edge (quality.craft.quiet-states)
     for (const [k, ramp] of [['success', 'green'], ['warning', 'amber'], ['error', 'red'], ['info', 'blue']] as const) {
       c[`${k}-container`] = s(ramp, 150)
       c[`on-${k}-container`] = s(ramp, 750)
@@ -237,7 +237,7 @@ export function buildSpecimen(raw: SpecimenInput = {}): SpecimenResult {
     c['on-accent-subtle'] = s('accent', 250)
     c.link = s('accent', 400)
     c.focus = s('accent', 400)
-    c['selected-row'] = s('accent', 850)
+    c['selected-row'] = s('neutral', 800)
     for (const [k, ramp] of [['success', 'green'], ['warning', 'amber'], ['error', 'red'], ['info', 'blue']] as const) {
       c[`${k}-container`] = s(ramp, 850)
       c[`on-${k}-container`] = s(ramp, 250)
