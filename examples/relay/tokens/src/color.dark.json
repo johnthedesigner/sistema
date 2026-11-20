@@ -2,178 +2,208 @@
   "color": {
     "primary": {
       "$type": "color",
-      "$value": "#1E9FB1",
-      "$description": "Filled action color: main buttons, active indicator, selected-row edge. Ramp: primary 400."
+      "$value": "{palette.accent.450}",
+      "$description": "The accent fill: the one main button per screen, checked checkboxes, the job progress bar. Dark: accent 450. Contrast (wcag-2.2 AA, contrast tool): 4.03:1 on surface-selected, 5.01:1 on surface-raised."
     },
     "on-primary": {
       "$type": "color",
-      "$value": "#041315",
-      "$description": "Text and icons on primary and primary-hover. Ramp: primary 950. Contrast (wcag-2.2 AA, contrast tool): 6:1 on primary, 7.07:1 on primary-hover."
+      "$value": "{palette.accent.950}",
+      "$description": "Text and icons on primary and primary-hover. Dark: accent 950. Contrast (wcag-2.2 AA, contrast tool): 5.47:1 on primary, 6.85:1 on primary-hover."
     },
     "primary-hover": {
       "$type": "color",
-      "$value": "#2DADBF",
-      "$description": "Hover state of primary fills. Ramp: primary 350."
+      "$value": "{palette.accent.400}",
+      "$description": "Hover state of primary fills. Dark: accent 400."
     },
     "primary-container": {
       "$type": "color",
-      "$value": "#073239",
-      "$description": "Selected rows and list items, quiet emphasis. Ramp: primary 850."
+      "$value": "{palette.accent.800}",
+      "$description": "The accent at low strength for small marks only (a selected tab underline background, a count badge). Not for rows or blocks: in dark it is a deep violet (quality.craft.both-themes). Dark: accent 800."
     },
     "on-primary-container": {
       "$type": "color",
-      "$value": "#97E7F4",
-      "$description": "Text on primary-container. Ramp: primary 150. Contrast (wcag-2.2 AA, contrast tool): 9.87:1 on primary-container."
+      "$value": "{palette.accent.250}",
+      "$description": "Text on primary-container. Dark: accent 250. Contrast (wcag-2.2 AA, contrast tool): 8.87:1 on primary-container."
     },
     "secondary": {
       "$type": "color",
-      "$value": "#A2AEB1",
-      "$description": "Neutral filled action (no second brand hue): toggled toolbar buttons, neutral badges. Ramp: neutral 300."
+      "$value": "{palette.neutral.300}",
+      "$description": "Neutral fill (no second brand hue): toggled toolbar buttons. Dark: neutral 300."
     },
     "on-secondary": {
       "$type": "color",
-      "$value": "#0F1011",
-      "$description": "Text on secondary. Ramp: neutral 950. Contrast (wcag-2.2 AA, contrast tool): 8.37:1 on secondary."
+      "$value": "{palette.neutral.950}",
+      "$description": "Text on secondary. Dark: neutral 950. Contrast (wcag-2.2 AA, contrast tool): 10.22:1 on secondary."
     },
     "secondary-container": {
       "$type": "color",
-      "$value": "#35393B",
-      "$description": "Neutral fill: secondary buttons hover, filter chips, inactive segmented controls. Ramp: neutral 800."
+      "$value": "{palette.neutral.750}",
+      "$description": "Neutral fill: the Assigned chip, inactive segmented controls, filter chips. Dark: neutral 750."
     },
     "on-secondary-container": {
       "$type": "color",
-      "$value": "#E9ECED",
-      "$description": "Text on secondary-container. Ramp: neutral 100. Contrast (wcag-2.2 AA, contrast tool): 9.83:1 on secondary-container."
+      "$value": "{palette.neutral.250}",
+      "$description": "Text on secondary-container. Dark: neutral 250. Contrast (wcag-2.2 AA, contrast tool): 7.68:1 on secondary-container."
     },
     "surface": {
       "$type": "color",
-      "$value": "#0F1011",
-      "$description": "Page canvas behind everything. Ramp: neutral 950."
+      "$value": "{palette.neutral.950}",
+      "$description": "Page canvas behind everything. Dark: neutral 950."
     },
     "surface-raised": {
       "$type": "color",
-      "$value": "#1F2122",
-      "$description": "Panels, tables, forms, cards on the canvas. Ramp: neutral 900."
+      "$value": "{palette.neutral.900}",
+      "$description": "Panels, tables, forms on the canvas; lifted by shadow-raised (dark: one stop lighter than the page, plus the shadow). Dark: neutral 900."
     },
     "surface-overlay": {
       "$type": "color",
-      "$value": "#2A2E30",
-      "$description": "Menus, popovers, dialogs, toasts (with the floating shadow). Ramp: neutral 850."
+      "$value": "{palette.neutral.800}",
+      "$description": "Menus, popovers, comboboxes, tooltips, toasts, dialogs, with shadow-overlay. Dark: neutral 800."
     },
     "surface-hover": {
       "$type": "color",
-      "$value": "#2A2E30",
-      "$description": "Hover tint for table rows and list items. Ramp: neutral 850."
+      "$value": "{palette.neutral.850}",
+      "$description": "Hover on rows, list items, and ghost/secondary controls that sit on surface-raised (dark: one stop lighter than raised). Dark: neutral 850."
+    },
+    "surface-selected": {
+      "$type": "color",
+      "$value": "{palette.neutral.800}",
+      "$description": "Selected rows and list items: one neutral step stronger than surface-hover, in both themes (quality.craft.quiet-states). The accent appears only as a detail: the checked box and the primary left edge. Dark: neutral 800."
+    },
+    "surface-overlay-hover": {
+      "$type": "color",
+      "$value": "{palette.neutral.750}",
+      "$description": "Highlighted item inside a floating layer (menu, select, combobox): one stop off surface-overlay. Dark: neutral 750."
+    },
+    "surface-subtle": {
+      "$type": "color",
+      "$value": "{palette.neutral.950}",
+      "$description": "Quiet zones and inset wells: the sidebar, a toolbar band, inline messages inside panels. Same tone as the page. Dark: neutral 950."
+    },
+    "surface-featured": {
+      "$type": "color",
+      "$value": "{palette.neutral.850}",
+      "$description": "The one thing a screen leads with (the job that needs action), with shadow-featured. Dark: neutral 850."
+    },
+    "surface-inverse": {
+      "$type": "color",
+      "$value": "{palette.neutral.150}",
+      "$description": "Inverse blocks: toasts. Dark: neutral 150."
+    },
+    "on-surface-inverse": {
+      "$type": "color",
+      "$value": "{palette.neutral.850}",
+      "$description": "Text on surface-inverse. Dark: neutral 850. Contrast (wcag-2.2 AA, contrast tool): 12.88:1 on surface-inverse."
     },
     "on-surface": {
       "$type": "color",
-      "$value": "#E9ECED",
-      "$description": "Default text and icons on any surface layer. Ramp: neutral 100. Contrast (wcag-2.2 AA, contrast tool): 16.04:1 on surface, 13.62:1 on surface-raised, 11.54:1 on surface-overlay, 11.54:1 on surface-hover."
+      "$value": "{palette.neutral.50}",
+      "$description": "Default text and icons on every neutral surface. Dark: neutral 50. Contrast (wcag-2.2 AA, contrast tool): 13.52:1 on primary-container, 18.33:1 on surface, 16.83:1 on surface-raised, 13.53:1 on surface-overlay, 15.19:1 on surface-hover, 11.71:1 on surface-overlay-hover, 15.19:1 on surface-featured, 18.33:1 on surface-subtle, 13.53:1 on surface-selected."
     },
     "on-surface-muted": {
       "$type": "color",
-      "$value": "#95A0A3",
-      "$description": "Secondary text: metadata, column headers, timestamps, placeholders. Ramp: neutral 350. Contrast (wcag-2.2 AA, contrast tool): 7.11:1 on surface, 6.03:1 on surface-raised, 5.11:1 on surface-overlay, 5.11:1 on surface-hover."
+      "$value": "{palette.neutral.350}",
+      "$description": "Secondary text: metadata, column headers, timestamps, placeholders. Dark: neutral 350. Contrast (wcag-2.2 AA, contrast tool): 8.46:1 on surface, 7.77:1 on surface-raised, 6.25:1 on surface-overlay, 7.01:1 on surface-hover, 7.01:1 on surface-featured, 6.24:1 on primary-container, 5.41:1 on surface-overlay-hover, 6.25:1 on surface-selected, 8.46:1 on surface-subtle, 5.41:1 on secondary-container, 8.46:1 on surface."
+    },
+    "on-surface-faint": {
+      "$type": "color",
+      "$value": "{palette.neutral.400}",
+      "$description": "Tertiary text: least important metadata, empty-cell dashes. Never for anything a person must read to act. Dark: neutral 400. Contrast (wcag-2.2 AA, contrast tool): 6.84:1 on surface, 6.28:1 on surface-raised, 5.67:1 on surface-featured."
     },
     "border": {
       "$type": "color",
-      "$value": "#3E4446",
-      "$description": "Decorative dividers and panel outlines (not required to meet 3:1). Ramp: neutral 750."
-    },
-    "border-strong": {
-      "$type": "color",
-      "$value": "#717A7E",
-      "$description": "Edges of controls that must be found: inputs, secondary buttons, unassigned chips. Ramp: neutral 500. Contrast (wcag-2.2 AA, contrast tool): 4.34:1 on surface, 3.69:1 on surface-raised, 3.12:1 on surface-overlay."
+      "$value": "{palette.neutral.750}",
+      "$description": "Hairlines: dividers between table rows and under the table header. Decorative; not required to meet 3:1. Dark: neutral 750."
     },
     "border-focus": {
       "$type": "color",
-      "$value": "#3EBBCE",
-      "$description": "2px keyboard focus ring. Ramp: primary 300. Contrast (wcag-2.2 AA, contrast tool): 8.35:1 on surface, 7.09:1 on surface-raised, 6.01:1 on surface-overlay, 6.01:1 on surface-hover."
+      "$value": "{palette.accent.400}",
+      "$description": "2px keyboard focus ring, offset 2px. Dark: accent 400. Contrast (wcag-2.2 AA, contrast tool): 5.05:1 on surface-selected, 6.84:1 on surface, 6.29:1 on surface-raised, 5.05:1 on surface-overlay, 5.67:1 on surface-featured."
     },
     "link": {
       "$type": "color",
-      "$value": "#3EBBCE",
-      "$description": "Inline text links (always underlined). Ramp: primary 300. Contrast (wcag-2.2 AA, contrast tool): 8.35:1 on surface, 7.09:1 on surface-raised, 6.01:1 on surface-overlay."
+      "$value": "{palette.accent.400}",
+      "$description": "Inline text links (underlined). Dark: accent 400. Contrast (wcag-2.2 AA, contrast tool): 5.05:1 on surface-selected, 6.84:1 on surface, 6.29:1 on surface-raised, 5.67:1 on surface-featured."
     },
     "error": {
       "$type": "color",
-      "$value": "#F17B6F",
-      "$description": "Error text/icons on surfaces; destructive button fill. Ramp: red 350. Contrast (wcag-2.2 AA, contrast tool): 7.08:1 on surface, 6.01:1 on surface-raised, 5.09:1 on surface-overlay."
+      "$value": "{palette.red.400}",
+      "$description": "Error text and icons on surfaces; destructive outline; Parts hold dot. Dark: red 400. Contrast (wcag-2.2 AA, contrast tool): 6.83:1 on surface-subtle, 6.27:1 on surface-raised, 5.04:1 on surface-overlay, 6.83:1 on surface, 6.83:1 on surface-subtle, 6.27:1 on surface-raised, 5.65:1 on error-container."
     },
     "on-error": {
       "$type": "color",
-      "$value": "#250605",
-      "$description": "Text on error fills. Ramp: red 950. Contrast (wcag-2.2 AA, contrast tool): 7.05:1 on error."
+      "$value": "{palette.red.950}",
+      "$description": "Text on error fills. Dark: red 950. Contrast (wcag-2.2 AA, contrast tool): 6.86:1 on error."
     },
     "error-container": {
       "$type": "color",
-      "$value": "#430C0A",
-      "$description": "Error banners and blocked-status chips. Ramp: red 900."
+      "$value": "{palette.red.850}",
+      "$description": "Parts hold chips and other small marks (not message blocks). Dark: red 850."
     },
     "on-error-container": {
       "$type": "color",
-      "$value": "#F0BEB7",
-      "$description": "Text on error-container. Ramp: red 200. Contrast (wcag-2.2 AA, contrast tool): 9.84:1 on error-container."
+      "$value": "{palette.red.250}",
+      "$description": "Text on error-container. Dark: red 250. Contrast (wcag-2.2 AA, contrast tool): 9.93:1 on error-container, 8.86:1 on surface-overlay."
     },
     "warning": {
       "$type": "color",
-      "$value": "#F89336",
-      "$description": "Warning text/icons on surfaces (at-risk, late). Ramp: amber 300. Contrast (wcag-2.2 AA, contrast tool): 8.36:1 on surface, 7.1:1 on surface-raised, 6.02:1 on surface-overlay."
+      "$value": "{palette.amber.400}",
+      "$description": "Warning text and icons; Running late dot. Dark: amber 400. Contrast (wcag-2.2 AA, contrast tool): 6.84:1 on surface-subtle, 6.28:1 on surface-raised, 6.84:1 on surface-subtle, 5.67:1 on warning-container."
     },
     "on-warning": {
       "$type": "color",
-      "$value": "#1C0C02",
-      "$description": "Text on warning fills. Ramp: amber 950. Contrast (wcag-2.2 AA, contrast tool): 8.36:1 on warning."
+      "$value": "{palette.amber.950}",
+      "$description": "Text on warning fills. Dark: amber 950. Contrast (wcag-2.2 AA, contrast tool): 6.85:1 on warning."
     },
     "warning-container": {
       "$type": "color",
-      "$value": "#351A03",
-      "$description": "Warning banners and late-status chips. Ramp: amber 900."
+      "$value": "{palette.amber.850}",
+      "$description": "Running late chips and other small marks. Dark: amber 850."
     },
     "on-warning-container": {
       "$type": "color",
-      "$value": "#F4BF97",
-      "$description": "Text on warning-container. Ramp: amber 200. Contrast (wcag-2.2 AA, contrast tool): 9.8:1 on warning-container."
+      "$value": "{palette.amber.250}",
+      "$description": "Text on warning-container. Dark: amber 250. Contrast (wcag-2.2 AA, contrast tool): 9.97:1 on warning-container."
     },
     "success": {
       "$type": "color",
-      "$value": "#3AC363",
-      "$description": "Success text/icons on surfaces (done, on site, saved). Ramp: green 300. Contrast (wcag-2.2 AA, contrast tool): 8.31:1 on surface, 7.06:1 on surface-raised, 5.98:1 on surface-overlay."
+      "$value": "{palette.green.400}",
+      "$description": "Success text and icons; On site and Done dots. Dark: green 400. Contrast (wcag-2.2 AA, contrast tool): 6.84:1 on surface-subtle, 6.28:1 on surface-raised, 6.84:1 on surface-subtle, 5.67:1 on success-container."
     },
     "on-success": {
       "$type": "color",
-      "$value": "#031407",
-      "$description": "Text on success fills. Ramp: green 950. Contrast (wcag-2.2 AA, contrast tool): 8.28:1 on success."
+      "$value": "{palette.green.950}",
+      "$description": "Text on success fills. Dark: green 950. Contrast (wcag-2.2 AA, contrast tool): 6.88:1 on success."
     },
     "success-container": {
       "$type": "color",
-      "$value": "#06270F",
-      "$description": "Success banners and on-site/done chips. Ramp: green 900."
+      "$value": "{palette.green.850}",
+      "$description": "On site and Done chips and other small marks. Dark: green 850."
     },
     "on-success-container": {
       "$type": "color",
-      "$value": "#63E283",
-      "$description": "Text on success-container. Ramp: green 200. Contrast (wcag-2.2 AA, contrast tool): 9.76:1 on success-container."
+      "$value": "{palette.green.250}",
+      "$description": "Text on success-container. Dark: green 250. Contrast (wcag-2.2 AA, contrast tool): 9.97:1 on success-container."
     },
     "info": {
       "$type": "color",
-      "$value": "#769EEA",
-      "$description": "Info text/icons on surfaces (en route); must stay distinct from primary. Ramp: blue 350. Contrast (wcag-2.2 AA, contrast tool): 7.12:1 on surface, 6.04:1 on surface-raised, 5.12:1 on surface-overlay."
+      "$value": "{palette.blue.400}",
+      "$description": "Info text and icons; En route dot. Distinct from the violet accent by hue (blue about 263, violet about 293). Dark: blue 400. Contrast (wcag-2.2 AA, contrast tool): 6.88:1 on surface-subtle, 6.32:1 on surface-raised, 6.88:1 on surface-subtle, 5.71:1 on info-container."
     },
     "on-info": {
       "$type": "color",
-      "$value": "#010C35",
-      "$description": "Text on info fills. Ramp: blue 950. Contrast (wcag-2.2 AA, contrast tool): 7.1:1 on info."
+      "$value": "{palette.blue.950}",
+      "$description": "Text on info fills. Dark: blue 950. Contrast (wcag-2.2 AA, contrast tool): 6.9:1 on info."
     },
     "info-container": {
       "$type": "color",
-      "$value": "#041C55",
-      "$description": "Info banners and en-route chips. Ramp: blue 900."
+      "$value": "{palette.blue.850}",
+      "$description": "En route chips and other small marks. Dark: blue 850."
     },
     "on-info-container": {
       "$type": "color",
-      "$value": "#B8CBEC",
-      "$description": "Text on info-container. Ramp: blue 200. Contrast (wcag-2.2 AA, contrast tool): 9.82:1 on info-container."
+      "$value": "{palette.blue.250}",
+      "$description": "Text on info-container. Dark: blue 250. Contrast (wcag-2.2 AA, contrast tool): 9.99:1 on info-container."
     }
   }
 }

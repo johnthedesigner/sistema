@@ -1,0 +1,86 @@
+/*
+ * shadcn/ui theme variables, pointed at Relay's role tokens.
+ * Imported after the compiled tokens (src/styles/tokens/). No values live here:
+ * every variable references a role token, so both themes follow automatically.
+ * Mapping recorded in DECISIONS.md (Scaffold the core components).
+ *
+ * Not mapped (no matching role; not invented): --chart-1..5, --sidebar-*.
+ */
+
+:root {
+  --background: var(--color-surface);
+  --foreground: var(--color-on-surface);
+  --card: var(--color-surface-raised);
+  --card-foreground: var(--color-on-surface);
+  --popover: var(--color-surface-overlay);
+  --popover-foreground: var(--color-on-surface);
+  --primary: var(--color-primary);
+  --primary-foreground: var(--color-on-primary);
+  --secondary: var(--color-secondary);
+  --secondary-foreground: var(--color-on-secondary);
+  --muted: var(--color-surface-hover);
+  --muted-foreground: var(--color-on-surface-muted);
+  --accent: var(--color-surface-hover);
+  --accent-foreground: var(--color-on-surface);
+  --destructive: var(--color-error);
+  --border: var(--color-border);
+  --input: var(--color-border-strong);
+  --ring: var(--color-border-focus);
+  /* shadcn's single base radius: Relay's control radius. */
+  --radius: var(--radius-md);
+}
+
+/*
+ * Tailwind utilities for shadcn's names. primary, secondary, and border already
+ * exist as Relay role utilities with the same names (tailwind-theme.css), so they
+ * are not redefined here.
+ */
+@theme inline {
+  --color-background: var(--color-surface);
+  --color-foreground: var(--color-on-surface);
+  --color-card: var(--color-surface-raised);
+  --color-card-foreground: var(--color-on-surface);
+  --color-popover: var(--color-surface-overlay);
+  --color-popover-foreground: var(--color-on-surface);
+  --color-primary-foreground: var(--color-on-primary);
+  --color-secondary-foreground: var(--color-on-secondary);
+  --color-muted: var(--color-surface-hover);
+  --color-muted-foreground: var(--color-on-surface-muted);
+  --color-accent: var(--color-surface-hover);
+  --color-accent-foreground: var(--color-on-surface);
+  --color-destructive: var(--color-error);
+  --color-input: var(--color-border-strong);
+  --color-ring: var(--color-border-focus);
+  /*
+   * shadcn derives rounded-sm..rounded-4xl from --radius. Relay's levels
+   * (rounded-xs..rounded-xl) come straight from the radius tokens in
+   * tailwind-theme.css; the levels above xl that shadcn components use are
+   * pinned to the largest system level, so nothing exceeds a floating layer.
+   */
+  --radius-2xl: var(--radius-xl);
+  --radius-3xl: var(--radius-xl);
+  --radius-4xl: var(--radius-xl);
+}
+
+/*
+ * shadcn's `dark:` classes follow Relay's theme switch: [data-theme="dark"],
+ * or the system preference when no theme is forced (same rule as tokens.css).
+ */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+    /* Full-strength focus color: shadcn's default ring/50 is too faint for 3:1. */
+    outline-color: var(--color-border-focus);
+  }
+}

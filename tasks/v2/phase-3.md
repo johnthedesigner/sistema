@@ -59,15 +59,15 @@ Run `workflow.start` on Relay (D14) from the paste-in starter, against the Verce
 
 ## Task V3.3: Reference project, Patterns
 
-**Status:** stopped at the components review (2026-11-19). The look of the result led to V3.4; the run resumes there from Direction.
+**Status:** done (2026-11-20). Stopped at the components review on 2026-11-19; resumed inside V3.4 and finished with the owner's components approval. Page examples and the system reference were offered and not run.
 
 Run `workflow.patterns` on the reference project: the core components, page examples, and the docs site if chosen. Apply the component lessons in BACKLOG ("Component lessons from the slice runs") as rules or play steps where they apply. Record findings as in V3.2.
 
-- [ ] The project reaches Patterns approved, every check passes, and findings are fixed or logged
+- [x] The project reaches Patterns approved, every check passes, and findings are fixed or logged
 
 ## Task V3.4: Aesthetic baseline, emphasis, and the specimen tool
 
-**Status:** in progress (approved 2026-11-20, D23 to D25; `docs/v2/aesthetic-baseline.md`)
+**Status:** done (2026-11-20). D23 to D30; `docs/v2/aesthetic-baseline.md`
 
 The Relay run came out technically sound but dated and noisy, because the visual-language guide turned "utilitarian" into a style and the direction play answered taste questions in framework vocabulary. Steps:
 1. **Done. Source intake:** every candidate in BACKLOG "Sources for contemporary visual craft" that meets the intake criteria, through the standard process, cited in the content it supports.
@@ -80,10 +80,10 @@ The Relay run came out technically sound but dated and noisy, because the visual
    - the direction play rewritten around the visual taste questions and the emphasis map;
    - the shape, depth, and color plays checked against the baseline;
    - `opinion.look-is-yours` rewritten.
-4. **Re-run Relay from Direction** through Foundations and the components, with the owner at the gates, recording findings as in V3.2. This also exercises revising an approved foundation (finding #49). Then copy Relay into `examples/relay/`.
+4. **Done (2026-11-20). Re-run Relay from Direction** through Foundations and the components, with the owner at the gates, recording findings as in V3.2. This also exercises revising an approved foundation (finding #49). Then copy Relay into `examples/relay/`.
 5. **Add a variety test to V5:** three different briefs through Direction, judged by the owner for distinctness. **Done:** added to the V5 section of `docs/v2/ROADMAP.md`.
 
-- [ ] Owner approves the specimen tool's rendering, then Relay's re-run direction, foundations, and components; every check passes
+- [x] Owner approves the specimen tool's rendering, then Relay's re-run direction, foundations, and components; every check passes
 
 ## Task V3.5: Guide rewrites (color, tokens, typography, quality signals)
 

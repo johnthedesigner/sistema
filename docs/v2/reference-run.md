@@ -180,3 +180,14 @@ The run wrote DESIGN.md, rebuilt every foundation (violet accent, tinted neutral
 | 76 | "Selected is a neutral step past hover" has no required role; the run added `surface-selected`. | **Open.** Add it to `color.roles.required`. |
 | 77 | Graying the selection lowered contrast under control edges; the pair list should include control edges on the selected surface. | **Open.** With #47 and #70. |
 | 78 | "Or an edge" on messages conflicted with the ban on colored side stripes. | **Fixed:** status color is in the icon and the title only. |
+
+## Stage 12: components approved, run complete (2026-11-20)
+
+The run verified the components against the current play, removed leftover dividers in menus and lists, added shadcn's variables to the token check page, and fixed a dark contrast failure on the highlighted destructive menu item by giving it the error container. The owner approved that as a deliberate exception to status-as-detail, and approved the components. Every gate in the run is owner-approved. Page examples and the system reference were offered, not run.
+
+| # | Finding | Done |
+|---|---|---|
+| 79 | Contrast failures keep appearing in state pairs (a highlighted destructive item, the focus ring on a highlight, a checkbox edge on a selected row), which no list names. | **Open.** With #47, #70, #77: a pair checklist that includes states. |
+| 80 | The components play asks for shadcn's variables on the token check page, which the token pipeline play generates without mentioning them. | **Open.** Move the requirement to the pipeline play, or say the components play extends the generator. |
+| 81 | Closing Start and resuming Patterns in one session works, but `sistema.json` can't show both; the Start end section's pointer line doesn't fit an app route like the showcase. | **Open.** |
+| 82 | Once only optional plays remain, a workflow has no name for "last required gate passed, optional plays offered", so its closing steps wait. | **Open.** Close the workflow at the last required gate, and list the optional plays as follow-ups. |

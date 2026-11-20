@@ -1,8 +1,8 @@
 {
   "sistema": "2",
-  "workflow": "start",
-  "continue": "https://sistema-git-v2-jtd-604ef502.vercel.app/raw/workflows/session?c=internal-1882ecfe-477f-46e6-92ce-5f1c6ec43eab",
-  "milestone": "maintain",
+  "workflow": "patterns",
+  "continue": "https://sistema-git-v2-jtd-604ef502.vercel.app/raw/workflows/patterns?c=internal-1882ecfe-477f-46e6-92ce-5f1c6ec43eab",
+  "milestone": "patterns",
   "project": {
     "name": "Relay",
     "a11y_standard": "wcag-2.2 AA",
@@ -19,15 +19,20 @@
       "date": "2026-11-18",
       "evidence": "Fresh create-next-app (Next 15.5, Tailwind v4); all Start outputs missing; positioning in DECISIONS.md; AGENTS.md Sistema section added"
     },
+    "project.orient": {
+      "status": "complete",
+      "date": "2026-11-20",
+      "evidence": "Goal from the person (via coordinator): continue with the components. Start finished; Patterns not finished (components.scaffold-core never approved), so routed to the Patterns workflow. No conflict: components already follow the approved foundations."
+    },
     "visual-language.direction": {
       "status": "complete",
-      "date": "2026-11-18",
-      "evidence": "sistema-review/style-preview.html (7 sections, palette-tool ramps, contrast-tool checked) and DESIGN.md Overview; approved with no changes"
+      "date": "2026-11-20",
+      "evidence": "sistema-review/style-preview.html (7 sections, specimen renders on Relay content, palette-tool ramps, contrast-tool checks). Owner's answers: 1 Quiet (proposed Brand), 2 Violet 550 #7B43E6 (proposed Purple 550; petrol and plum rejected), 3 accent-tinted grays, confirmed 'Tinted' after the plain-gray comparison, 4 8px, 5 Scaled chips (proposed Pill), 6 Shadow (proposed Tone), 7 Atkinson Hyperlegible Next (proposed IBM Plex Sans); density, theme, emphasis map as proposed. Approved: 'yes'."
     },
     "visual-language.design-md": {
       "status": "complete",
-      "date": "2026-11-18",
-      "evidence": "DESIGN.md has all eight sections in spec order, naming roles not values; 9 provisional items each assigned to a play"
+      "date": "2026-11-20",
+      "evidence": "DESIGN.md rewritten after Overview from the approved direction: Colors (44 roles incl. emphasis surfaces, quiet accent), Typography (8 roles, Atkinson Hyperlegible Next, no second face), Layout (compact, 4px), Elevation & Depth (shadow separation, dark tone steps, borders with jobs), Shapes (5/6/8/12/14px), Components, 10 Do's and Don'ts; provisional: pane widths and featured-surface component (components.page-examples)."
     },
     "content.voice-and-tone": {
       "status": "complete",
@@ -36,40 +41,50 @@
     },
     "color.scheme": {
       "status": "complete",
-      "date": "2026-11-18",
-      "evidence": "tokens/src/color.json (35 roles) + color.dark.json; 86 pairings (43 per theme) pass wcag-2.2 AA via contrast tool; 2 dark stops changed from preview"
+      "date": "2026-11-20",
+      "evidence": "tokens/src/palette.json (palette tool: accent #7B43E6, neutral #72707A; library red/amber/green/blue), color.json (45 roles incl. surface-selected), color.dark.json (dark surfaces 950/900/850/800 per color.dark.surface-steps). Revised at the foundations review (owner, D30): selection neutral (surface-selected 150/800), messages neutral with status detail, border-strong 500 in both themes. 150 role pairs + 72 component pairs pass wcag-2.2 AA (contrast tool)."
     },
     "typography.scale": {
       "status": "complete",
-      "date": "2026-11-18",
-      "evidence": "tokens/src/typography.json: 8 roles on a 14px major-second scale (type scale tool, checks pass), data roles hand-tuned to 13px; Atkinson Hyperlegible Next + Mono via next/font/google; next build passes"
+      "date": "2026-11-20",
+      "evidence": "tokens/src/typography.json: type scale tool base 13px major-second (checks pass); roles metric 23, title 21, heading 15, body/body-strong/data 13, label 12, overline 11 (hand-tuned); Atkinson Hyperlegible Next 400/500/600 via next/font/google; mono face removed."
     },
     "shape.tokens": {
       "status": "complete",
-      "date": "2026-11-18",
-      "evidence": "tokens/src/shape.json + shape.dark.json: 7 radius levels mapped to families (floating layers largest), 2 shadow levels + scrim per theme; DESIGN.md Shapes and Elevation updated"
+      "date": "2026-11-20",
+      "evidence": "tokens/src/shape.json + shape.dark.json: radius none 0, xs 5 (scaled chips), sm 6, md 8 (controls), lg 12 (panels), xl 14 (featured and floating; preview overlay 10 raised for shape.radius.hierarchy), full; shadows by role control/raised/featured/overlay from the composition, dark at higher opacity; scrim."
     },
     "spacing.tokens": {
       "status": "complete",
-      "date": "2026-11-18",
-      "evidence": "tokens/src/spacing.json: 4px base, dense steps 2-48px named by multiple, 9 layout aliases referencing steps; DESIGN.md Layout updated"
+      "date": "2026-11-20",
+      "evidence": "tokens/src/spacing.json: 4px base, compact steps 2-48px plus 28 and 36; aliases page-gutter 20, section-gap 16, panel-padding 16, stack-gap 8, component-gap 8, field-gap 4, cell-padding-x 8, control-height 28, row-height 36 (preview 34, rounded to grid)."
     },
     "tokens.pipeline": {
       "status": "complete",
-      "date": "2026-11-18",
-      "evidence": "npm run tokens compiles 112 tokens + 38 dark overrides to src/styles/tokens/; Tailwind 4 theme wired into globals.css; DESIGN.md front matter generated; next build passes; token-check.html approved"
+      "date": "2026-11-20",
+      "evidence": "npm run tokens: 127 tokens + 47 dark from 5 default files (palette.json primitive tier excluded); tokens.css, tailwind-theme.css (+ @utility text-overline/data/metric), DESIGN.md front matter, sistema-review/token-check.html (roles vs preview, ramps, type, radius, shadows, spacing, shadcn variables, theme switch); next build passes. Approved: \"Foundations approved\"."
+    },
+    "components.scaffold-core": {
+      "status": "complete",
+      "date": "2026-11-20",
+      "evidence": "12 core components (shadcn/ui base-nova, Base UI) on the approved tokens; showcase /sistema-review/components in light, dark, system; 128 component pairs + 150 role pairs pass wcag-2.2 AA (contrast tool); axe zero violations in every theme with overlays open; build passes. Approved by the owner."
     }
   },
   "gates": {
     "direction-approved": {
-      "date": "2026-11-18",
+      "date": "2026-11-20",
       "by": "owner",
-      "note": "Approved with no changes"
+      "note": "Second direction approved (redo of 2026-11-18). Answers: Quiet, Violet 550 #7B43E6, accent-tinted grays (\"Tinted\"), 8px, scaled chips, shadow separation, Atkinson Hyperlegible Next. Changed from proposal: color presence, accent, chips, separation, typeface."
     },
     "foundations-approved": {
-      "date": "2026-11-18",
+      "date": "2026-11-20",
       "by": "owner",
-      "note": "Approved with no changes"
+      "note": "\"Foundations approved\", after the review changes (neutral selected row, inline messages as neutral wells, border-strong 500, Unassigned chip without fill)."
+    },
+    "components-approved": {
+      "date": "2026-11-20",
+      "by": "owner",
+      "note": "\"The cancel background change looks appropriate to me. I think this is a distinct enough case from the messages and I am ok with it. Approved\""
     }
   },
   "routing": {},

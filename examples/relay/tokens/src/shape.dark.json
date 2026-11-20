@@ -1,6 +1,6 @@
 {
   "shadow": {
-    "1": {
+    "control": {
       "$type": "shadow",
       "$value": [
         {
@@ -8,43 +8,90 @@
           "offsetY": "1px",
           "blur": "2px",
           "spread": "0px",
-          "color": "#0F101166"
-        },
-        {
-          "offsetX": "0px",
-          "offsetY": "4px",
-          "blur": "12px",
-          "spread": "0px",
-          "color": "#0F101180"
+          "color": "#1110142E"
         }
       ],
-      "$description": "Dark: same layers, neutral 950 at 40% and 50%, since shadows barely read on dark surfaces; surface-overlay (a lighter tone) carries most of the depth."
+      "$description": "Dark: Primary buttons only: a slight lift so the main action feels pressable. Same layers at higher opacity (specimen tool), since shadows barely show on dark surfaces; raised and floating surfaces also step lighter (color.dark.surface-steps)."
     },
-    "2": {
+    "raised": {
       "$type": "shadow",
       "$value": [
         {
           "offsetX": "0px",
-          "offsetY": "2px",
-          "blur": "4px",
+          "offsetY": "1px",
+          "blur": "2px",
           "spread": "0px",
-          "color": "#0F101180"
+          "color": "#11101426"
         },
         {
           "offsetX": "0px",
-          "offsetY": "12px",
-          "blur": "32px",
+          "offsetY": "2px",
+          "blur": "6px",
           "spread": "0px",
-          "color": "#0F101199"
+          "color": "#1110141F"
         }
       ],
-      "$description": "Dark: neutral 950 at 50% and 60%, on surface-overlay."
+      "$description": "Dark: Panels and tables on the page: the direction separates panels by shadow. Soft, two layers. Same layers at higher opacity (specimen tool), since shadows barely show on dark surfaces; raised and floating surfaces also step lighter (color.dark.surface-steps)."
+    },
+    "featured": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px",
+          "color": "#1110141F"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "6px",
+          "blur": "16px",
+          "spread": "-4px",
+          "color": "#1110143D"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "24px",
+          "blur": "48px",
+          "spread": "-12px",
+          "color": "#1110146B"
+        }
+      ],
+      "$description": "Dark: The featured surface (the job that needs action): lifts much further than a panel. Same layers at higher opacity (specimen tool), since shadows barely show on dark surfaces; raised and floating surfaces also step lighter (color.dark.surface-steps)."
+    },
+    "overlay": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0px",
+          "spread": "1px",
+          "color": "#1110142E"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "8px",
+          "spread": "-2px",
+          "color": "#1110143D"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "16px",
+          "blur": "32px",
+          "spread": "-8px",
+          "color": "#1110147A"
+        }
+      ],
+      "$description": "Dark: Floating layers: menus, popovers, comboboxes, tooltips, toasts, dialogs (dialogs add the scrim). The 1px layer gives the edge on white without a border. Same layers at higher opacity (specimen tool), since shadows barely show on dark surfaces; raised and floating surfaces also step lighter (color.dark.surface-steps)."
     }
   },
   "color": {
     "scrim": {
       "$type": "color",
-      "$value": "#0F1011A6",
+      "$value": "#111014A6",
       "$description": "Dark: neutral 950 at 65%, so dialogs stand out from an already dark page."
     }
   }

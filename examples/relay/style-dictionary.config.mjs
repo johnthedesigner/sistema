@@ -3,6 +3,8 @@
 //   src/styles/tokens/tokens.css          CSS custom properties: defaults on :root, modes under their selectors
 //   src/styles/tokens/tailwind-theme.css  Tailwind 4 @theme mapping of role tokens
 //   DESIGN.md front matter                 token values for agents that read DESIGN.md
+//   sistema-review/token-check.html        review page for the compiled tokens (both themes)
+// tokens/src/palette.json is the primitive tier: roles refer to it; it is never output.
 // Run with: npm run tokens
 import StyleDictionary from 'style-dictionary';
 import { readFileSync, writeFileSync, readdirSync, mkdirSync } from 'node:fs';
@@ -88,7 +90,9 @@ async function compile(source, filter) {
   return filter ? all.filter(filter) : all;
 }
 
-const base = await compile(defaults);
+const isPrimitive = (t) => t.path[0] === 'palette';
+const all = await compile(defaults);
+const base = all.filter((t) => !isPrimitive(t));
 let css = `${HEADER}\n\n:root {\n${cssVars(base)}\n}\n`;
 
 const modeTokens = {};
@@ -98,7 +102,7 @@ for (const def of Object.keys(MODES)) {
   // Defaults plus this mode's files; keep only tokens that come from the mode files.
   const fromMode = new Set(its.map((m) => path.resolve(m.file)));
   const tokens = await compile([...defaults, ...its.map((m) => m.file)], (t) =>
-    fromMode.has(path.resolve(t.filePath)),
+    fromMode.has(path.resolve(t.filePath)) && !isPrimitive(t),
   );
   modeTokens[def] = tokens;
   const m = MODES[def];
@@ -115,7 +119,7 @@ const lines = [];
 for (const t of byPath('color')) lines.push(`  --color-${t.path.slice(1).join('-')}: var(--${t.name});`);
 for (const t of byPath('font')) lines.push(`  --font-${t.path[1]}: var(--${t.name});`);
 const roles = [...new Set(byPath('type').map((t) => t.path[1]))];
-for (const r of roles) {
+for (const r of roles.filter((r) => !['overline', 'data', 'metric'].includes(r))) {
   lines.push(`  --text-${r}: var(--type-${r}-size);`);
   lines.push(`  --text-${r}--line-height: var(--type-${r}-line-height);`);
   lines.push(`  --text-${r}--font-weight: var(--type-${r}-weight);`);
@@ -125,7 +129,17 @@ for (const t of byPath('radius')) lines.push(`  --radius-${t.path[1]}: var(--${t
 for (const t of byPath('space')) lines.push(`  --spacing-${t.path[1]}: var(--${t.name});`);
 for (const t of byPath('layout')) lines.push(`  --spacing-${t.path[1]}: var(--${t.name});`);
 for (const t of byPath('shadow')) lines.push(`  --shadow-${t.path[1]}: var(--${t.name});`);
-const theme = `${HEADER}\n\n/* Remove Tailwind's default palette: only the system's color roles exist. */\n@theme {\n  --color-*: initial;\n}\n\n@theme inline reference {\n${lines.join('\n')}\n}\n`;
+// Type roles that need more than size, line height, weight, and tracking.
+const UTILITIES = {
+  overline: ['text-transform: uppercase;'],
+  data: ['font-variant-numeric: tabular-nums;'],
+  metric: ['font-variant-numeric: tabular-nums;'],
+};
+const utilities = Object.entries(UTILITIES)
+  .filter(([r]) => roles.includes(r))
+  .map(([r, extra]) => `@utility text-${r} {\n  font-size: var(--type-${r}-size);\n  line-height: var(--type-${r}-line-height);\n  font-weight: var(--type-${r}-weight);\n  letter-spacing: var(--type-${r}-letter-spacing);\n  ${extra.join('\n  ')}\n}`)
+  .join('\n\n');
+const theme = `${HEADER}\n\n/* Remove Tailwind's default palette: only the system's color roles exist. */\n@theme {\n  --color-*: initial;\n}\n\n@theme inline reference {\n${lines.join('\n')}\n}\n\n${utilities}\n`;
 writeFileSync(path.join(OUT, 'tailwind-theme.css'), theme);
 
 // Self-reference check: a custom property must never point at itself.
@@ -175,6 +189,10 @@ const design = readFileSync('DESIGN.md', 'utf8');
 const body = design.startsWith('---\n') ? design.slice(design.indexOf('\n---\n', 4) + 5) : design;
 writeFileSync('DESIGN.md', `---\n${fm.join('\n')}\n---\n${body}`);
 
+// ---- Token check page ------------------------------------------------------
+const { buildTokenCheck } = await import('./tokens/token-check.mjs');
+writeFileSync('sistema-review/token-check.html', buildTokenCheck({ base, all, modeTokens, sistema }));
+
 console.log(`Compiled ${base.length} default tokens from ${defaults.length} files`);
 for (const [m, t] of Object.entries(modeTokens)) console.log(`  mode ${m}: ${t.length} tokens`);
-console.log(`Wrote ${OUT}/tokens.css, ${OUT}/tailwind-theme.css, DESIGN.md front matter`);
+console.log(`Wrote ${OUT}/tokens.css, ${OUT}/tailwind-theme.css, DESIGN.md front matter, sistema-review/token-check.html`);

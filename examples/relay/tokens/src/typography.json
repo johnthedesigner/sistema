@@ -7,23 +7,14 @@
         "system-ui",
         "sans-serif"
       ],
-      "$description": "All interface text. Loaded with next/font/google (weights 400, 600, 700)."
-    },
-    "mono": {
-      "$type": "fontFamily",
-      "$value": [
-        "Atkinson Hyperlegible Mono",
-        "ui-monospace",
-        "monospace"
-      ],
-      "$description": "IDs, times, phone numbers, numeric columns. Loaded with next/font/google (weight 400)."
+      "$description": "All interface text. Loaded with next/font/google (weights 400, 500, 600). No second face: tabular figures cover IDs, times, and numbers."
     }
   },
   "size": {
-    "$description": "Magnitude scale (Tailwind-style names) from the type scale tool: base 14px, major-second (1.125), rounded by the tool. For one-off use; components use the type roles.",
+    "$description": "Magnitude scale (Tailwind-style names) from the type scale tool, 2026-11-20: base 13px, major-second (1.125), rounded by the tool. For one-off use; components use the type roles.",
     "xs": {
       "$type": "dimension",
-      "$value": "11px"
+      "$value": "10px"
     },
     "sm": {
       "$type": "dimension",
@@ -31,35 +22,66 @@
     },
     "base": {
       "$type": "dimension",
-      "$value": "14px"
+      "$value": "13px"
     },
     "lg": {
       "$type": "dimension",
-      "$value": "16px"
+      "$value": "15px"
     },
     "xl": {
       "$type": "dimension",
-      "$value": "18px"
+      "$value": "16px"
     },
     "2xl": {
       "$type": "dimension",
-      "$value": "20px"
+      "$value": "19px"
+    },
+    "3xl": {
+      "$type": "dimension",
+      "$value": "21px"
+    },
+    "4xl": {
+      "$type": "dimension",
+      "$value": "23px"
     }
   },
   "type": {
-    "title": {
-      "$description": "Page title, one per screen (e.g. Today's board). Hierarchy by weight and slight negative tracking.",
+    "metric": {
+      "$description": "Key numbers in a metric strip or the brand block (18 of 31). Tabular figures. Size 23px (tool step 5; preview 24px). Line height 1.1: a single line of figures, no wrapping.",
       "family": {
         "$type": "fontFamily",
         "$value": "{font.sans}"
       },
       "size": {
         "$type": "dimension",
-        "$value": "{size.2xl}"
+        "$value": "{size.4xl}"
       },
       "weight": {
         "$type": "fontWeight",
-        "$value": 700
+        "$value": 500
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.1
+      },
+      "letter-spacing": {
+        "$type": "dimension",
+        "$value": "-0.02em"
+      }
+    },
+    "title": {
+      "$description": "Page title, one per screen (Today's board). Size 21px (tool step 4; preview 20px). Line height 1.3, tool suggestion. Tighter tracking at display size.",
+      "family": {
+        "$type": "fontFamily",
+        "$value": "{font.sans}"
+      },
+      "size": {
+        "$type": "dimension",
+        "$value": "{size.3xl}"
+      },
+      "weight": {
+        "$type": "fontWeight",
+        "$value": 600
       },
       "line-height": {
         "$type": "number",
@@ -67,11 +89,11 @@
       },
       "letter-spacing": {
         "$type": "dimension",
-        "$value": "-0.01em"
+        "$value": "-0.02em"
       }
     },
     "heading": {
-      "$description": "Panel and section headings, dialog titles.",
+      "$description": "Panel and section headings, dialog titles, the featured job's title. Size 15px (tool step 1; preview 15px). Line height 1.333 (20px), between the tool's 1.5 for body and 1.3 for titles: headings rarely wrap.",
       "family": {
         "$type": "fontFamily",
         "$value": "{font.sans}"
@@ -82,19 +104,19 @@
       },
       "weight": {
         "$type": "fontWeight",
-        "$value": 700
+        "$value": 600
       },
       "line-height": {
         "$type": "number",
-        "$value": 1.375
+        "$value": 1.333
       },
       "letter-spacing": {
         "$type": "dimension",
-        "$value": "0em"
+        "$value": "-0.01em"
       }
     },
     "body": {
-      "$description": "Default reading text: notes, descriptions, form values.",
+      "$description": "Reading text: descriptions, notes, form values, menu items. Size 13px (tool base; preview 13px). Line height 1.5, the tool's suggestion, for wrapped text.",
       "family": {
         "$type": "fontFamily",
         "$value": "{font.sans}"
@@ -109,7 +131,7 @@
       },
       "line-height": {
         "$type": "number",
-        "$value": 1.43
+        "$value": 1.5
       },
       "letter-spacing": {
         "$type": "dimension",
@@ -117,7 +139,7 @@
       }
     },
     "body-strong": {
-      "$description": "Emphasis in body text and key values in detail views (assigned tech, arrival time).",
+      "$description": "Emphasis inside body text and key values in detail views (assigned tech, arrival time). Same as body at 600 (preview 500; Atkinson Hyperlegible Next at 500 is too close to 400 at 13px to read as emphasis).",
       "family": {
         "$type": "fontFamily",
         "$value": "{font.sans}"
@@ -132,7 +154,7 @@
       },
       "line-height": {
         "$type": "number",
-        "$value": 1.43
+        "$value": 1.5
       },
       "letter-spacing": {
         "$type": "dimension",
@@ -140,37 +162,14 @@
       }
     },
     "data": {
-      "$description": "Table cells and dense list rows. Hand-tuned 13px, between scale steps sm and base.",
+      "$description": "Table cells and dense list rows; use with tabular figures for IDs, times, and numbers. Size 13px. Line height 1.385 (18px) so rows stay compact; cells don't wrap.",
       "family": {
         "$type": "fontFamily",
         "$value": "{font.sans}"
       },
       "size": {
         "$type": "dimension",
-        "$value": "13px"
-      },
-      "weight": {
-        "$type": "fontWeight",
-        "$value": 400
-      },
-      "line-height": {
-        "$type": "number",
-        "$value": 1.385
-      },
-      "letter-spacing": {
-        "$type": "dimension",
-        "$value": "0em"
-      }
-    },
-    "data-mono": {
-      "$description": "Job IDs, times, phone numbers, numeric columns: fixed-width so columns align.",
-      "family": {
-        "$type": "fontFamily",
-        "$value": "{font.mono}"
-      },
-      "size": {
-        "$type": "dimension",
-        "$value": "13px"
+        "$value": "{size.base}"
       },
       "weight": {
         "$type": "fontWeight",
@@ -186,7 +185,7 @@
       }
     },
     "label": {
-      "$description": "Form labels, column headers, chip and button text.",
+      "$description": "Form labels, column headers, button text, chip text. Size 12px (tool step -1; preview 11px, raised for legibility in Atkinson at 500). Line height 1.333 (16px), single line.",
       "family": {
         "$type": "fontFamily",
         "$value": "{font.sans}"
@@ -197,7 +196,7 @@
       },
       "weight": {
         "$type": "fontWeight",
-        "$value": 600
+        "$value": 500
       },
       "line-height": {
         "$type": "number",
@@ -209,14 +208,14 @@
       }
     },
     "overline": {
-      "$description": "Small group labels above fields or sections. Written in sentence case, set uppercase by style (text-transform).",
+      "$description": "Small uppercase group labels above fields, menu groups, or sections. Set uppercase by the text-overline utility. Size 11px, hand-tuned between tool steps -2 (10px, which the tool flags as small) and -1 (12px): uppercase and tracking make up the size. Line height 1.273 (14px).",
       "family": {
         "$type": "fontFamily",
         "$value": "{font.sans}"
       },
       "size": {
         "$type": "dimension",
-        "$value": "{size.xs}"
+        "$value": "11px"
       },
       "weight": {
         "$type": "fontWeight",
@@ -224,7 +223,7 @@
       },
       "line-height": {
         "$type": "number",
-        "$value": 1.3
+        "$value": 1.273
       },
       "letter-spacing": {
         "$type": "dimension",

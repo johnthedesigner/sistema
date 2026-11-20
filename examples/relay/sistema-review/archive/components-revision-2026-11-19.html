@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relay — Component Revision</title>
+<link rel="stylesheet" href="../src/styles/tokens/tokens.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&display=swap">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:var(--color-surface);color:var(--color-on-surface);font-family:var(--font-sans);font-size:var(--type-body-size);line-height:var(--type-body-line-height)}
+.page{max-width:1400px;margin:0 auto;padding:0 var(--layout-page-gutter) 48px}
+.outline{display:flex;flex-wrap:wrap;gap:4px;align-items:center;padding:8px 0;font-size:var(--type-label-size);font-weight:var(--type-label-weight)}
+.outline span{padding:1px 6px;border-radius:var(--radius-xs)}
+.done{background:var(--color-success-container);color:var(--color-on-success-container)}
+.cur{background:var(--color-primary);color:var(--color-on-primary)}
+.wait{background:var(--color-warning-container);color:var(--color-on-warning-container)}
+.pend{color:var(--color-on-surface-muted)}
+h1{font-size:var(--type-title-size);font-weight:var(--type-title-weight);margin:12px 0 4px}
+h2{font-size:var(--type-heading-size);font-weight:var(--type-heading-weight);margin:0 0 8px}
+section{background:var(--color-surface-raised);border-radius:var(--radius-lg);padding:var(--layout-panel-padding);margin:var(--layout-section-gap) 0}
+.sub{color:var(--color-on-surface-muted)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pair figure{margin:0}
+.pair figcaption{font-size:var(--type-label-size);font-weight:var(--type-label-weight);color:var(--color-on-surface-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.pair img{width:100%;height:auto;display:block;border-radius:var(--radius-md)}
+table{border-collapse:collapse;width:100%} td,th{text-align:left;padding:4px 8px;border-bottom:1px solid var(--color-border);font-size:var(--type-data-size)} th{color:var(--color-on-surface-muted)}
+code{font-family:ui-monospace,monospace;font-size:12px}
+@media (max-width:800px){.pair{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="page">
+<nav class="outline" aria-label="Workflow outline">
+  <span class="pend">Build the patterns:</span>
+  <span class="done">Direction ✓</span><span class="done">Foundations ✓</span>
+  <span class="cur" aria-current="step">1 Scaffold the core components (revised)</span>
+  <span class="wait">◆ components-approved (waiting for you)</span>
+  <span class="pend">2 Page examples (optional)</span><span class="pend">3 System reference (optional)</span>
+</nav>
+<h1>Relay — fewer lines, softer corners</h1>
+<p class="sub">Your review: "too many borders, outlines, dividers… a bit too noisy" and "increase the roundness of the shapes somewhat." Before is the showcase you reviewed; after is the current one. The live showcase is at <code>/sistema-review/components</code> in the running app.</p>
+
+<section>
+  <h2>What changed</h2>
+  <table>
+    <thead><tr><th>Thing</th><th>Before</th><th>After</th></tr></thead>
+    <tbody>
+      <tr><td>Radius tokens</td><td>xs 2 · sm 3 · md 4 · lg 6 · xl 8px</td><td>xs 3 · sm 4 · md 6 · lg 10 · xl 12px (same hierarchy: chips &lt; checkboxes &lt; controls &lt; panels &lt; floating layers; table cells stay square)</td></tr>
+      <tr><td>Panels and cards</td><td>1px outline</td><td>No outline; tone and spacing set them off the canvas; footer divider removed</td></tr>
+      <tr><td>Status chips</td><td>Outline in the text color</td><td>Tinted fill only; Unassigned is a canvas-tone fill instead of an outline</td></tr>
+      <tr><td>Tooltips, menus, select and combobox lists</td><td>1px outline + shadow</td><td>Shadow only (dark: plus the lighter overlay tone)</td></tr>
+      <tr><td>Dialog</td><td>1px outline + strong shadow + scrim</td><td>Strong shadow + scrim</td></tr>
+      <tr><td>Menu separators</td><td>1px line</td><td>Space only (still a separator for screen readers)</td></tr>
+      <tr><td>Data table</td><td>Outer frame, strong header rule, row dividers</td><td>No outer frame; header rule in the light <code>border</code> color; thin row dividers kept, because they help the eye follow a wide row across seven columns</td></tr>
+      <tr><td>Kept</td><td colspan="2">Edges that show where to click or type: text fields, selects, the combobox, checkboxes, secondary and destructive buttons, the theme switch</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section><h2>Whole showcase, light</h2><div class="pair">
+  <figure><figcaption>Before</figcaption><img src="screenshots/before/showcase-light.png" alt="Showcase before, light theme"></figure>
+  <figure><figcaption>After</figcaption><img src="screenshots/after/showcase-light.png" alt="Showcase after, light theme"></figure>
+</div></section>
+<section><h2>Whole showcase, dark</h2><div class="pair">
+  <figure><figcaption>Before</figcaption><img src="screenshots/before/showcase-dark.png" alt="Showcase before, dark theme"></figure>
+  <figure><figcaption>After</figcaption><img src="screenshots/after/showcase-dark.png" alt="Showcase after, dark theme"></figure>
+</div></section>
+<section><h2>Table, chips, and the row menu</h2><div class="pair">
+  <figure><figcaption>Before, light</figcaption><img src="screenshots/before/table-menu-light.png" alt="Table and menu before, light"></figure>
+  <figure><figcaption>After, light</figcaption><img src="screenshots/after/table-menu-light.png" alt="Table and menu after, light"></figure>
+  <figure><figcaption>Before, dark</figcaption><img src="screenshots/before/table-menu-dark.png" alt="Table and menu before, dark"></figure>
+  <figure><figcaption>After, dark</figcaption><img src="screenshots/after/table-menu-dark.png" alt="Table and menu after, dark"></figure>
+</div></section>
+<section><h2>Buttons and a tooltip</h2><div class="pair">
+  <figure><figcaption>Before</figcaption><img src="screenshots/before/buttons-tooltip-light.png" alt="Buttons and tooltip before"></figure>
+  <figure><figcaption>After</figcaption><img src="screenshots/after/buttons-tooltip-light.png" alt="Buttons and tooltip after"></figure>
+</div></section>
+
+<section>
+  <h2>One trade-off to look at</h2>
+  <p>Without outlines, panels are set off from the canvas by tone alone (about 1.15:1 in both themes), and in dark theme the status chip fills differ from the panel by hue more than by lightness. Neither edge is required by WCAG, because the chip's dot and word carry its meaning and a panel's edge isn't needed to use it, but they are quieter than before. If you'd like panels to read more clearly, the next step would be a slightly darker canvas tone, not the outline back.</p>
+</section>
+<p class="sub">This project follows Sistema. "Build the patterns" is in progress. For later design system work, fetch the URL in sistema.json "continue".</p>
+</div>
+</body>
+</html>

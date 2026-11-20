@@ -32,40 +32,49 @@
       "$type": "dimension",
       "$value": "24px"
     },
+    "7": {
+      "$type": "dimension",
+      "$value": "28px"
+    },
     "8": {
       "$type": "dimension",
       "$value": "32px"
     },
+    "9": {
+      "$type": "dimension",
+      "$value": "36px"
+    },
     "12": {
       "$type": "dimension",
       "$value": "48px"
-    }
+    },
+    "$description": "4px base, compact step set (2-48px), named by multiple of the base unit (space-2 is 8px). 28px and 36px steps added for control and row heights."
   },
   "layout": {
     "page-gutter": {
       "$type": "dimension",
-      "$value": "{space.6}",
-      "$description": "Horizontal padding of the app frame and page containers (24px): enough to separate content from the window edge without spending width a wide table needs."
+      "$value": "{space.5}",
+      "$description": "Horizontal padding of the app frame and page containers (20px, from the approved composition)."
     },
     "section-gap": {
       "$type": "dimension",
       "$value": "{space.4}",
-      "$description": "Gap between panels and page regions, e.g. job board and detail pane (16px)."
+      "$description": "Gap between panels and page regions (16px). Two steps above stack-gap, so groups read as groups by space alone."
     },
     "panel-padding": {
       "$type": "dimension",
-      "$value": "{space.3}",
-      "$description": "Inner padding of panels, cards, popovers, and dialogs (12px)."
+      "$value": "{space.4}",
+      "$description": "Inner padding of panels, the featured surface, popovers, and dialogs (16px, from the approved composition)."
     },
     "stack-gap": {
       "$type": "dimension",
-      "$value": "{space.3}",
-      "$description": "Vertical gap between form fields and between stacked blocks inside a panel (12px)."
+      "$value": "{space.2}",
+      "$description": "Vertical gap between form fields and stacked blocks inside a panel (8px)."
     },
     "component-gap": {
       "$type": "dimension",
       "$value": "{space.2}",
-      "$description": "Gap between related controls: buttons in a toolbar, filters in a filter bar, fields in one form row (8px)."
+      "$description": "Gap between related controls: buttons in a toolbar, filters, fields in one row (8px)."
     },
     "field-gap": {
       "$type": "dimension",
@@ -79,13 +88,13 @@
     },
     "control-height": {
       "$type": "dimension",
-      "$value": "{space.8}",
-      "$description": "Height of buttons, inputs, selects, and toolbar controls (32px); above the WCAG 2.2 AA 24px target minimum."
+      "$value": "{space.7}",
+      "$description": "Height of buttons, inputs, selects (28px, compact, from the approved composition)."
     },
     "row-height": {
       "$type": "dimension",
-      "$value": "{space.8}",
-      "$description": "Table and list row height (32px), equal to control-height so filter bars line up with the rows below."
+      "$value": "{space.9}",
+      "$description": "Table and list row height (36px; the composition showed 34px, rounded up to the 4px grid). Taller than controls so a row can hold a control."
     }
   }
 }

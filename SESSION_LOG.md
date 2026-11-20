@@ -4,14 +4,24 @@
 
 **Phase:** v2 Phase 3 (Reference project, guides, and site). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-3.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V3.2 — Relay through Direction and Foundations
-**Next task:** V3.4 — Aesthetic baseline, emphasis, and the specimen tool (in progress). V3.3 stopped at the components review; Relay re-runs from Direction inside V3.4.
+**Last completed task:** V3.4 — Aesthetic baseline, emphasis, and the specimen tool (with V3.3: Relay through Patterns, components approved)
+**Next task:** V3.5 — Guide rewrites. Before it, consider a short fix pass on the open reference-run findings (#40–#47, #49–#50, #52, #55–#77), especially redoing an approved step (#49, #55) and the specimen tool batch (#57, #67).
 **Blockers:** none. Open item: PostHog key missing from the Vercel Preview environment (owner, later; needed before V3.7)
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
 ---
 
 ## Session log
+
+### 2026-11-20 — V3.4: Relay re-run approved; D27 to D30
+
+**What was done:**
+- Relay re-ran from Direction with the rewritten play and the specimen tool. The owner chose Quiet, violet 550, accent-tinted grays, 8px, scaled chips, shadow separation, and Atkinson Hyperlegible Next, then approved the direction, the foundations, and the components (all 2026-11-20). `examples/relay/` replaced with the finished run (Relay commit 4b08f01).
+- D27: accent seeds come from the palette library's bright middle stops when there's no brand color. D28: no count on featured items per screen.
+- D29: dark surfaces step one stop at a time (`color.dark.surface-steps`, color guide "Stops in a dark theme"); text and fills mirror (1000 − n). Comparison: `docs/v2/comparisons/dark-steps.html`.
+- D30: one decision for both themes (`opinion.both-themes`), status color as detail (`opinion.status-as-detail`), selection a neutral step with an accent detail. Specimen selected row updated.
+- Backlog: one-question-at-a-time style preview with copyable answers.
+- Findings #55 to #82 in `docs/v2/reference-run.md`.
 
 ### 2026-11-20 — V3.4: content (craft baseline, taste questions, emphasis)
 

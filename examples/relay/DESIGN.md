@@ -4,65 +4,81 @@
 version: alpha
 name: Relay
 colors:
-  primary: "#006D7A"
-  on-primary: "#F9FAFA"
-  primary-hover: "#035660"
-  primary-container: "#CDF2F9"
-  on-primary-container: "#073F47"
-  secondary: "#484F51"
-  on-secondary: "#F9FAFA"
-  secondary-container: "#D5DBDD"
-  on-secondary-container: "#1F2122"
-  surface: "#E9ECED"
-  surface-raised: "#F9FAFA"
-  surface-overlay: "#F9FAFA"
-  surface-hover: "#F0FDFF"
-  on-surface: "#1F2122"
-  on-surface-muted: "#5C6466"
-  border: "#C2CBCE"
-  border-strong: "#7C868A"
-  border-focus: "#068595"
-  link: "#01616D"
-  error: "#C02020"
-  on-error: "#F9FAFA"
-  error-container: "#F7E8E6"
-  on-error-container: "#711211"
-  warning: "#965002"
-  on-warning: "#F9FAFA"
-  warning-container: "#F8E9DE"
-  on-warning-container: "#592D00"
-  success: "#0B7231"
-  on-success: "#F9FAFA"
-  success-container: "#C8F7CF"
-  on-success-container: "#06421B"
-  info: "#0D4BD2"
-  on-info: "#F9FAFA"
-  info-container: "#E6ECF6"
-  on-info-container: "#07308B"
+  primary: "#7A47E0"
+  on-primary: "#FFFFFF"
+  primary-hover: "#5E26B9"
+  primary-container: "#E9E5FF"
+  on-primary-container: "#450E91"
+  secondary: "#413F48"
+  on-secondary: "#FFFFFF"
+  secondary-container: "#E9E8EC"
+  on-secondary-container: "#4D4B54"
+  surface: "#FBFBFC"
+  surface-raised: "#FFFFFF"
+  surface-overlay: "#FFFFFF"
+  surface-hover: "#F4F3F5"
+  surface-selected: "#E9E8EC"
+  surface-overlay-hover: "#F4F3F5"
+  surface-subtle: "#FBFBFC"
+  surface-featured: "#FFFFFF"
+  surface-inverse: "#24222A"
+  on-surface-inverse: "#FBFBFC"
+  surface-brand: "#6B35CD"
+  on-surface-brand: "#FFFFFF"
+  on-surface-brand-muted: "#DED7FF"
+  on-surface: "#24222A"
+  on-surface-muted: "#5A5862"
+  on-surface-faint: "#696771"
+  border: "#DCDBE1"
+  border-strong: "#797782"
+  border-focus: "#885CED"
+  link: "#6B35CD"
+  error: "#C72A27"
+  on-error: "#FFFFFF"
+  error-container: "#FFE2DD"
+  on-error-container: "#710408"
+  warning: "#9E560E"
+  on-warning: "#FFFFFF"
+  warning-container: "#FFE3D0"
+  on-warning-container: "#562A00"
+  success: "#127936"
+  on-success: "#FFFFFF"
+  success-container: "#CCF2D1"
+  on-success-container: "#003F17"
+  info: "#255FE0"
+  on-info: "#FFFFFF"
+  info-container: "#DDE9FF"
+  on-info-container: "#002991"
 typography:
+  metric:
+    fontFamily: Atkinson Hyperlegible Next
+    fontSize: 23px
+    fontWeight: 500
+    lineHeight: 1.1
+    letterSpacing: -0.02em
   title:
     fontFamily: Atkinson Hyperlegible Next
-    fontSize: 20px
-    fontWeight: 700
+    fontSize: 21px
+    fontWeight: 600
     lineHeight: 1.3
-    letterSpacing: -0.01em
+    letterSpacing: -0.02em
   heading:
     fontFamily: Atkinson Hyperlegible Next
-    fontSize: 16px
-    fontWeight: 700
-    lineHeight: 1.375
-    letterSpacing: 0em
+    fontSize: 15px
+    fontWeight: 600
+    lineHeight: 1.333
+    letterSpacing: -0.01em
   body:
     fontFamily: Atkinson Hyperlegible Next
-    fontSize: 14px
+    fontSize: 13px
     fontWeight: 400
-    lineHeight: 1.43
+    lineHeight: 1.5
     letterSpacing: 0em
   body-strong:
     fontFamily: Atkinson Hyperlegible Next
-    fontSize: 14px
+    fontSize: 13px
     fontWeight: 600
-    lineHeight: 1.43
+    lineHeight: 1.5
     letterSpacing: 0em
   data:
     fontFamily: Atkinson Hyperlegible Next
@@ -70,31 +86,25 @@ typography:
     fontWeight: 400
     lineHeight: 1.385
     letterSpacing: 0em
-  data-mono:
-    fontFamily: Atkinson Hyperlegible Mono
-    fontSize: 13px
-    fontWeight: 400
-    lineHeight: 1.385
-    letterSpacing: 0em
   label:
     fontFamily: Atkinson Hyperlegible Next
     fontSize: 12px
-    fontWeight: 600
+    fontWeight: 500
     lineHeight: 1.333
     letterSpacing: 0.01em
   overline:
     fontFamily: Atkinson Hyperlegible Next
     fontSize: 11px
     fontWeight: 600
-    lineHeight: 1.3
+    lineHeight: 1.273
     letterSpacing: 0.06em
 rounded:
   none: 0px
-  xs: 2px
-  sm: 3px
-  md: 4px
-  lg: 6px
-  xl: 8px
+  xs: 5px
+  sm: 6px
+  md: 8px
+  lg: 12px
+  xl: 14px
   full: 9999px
 spacing:
   "1": 4px
@@ -103,211 +113,270 @@ spacing:
   "4": 16px
   "5": 20px
   "6": 24px
+  "7": 28px
   "8": 32px
+  "9": 36px
   "12": 48px
   "0-5": 2px
   "1-5": 6px
-  page-gutter: 24px
+  page-gutter: 20px
   section-gap: 16px
-  panel-padding: 12px
-  stack-gap: 12px
+  panel-padding: 16px
+  stack-gap: 8px
   component-gap: 8px
   field-gap: 4px
   cell-padding-x: 8px
-  control-height: 32px
-  row-height: 32px
+  control-height: 28px
+  row-height: 36px
 ---
-<!-- This project follows Sistema. The "Start a design system" workflow is finished. For later design system work, fetch the URL in sistema.json "continue". -->
+<!-- This project follows Sistema. "Start a design system" is finished. For later design system work, fetch the URL in sistema.json "continue". -->
 # Relay design system
 
 ## Overview
 
-Relay is a dense, all-day dispatch dashboard for a small HVAC and plumbing company. Its visual language is utilitarian and quiet so that job status is always the loudest thing on screen, with a small number of specific choices that keep it from reading as a generic admin template.
+**What Relay's screens must do.**
+- The job that needs action now (unassigned, or about to run late) is the first thing a dispatcher sees.
+- Status is the main signal, so the status colors are the strongest color in any list of jobs.
+- Dispatchers follow long rows all day, so rows must be easy to track without heavy lines, and quiet enough for an eight-hour shift.
+- Job numbers, times, and names must be read correctly at small sizes, at a glance.
+- It should feel like a current, well-made tool with its own character, not a generic admin template.
 
-**Aesthetic reference points.** Functionalist (Rams) is the primary framework: every mark carries information, and nothing is decorative. Swiss/International typographic hierarchy organizes the data, with weight and case separating roles rather than size. A note borrowed from field-service signage and equipment labels: one deep petrol "service" color, compact uppercase labels, and status shown as a filled dot plus a word.
-
-**Color commitment.** Level 1, Restrained, with hue-tinted neutrals. Dispatchers look at this all day, and status color must stay the most prominent signal, so surfaces and chrome stay close to neutral (chroma about 0.01, hue 215 to 225, matching the primary).
-
-**Typographic character.** One family with a matching mono: Atkinson Hyperlegible Next for UI text and Atkinson Hyperlegible Mono for job numbers, times, and phone numbers, chosen because dispatchers read IDs, numbers, and addresses all day and must not confuse 1, I, l, 0, and O. Weights 400 to 700. Body 14px, table data 13px, labels 12px semibold or 11px uppercase with 0.06em tracking. The largest size in daily use is about 20px; hierarchy comes from weight and case.
-
-**Shape personality.** Sharp-precise: 2px for chips and badges, 4px for buttons and inputs, 6px for panels, popovers, and dialogs; full radius only for status dots and avatars.
-
-**Surface treatment.** Spatial and border separation, not elevation: panels sit on a slightly darker canvas with a low-contrast border, and a single shadow level is reserved for things that float (menus, popovers, dialogs).
-
-**What Relay does not look like.**
-- Not a medium-blue SaaS template with uniformly 8px-rounded cards and soft shadows.
-- Not a "dark sophisticated" console with near-black surfaces and gold accents.
-- Not brutalist: no heavy black borders, no all-monospace UI.
+Relay is a quiet, near-neutral work surface where panels sit lightly lifted on soft shadows, the job that needs a dispatcher right now is lifted further, and status color does the shouting. Violet appears only where you act or have selected something, and lines only where you click, type, or follow a row, all set in one highly legible typeface.
 
 ### Direction values
 
-- Commitment level: 1 (Restrained), hue-tinted neutrals.
-- Primary seed: `oklch(0.50 0.09 210)` (palette tool seed #00717F), petrol.
-- Neutral seed: `oklch(0.55 0.012 215)` (palette tool seed #6A7376), cool.
-- Secondary seed: none. shadcn/ui "secondary" maps to the neutral ramp.
-- Feedback hues: library.json `red`, `amber`, `green`, `blue` ramps, unchanged.
-- Ramp stops used in the preview (light / dark):
-  - canvas: neutral 100 / neutral 950
-  - surface: neutral 50 / neutral 900
-  - overlay (raised): neutral 50 + shadow / neutral 850
-  - text: neutral 900 / neutral 100
-  - text-muted: neutral 600 / neutral 350
-  - border: neutral 200 / neutral 750
-  - border-strong: neutral 450 / neutral 500
-  - primary: primary 600 / primary 400
-  - primary-hover: primary 700 / primary 350
-  - on-primary: neutral 50 / primary 950
-  - primary-container: primary 100 / primary 850
-  - on-primary-container: primary 800 / primary 150
-  - row-hover: primary 50 / neutral 850
-  - link: primary 650 / primary 300
-  - focus ring: primary 500 / primary 300
-  - error / error-container / on-error-container: red 600, red 100, red 800 / red 400, red 900, red 200
-  - warning / warning-container / on-warning-container: amber 600, amber 100, amber 800 / amber 300, amber 900, amber 200
-  - success / success-container / on-success-container: green 600, green 100, green 800 / green 300, green 900, green 200
-  - info / info-container / on-info-container: blue 650, blue 100, blue 800 / blue 400, blue 900, blue 200
-- Typographic character: Atkinson Hyperlegible Next + Atkinson Hyperlegible Mono; weights 400 to 700; body 14px, data 13px, label 12px/600, overline 11px/600 uppercase 0.06em, heading 16px/700, title 20px/700.
-- Radius personality: sharp-precise; 0, 2, 3, 4, 6px, and full (dots and avatars only).
+Approved 2026-11-20 (direction-approved), with tinted grays.
+
+- **Color presence:** quiet. The accent only on the primary button, checkboxes, focus, links, the job progress bar, selected rows, and the brand block; the navigation's current item is gray (`nav-selected` from the neutral ramp). Status colors are the strongest color on screen.
+- **Commitment level:** 1 (quiet).
+- **Accent seed:** `#7B43E6`, the palette library's violet 550 (OKLCH 0.596 0.208 293 at stop 500 of the tool's ramp; hue about 293). Chosen by the person over the proposed purple 550; petrol and plum were rejected.
+- **Neutral seed:** tinted toward the accent, `oklch(0.55 0.015 292.9)`, resolved by the specimen tool to `#72707A` (palette tool stop 500: oklch(0.575 0.017 294.2)). Plain gray (`#717175`) was compared and not chosen.
+- **Secondary seed:** none.
+- **Control radius:** 8px; chips scaled (radius 5px), not pills. Specimen radii: small 6px, panel 12px, featured 14px, overlay 10px (shape.tokens set floating layers to the featured level, 14px, so they are the largest, per the radius hierarchy rule).
+- **How surfaces separate:** shadow. Panels lift on a soft shadow with no outline, on a near-white page; in dark, raised and floating surfaces also get lighter. Lines only on controls (edge shows where to click or type) and as hairlines between table rows. Shadows from the specimen (light): panel `0 1px 2px rgb(17 16 20 / 0.05), 0 2px 6px rgb(17 16 20 / 0.04)`; featured `0 1px 2px rgb(17 16 20 / 0.04), 0 6px 16px -4px rgb(17 16 20 / 0.08), 0 24px 48px -12px rgb(17 16 20 / 0.14)`; overlay `0 0 0 1px rgb(17 16 20 / 0.06), 0 4px 8px -2px rgb(17 16 20 / 0.08), 0 16px 32px -8px rgb(17 16 20 / 0.16)`.
+- **Typefaces:** Atkinson Hyperlegible Next for everything. No second face (Atkinson Hyperlegible Mono can be added if job numbers need fixed widths).
+- **Density:** dense (specimen `compact`: control height 28px, row height 34px, panel padding 16px, gap 12px, page padding 20px).
+- **Theme:** light and dark, light primary.
+- **Composition render, tinted gray (light):** https://sistema-git-v2-jtd-604ef502.vercel.app/api/specimen?accent=%237B43E6&neutral=%2372707A&presence=quiet&radius=8&chips=scaled&separation=shadow&density=compact&font=Atkinson+Hyperlegible+Next&display_font=Atkinson+Hyperlegible+Next&theme=light&layout=operations&content=%7B%22product%22%3A%22Relay%22%2C%22nav%22%3A%5B%22Board%22%2C%22Requests%22%2C%22Techs%22%2C%22Customers%22%2C%22Reports%22%5D%2C%22date%22%3A%22Friday%2C+20+November%22%2C%22page_title%22%3A%22Today%27s+board%22%2C%22search%22%3A%22Search+jobs%2C+customers%2C+techs%22%2C%22primary_action%22%3A%22New+job%22%2C%22secondary_action%22%3A%22Export%22%2C%22featured%22%3A%7B%22label%22%3A%22Needs+a+tech+now%22%2C%22title%22%3A%22No+heat%2C+2-storey+house+%C2%B7+Hartley+residence%22%2C%22meta%22%3A%5B%22JOB-20431%22%2C%2214+Alder+Lane%22%2C%22Window+10%E2%80%9312+am%22%2C%22Furnace%2C+gas%22%5D%2C%22steps%22%3A%5B%22Called+in%22%2C%22Triaged%22%2C%22Assign+tech%22%2C%22En+route%22%2C%22On+site%22%5D%2C%22action%22%3A%22Assign+tech%22%2C%22secondary%22%3A%22Open+job%22%7D%2C%22brand%22%3A%7B%22label%22%3A%22Jobs+done+today%22%2C%22metric%22%3A%2218+of+31%22%2C%22body%22%3A%22On+pace+for+the+day.+4+techs+have+open+slots+after+2+pm.%22%2C%22action%22%3A%22See+tech+schedule%22%7D%2C%22metrics%22%3A%5B%7B%22label%22%3A%22Unassigned%22%2C%22value%22%3A%224%22%7D%2C%7B%22label%22%3A%22Running+late%22%2C%22value%22%3A%222%22%7D%2C%7B%22label%22%3A%22On+site+now%22%2C%22value%22%3A%229%22%7D%2C%7B%22label%22%3A%22Requests+waiting%22%2C%22value%22%3A%223%22%7D%5D%2C%22table%22%3A%7B%22title%22%3A%22All+jobs+today%22%2C%22tabs%22%3A%5B%22All%22%2C%22Unassigned%22%2C%22Running+late%22%2C%22Parts+hold%22%5D%2C%22filter%22%3A%22Tech%3A+All%22%2C%22columns%22%3A%5B%22Job%22%2C%22Customer%22%2C%22Tech%22%2C%22Window%22%2C%22Status%22%2C%22Type%22%5D%2C%22rows%22%3A%5B%5B%22JOB-20431%22%2C%22Hartley+residence%22%2C%22%E2%80%94%22%2C%2210%E2%80%9312+am%22%2C%22Unassigned%22%2C%22Furnace%22%5D%2C%5B%22JOB-20417%22%2C%22Pine+St+Laundromat%22%2C%22D.+Okafor%22%2C%228%E2%80%9310+am%22%2C%22Running+late%22%2C%22Water+heater%22%5D%2C%5B%22JOB-20422%22%2C%22Brightwater+Dental%22%2C%22K.+Byrne%22%2C%229%E2%80%9311+am%22%2C%22On+site%22%2C%22AC+service%22%5D%2C%5B%22JOB-20425%22%2C%22Lindqvist+residence%22%2C%22M.+Ruiz%22%2C%2211%E2%80%931+pm%22%2C%22En+route%22%2C%22Leak%22%5D%2C%5B%22JOB-20409%22%2C%22Cedar+Court+Apts%22%2C%22S.+Patel%22%2C%228%E2%80%9310+am%22%2C%22Parts+hold%22%2C%22Boiler%22%5D%2C%5B%22JOB-20428%22%2C%22Hollis+Bakery%22%2C%22A.+Mensah%22%2C%221%E2%80%933+pm%22%2C%22Assigned%22%2C%22Drain%22%5D%2C%5B%22JOB-20401%22%2C%22Ruiz+residence%22%2C%22K.+Byrne%22%2C%227%E2%80%939+am%22%2C%22Done%22%2C%22Thermostat%22%5D%5D%7D%2C%22statuses%22%3A%7B%22Unassigned%22%3A%22neutral%22%2C%22Assigned%22%3A%22neutral%22%2C%22En+route%22%3A%22info%22%2C%22On+site%22%3A%22success%22%2C%22Running+late%22%3A%22warning%22%2C%22Parts+hold%22%3A%22error%22%2C%22Done%22%3A%22success%22%7D%2C%22menu%22%3A%5B%22Open+job%22%2C%22Reassign+tech%22%2C%22Change+window%22%2C%22Put+on+parts+hold%22%5D%2C%22toast%22%3A%7B%22text%22%3A%22JOB-20420+assigned+to+D.+Okafor%2C+arriving+10%3A40+am%22%2C%22action%22%3A%22Undo%22%7D%7D&format=html&c=internal-1882ecfe-477f-46e6-92ce-5f1c6ec43eab
+- **Composition render, tinted gray (dark):** https://sistema-git-v2-jtd-604ef502.vercel.app/api/specimen?accent=%237B43E6&neutral=%2372707A&presence=quiet&radius=8&chips=scaled&separation=shadow&density=compact&font=Atkinson+Hyperlegible+Next&display_font=Atkinson+Hyperlegible+Next&theme=dark&layout=operations&content=%7B%22product%22%3A%22Relay%22%2C%22nav%22%3A%5B%22Board%22%2C%22Requests%22%2C%22Techs%22%2C%22Customers%22%2C%22Reports%22%5D%2C%22date%22%3A%22Friday%2C+20+November%22%2C%22page_title%22%3A%22Today%27s+board%22%2C%22search%22%3A%22Search+jobs%2C+customers%2C+techs%22%2C%22primary_action%22%3A%22New+job%22%2C%22secondary_action%22%3A%22Export%22%2C%22featured%22%3A%7B%22label%22%3A%22Needs+a+tech+now%22%2C%22title%22%3A%22No+heat%2C+2-storey+house+%C2%B7+Hartley+residence%22%2C%22meta%22%3A%5B%22JOB-20431%22%2C%2214+Alder+Lane%22%2C%22Window+10%E2%80%9312+am%22%2C%22Furnace%2C+gas%22%5D%2C%22steps%22%3A%5B%22Called+in%22%2C%22Triaged%22%2C%22Assign+tech%22%2C%22En+route%22%2C%22On+site%22%5D%2C%22action%22%3A%22Assign+tech%22%2C%22secondary%22%3A%22Open+job%22%7D%2C%22brand%22%3A%7B%22label%22%3A%22Jobs+done+today%22%2C%22metric%22%3A%2218+of+31%22%2C%22body%22%3A%22On+pace+for+the+day.+4+techs+have+open+slots+after+2+pm.%22%2C%22action%22%3A%22See+tech+schedule%22%7D%2C%22metrics%22%3A%5B%7B%22label%22%3A%22Unassigned%22%2C%22value%22%3A%224%22%7D%2C%7B%22label%22%3A%22Running+late%22%2C%22value%22%3A%222%22%7D%2C%7B%22label%22%3A%22On+site+now%22%2C%22value%22%3A%229%22%7D%2C%7B%22label%22%3A%22Requests+waiting%22%2C%22value%22%3A%223%22%7D%5D%2C%22table%22%3A%7B%22title%22%3A%22All+jobs+today%22%2C%22tabs%22%3A%5B%22All%22%2C%22Unassigned%22%2C%22Running+late%22%2C%22Parts+hold%22%5D%2C%22filter%22%3A%22Tech%3A+All%22%2C%22columns%22%3A%5B%22Job%22%2C%22Customer%22%2C%22Tech%22%2C%22Window%22%2C%22Status%22%2C%22Type%22%5D%2C%22rows%22%3A%5B%5B%22JOB-20431%22%2C%22Hartley+residence%22%2C%22%E2%80%94%22%2C%2210%E2%80%9312+am%22%2C%22Unassigned%22%2C%22Furnace%22%5D%2C%5B%22JOB-20417%22%2C%22Pine+St+Laundromat%22%2C%22D.+Okafor%22%2C%228%E2%80%9310+am%22%2C%22Running+late%22%2C%22Water+heater%22%5D%2C%5B%22JOB-20422%22%2C%22Brightwater+Dental%22%2C%22K.+Byrne%22%2C%229%E2%80%9311+am%22%2C%22On+site%22%2C%22AC+service%22%5D%2C%5B%22JOB-20425%22%2C%22Lindqvist+residence%22%2C%22M.+Ruiz%22%2C%2211%E2%80%931+pm%22%2C%22En+route%22%2C%22Leak%22%5D%2C%5B%22JOB-20409%22%2C%22Cedar+Court+Apts%22%2C%22S.+Patel%22%2C%228%E2%80%9310+am%22%2C%22Parts+hold%22%2C%22Boiler%22%5D%2C%5B%22JOB-20428%22%2C%22Hollis+Bakery%22%2C%22A.+Mensah%22%2C%221%E2%80%933+pm%22%2C%22Assigned%22%2C%22Drain%22%5D%2C%5B%22JOB-20401%22%2C%22Ruiz+residence%22%2C%22K.+Byrne%22%2C%227%E2%80%939+am%22%2C%22Done%22%2C%22Thermostat%22%5D%5D%7D%2C%22statuses%22%3A%7B%22Unassigned%22%3A%22neutral%22%2C%22Assigned%22%3A%22neutral%22%2C%22En+route%22%3A%22info%22%2C%22On+site%22%3A%22success%22%2C%22Running+late%22%3A%22warning%22%2C%22Parts+hold%22%3A%22error%22%2C%22Done%22%3A%22success%22%7D%2C%22menu%22%3A%5B%22Open+job%22%2C%22Reassign+tech%22%2C%22Change+window%22%2C%22Put+on+parts+hold%22%5D%2C%22toast%22%3A%7B%22text%22%3A%22JOB-20420+assigned+to+D.+Okafor%2C+arriving+10%3A40+am%22%2C%22action%22%3A%22Undo%22%7D%7D&format=html&c=internal-1882ecfe-477f-46e6-92ce-5f1c6ec43eab
+- **Composition render, plain gray (light):** https://sistema-git-v2-jtd-604ef502.vercel.app/api/specimen?accent=%237B43E6&neutral=neutral&presence=quiet&radius=8&chips=scaled&separation=shadow&density=compact&font=Atkinson+Hyperlegible+Next&display_font=Atkinson+Hyperlegible+Next&theme=light&layout=operations&content=%7B%22product%22%3A%22Relay%22%2C%22nav%22%3A%5B%22Board%22%2C%22Requests%22%2C%22Techs%22%2C%22Customers%22%2C%22Reports%22%5D%2C%22date%22%3A%22Friday%2C+20+November%22%2C%22page_title%22%3A%22Today%27s+board%22%2C%22search%22%3A%22Search+jobs%2C+customers%2C+techs%22%2C%22primary_action%22%3A%22New+job%22%2C%22secondary_action%22%3A%22Export%22%2C%22featured%22%3A%7B%22label%22%3A%22Needs+a+tech+now%22%2C%22title%22%3A%22No+heat%2C+2-storey+house+%C2%B7+Hartley+residence%22%2C%22meta%22%3A%5B%22JOB-20431%22%2C%2214+Alder+Lane%22%2C%22Window+10%E2%80%9312+am%22%2C%22Furnace%2C+gas%22%5D%2C%22steps%22%3A%5B%22Called+in%22%2C%22Triaged%22%2C%22Assign+tech%22%2C%22En+route%22%2C%22On+site%22%5D%2C%22action%22%3A%22Assign+tech%22%2C%22secondary%22%3A%22Open+job%22%7D%2C%22brand%22%3A%7B%22label%22%3A%22Jobs+done+today%22%2C%22metric%22%3A%2218+of+31%22%2C%22body%22%3A%22On+pace+for+the+day.+4+techs+have+open+slots+after+2+pm.%22%2C%22action%22%3A%22See+tech+schedule%22%7D%2C%22metrics%22%3A%5B%7B%22label%22%3A%22Unassigned%22%2C%22value%22%3A%224%22%7D%2C%7B%22label%22%3A%22Running+late%22%2C%22value%22%3A%222%22%7D%2C%7B%22label%22%3A%22On+site+now%22%2C%22value%22%3A%229%22%7D%2C%7B%22label%22%3A%22Requests+waiting%22%2C%22value%22%3A%223%22%7D%5D%2C%22table%22%3A%7B%22title%22%3A%22All+jobs+today%22%2C%22tabs%22%3A%5B%22All%22%2C%22Unassigned%22%2C%22Running+late%22%2C%22Parts+hold%22%5D%2C%22filter%22%3A%22Tech%3A+All%22%2C%22columns%22%3A%5B%22Job%22%2C%22Customer%22%2C%22Tech%22%2C%22Window%22%2C%22Status%22%2C%22Type%22%5D%2C%22rows%22%3A%5B%5B%22JOB-20431%22%2C%22Hartley+residence%22%2C%22%E2%80%94%22%2C%2210%E2%80%9312+am%22%2C%22Unassigned%22%2C%22Furnace%22%5D%2C%5B%22JOB-20417%22%2C%22Pine+St+Laundromat%22%2C%22D.+Okafor%22%2C%228%E2%80%9310+am%22%2C%22Running+late%22%2C%22Water+heater%22%5D%2C%5B%22JOB-20422%22%2C%22Brightwater+Dental%22%2C%22K.+Byrne%22%2C%229%E2%80%9311+am%22%2C%22On+site%22%2C%22AC+service%22%5D%2C%5B%22JOB-20425%22%2C%22Lindqvist+residence%22%2C%22M.+Ruiz%22%2C%2211%E2%80%931+pm%22%2C%22En+route%22%2C%22Leak%22%5D%2C%5B%22JOB-20409%22%2C%22Cedar+Court+Apts%22%2C%22S.+Patel%22%2C%228%E2%80%9310+am%22%2C%22Parts+hold%22%2C%22Boiler%22%5D%2C%5B%22JOB-20428%22%2C%22Hollis+Bakery%22%2C%22A.+Mensah%22%2C%221%E2%80%933+pm%22%2C%22Assigned%22%2C%22Drain%22%5D%2C%5B%22JOB-20401%22%2C%22Ruiz+residence%22%2C%22K.+Byrne%22%2C%227%E2%80%939+am%22%2C%22Done%22%2C%22Thermostat%22%5D%5D%7D%2C%22statuses%22%3A%7B%22Unassigned%22%3A%22neutral%22%2C%22Assigned%22%3A%22neutral%22%2C%22En+route%22%3A%22info%22%2C%22On+site%22%3A%22success%22%2C%22Running+late%22%3A%22warning%22%2C%22Parts+hold%22%3A%22error%22%2C%22Done%22%3A%22success%22%7D%2C%22menu%22%3A%5B%22Open+job%22%2C%22Reassign+tech%22%2C%22Change+window%22%2C%22Put+on+parts+hold%22%5D%2C%22toast%22%3A%7B%22text%22%3A%22JOB-20420+assigned+to+D.+Okafor%2C+arriving+10%3A40+am%22%2C%22action%22%3A%22Undo%22%7D%7D&format=html&c=internal-1882ecfe-477f-46e6-92ce-5f1c6ec43eab
+- **Composition render, plain gray (dark):** https://sistema-git-v2-jtd-604ef502.vercel.app/api/specimen?accent=%237B43E6&neutral=neutral&presence=quiet&radius=8&chips=scaled&separation=shadow&density=compact&font=Atkinson+Hyperlegible+Next&display_font=Atkinson+Hyperlegible+Next&theme=dark&layout=operations&content=%7B%22product%22%3A%22Relay%22%2C%22nav%22%3A%5B%22Board%22%2C%22Requests%22%2C%22Techs%22%2C%22Customers%22%2C%22Reports%22%5D%2C%22date%22%3A%22Friday%2C+20+November%22%2C%22page_title%22%3A%22Today%27s+board%22%2C%22search%22%3A%22Search+jobs%2C+customers%2C+techs%22%2C%22primary_action%22%3A%22New+job%22%2C%22secondary_action%22%3A%22Export%22%2C%22featured%22%3A%7B%22label%22%3A%22Needs+a+tech+now%22%2C%22title%22%3A%22No+heat%2C+2-storey+house+%C2%B7+Hartley+residence%22%2C%22meta%22%3A%5B%22JOB-20431%22%2C%2214+Alder+Lane%22%2C%22Window+10%E2%80%9312+am%22%2C%22Furnace%2C+gas%22%5D%2C%22steps%22%3A%5B%22Called+in%22%2C%22Triaged%22%2C%22Assign+tech%22%2C%22En+route%22%2C%22On+site%22%5D%2C%22action%22%3A%22Assign+tech%22%2C%22secondary%22%3A%22Open+job%22%7D%2C%22brand%22%3A%7B%22label%22%3A%22Jobs+done+today%22%2C%22metric%22%3A%2218+of+31%22%2C%22body%22%3A%22On+pace+for+the+day.+4+techs+have+open+slots+after+2+pm.%22%2C%22action%22%3A%22See+tech+schedule%22%7D%2C%22metrics%22%3A%5B%7B%22label%22%3A%22Unassigned%22%2C%22value%22%3A%224%22%7D%2C%7B%22label%22%3A%22Running+late%22%2C%22value%22%3A%222%22%7D%2C%7B%22label%22%3A%22On+site+now%22%2C%22value%22%3A%229%22%7D%2C%7B%22label%22%3A%22Requests+waiting%22%2C%22value%22%3A%223%22%7D%5D%2C%22table%22%3A%7B%22title%22%3A%22All+jobs+today%22%2C%22tabs%22%3A%5B%22All%22%2C%22Unassigned%22%2C%22Running+late%22%2C%22Parts+hold%22%5D%2C%22filter%22%3A%22Tech%3A+All%22%2C%22columns%22%3A%5B%22Job%22%2C%22Customer%22%2C%22Tech%22%2C%22Window%22%2C%22Status%22%2C%22Type%22%5D%2C%22rows%22%3A%5B%5B%22JOB-20431%22%2C%22Hartley+residence%22%2C%22%E2%80%94%22%2C%2210%E2%80%9312+am%22%2C%22Unassigned%22%2C%22Furnace%22%5D%2C%5B%22JOB-20417%22%2C%22Pine+St+Laundromat%22%2C%22D.+Okafor%22%2C%228%E2%80%9310+am%22%2C%22Running+late%22%2C%22Water+heater%22%5D%2C%5B%22JOB-20422%22%2C%22Brightwater+Dental%22%2C%22K.+Byrne%22%2C%229%E2%80%9311+am%22%2C%22On+site%22%2C%22AC+service%22%5D%2C%5B%22JOB-20425%22%2C%22Lindqvist+residence%22%2C%22M.+Ruiz%22%2C%2211%E2%80%931+pm%22%2C%22En+route%22%2C%22Leak%22%5D%2C%5B%22JOB-20409%22%2C%22Cedar+Court+Apts%22%2C%22S.+Patel%22%2C%228%E2%80%9310+am%22%2C%22Parts+hold%22%2C%22Boiler%22%5D%2C%5B%22JOB-20428%22%2C%22Hollis+Bakery%22%2C%22A.+Mensah%22%2C%221%E2%80%933+pm%22%2C%22Assigned%22%2C%22Drain%22%5D%2C%5B%22JOB-20401%22%2C%22Ruiz+residence%22%2C%22K.+Byrne%22%2C%227%E2%80%939+am%22%2C%22Done%22%2C%22Thermostat%22%5D%5D%7D%2C%22statuses%22%3A%7B%22Unassigned%22%3A%22neutral%22%2C%22Assigned%22%3A%22neutral%22%2C%22En+route%22%3A%22info%22%2C%22On+site%22%3A%22success%22%2C%22Running+late%22%3A%22warning%22%2C%22Parts+hold%22%3A%22error%22%2C%22Done%22%3A%22success%22%7D%2C%22menu%22%3A%5B%22Open+job%22%2C%22Reassign+tech%22%2C%22Change+window%22%2C%22Put+on+parts+hold%22%5D%2C%22toast%22%3A%7B%22text%22%3A%22JOB-20420+assigned+to+D.+Okafor%2C+arriving+10%3A40+am%22%2C%22action%22%3A%22Undo%22%7D%7D&format=html&c=internal-1882ecfe-477f-46e6-92ce-5f1c6ec43eab
+- **Feedback ramps:** library green (on site, done), amber (running late), red (parts hold), blue (en route). Unassigned and Assigned use the neutral container.
+
+**Roles the composition used** (ramp and stop, from the specimen response; identical for tinted and plain gray):
+
+| Role | Light | Dark |
+|---|---|---|
+| `canvas` | neutral 50 | neutral 950 |
+| `surface` | white | neutral 850 |
+| `surface-subtle` | neutral 50 | neutral 950 |
+| `surface-hover` | neutral 150 | neutral 800 |
+| `row-hover` | neutral 50 | neutral 800 |
+| `selected-row` | accent 50 | accent 850 |
+| `surface-overlay` | white | neutral 800 |
+| `surface-featured` | white | neutral 800 |
+| `surface-brand` | accent 600 | accent 600 |
+| `on-brand` | white | white |
+| `on-brand-muted` | accent 200 | accent 200 |
+| `surface-inverse` | neutral 850 | neutral 150 |
+| `on-inverse` | neutral 50 | neutral 850 |
+| `on-inverse-muted` | neutral 350 | neutral 600 |
+| `text` | neutral 850 | neutral 50 |
+| `text-secondary` | neutral 600 | neutral 350 |
+| `text-tertiary` | neutral 550 | neutral 400 |
+| `text-disabled` | neutral 400 | neutral 600 |
+| `link` | accent 600 | accent 400 |
+| `hairline` | neutral 200 | neutral 750 |
+| `border-control` | neutral 450 | neutral 500 |
+| `border-quiet` | neutral 250 | neutral 700 |
+| `focus` | accent 500 | accent 400 |
+| `primary` | accent 550 | accent 450 |
+| `primary-hover` | accent 650 | accent 400 |
+| `on-primary` | white | accent 950 |
+| `accent-subtle` | accent 150 | accent 800 |
+| `on-accent-subtle` | accent 750 | accent 250 |
+| `nav-bg` | neutral 50 | neutral 950 |
+| `nav-text` | neutral 600 | neutral 350 |
+| `nav-selected` | neutral 150 | neutral 800 |
+| `on-nav-selected` | neutral 850 | neutral 50 |
+| `neutral-container` | neutral 150 | neutral 750 |
+| `on-neutral-container` | neutral 650 | neutral 250 |
+| `neutral-dot` | neutral 400 | neutral 450 |
+| `success-container` | green 150 | green 850 |
+| `on-success-container` | green 750 | green 250 |
+| `success-dot` | green 550 | green 400 |
+| `warning-container` | amber 150 | amber 850 |
+| `on-warning-container` | amber 750 | amber 250 |
+| `warning-dot` | amber 450 | amber 400 |
+| `error-container` | red 150 | red 850 |
+| `on-error-container` | red 750 | red 250 |
+| `error-dot` | red 550 | red 400 |
+| `info-container` | blue 150 | blue 850 |
+| `on-info-container` | blue 750 | blue 250 |
+| `info-dot` | blue 550 | blue 400 |
+
+### Emphasis map
+
+Approved 2026-11-20. A first guess; revise it when real screens exist. Keep strong emphasis rare; if a screen would feature several things, say which one leads.
+
+How each level is shown with the answers above: panels lift on the soft panel shadow (lighter surface in dark); the featured item lifts on the much stronger featured shadow; subtle zones are a quieter tone with no shadow; the brand block is solid accent 600; the inverse block is dark on light (light on dark). With quiet color, the brand block is the only large area of the accent, so it stays off the working screens.
+
+| Screen | Featured | Subtle zones | Brand block | Inverse block |
+|---|---|---|---|---|
+| Board (today's jobs) | The next job that needs action: the oldest unassigned job, or a job at risk | Sidebar navigation, filter bar | None, so the featured job leads | Toasts only |
+| Job detail | The job's status and next step | Activity history, customer notes | None | Toasts only |
+| Requests inbox | The oldest waiting request | Sidebar, handled requests | None | Toasts only |
+| Tech schedule | None (the timeline is the content) | Unscheduled jobs lane | None | Toasts only |
+| Reports | None | Filters | The day's headline number (jobs done today) | None |
 
 ## Colors
 
-Color in Relay is functional. Chrome stays near-neutral so that job status and the one action color are what the eye finds first.
+Color in Relay is quiet. Surfaces, text, and lines come from one gray ramp tinted faintly toward violet; the violet accent appears only where people act or have selected something; status colors are the strongest color on any screen of jobs. Where each emphasis surface goes is in the Overview's emphasis map.
 
-**Surfaces.**
-- `surface`: the page canvas behind everything. Text on it uses `on-surface` / `on-surface-muted`.
-- `surface-raised`: panels, tables, forms, and cards that sit on the canvas. It is the lightest layer in light theme and is set apart from `surface` by tone and a `border`, not by shadow.
-- `surface-overlay`: menus, popovers, dialogs, and toasts. Pairs with `on-surface` and carries the single floating shadow (see Elevation & Depth).
-- `surface-hover`: the hover tint for table rows and list items.
+**Page and panels** (the quiet levels: small steps).
+- `surface`: the page canvas behind everything.
+- `surface-raised`: panels, tables, and forms on the page. Lifted by `shadow-raised`; in dark it is also one step lighter than the page.
+- `surface-overlay`: menus, popovers, the combobox list, tooltips, toasts, and dialogs, with `shadow-overlay`.
+- `surface-hover`: hover on rows, list items, and ghost or secondary controls that sit on `surface-raised`.
+- `surface-overlay-hover`: the highlighted item inside a floating layer (menu, select, combobox).
+- `surface-selected`: selected rows and list items. A neutral step stronger than `surface-hover` in both themes; the accent shows only as the checked box and the `primary` left edge.
+- `surface-subtle`: quiet zones and inset wells, such as the sidebar, a toolbar band, and inline messages inside panels. It has the page's tone and no shadow.
 
-**Text and lines.**
-- `on-surface`: default text and icons on any surface layer.
-- `on-surface-muted`: secondary text (metadata, column headers, timestamps, placeholder). Never used for anything a dispatcher must act on.
-- `border`: dividers between rows, panel outlines. Decorative separation only; it is not required to meet 3:1.
-- `border-strong`: the edges of controls a person must find (inputs, secondary buttons, unassigned chips). Must meet the standard's non-text contrast against every surface it sits on.
-- `border-focus`: the 2px keyboard focus ring, offset 2px, on every focusable element.
+**Emphasis surfaces** (big steps, used only where the emphasis map says).
+- `surface-featured`: the one thing a screen leads with, such as the job that needs action. It lifts with `shadow-featured`.
+- `surface-inverse` with `on-surface-inverse`: inverse blocks, which today means toasts.
+- `surface-brand` with `on-surface-brand` and `on-surface-brand-muted`: the brand block, a solid accent block (the Reports headline). It is the only large area of the accent and never appears on the board.
 
-**Action.**
-- `primary` / `on-primary`: the one filled action color (main buttons, the selected tab indicator, selection edge). Hover uses `primary-hover`.
-- `primary-container` / `on-primary-container`: selected rows and selected list items, and quiet emphasis.
+**Text.** Three tones from the neutral ramp, never pure black.
+- `on-surface`: default text and icons on every neutral surface.
+- `on-surface-muted`: secondary text such as metadata, column headers, timestamps, and placeholders.
+- `on-surface-faint`: the least important metadata and empty-cell dashes. Never for anything a person must read to act.
+
+**Lines.** Every line has a job (see Elevation & Depth).
+- `border`: hairlines between table rows and under the table header. Decorative, so it is not required to meet the non-text contrast ratio.
+- `border-strong`: the edges of controls people must find (inputs, selects, the combobox, checkboxes, secondary and destructive buttons). Checked for non-text contrast against every surface it sits on.
+- `border-focus`: the keyboard focus ring on every focusable element.
+
+**Accent.** Quiet color presence: the accent marks action, selection, focus, and links, and nothing else.
+- `primary` / `on-primary`: the one main button per screen, checked checkboxes, and the job progress bar. Hover uses `primary-hover`.
+- `primary-container` / `on-primary-container`: the accent at low strength, for small marks only (a count badge, a selected-tab background). Never for rows or blocks: in dark it is a deep violet. The current page in the navigation is not accented: it uses `secondary-container`.
 - `link`: inline text links, always underlined.
-- `secondary` / `on-secondary`, `secondary-container` / `on-secondary-container`: neutral, not a second hue. Secondary buttons, toolbar toggles, filter chips. Relay has one brand hue on purpose.
+- `secondary` / `on-secondary`, `secondary-container` / `on-secondary-container`: neutral, because Relay has one hue on purpose. They cover toggled toolbar buttons, the current navigation item, inactive segmented controls, and the Assigned chip.
 
-**Feedback and status.** Each feedback hue has a strong role for text and icons on surfaces, a container for fills, and an on-container for text inside fills.
-- `error`, `on-error`, `error-container`, `on-error-container`: failed actions, invalid fields, jobs blocked (for example, parts hold).
-- `warning`, `on-warning`, `warning-container`, `on-warning-container`: at-risk jobs (running late, nearing window end).
-- `success`, `on-success`, `success-container`, `on-success-container`: completed or confirmed (on site, done, saved).
-- `info`, `on-info`, `info-container`, `on-info-container`: in-progress, neutral news (en route). Info blue must stay visibly distinct from `primary` petrol.
+**Feedback and status.** Status color is a detail. Each feedback hue has a strong role for dots, icons, titles, and text on surfaces; a fill role for text on a solid fill; and a container with its on-container for small marks such as chips and badges. Containers are never used for blocks of content: inline messages sit on `surface-subtle` with the status color in the icon and title.
+- `error`, `on-error`, `error-container`, `on-error-container`: failed actions, invalid fields, and blocked jobs (Parts hold).
+- `warning`, `on-warning`, `warning-container`, `on-warning-container`: at-risk jobs (Running late).
+- `success`, `on-success`, `success-container`, `on-success-container`: done or confirmed (On site, Done, saved).
+- `info`, `on-info`, `info-container`, `on-info-container`: in progress and neutral news (En route). Info blue stays apart from the violet accent by hue.
+- `scrim`: the dimming layer behind dialogs.
 
-**Pairs that go together:** `on-surface` and `on-surface-muted` on any surface layer; `on-primary` on `primary` and `primary-hover`; each `on-*-container` on its own container; `error`, `warning`, `success`, `info`, and `link` as text only on `surface`, `surface-raised`, or `surface-overlay`. Every pair is checked with the contrast tool in both themes.
+**Job statuses:** Unassigned has no fill: an `on-surface-muted` dot and word, because nothing is assigned yet. Assigned uses `secondary-container`, En route `info`, On site and Done `success`, Running late `warning`, and Parts hold `error`. On site and Done share a color and differ by word.
 
-**Status is never color alone.** Job status is always a dot plus a word (and a tinted container where space allows). Invalid fields get a thicker `error` border and a text message, not a red border alone.
+**Pairs that go together:** `on-surface`, `on-surface-muted`, and `on-surface-faint` on any neutral surface, including `surface-selected` and `surface-subtle`. Each `on-*` role goes on its own fill or container. `error`, `warning`, `success`, `info`, and `link` go on `surface`, `surface-raised`, `surface-overlay`, `surface-featured`, `surface-selected`, or `surface-subtle`. Every pair is checked with the contrast tool in both themes, and the ratios are in each role's description in `tokens/src/color.json`.
 
-Values for every role, in both themes, are in `tokens/src/color.json` and `tokens/src/color.dark.json` (set by color.scheme); `surface-hover` and `link` are kept as separate roles.
-Provisional: the final list of job statuses and which feedback role each uses (the preview's statuses are examples). Set by the patterns workflow, when the status chip is built.
+**Color never signals on its own.** Status is always a dot plus a word, in a tinted chip where space allows. An invalid field gets the `error` edge and a message. A selected row gets `surface-selected`, the `primary` edge, and a checked checkbox or `aria-current`.
+
+**One decision for both themes.** Each treatment is decided once and translated: what is neutral (surfaces, selection, message backgrounds), what carries color (actions, focus, links, status details), and how strong each level is. Review components in light and dark side by side; if a treatment only works in one theme, change the treatment.
 
 ## Typography
 
-Two typefaces, one family: **Atkinson Hyperlegible Next** for all interface text and **Atkinson Hyperlegible Mono** for values that are read character by character (job IDs, times, phone numbers, invoice amounts in tables). Both are chosen so 1, I, l, 0, and O can't be confused.
+One typeface, **Atkinson Hyperlegible Next**, for all interface text. Its letter and figure shapes are designed not to be confused (0 and O; 1, l, and I), which matters for job numbers and times read at a glance. There is no second face. Tabular figures line up IDs, times, and counts.
 
 Roles:
-- `title`: page titles (one per screen).
-- `heading`: panel and section headings, dialog titles.
-- `body`: default reading text in forms, notes, and descriptions.
-- `body-strong`: emphasis inside body text and key values in detail views (assigned tech, arrival time).
-- `data`: table cells and dense list rows.
-- `data-mono`: IDs, times, phone numbers, and numeric columns, in the mono face with tabular figures.
-- `label`: form labels, column headers, chip text, button text.
-- `overline`: small uppercase group labels above fields or sections.
+- `metric`: key numbers in a metric strip or the brand block. Tabular figures.
+- `title`: the page title, one per screen.
+- `heading`: panel and section headings, dialog titles, and the featured job's title.
+- `body`: reading text such as descriptions, notes, form values, and menu items.
+- `body-strong`: emphasis inside body text and key values in detail views.
+- `data`: table cells and dense list rows. Tabular figures.
+- `label`: form labels, column headers, button text, and chip text.
+- `overline`: small uppercase group labels. The utility sets the uppercase.
 
-**How hierarchy is built:** mostly by weight and case, not by size. The scale is compact (the largest role in daily use is `title`); a heading differs from body more by weight than by size; `overline` uses uppercase and tracking rather than size. Numbers that line up in columns always use `data-mono` or tabular figures.
+**How hierarchy is built:** by weight and tracking as much as by size. The scale is compact. Headings and titles are semibold with slightly tight tracking. Labels are medium weight. Body and data are regular. Secondary information drops a text tone (`on-surface-muted`) rather than a size.
 
-**Two tiers.** Underneath the roles is a magnitude size scale with Tailwind-style names (`xs`, `sm`, `base`, `lg`, `xl`, `2xl`), for one-off use only; components use the roles. `data` and `data-mono` sit between two scale steps on purpose. Relay has no `display` or `caption` role: nothing in a dispatch screen needs them yet.
+Under the roles sits a magnitude scale from the type scale tool, with Tailwind-style names (`xs` to `4xl`). It is for one-off use only; components use the roles. The typeface is loaded with `next/font/google` (downloaded at build time and served by the app), only in the weights the roles use.
 
-Both typefaces are loaded with `next/font/google` (downloaded at build time and served by the app), only in the weights the roles use. Values are in `tokens/src/typography.json` (set by typography.scale).
-
-In Tailwind, each role is a utility (`text-body`, `text-label`, and so on) carrying its size, line height, weight, and tracking; `data-mono` also needs `font-mono`, and `overline` needs `uppercase`. The magnitude scale is not mapped into Tailwind, so Tailwind's own `text-sm` and `text-xs` (used inside shadcn/ui components) keep their defaults.
+In Tailwind, each role is a utility (`text-body`, `text-label`, and so on) that carries its size, line height, weight, and tracking. `text-data` and `text-metric` add tabular figures, and `text-overline` adds uppercase.
 
 ## Layout
 
-Relay is **dense**: many rows, filters, and fields on one desktop screen, used all day. Spacing is tight inside components and grows in clear steps between groups and between panels, so structure comes from rhythm and borders rather than from large gaps.
+Relay is **dense**: many rows, filters, and fields on one desktop screen, used all day. Spacing is tight inside components and grows in clear steps between groups and between panels. Space, not lines, is the first way groups separate. The outer spacing (page gutter, gaps between panels) stays generous even though the inside is compact.
 
-- Spacing grows in three bands: inside a component (icon to label, cell padding), between related controls (fields in a form row, buttons in a toolbar), and between panels or page regions.
-- Table rows and list items share one row height; forms use the same control height as table toolbars, so a row of filters lines up with the table below it.
-- Screens are desktop-first: a fixed app frame (navigation, toolbar) with panes that fill the viewport; content is not centred in a narrow column.
+**Base unit and scale.** A 4px base with the compact step set: half steps for component internals and a few large steps. Steps are named by their multiple of the base unit (`space-2` is two units), matching Tailwind's spacing utilities.
 
-**Base unit and scale.** A 4px base, with the dense step set: half steps for component internals, few large steps. Steps are named by their multiple of the base unit (`space-2` is two units), matching Tailwind's spacing utilities.
+**How spacing grows:**
+- Inside a component (icon to label, cell padding): `field-gap` and `cell-padding-x`.
+- Between related controls or stacked fields: `component-gap` and `stack-gap`.
+- Between panels and page regions: `section-gap`, two steps larger. Inside a panel: `panel-padding`.
+- Around the app: `page-gutter`.
+- Controls share `control-height`. Table rows use `row-height`, which is taller so a row can hold a control.
 
-**Layout aliases** (use these, not raw steps, for the decisions every page repeats):
-- `page-gutter`: horizontal padding of the app frame and page containers.
-- `section-gap`: between panels and page regions.
-- `panel-padding`: inside panels, cards, popovers, and dialogs.
-- `stack-gap`: between stacked form fields and blocks inside a panel.
-- `component-gap`: between related controls in a toolbar, filter bar, or form row.
-- `field-gap`: between a label and its input, or an icon and its text.
-- `cell-padding-x`: inside table cells and list rows.
-- `control-height` and `row-height`: the same value, so controls and table rows line up.
+Screens are desktop-first: a fixed app frame (navigation, toolbar) with panes that fill the viewport, not a narrow centered column.
 
-Values are in `tokens/src/spacing.json` (set by spacing.tokens).
-
-Provisional: pane widths, breakpoints, and the app-frame grid (navigation width, detail pane width). Set by the patterns workflow, when the first screen is built.
+Provisional: pane widths, breakpoints, and the app-frame grid (navigation width, detail pane width). Set by components.page-examples, when the first screen is built.
 
 ## Elevation & Depth
 
-Depth is **surface tone plus borders** for everything on the working surface, and **shadow plus a lighter tone** for anything that floats.
+Panels are separated from the page by **shadow**, as the direction chose. Shadows go only where they have a role, and all of them come from one light source above, tinted with the neutral ramp's darkest stop.
 
-- **Level 0 (flat):** `surface-raised` panels, tables, and cards sit on `surface` with a `border`. No shadow.
-- **Level 1 (`shadow-1`):** menus, popovers, comboboxes, tooltips, and toasts, on `surface-overlay`.
-- **Level 2 (`shadow-2`):** dialogs, and anything opened on top of a level-1 layer, on `surface-overlay`, with the `scrim` dimming the page behind.
+- **Page** (`surface`) and quiet zones (`surface-subtle`): flat, no shadow.
+- **Panels** (`surface-raised`, `shadow-raised`): panels, the jobs table, and forms. A soft two-layer lift, with no outline.
+- **Featured** (`surface-featured`, `shadow-featured`): the one item a screen leads with. It lifts much further than a panel.
+- **Floating** (`surface-overlay`, `shadow-overlay`): menus, popovers, the combobox list, tooltips, toasts, and dialogs. Dialogs also dim the page with `scrim`.
+- **Controls:** the primary button has `shadow-control`, a slight lift. Other controls are flat.
 
 By theme:
-- Light: the shadow does the work; `surface-overlay` is the same light tone as raised panels.
-- Dark: `surface-overlay` is a lighter tone than raised panels and carries most of the depth; shadows are stronger but secondary. The scrim is darker.
+- Light: the page is near-white and panels are white. The shadow does the separating.
+- Dark: shadows use the same layers at higher opacity, and every lifted layer also steps one stop lighter: page, then panels, then featured, then floating (`color.dark.surface-steps`).
 
-Shadow colors come from the neutral ramp (its darkest stop), not pure black. Values are in `tokens/src/shape.json` and `tokens/src/shape.dark.json` (set by shape.tokens).
+**Where borders are used, and their job:**
+- `border-strong` on inputs, selects, the combobox field, checkboxes, and secondary and destructive buttons, because the edge shows where to click or type.
+- `border` between table rows and under the table header, because it helps the eye follow a wide row.
+- `border-focus` for the focus ring.
+- No outline on panels, the featured surface, chips, tooltips, menus, dialogs, or toasts. The 1px layer inside `shadow-overlay` is part of the shadow, not a border.
 
 ## Shapes
 
-Sharp and precise. Corners are small and they rise with the size and height of the layer, so there is a visible hierarchy rather than one radius everywhere: inline marks, then controls, then containers, then floating layers.
+Medium and scaled. Controls use an 8px radius, and corners grow with the size and height of the layer: chips, then controls, then panels, then the featured surface and floating layers.
 
-- `radius-none`: table cells, full-bleed panes, and anything that butts against another edge.
-- `radius-xs`: status chips, badges, tags, and keyboard-key hints.
-- `radius-sm`: checkboxes and small inline controls.
-- `radius-md`: buttons, inputs, selects, segmented controls. Every variant in a family shares it.
-- `radius-lg`: panels, cards, detail panes, and banners on the canvas.
-- `radius-xl`: floating layers: menus, popovers, comboboxes, toasts, and dialogs. The largest level.
+- `radius-none`: table cells, full-bleed panes, and anything that butts against another edge. Data stays square.
+- `radius-xs`: status chips (scaled, not pills), tags, and keyboard-key hints.
+- `radius-sm`: checkboxes, small inline controls, and items inside menus and lists.
+- `radius-md`: buttons, inputs, selects, the combobox, and segmented controls. Every variant in a family shares it.
+- `radius-lg`: panels, the jobs table, cards, and banners on the page.
+- `radius-xl`: the featured surface and every floating layer (menus, popovers, the combobox list, tooltips, toasts, dialogs). This is the largest level.
 - `radius-full`: status dots and avatars only. Never buttons or chips.
 
-Values are in `tokens/src/shape.json` (set by shape.tokens).
-
-In Tailwind, the levels replace the default `rounded-xs` to `rounded-xl` (so shadcn/ui components using `rounded-md` get `radius-md`). Provisional: shadcn/ui's own `--radius` variable is not mapped yet. Set by the patterns workflow (component scaffold).
+In Tailwind, the levels replace the default `rounded-xs` to `rounded-xl`. shadcn/ui's `--radius` is `radius-md`, and its `rounded-2xl` to `rounded-4xl` are pinned to `radius-xl` (src/styles/shadcn-theme.css). An element nested inside another uses a smaller level than its container.
 
 ## Components
 
-The first families Relay needs, built on shadcn/ui and these roles:
+The components are built on shadcn/ui (style base-nova, Base UI primitives), copied into `src/components/ui/` and edited to these roles. Import them from `@/components/ui`. Shared styles (focus ring, control frame, floating layer, list item) live in `src/components/ui/styles.ts`, and shadcn's variables map to role tokens in `src/styles/shadcn-theme.css`. Review them all at `/sistema-review/components`.
 
-- **Data table** (job board, technician list): `data` and `data-mono` text, `border` between rows, `surface-hover` on hover, `primary-container` with a `primary` edge for the selected row; sticky header in `label` on `surface-raised`.
-- **Status chip and dot**: one feedback container and on-container pair per status, `radius-xs`, always with a dot and a word.
-- **Button** (primary, secondary, ghost, destructive): `primary`, `secondary`, `link`, and `error` roles; `radius-md`; `label` text; `border-focus` ring.
-- **Form controls** (input, select, combobox, date/time picker, textarea, checkbox): `surface-raised` fill, `border-strong` edge, `radius-md`, `error` border and message on invalid.
-- **Filter bar and toolbar**: secondary buttons and filter chips at control height, aligned with the table below.
-- **Panel / detail pane** (job detail, customer record): `surface-raised`, `border`, `radius-lg`, `heading` and `overline` labels.
-- **Menu, popover, dialog, toast**: `surface-overlay`, `shadow-1` (dialogs `shadow-2` and `scrim`), `radius-xl`.
-- **Banner / inline alert**: feedback containers with an icon, a bold lead, and a message.
-- **Tabs and navigation**: `on-surface-muted` for inactive items, `primary` indicator for the active item.
-- **Assignment / schedule view** (technicians by time): built from the same table, chip, and panel roles.
+- **Button** (`primary`, `secondary`, `ghost`, `destructive`). Primary is for the one main action on a screen or dialog and has `shadow-control`. Secondary is a `border-strong` edge on `surface-raised`, for other actions. Ghost is for low-emphasis and icon-only actions. Destructive is `error` text with an `error` edge, for cancel and remove.
+- **Text field** (`Input`, `Textarea`, `Label`, `TextField`): any typed value. The field has a `border-strong` edge, and an error gives the `error` edge plus the message.
+- **Select and combobox:** the select is a short fixed list; the combobox searches a longer one (assigning a tech). The trigger is a control with a `border-strong` edge, and the list is a floating layer with `surface-overlay-hover` plus an inset focus ring on the highlighted item. No divider lines.
+- **Checkbox:** row selection and on/off filters. Checked uses `primary`.
+- **Status chip** (`StatusChip`): every job status, as a dot plus a word in a tinted, scaled chip (`radius-xs`, no outline). Unassigned has no fill. It is the only way status is shown, and one of the few places a feedback container is used.
+- **Data table** (`Table`, `TableSortHead`, `TableRow selected`, `TableCell mono`): the job board and other dense lists. It sits in a panel with `shadow-raised` and has `border` hairlines between rows and under the sticky header. Hover is `surface-hover`; the selected row is `surface-selected` with a `primary` left edge and its checked checkbox, and keeps `on-surface` text. IDs, times, and numbers use tabular figures.
+- **Panel** (`Panel` and its parts): the job detail pane and any group on the page, on `surface-raised` with `shadow-raised` and `radius-lg`.
+- **Featured surface:** the job that needs action, on `surface-featured` with `shadow-featured` and `radius-xl`. Provisional: a component for it. Set by components.page-examples.
+- **Menu** (`DropdownMenu`): row actions. A floating layer with no outline and no divider lines (groups separate by space). Destructive items come last in `error` text; when highlighted they take `error-container` with `on-error-container`.
+- **Dialog:** confirming a consequential action, over the `scrim`.
+- **Tooltip:** naming icon-only buttons. Never the only place information lives.
+- **Inline message** (`InlineMessage`, tones error, warning, success, info): notices that must stay on screen. On `surface-subtle` in every tone, with the tone's strong role on the icon and the title and `on-surface` for the body. No fill color, outline, or side stripe.
 
-Provisional: which shadcn/ui components are adopted first and how their CSS variables map onto these roles. Set by the patterns workflow (component scaffold).
+Still to come: toast (on `surface-inverse`), tabs, switch, date and time pickers, filter bar, metric strip, brand block, and the schedule view.
 
 ## Do's and Don'ts
 
-1. **Do** use semantic role tokens in components; **don't** reference ramp stops (`neutral-600`) or hex values in component code.
-2. **Don't** use a raw `#FFFFFF` or `#000000` (or Tailwind `white`/`black`) as a surface or text color.
-3. **Don't** derive containers with opacity (`bg-primary/10`, `rgba(...)`); use the `*-container` roles.
-4. **Do** show every status as a dot or icon plus a word; **don't** signal status, error, or selection with color alone.
-5. **Do** keep `primary` for actions and selection only; **don't** use it for status, headings, or decoration.
-6. **Don't** put a shadow on panels or cards that sit on the canvas; shadows are only for `surface-overlay` layers.
-7. **Don't** use `radius-full` on buttons or chips, or `radius-xl` on anything that doesn't float.
-8. **Do** render IDs, times, phone numbers, and numeric columns in `data-mono` (or with tabular figures); **don't** use proportional figures in aligned columns.
-9. **Don't** use a decorative side stripe (`border-left` accent) on cards or banners; the only edge accent is the selected-row indicator.
-10. **Do** give every focusable element the `border-focus` ring; **don't** remove outlines without a replacement.
-11. Write interface copy by VOICE_AND_TONE.md.
+1. **Do** use semantic role tokens in components; **don't** reference ramp stops or hex values in component code (`palette.json` is not compiled to CSS for this reason).
+2. **Don't** use Tailwind `white`, `black`, or opacity colors (`bg-primary/10`, `bg-black/50`); use the roles, including the `*-container` roles and `scrim`.
+3. **Do** keep the accent to the primary button, checkboxes, selection, focus, links, and the brand block; **don't** use `primary` for headings, icons, navigation, or decoration.
+4. **Do** show every status as a dot plus a word; **don't** signal status, error, or selection with color alone.
+5. **Don't** put an outline on panels, cards, chips, tooltips, menus, dialogs, or toasts. **Do** keep `border-strong` on controls and `border` between table rows.
+6. **Do** give panels `shadow-raised`, the featured surface `shadow-featured`, and floating layers `shadow-overlay`; **don't** put a shadow on anything else (except the primary button's `shadow-control`).
+7. **Don't** use `radius-full` on buttons or chips, or `radius-xl` on anything that doesn't float or lead.
+8. **Do** use `text-data` (tabular figures) for IDs, times, and numeric columns.
+9. **Do** give every focusable element the `border-focus` ring; **don't** remove outlines without a replacement. Write interface copy by VOICE_AND_TONE.md.
+10. **Don't** fill rows, messages, or banners with the accent or a feedback container, and don't use a colored side stripe; selection is `surface-selected` with the `primary` row edge (the only edge accent), and messages are neutral with a colored icon and title. Feedback containers are for chips and badges.

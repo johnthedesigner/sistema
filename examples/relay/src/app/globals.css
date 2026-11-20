@@ -2,6 +2,10 @@
 /* Design tokens, compiled from tokens/src/ by `npm run tokens`. */
 @import "../styles/tokens/tokens.css";
 @import "../styles/tokens/tailwind-theme.css";
+/* shadcn/ui: animation utilities, its variants, and its variables mapped to the role tokens. */
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "../styles/shadcn-theme.css";
 
 body {
   background: var(--color-surface);

@@ -1,0 +1,238 @@
+{
+ "primary": {
+  "preview": "primary",
+  "light": "accent 550",
+  "dark": "accent 450"
+ },
+ "on-primary": {
+  "preview": "on-primary",
+  "light": "white",
+  "dark": "accent 950"
+ },
+ "primary-hover": {
+  "preview": "primary-hover",
+  "light": "accent 650",
+  "dark": "accent 400"
+ },
+ "primary-container": {
+  "preview": "accent-subtle",
+  "light": "accent 150",
+  "dark": "accent 800",
+  "note": "Matches, but no longer used for selected rows (owner, D30): small marks only."
+ },
+ "on-primary-container": {
+  "preview": "on-accent-subtle",
+  "light": "accent 750",
+  "dark": "accent 250"
+ },
+ "secondary": {
+  "preview": null,
+  "note": "Not shown in the composition: required by color.roles.required; neutral, because Relay has no second hue."
+ },
+ "on-secondary": {
+  "preview": null,
+  "note": "Not shown in the composition: required by color.roles.required; neutral, because Relay has no second hue."
+ },
+ "secondary-container": {
+  "preview": "neutral-container",
+  "light": "neutral 150",
+  "dark": "neutral 750"
+ },
+ "on-secondary-container": {
+  "preview": "on-neutral-container",
+  "light": "neutral 650",
+  "dark": "neutral 250"
+ },
+ "surface": {
+  "preview": "canvas",
+  "light": "neutral 50",
+  "dark": "neutral 950"
+ },
+ "surface-raised": {
+  "preview": "surface",
+  "light": "white",
+  "dark": "neutral 900"
+ },
+ "surface-overlay": {
+  "preview": "surface-overlay",
+  "light": "white",
+  "dark": "neutral 800"
+ },
+ "surface-hover": {
+  "preview": "surface-hover",
+  "light": "neutral 150",
+  "dark": "neutral 850",
+  "note": "The composition had two hovers: rows at neutral 50 (nearly invisible on white) and nav/menu items at 150. Relay uses one hover role at 100, one stop darker than the page, so row hover is visible without looking selected."
+ },
+ "surface-overlay-hover": {
+  "preview": "surface-hover",
+  "light": "neutral 150",
+  "dark": "neutral 850",
+  "note": "Light: same as surface-hover. Dark: 750, one stop lighter than the menu it sits on (color.dark.surface-steps); 850 would be darker than the menu."
+ },
+ "surface-subtle": {
+  "preview": "surface-subtle",
+  "light": "neutral 50",
+  "dark": "neutral 950"
+ },
+ "surface-featured": {
+  "preview": "surface-featured",
+  "light": "white",
+  "dark": "neutral 850"
+ },
+ "surface-inverse": {
+  "preview": "surface-inverse",
+  "light": "neutral 850",
+  "dark": "neutral 150"
+ },
+ "on-surface-inverse": {
+  "preview": "on-inverse",
+  "light": "neutral 50",
+  "dark": "neutral 850"
+ },
+ "surface-brand": {
+  "preview": "surface-brand",
+  "light": "accent 600",
+  "dark": "accent 600"
+ },
+ "on-surface-brand": {
+  "preview": "on-brand",
+  "light": "white",
+  "dark": "white"
+ },
+ "on-surface-brand-muted": {
+  "preview": "on-brand-muted",
+  "light": "accent 200",
+  "dark": "accent 200"
+ },
+ "on-surface": {
+  "preview": "text",
+  "light": "neutral 850",
+  "dark": "neutral 50"
+ },
+ "on-surface-muted": {
+  "preview": "text-secondary",
+  "light": "neutral 600",
+  "dark": "neutral 350"
+ },
+ "on-surface-faint": {
+  "preview": "text-tertiary",
+  "light": "neutral 550",
+  "dark": "neutral 400"
+ },
+ "border": {
+  "preview": "hairline",
+  "light": "neutral 200",
+  "dark": "neutral 750"
+ },
+ "border-strong": {
+  "preview": "border-control",
+  "light": "neutral 450",
+  "dark": "neutral 500",
+  "note": "Light moved from 450 to 500 at the foundations review so an unchecked checkbox edge still meets 3:1 on surface-selected (3.61); both themes now use 500."
+ },
+ "border-focus": {
+  "preview": "focus",
+  "light": "accent 500",
+  "dark": "accent 400"
+ },
+ "link": {
+  "preview": "link",
+  "light": "accent 600",
+  "dark": "accent 400"
+ },
+ "error": {
+  "preview": "error-dot",
+  "light": "red 550",
+  "dark": "red 400",
+  "note": "550 matches the composition's dot; the same role is also used for error text on surfaces (passes)."
+ },
+ "on-error": {
+  "preview": null,
+  "note": "Not shown in the composition: text on a solid feedback fill, required by color.roles.required."
+ },
+ "error-container": {
+  "preview": "error-container",
+  "light": "red 150",
+  "dark": "red 850",
+  "note": "Matches. Used for chips and other small marks only; inline messages sit on surface-subtle with the status color in the icon and title (owner, D30)."
+ },
+ "on-error-container": {
+  "preview": "on-error-container",
+  "light": "red 750",
+  "dark": "red 250"
+ },
+ "warning": {
+  "preview": "warning-dot",
+  "light": "amber 450",
+  "dark": "amber 400",
+  "note": "The composition's amber 450 dot was below 3:1 on its chip and fails as text. 550 passes both."
+ },
+ "on-warning": {
+  "preview": null,
+  "note": "Not shown in the composition: text on a solid feedback fill, required by color.roles.required."
+ },
+ "warning-container": {
+  "preview": "warning-container",
+  "light": "amber 150",
+  "dark": "amber 850",
+  "note": "Matches. Used for chips and other small marks only; inline messages sit on surface-subtle with the status color in the icon and title (owner, D30)."
+ },
+ "on-warning-container": {
+  "preview": "on-warning-container",
+  "light": "amber 750",
+  "dark": "amber 250"
+ },
+ "success": {
+  "preview": "success-dot",
+  "light": "green 550",
+  "dark": "green 400",
+  "note": "550 matches the composition's dot."
+ },
+ "on-success": {
+  "preview": null,
+  "note": "Not shown in the composition: text on a solid feedback fill, required by color.roles.required."
+ },
+ "success-container": {
+  "preview": "success-container",
+  "light": "green 150",
+  "dark": "green 850",
+  "note": "Matches. Used for chips and other small marks only; inline messages sit on surface-subtle with the status color in the icon and title (owner, D30)."
+ },
+ "on-success-container": {
+  "preview": "on-success-container",
+  "light": "green 750",
+  "dark": "green 250"
+ },
+ "info": {
+  "preview": "info-dot",
+  "light": "blue 550",
+  "dark": "blue 400",
+  "note": "550 matches the composition's dot."
+ },
+ "on-info": {
+  "preview": null,
+  "note": "Not shown in the composition: text on a solid feedback fill, required by color.roles.required."
+ },
+ "info-container": {
+  "preview": "info-container",
+  "light": "blue 150",
+  "dark": "blue 850",
+  "note": "Matches. Used for chips and other small marks only; inline messages sit on surface-subtle with the status color in the icon and title (owner, D30)."
+ },
+ "on-info-container": {
+  "preview": "on-info-container",
+  "light": "blue 750",
+  "dark": "blue 250"
+ },
+ "scrim": {
+  "preview": null,
+  "note": "Not shown in the composition: the dimming layer behind dialogs (shape.tokens)."
+ },
+ "surface-selected": {
+  "preview": "selected-row",
+  "light": "accent 50",
+  "dark": "accent 850",
+  "note": "Changed at the foundations review (owner, D30): selection is a neutral step stronger than hover (light 150 over hover 100; dark 800 over hover 850 on 900 panels), with the accent only on the checked box and the left edge. The preview's accent tint was invisible in light and a deep violet band in dark."
+ }
+}

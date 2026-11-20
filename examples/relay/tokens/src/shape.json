@@ -7,28 +7,28 @@
     },
     "xs": {
       "$type": "dimension",
-      "$value": "2px",
-      "$description": "Status chips, badges, tags, keyboard-key hints."
+      "$value": "5px",
+      "$description": "Status chips (scaled, not pills), tags, keyboard-key hints."
     },
     "sm": {
       "$type": "dimension",
-      "$value": "3px",
-      "$description": "Checkboxes and small inline controls."
+      "$value": "6px",
+      "$description": "Checkboxes, small inline controls, items inside menus and lists."
     },
     "md": {
       "$type": "dimension",
-      "$value": "4px",
-      "$description": "Buttons, inputs, selects, segmented controls."
+      "$value": "8px",
+      "$description": "Buttons, inputs, selects, the combobox, segmented controls: the control radius from the direction."
     },
     "lg": {
       "$type": "dimension",
-      "$value": "6px",
-      "$description": "Panels, cards, detail panes, banners: containers on the canvas."
+      "$value": "12px",
+      "$description": "Panels, tables, cards, banners on the page."
     },
     "xl": {
       "$type": "dimension",
-      "$value": "8px",
-      "$description": "Floating layers: menus, popovers, comboboxes, toasts, dialogs. Largest level."
+      "$value": "14px",
+      "$description": "The featured surface and floating layers (menus, popovers, comboboxes, tooltips, toasts, dialogs): the largest level."
     },
     "full": {
       "$type": "dimension",
@@ -37,7 +37,7 @@
     }
   },
   "shadow": {
-    "1": {
+    "control": {
       "$type": "shadow",
       "$value": [
         {
@@ -45,43 +45,90 @@
           "offsetY": "1px",
           "blur": "2px",
           "spread": "0px",
-          "color": "#0F10111A"
-        },
-        {
-          "offsetX": "0px",
-          "offsetY": "4px",
-          "blur": "12px",
-          "spread": "0px",
-          "color": "#0F101124"
+          "color": "#1110140F"
         }
       ],
-      "$description": "Floating level 1: menus, popovers, comboboxes, tooltips, toasts. Color: neutral 950 at 10% and 14%."
+      "$description": "Primary buttons only: a slight lift so the main action feels pressable. One light source from above; color neutral 950 (#111014) at low opacity. Values from the approved composition (specimen tool)."
     },
-    "2": {
+    "raised": {
       "$type": "shadow",
       "$value": [
         {
           "offsetX": "0px",
-          "offsetY": "2px",
-          "blur": "4px",
+          "offsetY": "1px",
+          "blur": "2px",
           "spread": "0px",
-          "color": "#0F10111F"
+          "color": "#1110140D"
         },
         {
           "offsetX": "0px",
-          "offsetY": "12px",
-          "blur": "32px",
+          "offsetY": "2px",
+          "blur": "6px",
           "spread": "0px",
-          "color": "#0F101133"
+          "color": "#1110140A"
         }
       ],
-      "$description": "Floating level 2: dialogs and anything opened above a level-1 layer. Color: neutral 950 at 12% and 20%."
+      "$description": "Panels and tables on the page: the direction separates panels by shadow. Soft, two layers. One light source from above; color neutral 950 (#111014) at low opacity. Values from the approved composition (specimen tool)."
+    },
+    "featured": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px",
+          "color": "#1110140A"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "6px",
+          "blur": "16px",
+          "spread": "-4px",
+          "color": "#11101414"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "24px",
+          "blur": "48px",
+          "spread": "-12px",
+          "color": "#11101424"
+        }
+      ],
+      "$description": "The featured surface (the job that needs action): lifts much further than a panel. One light source from above; color neutral 950 (#111014) at low opacity. Values from the approved composition (specimen tool)."
+    },
+    "overlay": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0px",
+          "spread": "1px",
+          "color": "#1110140F"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "8px",
+          "spread": "-2px",
+          "color": "#11101414"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "16px",
+          "blur": "32px",
+          "spread": "-8px",
+          "color": "#11101429"
+        }
+      ],
+      "$description": "Floating layers: menus, popovers, comboboxes, tooltips, toasts, dialogs (dialogs add the scrim). The 1px layer gives the edge on white without a border. One light source from above; color neutral 950 (#111014) at low opacity. Values from the approved composition (specimen tool)."
     }
   },
   "color": {
     "scrim": {
       "$type": "color",
-      "$value": "#0F101166",
+      "$value": "#11101466",
       "$description": "Behind dialogs: neutral 950 at 40%."
     }
   }
