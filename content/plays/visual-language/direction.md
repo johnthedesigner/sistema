@@ -30,7 +30,7 @@ The person decides how the product looks by choosing between options they can se
 2. **Write what the product needs:** three to five plain statements about what its screens must do, from the positioning (see "What the product needs" in the visual-language guide). Don't turn a style word into a style: "utilitarian" means status must stand out and rows must be easy to follow, not sharp corners and outlines.
 
 3. **Propose an answer to each taste question,** with the need it serves:
-   - **How much color:** quiet, brand, or tinted, and the accent seed. Run the first-order reflex check on the accent; if it's the category default, justify it in writing or change it. Keep it apart from the status hues when status matters.
+   - **How much color:** quiet, brand, or tinted, and the accent seed. If the project has no brand color, take the seed from the palette library, `{{sistema_url}}/palettes/library.json`: a colorful palette at one of its bright middle stops (400 to 600), and offer two or three such stops as the options (see "How much color" in the visual-language guide). Run the first-order reflex check on the accent; if it's the category default, justify it in writing or change it. Keep it apart from the status hues when status matters.
    - **Warm or cool:** cool, neutral, or warm neutrals, or a neutral seed tinted toward the accent.
    - **How round:** a control radius (about 4, 8, or 12px), and scaled or pill chips.
    - **How surfaces separate:** tone, line, or shadow.
@@ -41,7 +41,7 @@ The person decides how the product looks by choosing between options they can se
 
 5. **Get the ramps and check contrast.** Send the accent and neutral seeds from the specimen response, and any secondary seed, to the palette tool in one request. Feedback ramps come from `{{sistema_url}}/palettes/library.json`. Check every text pairing the composition uses, including text on the brand and inverse surfaces, with the contrast tool, batched (one POST takes up to 200 pairs), against the standard in `sistema.json`. If a pairing fails, change the proposal and render again.
 
-6. **Write the emphasis map:** for each kind of screen the product will have, which content is featured, which zones are subtle, and whether anything is a brand or inverse block. Keep strong emphasis scarce: at most one featured thing per screen.
+6. **Write the emphasis map:** for each kind of screen the product will have, which content is featured, which zones are subtle, and whether anything is a brand or inverse block. Keep strong emphasis scarce, so that what's featured still stands out; if several things on a screen would be featured, say which one leads.
 
 7. **Build `sistema-review/style-preview.html`** with the seven sections the style preview format requires: the direction summary, the choices, the composition, color, type, the emphasis map, and reviewer notes.
    - Start the page with the workflow outline strip, and end it with the line naming the `continue` URL from `sistema.json`.

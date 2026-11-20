@@ -142,3 +142,17 @@ The owner judged the foundations and the revision process sound, but the look da
 | # | Finding | Done |
 |---|---|---|
 | 54 | The visual-language guide maps "utilitarian" and "data-heavy" to a style (sharp radius, outlines, near-gray), treating a goal as an aesthetic. The direction play has the agent answer taste questions itself, in framework vocabulary, and the person approves a named style rather than seeing options on their product. The trap list misses "outlined everything" and "sharp means serious". | **Open.** Proposal in `docs/v2/aesthetic-baseline.md`: a craft baseline, taste questions asked visually, a specimen tool, and a Relay re-run as the test. The current revision is held unapproved. |
+
+## Stage 10: direction re-run with the taste questions (2026-11-20)
+
+A fresh run redid Relay's direction with the rewritten play and the specimen tool: needs first, seven questions with options rendered on Relay's jobs board, the composition in both themes, ramps, contrast, and the emphasis map. The owner accepted the proposed option for every question except the accent: petrol was rejected as unattractive, which led to D27 (accent seeds from the palette library). The owner also questioned the one-featured-item limit, which led to D28.
+
+| # | Finding | Done |
+|---|---|---|
+| 55 | No route for redoing an approved direction: how to reopen Start, set `continue`, mark later steps pending, and withdraw gates. The schema can't mark a gate withdrawn. The run worked it out alone. Same gap as #49, one step earlier. | **Open.** Solve with #49. |
+| 56 | The direction play's DESIGN.md step assumes DESIGN.md doesn't exist yet. | **Open.** Cover a redo: rewrite Overview, mark the other sections as from the previous direction until `visual-language.design-md` runs again. |
+| 57 | Specimen tool: `content` fields undocumented and unknown keys ignored; no option to tint the neutral toward the accent; nav objects render "[object Object]"; an invalid status kind renders an invisible chip; overlay radius below panel and featured radii (against `shape.radius.hierarchy`); POST ignores `format=html`; the `render` URL drops `c`. | **Open.** Fix as a batch; reject invalid input with a working example. |
+| 58 | Every specimen layout shows a featured card and a brand block side by side. | **Open**, minor after D28: keep as example content, but check the layouts still let one thing lead. |
+| 59 | The light selected-row tint is nearly invisible, and nothing checks faint non-text distinctions. | **Open.** With #45 and #52: a check for state and selection cues against their surface. |
+| 60 | The preview page is heavy (about 40 live renderings) and hard to take in at once. | **Open.** Backlog: one question at a time, lazy renderings, and a cropped render mode. |
+| 61 | The accent seed was chosen by name and eye, and the owner rejected it. | **Fixed** (D27): seeds come from the library's bright middle stops. |

@@ -99,6 +99,10 @@ Excluded unless the owner decides otherwise: paid books and courses (Refactoring
 
   *Owner request during the Relay run, 2026-11-18.*
 
+- **Style preview: one question at a time.** Show each taste question on its own, with tabs or a side list (summary, each question, composition, color, type, emphasis map), and render only the open question's options. This answers three problems seen in the Relay re-run: the page loads about 40 live renderings at once, it's hard to compare options with six other questions around them, and answering question by question suits the workflow. A static file can do it with a few lines of script and lazy iframes (`loading="lazy"`, or setting `src` when a tab opens). Pair it with a cropped render mode in the specimen tool. Decide during the review page redesign above.
+
+  *Owner suggestion, Relay direction review, 2026-11-20.*
+
 ## Test coverage
 
 - **Zero test coverage — full audit and baseline needed** — The codebase has no test files of any kind. The only runtime validation is TypeScript's type checker. Areas that warrant coverage: palette generation algorithm (`src/lib/palette.ts` — contrast-targeting math, gamut handling, stop selection); KB and playbook parsing (`src/lib/kb.ts`, `src/lib/playbooks.ts` — markdown parsing, slug extraction, variable detection); API routes (`/api/palette`, `/api/context` — request validation, error handling); sitemap and robots generation; and client-side prompt resolution (`resolveBody`, `extractVariables`, `emptyFallback` in `PlayDetail.tsx` — variable substitution, empty-field fallback text). Suggested stack: Vitest for unit/integration, Playwright for critical UI paths (copy prompt, examples modal, color mode selector persistence). *Identified 2026-05-17.* **In progress 2026-11-14:** v2 Task V0.2 adds the test runner and content checks. V2 adds tool tests.

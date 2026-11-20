@@ -144,7 +144,7 @@
 - id: quality.craft.emphasis-scarce
   statement: >-
     Strong emphasis (the featured surface, brand and inverse blocks) is applied by the role of the content, as the
-    emphasis map in DESIGN.md records, with at most one featured element or group per screen. Quiet levels
+    emphasis map in DESIGN.md records, and kept rarer than the quiet levels, so it still stands out. Quiet levels
     (page, zones, panels) differ by small steps.
   reason: If every level differs by the same amount, or everything is featured, nothing leads.
   layer: sistema-default

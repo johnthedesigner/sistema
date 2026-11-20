@@ -87,7 +87,7 @@ How far the accent reaches beyond actions and focus.
 | Brand | The accent also marks the navigation's current item and selected rows | Most products; recognizably theirs without competing with status |
 | Tinted | A deep accent block carries the navigation, and the page takes a faint accent tint | Products where the brand is part of the experience, consumer apps, marketing |
 
-The accent itself is a separate choice: check it against the category default (the first-order reflex in the quality guide), and keep it apart from the status hues if status matters.
+The accent itself is a separate choice. If the project already has a brand color, use it. If not, propose one from Sistema's palette library (`{{sistema_url}}/palettes/library.json`): a colorful palette (not one of the grays), at one of its bright middle stops, 400 to 600, where the hue is at its most saturated. Those stops already sit on an even contrast curve and render well across the whole ramp, while a seed picked by eye or by name often turns muddy or dull. Show two or three of them as the options. Check the proposal against the category default (the first-order reflex in the quality guide), and keep it apart from the status hues if status matters.
 
 ### Warm or cool
 
@@ -128,7 +128,7 @@ Every system Sistema builds has these color roles, alongside the ordinary surfac
 | Role | What it's for |
 |---|---|
 | `surface-subtle` | A quiet zone: a sidebar, a toolbar band, an inset well |
-| `surface-featured` | The one thing on the screen that should lead, lifted further than a panel |
+| `surface-featured` | What should lead on the screen, lifted further than a panel |
 | `surface-inverse` | A dark block on a light page (or the reverse): a quote, a newsletter band, a toast |
 | `surface-brand` | A saturated block in the brand color: a key metric, a promotion, a footer band |
 

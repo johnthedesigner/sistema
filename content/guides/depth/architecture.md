@@ -132,7 +132,7 @@ Sistema's default (`opinion.elevation-by-role`) gives each shadow a role rather 
 |---|---|---|
 | `shadow.control` (optional) | Buttons and fields that should feel touchable | A barely visible edge shadow |
 | `shadow.raised` | Panels, only when the direction separates panels by shadow | Soft and close |
-| `shadow.featured` | The one featured surface on a screen | Much further: a clear lift above everything else on the page |
+| `shadow.featured` | The featured surface, what should lead on a screen | Much further: a clear lift above everything else on the page |
 | `shadow.overlay` | Menus, popovers, dialogs, toasts | Far, with a faint edge so the layer reads against anything beneath it |
 
 How to build them:

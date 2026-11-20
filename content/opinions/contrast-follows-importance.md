@@ -11,7 +11,7 @@ last_reviewed: 2026-11-20
 
 ## Why
 
-If every level of the page differs from the next by the same amount, nothing leads, and the screen reads as noise. Hierarchy comes from contrast between an element and its context, so it has to be uneven on purpose: a calm page, one featured item, perhaps a block of brand color where it matters. Spectrum 2 keeps high attention to one element or group per page.
+If every level of the page differs from the next by the same amount, nothing leads, and the screen reads as noise. Hierarchy comes from contrast between an element and its context, so it has to be uneven on purpose: a calm page, a featured item, perhaps a block of brand color where it matters. How many things lead depends on the screen; what matters is that strong emphasis stays rarer than quiet, so it still reads as strong. Spectrum 2, for example, aims high attention at one element or group per page.
 
 ## When you'd choose otherwise
 

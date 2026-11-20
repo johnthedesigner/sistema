@@ -83,3 +83,10 @@ Approved by the owner, with:
 | # | Decision | Detail |
 |---|---|---|
 | D26 | Three fixed palette rules | The palette tool places stops on an eased contrast curve (finer steps near white and black, stop 500 unchanged), gives every hue the same chroma at the same lightness (the seed sets the strength; a soft limit keeps chroma under the on-screen maximum), and turns yellows toward orange as they darken. Each rule is one named constant; no stop is adjusted on its own. Stop meanings shift: tints and containers move from 100 to 150, and darker roles move one stop lighter. Approved by the owner as proposed. |
+
+## 2026-11-20 — Relay direction review
+
+| # | Decision | Detail |
+|---|---|---|
+| D27 | Accent seeds from the library | When a project has no brand color, the direction play proposes the accent from Sistema's palette library: a colorful palette at one of its bright middle stops (400 to 600), with two or three such stops as the options. A brand color the project already has is still a fixed point. Owner's call after rejecting petrol in the Relay re-run. |
+| D28 | No count on featured items | `quality.craft.emphasis-scarce` keeps strong emphasis rarer than the quiet levels and follows the emphasis map, but sets no number of featured items per screen. "One featured item" stays only in the specimen tool's example compositions. |
