@@ -8,12 +8,13 @@ import { badRequest, CORS_HEADERS, json, options, readJson, trackToolCall } from
  * Specimen (D25, docs/v2/aesthetic-baseline.md).
  *   GET  /api/specimen?accent=%231E6B5C&neutral=warm&presence=brand&radius=10&separation=tone&density=comfortable&font=Figtree&theme=light
  *        add format=html for the rendered page; content=<JSON> replaces the placeholder content
- *   POST /api/specimen { accent, neutral, presence, radius, chips, separation, density, font, display_font, theme, content, format }
+ *   POST /api/specimen { accent, neutral, presence, radius, chips, separation, density, font, display_font, theme, layout, content, format }
+ * layout: operations (default), dashboard, record, marketing, article, or shop.
  * JSON responses hold every role with the ramp stop it comes from, the radius,
  * type, spacing, and shadow values, and `render`, the URL of the rendered page.
  */
 const EXAMPLE = '/api/specimen?accent=%231E6B5C&neutral=warm&presence=brand&radius=10&separation=tone&density=comfortable&font=Figtree'
-const KEYS = ['accent', 'neutral', 'presence', 'radius', 'chips', 'separation', 'density', 'font', 'display_font', 'theme'] as const
+const KEYS = ['accent', 'neutral', 'presence', 'radius', 'chips', 'separation', 'density', 'font', 'display_font', 'theme', 'layout'] as const
 
 function renderUrl(input: Record<string, unknown>, content?: SpecimenContent): string {
   const q = new URLSearchParams()
@@ -29,7 +30,7 @@ function respond(request: Request, raw: SpecimenInput, content: SpecimenContent 
   trackToolCall(request, 'specimen', { c, status, format: format ?? 'json', ...raw, content: content ? 'custom' : undefined })
   if (!result.ok) return badRequest(result.error, EXAMPLE)
   if (format === 'html') {
-    return new NextResponse(renderSpecimenHtml(result.specimen, content), {
+    return new NextResponse(renderSpecimenHtml(result.specimen, content as Record<string, unknown> | undefined), {
       headers: { ...CORS_HEADERS, 'Content-Type': 'text/html; charset=utf-8' },
     })
   }

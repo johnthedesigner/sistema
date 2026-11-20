@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { wcagContrast } from 'culori'
-import { buildSpecimen, DENSITY, PRESENCE, SEPARATION, THEMES, WARMTH } from './specimen'
+import { buildSpecimen, DENSITY, LAYOUTS, PRESENCE, SEPARATION, THEMES, WARMTH } from './specimen'
 import { renderSpecimenHtml } from './specimen-html'
 import { GET, POST } from '@/app/api/specimen/route'
 import { NextRequest } from 'next/server'
@@ -86,6 +86,25 @@ describe('buildSpecimen', () => {
       expect(html).toContain('&lt;Relay&gt;')
       expect(html).not.toContain('<Relay>')
     }
+  })
+})
+
+describe('layouts', () => {
+  it('renders every layout in both themes, with content escaped', () => {
+    for (const layout of LAYOUTS) for (const theme of THEMES) {
+      const r = buildSpecimen({ layout, theme, presence: 'tinted' })
+      if (!r.ok) throw new Error(r.error)
+      const html = renderSpecimenHtml(r.specimen, { product: '<Relay>' })
+      expect(html, layout).toContain('&lt;Relay&gt;')
+      expect(html, layout).not.toContain('<Relay>')
+      expect(html, layout).not.toMatch(/undefined|NaN|\[object Object\]/)
+    }
+  })
+
+  it('rejects an unknown layout', () => {
+    const r = buildSpecimen({ layout: 'brochure' })
+    expect(r.ok).toBe(false)
+    if (!r.ok) expect(r.error).toContain('operations, dashboard')
   })
 })
 

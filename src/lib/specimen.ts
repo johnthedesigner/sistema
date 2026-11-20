@@ -18,6 +18,8 @@ export const SEPARATION = ['tone', 'line', 'shadow'] as const
 export const DENSITY = ['compact', 'comfortable', 'spacious'] as const
 export const THEMES = ['light', 'dark'] as const
 export const CHIPS = ['scaled', 'pill'] as const
+/** Kinds of page the specimen can render the same choices on. */
+export const LAYOUTS = ['operations', 'dashboard', 'record', 'marketing', 'article', 'shop'] as const
 
 /** Typefaces the render page can load from Google Fonts. */
 export const FONTS = [
@@ -42,6 +44,7 @@ export interface SpecimenInput {
   font?: string
   display_font?: string
   theme?: string
+  layout?: string
 }
 
 export interface Role {
@@ -72,6 +75,7 @@ const DEFAULTS = {
   density: 'comfortable',
   font: 'Instrument Sans',
   theme: 'light',
+  layout: 'operations',
   warmth: 'neutral',
 } as const
 
@@ -128,11 +132,12 @@ export function buildSpecimen(raw: SpecimenInput = {}): SpecimenResult {
     separation: oneOf('separation', raw.separation, SEPARATION, DEFAULTS.separation),
     density: oneOf('density', raw.density, DENSITY, DEFAULTS.density),
     theme: oneOf('theme', raw.theme, THEMES, DEFAULTS.theme),
+    layout: oneOf('layout', raw.layout, LAYOUTS, DEFAULTS.layout),
     font: oneOf('font', raw.font, FONTS, DEFAULTS.font),
     display_font: oneOf('display_font', raw.display_font, DISPLAY_FONTS, ((raw.font as string) ?? DEFAULTS.font) as (typeof DISPLAY_FONTS)[number]),
   }
   for (const v of Object.values(checks)) if (v.startsWith('"')) return { ok: false, error: v }
-  const { presence, chips, separation, density, theme, font } = checks
+  const { presence, chips, separation, density, theme, font, layout } = checks
   const display_font = checks.display_font
 
   const r = raw.radius === undefined || (raw.radius as unknown) === '' ? DEFAULTS.radius : Number(raw.radius)
@@ -191,6 +196,14 @@ export function buildSpecimen(raw: SpecimenInput = {}): SpecimenResult {
     c['neutral-container'] = s('neutral', 100)
     c['on-neutral-container'] = s('neutral', 700)
     c['neutral-dot'] = s('neutral', 400)
+    // Data and imagery: one accent series, a quiet comparison series, a soft area.
+    c['chart-1'] = s('accent', 500)
+    c['chart-2'] = s('neutral', 250)
+    c['chart-area'] = s('accent', 100)
+    c['image-1'] = s('neutral', 100)
+    c['image-2'] = s('accent', 100)
+    c['image-ink'] = s('neutral', 800)
+    c['image-accent'] = s('accent', 450)
   } else {
     c.canvas = s('neutral', 950)
     c.surface = separation === 'line' ? s('neutral', 950) : s('neutral', 900)
@@ -230,6 +243,13 @@ export function buildSpecimen(raw: SpecimenInput = {}): SpecimenResult {
     c['neutral-container'] = s('neutral', 800)
     c['on-neutral-container'] = s('neutral', 200)
     c['neutral-dot'] = s('neutral', 450)
+    c['chart-1'] = s('accent', 400)
+    c['chart-2'] = s('neutral', 650)
+    c['chart-area'] = s('accent', 900)
+    c['image-1'] = s('neutral', 850)
+    c['image-2'] = s('accent', 900)
+    c['image-ink'] = s('neutral', 200)
+    c['image-accent'] = s('accent', 400)
   }
 
   // Color presence: how far the accent reaches beyond actions and focus.
@@ -302,7 +322,7 @@ export function buildSpecimen(raw: SpecimenInput = {}): SpecimenResult {
     ok: true,
     specimen: {
       input: {
-        accent: accentIn.color.hex, neutral: warmthLabel, presence, radius: r, chips, separation, density, font, display_font, theme,
+        accent: accentIn.color.hex, neutral: warmthLabel, presence, radius: r, chips, separation, density, font, display_font, theme, layout,
       },
       seeds: { accent: accentIn.color.hex, neutral: neutralHex },
       colors: c,
