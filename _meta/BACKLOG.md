@@ -86,7 +86,7 @@ Excluded unless the owner decides otherwise: paid books and courses (Refactoring
 
 ## Palette
 
-- **No ramp stop between white and stop 50, or between 50 and 100.** Quiet surface separation (a page a shade off white) can only use white, 50, and 100, and 100 is already a visible gray (about 1.19:1 against white). The specimen tool works within this, but finer light stops (for example 25 and 75), or a light-end distribution that isn't purely logarithmic, would allow subtler page and zone tones. Same at the dark end for dark themes. Found building the specimen tool (V3.4). Changing the ramp changes `library.json` and the palette snapshot; decide with the owner.
+- **Done (V3.4, D26): the eased contrast curve made the light and dark steps finer.** ~~No ramp stop between white and stop 50, or between 50 and 100.~~ Quiet surface separation (a page a shade off white) can only use white, 50, and 100, and 100 is already a visible gray (about 1.19:1 against white). The specimen tool works within this, but finer light stops (for example 25 and 75), or a light-end distribution that isn't purely logarithmic, would allow subtler page and zone tones. Same at the dark end for dark themes. Found building the specimen tool (V3.4). Changing the ramp changes `library.json` and the palette snapshot; decide with the owner.
 
 ## Review pages
 

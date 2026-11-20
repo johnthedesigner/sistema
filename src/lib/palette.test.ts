@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { describe, expect, it } from 'vitest'
 import { rgb, wcagContrast } from 'culori'
-import { generatePalette } from './palette'
+import { generatePalette, targetContrast } from './palette'
 
 const library = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'palettes', 'library.json'), 'utf-8')) as Record<
   string,
@@ -10,7 +10,7 @@ const library = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'p
 >
 
 const STOPS = ['50', '100', '150', '200', '250', '300', '350', '400', '450', '500', '550', '600', '650', '700', '750', '800', '850', '900', '950']
-const target = (i: number) => 1.01 * Math.pow(19 / 1.01, i / 18)
+const target = (i: number) => targetContrast(i)
 
 describe('generatePalette', () => {
   it('matches the published library for every seed (library.json and the API agree)', () => {

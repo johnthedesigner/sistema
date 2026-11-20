@@ -38,7 +38,7 @@ A full 19-stop ramp prevents all three failure modes. Every semantic role maps t
 
 ### The contrast interchangeability benefit
 
-The 19-stop OKLCH ramp has a specific property beyond mere completeness: cross-hue stops at the same index meet the same contrast target. If `blue-600` meets 6.07:1 against white, then `green-600` also meets approximately 6.07:1. This makes semantic role mapping deterministic regardless of which hue is chosen.
+The 19-stop OKLCH ramp has a specific property beyond mere completeness: cross-hue stops at the same index meet the same contrast target. If `blue-600` meets 6.95:1 against white, then `green-600` also meets approximately 6.95:1. This makes semantic role mapping deterministic regardless of which hue is chosen.
 
 Without full ramps, adding a secondary or accent hue requires hand-verifying every contrast pair from scratch. With ramps, the stop selection for the new hue follows the same rules as the primary — the team doesn't need to repeat the contrast research.
 
@@ -91,17 +91,19 @@ The mapping pattern:
 
 ```
 Primary role assignments (light mode):
---color-primary              → [primary ramp, stop ~550–600]   /* about 4.5:1 to 6.07:1 against white (WCAG 2.x) */
---color-primary-container    → [primary ramp, stop ~100–150]   /* 1.19:1–1.40:1, tinted background */
+--color-primary              → [primary ramp, stop ~550–600]   /* 5.54:1 to 6.95:1 against white */
+--color-primary-container    → [primary ramp, stop ~150–200]   /* 1.22:1–1.37:1, tinted background */
 --color-on-primary           → white or [primary ramp, stop ~950]
---color-on-primary-container → [primary ramp, stop ~700–800]   /* high contrast against container */
+--color-on-primary-container → [primary ramp, stop ~700–750]   /* high contrast against container */
 
 Surface role assignments (from neutral ramp):
 --color-surface              → [neutral ramp, stop ~50]         /* near-white */
 --color-surface-raised       → white or stop 50
---color-on-surface           → [neutral ramp, stop ~850–900]   /* high contrast against surface */
---color-on-surface-muted     → [neutral ramp, stop ~500–600]   /* secondary text */
---color-border               → [neutral ramp, stop ~200–300]   /* subtle boundary */
+--color-surface-hover        → [neutral ramp, stop ~100–150]
+--color-on-surface           → [neutral ramp, stop ~850]        /* high contrast against surface */
+--color-on-surface-muted     → [neutral ramp, stop ~550–600]   /* secondary text */
+--color-border               → [neutral ramp, stop ~200–250]   /* subtle boundary */
+--color-border-control       → [neutral ramp, stop ~450]        /* input and control edges */
 ```
 
 These are starting points. The actual stop assignments depend on the architecture model (tonal, step scale, named palette — see the Color architecture guide) and the visual direction commitment level. But the principle is the same: every semantic role maps to a ramp stop, not a free-floating hex value.

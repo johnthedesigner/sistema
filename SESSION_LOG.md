@@ -13,6 +13,13 @@
 
 ## Session log
 
+### 2026-11-20 — V3.4: palette rules adopted (D26)
+
+**What was done:**
+- `src/lib/palette.ts` now follows three fixed rules: an eased contrast curve, the same chroma by lightness for every hue (with a soft limit), and yellows turning warm as they darken. `library.json` was regenerated and the palette snapshot updated on purpose.
+- The specimen's roles were remapped to the stops nearest their old contrast: tints and containers moved to 150, and darker roles moved one stop lighter. AA still holds across every combination.
+- The palette-generation and ramp guides and AGENTS.md describe the new rules. The prototype and its comparison script were removed; the comparison page stays as the record.
+
 ### 2026-11-19 to 2026-11-20 — V3.3 stopped; V3.4 approved
 
 **What happened:**

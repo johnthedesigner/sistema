@@ -48,7 +48,7 @@ export default function PalettePage() {
             className="text-on-surface-muted font-serif font-normal m-0"
             style={{ fontSize: 15, lineHeight: 1.55, fontVariationSettings: "'opsz' 32" }}
           >
-            22 palettes generated using the same lightness curve and chroma envelope as the{' '}
+            22 palettes generated with the same contrast curve and colorfulness rules as the{' '}
             <Link href="/plays/color.scheme" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken">
               color.scheme
             </Link>{' '}

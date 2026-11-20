@@ -1,6 +1,6 @@
-# Palette algorithm: proposed changes
+# Palette algorithm: three rules
 
-**Task:** V3.4. **Date:** 2026-11-20. **Status:** proposal, for owner review. Comparison page: `docs/v2/comparisons/palette-next.html` (regenerate with `npx tsx compare-palettes.ts` from `tools/`). Prototype: `src/lib/palette-next.ts` (not used by the app).
+**Task:** V3.4. **Date:** 2026-11-20. **Status:** adopted as proposed (D26). The rules now live in `src/lib/palette.ts`, and the library is regenerated. The comparison page `docs/v2/comparisons/palette-next.html` is kept as the record of the change; its generator and the prototype were removed once the rules were adopted.
 
 ## The problems
 

@@ -3,118 +3,118 @@
     "seed": "#475569",
     "stops": {
       "50": {
-        "hex": "#f9fafa",
-        "oklch": "oklch(0.984 0.001 197.1)",
-        "contrast_white": 1.05,
-        "contrast_black": 20.08
+        "hex": "#fbfbfc",
+        "oklch": "oklch(0.988 0.001 286.4)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.31
       },
       "100": {
-        "hex": "#eaecee",
-        "oklch": "oklch(0.942 0.003 247.9)",
-        "contrast_white": 1.18,
-        "contrast_black": 17.73
+        "hex": "#f1f4f7",
+        "oklch": "oklch(0.966 0.005 247.9)",
+        "contrast_white": 1.1,
+        "contrast_black": 19.02
       },
       "150": {
-        "hex": "#d7dae0",
-        "oklch": "oklch(0.888 0.009 264.5)",
-        "contrast_white": 1.4,
-        "contrast_black": 14.99
+        "hex": "#e3e9f1",
+        "oklch": "oklch(0.932 0.013 255.5)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.19
       },
       "200": {
-        "hex": "#c4cad3",
-        "oklch": "oklch(0.837 0.014 258.3)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.74
+        "hex": "#d4dde9",
+        "oklch": "oklch(0.894 0.019 255.5)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.32
       },
       "250": {
-        "hex": "#b2bbc7",
-        "oklch": "oklch(0.789 0.02 255.6)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.83
+        "hex": "#c3cfe0",
+        "oklch": "oklch(0.851 0.027 257)",
+        "contrast_white": 1.58,
+        "contrast_black": 13.32
       },
       "300": {
-        "hex": "#a1adbd",
-        "oklch": "oklch(0.743 0.027 255.6)",
-        "contrast_white": 2.28,
-        "contrast_black": 9.23
+        "hex": "#b0c0d7",
+        "oklch": "oklch(0.803 0.037 257.4)",
+        "contrast_white": 1.85,
+        "contrast_black": 11.37
       },
       "350": {
-        "hex": "#919fb3",
-        "oklch": "oklch(0.698 0.033 257.3)",
-        "contrast_white": 2.69,
-        "contrast_black": 7.81
+        "hex": "#9fafc5",
+        "oklch": "oklch(0.749 0.036 256.4)",
+        "contrast_white": 2.23,
+        "contrast_black": 9.41
       },
       "400": {
-        "hex": "#8292aa",
-        "oklch": "oklch(0.656 0.04 258.4)",
-        "contrast_white": 3.16,
-        "contrast_black": 6.64
+        "hex": "#8d9db3",
+        "oklch": "oklch(0.691 0.037 256.4)",
+        "contrast_white": 2.76,
+        "contrast_black": 7.61
       },
       "450": {
-        "hex": "#7386a1",
-        "oklch": "oklch(0.615 0.047 257.2)",
-        "contrast_white": 3.71,
-        "contrast_black": 5.65
+        "hex": "#7c8ba1",
+        "oklch": "oklch(0.632 0.038 257.9)",
+        "contrast_white": 3.46,
+        "contrast_black": 6.06
       },
       "500": {
-        "hex": "#677a95",
-        "oklch": "oklch(0.574 0.047 257.2)",
-        "contrast_white": 4.38,
-        "contrast_black": 4.79
+        "hex": "#6b7a8f",
+        "oklch": "oklch(0.575 0.037 256.8)",
+        "contrast_white": 4.37,
+        "contrast_black": 4.81
       },
       "550": {
-        "hex": "#5d6f88",
-        "oklch": "oklch(0.537 0.045 256.6)",
-        "contrast_white": 5.13,
-        "contrast_black": 4.09
+        "hex": "#5b6a7e",
+        "oklch": "oklch(0.519 0.037 255.7)",
+        "contrast_white": 5.52,
+        "contrast_black": 3.81
       },
       "600": {
-        "hex": "#54637a",
-        "oklch": "oklch(0.496 0.041 258.8)",
-        "contrast_white": 6.1,
-        "contrast_black": 3.44
+        "hex": "#4d5b6f",
+        "oklch": "oklch(0.467 0.037 257.3)",
+        "contrast_white": 6.9,
+        "contrast_black": 3.04
       },
       "650": {
-        "hex": "#4a596d",
-        "oklch": "oklch(0.459 0.038 255.7)",
-        "contrast_white": 7.14,
-        "contrast_black": 2.94
+        "hex": "#404d61",
+        "oklch": "oklch(0.417 0.037 258.9)",
+        "contrast_white": 8.56,
+        "contrast_black": 2.45
       },
       "700": {
-        "hex": "#414e61",
-        "oklch": "oklch(0.42 0.036 257.8)",
-        "contrast_white": 8.44,
-        "contrast_black": 2.49
+        "hex": "#344154",
+        "oklch": "oklch(0.372 0.037 257.8)",
+        "contrast_white": 10.34,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#384454",
-        "oklch": "oklch(0.383 0.032 255.7)",
-        "contrast_white": 9.89,
-        "contrast_black": 2.12
+        "hex": "#293649",
+        "oklch": "oklch(0.33 0.038 257.8)",
+        "contrast_white": 12.22,
+        "contrast_black": 1.72
       },
       "800": {
-        "hex": "#303947",
-        "oklch": "oklch(0.342 0.028 259.1)",
-        "contrast_white": 11.65,
-        "contrast_black": 1.8
+        "hex": "#202d3e",
+        "oklch": "oklch(0.293 0.036 255.4)",
+        "contrast_white": 13.94,
+        "contrast_black": 1.51
       },
       "850": {
-        "hex": "#262e39",
-        "oklch": "oklch(0.298 0.023 256.4)",
-        "contrast_white": 13.7,
-        "contrast_black": 1.53
+        "hex": "#182433",
+        "oklch": "oklch(0.257 0.033 254.4)",
+        "contrast_white": 15.68,
+        "contrast_black": 1.34
       },
       "900": {
-        "hex": "#1b212a",
-        "oklch": "oklch(0.246 0.019 258.4)",
-        "contrast_white": 16.18,
-        "contrast_black": 1.3
+        "hex": "#111b28",
+        "oklch": "oklch(0.219 0.03 255.3)",
+        "contrast_white": 17.34,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#0d1015",
-        "oklch": "oklch(0.172 0.012 260.6)",
-        "contrast_white": 19.06,
-        "contrast_black": 1.1
+        "hex": "#0a111b",
+        "oklch": "oklch(0.176 0.024 257.3)",
+        "contrast_white": 18.94,
+        "contrast_black": 1.11
       }
     }
   },
@@ -122,118 +122,118 @@
     "seed": "#4b5563",
     "stops": {
       "50": {
-        "hex": "#f9fafa",
-        "oklch": "oklch(0.984 0.001 197.1)",
-        "contrast_white": 1.05,
-        "contrast_black": 20.08
+        "hex": "#fbfbfc",
+        "oklch": "oklch(0.988 0.001 286.4)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.31
       },
       "100": {
-        "hex": "#eaebed",
-        "oklch": "oklch(0.94 0.003 264.5)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.6
+        "hex": "#f2f4f6",
+        "oklch": "oklch(0.966 0.003 247.9)",
+        "contrast_white": 1.1,
+        "contrast_black": 19.05
       },
       "150": {
-        "hex": "#d7dade",
-        "oklch": "oklch(0.887 0.006 255.5)",
-        "contrast_white": 1.4,
-        "contrast_black": 14.97
+        "hex": "#e5e9ee",
+        "oklch": "oklch(0.932 0.008 253.9)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.22
       },
       "200": {
-        "hex": "#c6cad0",
-        "oklch": "oklch(0.838 0.009 258.3)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.76
+        "hex": "#d6dde5",
+        "oklch": "oklch(0.895 0.013 251.6)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.33
       },
       "250": {
-        "hex": "#b4bbc4",
-        "oklch": "oklch(0.789 0.015 254.6)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.85
+        "hex": "#c6cfdb",
+        "oklch": "oklch(0.851 0.019 255.5)",
+        "contrast_white": 1.57,
+        "contrast_black": 13.35
       },
       "300": {
-        "hex": "#a4acb8",
-        "oklch": "oklch(0.742 0.019 258.4)",
-        "contrast_white": 2.29,
-        "contrast_black": 9.17
+        "hex": "#b4bfcf",
+        "oklch": "oklch(0.801 0.026 257.7)",
+        "contrast_white": 1.86,
+        "contrast_black": 11.29
       },
       "350": {
-        "hex": "#959fad",
-        "oklch": "oklch(0.699 0.023 256.8)",
-        "contrast_white": 2.68,
-        "contrast_black": 7.84
+        "hex": "#a3aebe",
+        "oklch": "oklch(0.747 0.026 257.7)",
+        "contrast_white": 2.24,
+        "contrast_black": 9.36
       },
       "400": {
-        "hex": "#8692a3",
-        "oklch": "oklch(0.656 0.029 257.1)",
-        "contrast_white": 3.16,
-        "contrast_black": 6.65
+        "hex": "#919dac",
+        "oklch": "oklch(0.691 0.026 254)",
+        "contrast_white": 2.76,
+        "contrast_black": 7.62
       },
       "450": {
-        "hex": "#788699",
-        "oklch": "oklch(0.615 0.033 256.1)",
-        "contrast_white": 3.7,
-        "contrast_black": 5.67
+        "hex": "#808b9a",
+        "oklch": "oklch(0.633 0.026 256.1)",
+        "contrast_white": 3.46,
+        "contrast_black": 6.08
       },
       "500": {
-        "hex": "#6c7a8d",
-        "oklch": "oklch(0.575 0.034 256.1)",
-        "contrast_white": 4.37,
-        "contrast_black": 4.81
+        "hex": "#6f7a89",
+        "oklch": "oklch(0.576 0.027 256.2)",
+        "contrast_white": 4.36,
+        "contrast_black": 4.82
       },
       "550": {
-        "hex": "#626e80",
-        "oklch": "oklch(0.535 0.032 258.4)",
-        "contrast_white": 5.17,
-        "contrast_black": 4.06
+        "hex": "#5f6978",
+        "oklch": "oklch(0.518 0.027 258.4)",
+        "contrast_white": 5.56,
+        "contrast_black": 3.78
       },
       "600": {
-        "hex": "#586373",
-        "oklch": "oklch(0.496 0.029 257.7)",
-        "contrast_white": 6.09,
-        "contrast_black": 3.45
+        "hex": "#505b69",
+        "oklch": "oklch(0.467 0.027 254.5)",
+        "contrast_white": 6.9,
+        "contrast_black": 3.04
       },
       "650": {
-        "hex": "#4e5967",
-        "oklch": "oklch(0.46 0.027 254.5)",
-        "contrast_white": 7.12,
-        "contrast_black": 2.95
+        "hex": "#434d5b",
+        "oklch": "oklch(0.417 0.027 256.8)",
+        "contrast_white": 8.57,
+        "contrast_black": 2.45
       },
       "700": {
-        "hex": "#454e5b",
-        "oklch": "oklch(0.421 0.025 257.5)",
-        "contrast_white": 8.42,
-        "contrast_black": 2.49
+        "hex": "#37414e",
+        "oklch": "oklch(0.372 0.026 255.1)",
+        "contrast_white": 10.35,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#3b444f",
-        "oklch": "oklch(0.383 0.022 253.5)",
-        "contrast_white": 9.88,
-        "contrast_black": 2.13
+        "hex": "#2d3643",
+        "oklch": "oklch(0.33 0.026 257.5)",
+        "contrast_white": 12.21,
+        "contrast_black": 1.72
       },
       "800": {
-        "hex": "#323943",
-        "oklch": "oklch(0.342 0.02 257.3)",
-        "contrast_white": 11.65,
-        "contrast_black": 1.8
+        "hex": "#242d39",
+        "oklch": "oklch(0.294 0.025 255.7)",
+        "contrast_white": 13.91,
+        "contrast_black": 1.51
       },
       "850": {
-        "hex": "#282e36",
-        "oklch": "oklch(0.299 0.017 255.7)",
-        "contrast_white": 13.69,
-        "contrast_black": 1.53
+        "hex": "#1c242f",
+        "oklch": "oklch(0.258 0.024 256.4)",
+        "contrast_white": 15.64,
+        "contrast_black": 1.34
       },
       "900": {
-        "hex": "#1d2127",
-        "oklch": "oklch(0.246 0.013 258.4)",
-        "contrast_white": 16.17,
-        "contrast_black": 1.3
+        "hex": "#141b24",
+        "oklch": "oklch(0.219 0.021 254.9)",
+        "contrast_white": 17.33,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#0e1014",
-        "oklch": "oklch(0.173 0.009 264.3)",
-        "contrast_white": 19.04,
-        "contrast_black": 1.1
+        "hex": "#0c1118",
+        "oklch": "oklch(0.176 0.017 256.8)",
+        "contrast_white": 18.94,
+        "contrast_black": 1.11
       }
     }
   },
@@ -241,58 +241,58 @@
     "seed": "#52525b",
     "stops": {
       "50": {
-        "hex": "#fafafa",
-        "oklch": "oklch(0.985 0 0)",
-        "contrast_white": 1.04,
-        "contrast_black": 20.12
+        "hex": "#fbfbfc",
+        "oklch": "oklch(0.988 0.001 286.4)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.31
       },
       "100": {
-        "hex": "#ebebec",
-        "oklch": "oklch(0.94 0.001 286.4)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.63
+        "hex": "#f3f3f5",
+        "oklch": "oklch(0.965 0.003 286.3)",
+        "contrast_white": 1.11,
+        "contrast_black": 18.95
       },
       "150": {
-        "hex": "#dadadb",
-        "oklch": "oklch(0.889 0.001 286.4)",
-        "contrast_white": 1.4,
-        "contrast_black": 15.03
+        "hex": "#e8e8eb",
+        "oklch": "oklch(0.932 0.004 286.3)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.17
       },
       "200": {
-        "hex": "#c9c9cc",
-        "oklch": "oklch(0.837 0.004 286.3)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.71
+        "hex": "#dbdbe1",
+        "oklch": "oklch(0.893 0.008 286.2)",
+        "contrast_white": 1.38,
+        "contrast_black": 15.23
       },
       "250": {
-        "hex": "#bababd",
-        "oklch": "oklch(0.79 0.004 286.3)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.85
+        "hex": "#cdcdd5",
+        "oklch": "oklch(0.851 0.011 286.2)",
+        "contrast_white": 1.58,
+        "contrast_black": 13.29
       },
       "300": {
-        "hex": "#ababb0",
-        "oklch": "oklch(0.743 0.007 286.2)",
-        "contrast_white": 2.29,
-        "contrast_black": 9.18
+        "hex": "#bdbdc8",
+        "oklch": "oklch(0.802 0.015 286)",
+        "contrast_white": 1.86,
+        "contrast_black": 11.28
       },
       "350": {
-        "hex": "#9d9da3",
-        "oklch": "oklch(0.698 0.009 286.2)",
-        "contrast_white": 2.7,
-        "contrast_black": 7.79
+        "hex": "#acacb7",
+        "oklch": "oklch(0.748 0.016 286)",
+        "contrast_white": 2.25,
+        "contrast_black": 9.34
       },
       "400": {
-        "hex": "#909097",
-        "oklch": "oklch(0.656 0.01 286.1)",
-        "contrast_white": 3.17,
-        "contrast_black": 6.62
+        "hex": "#9b9ba5",
+        "oklch": "oklch(0.693 0.014 286)",
+        "contrast_white": 2.75,
+        "contrast_black": 7.63
       },
       "450": {
-        "hex": "#84848c",
-        "oklch": "oklch(0.616 0.012 286)",
-        "contrast_white": 3.71,
-        "contrast_black": 5.66
+        "hex": "#898993",
+        "oklch": "oklch(0.633 0.015 286)",
+        "contrast_white": 3.46,
+        "contrast_black": 6.06
       },
       "500": {
         "hex": "#787881",
@@ -301,57 +301,57 @@
         "contrast_black": 4.8
       },
       "550": {
-        "hex": "#6c6c76",
-        "oklch": "oklch(0.535 0.015 285.9)",
-        "contrast_white": 5.19,
-        "contrast_black": 4.04
+        "hex": "#686871",
+        "oklch": "oklch(0.52 0.014 285.9)",
+        "contrast_white": 5.52,
+        "contrast_black": 3.81
       },
       "600": {
-        "hex": "#62626c",
-        "oklch": "oklch(0.5 0.016 285.8)",
-        "contrast_white": 6.03,
-        "contrast_black": 3.48
+        "hex": "#595962",
+        "oklch": "oklch(0.467 0.014 285.8)",
+        "contrast_white": 6.93,
+        "contrast_black": 3.03
       },
       "650": {
-        "hex": "#575761",
-        "oklch": "oklch(0.46 0.016 285.8)",
-        "contrast_white": 7.14,
-        "contrast_black": 2.94
+        "hex": "#4b4b54",
+        "oklch": "oklch(0.416 0.015 285.7)",
+        "contrast_white": 8.63,
+        "contrast_black": 2.43
       },
       "700": {
-        "hex": "#4d4d55",
-        "oklch": "oklch(0.423 0.013 285.8)",
-        "contrast_white": 8.37,
-        "contrast_black": 2.51
+        "hex": "#404048",
+        "oklch": "oklch(0.375 0.014 285.7)",
+        "contrast_white": 10.27,
+        "contrast_black": 2.04
       },
       "750": {
-        "hex": "#42424a",
-        "oklch": "oklch(0.382 0.013 285.7)",
-        "contrast_white": 9.95,
-        "contrast_black": 2.11
+        "hex": "#35353d",
+        "oklch": "oklch(0.332 0.014 285.6)",
+        "contrast_white": 12.15,
+        "contrast_black": 1.73
       },
       "800": {
-        "hex": "#38383e",
-        "oklch": "oklch(0.343 0.01 285.8)",
-        "contrast_white": 11.64,
-        "contrast_black": 1.8
+        "hex": "#2b2b33",
+        "oklch": "oklch(0.292 0.014 285.5)",
+        "contrast_white": 14.04,
+        "contrast_black": 1.5
       },
       "850": {
-        "hex": "#2d2d32",
-        "oklch": "oklch(0.299 0.009 285.8)",
-        "contrast_white": 13.7,
-        "contrast_black": 1.53
+        "hex": "#23222a",
+        "oklch": "oklch(0.256 0.015 291)",
+        "contrast_white": 15.75,
+        "contrast_black": 1.33
       },
       "900": {
-        "hex": "#212124",
-        "oklch": "oklch(0.249 0.006 286)",
-        "contrast_white": 16.06,
-        "contrast_black": 1.31
+        "hex": "#1a1a20",
+        "oklch": "oklch(0.22 0.012 285.4)",
+        "contrast_white": 17.32,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#101013",
-        "oklch": "oklch(0.174 0.006 285.7)",
-        "contrast_white": 19,
+        "hex": "#101014",
+        "oklch": "oklch(0.175 0.008 285.5)",
+        "contrast_white": 18.98,
         "contrast_black": 1.11
       }
     }
@@ -360,58 +360,58 @@
     "seed": "#525252",
     "stops": {
       "50": {
-        "hex": "#fafafa",
-        "oklch": "oklch(0.985 0 0)",
-        "contrast_white": 1.04,
-        "contrast_black": 20.12
+        "hex": "#fbfbfb",
+        "oklch": "oklch(0.988 0 0)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.29
       },
       "100": {
-        "hex": "#ebebeb",
-        "oklch": "oklch(0.94 0 0)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.62
+        "hex": "#f3f3f3",
+        "oklch": "oklch(0.964 0 0)",
+        "contrast_white": 1.11,
+        "contrast_black": 18.93
       },
       "150": {
-        "hex": "#dadada",
-        "oklch": "oklch(0.888 0 0)",
-        "contrast_white": 1.4,
-        "contrast_black": 15.02
+        "hex": "#e8e8e8",
+        "oklch": "oklch(0.931 0 0)",
+        "contrast_white": 1.23,
+        "contrast_black": 17.14
       },
       "200": {
-        "hex": "#cacaca",
-        "oklch": "oklch(0.839 0 0)",
-        "contrast_white": 1.64,
-        "contrast_black": 12.81
+        "hex": "#dcdcdc",
+        "oklch": "oklch(0.894 0 0)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.31
       },
       "250": {
-        "hex": "#bababa",
-        "oklch": "oklch(0.789 0 0)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.82
+        "hex": "#cecece",
+        "oklch": "oklch(0.851 0 0)",
+        "contrast_white": 1.57,
+        "contrast_black": 13.34
       },
       "300": {
-        "hex": "#acacac",
-        "oklch": "oklch(0.744 0 0)",
-        "contrast_white": 2.27,
-        "contrast_black": 9.25
+        "hex": "#bebebe",
+        "oklch": "oklch(0.802 0 0)",
+        "contrast_white": 1.86,
+        "contrast_black": 11.3
       },
       "350": {
-        "hex": "#9e9e9e",
-        "oklch": "oklch(0.699 0 0)",
-        "contrast_white": 2.68,
-        "contrast_black": 7.84
+        "hex": "#adadad",
+        "oklch": "oklch(0.748 0 0)",
+        "contrast_white": 2.24,
+        "contrast_black": 9.36
       },
       "400": {
-        "hex": "#919191",
-        "oklch": "oklch(0.657 0 0)",
-        "contrast_white": 3.15,
-        "contrast_black": 6.66
+        "hex": "#9c9c9c",
+        "oklch": "oklch(0.693 0 0)",
+        "contrast_white": 2.75,
+        "contrast_black": 7.65
       },
       "450": {
-        "hex": "#848484",
-        "oklch": "oklch(0.613 0 0)",
-        "contrast_white": 3.74,
-        "contrast_black": 5.61
+        "hex": "#8a8a8a",
+        "oklch": "oklch(0.633 0 0)",
+        "contrast_white": 3.45,
+        "contrast_black": 6.08
       },
       "500": {
         "hex": "#797979",
@@ -420,52 +420,52 @@
         "contrast_black": 4.82
       },
       "550": {
-        "hex": "#6d6d6d",
-        "oklch": "oklch(0.535 0 0)",
-        "contrast_white": 5.17,
-        "contrast_black": 4.06
+        "hex": "#686868",
+        "oklch": "oklch(0.517 0 0)",
+        "contrast_white": 5.57,
+        "contrast_black": 3.77
       },
       "600": {
-        "hex": "#626262",
-        "oklch": "oklch(0.496 0 0)",
-        "contrast_white": 6.1,
-        "contrast_black": 3.44
+        "hex": "#5a5a5a",
+        "oklch": "oklch(0.468 0 0)",
+        "contrast_white": 6.9,
+        "contrast_black": 3.04
       },
       "650": {
-        "hex": "#585858",
-        "oklch": "oklch(0.46 0 0)",
-        "contrast_white": 7.11,
-        "contrast_black": 2.95
+        "hex": "#4c4c4c",
+        "oklch": "oklch(0.417 0 0)",
+        "contrast_white": 8.59,
+        "contrast_black": 2.45
       },
       "700": {
-        "hex": "#4d4d4d",
-        "oklch": "oklch(0.42 0 0)",
-        "contrast_white": 8.45,
-        "contrast_black": 2.48
+        "hex": "#404040",
+        "oklch": "oklch(0.371 0 0)",
+        "contrast_white": 10.37,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#434343",
-        "oklch": "oklch(0.383 0 0)",
-        "contrast_white": 9.89,
-        "contrast_black": 2.12
+        "hex": "#363636",
+        "oklch": "oklch(0.333 0 0)",
+        "contrast_white": 12.08,
+        "contrast_black": 1.74
       },
       "800": {
-        "hex": "#383838",
-        "oklch": "oklch(0.341 0 0)",
-        "contrast_white": 11.73,
-        "contrast_black": 1.79
+        "hex": "#2c2c2c",
+        "oklch": "oklch(0.293 0 0)",
+        "contrast_white": 13.97,
+        "contrast_black": 1.5
       },
       "850": {
-        "hex": "#2d2d2d",
-        "oklch": "oklch(0.297 0 0)",
-        "contrast_white": 13.77,
-        "contrast_black": 1.52
+        "hex": "#232323",
+        "oklch": "oklch(0.256 0 0)",
+        "contrast_white": 15.72,
+        "contrast_black": 1.34
       },
       "900": {
-        "hex": "#212121",
-        "oklch": "oklch(0.248 0 0)",
-        "contrast_white": 16.1,
-        "contrast_black": 1.3
+        "hex": "#1a1a1a",
+        "oklch": "oklch(0.218 0 0)",
+        "contrast_white": 17.4,
+        "contrast_black": 1.21
       },
       "950": {
         "hex": "#101010",
@@ -479,118 +479,118 @@
     "seed": "#57534e",
     "stops": {
       "50": {
-        "hex": "#fafaf9",
-        "oklch": "oklch(0.985 0.001 106.4)",
-        "contrast_white": 1.04,
-        "contrast_black": 20.11
+        "hex": "#fbfbfb",
+        "oklch": "oklch(0.988 0 0)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.29
       },
       "100": {
-        "hex": "#edebe9",
-        "oklch": "oklch(0.941 0.003 67.8)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.66
+        "hex": "#f4f3f2",
+        "oklch": "oklch(0.965 0.002 67.8)",
+        "contrast_white": 1.11,
+        "contrast_black": 18.95
       },
       "150": {
-        "hex": "#ddd9d5",
-        "oklch": "oklch(0.887 0.007 67.7)",
-        "contrast_white": 1.4,
-        "contrast_black": 14.96
+        "hex": "#eae8e6",
+        "oklch": "oklch(0.932 0.003 67.8)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.18
       },
       "200": {
-        "hex": "#cec9c2",
-        "oklch": "oklch(0.838 0.011 76.6)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.76
+        "hex": "#dedcd9",
+        "oklch": "oklch(0.895 0.005 78.3)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.35
       },
       "250": {
-        "hex": "#c0b9b1",
-        "oklch": "oklch(0.789 0.014 71.3)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.82
+        "hex": "#d1cdc9",
+        "oklch": "oklch(0.85 0.007 67.7)",
+        "contrast_white": 1.58,
+        "contrast_black": 13.29
       },
       "300": {
-        "hex": "#b1aba2",
-        "oklch": "oklch(0.744 0.014 78.2)",
-        "contrast_white": 2.28,
-        "contrast_black": 9.22
+        "hex": "#c2beb8",
+        "oklch": "oklch(0.803 0.009 78.3)",
+        "contrast_white": 1.85,
+        "contrast_black": 11.35
       },
       "350": {
-        "hex": "#a39d95",
-        "oklch": "oklch(0.699 0.013 75.3)",
-        "contrast_white": 2.69,
-        "contrast_black": 7.81
+        "hex": "#b1ada7",
+        "oklch": "oklch(0.749 0.01 78.3)",
+        "contrast_white": 2.23,
+        "contrast_black": 9.4
       },
       "400": {
-        "hex": "#969088",
-        "oklch": "oklch(0.656 0.014 75.3)",
-        "contrast_white": 3.16,
-        "contrast_black": 6.64
+        "hex": "#9f9b95",
+        "oklch": "oklch(0.691 0.01 78.3)",
+        "contrast_white": 2.76,
+        "contrast_black": 7.6
       },
       "450": {
-        "hex": "#89847c",
-        "oklch": "oklch(0.615 0.013 79.8)",
-        "contrast_white": 3.71,
-        "contrast_black": 5.66
+        "hex": "#8e8984",
+        "oklch": "oklch(0.633 0.01 67.7)",
+        "contrast_white": 3.46,
+        "contrast_black": 6.06
       },
       "500": {
-        "hex": "#7d7871",
-        "oklch": "oklch(0.575 0.012 76.5)",
+        "hex": "#7c7873",
+        "oklch": "oklch(0.575 0.009 73.7)",
         "contrast_white": 4.38,
-        "contrast_black": 4.8
+        "contrast_black": 4.79
       },
       "550": {
-        "hex": "#726d66",
-        "oklch": "oklch(0.537 0.012 76.5)",
-        "contrast_white": 5.13,
-        "contrast_black": 4.09
+        "hex": "#6d6863",
+        "oklch": "oklch(0.52 0.01 67.6)",
+        "contrast_white": 5.51,
+        "contrast_black": 3.81
       },
       "600": {
-        "hex": "#66625c",
-        "oklch": "oklch(0.498 0.011 78.2)",
-        "contrast_white": 6.06,
-        "contrast_black": 3.47
+        "hex": "#5e5954",
+        "oklch": "oklch(0.467 0.01 67.6)",
+        "contrast_white": 6.92,
+        "contrast_black": 3.03
       },
       "650": {
-        "hex": "#5b5752",
-        "oklch": "oklch(0.459 0.01 73.6)",
-        "contrast_white": 7.17,
-        "contrast_black": 2.93
+        "hex": "#514b47",
+        "oklch": "oklch(0.417 0.01 56.1)",
+        "contrast_white": 8.58,
+        "contrast_black": 2.45
       },
       "700": {
-        "hex": "#504d48",
-        "oklch": "oklch(0.421 0.009 80.7)",
-        "contrast_white": 8.41,
-        "contrast_black": 2.5
+        "hex": "#453f3c",
+        "oklch": "oklch(0.373 0.01 48.4)",
+        "contrast_white": 10.35,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#46423e",
-        "oklch": "oklch(0.382 0.009 67.6)",
-        "contrast_white": 9.96,
-        "contrast_black": 2.11
+        "hex": "#3a3531",
+        "oklch": "oklch(0.333 0.01 61.2)",
+        "contrast_white": 12.11,
+        "contrast_black": 1.73
       },
       "800": {
-        "hex": "#3b3835",
-        "oklch": "oklch(0.343 0.007 67.6)",
-        "contrast_white": 11.65,
-        "contrast_black": 1.8
+        "hex": "#302b28",
+        "oklch": "oklch(0.293 0.009 53.1)",
+        "contrast_white": 13.98,
+        "contrast_black": 1.5
       },
       "850": {
-        "hex": "#2f2d2a",
-        "oklch": "oklch(0.298 0.006 78.2)",
-        "contrast_white": 13.73,
-        "contrast_black": 1.53
+        "hex": "#27221f",
+        "oklch": "oklch(0.256 0.009 53.1)",
+        "contrast_white": 15.73,
+        "contrast_black": 1.33
       },
       "900": {
-        "hex": "#22211f",
-        "oklch": "oklch(0.248 0.004 84.6)",
-        "contrast_white": 16.09,
-        "contrast_black": 1.31
+        "hex": "#1d1a17",
+        "oklch": "oklch(0.22 0.007 67.4)",
+        "contrast_white": 17.32,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#11100f",
-        "oklch": "oklch(0.174 0.003 67.7)",
-        "contrast_white": 19.01,
-        "contrast_black": 1.1
+        "hex": "#12100e",
+        "oklch": "oklch(0.175 0.005 67.5)",
+        "contrast_white": 18.98,
+        "contrast_black": 1.11
       }
     }
   },
@@ -598,118 +598,118 @@
     "seed": "#dc2626",
     "stops": {
       "50": {
-        "hex": "#fdf9f8",
-        "oklch": "oklch(0.985 0.004 34.3)",
-        "contrast_white": 1.05,
-        "contrast_black": 20.08
+        "hex": "#fffaf9",
+        "oklch": "oklch(0.989 0.006 31.1)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.29
       },
       "100": {
-        "hex": "#f7e8e6",
-        "oklch": "oklch(0.942 0.017 26.6)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.64
+        "hex": "#fff0ee",
+        "oklch": "oklch(0.966 0.016 26.6)",
+        "contrast_white": 1.11,
+        "contrast_black": 18.95
       },
       "150": {
-        "hex": "#f2d3cf",
-        "oklch": "oklch(0.892 0.035 26.6)",
-        "contrast_white": 1.4,
-        "contrast_black": 14.99
+        "hex": "#ffe2dd",
+        "oklch": "oklch(0.935 0.033 29.4)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.17
       },
       "200": {
-        "hex": "#f0beb7",
-        "oklch": "oklch(0.844 0.059 27.6)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.75
+        "hex": "#ffd2cb",
+        "oklch": "oklch(0.9 0.052 28.4)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.33
       },
       "250": {
-        "hex": "#f0a89f",
-        "oklch": "oklch(0.798 0.087 27.1)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.81
+        "hex": "#ffbeb6",
+        "oklch": "oklch(0.859 0.076 26.7)",
+        "contrast_white": 1.58,
+        "contrast_black": 13.29
       },
       "300": {
-        "hex": "#f09387",
-        "oklch": "oklch(0.757 0.115 28)",
-        "contrast_white": 2.28,
-        "contrast_black": 9.23
+        "hex": "#ffa89d",
+        "oklch": "oklch(0.814 0.105 27.5)",
+        "contrast_white": 1.85,
+        "contrast_black": 11.34
       },
       "350": {
-        "hex": "#f17b6f",
-        "oklch": "oklch(0.715 0.147 27.3)",
-        "contrast_white": 2.69,
-        "contrast_black": 7.8
+        "hex": "#fe8e82",
+        "oklch": "oklch(0.765 0.138 27.2)",
+        "contrast_white": 2.23,
+        "contrast_black": 9.41
       },
       "400": {
-        "hex": "#f36156",
-        "oklch": "oklch(0.678 0.182 27.3)",
-        "contrast_white": 3.16,
-        "contrast_black": 6.66
+        "hex": "#fa7064",
+        "oklch": "oklch(0.71 0.171 27.3)",
+        "contrast_white": 2.78,
+        "contrast_black": 7.57
       },
       "450": {
-        "hex": "#f4403a",
-        "oklch": "oklch(0.64 0.217 27.3)",
-        "contrast_white": 3.72,
-        "contrast_black": 5.64
+        "hex": "#f25249",
+        "oklch": "oklch(0.657 0.198 27.2)",
+        "contrast_white": 3.45,
+        "contrast_black": 6.08
       },
       "500": {
-        "hex": "#e82b2a",
-        "oklch": "oklch(0.602 0.222 27.4)",
-        "contrast_white": 4.37,
-        "contrast_black": 4.81
+        "hex": "#de3b35",
+        "oklch": "oklch(0.598 0.201 27.3)",
+        "contrast_white": 4.39,
+        "contrast_black": 4.78
       },
       "550": {
-        "hex": "#d42424",
-        "oklch": "oklch(0.561 0.209 27.3)",
-        "contrast_white": 5.15,
-        "contrast_black": 4.08
+        "hex": "#c72a27",
+        "oklch": "oklch(0.542 0.193 27.4)",
+        "contrast_white": 5.54,
+        "contrast_black": 3.79
       },
       "600": {
-        "hex": "#c02020",
-        "oklch": "oklch(0.521 0.194 27.3)",
-        "contrast_white": 6.05,
-        "contrast_black": 3.47
+        "hex": "#b01c1c",
+        "oklch": "oklch(0.488 0.182 27.3)",
+        "contrast_white": 6.93,
+        "contrast_black": 3.03
       },
       "650": {
-        "hex": "#ad1b1b",
-        "oklch": "oklch(0.482 0.18 27.4)",
-        "contrast_white": 7.12,
-        "contrast_black": 2.95
+        "hex": "#991013",
+        "oklch": "oklch(0.436 0.169 27.3)",
+        "contrast_white": 8.61,
+        "contrast_black": 2.44
       },
       "700": {
-        "hex": "#991717",
-        "oklch": "oklch(0.441 0.164 27.3)",
-        "contrast_white": 8.44,
-        "contrast_black": 2.49
+        "hex": "#85080d",
+        "oklch": "oklch(0.392 0.154 27.3)",
+        "contrast_white": 10.3,
+        "contrast_black": 2.04
       },
       "750": {
-        "hex": "#861414",
-        "oklch": "oklch(0.401 0.148 27.2)",
-        "contrast_white": 9.89,
-        "contrast_black": 2.12
+        "hex": "#710408",
+        "oklch": "oklch(0.347 0.138 27.4)",
+        "contrast_white": 12.19,
+        "contrast_black": 1.72
       },
       "800": {
-        "hex": "#711211",
-        "oklch": "oklch(0.357 0.129 27.2)",
-        "contrast_white": 11.69,
-        "contrast_black": 1.8
+        "hex": "#5f0205",
+        "oklch": "oklch(0.307 0.123 27.4)",
+        "contrast_white": 14.02,
+        "contrast_black": 1.5
       },
       "850": {
-        "hex": "#5c100e",
-        "oklch": "oklch(0.312 0.109 27.3)",
-        "contrast_white": 13.68,
-        "contrast_black": 1.54
+        "hex": "#4f0103",
+        "oklch": "oklch(0.27 0.109 27.6)",
+        "contrast_white": 15.69,
+        "contrast_black": 1.34
       },
       "900": {
-        "hex": "#430c0a",
-        "oklch": "oklch(0.255 0.084 27.1)",
-        "contrast_white": 16.21,
-        "contrast_black": 1.3
+        "hex": "#3f0002",
+        "oklch": "oklch(0.231 0.094 27.1)",
+        "contrast_white": 17.32,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#250605",
-        "oklch": "oklch(0.181 0.054 26.5)",
-        "contrast_white": 18.97,
-        "contrast_black": 1.11
+        "hex": "#2b0001",
+        "oklch": "oklch(0.182 0.074 27)",
+        "contrast_white": 19.04,
+        "contrast_black": 1.1
       }
     }
   },
@@ -717,116 +717,116 @@
     "seed": "#ea580c",
     "stops": {
       "50": {
-        "hex": "#fdf9f7",
-        "oklch": "oklch(0.985 0.005 48.7)",
-        "contrast_white": 1.05,
-        "contrast_black": 20.07
+        "hex": "#fffaf9",
+        "oklch": "oklch(0.989 0.006 31.1)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.29
       },
       "100": {
-        "hex": "#f8e8e3",
-        "oklch": "oklch(0.942 0.019 38.2)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.64
+        "hex": "#fff1ec",
+        "oklch": "oklch(0.968 0.017 40.8)",
+        "contrast_white": 1.1,
+        "contrast_black": 19.05
       },
       "150": {
-        "hex": "#f4d3c7",
-        "oklch": "oklch(0.891 0.041 41)",
-        "contrast_white": 1.4,
-        "contrast_black": 14.99
+        "hex": "#ffe2d8",
+        "oklch": "oklch(0.934 0.035 40)",
+        "contrast_white": 1.23,
+        "contrast_black": 17.12
       },
       "200": {
-        "hex": "#f3beaa",
-        "oklch": "oklch(0.844 0.067 41.6)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.76
+        "hex": "#ffd2c2",
+        "oklch": "oklch(0.898 0.055 40.5)",
+        "contrast_white": 1.38,
+        "contrast_black": 15.25
       },
       "250": {
-        "hex": "#f4a88c",
-        "oklch": "oklch(0.798 0.098 41)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.83
+        "hex": "#ffc0a8",
+        "oklch": "oklch(0.859 0.08 41.8)",
+        "contrast_white": 1.57,
+        "contrast_black": 13.36
       },
       "300": {
-        "hex": "#f5926c",
-        "oklch": "oklch(0.756 0.131 41.5)",
-        "contrast_white": 2.28,
-        "contrast_black": 9.21
+        "hex": "#feaa8b",
+        "oklch": "oklch(0.813 0.108 41)",
+        "contrast_white": 1.85,
+        "contrast_black": 11.34
       },
       "350": {
-        "hex": "#f87947",
-        "oklch": "oklch(0.716 0.169 41.2)",
-        "contrast_white": 2.69,
-        "contrast_black": 7.82
+        "hex": "#fd9068",
+        "oklch": "oklch(0.762 0.143 40.7)",
+        "contrast_white": 2.24,
+        "contrast_black": 9.37
       },
       "400": {
-        "hex": "#f66019",
-        "oklch": "oklch(0.675 0.198 41)",
-        "contrast_white": 3.18,
-        "contrast_black": 6.61
+        "hex": "#f67643",
+        "oklch": "oklch(0.708 0.17 41.2)",
+        "contrast_white": 2.77,
+        "contrast_black": 7.59
       },
       "450": {
-        "hex": "#e4560b",
-        "oklch": "oklch(0.634 0.19 41.3)",
-        "contrast_white": 3.73,
-        "contrast_black": 5.63
+        "hex": "#e4622b",
+        "oklch": "oklch(0.651 0.175 41.2)",
+        "contrast_white": 3.45,
+        "contrast_black": 6.08
       },
       "500": {
-        "hex": "#d14e09",
-        "oklch": "oklch(0.594 0.178 41.2)",
-        "contrast_white": 4.37,
-        "contrast_black": 4.8
+        "hex": "#cc521c",
+        "oklch": "oklch(0.592 0.167 41)",
+        "contrast_white": 4.38,
+        "contrast_black": 4.79
       },
       "550": {
-        "hex": "#be4606",
-        "oklch": "oklch(0.553 0.166 41.3)",
-        "contrast_white": 5.16,
-        "contrast_black": 4.07
+        "hex": "#b44510",
+        "oklch": "oklch(0.535 0.156 41.3)",
+        "contrast_white": 5.53,
+        "contrast_black": 3.8
       },
       "600": {
-        "hex": "#ad3e04",
-        "oklch": "oklch(0.514 0.156 41)",
-        "contrast_white": 6.06,
-        "contrast_black": 3.47
+        "hex": "#9d3906",
+        "oklch": "oklch(0.481 0.144 41.3)",
+        "contrast_white": 6.95,
+        "contrast_black": 3.02
       },
       "650": {
-        "hex": "#9b3703",
-        "oklch": "oklch(0.475 0.144 41.2)",
-        "contrast_white": 7.14,
-        "contrast_black": 2.94
+        "hex": "#882f01",
+        "oklch": "oklch(0.431 0.131 41.3)",
+        "contrast_white": 8.56,
+        "contrast_black": 2.45
       },
       "700": {
-        "hex": "#8a3002",
-        "oklch": "oklch(0.436 0.132 41.2)",
-        "contrast_white": 8.39,
-        "contrast_black": 2.5
+        "hex": "#752600",
+        "oklch": "oklch(0.385 0.119 40.8)",
+        "contrast_white": 10.33,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#792801",
-        "oklch": "oklch(0.395 0.121 40.8)",
-        "contrast_white": 9.92,
-        "contrast_black": 2.12
+        "hex": "#631f00",
+        "oklch": "oklch(0.342 0.106 40.9)",
+        "contrast_white": 12.16,
+        "contrast_black": 1.73
       },
       "800": {
-        "hex": "#682100",
-        "oklch": "oklch(0.354 0.109 40.9)",
-        "contrast_white": 11.63,
-        "contrast_black": 1.81
+        "hex": "#531800",
+        "oklch": "oklch(0.302 0.094 40.4)",
+        "contrast_white": 14.01,
+        "contrast_black": 1.5
       },
       "850": {
-        "hex": "#541b03",
-        "oklch": "oklch(0.309 0.091 40.7)",
-        "contrast_white": 13.68,
-        "contrast_black": 1.54
+        "hex": "#451200",
+        "oklch": "oklch(0.266 0.083 40)",
+        "contrast_white": 15.68,
+        "contrast_black": 1.34
       },
       "900": {
-        "hex": "#3d1403",
-        "oklch": "oklch(0.254 0.07 42.2)",
-        "contrast_white": 16.16,
-        "contrast_black": 1.3
+        "hex": "#360c00",
+        "oklch": "oklch(0.226 0.071 39.8)",
+        "contrast_white": 17.36,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#210902",
-        "oklch": "oklch(0.178 0.045 42.4)",
+        "hex": "#250600",
+        "oklch": "oklch(0.18 0.057 39.6)",
         "contrast_white": 19.01,
         "contrast_black": 1.1
       }
@@ -836,118 +836,118 @@
     "seed": "#d97706",
     "stops": {
       "50": {
-        "hex": "#fdf9f6",
-        "oklch": "oklch(0.984 0.006 59.7)",
-        "contrast_white": 1.05,
-        "contrast_black": 20.06
+        "hex": "#fefbf8",
+        "oklch": "oklch(0.99 0.005 67.8)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.37
       },
       "100": {
-        "hex": "#f8e9de",
-        "oklch": "oklch(0.943 0.022 58.8)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.7
+        "hex": "#fff1e7",
+        "oklch": "oklch(0.966 0.02 58.1)",
+        "contrast_white": 1.11,
+        "contrast_black": 18.99
       },
       "150": {
-        "hex": "#f5d4bb",
-        "oklch": "oklch(0.891 0.05 59.2)",
-        "contrast_white": 1.4,
-        "contrast_black": 15.02
+        "hex": "#ffe3d0",
+        "oklch": "oklch(0.934 0.04 56.3)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.15
       },
       "200": {
-        "hex": "#f4bf97",
-        "oklch": "oklch(0.843 0.081 58.4)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.75
+        "hex": "#fed4b4",
+        "oklch": "oklch(0.898 0.064 59.1)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.29
       },
       "250": {
-        "hex": "#f5aa6e",
-        "oklch": "oklch(0.798 0.117 58.7)",
-        "contrast_white": 1.93,
-        "contrast_black": 10.86
+        "hex": "#fdc295",
+        "oklch": "oklch(0.857 0.09 58.5)",
+        "contrast_white": 1.58,
+        "contrast_black": 13.33
       },
       "300": {
-        "hex": "#f89336",
-        "oklch": "oklch(0.755 0.158 58.5)",
-        "contrast_white": 2.28,
-        "contrast_black": 9.22
+        "hex": "#fcad6e",
+        "oklch": "oklch(0.811 0.122 58.5)",
+        "contrast_white": 1.85,
+        "contrast_black": 11.34
       },
       "350": {
-        "hex": "#ea841f",
-        "oklch": "oklch(0.711 0.161 58)",
-        "contrast_white": 2.69,
-        "contrast_black": 7.82
+        "hex": "#f49748",
+        "oklch": "oklch(0.758 0.145 58.1)",
+        "contrast_white": 2.24,
+        "contrast_black": 9.37
       },
       "400": {
-        "hex": "#da7807",
-        "oklch": "oklch(0.669 0.158 58.5)",
-        "contrast_white": 3.15,
-        "contrast_black": 6.67
+        "hex": "#e08535",
+        "oklch": "oklch(0.701 0.144 57.9)",
+        "contrast_white": 2.77,
+        "contrast_black": 7.58
       },
       "450": {
-        "hex": "#c86d05",
-        "oklch": "oklch(0.626 0.148 58.2)",
-        "contrast_white": 3.72,
-        "contrast_black": 5.65
+        "hex": "#c97526",
+        "oklch": "oklch(0.642 0.137 58.6)",
+        "contrast_white": 3.47,
+        "contrast_black": 6.06
       },
       "500": {
-        "hex": "#b76303",
-        "oklch": "oklch(0.585 0.139 58.1)",
+        "hex": "#b36519",
+        "oklch": "oklch(0.584 0.13 58.3)",
         "contrast_white": 4.38,
-        "contrast_black": 4.8
+        "contrast_black": 4.79
       },
       "550": {
-        "hex": "#a65a02",
-        "oklch": "oklch(0.546 0.129 58.7)",
-        "contrast_white": 5.14,
-        "contrast_black": 4.08
+        "hex": "#9e560e",
+        "oklch": "oklch(0.528 0.122 57.6)",
+        "contrast_white": 5.54,
+        "contrast_black": 3.79
       },
       "600": {
-        "hex": "#965002",
-        "oklch": "oklch(0.505 0.12 58.1)",
-        "contrast_white": 6.1,
-        "contrast_black": 3.45
+        "hex": "#894906",
+        "oklch": "oklch(0.474 0.111 57.7)",
+        "contrast_white": 6.96,
+        "contrast_black": 3.02
       },
       "650": {
-        "hex": "#874701",
-        "oklch": "oklch(0.467 0.112 57.9)",
-        "contrast_white": 7.16,
-        "contrast_black": 2.93
+        "hex": "#763e02",
+        "oklch": "oklch(0.426 0.1 58.2)",
+        "contrast_white": 8.54,
+        "contrast_black": 2.46
       },
       "700": {
-        "hex": "#783f00",
-        "oklch": "oklch(0.43 0.102 58.6)",
-        "contrast_white": 8.37,
-        "contrast_black": 2.51
+        "hex": "#653301",
+        "oklch": "oklch(0.379 0.091 57.1)",
+        "contrast_white": 10.36,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#683600",
-        "oklch": "oklch(0.389 0.092 58.8)",
-        "contrast_white": 9.92,
-        "contrast_black": 2.12
+        "hex": "#562a00",
+        "oklch": "oklch(0.338 0.082 56.8)",
+        "contrast_white": 12.16,
+        "contrast_black": 1.73
       },
       "800": {
-        "hex": "#592d00",
-        "oklch": "oklch(0.348 0.083 58.3)",
-        "contrast_white": 11.67,
-        "contrast_black": 1.8
+        "hex": "#482200",
+        "oklch": "oklch(0.299 0.073 56.5)",
+        "contrast_white": 13.96,
+        "contrast_black": 1.5
       },
       "850": {
-        "hex": "#482402",
-        "oklch": "oklch(0.303 0.07 58.1)",
-        "contrast_white": 13.74,
-        "contrast_black": 1.53
+        "hex": "#3a1b00",
+        "oklch": "oklch(0.261 0.063 57.9)",
+        "contrast_white": 15.71,
+        "contrast_black": 1.34
       },
       "900": {
-        "hex": "#351a03",
-        "oklch": "oklch(0.251 0.055 57.9)",
-        "contrast_white": 16.15,
-        "contrast_black": 1.3
+        "hex": "#2e1300",
+        "oklch": "oklch(0.223 0.055 55.6)",
+        "contrast_white": 17.37,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#1c0c02",
-        "oklch": "oklch(0.175 0.036 57.5)",
-        "contrast_white": 19.04,
-        "contrast_black": 1.1
+        "hex": "#1f0b00",
+        "oklch": "oklch(0.178 0.043 56.2)",
+        "contrast_white": 18.99,
+        "contrast_black": 1.11
       }
     }
   },
@@ -955,118 +955,118 @@
     "seed": "#FFCC33",
     "stops": {
       "50": {
-        "hex": "#fef9ee",
-        "oklch": "oklch(0.983 0.015 86.4)",
-        "contrast_white": 1.05,
-        "contrast_black": 20
+        "hex": "#fefbf5",
+        "oklch": "oklch(0.989 0.009 84.6)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.33
       },
       "100": {
-        "hex": "#fbeac2",
-        "oklch": "oklch(0.941 0.055 87.7)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.65
+        "hex": "#fff3d3",
+        "oklch": "oklch(0.965 0.044 89.9)",
+        "contrast_white": 1.1,
+        "contrast_black": 19.01
       },
       "150": {
-        "hex": "#fdd670",
-        "oklch": "oklch(0.889 0.128 88.7)",
-        "contrast_white": 1.4,
-        "contrast_black": 15.03
+        "hex": "#ffe6a8",
+        "oklch": "oklch(0.931 0.083 88.6)",
+        "contrast_white": 1.23,
+        "contrast_black": 17.14
       },
       "200": {
-        "hex": "#f5c32f",
-        "oklch": "oklch(0.839 0.16 88.3)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.73
+        "hex": "#ffd872",
+        "oklch": "oklch(0.895 0.128 88.8)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.32
       },
       "250": {
-        "hex": "#e2b42a",
-        "oklch": "oklch(0.79 0.151 88.5)",
-        "contrast_white": 1.95,
-        "contrast_black": 10.8
+        "hex": "#f6c948",
+        "oklch": "oklch(0.853 0.15 89.1)",
+        "contrast_white": 1.57,
+        "contrast_black": 13.37
       },
       "300": {
-        "hex": "#d1a626",
-        "oklch": "oklch(0.744 0.142 88.4)",
-        "contrast_white": 2.28,
-        "contrast_black": 9.19
+        "hex": "#e5b93b",
+        "oklch": "oklch(0.804 0.145 88.7)",
+        "contrast_white": 1.85,
+        "contrast_black": 11.33
       },
       "350": {
-        "hex": "#c09922",
-        "oklch": "oklch(0.7 0.134 88.9)",
-        "contrast_white": 2.69,
-        "contrast_black": 7.82
+        "hex": "#d2a82d",
+        "oklch": "oklch(0.75 0.14 88.6)",
+        "contrast_white": 2.24,
+        "contrast_black": 9.38
       },
       "400": {
-        "hex": "#b18c1f",
-        "oklch": "oklch(0.657 0.125 88.2)",
-        "contrast_white": 3.16,
-        "contrast_black": 6.64
+        "hex": "#c09621",
+        "oklch": "oklch(0.694 0.133 86.9)",
+        "contrast_white": 2.75,
+        "contrast_black": 7.63
       },
       "450": {
-        "hex": "#a2801b",
-        "oklch": "oklch(0.616 0.118 88.3)",
-        "contrast_white": 3.72,
-        "contrast_black": 5.64
+        "hex": "#af8317",
+        "oklch": "oklch(0.636 0.125 83.4)",
+        "contrast_white": 3.45,
+        "contrast_black": 6.08
       },
       "500": {
-        "hex": "#947517",
-        "oklch": "oklch(0.577 0.111 88.7)",
-        "contrast_white": 4.36,
-        "contrast_black": 4.82
+        "hex": "#9f700e",
+        "oklch": "oklch(0.579 0.117 78.4)",
+        "contrast_white": 4.38,
+        "contrast_black": 4.8
       },
       "550": {
-        "hex": "#866a14",
-        "oklch": "oklch(0.537 0.103 88.9)",
-        "contrast_white": 5.14,
-        "contrast_black": 4.09
+        "hex": "#8e5f08",
+        "oklch": "oklch(0.523 0.108 74.5)",
+        "contrast_white": 5.54,
+        "contrast_black": 3.79
       },
       "600": {
-        "hex": "#795f11",
-        "oklch": "oklch(0.498 0.095 88.5)",
-        "contrast_white": 6.07,
-        "contrast_black": 3.46
+        "hex": "#7f4f04",
+        "oklch": "oklch(0.471 0.101 69.2)",
+        "contrast_white": 6.95,
+        "contrast_black": 3.02
       },
       "650": {
-        "hex": "#6c550e",
-        "oklch": "oklch(0.461 0.088 89)",
-        "contrast_white": 7.13,
-        "contrast_black": 2.94
+        "hex": "#704102",
+        "oklch": "oklch(0.422 0.094 64.9)",
+        "contrast_white": 8.59,
+        "contrast_black": 2.45
       },
       "700": {
-        "hex": "#604b0b",
-        "oklch": "oklch(0.423 0.081 88.7)",
-        "contrast_white": 8.37,
-        "contrast_black": 2.51
+        "hex": "#623501",
+        "oklch": "oklch(0.378 0.087 61.2)",
+        "contrast_white": 10.35,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#534108",
-        "oklch": "oklch(0.384 0.074 89.5)",
-        "contrast_white": 9.87,
-        "contrast_black": 2.13
+        "hex": "#542b00",
+        "oklch": "oklch(0.336 0.079 59.4)",
+        "contrast_white": 12.19,
+        "contrast_black": 1.72
       },
       "800": {
-        "hex": "#473606",
-        "oklch": "oklch(0.343 0.066 87.5)",
-        "contrast_white": 11.68,
-        "contrast_black": 1.8
+        "hex": "#482200",
+        "oklch": "oklch(0.299 0.073 56.5)",
+        "contrast_white": 13.96,
+        "contrast_black": 1.5
       },
       "850": {
-        "hex": "#392c04",
-        "oklch": "oklch(0.3 0.057 89.8)",
-        "contrast_white": 13.67,
-        "contrast_black": 1.54
+        "hex": "#3b1a00",
+        "oklch": "oklch(0.261 0.064 55.3)",
+        "contrast_white": 15.75,
+        "contrast_black": 1.33
       },
       "900": {
-        "hex": "#2a2002",
-        "oklch": "oklch(0.249 0.048 90.5)",
-        "contrast_white": 16.08,
-        "contrast_black": 1.31
+        "hex": "#2e1300",
+        "oklch": "oklch(0.223 0.055 55.6)",
+        "contrast_white": 17.37,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#170f01",
-        "oklch": "oklch(0.175 0.033 84.8)",
-        "contrast_white": 19,
-        "contrast_black": 1.11
+        "hex": "#1f0a00",
+        "oklch": "oklch(0.176 0.044 53.6)",
+        "contrast_white": 19.06,
+        "contrast_black": 1.1
       }
     }
   },
@@ -1074,118 +1074,118 @@
     "seed": "#65a30d",
     "stops": {
       "50": {
-        "hex": "#f5fdf0",
-        "oklch": "oklch(0.985 0.019 133.1)",
-        "contrast_white": 1.04,
-        "contrast_black": 20.19
+        "hex": "#fafcf8",
+        "oklch": "oklch(0.988 0.006 128.5)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.34
       },
       "100": {
-        "hex": "#d1f7b2",
-        "oklch": "oklch(0.932 0.099 131.5)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.66
+        "hex": "#ecf7e3",
+        "oklch": "oklch(0.963 0.029 130.7)",
+        "contrast_white": 1.11,
+        "contrast_black": 18.98
       },
       "150": {
-        "hex": "#acec70",
-        "oklch": "oklch(0.874 0.169 131.7)",
-        "contrast_white": 1.4,
-        "contrast_black": 14.99
+        "hex": "#d8f0c5",
+        "oklch": "oklch(0.926 0.062 131.4)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.19
       },
       "200": {
-        "hex": "#9adc58",
-        "oklch": "oklch(0.823 0.177 131.7)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.75
+        "hex": "#c1e7a3",
+        "oklch": "oklch(0.884 0.098 131.9)",
+        "contrast_white": 1.38,
+        "contrast_black": 15.23
       },
       "250": {
-        "hex": "#8acc43",
-        "oklch": "oklch(0.774 0.18 131.6)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.8
+        "hex": "#a9dd7c",
+        "oklch": "oklch(0.839 0.138 131.8)",
+        "contrast_white": 1.58,
+        "contrast_black": 13.32
       },
       "300": {
-        "hex": "#7bbd2f",
-        "oklch": "oklch(0.727 0.181 131.7)",
-        "contrast_white": 2.29,
-        "contrast_black": 9.16
+        "hex": "#92d054",
+        "oklch": "oklch(0.79 0.168 131.6)",
+        "contrast_white": 1.85,
+        "contrast_black": 11.37
       },
       "350": {
-        "hex": "#6faf1d",
-        "oklch": "oklch(0.685 0.179 131.6)",
-        "contrast_white": 2.68,
-        "contrast_black": 7.83
+        "hex": "#82be44",
+        "oklch": "oklch(0.736 0.165 131.7)",
+        "contrast_white": 2.23,
+        "contrast_black": 9.4
       },
       "400": {
-        "hex": "#64a10d",
-        "oklch": "oklch(0.642 0.174 131.6)",
-        "contrast_white": 3.16,
-        "contrast_black": 6.65
+        "hex": "#72ab35",
+        "oklch": "oklch(0.678 0.16 131.7)",
+        "contrast_white": 2.77,
+        "contrast_black": 7.59
       },
       "450": {
-        "hex": "#5b930a",
-        "oklch": "oklch(0.601 0.163 131.6)",
-        "contrast_white": 3.73,
-        "contrast_black": 5.62
+        "hex": "#639826",
+        "oklch": "oklch(0.62 0.153 131.6)",
+        "contrast_white": 3.47,
+        "contrast_black": 6.05
       },
       "500": {
-        "hex": "#528608",
-        "oklch": "oklch(0.562 0.152 131.7)",
-        "contrast_white": 4.4,
-        "contrast_black": 4.77
+        "hex": "#558619",
+        "oklch": "oklch(0.564 0.144 131.6)",
+        "contrast_white": 4.37,
+        "contrast_black": 4.81
       },
       "550": {
-        "hex": "#4a7a06",
-        "oklch": "oklch(0.525 0.143 131.8)",
-        "contrast_white": 5.15,
-        "contrast_black": 4.08
+        "hex": "#48740e",
+        "oklch": "oklch(0.508 0.134 131.5)",
+        "contrast_white": 5.56,
+        "contrast_black": 3.78
       },
       "600": {
-        "hex": "#426e05",
-        "oklch": "oklch(0.487 0.133 131.8)",
-        "contrast_white": 6.06,
-        "contrast_black": 3.46
+        "hex": "#3d6407",
+        "oklch": "oklch(0.457 0.122 131.5)",
+        "contrast_white": 6.94,
+        "contrast_black": 3.02
       },
       "650": {
-        "hex": "#3b6204",
-        "oklch": "oklch(0.45 0.122 131.6)",
-        "contrast_white": 7.16,
-        "contrast_black": 2.93
+        "hex": "#325503",
+        "oklch": "oklch(0.407 0.111 131.8)",
+        "contrast_white": 8.62,
+        "contrast_black": 2.44
       },
       "700": {
-        "hex": "#335703",
-        "oklch": "oklch(0.413 0.113 131.9)",
-        "contrast_white": 8.38,
-        "contrast_black": 2.51
+        "hex": "#2a4802",
+        "oklch": "oklch(0.364 0.099 131.6)",
+        "contrast_white": 10.36,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#2c4b02",
-        "oklch": "oklch(0.374 0.101 131.5)",
-        "contrast_white": 9.93,
-        "contrast_black": 2.11
+        "hex": "#223c01",
+        "oklch": "oklch(0.323 0.088 131.6)",
+        "contrast_white": 12.25,
+        "contrast_black": 1.71
       },
       "800": {
-        "hex": "#254002",
-        "oklch": "oklch(0.337 0.091 131.5)",
-        "contrast_white": 11.58,
-        "contrast_black": 1.81
+        "hex": "#1b3200",
+        "oklch": "oklch(0.287 0.079 131.8)",
+        "contrast_white": 13.97,
+        "contrast_black": 1.5
       },
       "850": {
-        "hex": "#1d3304",
-        "oklch": "oklch(0.292 0.075 131.8)",
-        "contrast_white": 13.75,
-        "contrast_black": 1.53
+        "hex": "#152800",
+        "oklch": "oklch(0.251 0.069 131.5)",
+        "contrast_white": 15.73,
+        "contrast_black": 1.34
       },
       "900": {
-        "hex": "#152504",
-        "oklch": "oklch(0.242 0.059 131.4)",
-        "contrast_white": 16.18,
-        "contrast_black": 1.3
+        "hex": "#0f1e00",
+        "oklch": "oklch(0.213 0.058 131)",
+        "contrast_white": 17.41,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#091303",
-        "oklch": "oklch(0.171 0.037 133)",
-        "contrast_white": 18.99,
-        "contrast_black": 1.11
+        "hex": "#081300",
+        "oklch": "oklch(0.169 0.046 130.8)",
+        "contrast_white": 19.03,
+        "contrast_black": 1.1
       }
     }
   },
@@ -1193,118 +1193,118 @@
     "seed": "#16a34a",
     "stops": {
       "50": {
-        "hex": "#f4fdf5",
-        "oklch": "oklch(0.985 0.014 148.8)",
-        "contrast_white": 1.04,
-        "contrast_black": 20.22
+        "hex": "#f9fcf9",
+        "oklch": "oklch(0.988 0.005 145.5)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.32
       },
       "100": {
-        "hex": "#c8f7cf",
-        "oklch": "oklch(0.933 0.072 149.2)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.66
+        "hex": "#e7f8e9",
+        "oklch": "oklch(0.962 0.027 148.8)",
+        "contrast_white": 1.11,
+        "contrast_black": 19
       },
       "150": {
-        "hex": "#7af296",
-        "oklch": "oklch(0.869 0.168 149.4)",
-        "contrast_white": 1.4,
-        "contrast_black": 14.97
+        "hex": "#ccf2d1",
+        "oklch": "oklch(0.925 0.059 148.8)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.19
       },
       "200": {
-        "hex": "#63e283",
-        "oklch": "oklch(0.818 0.174 149.3)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.74
+        "hex": "#abebb6",
+        "oklch": "oklch(0.883 0.097 149.3)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.29
       },
       "250": {
-        "hex": "#4dd372",
-        "oklch": "oklch(0.771 0.179 149.3)",
-        "contrast_white": 1.93,
-        "contrast_black": 10.88
+        "hex": "#85e298",
+        "oklch": "oklch(0.836 0.137 149.3)",
+        "contrast_white": 1.58,
+        "contrast_black": 13.33
       },
       "300": {
-        "hex": "#3ac363",
-        "oklch": "oklch(0.723 0.179 149.2)",
-        "contrast_white": 2.29,
-        "contrast_black": 9.17
+        "hex": "#60d57d",
+        "oklch": "oklch(0.784 0.164 149.3)",
+        "contrast_white": 1.86,
+        "contrast_black": 11.31
       },
       "350": {
-        "hex": "#29b557",
-        "oklch": "oklch(0.68 0.177 149.2)",
-        "contrast_white": 2.68,
-        "contrast_black": 7.84
+        "hex": "#4fc36d",
+        "oklch": "oklch(0.73 0.162 149.2)",
+        "contrast_white": 2.24,
+        "contrast_black": 9.36
       },
       "400": {
-        "hex": "#1aa74d",
-        "oklch": "oklch(0.639 0.172 149.3)",
-        "contrast_white": 3.14,
-        "contrast_black": 6.68
+        "hex": "#3eb05e",
+        "oklch": "oklch(0.673 0.157 149.3)",
+        "contrast_white": 2.77,
+        "contrast_black": 7.58
       },
       "450": {
-        "hex": "#149945",
-        "oklch": "oklch(0.599 0.162 149.2)",
-        "contrast_white": 3.7,
-        "contrast_black": 5.67
+        "hex": "#2e9d4f",
+        "oklch": "oklch(0.616 0.151 149.2)",
+        "contrast_white": 3.47,
+        "contrast_black": 6.05
       },
       "500": {
-        "hex": "#118b3e",
-        "oklch": "oklch(0.558 0.151 149.2)",
-        "contrast_white": 4.39,
-        "contrast_black": 4.79
+        "hex": "#1e8a41",
+        "oklch": "oklch(0.558 0.144 149.2)",
+        "contrast_white": 4.41,
+        "contrast_black": 4.77
       },
       "550": {
-        "hex": "#0e7e38",
-        "oklch": "oklch(0.52 0.141 149.4)",
-        "contrast_white": 5.17,
-        "contrast_black": 4.06
+        "hex": "#127936",
+        "oklch": "oklch(0.506 0.135 149.2)",
+        "contrast_white": 5.51,
+        "contrast_black": 3.81
       },
       "600": {
-        "hex": "#0b7231",
-        "oklch": "oklch(0.484 0.132 149.1)",
-        "contrast_white": 6.06,
-        "contrast_black": 3.47
+        "hex": "#08682c",
+        "oklch": "oklch(0.453 0.124 149.1)",
+        "contrast_white": 6.94,
+        "contrast_black": 3.03
       },
       "650": {
-        "hex": "#08662b",
-        "oklch": "oklch(0.447 0.122 149.1)",
-        "contrast_white": 7.13,
-        "contrast_black": 2.95
+        "hex": "#035924",
+        "oklch": "oklch(0.406 0.112 149.2)",
+        "contrast_white": 8.54,
+        "contrast_black": 2.46
       },
       "700": {
-        "hex": "#065a25",
-        "oklch": "oklch(0.409 0.112 149.1)",
-        "contrast_white": 8.41,
-        "contrast_black": 2.5
+        "hex": "#014b1d",
+        "oklch": "oklch(0.361 0.1 149.3)",
+        "contrast_white": 10.37,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#044e1f",
-        "oklch": "oklch(0.371 0.102 149.1)",
-        "contrast_white": 9.93,
-        "contrast_black": 2.11
+        "hex": "#003f17",
+        "oklch": "oklch(0.321 0.09 149.3)",
+        "contrast_white": 12.19,
+        "contrast_black": 1.72
       },
       "800": {
-        "hex": "#06421b",
-        "oklch": "oklch(0.333 0.088 149.5)",
-        "contrast_white": 11.65,
-        "contrast_black": 1.8
+        "hex": "#003412",
+        "oklch": "oklch(0.284 0.079 149.5)",
+        "contrast_white": 14,
+        "contrast_black": 1.5
       },
       "850": {
-        "hex": "#073515",
-        "oklch": "oklch(0.29 0.074 149)",
-        "contrast_white": 13.73,
-        "contrast_black": 1.53
+        "hex": "#002a0d",
+        "oklch": "oklch(0.249 0.07 149.4)",
+        "contrast_white": 15.71,
+        "contrast_black": 1.34
       },
       "900": {
-        "hex": "#06270f",
-        "oklch": "oklch(0.242 0.059 149.1)",
-        "contrast_white": 16.09,
-        "contrast_black": 1.3
+        "hex": "#002008",
+        "oklch": "oklch(0.213 0.06 149.1)",
+        "contrast_white": 17.35,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#031407",
-        "oklch": "oklch(0.171 0.037 150.8)",
-        "contrast_white": 18.97,
-        "contrast_black": 1.11
+        "hex": "#001404",
+        "oklch": "oklch(0.167 0.047 149.3)",
+        "contrast_white": 19.06,
+        "contrast_black": 1.1
       }
     }
   },
@@ -1312,117 +1312,117 @@
     "seed": "#059669",
     "stops": {
       "50": {
-        "hex": "#f2fdf7",
-        "oklch": "oklch(0.984 0.014 162.5)",
-        "contrast_white": 1.04,
-        "contrast_black": 20.17
+        "hex": "#f9fcfb",
+        "oklch": "oklch(0.989 0.003 174.5)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.35
       },
       "100": {
-        "hex": "#c3f7dd",
-        "oklch": "oklch(0.933 0.064 163.2)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.67
+        "hex": "#e6f7ee",
+        "oklch": "oklch(0.961 0.021 163.1)",
+        "contrast_white": 1.11,
+        "contrast_black": 18.9
       },
       "150": {
-        "hex": "#79f0bc",
-        "oklch": "oklch(0.872 0.132 163.1)",
-        "contrast_white": 1.4,
-        "contrast_black": 15
+        "hex": "#ccf1de",
+        "oklch": "oklch(0.927 0.046 163.1)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.2
       },
       "200": {
-        "hex": "#61e0ab",
-        "oklch": "oklch(0.821 0.137 163.2)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.76
+        "hex": "#aee9cc",
+        "oklch": "oklch(0.886 0.072 163.2)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.33
       },
       "250": {
-        "hex": "#4dd09c",
-        "oklch": "oklch(0.772 0.138 163.4)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.82
+        "hex": "#89dfb8",
+        "oklch": "oklch(0.838 0.101 163.7)",
+        "contrast_white": 1.58,
+        "contrast_black": 13.31
       },
       "300": {
-        "hex": "#39c18e",
-        "oklch": "oklch(0.726 0.138 163.5)",
-        "contrast_white": 2.28,
-        "contrast_black": 9.19
+        "hex": "#64d2a3",
+        "oklch": "oklch(0.786 0.123 163.3)",
+        "contrast_white": 1.86,
+        "contrast_black": 11.29
       },
       "350": {
-        "hex": "#27b381",
-        "oklch": "oklch(0.683 0.137 163.3)",
-        "contrast_white": 2.67,
-        "contrast_black": 7.85
+        "hex": "#53c193",
+        "oklch": "oklch(0.734 0.122 163.1)",
+        "contrast_white": 2.23,
+        "contrast_black": 9.42
       },
       "400": {
-        "hex": "#17a575",
-        "oklch": "oklch(0.641 0.133 163.2)",
-        "contrast_white": 3.15,
-        "contrast_black": 6.68
+        "hex": "#41ae82",
+        "oklch": "oklch(0.676 0.12 163.2)",
+        "contrast_white": 2.76,
+        "contrast_black": 7.6
       },
       "450": {
-        "hex": "#06976a",
-        "oklch": "oklch(0.599 0.128 163.3)",
-        "contrast_white": 3.72,
-        "contrast_black": 5.64
+        "hex": "#319b72",
+        "oklch": "oklch(0.619 0.115 163.3)",
+        "contrast_white": 3.46,
+        "contrast_black": 6.06
       },
       "500": {
-        "hex": "#048a60",
-        "oklch": "oklch(0.561 0.12 163.1)",
-        "contrast_white": 4.37,
-        "contrast_black": 4.81
+        "hex": "#218962",
+        "oklch": "oklch(0.562 0.111 162.9)",
+        "contrast_white": 4.36,
+        "contrast_black": 4.82
       },
       "550": {
-        "hex": "#037d57",
-        "oklch": "oklch(0.522 0.112 163.3)",
-        "contrast_white": 5.15,
-        "contrast_black": 4.07
+        "hex": "#147754",
+        "oklch": "oklch(0.506 0.103 163.2)",
+        "contrast_white": 5.53,
+        "contrast_black": 3.8
       },
       "600": {
-        "hex": "#02714e",
-        "oklch": "oklch(0.486 0.104 163.2)",
-        "contrast_white": 6.04,
-        "contrast_black": 3.47
+        "hex": "#0a6647",
+        "oklch": "oklch(0.453 0.094 163.3)",
+        "contrast_white": 6.99,
+        "contrast_black": 3
       },
       "650": {
-        "hex": "#016545",
-        "oklch": "oklch(0.448 0.097 163)",
-        "contrast_white": 7.12,
-        "contrast_black": 2.95
+        "hex": "#04583c",
+        "oklch": "oklch(0.408 0.087 163)",
+        "contrast_white": 8.51,
+        "contrast_black": 2.47
       },
       "700": {
-        "hex": "#01593d",
-        "oklch": "oklch(0.411 0.088 163.5)",
-        "contrast_white": 8.41,
-        "contrast_black": 2.5
+        "hex": "#014a32",
+        "oklch": "oklch(0.362 0.077 163.4)",
+        "contrast_white": 10.36,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#034d35",
-        "oklch": "oklch(0.373 0.078 163.9)",
-        "contrast_white": 9.92,
-        "contrast_black": 2.12
+        "hex": "#003e29",
+        "oklch": "oklch(0.322 0.069 163.2)",
+        "contrast_white": 12.2,
+        "contrast_black": 1.72
       },
       "800": {
-        "hex": "#05412c",
-        "oklch": "oklch(0.333 0.069 163.2)",
-        "contrast_white": 11.67,
-        "contrast_black": 1.8
+        "hex": "#003321",
+        "oklch": "oklch(0.284 0.061 163.2)",
+        "contrast_white": 14.04,
+        "contrast_black": 1.5
       },
       "850": {
-        "hex": "#063423",
-        "oklch": "oklch(0.29 0.058 163.2)",
-        "contrast_white": 13.79,
-        "contrast_black": 1.52
+        "hex": "#00291a",
+        "oklch": "oklch(0.249 0.053 163.5)",
+        "contrast_white": 15.76,
+        "contrast_black": 1.33
       },
       "900": {
-        "hex": "#062619",
-        "oklch": "oklch(0.241 0.045 162.6)",
-        "contrast_white": 16.17,
-        "contrast_black": 1.3
+        "hex": "#002013",
+        "oklch": "oklch(0.215 0.047 162.7)",
+        "contrast_white": 17.27,
+        "contrast_black": 1.22
       },
       "950": {
-        "hex": "#03130c",
-        "oklch": "oklch(0.169 0.028 165)",
-        "contrast_white": 19.05,
+        "hex": "#00140b",
+        "oklch": "oklch(0.169 0.036 164.2)",
+        "contrast_white": 19.01,
         "contrast_black": 1.1
       }
     }
@@ -1431,117 +1431,117 @@
     "seed": "#0d9488",
     "stops": {
       "50": {
-        "hex": "#f1fdfb",
-        "oklch": "oklch(0.985 0.013 185.1)",
-        "contrast_white": 1.04,
-        "contrast_black": 20.18
+        "hex": "#f9fcfc",
+        "oklch": "oklch(0.989 0.003 197.1)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.36
       },
       "100": {
-        "hex": "#bbf7ee",
-        "oklch": "oklch(0.933 0.062 184.8)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.65
+        "hex": "#e6f7f4",
+        "oklch": "oklch(0.963 0.018 184.3)",
+        "contrast_white": 1.11,
+        "contrast_black": 18.98
       },
       "150": {
-        "hex": "#7cedde",
-        "oklch": "oklch(0.875 0.106 184.2)",
-        "contrast_white": 1.4,
-        "contrast_black": 15.03
+        "hex": "#ceefea",
+        "oklch": "oklch(0.927 0.035 185.5)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.16
       },
       "200": {
-        "hex": "#65ddce",
-        "oklch": "oklch(0.825 0.11 184.3)",
-        "contrast_white": 1.64,
-        "contrast_black": 12.79
+        "hex": "#afe7de",
+        "oklch": "oklch(0.887 0.058 184)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.31
       },
       "250": {
-        "hex": "#50cdbf",
-        "oklch": "oklch(0.775 0.112 184.9)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.83
+        "hex": "#8bddd1",
+        "oklch": "oklch(0.842 0.082 184.1)",
+        "contrast_white": 1.57,
+        "contrast_black": 13.36
       },
       "300": {
-        "hex": "#3cbeb0",
-        "oklch": "oklch(0.728 0.113 184.7)",
-        "contrast_white": 2.29,
-        "contrast_black": 9.18
+        "hex": "#65d0c3",
+        "oklch": "oklch(0.791 0.101 184.9)",
+        "contrast_white": 1.85,
+        "contrast_black": 11.36
       },
       "350": {
-        "hex": "#2bb0a2",
-        "oklch": "oklch(0.685 0.112 184.3)",
-        "contrast_white": 2.68,
-        "contrast_black": 7.83
+        "hex": "#54beb1",
+        "oklch": "oklch(0.736 0.1 184.4)",
+        "contrast_white": 2.24,
+        "contrast_black": 9.38
       },
       "400": {
-        "hex": "#1ca295",
-        "oklch": "oklch(0.643 0.108 184.5)",
-        "contrast_white": 3.16,
-        "contrast_black": 6.65
+        "hex": "#43ab9f",
+        "oklch": "oklch(0.678 0.097 184.7)",
+        "contrast_white": 2.78,
+        "contrast_black": 7.56
       },
       "450": {
-        "hex": "#0d9488",
-        "oklch": "oklch(0.6 0.104 184.7)",
-        "contrast_white": 3.74,
-        "contrast_black": 5.61
+        "hex": "#32998e",
+        "oklch": "oklch(0.622 0.094 185)",
+        "contrast_white": 3.45,
+        "contrast_black": 6.08
       },
       "500": {
-        "hex": "#0b877c",
-        "oklch": "oklch(0.561 0.097 184.7)",
+        "hex": "#22867c",
+        "oklch": "oklch(0.562 0.09 185.1)",
         "contrast_white": 4.4,
         "contrast_black": 4.77
       },
       "550": {
-        "hex": "#087b71",
-        "oklch": "oklch(0.525 0.091 184.9)",
-        "contrast_white": 5.14,
-        "contrast_black": 4.08
+        "hex": "#15756b",
+        "oklch": "oklch(0.508 0.084 184.1)",
+        "contrast_white": 5.54,
+        "contrast_black": 3.79
       },
       "600": {
-        "hex": "#066f66",
-        "oklch": "oklch(0.488 0.085 185)",
-        "contrast_white": 6.05,
-        "contrast_black": 3.47
+        "hex": "#0b655c",
+        "oklch": "oklch(0.457 0.078 184)",
+        "contrast_white": 6.93,
+        "contrast_black": 3.03
       },
       "650": {
-        "hex": "#05635a",
-        "oklch": "oklch(0.45 0.078 184)",
-        "contrast_white": 7.15,
-        "contrast_black": 2.94
+        "hex": "#05564f",
+        "oklch": "oklch(0.408 0.07 185.2)",
+        "contrast_white": 8.57,
+        "contrast_black": 2.45
       },
       "700": {
-        "hex": "#035750",
-        "oklch": "oklch(0.411 0.071 185.4)",
-        "contrast_white": 8.46,
-        "contrast_black": 2.48
+        "hex": "#024942",
+        "oklch": "oklch(0.365 0.064 183.9)",
+        "contrast_white": 10.32,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#054c45",
-        "oklch": "oklch(0.375 0.064 184.1)",
-        "contrast_white": 9.88,
-        "contrast_black": 2.13
+        "hex": "#013d38",
+        "oklch": "oklch(0.324 0.056 185.7)",
+        "contrast_white": 12.17,
+        "contrast_black": 1.73
       },
       "800": {
-        "hex": "#06403a",
-        "oklch": "oklch(0.335 0.056 184.1)",
-        "contrast_white": 11.65,
-        "contrast_black": 1.8
+        "hex": "#00322d",
+        "oklch": "oklch(0.285 0.05 184.3)",
+        "contrast_white": 14.05,
+        "contrast_black": 1.49
       },
       "850": {
-        "hex": "#07332f",
-        "oklch": "oklch(0.291 0.046 185.9)",
-        "contrast_white": 13.78,
-        "contrast_black": 1.52
+        "hex": "#002924",
+        "oklch": "oklch(0.252 0.045 182.7)",
+        "contrast_white": 15.64,
+        "contrast_black": 1.34
       },
       "900": {
-        "hex": "#062522",
-        "oklch": "oklch(0.241 0.036 186)",
-        "contrast_white": 16.21,
-        "contrast_black": 1.3
+        "hex": "#001f1b",
+        "oklch": "oklch(0.215 0.038 182.9)",
+        "contrast_white": 17.33,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#041311",
-        "oklch": "oklch(0.172 0.023 184.8)",
-        "contrast_white": 18.98,
+        "hex": "#001411",
+        "oklch": "oklch(0.172 0.031 183)",
+        "contrast_white": 18.95,
         "contrast_black": 1.11
       }
     }
@@ -1550,118 +1550,118 @@
     "seed": "#0891b2",
     "stops": {
       "50": {
-        "hex": "#f5fbfd",
-        "oklch": "oklch(0.984 0.007 219.6)",
-        "contrast_white": 1.04,
-        "contrast_black": 20.1
+        "hex": "#f9fcfd",
+        "oklch": "oklch(0.989 0.003 219.5)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.37
       },
       "100": {
-        "hex": "#d9eff8",
-        "oklch": "oklch(0.939 0.026 224.2)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.65
+        "hex": "#e7f6fc",
+        "oklch": "oklch(0.964 0.018 223.6)",
+        "contrast_white": 1.11,
+        "contrast_black": 18.99
       },
       "150": {
-        "hex": "#afe2f4",
-        "oklch": "oklch(0.883 0.058 221.5)",
-        "contrast_white": 1.4,
-        "contrast_black": 15.01
+        "hex": "#ceeef9",
+        "oklch": "oklch(0.929 0.037 220.5)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.22
       },
       "200": {
-        "hex": "#7fd5f3",
-        "oklch": "oklch(0.829 0.093 222.5)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.71
+        "hex": "#b1e4f6",
+        "oklch": "oklch(0.889 0.058 221.5)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.3
       },
       "250": {
-        "hex": "#4ec8ed",
-        "oklch": "oklch(0.779 0.119 221.6)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.81
+        "hex": "#8dd9f3",
+        "oklch": "oklch(0.845 0.083 221.6)",
+        "contrast_white": 1.57,
+        "contrast_black": 13.35
       },
       "300": {
-        "hex": "#3bb9de",
-        "oklch": "oklch(0.733 0.119 221.9)",
-        "contrast_white": 2.29,
-        "contrast_black": 9.18
+        "hex": "#63cbed",
+        "oklch": "oklch(0.793 0.107 222.1)",
+        "contrast_white": 1.86,
+        "contrast_black": 11.3
       },
       "350": {
-        "hex": "#28abcf",
-        "oklch": "oklch(0.69 0.118 221.7)",
-        "contrast_white": 2.69,
-        "contrast_black": 7.82
+        "hex": "#52bada",
+        "oklch": "oklch(0.74 0.106 221.3)",
+        "contrast_white": 2.24,
+        "contrast_black": 9.39
       },
       "400": {
-        "hex": "#189dc0",
-        "oklch": "oklch(0.646 0.115 222)",
-        "contrast_white": 3.17,
-        "contrast_black": 6.62
+        "hex": "#40a7c7",
+        "oklch": "oklch(0.682 0.104 222.2)",
+        "contrast_white": 2.77,
+        "contrast_black": 7.57
       },
       "450": {
-        "hex": "#0890b1",
-        "oklch": "oklch(0.606 0.111 221.9)",
-        "contrast_white": 3.73,
-        "contrast_black": 5.63
+        "hex": "#2f95b2",
+        "oklch": "oklch(0.625 0.1 221)",
+        "contrast_white": 3.46,
+        "contrast_black": 6.06
       },
       "500": {
-        "hex": "#0683a2",
-        "oklch": "oklch(0.566 0.104 222.4)",
-        "contrast_white": 4.4,
-        "contrast_black": 4.78
+        "hex": "#20839e",
+        "oklch": "oklch(0.568 0.095 221)",
+        "contrast_white": 4.37,
+        "contrast_black": 4.8
       },
       "550": {
-        "hex": "#057793",
-        "oklch": "oklch(0.528 0.096 222)",
-        "contrast_white": 5.16,
-        "contrast_black": 4.07
+        "hex": "#14728b",
+        "oklch": "oklch(0.513 0.089 221.4)",
+        "contrast_white": 5.51,
+        "contrast_black": 3.81
       },
       "600": {
-        "hex": "#036b84",
-        "oklch": "oklch(0.489 0.089 221.5)",
-        "contrast_white": 6.1,
-        "contrast_black": 3.44
+        "hex": "#0a6278",
+        "oklch": "oklch(0.46 0.082 221)",
+        "contrast_white": 6.93,
+        "contrast_black": 3.03
       },
       "650": {
-        "hex": "#026076",
-        "oklch": "oklch(0.453 0.082 220.8)",
-        "contrast_white": 7.15,
-        "contrast_black": 2.94
+        "hex": "#045367",
+        "oklch": "oklch(0.41 0.074 221.7)",
+        "contrast_white": 8.61,
+        "contrast_black": 2.44
       },
       "700": {
-        "hex": "#015569",
-        "oklch": "oklch(0.416 0.076 220.9)",
-        "contrast_white": 8.38,
-        "contrast_black": 2.5
+        "hex": "#014658",
+        "oklch": "oklch(0.366 0.067 222.3)",
+        "contrast_white": 10.4,
+        "contrast_black": 2.02
       },
       "750": {
-        "hex": "#024a5c",
-        "oklch": "oklch(0.379 0.069 221.4)",
-        "contrast_white": 9.83,
-        "contrast_black": 2.14
+        "hex": "#003b4a",
+        "oklch": "oklch(0.326 0.06 221.2)",
+        "contrast_white": 12.18,
+        "contrast_black": 1.72
       },
       "800": {
-        "hex": "#053e4d",
-        "oklch": "oklch(0.338 0.059 221.3)",
-        "contrast_white": 11.65,
-        "contrast_black": 1.8
+        "hex": "#00313e",
+        "oklch": "oklch(0.29 0.053 221.3)",
+        "contrast_white": 13.92,
+        "contrast_black": 1.51
       },
       "850": {
-        "hex": "#06323e",
-        "oklch": "oklch(0.295 0.05 221)",
-        "contrast_white": 13.69,
-        "contrast_black": 1.53
+        "hex": "#002733",
+        "oklch": "oklch(0.253 0.047 223.5)",
+        "contrast_white": 15.69,
+        "contrast_black": 1.34
       },
       "900": {
-        "hex": "#06242d",
-        "oklch": "oklch(0.243 0.039 221.6)",
-        "contrast_white": 16.18,
-        "contrast_black": 1.3
+        "hex": "#001e27",
+        "oklch": "oklch(0.218 0.04 221.1)",
+        "contrast_white": 17.28,
+        "contrast_black": 1.22
       },
       "950": {
-        "hex": "#031218",
-        "oklch": "oklch(0.171 0.026 224.2)",
-        "contrast_white": 19.03,
-        "contrast_black": 1.1
+        "hex": "#00131a",
+        "oklch": "oklch(0.173 0.032 221.9)",
+        "contrast_white": 18.95,
+        "contrast_black": 1.11
       }
     }
   },
@@ -1669,117 +1669,117 @@
     "seed": "#0284c7",
     "stops": {
       "50": {
-        "hex": "#f7fafd",
-        "oklch": "oklch(0.984 0.005 247.9)",
-        "contrast_white": 1.05,
-        "contrast_black": 20.05
+        "hex": "#f9fcfe",
+        "oklch": "oklch(0.989 0.004 236.5)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.38
       },
       "100": {
-        "hex": "#e1edf7",
-        "oklch": "oklch(0.94 0.019 243)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.66
+        "hex": "#e9f5ff",
+        "oklch": "oklch(0.964 0.019 243)",
+        "contrast_white": 1.11,
+        "contrast_black": 18.97
       },
       "150": {
-        "hex": "#c2def3",
-        "oklch": "oklch(0.887 0.042 240.4)",
-        "contrast_white": 1.4,
-        "contrast_black": 15.04
+        "hex": "#d4ecff",
+        "oklch": "oklch(0.931 0.036 241.8)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.24
       },
       "200": {
-        "hex": "#a2cff2",
-        "oklch": "oklch(0.835 0.068 242)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.74
+        "hex": "#bbe1fe",
+        "oklch": "oklch(0.892 0.057 241.2)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.31
       },
       "250": {
-        "hex": "#7fc1f3",
-        "oklch": "oklch(0.786 0.098 242.2)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.82
+        "hex": "#a0d4fd",
+        "oklch": "oklch(0.848 0.079 242.6)",
+        "contrast_white": 1.58,
+        "contrast_black": 13.33
       },
       "300": {
-        "hex": "#57b3f5",
-        "oklch": "oklch(0.738 0.13 242.6)",
-        "contrast_white": 2.29,
-        "contrast_black": 9.17
+        "hex": "#7cc6fc",
+        "oklch": "oklch(0.799 0.107 241.5)",
+        "contrast_white": 1.85,
+        "contrast_black": 11.34
       },
       "350": {
-        "hex": "#2aa6f1",
-        "oklch": "oklch(0.695 0.151 241.6)",
-        "contrast_white": 2.68,
-        "contrast_black": 7.82
+        "hex": "#5cb5f5",
+        "oklch": "oklch(0.745 0.126 242.4)",
+        "contrast_white": 2.24,
+        "contrast_black": 9.38
       },
       "400": {
-        "hex": "#1a98e1",
-        "oklch": "oklch(0.651 0.148 242)",
-        "contrast_white": 3.17,
-        "contrast_black": 6.62
+        "hex": "#43a3e4",
+        "oklch": "oklch(0.687 0.131 242)",
+        "contrast_white": 2.76,
+        "contrast_black": 7.6
       },
       "450": {
-        "hex": "#0a8bd1",
-        "oklch": "oklch(0.61 0.143 242.2)",
-        "contrast_white": 3.73,
-        "contrast_black": 5.63
+        "hex": "#3291cf",
+        "oklch": "oklch(0.63 0.127 241.9)",
+        "contrast_white": 3.45,
+        "contrast_black": 6.09
       },
       "500": {
-        "hex": "#027fbf",
-        "oklch": "oklch(0.571 0.134 241.7)",
-        "contrast_white": 4.38,
-        "contrast_black": 4.79
+        "hex": "#227fb9",
+        "oklch": "oklch(0.572 0.122 241.9)",
+        "contrast_white": 4.37,
+        "contrast_black": 4.8
       },
       "550": {
-        "hex": "#0173af",
-        "oklch": "oklch(0.533 0.127 242.3)",
-        "contrast_white": 5.16,
-        "contrast_black": 4.07
+        "hex": "#156ea3",
+        "oklch": "oklch(0.516 0.114 241.8)",
+        "contrast_white": 5.54,
+        "contrast_black": 3.79
       },
       "600": {
-        "hex": "#00689e",
-        "oklch": "oklch(0.495 0.117 241.8)",
-        "contrast_white": 6.05,
-        "contrast_black": 3.47
+        "hex": "#0a5e8e",
+        "oklch": "oklch(0.462 0.106 242)",
+        "contrast_white": 6.99,
+        "contrast_black": 3
       },
       "650": {
-        "hex": "#005d8e",
-        "oklch": "oklch(0.458 0.108 241.8)",
-        "contrast_white": 7.1,
-        "contrast_black": 2.96
+        "hex": "#03507b",
+        "oklch": "oklch(0.413 0.097 242.2)",
+        "contrast_white": 8.62,
+        "contrast_black": 2.44
       },
       "700": {
-        "hex": "#00527e",
-        "oklch": "oklch(0.42 0.099 241.8)",
-        "contrast_white": 8.37,
-        "contrast_black": 2.51
+        "hex": "#014469",
+        "oklch": "oklch(0.37 0.087 241.6)",
+        "contrast_white": 10.33,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#02476d",
-        "oklch": "oklch(0.381 0.088 241.5)",
-        "contrast_white": 9.88,
-        "contrast_black": 2.12
+        "hex": "#003959",
+        "oklch": "oklch(0.33 0.077 241.4)",
+        "contrast_white": 12.14,
+        "contrast_black": 1.73
       },
       "800": {
-        "hex": "#043c5c",
-        "oklch": "oklch(0.341 0.077 241.3)",
-        "contrast_white": 11.63,
-        "contrast_black": 1.81
+        "hex": "#002f4b",
+        "oklch": "oklch(0.292 0.069 241.9)",
+        "contrast_white": 13.92,
+        "contrast_black": 1.51
       },
       "850": {
-        "hex": "#05304b",
-        "oklch": "oklch(0.297 0.066 242.4)",
-        "contrast_white": 13.72,
-        "contrast_black": 1.53
+        "hex": "#00253d",
+        "oklch": "oklch(0.254 0.061 242.5)",
+        "contrast_white": 15.77,
+        "contrast_black": 1.33
       },
       "900": {
-        "hex": "#052336",
-        "oklch": "oklch(0.245 0.05 240.9)",
-        "contrast_white": 16.15,
-        "contrast_black": 1.3
+        "hex": "#001c30",
+        "oklch": "oklch(0.217 0.052 242.8)",
+        "contrast_white": 17.37,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#03121d",
-        "oklch": "oklch(0.174 0.032 240.1)",
-        "contrast_white": 18.95,
+        "hex": "#001221",
+        "oklch": "oklch(0.175 0.042 242.4)",
+        "contrast_white": 18.94,
         "contrast_black": 1.11
       }
     }
@@ -1788,117 +1788,117 @@
     "seed": "#2563eb",
     "stops": {
       "50": {
-        "hex": "#f8fafc",
-        "oklch": "oklch(0.984 0.003 247.9)",
-        "contrast_white": 1.05,
-        "contrast_black": 20.07
+        "hex": "#f9fbff",
+        "oklch": "oklch(0.988 0.006 264.5)",
+        "contrast_white": 1.04,
+        "contrast_black": 20.27
       },
       "100": {
-        "hex": "#e6ecf6",
-        "oklch": "oklch(0.941 0.015 260.7)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.69
+        "hex": "#edf4ff",
+        "oklch": "oklch(0.965 0.017 259.4)",
+        "contrast_white": 1.11,
+        "contrast_black": 18.99
       },
       "150": {
-        "hex": "#cfdbf0",
-        "oklch": "oklch(0.889 0.032 261.7)",
-        "contrast_white": 1.4,
-        "contrast_black": 15.04
+        "hex": "#dde9ff",
+        "oklch": "oklch(0.932 0.033 262.7)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.17
       },
       "200": {
-        "hex": "#b8cbec",
-        "oklch": "oklch(0.839 0.051 261.5)",
-        "contrast_white": 1.64,
-        "contrast_black": 12.79
+        "hex": "#caddff",
+        "oklch": "oklch(0.894 0.051 262.1)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.3
       },
       "250": {
-        "hex": "#a1bbeb",
-        "oklch": "oklch(0.79 0.074 262.5)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.82
+        "hex": "#b5cfff",
+        "oklch": "oklch(0.852 0.073 262.6)",
+        "contrast_white": 1.57,
+        "contrast_black": 13.33
       },
       "300": {
-        "hex": "#8cacea",
-        "oklch": "oklch(0.744 0.097 263.2)",
-        "contrast_white": 2.28,
-        "contrast_black": 9.2
+        "hex": "#9dbffe",
+        "oklch": "oklch(0.803 0.097 262.4)",
+        "contrast_white": 1.86,
+        "contrast_black": 11.32
       },
       "350": {
-        "hex": "#769eea",
-        "oklch": "oklch(0.702 0.121 262.5)",
-        "contrast_white": 2.68,
-        "contrast_black": 7.85
+        "hex": "#83adfe",
+        "oklch": "oklch(0.75 0.126 262.8)",
+        "contrast_white": 2.24,
+        "contrast_black": 9.37
       },
       "400": {
-        "hex": "#618feb",
-        "oklch": "oklch(0.659 0.146 262.9)",
-        "contrast_white": 3.16,
-        "contrast_black": 6.64
+        "hex": "#699afc",
+        "oklch": "oklch(0.696 0.154 262.9)",
+        "contrast_white": 2.75,
+        "contrast_black": 7.63
       },
       "450": {
-        "hex": "#4d81eb",
-        "oklch": "oklch(0.621 0.169 262.8)",
-        "contrast_white": 3.71,
-        "contrast_black": 5.66
+        "hex": "#4f86f7",
+        "oklch": "oklch(0.64 0.179 262.9)",
+        "contrast_white": 3.45,
+        "contrast_black": 6.09
       },
       "500": {
-        "hex": "#3972eb",
-        "oklch": "oklch(0.582 0.193 262.9)",
-        "contrast_white": 4.39,
-        "contrast_black": 4.78
+        "hex": "#3872ed",
+        "oklch": "oklch(0.583 0.196 262.8)",
+        "contrast_white": 4.38,
+        "contrast_black": 4.8
       },
       "550": {
-        "hex": "#2563eb",
-        "oklch": "oklch(0.546 0.215 262.9)",
-        "contrast_white": 5.17,
-        "contrast_black": 4.06
+        "hex": "#255fe0",
+        "oklch": "oklch(0.529 0.206 263)",
+        "contrast_white": 5.54,
+        "contrast_black": 3.79
       },
       "600": {
-        "hex": "#1154e8",
-        "oklch": "oklch(0.511 0.232 262.9)",
-        "contrast_white": 6.07,
-        "contrast_black": 3.46
+        "hex": "#164fcd",
+        "oklch": "oklch(0.478 0.203 262.9)",
+        "contrast_white": 6.92,
+        "contrast_black": 3.03
       },
       "650": {
-        "hex": "#0d4bd2",
-        "oklch": "oklch(0.474 0.216 262.8)",
-        "contrast_white": 7.11,
-        "contrast_black": 2.95
+        "hex": "#0a40b9",
+        "oklch": "oklch(0.429 0.197 263)",
+        "contrast_white": 8.58,
+        "contrast_black": 2.45
       },
       "700": {
-        "hex": "#0a41bb",
-        "oklch": "oklch(0.433 0.199 262.9)",
-        "contrast_white": 8.45,
-        "contrast_black": 2.49
+        "hex": "#0234a5",
+        "oklch": "oklch(0.386 0.187 262.9)",
+        "contrast_white": 10.31,
+        "contrast_black": 2.04
       },
       "750": {
-        "hex": "#0839a4",
-        "oklch": "oklch(0.395 0.179 262.8)",
-        "contrast_white": 9.85,
-        "contrast_black": 2.13
+        "hex": "#002991",
+        "oklch": "oklch(0.344 0.175 263.1)",
+        "contrast_white": 12.17,
+        "contrast_black": 1.73
       },
       "800": {
-        "hex": "#07308b",
-        "oklch": "oklch(0.352 0.157 262.8)",
-        "contrast_white": 11.64,
-        "contrast_black": 1.8
+        "hex": "#001f7e",
+        "oklch": "oklch(0.304 0.162 263.5)",
+        "contrast_white": 14.03,
+        "contrast_black": 1.5
       },
       "850": {
-        "hex": "#062771",
-        "oklch": "oklch(0.307 0.133 262.8)",
-        "contrast_white": 13.67,
-        "contrast_black": 1.54
+        "hex": "#00176b",
+        "oklch": "oklch(0.268 0.146 263.7)",
+        "contrast_white": 15.73,
+        "contrast_black": 1.33
       },
       "900": {
-        "hex": "#041c55",
-        "oklch": "oklch(0.253 0.108 262.9)",
-        "contrast_white": 16.12,
-        "contrast_black": 1.3
+        "hex": "#000f58",
+        "oklch": "oklch(0.23 0.13 263.9)",
+        "contrast_white": 17.37,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#010c35",
-        "oklch": "oklch(0.179 0.083 263.4)",
-        "contrast_white": 19,
+        "hex": "#000446",
+        "oklch": "oklch(0.186 0.118 264.2)",
+        "contrast_white": 18.99,
         "contrast_black": 1.11
       }
     }
@@ -1907,116 +1907,116 @@
     "seed": "#4f46e5",
     "stops": {
       "50": {
-        "hex": "#f9fafc",
-        "oklch": "oklch(0.985 0.003 264.5)",
-        "contrast_white": 1.04,
-        "contrast_black": 20.11
+        "hex": "#fafbff",
+        "oklch": "oklch(0.988 0.005 275)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.31
       },
       "100": {
-        "hex": "#e9ebf5",
-        "oklch": "oklch(0.941 0.014 277.1)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.67
+        "hex": "#f0f3ff",
+        "oklch": "oklch(0.965 0.016 274.8)",
+        "contrast_white": 1.11,
+        "contrast_black": 18.97
       },
       "150": {
-        "hex": "#d5d9ef",
-        "oklch": "oklch(0.889 0.03 277.6)",
-        "contrast_white": 1.4,
-        "contrast_black": 15
+        "hex": "#e3e7ff",
+        "oklch": "oklch(0.932 0.033 278.2)",
+        "contrast_white": 1.23,
+        "contrast_black": 17.14
       },
       "200": {
-        "hex": "#c2c8eb",
-        "oklch": "oklch(0.839 0.049 277.6)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.76
+        "hex": "#d4daff",
+        "oklch": "oklch(0.896 0.051 278)",
+        "contrast_white": 1.38,
+        "contrast_black": 15.27
       },
       "250": {
-        "hex": "#afb8e9",
-        "oklch": "oklch(0.793 0.07 276.6)",
-        "contrast_white": 1.93,
-        "contrast_black": 10.86
+        "hex": "#c2cbff",
+        "oklch": "oklch(0.853 0.073 277.1)",
+        "contrast_white": 1.58,
+        "contrast_black": 13.28
       },
       "300": {
-        "hex": "#9ea8e8",
-        "oklch": "oklch(0.748 0.093 277.1)",
-        "contrast_white": 2.28,
-        "contrast_black": 9.22
+        "hex": "#afbafe",
+        "oklch": "oklch(0.805 0.097 276.9)",
+        "contrast_white": 1.86,
+        "contrast_black": 11.28
       },
       "350": {
-        "hex": "#8d98e8",
-        "oklch": "oklch(0.703 0.118 277)",
-        "contrast_white": 2.7,
-        "contrast_black": 7.79
+        "hex": "#9ba7fe",
+        "oklch": "oklch(0.754 0.126 276.9)",
+        "contrast_white": 2.25,
+        "contrast_black": 9.35
       },
       "400": {
-        "hex": "#7f89e7",
-        "oklch": "oklch(0.663 0.139 277.3)",
-        "contrast_white": 3.17,
-        "contrast_black": 6.63
+        "hex": "#8793fc",
+        "oklch": "oklch(0.7 0.153 276.7)",
+        "contrast_white": 2.76,
+        "contrast_black": 7.61
       },
       "450": {
-        "hex": "#717ae7",
-        "oklch": "oklch(0.625 0.162 277.1)",
-        "contrast_white": 3.72,
-        "contrast_black": 5.64
+        "hex": "#747df9",
+        "oklch": "oklch(0.644 0.182 276.9)",
+        "contrast_white": 3.47,
+        "contrast_black": 6.04
       },
       "500": {
-        "hex": "#656be7",
-        "oklch": "oklch(0.588 0.184 277)",
-        "contrast_white": 4.37,
-        "contrast_black": 4.81
+        "hex": "#6468f1",
+        "oklch": "oklch(0.59 0.201 277)",
+        "contrast_white": 4.38,
+        "contrast_black": 4.79
       },
       "550": {
-        "hex": "#5a5be6",
-        "oklch": "oklch(0.552 0.205 277)",
-        "contrast_white": 5.15,
-        "contrast_black": 4.07
+        "hex": "#5654e6",
+        "oklch": "oklch(0.538 0.214 277)",
+        "contrast_white": 5.52,
+        "contrast_black": 3.81
       },
       "600": {
-        "hex": "#514ae5",
-        "oklch": "oklch(0.518 0.225 277.1)",
-        "contrast_white": 6.07,
-        "contrast_black": 3.46
+        "hex": "#4a40d8",
+        "oklch": "oklch(0.486 0.222 277.2)",
+        "contrast_white": 6.96,
+        "contrast_black": 3.02
       },
       "650": {
-        "hex": "#4936e4",
-        "oklch": "oklch(0.484 0.245 276.9)",
-        "contrast_white": 7.16,
-        "contrast_black": 2.93
+        "hex": "#3f30c5",
+        "oklch": "oklch(0.438 0.217 277)",
+        "contrast_white": 8.61,
+        "contrast_black": 2.44
       },
       "700": {
-        "hex": "#402fcc",
-        "oklch": "oklch(0.445 0.226 276.8)",
-        "contrast_white": 8.41,
-        "contrast_black": 2.5
+        "hex": "#3622b2",
+        "oklch": "oklch(0.395 0.209 277.1)",
+        "contrast_white": 10.35,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#3729b2",
-        "oklch": "oklch(0.404 0.203 276.8)",
-        "contrast_white": 9.89,
-        "contrast_black": 2.12
+        "hex": "#2d169f",
+        "oklch": "oklch(0.354 0.198 276.7)",
+        "contrast_white": 12.16,
+        "contrast_black": 1.73
       },
       "800": {
-        "hex": "#2e2496",
-        "oklch": "oklch(0.361 0.176 276.8)",
-        "contrast_white": 11.61,
-        "contrast_black": 1.81
+        "hex": "#260c8b",
+        "oklch": "oklch(0.316 0.183 277)",
+        "contrast_white": 13.93,
+        "contrast_black": 1.51
       },
       "850": {
-        "hex": "#241e79",
-        "oklch": "oklch(0.314 0.147 276.6)",
-        "contrast_white": 13.66,
-        "contrast_black": 1.54
+        "hex": "#1e0575",
+        "oklch": "oklch(0.276 0.164 277)",
+        "contrast_white": 15.74,
+        "contrast_black": 1.33
       },
       "900": {
-        "hex": "#1a1659",
-        "oklch": "oklch(0.258 0.115 277.3)",
-        "contrast_white": 16.12,
-        "contrast_black": 1.3
+        "hex": "#16035f",
+        "oklch": "oklch(0.237 0.142 276.6)",
+        "contrast_white": 17.32,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#0b0b30",
-        "oklch": "oklch(0.18 0.072 276.4)",
+        "hex": "#0d0144",
+        "oklch": "oklch(0.188 0.114 276.6)",
         "contrast_white": 19.01,
         "contrast_black": 1.1
       }
@@ -2026,118 +2026,118 @@
     "seed": "#7c3aed",
     "stops": {
       "50": {
-        "hex": "#faf9fc",
-        "oklch": "oklch(0.984 0.004 301.4)",
-        "contrast_white": 1.05,
-        "contrast_black": 20.02
+        "hex": "#fbfbff",
+        "oklch": "oklch(0.989 0.005 286.3)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.34
       },
       "100": {
-        "hex": "#eceaf6",
-        "oklch": "oklch(0.942 0.016 293.7)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.67
+        "hex": "#f4f2ff",
+        "oklch": "oklch(0.966 0.017 293.1)",
+        "contrast_white": 1.11,
+        "contrast_black": 18.99
       },
       "150": {
-        "hex": "#dbd7f0",
-        "oklch": "oklch(0.89 0.034 293)",
-        "contrast_white": 1.4,
-        "contrast_black": 14.99
+        "hex": "#e9e5ff",
+        "oklch": "oklch(0.933 0.035 292.8)",
+        "contrast_white": 1.23,
+        "contrast_black": 17.12
       },
       "200": {
-        "hex": "#ccc5ed",
-        "oklch": "oklch(0.842 0.056 293.2)",
-        "contrast_white": 1.64,
-        "contrast_black": 12.78
+        "hex": "#ded7ff",
+        "oklch": "oklch(0.897 0.055 293.3)",
+        "contrast_white": 1.38,
+        "contrast_black": 15.27
       },
       "250": {
-        "hex": "#bdb3ec",
-        "oklch": "oklch(0.795 0.081 292.5)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.82
+        "hex": "#d1c7ff",
+        "oklch": "oklch(0.856 0.078 292.9)",
+        "contrast_white": 1.58,
+        "contrast_black": 13.32
       },
       "300": {
-        "hex": "#b1a2eb",
-        "oklch": "oklch(0.752 0.104 293.1)",
-        "contrast_white": 2.27,
-        "contrast_black": 9.24
+        "hex": "#c3b4fe",
+        "oklch": "oklch(0.809 0.104 293.2)",
+        "contrast_white": 1.86,
+        "contrast_black": 11.28
       },
       "350": {
-        "hex": "#a590ec",
-        "oklch": "oklch(0.709 0.133 293.2)",
-        "contrast_white": 2.69,
-        "contrast_black": 7.8
+        "hex": "#b4a0fe",
+        "oklch": "oklch(0.76 0.134 292.7)",
+        "contrast_white": 2.23,
+        "contrast_black": 9.4
       },
       "400": {
-        "hex": "#9a7fec",
-        "oklch": "oklch(0.669 0.158 293)",
-        "contrast_white": 3.17,
-        "contrast_black": 6.62
+        "hex": "#a689fd",
+        "oklch": "oklch(0.706 0.166 293.2)",
+        "contrast_white": 2.76,
+        "contrast_black": 7.62
       },
       "450": {
-        "hex": "#916eed",
-        "oklch": "oklch(0.633 0.184 293.1)",
-        "contrast_white": 3.71,
-        "contrast_black": 5.66
+        "hex": "#9771f9",
+        "oklch": "oklch(0.651 0.195 293.1)",
+        "contrast_white": 3.47,
+        "contrast_black": 6.05
       },
       "500": {
-        "hex": "#885ced",
-        "oklch": "oklch(0.596 0.208 293)",
+        "hex": "#895af2",
+        "oklch": "oklch(0.598 0.217 292.9)",
         "contrast_white": 4.37,
-        "contrast_black": 4.8
+        "contrast_black": 4.81
       },
       "550": {
-        "hex": "#8048ed",
-        "oklch": "oklch(0.561 0.232 292.9)",
-        "contrast_white": 5.16,
-        "contrast_black": 4.07
+        "hex": "#7b43e6",
+        "oklch": "oklch(0.545 0.23 292.9)",
+        "contrast_white": 5.54,
+        "contrast_black": 3.79
       },
       "600": {
-        "hex": "#7930ed",
-        "oklch": "oklch(0.529 0.255 292.8)",
-        "contrast_white": 6.07,
-        "contrast_black": 3.46
+        "hex": "#6d30d4",
+        "oklch": "oklch(0.494 0.229 292.8)",
+        "contrast_white": 6.95,
+        "contrast_black": 3.02
       },
       "650": {
-        "hex": "#6d2ad5",
-        "oklch": "oklch(0.489 0.236 293.2)",
-        "contrast_white": 7.14,
-        "contrast_black": 2.94
+        "hex": "#5f21bd",
+        "oklch": "oklch(0.443 0.218 293)",
+        "contrast_white": 8.61,
+        "contrast_black": 2.44
       },
       "700": {
-        "hex": "#6024be",
-        "oklch": "oklch(0.448 0.217 293)",
-        "contrast_white": 8.42,
-        "contrast_black": 2.49
+        "hex": "#5215a8",
+        "oklch": "oklch(0.398 0.205 292.8)",
+        "contrast_white": 10.34,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#5320a6",
-        "oklch": "oklch(0.407 0.194 292.7)",
-        "contrast_white": 9.88,
-        "contrast_black": 2.13
+        "hex": "#460b92",
+        "oklch": "oklch(0.355 0.188 293)",
+        "contrast_white": 12.19,
+        "contrast_black": 1.72
       },
       "800": {
-        "hex": "#461c8c",
-        "oklch": "oklch(0.363 0.169 292.9)",
-        "contrast_white": 11.63,
-        "contrast_black": 1.81
+        "hex": "#3b057d",
+        "oklch": "oklch(0.316 0.17 293.3)",
+        "contrast_white": 13.96,
+        "contrast_black": 1.5
       },
       "850": {
-        "hex": "#381870",
-        "oklch": "oklch(0.315 0.14 293.2)",
-        "contrast_white": 13.7,
-        "contrast_black": 1.53
+        "hex": "#300269",
+        "oklch": "oklch(0.277 0.151 293.1)",
+        "contrast_white": 15.69,
+        "contrast_black": 1.34
       },
       "900": {
-        "hex": "#281253",
-        "oklch": "oklch(0.26 0.11 292.5)",
-        "contrast_white": 16.13,
-        "contrast_black": 1.3
+        "hex": "#250154",
+        "oklch": "oklch(0.237 0.13 293.1)",
+        "contrast_white": 17.34,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#14092c",
-        "oklch": "oklch(0.181 0.067 293)",
-        "contrast_white": 19,
-        "contrast_black": 1.11
+        "hex": "#18003c",
+        "oklch": "oklch(0.187 0.104 292.7)",
+        "contrast_white": 19.02,
+        "contrast_black": 1.1
       }
     }
   },
@@ -2145,117 +2145,117 @@
     "seed": "#9333ea",
     "stops": {
       "50": {
-        "hex": "#faf9fc",
-        "oklch": "oklch(0.984 0.004 301.4)",
-        "contrast_white": 1.05,
-        "contrast_black": 20.02
+        "hex": "#fcfaff",
+        "oklch": "oklch(0.988 0.007 304.2)",
+        "contrast_white": 1.04,
+        "contrast_black": 20.26
       },
       "100": {
-        "hex": "#eee9f6",
-        "oklch": "oklch(0.942 0.018 303.4)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.62
+        "hex": "#f6f1ff",
+        "oklch": "oklch(0.966 0.019 302.2)",
+        "contrast_white": 1.11,
+        "contrast_black": 18.94
       },
       "150": {
-        "hex": "#dfd6f0",
-        "oklch": "oklch(0.891 0.036 301.4)",
-        "contrast_white": 1.4,
-        "contrast_black": 15.01
+        "hex": "#eee4ff",
+        "oklch": "oklch(0.935 0.038 302.5)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.18
       },
       "200": {
-        "hex": "#d3c3ed",
-        "oklch": "oklch(0.844 0.06 302.5)",
-        "contrast_white": 1.64,
-        "contrast_black": 12.8
+        "hex": "#e5d5ff",
+        "oklch": "oklch(0.899 0.059 302.6)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.29
       },
       "250": {
-        "hex": "#c7b0eb",
-        "oklch": "oklch(0.797 0.086 302.3)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.84
+        "hex": "#dbc4ff",
+        "oklch": "oklch(0.859 0.084 302.5)",
+        "contrast_white": 1.57,
+        "contrast_black": 13.35
       },
       "300": {
-        "hex": "#bd9deb",
-        "oklch": "oklch(0.753 0.114 302.6)",
-        "contrast_white": 2.29,
-        "contrast_black": 9.19
+        "hex": "#d0b0fe",
+        "oklch": "oklch(0.813 0.113 302.8)",
+        "contrast_white": 1.85,
+        "contrast_black": 11.32
       },
       "350": {
-        "hex": "#b38beb",
-        "oklch": "oklch(0.712 0.141 302.1)",
-        "contrast_white": 2.69,
-        "contrast_black": 7.81
+        "hex": "#c49afe",
+        "oklch": "oklch(0.763 0.145 302.4)",
+        "contrast_white": 2.23,
+        "contrast_black": 9.4
       },
       "400": {
-        "hex": "#ab78eb",
-        "oklch": "oklch(0.672 0.17 302.6)",
-        "contrast_white": 3.17,
-        "contrast_black": 6.62
+        "hex": "#b782fc",
+        "oklch": "oklch(0.71 0.178 302.1)",
+        "contrast_white": 2.76,
+        "contrast_black": 7.61
       },
       "450": {
-        "hex": "#a365ec",
-        "oklch": "oklch(0.636 0.198 302.3)",
-        "contrast_white": 3.73,
-        "contrast_black": 5.63
+        "hex": "#aa68f7",
+        "oklch": "oklch(0.654 0.208 302.3)",
+        "contrast_white": 3.48,
+        "contrast_black": 6.03
       },
       "500": {
-        "hex": "#9c51ec",
-        "oklch": "oklch(0.601 0.224 302.3)",
-        "contrast_white": 4.37,
+        "hex": "#9d4fef",
+        "oklch": "oklch(0.602 0.229 302.3)",
+        "contrast_white": 4.38,
         "contrast_black": 4.8
       },
       "550": {
-        "hex": "#9638ec",
-        "oklch": "oklch(0.567 0.25 302.6)",
-        "contrast_white": 5.16,
-        "contrast_black": 4.07
+        "hex": "#8e38df",
+        "oklch": "oklch(0.547 0.236 302.5)",
+        "contrast_white": 5.55,
+        "contrast_black": 3.78
       },
       "600": {
-        "hex": "#882fd9",
-        "oklch": "oklch(0.527 0.238 302.3)",
-        "contrast_white": 6.08,
-        "contrast_black": 3.46
+        "hex": "#7d28c9",
+        "oklch": "oklch(0.495 0.227 302.3)",
+        "contrast_white": 6.96,
+        "contrast_black": 3.02
       },
       "650": {
-        "hex": "#7a29c4",
-        "oklch": "oklch(0.488 0.221 302.2)",
-        "contrast_white": 7.14,
-        "contrast_black": 2.94
+        "hex": "#6d1bb3",
+        "oklch": "oklch(0.446 0.214 302.1)",
+        "contrast_white": 8.54,
+        "contrast_black": 2.46
       },
       "700": {
-        "hex": "#6c23ae",
-        "oklch": "oklch(0.446 0.203 302.3)",
-        "contrast_white": 8.44,
-        "contrast_black": 2.49
+        "hex": "#5e0f9d",
+        "oklch": "oklch(0.399 0.199 302.1)",
+        "contrast_white": 10.34,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#5e1f97",
-        "oklch": "oklch(0.405 0.181 302.6)",
-        "contrast_white": 9.91,
-        "contrast_black": 2.12
+        "hex": "#500788",
+        "oklch": "oklch(0.356 0.182 302)",
+        "contrast_white": 12.16,
+        "contrast_black": 1.73
       },
       "800": {
-        "hex": "#4f1b80",
-        "oklch": "oklch(0.362 0.158 302.3)",
-        "contrast_white": 11.66,
-        "contrast_black": 1.8
+        "hex": "#430373",
+        "oklch": "oklch(0.314 0.162 302.2)",
+        "contrast_white": 14.01,
+        "contrast_black": 1.5
       },
       "850": {
-        "hex": "#3f1767",
-        "oklch": "oklch(0.314 0.131 302)",
-        "contrast_white": 13.73,
-        "contrast_black": 1.53
+        "hex": "#37025f",
+        "oklch": "oklch(0.275 0.142 302.7)",
+        "contrast_white": 15.71,
+        "contrast_black": 1.34
       },
       "900": {
-        "hex": "#2e114c",
-        "oklch": "oklch(0.259 0.103 302.1)",
-        "contrast_white": 16.15,
-        "contrast_black": 1.3
+        "hex": "#2b014c",
+        "oklch": "oklch(0.236 0.122 302.7)",
+        "contrast_white": 17.34,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#180829",
-        "oklch": "oklch(0.182 0.065 302.8)",
-        "contrast_white": 18.99,
+        "hex": "#1d0036",
+        "oklch": "oklch(0.188 0.099 302.9)",
+        "contrast_white": 19,
         "contrast_black": 1.11
       }
     }
@@ -2264,118 +2264,118 @@
     "seed": "#c026d3",
     "stops": {
       "50": {
-        "hex": "#fcf8fd",
-        "oklch": "oklch(0.984 0.008 319.4)",
-        "contrast_white": 1.05,
-        "contrast_black": 19.98
+        "hex": "#fefaff",
+        "oklch": "oklch(0.99 0.008 319.4)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.33
       },
       "100": {
-        "hex": "#f5e7f7",
-        "oklch": "oklch(0.944 0.026 321.9)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.66
+        "hex": "#feefff",
+        "oklch": "oklch(0.969 0.026 323.9)",
+        "contrast_white": 1.1,
+        "contrast_black": 19
       },
       "150": {
-        "hex": "#efd0f2",
-        "oklch": "oklch(0.894 0.057 323.3)",
-        "contrast_white": 1.4,
-        "contrast_black": 14.97
+        "hex": "#fcdfff",
+        "oklch": "oklch(0.937 0.053 323.1)",
+        "contrast_white": 1.23,
+        "contrast_black": 17.14
       },
       "200": {
-        "hex": "#eabaf0",
-        "oklch": "oklch(0.849 0.09 322.6)",
-        "contrast_white": 1.64,
-        "contrast_black": 12.78
+        "hex": "#faceff",
+        "oklch": "oklch(0.904 0.081 322.9)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.34
       },
       "250": {
-        "hex": "#e7a2ef",
-        "oklch": "oklch(0.804 0.129 323.1)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.81
+        "hex": "#f7b9fe",
+        "oklch": "oklch(0.864 0.114 323.1)",
+        "contrast_white": 1.58,
+        "contrast_black": 13.33
       },
       "300": {
-        "hex": "#e48af0",
-        "oklch": "oklch(0.763 0.169 322.7)",
-        "contrast_white": 2.28,
-        "contrast_black": 9.19
+        "hex": "#f4a0fe",
+        "oklch": "oklch(0.82 0.155 323.1)",
+        "contrast_white": 1.86,
+        "contrast_black": 11.31
       },
       "350": {
-        "hex": "#e270f1",
-        "oklch": "oklch(0.725 0.21 322.9)",
-        "contrast_white": 2.68,
-        "contrast_black": 7.82
+        "hex": "#ee84fc",
+        "oklch": "oklch(0.771 0.196 322.8)",
+        "contrast_white": 2.25,
+        "contrast_black": 9.34
       },
       "400": {
-        "hex": "#e052f2",
-        "oklch": "oklch(0.689 0.251 323)",
-        "contrast_white": 3.15,
-        "contrast_black": 6.66
+        "hex": "#e567f5",
+        "oklch": "oklch(0.719 0.228 323)",
+        "contrast_white": 2.77,
+        "contrast_black": 7.59
       },
       "450": {
-        "hex": "#d836ec",
-        "oklch": "oklch(0.651 0.272 323)",
-        "contrast_white": 3.71,
-        "contrast_black": 5.66
+        "hex": "#d64ce8",
+        "oklch": "oklch(0.664 0.245 322.9)",
+        "contrast_white": 3.47,
+        "contrast_black": 6.06
       },
       "500": {
-        "hex": "#c72adb",
-        "oklch": "oklch(0.609 0.262 322.8)",
-        "contrast_white": 4.39,
-        "contrast_black": 4.78
+        "hex": "#c13ad2",
+        "oklch": "oklch(0.606 0.239 323)",
+        "contrast_white": 4.37,
+        "contrast_black": 4.8
       },
       "550": {
-        "hex": "#b623c8",
-        "oklch": "oklch(0.568 0.247 322.9)",
-        "contrast_white": 5.17,
-        "contrast_black": 4.06
+        "hex": "#ab2abc",
+        "oklch": "oklch(0.549 0.228 322.7)",
+        "contrast_white": 5.54,
+        "contrast_black": 3.79
       },
       "600": {
-        "hex": "#a51fb5",
-        "oklch": "oklch(0.528 0.229 323.1)",
-        "contrast_white": 6.06,
-        "contrast_black": 3.46
+        "hex": "#971ba6",
+        "oklch": "oklch(0.495 0.215 323)",
+        "contrast_white": 6.95,
+        "contrast_black": 3.02
       },
       "650": {
-        "hex": "#941ba3",
-        "oklch": "oklch(0.488 0.212 322.9)",
-        "contrast_white": 7.13,
-        "contrast_black": 2.94
+        "hex": "#831091",
+        "oklch": "oklch(0.444 0.199 322.8)",
+        "contrast_white": 8.58,
+        "contrast_black": 2.45
       },
       "700": {
-        "hex": "#841691",
-        "oklch": "oklch(0.448 0.195 323.1)",
-        "contrast_white": 8.38,
-        "contrast_black": 2.5
+        "hex": "#71087d",
+        "oklch": "oklch(0.397 0.181 323)",
+        "contrast_white": 10.33,
+        "contrast_black": 2.03
       },
       "750": {
-        "hex": "#73127f",
-        "oklch": "oklch(0.406 0.177 322.9)",
-        "contrast_white": 9.9,
-        "contrast_black": 2.12
+        "hex": "#60046b",
+        "oklch": "oklch(0.353 0.163 322.8)",
+        "contrast_white": 12.16,
+        "contrast_black": 1.73
       },
       "800": {
-        "hex": "#61116b",
-        "oklch": "oklch(0.363 0.154 322.9)",
-        "contrast_white": 11.66,
-        "contrast_black": 1.8
+        "hex": "#51025a",
+        "oklch": "oklch(0.313 0.145 323.1)",
+        "contrast_white": 13.94,
+        "contrast_black": 1.51
       },
       "850": {
-        "hex": "#4e0f56",
-        "oklch": "oklch(0.314 0.129 322.9)",
-        "contrast_white": 13.76,
-        "contrast_black": 1.53
+        "hex": "#42014a",
+        "oklch": "oklch(0.273 0.128 322.8)",
+        "contrast_white": 15.73,
+        "contrast_black": 1.33
       },
       "900": {
-        "hex": "#390c3f",
-        "oklch": "oklch(0.259 0.1 322.7)",
-        "contrast_white": 16.17,
-        "contrast_black": 1.3
+        "hex": "#34013a",
+        "oklch": "oklch(0.234 0.108 323.3)",
+        "contrast_white": 17.33,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#1e0622",
-        "oklch": "oklch(0.181 0.063 321.8)",
-        "contrast_white": 19.02,
-        "contrast_black": 1.1
+        "hex": "#240029",
+        "oklch": "oklch(0.187 0.088 322.9)",
+        "contrast_white": 18.97,
+        "contrast_black": 1.11
       }
     }
   },
@@ -2383,118 +2383,118 @@
     "seed": "#db2777",
     "stops": {
       "50": {
-        "hex": "#fdf8f9",
-        "oklch": "oklch(0.983 0.005 3.3)",
-        "contrast_white": 1.05,
-        "contrast_black": 19.97
+        "hex": "#fffafb",
+        "oklch": "oklch(0.989 0.005 3.3)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.32
       },
       "100": {
-        "hex": "#f7e8eb",
-        "oklch": "oklch(0.944 0.017 3.7)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.7
+        "hex": "#fff0f4",
+        "oklch": "oklch(0.968 0.017 359.3)",
+        "contrast_white": 1.1,
+        "contrast_black": 19.02
       },
       "150": {
-        "hex": "#f2d2da",
-        "oklch": "oklch(0.893 0.037 1)",
-        "contrast_white": 1.4,
-        "contrast_black": 15.01
+        "hex": "#ffe1e8",
+        "oklch": "oklch(0.936 0.034 2)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.19
       },
       "200": {
-        "hex": "#f0bcca",
-        "oklch": "oklch(0.846 0.062 0.6)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.75
+        "hex": "#ffd0dc",
+        "oklch": "oklch(0.901 0.055 1.2)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.31
       },
       "250": {
-        "hex": "#f0a5bb",
-        "oklch": "oklch(0.8 0.092 0.2)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.8
+        "hex": "#ffbcce",
+        "oklch": "oklch(0.862 0.08 1.2)",
+        "contrast_white": 1.57,
+        "contrast_black": 13.34
       },
       "300": {
-        "hex": "#f08ead",
-        "oklch": "oklch(0.758 0.123 0.1)",
-        "contrast_white": 2.29,
-        "contrast_black": 9.18
+        "hex": "#ffa4bf",
+        "oklch": "oklch(0.816 0.112 0.6)",
+        "contrast_white": 1.86,
+        "contrast_black": 11.31
       },
       "350": {
-        "hex": "#f2759f",
-        "oklch": "oklch(0.719 0.159 0.7)",
-        "contrast_white": 2.69,
-        "contrast_black": 7.82
+        "hex": "#fe89ae",
+        "oklch": "oklch(0.768 0.146 1)",
+        "contrast_white": 2.23,
+        "contrast_black": 9.4
       },
       "400": {
-        "hex": "#f35993",
-        "oklch": "oklch(0.682 0.195 0.4)",
-        "contrast_white": 3.15,
-        "contrast_black": 6.66
+        "hex": "#fa6a9d",
+        "oklch": "oklch(0.715 0.182 0.7)",
+        "contrast_white": 2.76,
+        "contrast_black": 7.61
       },
       "450": {
-        "hex": "#f33486",
-        "oklch": "oklch(0.645 0.23 0.7)",
-        "contrast_white": 3.72,
-        "contrast_black": 5.65
+        "hex": "#ef4c8b",
+        "oklch": "oklch(0.66 0.205 0.9)",
+        "contrast_white": 3.46,
+        "contrast_black": 6.08
       },
       "500": {
-        "hex": "#e02a7a",
-        "oklch": "oklch(0.603 0.22 0.7)",
-        "contrast_white": 4.39,
-        "contrast_black": 4.78
+        "hex": "#d9387a",
+        "oklch": "oklch(0.601 0.202 0.7)",
+        "contrast_white": 4.38,
+        "contrast_black": 4.8
       },
       "550": {
-        "hex": "#cd246f",
-        "oklch": "oklch(0.563 0.207 0.6)",
-        "contrast_white": 5.15,
-        "contrast_black": 4.08
+        "hex": "#c1286a",
+        "oklch": "oklch(0.543 0.193 0.5)",
+        "contrast_white": 5.56,
+        "contrast_black": 3.78
       },
       "600": {
-        "hex": "#ba1f64",
-        "oklch": "oklch(0.523 0.193 0.6)",
-        "contrast_white": 6.06,
-        "contrast_black": 3.47
+        "hex": "#ab1a5b",
+        "oklch": "oklch(0.491 0.183 0.7)",
+        "contrast_white": 6.93,
+        "contrast_black": 3.03
       },
       "650": {
-        "hex": "#a71b59",
-        "oklch": "oklch(0.483 0.178 0.7)",
-        "contrast_white": 7.13,
-        "contrast_black": 2.94
+        "hex": "#950f4d",
+        "oklch": "oklch(0.44 0.169 0.9)",
+        "contrast_white": 8.56,
+        "contrast_black": 2.45
       },
       "700": {
-        "hex": "#94174f",
-        "oklch": "oklch(0.443 0.163 0.3)",
-        "contrast_white": 8.42,
-        "contrast_black": 2.49
+        "hex": "#800741",
+        "oklch": "oklch(0.392 0.153 0.7)",
+        "contrast_white": 10.37,
+        "contrast_black": 2.02
       },
       "750": {
-        "hex": "#821344",
-        "oklch": "oklch(0.403 0.148 0.7)",
-        "contrast_white": 9.88,
-        "contrast_black": 2.13
+        "hex": "#6e0337",
+        "oklch": "oklch(0.35 0.139 0.4)",
+        "contrast_white": 12.13,
+        "contrast_black": 1.73
       },
       "800": {
-        "hex": "#6e1139",
-        "oklch": "oklch(0.359 0.129 0.9)",
-        "contrast_white": 11.65,
-        "contrast_black": 1.8
+        "hex": "#5c022d",
+        "oklch": "oklch(0.309 0.123 0.4)",
+        "contrast_white": 13.98,
+        "contrast_black": 1.5
       },
       "850": {
-        "hex": "#590f2e",
-        "oklch": "oklch(0.313 0.108 0.7)",
-        "contrast_white": 13.7,
-        "contrast_black": 1.53
+        "hex": "#4c0124",
+        "oklch": "oklch(0.271 0.108 0.4)",
+        "contrast_white": 15.71,
+        "contrast_black": 1.34
       },
       "900": {
-        "hex": "#410c21",
-        "oklch": "oklch(0.257 0.083 0.9)",
-        "contrast_white": 16.16,
-        "contrast_black": 1.3
+        "hex": "#3c001b",
+        "oklch": "oklch(0.231 0.093 0.3)",
+        "contrast_white": 17.38,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#230610",
-        "oklch": "oklch(0.181 0.052 1.7)",
-        "contrast_white": 19,
-        "contrast_black": 1.1
+        "hex": "#2a0011",
+        "oklch": "oklch(0.185 0.075 0.3)",
+        "contrast_white": 18.98,
+        "contrast_black": 1.11
       }
     }
   },
@@ -2502,118 +2502,118 @@
     "seed": "#e11d48",
     "stops": {
       "50": {
-        "hex": "#fdf9f9",
-        "oklch": "oklch(0.985 0.004 17.2)",
-        "contrast_white": 1.05,
-        "contrast_black": 20.09
+        "hex": "#fffafa",
+        "oklch": "oklch(0.989 0.005 17.2)",
+        "contrast_white": 1.03,
+        "contrast_black": 20.31
       },
       "100": {
-        "hex": "#f7e8e8",
-        "oklch": "oklch(0.943 0.016 17.4)",
-        "contrast_white": 1.19,
-        "contrast_black": 17.66
+        "hex": "#fff0f0",
+        "oklch": "oklch(0.967 0.016 17.4)",
+        "contrast_white": 1.11,
+        "contrast_black": 18.97
       },
       "150": {
-        "hex": "#f3d2d2",
-        "oklch": "oklch(0.891 0.037 17.9)",
-        "contrast_white": 1.4,
-        "contrast_black": 14.96
+        "hex": "#ffe2e2",
+        "oklch": "oklch(0.936 0.032 17.7)",
+        "contrast_white": 1.22,
+        "contrast_black": 17.23
       },
       "200": {
-        "hex": "#f1bdbe",
-        "oklch": "oklch(0.845 0.06 17.1)",
-        "contrast_white": 1.65,
-        "contrast_black": 12.76
+        "hex": "#ffd1d1",
+        "oklch": "oklch(0.9 0.052 18.2)",
+        "contrast_white": 1.37,
+        "contrast_black": 15.29
       },
       "250": {
-        "hex": "#f1a7a9",
-        "oklch": "oklch(0.8 0.088 17.4)",
-        "contrast_white": 1.94,
-        "contrast_black": 10.84
+        "hex": "#ffbebf",
+        "oklch": "oklch(0.861 0.075 17.7)",
+        "contrast_white": 1.57,
+        "contrast_black": 13.37
       },
       "300": {
-        "hex": "#f29094",
-        "oklch": "oklch(0.757 0.119 17.6)",
-        "contrast_white": 2.28,
-        "contrast_black": 9.19
+        "hex": "#ffa6a9",
+        "oklch": "oklch(0.814 0.106 17.4)",
+        "contrast_white": 1.86,
+        "contrast_black": 11.28
       },
       "350": {
-        "hex": "#f47780",
-        "oklch": "oklch(0.717 0.153 17.3)",
-        "contrast_white": 2.69,
-        "contrast_black": 7.8
+        "hex": "#fe8c92",
+        "oklch": "oklch(0.765 0.138 17.5)",
+        "contrast_white": 2.24,
+        "contrast_black": 9.38
       },
       "400": {
-        "hex": "#f65b6c",
-        "oklch": "oklch(0.679 0.189 17.3)",
-        "contrast_white": 3.17,
-        "contrast_black": 6.63
+        "hex": "#fb6e79",
+        "oklch": "oklch(0.713 0.172 17.8)",
+        "contrast_white": 2.76,
+        "contrast_black": 7.61
       },
       "450": {
-        "hex": "#f83557",
-        "oklch": "oklch(0.643 0.227 17.6)",
-        "contrast_white": 3.72,
-        "contrast_black": 5.64
+        "hex": "#f34e62",
+        "oklch": "oklch(0.658 0.2 17.8)",
+        "contrast_white": 3.46,
+        "contrast_black": 6.08
       },
       "500": {
-        "hex": "#e9214c",
-        "oklch": "oklch(0.603 0.227 17.5)",
+        "hex": "#df3651",
+        "oklch": "oklch(0.6 0.204 17.5)",
         "contrast_white": 4.39,
-        "contrast_black": 4.79
+        "contrast_black": 4.78
       },
       "550": {
-        "hex": "#d51b44",
-        "oklch": "oklch(0.562 0.213 17.5)",
-        "contrast_white": 5.16,
-        "contrast_black": 4.07
+        "hex": "#c72643",
+        "oklch": "oklch(0.543 0.194 17.7)",
+        "contrast_white": 5.55,
+        "contrast_black": 3.79
       },
       "600": {
-        "hex": "#c1173d",
-        "oklch": "oklch(0.522 0.198 17.4)",
-        "contrast_white": 6.07,
-        "contrast_black": 3.46
+        "hex": "#af1837",
+        "oklch": "oklch(0.488 0.182 17.7)",
+        "contrast_white": 6.98,
+        "contrast_black": 3.01
       },
       "650": {
-        "hex": "#ae1336",
-        "oklch": "oklch(0.483 0.184 17.4)",
-        "contrast_white": 7.13,
-        "contrast_black": 2.95
+        "hex": "#990e2d",
+        "oklch": "oklch(0.439 0.168 17.8)",
+        "contrast_white": 8.55,
+        "contrast_black": 2.46
       },
       "700": {
-        "hex": "#9a102e",
-        "oklch": "oklch(0.442 0.168 17.8)",
-        "contrast_white": 8.44,
-        "contrast_black": 2.49
+        "hex": "#840725",
+        "oklch": "oklch(0.392 0.152 17.7)",
+        "contrast_white": 10.3,
+        "contrast_black": 2.04
       },
       "750": {
-        "hex": "#870d28",
-        "oklch": "oklch(0.402 0.152 17.4)",
-        "contrast_white": 9.91,
-        "contrast_black": 2.12
+        "hex": "#70031e",
+        "oklch": "oklch(0.348 0.137 17.4)",
+        "contrast_white": 12.2,
+        "contrast_black": 1.72
       },
       "800": {
-        "hex": "#720d22",
-        "oklch": "oklch(0.358 0.132 17.1)",
-        "contrast_white": 11.69,
-        "contrast_black": 1.8
+        "hex": "#5f0217",
+        "oklch": "oklch(0.309 0.122 18)",
+        "contrast_white": 13.93,
+        "contrast_black": 1.51
       },
       "850": {
-        "hex": "#5c0d1b",
-        "oklch": "oklch(0.312 0.11 17.5)",
-        "contrast_white": 13.74,
-        "contrast_black": 1.53
+        "hex": "#4e0112",
+        "oklch": "oklch(0.27 0.107 17.3)",
+        "contrast_white": 15.71,
+        "contrast_black": 1.34
       },
       "900": {
-        "hex": "#440a13",
-        "oklch": "oklch(0.257 0.087 17.6)",
-        "contrast_white": 16.17,
-        "contrast_black": 1.3
+        "hex": "#3e000c",
+        "oklch": "oklch(0.231 0.092 17.3)",
+        "contrast_white": 17.35,
+        "contrast_black": 1.21
       },
       "950": {
-        "hex": "#250509",
-        "oklch": "oklch(0.18 0.055 16.1)",
-        "contrast_white": 19.02,
-        "contrast_black": 1.1
+        "hex": "#2b0006",
+        "oklch": "oklch(0.183 0.073 17.5)",
+        "contrast_white": 19,
+        "contrast_black": 1.11
       }
     }
   }

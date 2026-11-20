@@ -1,6 +1,6 @@
 ---
 title: "Palette generation"
-description: "How Sistema's palette tool builds OKLCH ramps: contrast-targeted stops, gamut-relative chroma, and the output format."
+description: "How Sistema's palette tool builds OKLCH ramps: stops on an eased contrast curve, the same colorfulness by lightness for every hue, yellows that warm as they darken, and the output format."
 topic: color
 sources:
   - { source: oklab, url: "https://bottosson.github.io/posts/oklab/" }
@@ -46,12 +46,20 @@ For accessible UI, contrast targeting is more useful. A designer can say "the -6
 The algorithm has five steps:
 
 1. Convert the seed hex color to OKLCH
-2. Generate a dense candidate array by sweeping the lightness axis in OKLCH while holding hue and adjusting chroma for gamut safety
-3. Convert each candidate to sRGB and filter out-of-gamut values
-4. Compute WCAG contrast against white for each in-gamut candidate
-5. For each of 19 target contrast values, select the candidate with minimum absolute difference from the target
+2. Generate a dense candidate array by sweeping the lightness axis in OKLCH. At each lightness, chroma comes from one shared curve and the hue turns warm if the seed is a yellow (section 4)
+3. Convert each candidate to sRGB, keeping it in gamut
+4. Compute WCAG contrast against white for each candidate
+5. For each of 19 target contrast values on an eased curve (section 5), select the candidate with minimum absolute difference from the target
 
 The output is 19 hex values per seed color, together with their contrast ratios against white and black.
+
+Three fixed rules shape the result, each set by one named constant in the code (`src/lib/palette.ts`). No stop is ever adjusted on its own: every stop comes from the same curves.
+
+| Rule | Constant | What it fixes |
+|---|---|---|
+| Eased contrast curve | `EASE` = 0.45 | Even steps left the lightest and darkest stops too far apart for surfaces, borders and hover states |
+| Colorfulness by lightness, the same for every hue | `CHROMA_PLATEAU`, `SOFT_LIMIT` | Chroma relative to each hue's own maximum made green and yellow tints several times more colorful than blue ones |
+| Yellows lean warm as they darken | `YELLOW` | Dark yellow doesn't exist on screens, so a yellow held at one hue turns olive and muddy |
 
 ---
 
@@ -80,85 +88,99 @@ For the contrast-targeting algorithm, OKLCH provides a higher-quality candidate 
 ```
 function generateCandidates(seedHex):
   seed = hexToOKLCH(seedHex)
+  amplitude = seed.C / max(0.25, chromaShape(seed.L, seed.L))
   candidates = []
 
-  for L in range(0.02, 0.985, step=0.001):   // ~965 candidates
-    C = seed.C * chromaScale(L)
-    H = seed.H
-    srgb = oklchToSRGB({ L, C, H })
-
-    if isInGamut(srgb):                        // all channels 0–1
-      candidates.push({
-        oklch: { L, C, H },
-        hex: srgbToHex(srgb),
-        L_relative: wcagRelativeLuminance(srgb)
-      })
+  for L in range(0.02, 0.99, step=0.001):      // ~970 candidates
+    H = seed.H - yellowTurn(seed.H, L)
+    limit = maxInGamutChroma(L, H) * 0.98
+    C = softLimit(amplitude * chromaShape(L, seed.L), limit)
+    srgb = gamutMap(oklchToSRGB({ L, C, H }))
+    candidates.push({ hex: srgbToHex(srgb), contrastWhite: wcagContrast(srgb, white) })
 
   return candidates
 ```
 
-**Chroma scaling at extremes:**
+### Colorfulness by lightness
 
-A seed color with high chroma (saturated hue) will produce out-of-gamut sRGB values at very low and very high lightness levels. The standard fix is to scale chroma toward zero as lightness approaches 0 or 1:
+The seed sets how colorful the ramp is (`amplitude`). One shared curve over lightness sets how that colorfulness is spread, and it is the same for every hue, so a blue ramp and a green ramp from equally colorful seeds have the same chroma at the same lightness:
 
 ```
-function chromaScale(L):
-  // Scales from 1.0 at the seed's lightness to 0 near extremes
-  // sin curve: peaks at L=0.5, approaches 0 at L=0 and L=1
-  return Math.sin(Math.PI * L)
+function chromaShape(L, seedL):
+  edge = max(0.8, min(0.92, seedL + 0.02))       // CHROMA_PLATEAU.light, raised for bright seeds
+  fromWhite = clamp((0.995 - L) / (0.995 - edge), 0, 1)
+  fromBlack = 0.35 + 0.65 * smoothstep(0.05, 0.32, L)   // CHROMA_PLATEAU.dark
+  return min(fromWhite, fromBlack)
 ```
 
-This preserves hue throughout the palette while preventing gamut violations. At very light and very dark stops, the shade becomes nearly achromatic — which is correct behavior; near-white and near-black shades should be desaturated.
+- **From white,** chroma rises in proportion to distance from white, so tints step evenly into color.
+- **Through the mid-tones,** it holds at the seed's strength. For a seed lighter than usual (a bright yellow), the plateau reaches up to the seed's own lightness, so the seed's brightness survives in its ramp.
+- **Toward black,** it eases down but keeps about a third, so dark stops still read as the hue rather than as gray.
 
-**Gamut filtering:**
+Where a hue can't reach the target chroma on screen, chroma approaches that hue's limit smoothly instead of being clipped at it:
 
-After conversion to sRGB, discard any candidate where any channel (R, G, B) falls outside [0, 1] after the chroma scaling. With the sine curve applied, out-of-gamut results should be rare; filtering handles any numerical edge cases.
+```
+function softLimit(target, limit):              // SOFT_LIMIT = 6
+  return target * limit / (target^6 + limit^6)^(1/6)
+```
+
+Clipping would put a kink in the ramp wherever the limit starts to bind. The soft limit keeps chroma a smooth curve from end to end.
+
+The usual alternative, used by Sistema's earlier palette tool and by many generators, scales chroma as a share of each hue's own maximum at each lightness. That keeps every hue "equally saturated" relative to its gamut, but because yellows and greens can reach far higher chroma at high lightness, their tints come out much more colorful than blue or violet tints. Material's tonal palettes take the approach used here: chroma is held as an absolute value and reduced only where the gamut requires it ([Material color science](https://material.io/blog/science-of-color-design)).
+
+### Yellows lean warm as they darken
+
+Screens can't show a dark yellow: as yellow loses lightness at a fixed hue it becomes olive. Hues within 38° of 92° (yellows, ambers, limes) turn toward orange in proportion to how dark the stop is, up to 34° at black:
+
+```
+function yellowTurn(H, L):                      // YELLOW = { center: 92, halfWidth: 38, maxTurn: 34 }
+  d = angularDistance(H, 92)
+  if d >= 38: return 0
+  inBand = cos(π/2 * d/38)^2                     // full turn at the center, none at the edge
+  darkness = smoothstep(0.78, 0.22, L)           // none in the light stops, full in the darkest
+  return 34 * inBand * darkness
+```
+
+Dark yellow ramps become ochre and brown instead of olive, which is how painters and most hand-tuned palettes treat them. Light yellow stops keep the seed's hue.
 
 ---
 
 ## 5 — Target contrast values
 
-The 19 target contrast ratios for stops 50–950 use a **logarithmic distribution** from 1.01 to 19.0.
+The 19 target contrast ratios for stops 50–950 run from 1.01 to 19.0 on a logarithmic curve that eases in and out:
 
-Formula: `target[i] = 1.01 × (19.0 / 1.01) ^ (i / 18)` for i = 0..18
+```
+eased(t) = t - EASE * sin(2πt) / (2π)            // EASE = 0.45
+target[i] = 1.01 × (19.0 / 1.01) ^ eased(i / 18)    for i = 0..18
+```
 
-This allocates more stops to the range from 1:1 to 7:1, where the WCAG 2.x text and UI thresholds fall and most accessibility decisions occur (primary colors, text, interactive elements) and fewer to the very dark end (>10:1) where stops are approaching black and differentiation matters less.
+With `EASE` = 0 this is an even logarithmic curve. The easing makes the steps finer near white and near black, where surfaces, borders and hover states live and small differences matter, and wider through the mid-tones. Stop 500 stays at the midpoint.
 
 | Stop | Index (i) | Target contrast (white) | Notable threshold |
 |---|---|---|---|
 | 50 | 0 | 1.01 | Nearly white |
-| 100 | 1 | 1.19 | |
-| 150 | 2 | 1.40 | |
-| 200 | 3 | 1.65 | |
-| 250 | 4 | 1.94 | |
-| 300 | 5 | 2.28 | |
-| 350 | 6 | 2.69 | |
-| 400 | 7 | 3.16 | WCAG UI components (AA): 3:1 |
-| 450 | 8 | 3.72 | |
+| 100 | 1 | 1.11 | |
+| 150 | 2 | 1.22 | |
+| 200 | 3 | 1.37 | |
+| 250 | 4 | 1.58 | |
+| 300 | 5 | 1.86 | |
+| 350 | 6 | 2.24 | |
+| 400 | 7 | 2.76 | |
+| 450 | 8 | 3.46 | WCAG UI components (AA): 3:1 |
 | 500 | 9 | 4.38 | |
-| 550 | 10 | 5.16 | WCAG normal text (AA): 4.5:1 |
-| 600 | 11 | 6.07 | |
-| 650 | 12 | 7.14 | WCAG normal text (AAA): 7:1 |
-| 700 | 13 | 8.41 | |
-| 750 | 14 | 9.90 | |
-| 800 | 15 | 11.65 | |
-| 850 | 16 | 13.71 | |
-| 900 | 17 | 16.14 | |
+| 550 | 10 | 5.54 | WCAG normal text (AA): 4.5:1 |
+| 600 | 11 | 6.95 | |
+| 650 | 12 | 8.57 | WCAG normal text (AAA): 7:1 |
+| 700 | 13 | 10.34 | |
+| 750 | 14 | 12.17 | |
+| 800 | 15 | 13.98 | |
+| 850 | 16 | 15.70 | |
+| 900 | 17 | 17.34 | |
 | 950 | 18 | 19.00 | Nearly black |
 
-**Why logarithmic over ease-in-out:**
+**Why a logarithmic base:** a linear or plain ease-in-out distribution over the same 1.01–19 range places stop 500 at about 10:1, putting roughly half the stops near black. The logarithmic base keeps stop 500 at 4.38:1, in the working range of the palette. The easing is applied on top of it, so the midpoint doesn't move.
 
-A standard ease-in-out distribution over the same 1.01–19 range places the midpoint stop (stop 500) at approximately 10:1, putting roughly half the stops above the WCAG AAA threshold where the palette approaches pure black. The logarithmic distribution places stop 500 at 4.38:1 — squarely in the working range of the palette — and allocates 9 of 19 stops below 4.5:1, where design decisions about text and interactive color are most common.
-
-**Easing approach (for compatibility):**
-
-If generating palettes that must match an existing ease-in-out baseline, the formula is:
-
-```
-target[i] = easeInOut((i + 1) / steps) × (highContrast - lowContrast) + lowContrast
-```
-
-Where `easeInOut` is any S-curve mapping [0,1] → [0,1]. Use this only for compatibility with existing palettes. New palettes should use the logarithmic distribution.
+**Reading the extremes:** stops 50 to 200 are surface and tint steps (canvas, hover, selected, container); stops 800 to 950 are the dark-theme equivalents. Use neighboring stops for neighboring surfaces: the steps there are deliberately small.
 
 ---
 
@@ -224,25 +246,25 @@ The relationship: `contrast_white × contrast_black ≈ 21`. They are not indepe
   "primary": {
     "seed": "#2563eb",
     "stops": {
-      "50":  { "hex": "#f0f4ff", "contrast_white": 1.01, "contrast_black": 20.3 },
-      "100": { "hex": "#dde8ff", "contrast_white": 1.19, "contrast_black": 17.2 },
-      "150": { "hex": "#c4d6ff", "contrast_white": 1.40, "contrast_black": 14.6 },
-      "200": { "hex": "#a9c2ff", "contrast_white": 1.65, "contrast_black": 12.4 },
-      "250": { "hex": "#8caeff", "contrast_white": 1.94, "contrast_black": 10.5 },
-      "300": { "hex": "#6d96ff", "contrast_white": 2.28, "contrast_black": 8.9  },
-      "350": { "hex": "#5080f0", "contrast_white": 2.69, "contrast_black": 7.5  },
-      "400": { "hex": "#3a6bdf", "contrast_white": 3.16, "contrast_black": 6.4  },
-      "450": { "hex": "#2a5bcc", "contrast_white": 3.72, "contrast_black": 5.5  },
-      "500": { "hex": "#1e4db8", "contrast_white": 4.38, "contrast_black": 4.7  },
-      "550": { "hex": "#163ea1", "contrast_white": 5.16, "contrast_black": 4.0  },
-      "600": { "hex": "#0f3188", "contrast_white": 6.07, "contrast_black": 3.4  },
-      "650": { "hex": "#0a2571", "contrast_white": 7.14, "contrast_black": 2.9  },
-      "700": { "hex": "#071c5a", "contrast_white": 8.41, "contrast_black": 2.5  },
-      "750": { "hex": "#051446", "contrast_white": 9.90, "contrast_black": 2.1  },
-      "800": { "hex": "#030d34", "contrast_white": 11.65, "contrast_black": 1.8 },
-      "850": { "hex": "#020826", "contrast_white": 13.71, "contrast_black": 1.5 },
-      "900": { "hex": "#01041a", "contrast_white": 16.14, "contrast_black": 1.3 },
-      "950": { "hex": "#00020f", "contrast_white": 19.00, "contrast_black": 1.1 }
+      "50":  { "hex": "#f9fbff", "contrast_white": 1.04, "contrast_black": 20.27 },
+      "100": { "hex": "#edf4ff", "contrast_white": 1.11, "contrast_black": 18.99 },
+      "150": { "hex": "#dde9ff", "contrast_white": 1.22, "contrast_black": 17.17 },
+      "200": { "hex": "#caddff", "contrast_white": 1.37, "contrast_black": 15.3 },
+      "250": { "hex": "#b5cfff", "contrast_white": 1.57, "contrast_black": 13.33 },
+      "300": { "hex": "#9dbffe", "contrast_white": 1.86, "contrast_black": 11.32 },
+      "350": { "hex": "#83adfe", "contrast_white": 2.24, "contrast_black": 9.37 },
+      "400": { "hex": "#699afc", "contrast_white": 2.75, "contrast_black": 7.63 },
+      "450": { "hex": "#4f86f7", "contrast_white": 3.45, "contrast_black": 6.09 },
+      "500": { "hex": "#3872ed", "contrast_white": 4.38, "contrast_black": 4.8 },
+      "550": { "hex": "#255fe0", "contrast_white": 5.54, "contrast_black": 3.79 },
+      "600": { "hex": "#164fcd", "contrast_white": 6.92, "contrast_black": 3.03 },
+      "650": { "hex": "#0a40b9", "contrast_white": 8.58, "contrast_black": 2.45 },
+      "700": { "hex": "#0234a5", "contrast_white": 10.31, "contrast_black": 2.04 },
+      "750": { "hex": "#002991", "contrast_white": 12.17, "contrast_black": 1.73 },
+      "800": { "hex": "#001f7e", "contrast_white": 14.03, "contrast_black": 1.5 },
+      "850": { "hex": "#00176b", "contrast_white": 15.73, "contrast_black": 1.33 },
+      "900": { "hex": "#000f58", "contrast_white": 17.37, "contrast_black": 1.21 },
+      "950": { "hex": "#000446", "contrast_white": 18.99, "contrast_black": 1.11 }
     }
   },
   "gray": {
@@ -285,4 +307,4 @@ Store as static JSON at build time. The dynamic API endpoint and the pre-generat
 
 **Dark mode surface colors** — these require surface palettes (typically a desaturated seed or a neutral) with careful selection of the stop used for the main surface. The algorithm generates the palette; which stop to assign to `--color-surface` in dark mode is a token architecture decision.
 
-**Perceived hue shifts** — in some hues (particularly blue-violet and yellow-green), the OKLCH hue may shift slightly at extreme lightness values even with chroma scaling. This is a property of the color gamut and human vision, not an algorithm error. Review the lightest and darkest stops visually for any unexpected hue shifts after generation.
+**Perceived hue shifts** — in some hues (particularly blue-violet), the OKLCH hue may shift slightly at extreme lightness values even with chroma scaling. This is a property of the color gamut and human vision, not an algorithm error. Review the lightest and darkest stops visually for any unexpected hue shifts after generation.
