@@ -38,6 +38,7 @@ export function buildSearchIndex(): SearchEntry[] {
     ['palette', 'Palette tool', 'OKLCH palettes generated from seed colors'],
     ['contrast', 'Contrast checker', 'Check contrast between two colors against WCAG'],
     ['type-scale', 'Type scale calculator', 'Build a modular type scale'],
+    ['specimen', 'Specimen', 'Compare visual choices on a product screen'],
   ]) {
     entries.push({ type: 'tool', title, slug, href: `/tools/${slug}`, tags: ['tool'], description: desc, meta: 'tool' })
   }

@@ -4,7 +4,7 @@ import { SITE_URL } from '@/lib/site-url'
 
 export const metadata: Metadata = {
   title: 'Tools',
-  description: 'Palette, contrast, and type scale tools for design system work, each with a page and an API.',
+  description: 'Palette, contrast, type scale, and specimen tools for design system work, each with a page and an API.',
   robots: { index: false, follow: false },
 }
 
@@ -32,6 +32,14 @@ const TOOLS = [
     description: 'Pick a base size and ratio to see how sizes distribute, with a suggested line height for each and the step names your component library uses. The same calculation the type scale play gets from the API.',
     playRef: 'typography.scale',
     api: `${SITE_URL}/api/type-scale`,
+  },
+  {
+    slug: 'specimen',
+    href: '/tools/specimen',
+    title: 'Specimen',
+    description: 'See how a few visual choices (color presence, warmth, roundness, how panels separate, density, typeface, theme) change a whole product screen, with every option of one choice side by side.',
+    playRef: 'visual-language.direction',
+    api: `${SITE_URL}/api/specimen`,
   },
 ]
 

@@ -28,6 +28,7 @@ When to reference this system: when writing UI copy for task-oriented or commerc
 | Grammar and mechanics | https://polaris.shopify.com/content/grammar-and-mechanics | Retrieved 2026-05-16 |
 | Actionable language | https://polaris.shopify.com/content/actionable-language | Retrieved 2026-05-16 |
 | Error messages | https://polaris.shopify.com/content/error-messages | Retrieved 2026-05-16 |
+| Surface and emphasis roles | https://cdn.jsdelivr.net/npm/@shopify/polaris-tokens@9.4.2/ | Package licence: MIT with Shopify-only restriction; synthesis only. Retrieved 2026-11-20 |
 
 ---
 
@@ -36,3 +37,5 @@ When to reference this system: when writing UI copy for task-oriented or commerc
 | Date | Change |
 |---|---|
 | 2026-05-16 | Initial capture: voice-and-tone, grammar-and-mechanics, actionable-language, error-messages |
+
+| `polaris/guidance/foundations/surface-roles` | Surface and emphasis roles: prominence levels, brand, emphasis, inverse, surface versus fill (tokens 9.4.2) | guidance | latest |

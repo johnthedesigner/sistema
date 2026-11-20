@@ -28,7 +28,7 @@ export type Topic = (typeof TOPICS)[number]
 export const KINDS = ['create', 'change', 'check', 'orient'] as const
 export const MILESTONES = ['direction', 'foundations', 'patterns', 'maintain'] as const
 export type Milestone = (typeof MILESTONES)[number]
-export const TOOLS = ['palette', 'contrast', 'type_scale'] as const
+export const TOOLS = ['palette', 'contrast', 'type_scale', 'specimen'] as const
 export type ToolName = (typeof TOOLS)[number]
 
 /** DESIGN.md body sections, in spec order (D6a). */

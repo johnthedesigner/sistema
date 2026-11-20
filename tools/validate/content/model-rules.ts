@@ -96,6 +96,7 @@ const TOOL_WORDS: Record<string, RegExp> = {
   palette: /\bpalette\b/i,
   contrast: /\bcontrast\b/i,
   type_scale: /\btype[ _-]?scale\b/i,
+  specimen: /\bspecimen\b/i,
 }
 
 // ─── rules ──────────────────────────────────────────────────────────────────

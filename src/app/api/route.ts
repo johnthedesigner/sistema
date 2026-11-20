@@ -2,6 +2,7 @@ import { SITE_URL } from '@/lib/site-url'
 import { json, options, trackEvent } from '@/lib/tools/http'
 import { LIMITS } from '@/lib/tools/limits'
 import { LIMITS as TYPE_LIMITS, NAMING, RATIOS } from '@/lib/type-scale'
+import { CHIPS, DENSITY, DISPLAY_FONTS, FONTS, PRESENCE, SEPARATION, SPECIMEN_LIMITS, THEMES, WARMTH } from '@/lib/specimen'
 
 /**
  * GET /api: a machine-readable index of the tool APIs (tool-apis.md section 5).
@@ -43,6 +44,15 @@ export function GET(request: Request) {
         post: { url: u('/api/type-scale'), body: '{"base": 16, "ratio": "major-third", "names": "tailwind", "roles": {"body": 0}, "standard": "wcag-2.2 AA"}' },
         limits: { base_px: TYPE_LIMITS.base, ratio: TYPE_LIMITS.ratio, down: TYPE_LIMITS.down, up: TYPE_LIMITS.up, names: NAMING, ratio_names: Object.keys(RATIOS) },
         docs: u('/reference/tools#type_scale'),
+      },
+      {
+        name: 'specimen',
+        does: 'Renders a product screen from a few visual choices (accent, warmth, color presence, radius, separation, density, typeface, theme) with Sistema\'s craft baseline applied, so options can be compared side by side. Returns the roles with the ramp stop each comes from, and a render URL.',
+        get: u('/api/specimen?accent=<color>&neutral=<cool|neutral|warm>&presence=<quiet|brand|tinted>&radius=<px>&separation=<tone|line|shadow>&density=<compact|comfortable|spacious>&font=<family>&theme=<light|dark>&format=<json|html>'),
+        example: u('/api/specimen?accent=%231E6B5C&neutral=warm&presence=brand&radius=10&separation=tone&font=Figtree'),
+        post: { url: u('/api/specimen'), body: '{"accent": "#1E6B5C", "presence": "brand", "radius": 10, "content": {"product": "Relay"}}' },
+        limits: { radius_px: SPECIMEN_LIMITS.radius, presence: PRESENCE, neutral: WARMTH, separation: SEPARATION, density: DENSITY, chips: CHIPS, theme: THEMES, fonts: FONTS, display_fonts: DISPLAY_FONTS },
+        docs: u('/reference/tools#specimen'),
       },
     ],
   })

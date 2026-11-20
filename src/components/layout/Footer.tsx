@@ -37,6 +37,7 @@ const FOOTER_NAV = [
       { label: 'Palette tool', href: '/tools/palette' },
       { label: 'Contrast checker', href: '/tools/contrast' },
       { label: 'Type scale calculator', href: '/tools/type-scale' },
+      { label: 'Specimen', href: '/tools/specimen' },
       { label: 'Sources', href: '/sources' },
       { label: 'Privacy', href: '/privacy' },
     ],

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: 'How agents call Sistema’s palette and contrast tools, and where the sistema.json schema lives.',
 }
 
-const PAGES: Record<string, string> = { palette: '/tools/palette', contrast: '/tools/contrast', type_scale: '/tools/type-scale' }
+const PAGES: Record<string, string> = { palette: '/tools/palette', contrast: '/tools/contrast', type_scale: '/tools/type-scale', specimen: '/tools/specimen' }
 
 export default function ToolsReferencePage() {
   return (
