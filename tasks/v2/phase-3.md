@@ -9,21 +9,22 @@
 - 162 tests, 0 violations.
 
 **Carried from V2:**
-- **Analytics delivery.** Add the PostHog variables to Vercel's Preview environment, redeploy, rerun the tagged check, and confirm the events in PostHog. Do this before V3.6, which instruments the new pages.
-- **Source-closeness audit** (BACKLOG, "Originality and attribution"). Run it as part of the guide rewrites (V3.4), which touch the same text. It must be done before VF either way.
-- **13 guides due for review.** V3.4 covers four. Schedule the rest as reviews after V3.4.
-- **The headline is still open.** Settle it with the home page (V3.6).
-- **Conflicts to settle** when Sistema is applied to its own site (V3.7): canvas color, dark mode access, the small-text link role, and reduced motion (`docs/v2/migration-dry-run.md`).
+- **Analytics delivery.** Add the PostHog variables to Vercel's Preview environment, redeploy, rerun the tagged check, and confirm the events in PostHog. Do this before V3.7, which instruments the new pages.
+- **Source-closeness audit** (BACKLOG, "Originality and attribution"). Run it as part of the guide rewrites (V3.5), which touch the same text. It must be done before VF either way.
+- **13 guides due for review.** V3.5 covers four. Schedule the rest as reviews after V3.5.
+- **The headline is still open.** Settle it with the home page (V3.7).
+- **Conflicts to settle** when Sistema is applied to its own site (V3.8): canvas color, dark mode access, the small-text link role, and reduced motion (`docs/v2/migration-dry-run.md`).
 
 **Order:**
 1. V3.0 settles the open decisions.
 2. V3.1 is `tokens.add-mode` (owner decision).
 3. V3.2 and V3.3 build the reference project.
-4. V3.4 rewrites the guides from it.
-5. V3.5 writes the components guide.
-6. V3.6 restructures the site.
-7. V3.7 applies Sistema to the site.
-8. V3.8 closes the phase.
+4. V3.4 sets the aesthetic baseline (owner decision D23 to D25) and re-runs the reference project from Direction.
+5. V3.5 rewrites the guides from it.
+6. V3.6 writes the components guide.
+7. V3.7 restructures the site.
+8. V3.8 applies Sistema to the site.
+9. V3.9 closes the phase.
 
 ---
 
@@ -58,13 +59,33 @@ Run `workflow.start` on Relay (D14) from the paste-in starter, against the Verce
 
 ## Task V3.3: Reference project, Patterns
 
-**Status:** not started
+**Status:** stopped at the components review (2026-11-19). The look of the result led to V3.4; the run resumes there from Direction.
 
 Run `workflow.patterns` on the reference project: the core components, page examples, and the docs site if chosen. Apply the component lessons in BACKLOG ("Component lessons from the slice runs") as rules or play steps where they apply. Record findings as in V3.2.
 
 - [ ] The project reaches Patterns approved, every check passes, and findings are fixed or logged
 
-## Task V3.4: Guide rewrites (color, tokens, typography, quality signals)
+## Task V3.4: Aesthetic baseline, emphasis, and the specimen tool
+
+**Status:** in progress (approved 2026-11-20, D23 to D25; `docs/v2/aesthetic-baseline.md`)
+
+The Relay run came out technically sound but dated and noisy, because the visual-language guide turned "utilitarian" into a style and the direction play answered taste questions in framework vocabulary. Steps:
+1. **Source intake:** every candidate in BACKLOG "Sources for contemporary visual craft" that meets the intake criteria, through the standard process, cited in the content it supports.
+2. **The specimen tool:** a fourth tool that renders components and a small composition (page, zones, featured item, color block) from a few parameters. Show the owner its default rendering and variations as a visual milestone; that also tests the baseline.
+3. **Content:**
+   - the `craft` opinion group and its advisory review rules;
+   - the new traps (outlined everything, sharp means serious, gray means professional);
+   - the emphasis surfaces and separation treatments in the color roles and the depth, spacing, and color guides;
+   - the visual-language guide rewritten in the D18 template;
+   - the direction play rewritten around the visual taste questions and the emphasis map;
+   - the shape, depth, and color plays checked against the baseline;
+   - `opinion.look-is-yours` rewritten.
+4. **Re-run Relay from Direction** through Foundations and the components, with the owner at the gates, recording findings as in V3.2. This also exercises revising an approved foundation (finding #49). Then copy Relay into `examples/relay/`.
+5. **Add a variety test to V5:** three different briefs through Direction, judged by the owner for distinctness.
+
+- [ ] Owner approves the specimen tool's rendering, then Relay's re-run direction, foundations, and components; every check passes
+
+## Task V3.5: Guide rewrites (color, tokens, typography, quality signals)
 
 **Status:** not started
 
@@ -72,7 +93,7 @@ Outline each guide in the plan 9.1 structure first, for owner review. Then draft
 
 - [ ] Owner approves the four outlines, then the four drafts; the audit findings for these guides are resolved
 
-## Task V3.5: Components guide
+## Task V3.6: Components guide
 
 **Status:** not started
 
@@ -80,7 +101,7 @@ Write the components guide the capability model calls for before Patterns is con
 
 - [ ] Owner approves the outline and draft; component plays cite its sections
 
-## Task V3.6: Site restructure
+## Task V3.7: Site restructure
 
 **Status:** not started
 
@@ -96,7 +117,7 @@ Instrument the new pages with the V2 analytics events (`prompt_selected`). Also 
 
 - [ ] Owner approves the site structure in the browser; every page passes the checks at desktop and phone width
 
-## Task V3.7: Sistema on its own site
+## Task V3.8: Sistema on its own site
 
 **Status:** not started
 
@@ -104,7 +125,7 @@ Run Sistema on the site: `project.migrate-brief` on the root `LIVING_BRIEF.md` (
 
 - [ ] The site has a valid `sistema.json`, DECISIONS.md, and DESIGN.md with eight sections; its tokens pass the checks
 
-## Task V3.8: Housekeeping and gate check
+## Task V3.9: Housekeeping and gate check
 
 **Status:** not started
 

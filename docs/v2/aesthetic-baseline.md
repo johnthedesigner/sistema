@@ -1,6 +1,6 @@
 # Aesthetic baseline and visual direction questions: Proposal
 
-**Task:** new, proposed as V3.4 (the current V3.4 to V3.8 move down one). **Date:** 2026-11-19. **Status:** proposal, for owner review.
+**Task:** new, proposed as V3.4 (the current V3.4 to V3.8 move down one). **Date:** 2026-11-19. **Status:** approved by the owner 2026-11-20 (D23 to D25), with two changes folded in: separation and elevation as a set of options chosen by content role (section 3a), and emphasis roles as part of every foundation rather than a question. Every candidate source in BACKLOG that meets the intake criteria is to be taken in.
 
 **Prompted by:** the owner's review of Relay's components (2026-11-19). The foundations are technically sound, and the run revised them quickly and well. But the result looks dated and noisy, "more MS Office than Linear", and the review pages look worse. The owner wants Sistema's default first take to be both functional and contemporary: tasteful, minimal, the standard an experienced designer would set for a new product today, with room to vary color, personality, typography, and density. Decisions should be shown, not hidden behind codewords.
 
@@ -66,7 +66,16 @@ So that a system can express hierarchy by role, not just by nesting:
   - `surface-brand`: a saturated block in the brand color.
 
   Each gets `on-*` text roles and is checked like any other pairing. Material (inverse surface, containers), Polaris (brand and inverse surfaces), and Atlassian (bold backgrounds) already have versions of these; the guide credits them.
-- **Not every project needs all of them.** Start asks which the product uses. A dense tool may need only `surface-featured`; a marketing site may use all four.
+- **Part of every foundation, not a question.** Asking a person to approve semantic roles one by one is the wrong level of detail. Every system Sistema builds has the full set, with values chosen by the color and depth plays from the direction. What the person sees and approves is the result on the composition below. A product that never uses one simply doesn't apply it.
+- **Several ways to separate and lift, chosen by role.** Emphasis roles alone still give one path through the hierarchy. A real product is less like an essay (title, heading, paragraph, heading, paragraph) and more like a large restaurant menu: whole pages, sections and how they relate, promotional callouts, entrees against sides, food against drink. The design has to guide attention on purpose, and a single even ladder of levels reads as noise unless everything is stripped back, which leaves a word-processor document. So the system offers a small set of treatments for dividing and lifting, each with its tokens:
+  - space alone;
+  - a shift in surface tone;
+  - a hairline rule;
+  - a lift with shadow;
+  - an inset well;
+  - a block of color (brand or inverse).
+
+  Each also comes in a quiet and a strong strength where that makes sense. Page and component work chooses a treatment per context from the role of the content, not from how deeply it's nested. The depth and spacing guides describe the set and how to choose, and the shape, depth, and color plays create the tokens for all of it.
 - **An emphasis map, not a value table.** The direction play records, per kind of screen, which content plays which role: "the job in progress is featured; the sidebar is subtle; nothing is inverse". DESIGN.md states it once (finding #50). Later page and component plays read it.
 - **The specimen tool and review pages show a small composition** (page, zones, one featured item, one brand or inverse block) as well as single components, so the person sees the levels together. It uses placeholder content labeled by role, and says that real hierarchy is settled once there are real screens.
 - **The depth and color guides** gain a section on this: how many steps the quiet levels take, how much stronger the emphasis steps are, and how emphasis behaves in dark themes.
