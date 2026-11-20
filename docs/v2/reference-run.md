@@ -107,3 +107,18 @@ A fresh subagent started with "Let's build Relay's first components." It found i
 | 39 | Reaching Patterns takes two hops through the session workflow and `project.orient`. | **Kept**, per D22 (Start's follow-ups are options). Orient's routing worked in this run. |
 | 40 | Orient's "confirm the goal" didn't say whether to wait for a reply; Patterns treats its own first run as a resume; and the Patterns outline omits `project.orient`. | **Open**, small: clarify in `project.orient` and the starter during V3.3. |
 
+## Stage 7: core components, up to the patterns approval (2026-11-19)
+
+The run built all 12 components on shadcn/ui (base-nova on Base UI), with a showcase route at `/sistema-review/components`, light and dark. It recorded 74 contrast pairs with 0 failures, and axe found 0 violations in all three themes with each overlay open (one documented exception, below). Keyboard focus rings are captured in screenshots, the busy button keeps focus, targets are 24px or larger, and build and lint pass. Every change to shadcn components is recorded in DECISIONS.md. A usage limit interrupted the session mid-build; it recovered from `git status` and a fresh fetch of the play.
+
+| # | Finding | Done |
+|---|---|---|
+| 41 | Generated components import `cn` from the package directly, bypassing the project's fixed helper in `@/lib/utils`. | **Open.** Add to the scaffold play's "after init" checks. |
+| 42 | A second `shadcn add` stops at an interactive overwrite prompt, which blocks an agent working alone. | **Open.** Name the non-interactive flag in the play (to verify against the CLI first). |
+| 43 | Axe scans taken during an overlay's fade-in report false contrast failures. | **Open.** Scan after animations finish, or with reduced motion on. |
+| 44 | Base UI's combobox hides the rest of the page from screen readers while open, by design, and axe flags `aria-hidden-focus`. The play doesn't say whether a documented exception is allowed. | **Open.** Allow a narrow, documented exception for a library behavior that's correct on purpose, recorded in DECISIONS.md. |
+| 45 | Menus show the focused item by a highlight color. In Relay's dark theme, `surface-hover` equals `surface-overlay`, so the highlight was invisible; the run added an inset ring. | **Open.** A rule or play step: the focused and hovered item must be visible on every surface it appears on. Also check `surface-hover` against `surface-overlay` in `color.scheme`. |
+| 46 | The system has a hover color only for primary, so filled red and gray buttons had none, and "stop if the system lacks a value" was ambiguous. | **Open.** `color.scheme` should define hover and pressed states for every filled role, or say which existing pair to use. |
+| 47 | "Check every new color pairing" gives no way to find the pairings. Easy to miss: text on a selected row, the focus ring on every surface, status dots on their chips. | **Open.** Give the play a pairing checklist by component family. |
+| 48 | Agreeing the component list didn't settle the Assigned status color, which the preview never showed. The run chose neutral gray and flagged it at the approval. | Acceptable. Flagging taste choices at the approval is the right behavior. |
+
