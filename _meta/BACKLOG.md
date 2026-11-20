@@ -59,6 +59,31 @@ Items discovered during development or piloting that are not urgent enough to fi
 
   *Owner note, 2026-11-17.*
 
+## Sources for contemporary visual craft
+
+Sistema's references are strong on structure (token architecture, color science, accessibility) and thin on current visual craft: how products that experienced designers admire today handle hierarchy, emphasis, surfaces, type, and detail. The Relay run came out correct but dated (`docs/v2/aesthetic-baseline.md`). Candidates to take through the intake process. Licence tiers are probable, not checked; any that turn out paywalled or no-reproduction are dropped.
+
+| Candidate | What it would add | Probable tier |
+|---|---|---|
+| Linear's writing on its interface redesign (linear.app) | Reducing chrome, surface separation by tone, a restrained color system built in a perceptual space | 3 |
+| Vercel Geist (vercel.com/geist) | A contemporary system's color scale, type, and materials, with documented surface and elevation roles | 2 |
+| Radix Themes (radix-ui.com/themes) | Radius, scaling, and panel options as explicit, switchable theme settings: the closest existing model for "taste as parameters" | 1 (MIT), Radix is already a source |
+| Adobe Spectrum 2 | A large system's recent move to rounder shapes, fewer borders, and warmer type, with its reasoning | 2 |
+| Microsoft Fluent 2 | Layered materials, elevation, and emphasis surfaces in a current system | 2 or 1 (MIT repos) |
+| Apple Human Interface Guidelines | Materials, hierarchy, and restraint; vibrancy and emphasis by role | 2 |
+| Stripe's writing on its color system | Building a perceptually even palette for a product with dense data | 3 |
+| Josh W. Comeau, "Designing Beautiful Shadows in CSS" | Layered, color-matched shadows and consistent light | 3 |
+| Rauno Freiberg, "Invisible Details of Interaction Design" | Detail and feel in states and motion | 3 |
+| Emil Kowalski's writing on animation in interfaces | Short, purposeful motion, easing, and when not to animate | 3 |
+| Nielsen Norman Group on visual hierarchy and emphasis | Research on how emphasis, contrast, and scale direct attention | 3 |
+| Polaris, Material 3, Atlassian (already sources) | Re-read for emphasis roles: brand and inverse surfaces, containers, bold backgrounds | Already in |
+
+Excluded unless the owner decides otherwise: paid books and courses (Refactoring UI, for example), which the intake process doesn't permit.
+
+Do the intake as step 2 of the aesthetic-baseline plan, choosing the few that support the baseline and the emphasis roles, rather than all at once.
+
+*Owner request, 2026-11-19.*
+
 ## Review pages
 
 - **Redesign the review pages that plays produce** (`style-preview.html`, `token-check.html`, comparison pages such as `tokens.add-mode.html`) — Seen in the Relay run, these pages are noisy and hard to read: too many labels, dense tables of hex values, and no visual hierarchy. They need the same design update the Sistema site gets in V3.6 and V3.7:
