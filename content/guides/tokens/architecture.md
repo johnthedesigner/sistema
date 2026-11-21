@@ -1,6 +1,6 @@
 ---
-title: "Token architecture"
-description: "Token tiers, naming, dark mode and other modes at the token level, common failure modes, and how to decide the structure."
+title: "Tokens"
+description: "How Sistema structures design tokens: two tiers by default, role names, DTCG source compiled to CSS, independent modes for theme, density, and motion, and mapping a component library onto the roles."
 topic: tokens
 sources:
   - { source: material, url: "https://m3.material.io/foundations/design-tokens" }
@@ -10,198 +10,94 @@ sources:
   - { source: atlassian, url: "https://atlassian.design/get-started" }
   - { source: radix, url: "https://www.radix-ui.com/themes/docs/theme/spacing" }
   - { source: tailwind, url: "https://tailwindcss.com/docs/theme" }
-last_reviewed: 2026-05-13
+related:
+  - guide.color.architecture
+  - guide.typography.architecture
+last_reviewed: 2026-11-20
 ---
 
-# Token architecture
+# Tokens
 
-## Overview
+## Where Sistema stands
 
-A design token system is a contract. It gives you one place where design decisions live and a stable public API for consuming those decisions across components, themes, and platforms. When the contract is well-designed, changing a primary color means editing one value; when it isn't, it means hunting through component files.
+A token system is a contract: design decisions live in one place, and components read them by name. When the contract holds, changing the accent or adding a dark theme means editing token files, not components.
 
-This document covers how to structure that contract so it stays useful as the system grows.
+Sistema's defaults:
 
----
+- **Two tiers.** Primitives (the raw palette and scales) and roles (what each value is for). A third tier, component tokens, only when a component must vary independently of the roles.
+- **Role names, never values** (`tokens.naming.role`). `on-surface-muted`, not `gray-600`.
+- **DTCG source, compiled.** Token files in `tokens/src/` follow the Design Tokens Community Group format and compile to CSS custom properties (and Tailwind's theme, where the project uses it). Nobody edits the compiled files (`opinion.dtcg-compiled`).
+- **Modes are independent kinds.** Theme, density, and motion each change their own tokens, and combine freely.
 
 ## The tier model
 
-Almost every mature design system organizes tokens into tiers. The tier model exists because different types of values change at different rates and for different reasons.
+Most mature systems organize tokens in tiers, because different values change at different rates and for different reasons. Atlassian, Material, and Adobe Spectrum all separate raw values from decisions in some form; they differ in how many tiers they keep and what they call them.
 
-### Tier 1 — Primitives (the palette)
+### Tier 1: primitives
 
-Raw values with no semantic meaning. Every hex color the system will ever use. Every spacing value. These are named for what they are, not what they do.
+Raw values named for what they are: every ramp stop (`palette.accent.550`), every spacing step, every radius. Only the role tier uses them. A component that reads a primitive is coupled to a value instead of a decision.
 
-Examples: `color-blue-500`, `space-4`, `radius-4`
+### Tier 2: roles
 
-**Why this tier exists:** You need a bounded palette before you can make semantic decisions. Primitives also give you a place to put values that serve multiple roles — the same blue might be used for primary actions in one context and informational text in another. Without a primitive tier, you'd have to duplicate the value or hardcode it.
+Names for decisions: `surface`, `on-surface`, `primary`, `border-focus`, `space.gap`, `radius.control`. Each role points to a primitive. Components read roles and nothing else, so a component survives any palette change as long as the role still means the same thing. Light and dark are two assignments of the same roles.
 
-**Who uses them:** Only the semantic layer uses primitives directly. Components never reference primitives.
+### Tier 3: component tokens (scoped overrides)
 
-### Tier 2 — Semantic tokens (the decisions)
+Per-component names (`button.background`, `dialog.scrim`) that point to roles by default and are overridden only where a component must differ. Most systems don't need them at first. Add them when several themes or brands need one component to look different, or when others will theme the library. If a component can be styled entirely from roles, skip this tier.
 
-Role-based names that map onto primitives. These encode the actual design decisions: what color is used for primary actions, what size is body text, what radius is an interactive element.
-
-Examples: `color-action-primary`, `color-text-default`, `space-component-padding`, `radius-interactive`
-
-**Why this tier exists:** Semantic tokens are the stable API. When a component says `background: var(--color-surface-raised)`, that component survives any palette change as long as the semantic assignment stays valid. Semantic names communicate intent — a developer reading `color-text-disabled` knows immediately what it does, whereas `color-gray-300` requires contextual knowledge.
-
-**Who uses them:** Components consume semantic tokens exclusively. Never primitives.
-
-### Tier 3 — Component tokens (scoped overrides)
-
-Per-component aliases or overrides that let you adjust a single component's appearance without affecting anything else. They reference semantic tokens by default; you override only what deviates.
-
-Examples: `button-background`, `card-border-radius`, `input-focus-ring-color`
-
-**Why this tier exists:** Sometimes a component needs a value that is specific to it and shouldn't be a system-wide decision. A dialog's overlay opacity is a component-level concern. A card's internal padding isn't the same concept as the global spacing scale. Component tokens give you a named slot for these without adding noise to the semantic tier.
-
-**When the overhead is NOT justified:** Most small-to-medium systems don't need component tokens at first. Add this tier only when you have multiple themes that need different appearances for specific components, or when you're building a library others will theme. If a component can be configured entirely through semantic tokens, skip the component tier.
-
----
+Adding tiers past three ("sub-components", "variants") grows maintenance faster than value.
 
 ## What every system needs
 
-Before making architectural decisions, know the required categories. Every robust token system covers these four:
-
-| Category | What it covers | Non-negotiable minimum |
+| Category | What it covers | The minimum |
 |---|---|---|
-| Color | Surfaces, text, borders, interactive states, feedback states | Semantic roles with accessible pairings; both light and dark values |
-| Typography | Font families, sizes, weights, line heights | Role-based scale (not just sizes); line height as a token, not inline |
-| Spacing | Component padding, layout gaps, inset values | A consistent base unit (4px or 8px); avoid arbitrary values outside the scale |
-| Shape | Border radius | At least three roles: sharp, moderate, full-round |
+| Color | Surfaces, text, borders, states, feedback | The roles in `color.roles.required`, in every theme |
+| Typography | Families, sizes, weights, line heights | Type roles, not only sizes; line height as a token |
+| Spacing | Padding, gaps, control heights | One base unit and a scale; nothing outside it (`spacing.never-arbitrary`) |
+| Shape and depth | Radius, shadows | Radius by element size; shadows by role |
 
-Optional categories that mature systems add:
-
-| Category | Add when… |
-|---|---|
-| Motion | You have enough animated components to warrant consistency |
-| Elevation / depth | You have multiple surface layers (modals, drawers, tooltips) |
-| Z-index | You have enough layering complexity to cause stacking conflicts |
-
-Don't define optional categories as empty tokens. Add them when you have real decisions to encode.
-
----
+Motion and z-index are added when there are real decisions to record, not as empty placeholders.
 
 ## Naming principles
 
 ### Name for role, not value
 
-`--color-text-secondary` is durable. `--color-gray-500` is not.
-
-The first survives a rebrand; the second doesn't. More importantly, the first communicates intent — any developer reading it knows it's for secondary text. The second requires knowledge of where gray-500 is used in the system.
-
-The failure mode is inconsistency: mixing `--color-primary` (semantic) with `--color-blue-500` (descriptive) in the same system. Choose one convention and apply it throughout.
+`on-surface-muted` survives a rebrand and says what it's for. `gray-600` does neither, and becomes a lie when the value changes. Mixing the two in one tier (`primary` beside `blue-500`) is the usual failure.
 
 ### Use a consistent structure
 
-Pick a naming structure and hold to it. Two approaches work well:
-
-**Category-role-modifier:** `color-text-primary`, `color-text-secondary`, `color-text-disabled`
-**Category-role-property-state:** `color-button-background-hover`, `color-button-background-disabled`
-
-The second approach is better for component tokens; the first is better for semantic tokens. Don't mix structures within a tier.
+Pick one structure per tier and hold it. Category, then role, then modifier (`color.on-surface-muted`, `space.gap`) suits roles. Component tokens add the property and state (`button.background-hover`).
 
 ### Communicate the pairing
 
-Color tokens work in pairs — a surface color and the text/icon color that sits on it. Make this relationship visible in the name:
-
-```
-color-surface-brand      ← the surface
-color-on-surface-brand   ← text/icons that sit on that surface
-```
-
-or
-
-```
-color-background-primary
-color-foreground-primary
-```
-
-The exact convention doesn't matter. What matters is that a developer can look at a surface token and know its paired text token without having to look it up.
+Color works in pairs: a surface and what sits on it. Make the pair visible in the names (`surface-brand` and `on-surface-brand`), so the text role for any surface is obvious without looking it up. Material's `on-*` convention does this; `background` and `foreground` pairs do too.
 
 ### Avoid encoding values in names
 
-`--radius-4` tells you the value. `--radius-interactive` tells you the role. When you need to change the value, `--radius-4` has become a lie; `--radius-interactive` still means what it says.
+`radius-4` names a value; `radius.control` names a role. Scales are the exception people expect: a size scale (`size.sm`, `size.lg`) is a primitive tier, and roles point into it.
 
----
-
-## Dark mode at the token level
-
-Dark mode is not a separate visual design — it is a different context for the same semantic decisions. The goal is to swap contexts without touching components.
-
-Three approaches, each with real tradeoffs:
-
-### Approach 1 — CSS variable overrides via attribute
-
-```css
-:root {
-  --color-surface-default: #ffffff;
-  --color-text-primary: #1a1a1a;
-}
-
-[data-theme="dark"] {
-  --color-surface-default: #1a1a1a;
-  --color-text-primary: #f0f0f0;
-}
-```
-
-**Use when:** You need runtime theme switching without a page reload. The `data-theme` attribute toggles in JavaScript. This is the most common approach for web apps where users can choose their theme.
-
-**Tradeoff:** All variables must be defined in both contexts. You accumulate technical debt if the dark values are poorly maintained alongside light values.
-
-### Approach 2 — `prefers-color-scheme` media query
-
-```css
-:root {
-  --color-surface-default: #ffffff;
-  --color-text-primary: #1a1a1a;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-surface-default: #1a1a1a;
-    --color-text-primary: #f0f0f0;
-  }
-}
-```
-
-**Use when:** You want OS-level automatic theming and don't need a runtime override. Simplest to implement.
-
-**Tradeoff:** No JavaScript required, but no user override without additional logic. Combine with a class-based approach if you need both.
-
-### Approach 3 — Separate theme files
-
-Two complete CSS files (`light.css`, `dark.css`), each defining the full token set, loaded via a `<link>` swap.
-
-**Use when:** You have a very large token set where a single file with both contexts becomes unwieldy; or you're building a design system package that other teams consume.
-
-**Tradeoff:** File-load latency on theme switch. Requires infrastructure to swap the stylesheet link. Overkill for most products.
-
-### What not to do
-
-Do not create dark-mode-specific token names (`--color-surface-dark`). Dark mode is a context for existing tokens, not a parallel naming scheme. If you find yourself writing `color: var(--color-text-dark)`, you've given up the semantic contract — components now need to know what theme is active.
-
----
+How type roles are named is a taste choice, covered in the typography guide.
 
 ## Modes: theme, density, and motion
 
-A *mode* is a set of token values that replaces some of the defaults while it's active, without changing components. Dark theme is the familiar one, but it isn't the only one. Design systems commonly treat three kinds separately:
+A mode replaces some token values while it's active, without changing components. Systems commonly treat three kinds separately:
 
 | Kind | Typical modes | Changes | Examples |
 |---|---|---|---|
 | Theme | light, dark, sometimes high contrast | Color roles | Radix Themes' `appearance`, Atlassian's `colorMode`, Ant Design's dark algorithm |
 | Density | comfortable, compact | Spacing inside components, control heights, sometimes type sizes | Radix Themes' `scaling`, Ant Design's compact algorithm |
-| Motion | standard, reduced | Durations and easing | The operating system's reduced-motion setting, read through the `prefers-reduced-motion` media query |
+| Motion | standard, reduced | Durations and easing | The operating system's reduced-motion setting |
 
 ### Keep the kinds independent
 
-Each kind is switched separately, and they combine: a page can be dark, compact, and reduced-motion at once. Ant Design makes the same point by letting its dark and compact algorithms be applied together. Two practices keep combinations safe:
-- **Each token belongs to one kind.** Color tokens change only with theme, spacing tokens only with density, and duration tokens only with motion. Then no two modes compete for the same value.
-- **A mode only replaces tokens that already exist.** It never adds new ones. Components keep using the same role tokens in every mode, so adding a mode needs no component changes. A component that breaks in a mode was using a raw value.
+Each kind switches separately, and they combine: a page can be dark, compact, and reduced-motion at once. Ant Design lets its dark and compact algorithms apply together for the same reason. Two practices keep combinations safe:
+
+- **Each token belongs to one kind.** Color changes only with theme, spacing only with density, durations only with motion, so no two modes compete for a value.
+- **A mode only replaces tokens that already exist.** It never adds new ones. A component that breaks in a mode was using a raw value.
 
 ### How modes are stored and switched
 
-Store each mode's values as a file holding only what changes, beside the defaults, such as `color.dark.json`, `spacing.compact.json`, and `motion.reduced.json`. Compile each to a selector:
+Each mode is a file holding only what changes, beside the defaults: `color.dark.json`, `spacing.compact.json`, `motion.reduced.json`. Each compiles to a selector:
 
 ```css
 [data-theme="dark"] { /* changed color roles */ }
@@ -209,61 +105,90 @@ Store each mode's values as a file holding only what changes, beside the default
 @media (prefers-reduced-motion: reduce) { :root { /* changed durations */ } }
 ```
 
-Theme usually also follows the operating system setting (see the approaches above). Reduced motion should always follow it, with an optional in-app switch as well. Density is a product choice, and it can apply to part of a page: a compact table inside a comfortable layout.
+Theme usually follows the operating system too, unless the person picked one. Reduced motion always follows it. Density is a product choice and can apply to part of a page, such as a compact table in a comfortable layout.
 
 ### Density: remap or scale
 
-There are two ways to make a compact mode, and both are common:
-- **Remap chosen tokens:** compact sets new values for specific spacing steps and control heights. This gives the most control, and dense data tables usually need it.
-- **Scale everything:** compact changes one base value, and everything derived from it shrinks together. Radix Themes does this with `scaling`. In Tailwind, it means changing `--spacing`. It's simpler but blunter.
+- **Remap chosen tokens.** Compact sets new values for specific spacing steps and control heights. Most control; dense tables usually need it.
+- **Scale everything.** Compact changes one base value and everything derived from it shrinks. Radix Themes does this with `scaling`; in Tailwind, it means changing `--spacing`. Simpler, blunter.
 
-Either way, compact controls must still meet the project's minimum target size, and body text keeps its required line height. The spacing guide's "Density axis" covers how much to tighten.
+Either way, compact controls still meet the project's minimum target size, and body text keeps its required line height.
 
-## Dark mode values: the tonal shift problem
+## Dark mode at the token level
 
-Naive dark mode inverts lightness values and produces visual chaos. Dark mode requires intentionally designed values, not math.
+Dark mode is a context for the same roles, not a parallel set of names. Never create `surface-dark`: a component that has to know the theme has lost the contract. Which values the roles take in dark is a color decision (the color guide's "Stops in a dark theme").
 
-Key insights:
-- Dark surfaces are not black. True-black backgrounds create harsh contrast and make elevated surfaces invisible. Use deep neutrals (e.g. L\* 8–12) for the lowest surface tier.
-- Dark mode contrast requirements differ from light mode. The same contrast ratio at dark means different absolute values — text that passed AA on white may not pass on a deep neutral.
-- Color saturation needs reduction in dark mode. Fully saturated colors appear to glow on dark surfaces. Reduce chroma while preserving hue.
-- Elevation is harder. In light mode, a slightly darker surface looks elevated. In dark mode, the pattern reverses — elevated surfaces are lighter than the base. Token values for surface layers must be designed for this explicitly.
+How the switch happens in CSS:
 
----
+| Approach | How | Suits |
+|---|---|---|
+| An attribute, plus the system setting | `[data-theme="dark"]` from a switch; `prefers-color-scheme` when the person hasn't chosen | Sistema's default: the person can choose, and the system setting still works |
+| The system setting only | A `prefers-color-scheme` media query | Sites with no theme switch |
+| Separate theme files | A stylesheet per theme, swapped at runtime | Very large token sets, or packages consumed by many teams |
+
+## Component library mapping
+
+A component library usually brings its own variable names. shadcn/ui, for example, styles every component from `--background`, `--primary`, `--muted`, `--accent`, `--ring`, and a few more. Point those at the roles in one file, imported after the compiled tokens, rather than editing colors inside components:
+
+| Library variable | Role |
+|---|---|
+| `--background`, `--foreground` | `surface`, `on-surface` |
+| `--card`, `--popover` | `surface-raised`, `surface-overlay` |
+| `--primary`, `--primary-foreground` | `primary`, `on-primary` |
+| `--muted`, `--accent` | `surface-hover` (or `surface-selected`), with `on-surface-muted` and `on-surface` |
+| `--destructive`, `--border`, `--ring` | `error`, `border`, `border-focus` |
+
+If a library variable has no matching role, say so; don't invent a value. Record the mapping in DECISIONS.md, and show the variables on the token check page.
+
+## Rules
+
+The token rules are listed at the end of this page and at `{{sistema_url}}/raw/rules`.
+
+## Worked example: Relay
+
+Relay's token sources, in `tokens/src/`:
+
+| File | Holds |
+|---|---|
+| `palette.json` | The primitive ramps from the palette tool (accent, neutral, red, amber, green, blue) plus `base.white` |
+| `color.json`, `color.dark.json` | The color roles, and the dark theme's replacements (only the roles that change) |
+| `typography.json` | The font family, the size scale from the type scale tool, and the type roles |
+| `spacing.json` | The 4px scale, control and row heights, panel padding, gaps |
+| `shape.json`, `shape.dark.json` | Radii by element size and shadows by role, with stronger dark shadows |
+
+One role traced through the layers:
+
+```
+palette.json   palette.accent.550 = #7A47E0            (from the palette tool)
+color.json     color.primary      = {palette.accent.550}
+color.dark.json color.primary     = {palette.accent.450}
+tokens.css     --color-primary: #7A47E0;  [data-theme="dark"] { --color-primary: #9672F7; }
+shadcn-theme   --primary: var(--color-primary);
+button.tsx     className="bg-primary text-on-primary"
+```
+
+The palette is the primitive tier and isn't emitted as CSS, so nothing outside the roles can reach a raw stop. `npm run tokens` compiles the sources, regenerates DESIGN.md's front matter, and rebuilds the token check page. When the person later asked for a gray selected row, the change was one new role (`surface-selected`) pointing at two stops, and every component picked it up.
 
 ## Common failure modes
 
-**Too many tiers.** Three tiers (primitive → semantic → component) is sufficient for almost all systems. Adding a fourth for "sub-components" or "variants" creates maintenance overhead that grows faster than the value. Simplify.
+- **Too many tiers,** or component tokens for every property: a stylesheet disguised as a token system.
+- **Names that describe values** (`blue`, `space-16`) used as roles.
+- **Missing pairs:** a surface with no text role, which pushes contrast decisions into components.
+- **Skipping the role tier,** so dark mode or a second brand means touching every component.
+- **Dark-specific names** (`surface-dark`) instead of a dark assignment of the same roles.
+- **A mode that adds tokens,** or two kinds of mode changing the same token.
+- **Edits to compiled files,** lost on the next build.
 
-**Over-scoped component tokens.** If every style property of every component has a token, you have a stylesheet disguised as a token system. Component tokens should cover values that meaningfully vary across themes or brands, not every `padding` and `margin`.
+## Checking the work
 
-**Names that describe values, not roles.** `--color-blue`, `--space-16`, `--radius-4` — these are primitives masquerading as semantic tokens. Any component using these is coupled to the specific value. When the value changes (it will), the name becomes wrong.
+- **The build** compiles the tokens and the app with no missing variables.
+- **The token check page** shows every role in every mode, the colors in use, and whether each matches the approved direction.
+- **The coverage audit** (`tokens.coverage-audit`) finds raw values in components and roles nothing uses.
+- **Switch every mode** in the running app and look for anything that didn't change, or broke.
 
-**Missing pairings.** Defining background colors without their foreground counterparts forces developers to make accessibility judgments inline. Always define background and foreground as a pair.
+## Plays
 
-**Skipping the semantic tier.** Small systems sometimes go directly from primitives to components. This works until you add dark mode, a second brand, or a dense layout option — at which point every component needs touching. The semantic tier is cheap to add early and expensive to retrofit later.
-
-**Inconsistent namespaces.** Mixing `--color-*` with `--ds-color-*` and `--brand-*` in the same system creates confusion about authority. Pick a namespace prefix and own it.
-
----
-
-## Decision framework
-
-**Starting a new system:**
-1. Define the semantic tier first. What roles does the product need? What surface + text pairs? What interactive state names?
-2. Define primitives only as needed to back the semantic tier. Don't spec the full palette before you know what roles you need.
-3. Skip component tokens until you have a working semantic tier and at least 5–6 components. The patterns you need will emerge.
-
-**Adding dark mode:**
-1. Use `[data-theme]` overrides if you need runtime switching; `prefers-color-scheme` if you don't.
-2. Design dark values explicitly — don't derive them from light values.
-3. Verify contrast separately for dark mode. Don't assume light-mode AA values pass in the dark context.
-
-**Deciding whether to add component tokens:**
-- Would a consumer of this system need to restyle this component independently of the semantic tier? → Add component tokens.
-- Is this value already expressible through one or two semantic tokens? → Don't add component tokens.
-
-**Naming a new token:**
-1. What role does this value serve? Name it for the role.
-2. Is there already a token that serves this role? Use it rather than creating a near-duplicate.
-3. Does this token have a natural pair (surface ↔ foreground)? Define both.
+- `tokens.pipeline` compiles the sources and builds the token check page.
+- `tokens.add-mode` adds a theme, density, or motion mode.
+- `tokens.coverage-audit` checks how the tokens are used.
+- The foundation plays (`color.scheme`, `typography.scale`, `shape.tokens`, `spacing.tokens`) write the sources.
