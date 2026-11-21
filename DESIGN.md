@@ -1,3 +1,4 @@
+---
 version: "1.1"
 name: Sistema
 description: >
@@ -199,3 +200,82 @@ donts:
   - Don't write CSS custom properties for tokens directly — edit source JSON in tokens/semantic/ and run npm run tokens
   - Don't hardcode dark mode colors inline — use semantic token variables that resolve per theme
   - Don't add motion or transform animations without considering the minimal-motion stance
+---
+
+<!-- This project follows Sistema. To continue, fetch the URL in sistema.json "continue". -->
+
+## Overview
+
+Sistema's site explains a method for building design systems with an AI agent, for designers and engineers. It should feel calm and editorial, with a recognizable brand, and show the craft it teaches.
+
+**What the site needs:**
+- Long guides are comfortable to read, with clear headings and tables.
+- The one action that matters, copying a prompt, is never in doubt.
+- Reference (plays, rules, opinions) is easy to scan and link to.
+- The brand is recognizable without competing with the content.
+- It works as well in dark as in light.
+
+**Direction values** (proposed, waiting for approval):
+- How much color: brand.
+- Accent seed: #0070FF (fixed, the brand blue). Brand marks: yellow #FFCC33 and red #E60026, for the logo and brand moments only.
+- Grays: warm, seed #787069.
+- Control radius 8px; chips fully round.
+- Panels separate by tone.
+- Typefaces: Inter for text and interface; Fraunces for headings.
+- Density: comfortable. Theme: light first, with dark.
+- Rendering: https://sistema-git-v2-jtd-604ef502.vercel.app/api/specimen?accent=%230070FF&neutral=warm&presence=brand&radius=8&chips=pill&separation=tone&density=comfortable&font=Inter&display_font=Fraunces&theme=light&layout=article&format=html
+- Role stops: surface gray 50; surface-raised white; surface-hover gray 100; surface-selected gray 150; surface-inverse gray 850; surface-brand blue 600; on-surface gray 850; on-surface-muted gray 600; border gray 200; border-strong gray 450; border-focus blue 500; primary blue 550; primary-hover blue 650; primary-container blue 150; link blue 600.
+
+**What stands out:**
+
+| Screen | Featured | Quiet | Brand or inverse block |
+|---|---|---|---|
+| Home | The prompt box | Navigation, narrative sections | One brand band near the end |
+| Guide | Nothing; the text leads | "On this page", related plays | None |
+| Play or workflow | The prompt box | Contract details, rules | None |
+| Reference lists | Nothing | Filters | None |
+| Tools | The tool's result | Controls | None |
+
+## Colors
+
+From the previous direction; rewritten by `visual-language.design-md`.
+
+Brand colors blue, yellow, and red, from the logo. Blue is the primary action and link color, with a darker blue for small text on light surfaces. Yellow is an accent for non-text marks on light surfaces. Red is for the logo and brand moments only, never errors. Feedback colors are distinct from the brand palette. Provisional: roles are rebuilt from the new direction. Set by `color.scheme`.
+
+## Typography
+
+From the previous direction; rewritten by `visual-language.design-md`.
+
+Inter for headings and interface, Fraunces for reading text, JetBrains Mono for code, on a hand-tuned scale of named roles. Provisional: set again by `typography.scale` after the direction.
+
+## Layout
+
+From the previous direction; rewritten by `visual-language.design-md`.
+
+Tailwind's default 4px scale; pages in a 1180px container with a 20 to 40px gutter. Provisional: spacing tokens set by `spacing.tokens`.
+
+## Elevation & Depth
+
+From the previous direction; rewritten by `visual-language.design-md`.
+
+Flat surfaces with a light shadow on raised panels. Provisional: set by `shape.tokens`.
+
+## Shapes
+
+From the previous direction; rewritten by `visual-language.design-md`.
+
+A named radius scale, with pills for chips. Provisional: set by `shape.tokens`.
+
+## Components
+
+From the previous direction; rewritten by `visual-language.design-md`.
+
+Navigation, prompt box, cards, guide and play pages, tool pages, and the command palette.
+
+## Do's and Don'ts
+
+From the previous direction; rewritten by `visual-language.design-md`.
+
+- Use roles, never raw values, in components.
+- Never use brand red for errors.
+- Write interface copy by VOICE_AND_TONE.md.

@@ -1,0 +1,28 @@
+{
+  "sistema": "2",
+  "workflow": "start",
+  "continue": "https://sistema-git-v2-jtd-604ef502.vercel.app/raw/workflows/start",
+  "milestone": "direction",
+  "project": {
+    "name": "Sistema",
+    "a11y_standard": "wcag-2.2 AA",
+    "theme": "light-dark",
+    "theme_primary": "light",
+    "density": "balanced",
+    "platform": "web",
+    "stack": "Next.js 15, React 19, Tailwind CSS"
+  },
+  "steps": {
+    "project.migrate-brief": {
+      "status": "complete",
+      "date": "2026-11-21",
+      "evidence": "Brief placed (30 of 30 items); 9 log entries carried; 4 conflicts settled by the owner."
+    },
+    "visual-language.direction": {
+      "status": "in-progress",
+      "date": "2026-11-21"
+    }
+  },
+  "gates": {},
+  "routing": {}
+}

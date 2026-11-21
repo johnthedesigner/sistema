@@ -1,3 +1,5 @@
+Moved to DESIGN.md, DECISIONS.md, and sistema.json on 2026-11-21. Kept for reference.
+
 # LIVING_BRIEF.md
 
 *Per-project state document. Read at session start; append to at session end. Max 150 lines. See `_meta/LIVING_BRIEF_SPEC.md` for full spec.*
