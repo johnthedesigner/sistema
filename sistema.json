@@ -2,7 +2,7 @@
   "sistema": "2",
   "workflow": "start",
   "continue": "https://sistema-git-v2-jtd-604ef502.vercel.app/raw/workflows/start",
-  "milestone": "direction",
+  "milestone": "foundations",
   "project": {
     "name": "Sistema",
     "a11y_standard": "wcag-2.2 AA",
@@ -19,10 +19,27 @@
       "evidence": "Brief placed (30 of 30 items); 9 log entries carried; 4 conflicts settled by the owner."
     },
     "visual-language.direction": {
-      "status": "in-progress",
-      "date": "2026-11-21"
+      "status": "complete",
+      "date": "2026-11-21",
+      "evidence": "style-preview.html with five questions rendered on Sistema's guide page; DESIGN.md Overview with direction values; owner's answers recorded."
+    },
+    "visual-language.design-md": {
+      "status": "complete",
+      "date": "2026-11-21",
+      "evidence": "Eight sections, roles not values; provisional values left to the foundation plays."
+    },
+    "content.voice-and-tone": {
+      "status": "complete",
+      "date": "2026-11-21",
+      "evidence": "VOICE_AND_TONE.md already exists and covers voice, tone by situation, and mechanics; kept."
     }
   },
-  "gates": {},
+  "gates": {
+    "direction-approved": {
+      "date": "2026-11-21",
+      "by": "owner",
+      "note": "Brand color, grays tinted toward blue, 8px with round chips, tone separation, Inter with Fraunces headings."
+    }
+  },
   "routing": {}
 }

@@ -238,44 +238,56 @@ Sistema's site explains a method for building design systems with an AI agent, f
 
 ## Colors
 
-From the previous direction; rewritten by `visual-language.design-md`.
-
-Brand colors blue, yellow, and red, from the logo. Blue is the primary action and link color, with a darker blue for small text on light surfaces. Yellow is an accent for non-text marks on light surfaces. Red is for the logo and brand moments only, never errors. Feedback colors are distinct from the brand palette. Provisional: roles are rebuilt from the new direction. Set by `color.scheme`.
+- **Surfaces:** the page (`surface`), panels and cards (`surface-raised`), menus and dialogs (`surface-overlay`), quiet zones such as the guide sidebar (`surface-subtle`), and the emphasis surfaces `surface-featured`, `surface-inverse`, and `surface-brand`, each with its `on-*` text role.
+- **Text:** `on-surface`, `on-surface-muted` for secondary text, `on-surface-faint` for captions and metadata.
+- **Accent:** the brand blue as `primary` (buttons, focus, current section) and `link`, which is dark enough for small text. `primary-container` fills small marks such as chips.
+- **Brand marks:** yellow and red appear in the logo and deliberate brand moments only, never as status. Red never means an error.
+- **Grays** lean toward the blue, so the chrome and the accent feel of a piece.
+- **Feedback:** error, warning, success, and info from their own ramps, as small marks and in message icons and titles.
+- **States:** `surface-hover` and `surface-selected` are gray steps; selection adds a blue detail.
+- What stands out on each screen is in the Overview.
 
 ## Typography
 
-From the previous direction; rewritten by `visual-language.design-md`.
-
-Inter for headings and interface, Fraunces for reading text, JetBrains Mono for code, on a hand-tuned scale of named roles. Provisional: set again by `typography.scale` after the direction.
+- **Inter** for text and interface; **Fraunces** for headings; **JetBrains Mono** for code, because the site shows prompts, token names, and code throughout.
+- Roles: `display`, `heading-xl`, `heading-lg`, `heading-md`, `heading-sm`, `body-lg`, `body`, `body-sm`, `label`, `caption`, `code`. Sizes come from the type scale tool.
+- Hierarchy by size and the serif for headings; weight for labels and emphasis. Tabular figures in tables.
+- Reading text keeps a comfortable line length; guides cap their column width.
 
 ## Layout
 
-From the previous direction; rewritten by `visual-language.design-md`.
-
-Tailwind's default 4px scale; pages in a 1180px container with a 20 to 40px gutter. Provisional: spacing tokens set by `spacing.tokens`.
+- A 4px spacing scale. Comfortable density.
+- Spacing grows from inside components (4 to 12px) to between groups (16 to 32px) to between page sections (48 to 96px).
+- Pages sit in a centered container with a side gutter; guides add a reading column and an "On this page" rail on wide screens.
 
 ## Elevation & Depth
 
-From the previous direction; rewritten by `visual-language.design-md`.
-
-Flat surfaces with a light shadow on raised panels. Provisional: set by `shape.tokens`.
+- Panels and cards separate from the page by tone, without outlines or shadows.
+- Menus, popovers, dialogs, and toasts float on the overlay shadow; the featured item, such as the prompt box, lifts on the featured shadow.
+- In dark, surfaces step one stop at a time, and shadows are stronger.
+- Borders have a job: form fields, secondary buttons, table rows, and code blocks.
 
 ## Shapes
 
-From the previous direction; rewritten by `visual-language.design-md`.
-
-A named radius scale, with pills for chips. Provisional: set by `shape.tokens`.
+- Controls at 8px. Small parts (checkboxes, tags) below that; panels and cards above; the featured item and floating layers the roundest.
+- Chips and badges are fully round.
 
 ## Components
 
-From the previous direction; rewritten by `visual-language.design-md`.
-
-Navigation, prompt box, cards, guide and play pages, tool pages, and the command palette.
+- Navigation with the current section marked in blue.
+- The prompt box, featured on the home, workflow, and play pages.
+- Guide pages: reading column, "On this page", plays and rules for the topic.
+- Reference lists: filters and tables.
+- Tool pages: controls and a featured result.
+- The command palette, footer with the theme switch.
 
 ## Do's and Don'ts
 
-From the previous direction; rewritten by `visual-language.design-md`.
-
-- Use roles, never raw values, in components.
-- Never use brand red for errors.
+- Use roles in components, never raw values.
+- Keep blue for action, focus, links, and where you are.
+- Never use brand red or yellow as a status color.
+- Separate panels by tone; add a border only where it has a job.
+- Set headings in Fraunces and everything else in Inter; code in JetBrains Mono.
+- Keep one featured thing per screen where you can, as the Overview lists.
+- Support reduced motion; keep transitions short.
 - Write interface copy by VOICE_AND_TONE.md.
