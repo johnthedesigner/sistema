@@ -87,15 +87,15 @@ The Relay run came out technically sound but dated and noisy, because the visual
 
 ## Task V3.5: Guide rewrites (color, tokens, typography, quality signals)
 
-**Status:** drafts for owner review (2026-11-20). Outlines approved; color, palette generation, tokens, typography, and visual quality drafted with live specimens; ramp scalability folded into color; voice baseline credited to Mailchimp; #27 resolved; audit in `_meta/LICENSE_AUDIT.md`.
+**Status:** done (2026-11-21). Outlines and drafts approved by the owner; content principles adopted (`docs/v2/content-principles.md`).
 
 Outline each guide in the plan 9.1 structure first, for owner review. Then draft, with worked examples taken from the reference project. Run the source-closeness audit on these four as part of the rewrite: mark close references where they appear, and rewrite or credit the two passages found in fit review 2. Add live specimens to the human pages: real ramps, rendered type scales, and radius and elevation side by side.
 
-- [ ] Owner approves the four outlines, then the four drafts; the audit findings for these guides are resolved
+- [x] Owner approves the four outlines, then the four drafts; the audit findings for these guides are resolved
 
 ## Task V3.6: Components guide
 
-**Status:** not started
+**Status:** in progress: outline for owner review in `docs/v2/components-guide-outline.md` (2026-11-21)
 
 Write the components guide the capability model calls for before Patterns is considered complete. Use the scope from V3.0, examples from V3.3, and the component lessons from the slice runs. Outline first, owner review.
 

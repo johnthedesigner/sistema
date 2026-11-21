@@ -4,14 +4,22 @@
 
 **Phase:** v2 Phase 3 (Reference project, guides, and site). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-3.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V3.4 — Aesthetic baseline, emphasis, and the specimen tool (with V3.3: Relay through Patterns, components approved)
-**Next task:** V3.5 — Guide rewrites (finding #27 moves there). The reference-run fix pass is done; only #27 and #60 (backlog) remain open. Relay is complete through Patterns: page examples and a Storybook reference (D31); examples/relay/ updated.
+**Last completed task:** V3.5 — Guide rewrites (color, tokens, typography, visual quality), with content principles adopted
+**Next task:** V3.6 — Components guide (outline for owner review).
 **Blockers:** none. Open item: PostHog key missing from the Vercel Preview environment (owner, later; needed before V3.7)
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
 ---
 
 ## Session log
+
+### 2026-11-20 to 2026-11-21 — V3.5: guide rewrites and content principles
+
+**What was done:**
+- Live specimen blocks for guides (ramp, type scale, radius, elevation, surfaces), drawn from Sistema's own tools; one line each in `/raw`.
+- Color (with ramp scalability folded in), palette generation, tokens, typography, and visual quality guides rewritten and approved.
+- Content principles adopted (`docs/v2/content-principles.md`) after the owner found the guides over-fitted to the Relay sessions; `content.internal-history` check; visual-language guide rewritten with the craft baseline split into broad practice and Sistema defaults; coined terms replaced.
+- Follow-up pass on plays and the older guides; Mailchimp licence confirmed and credited; #27 resolved; `build:check` keeps check builds out of the dev server's `.next`.
 
 ### 2026-11-20 — V3.4 fix pass on the reference-run findings
 
