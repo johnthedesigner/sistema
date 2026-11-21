@@ -30,6 +30,6 @@ last_reviewed: 2026-11-15
    - Check any color pairing the component introduces with the contrast tool, batched (one POST takes up to 200 pairs).
    - Run an automated accessibility scan (for example axe) on the showcase in every theme. If you use Playwright, run it with a fixed, small number of workers (for example `--workers=2`), so a slow machine doesn't look like flaky tests.
    - Walk through it with the keyboard: Tab in, operate it, dismiss it, Tab out. Confirm the focus ring actually renders in a screenshot.
-   - Run the build.
+   - Run the build. If the person may have a dev server running, build into a separate folder or a copy of the project, or stop the server first and say so: in Next.js, a build and a running dev server share `.next`, and the build breaks the server.
 
 6. If the component adds a family DESIGN.md doesn't list, add it to the Components section. Then show the evidence.

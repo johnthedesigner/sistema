@@ -192,3 +192,15 @@ The run verified the components against the current play, removed leftover divid
 | 81 | Closing Start and resuming Patterns in one session works, but `sistema.json` can't show both; the Start end section's pointer line doesn't fit an app route like the showcase. | **Fixed** (fix pass): the workflow end says the finished workflow stays recorded by its steps and a DECISIONS.md line, and the pointer line covers review routes in the app. |
 | 82 | Once only optional plays remain, a workflow has no name for "last required gate passed, optional plays offered", so its closing steps wait. | **Fixed** (fix pass): a workflow stays open while optional plays are offered; the offer comes with the last approval and includes each play's first question. |
 | 83 | The workflow's offer of an optional play asks only yes or no, and the play then asks its own first question (which pages), costing the person a round trip. | **Fixed** (fix pass): the offer fetches the play and asks its first question in the same message. |
+
+## Stage 13: page examples and the system reference (2026-11-20)
+
+The run built Today's board and Job detail from the real components and tokens, checked them in both themes at three widths (52 pairs, axe clean with every overlay open), and listed 12 gaps. The system reference play said "not Storybook"; the owner disagreed, which led to D31.
+
+| # | Finding | Done |
+|---|---|---|
+| 84 | Plays say "run the build" without warning that a Next.js build breaks a running dev server (shared `.next`); it happened twice in this run. | **Fixed:** the components, implement, page examples, and reference plays say to build into a separate folder or stop the server first. |
+| 85 | The reference play asked the person to confirm an approach right after they'd said yes to the play. | **Fixed:** the workflow's offer carries a play's first question (#83), and the play uses that answer. |
+| 86 | The emphasis map needs a featured surface, but the core set had none, so "no new styles" couldn't be followed on the pages. | **Fixed:** the core set includes the panel variants the emphasis map uses; pages may build emphasis surfaces from their tokens and list them as gaps. |
+| 87 | Page examples were checked at desktop and 768px only, which hid the missing phone navigation. | **Fixed:** desktop, 768px, and 390px, including how navigation works at each width. |
+| 88 | The reference play said "It is not Storybook" with no reason given. | **Fixed** (D31): both options, the person chooses. |

@@ -12,4 +12,4 @@ sequence:
 continue_with: workflow.session
 last_reviewed: 2026-11-15
 ---
-This continues from Start. It needs the compiled tokens and the Foundations approval. Page examples and the reference route are optional: offer each one, and run it only if the person wants it.
+This continues from Start. It needs the compiled tokens and the Foundations approval. Page examples and the system reference (in Storybook or as a page in the app) are optional: offer each one, and run it only if the person wants it.

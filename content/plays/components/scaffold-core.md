@@ -63,7 +63,7 @@ The tokens are compiled and wired into the app (`tokens.pipeline`). This play bu
 
    Note each change in DECISIONS.md, so later updates of a component can reapply it.
 
-3. **Choose the core set.** Propose the components the product's first screens need, usually 8 to 12. A typical set is button, text field, select, checkbox, switch, tag or badge, inline message, panel or card, menu, dialog, tooltip, and a table for data-heavy products. Agree on the list with the person.
+3. **Choose the core set.** Propose the components the product's first screens need, usually 8 to 12. A typical set is button, text field, select, checkbox, switch, tag or badge, inline message, panel or card, menu, dialog, tooltip, and a table for data-heavy products. Include the panel variants the emphasis map in DESIGN.md uses (a featured panel, a brand block), so pages don't have to compose them by hand. Agree on the list with the person.
 
 4. **Set up the structure:** one folder (for example `src/components/ui/`) with one file per component or per small family, and an `index.ts` that exports every public component. Put the shared focus ring style in one place, so every component uses the same one.
 
@@ -83,7 +83,7 @@ The tokens are compiled and wired into the app (`tokens.pipeline`). This play bu
    - Check that hover, selected, and highlight fills are visible on every surface they appear on (`color.states.visible`), including inside menus.
    - Run an automated accessibility scan (for example axe) on the showcase in every theme, with each overlay open. Scan after animations finish, or with reduced motion on, or fades report false contrast failures. If the scan flags a library behavior that is correct on purpose (for example a combobox hiding the rest of the page from screen readers while open), you may keep it as a documented exception: name the rule, the component, and why, in DECISIONS.md. If you use Playwright, run it with a fixed, small number of workers (for example `--workers=2`), so a slow machine doesn't look like flaky tests.
    - Check by keyboard that focus rings render, in a screenshot.
-   - Run the build.
+   - Run the build. If the person may have a dev server running, build into a separate folder or a copy of the project, or stop the server first and say so: in Next.js, a build and a running dev server share `.next`, and the build breaks the server.
 
    Fix everything before asking for review.
 
