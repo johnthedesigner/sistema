@@ -1,0 +1,138 @@
+---
+system: base-ui
+category: library
+topic: composition
+content_type: guidance
+status: latest
+retrieved: 2026-11-21
+source_url: https://base-ui.com/react/handbook/composition
+license: MIT
+tags: [base-ui, components, headless, accessibility]
+---
+
+> Notes from the Base UI documentation, retrieved 2026-11-21 from the official repository (mui/base-ui). MDX imports and embedded demos stripped.
+
+# Composition
+
+<Subtitle>A guide to composing Base UI components with your own React components.</Subtitle>
+
+## Composing custom React components
+
+Use the `render` prop to compose a Base UI part with your own React components.
+
+For example, most triggers render a `<button>` by default.
+The code snippet below shows how to use a custom button instead.
+
+```tsx title="index.tsx"
+// prettier-ignore
+<Menu.Trigger render={<MyButton size="md" />}>
+  Open menu
+</Menu.Trigger>
+```
+
+The custom component must forward the `ref`, and spread all the received props on its underlying DOM node.
+
+## Composing multiple components
+
+In situations where you need to compose multiple Base UI components with custom React components, `render` props can be nested as deeply as necessary.
+Working with Tooltip is a common example.
+
+```tsx title="index.tsx"
+<Dialog.Root>
+  <Tooltip.Root>
+    <Tooltip.Trigger
+      render={
+        <Dialog.Trigger
+          // prettier-ignore
+          render={
+            <Menu.Trigger render={<MyButton size="md" />}>
+              Open menu
+            </Menu.Trigger>
+          }
+        />
+      }
+    />
+    <Tooltip.Portal>...</Tooltip.Portal>
+  </Tooltip.Root>
+  <Dialog.Portal>...</Dialog.Portal>
+</Dialog.Root>
+```
+
+## How props are merged
+
+When the `render` prop receives an element, the part's props and the element's props are merged onto a single element.
+For example, this toolbar button renders a menu trigger:
+
+```tsx title="index.tsx"
+
+  }
+/>
+```
+
+The rendered `<button>` gets:
+
+- `className="menu-trigger toolbar-button"`: class names are combined, starting with the render element's.
+- `style={{ color: 'blue', padding: 4 }}`: style objects are merged, and the render element's values win.
+- Both click handlers, starting with `handleMenuClick`. Calling [`event.preventBaseUIHandler()`](/react/handbook/customization#preventing-base-ui-from-handling-a-react-event) skips every handler that runs after it, so calling it in `handleMenuClick` also skips `handleToolbarClick`. Some parts call it internally.
+- Both refs: `toolbarButtonRef` and `menuTriggerRef` point to the same element.
+
+For other attributes set on both, such as `id` or `title`, the render element's value wins.
+Component props like `disabled` are read by each part separately, so a value on the render element doesn't override the part's own.
+
+The `render` prop merges props with [`mergeProps`](/react/utils/merge-props), except for refs: `mergeProps` keeps only the rightmost `ref`, while the `render` prop keeps all of them.
+
+## Changing the default rendered element
+
+You can also use the `render` prop to override the rendered element of the component.
+
+For example, `<Accordion.Header>` renders an `<h3>` element by default.
+The code snippet below shows how to render it as an `<h2>` element so that it fits the heading hierarchy of the page.
+
+```tsx title="index.tsx"
+
+  <Accordion.Root>
+    <Accordion.Item>
+      <Accordion.Header render={<h2 />}>
+        <Accordion.Trigger>What is Base UI?</Accordion.Trigger>
+      </Accordion.Header>
+      <Accordion.Panel>Base UI is a library of unstyled React components.</Accordion.Panel>
+    </Accordion.Item>
+  </Accordion.Root>
+);
+```
+
+Each Base UI component renders the most appropriate element by default, and in most cases, rendering a different element is recommended only on a case-by-case basis.
+
+## Render function
+
+If you are working in an extremely performance-sensitive application, you might want to pass a function to the `render` prop instead of a React element.
+
+```tsx title="switch.tsx"
+<Switch.Thumb
+  render={(props, state) =>
+    // prettier-ignore
+    <span {...props}>
+      {state.checked ? <CheckedIcon /> : <UncheckedIcon />}
+    </span>
+  }
+/>
+```
+
+Using a function gives you complete control over spreading props and also allows you to render different content based on the component's state.
+
+  keywords: [
+    'Base UI Composition',
+    'React Render Prop',
+    'Compose Headless Components',
+    'Custom Trigger Render',
+    'Nested Render Props',
+    'Composition Handbook',
+    'Component Composition',
+    'Render Props Pattern',
+    'Compound Components',
+    'Polymorphic Components',
+    'As Prop',
+    'Custom Elements',
+    'Wrapper Components',
+  ],
+};

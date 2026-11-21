@@ -302,3 +302,35 @@
   kind: agent-skill
   tier: 1
   license: Apache 2.0
+
+- id: wai-aria-apg
+  name: WAI-ARIA Authoring Practices Guide
+  publisher: W3C Web Accessibility Initiative
+  url: https://www.w3.org/WAI/ARIA/apg/
+  kind: standard
+  tier: 1
+  license: W3C Software and Document License
+
+- id: base-ui
+  name: Base UI
+  publisher: MUI
+  url: https://base-ui.com
+  kind: library
+  tier: 1
+  license: MIT (the repository, including its documentation)
+
+- id: radix-primitives
+  name: Radix Primitives
+  publisher: WorkOS
+  url: https://www.radix-ui.com/primitives
+  kind: library
+  tier: 1
+  license: MIT (the website repository, including its documentation)
+
+- id: react-aria
+  name: React Aria
+  publisher: Adobe
+  url: https://react-spectrum.adobe.com/react-aria/
+  kind: library
+  tier: 1
+  license: Apache 2.0 (the repository, including its documentation)
