@@ -15,7 +15,7 @@ last_reviewed: 2026-05-17
 
 ## How to use this document
 
-Writing mechanics are the decisions that create surface-level consistency across a product: capitalization, punctuation, number format, and grammar conventions. These rules are cross-system defaults synthesized from MailChimp, Shopify Polaris, Carbon (IBM), and Atlassian. Apply them unless a product-specific style guide overrides them for documented reasons.
+Writing mechanics are the decisions that create surface-level consistency across a product: capitalization, punctuation, number format, and grammar conventions. These rules are cross-system defaults synthesized from Mailchimp, Shopify Polaris, Carbon (IBM), and Atlassian. Apply them unless a product-specific style guide overrides them for documented reasons.
 
 ---
 
@@ -41,9 +41,11 @@ This is not just an aesthetic preference. Carbon explains the rationale clearly:
 
 Carbon: "Carbon does not support a concept of 'important words' or 'specialness'. Determining whether something is important or special is highly subjective." If you want to emphasize a word, use italic or bold — not capitalization.
 
-### All-caps: never
+### All-caps: not for words people read
 
-Carbon: "All caps has been shown to be slower to read as individual letter shapes are less distinguishable." Exception: established abbreviations (CSV, API, HTML, OK, GIF).
+Carbon: "All caps has been shown to be slower to read as individual letter shapes are less distinguishable." Don't write sentences, headings, buttons, or emphasis in capitals. Two exceptions:
+- Established abbreviations (CSV, API, HTML, OK, GIF).
+- A short overline or section label of one to three words, set in capitals by the type role (CSS `text-transform`, with added letter-spacing), not typed in capitals. The copy stays in sentence case, so screen readers and translations read it normally.
 
 ---
 
@@ -55,7 +57,7 @@ Carbon: "All caps has been shown to be slower to read as individual letter shape
 
 **Multi-sentence content: use periods.** Helper text, error body copy, descriptions — anything with two or more sentences uses normal punctuation.
 
-This rule is stated explicitly by Polaris and Atlassian and implied by MailChimp and Carbon.
+This rule is stated explicitly by Polaris and Atlassian and implied by Mailchimp and Carbon.
 
 | No period | Use periods |
 |---|---|
@@ -64,7 +66,7 @@ This rule is stated explicitly by Polaris and Atlassian and implied by MailChimp
 
 ### Oxford (serial) comma
 
-All four sources use the Oxford comma. Use it: "red, white, and blue" not "red, white and blue." MailChimp: "parents, Oprah, and Justin Timberlake." Atlassian: "Jira, Confluence, Loom, and Bitbucket."
+All four sources use the Oxford comma. Use it: "red, white, and blue" not "red, white and blue." Mailchimp: "parents, Oprah, and Justin Timberlake." Atlassian: "Jira, Confluence, Loom, and Bitbucket."
 
 The Oxford comma reduces ambiguity in lists and is the safest default for localization.
 
@@ -72,7 +74,7 @@ The Oxford comma reduces ambiguity in lists and is the safest default for locali
 
 **Use sparingly. Never in errors, warnings, or failure states.** This rule is universal across all four sources.
 
-MailChimp: "They're like high-fives: well-timed ones are great, too many annoying." Carbon: "Use only for positive messages. Maximum one per context." Atlassian: "Avoid in UI copy. Maximum one per page."
+Mailchimp treats them as something to ration: welcome once in a while, tiresome when frequent. Carbon: "Use only for positive messages. Maximum one per context." Atlassian: "Avoid in UI copy. Maximum one per page."
 
 Valid contexts: a genuinely exciting first milestone, a major user achievement. Not valid: routine confirmations, loading states, routine success messages.
 
@@ -80,13 +82,13 @@ Valid contexts: a genuinely exciting first milestone, a major user achievement. 
 
 Use them. All four sources explicitly recommend contractions for a natural, human tone. "Don't" not "do not." "It's" not "it is." "You're" not "you are."
 
-MailChimp: "They give your writing an informal, friendly tone." Polaris: standard throughout. Atlassian: "Use contractions for conversational tone." Carbon: "Don't be afraid to use contractions when they fit the context."
+Mailchimp uses them for an informal, friendly tone. Polaris: standard throughout. Atlassian: "Use contractions for conversational tone." Carbon: "Don't be afraid to use contractions when they fit the context."
 
 Exception: legal text, formal documentation where conventions differ.
 
 ### Ampersands
 
-Do not substitute "&" for "and" in UI copy. Atlassian: do not use "&" — it does not localize well. MailChimp: don't use unless it's part of a company name ("Ben & Jerry's").
+Do not substitute "&" for "and" in UI copy. Atlassian: do not use "&" — it does not localize well. Mailchimp: don't use unless it's part of a company name ("Ben & Jerry's").
 
 ### Hyphens and dashes
 
@@ -106,7 +108,7 @@ All four sources default to numerals over spelled-out numbers in UI copy.
 - Commas for 4+ digits: 12,000; 1,500,000
 - Ranges: use "to" not hyphens (Atlassian) or en dash without spaces (Polaris) — pick one and be consistent within a product
 - Percentage: use the % symbol, not "percent"
-- Time: numerals + am/pm with a space ("7 am," "7:30 pm")
+- Time: follow the product's locale and audience, and use one format throughout. For US English, numerals and am or pm with a space ("7 am," "7:30 pm"); where a 24-hour clock is the norm, "07:00" or "19:30". Record the choice in VOICE_AND_TONE.md.
 
 ---
 
@@ -130,11 +132,11 @@ Never use "the user" or third-person framing in UI copy.
 
 ### Reading level
 
-Target approximately 7th-grade reading level (Polaris explicitly). Carbon: "Use the simplest term that is appropriate for your audience." MailChimp: "Write at the level of your reader."
+Target approximately 7th-grade reading level (Polaris explicitly). Carbon: "Use the simplest term that is appropriate for your audience." Mailchimp: "Write at the level of your reader."
 
 ### Avoid jargon
 
-Define technical terms on first use. Avoid internal team terminology in user-facing copy. MailChimp: write in plain English. Carbon: "Use everyday language, not jargon."
+Define technical terms on first use. Avoid internal team terminology in user-facing copy. Mailchimp: write in plain English. Carbon: "Use everyday language, not jargon."
 
 ### Avoid: "simply," "easily," "just," "obviously"
 
@@ -146,11 +148,11 @@ These words invalidate users who find the task difficult. They add no informatio
 
 ### Directional language
 
-Do not use instructions that assume screen layout: "the button on the left," "see above," "click the icon in the right sidebar." MailChimp: use directional language that is layout-agnostic — list the items, don't locate them spatially.
+Do not use instructions that assume screen layout: "the button on the left," "see above," "click the icon in the right sidebar." Mailchimp: use directional language that is layout-agnostic — list the items, don't locate them spatially.
 
 ### Link text
 
-Describe the destination or action. Never "click here" or "learn more" alone. MailChimp: link text must describe its destination for screen reader users who navigate by link text.
+Describe the destination or action. Never "click here" or "learn more" alone. Mailchimp: link text must describe its destination for screen reader users who navigate by link text.
 
 | Do | Don't |
 |---|---|
@@ -167,7 +169,7 @@ Describe the destination or action. Never "click here" or "learn more" alone. Ma
 
 ### Gender-neutral language
 
-Use "they/them/their" for unknown or unspecified gender (MailChimp, Atlassian, Carbon all specify this). Avoid "he or she" constructions.
+Use "they/them/their" for unknown or unspecified gender (Mailchimp, Atlassian, Carbon all specify this). Avoid "he or she" constructions.
 
 ---
 

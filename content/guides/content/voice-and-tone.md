@@ -26,17 +26,17 @@ Read this before establishing a voice guide for a design system. Reference the t
 
 **Tone** is how that character expresses itself in a specific moment. Context-variable — it shifts based on what the user is doing, how they're feeling, and what they need to accomplish.
 
-Every production system surveyed — MailChimp, Polaris, Carbon, Atlassian — makes this distinction explicitly and consistently. The failure mode is treating them as the same and applying a single register to all contexts: chirpy during errors, formal during onboarding, generic everywhere.
+Every production system surveyed — Mailchimp, Polaris, Carbon, Atlassian — makes this distinction explicitly and consistently. The failure mode is treating them as the same and applying a single register to all contexts: chirpy during errors, formal during onboarding, generic everywhere.
 
 ---
 
-## 2 — The cross-system voice baseline
+## 2 — Sistema's voice baseline
 
-Four production systems define their voice differently, but the following traits appear across all of them. These are the minimum baseline — a product's voice must meet these before any brand-specific traits are layered on.
+Sistema's baseline has four traits. The first two, plainspoken and genuine, are Mailchimp's own names for two of its voice traits ([Mailchimp Content Style Guide](https://styleguide.mailchimp.com/voice-and-tone/), CC BY-NC 4.0); the same qualities appear, in other words, in Polaris, Carbon, and Atlassian. The last two, helpful and direct, are Sistema's summary of what all four guides ask for. These are the minimum: a product's voice meets them before any brand-specific traits are added.
 
 ### 2.1 — Plainspoken
 
-The clearest formulation comes from MailChimp: "We strip all that away and value clarity above all." Carbon puts it this way: "Use everyday language, not jargon. And choose short words to make the reading faster, rather than long, impressive-sounding words."
+Mailchimp describes this trait as stripping away jargon and filler so clarity comes first. Carbon puts it this way: "Use everyday language, not jargon. And choose short words to make the reading faster, rather than long, impressive-sounding words."
 
 This means: write at the level of the reader, not the level of your expertise. Define technical terms on first use. Use the simplest word that conveys the meaning.
 
@@ -44,13 +44,13 @@ This means: write at the level of the reader, not the level of your expertise. D
 
 ### 2.2 — Genuine
 
-MailChimp: "We get small businesses because we were one not too long ago." Polaris: prioritize human-sounding language, read copy aloud to check. Carbon: "Keep the tone friendly, human, and inviting."
+Mailchimp grounds this trait in understanding its customers from experience, rather than claiming it. Polaris: prioritize human-sounding language, read copy aloud to check. Carbon: "Keep the tone friendly, human, and inviting."
 
 Genuine means writing what you mean. No hollow affirmations. No excessive apology. No corporate hedging. Users distinguish between a system trying to help them and one performing helpfulness.
 
 ### 2.3 — Helpful, not entertaining
 
-MailChimp: "It's always more important to be clear than entertaining." Polaris: lean content — "find the shortest, clearest way to give merchants only the info they need." Atlassian: "Satisfy by meeting expectations — deliver practical answers without unnecessary flourish."
+Mailchimp ranks being clear above being entertaining. Polaris: lean content — "find the shortest, clearest way to give merchants only the info they need." Atlassian: "Satisfy by meeting expectations — deliver practical answers without unnecessary flourish."
 
 Humor and personality are welcome when the moment is light. They are wrong when the user is confused, frustrated, or has just lost something. Clarity comes first; personality second.
 
@@ -66,7 +66,7 @@ Say the thing. Cut the preamble. Verb-first. No announcements before information
 
 These traits differentiate one product's voice from the cross-system baseline. They are additive — they layer on top of the baseline, not replace it.
 
-**MailChimp:** Dry humor ("straight-faced, subtle, and a touch eccentric"). Translators — makes B2B complexity legible without dumbing it down.
+**Mailchimp:** A dry, understated humor, and a voice that explains complex business topics plainly without talking down.
 
 **Shopify Polaris:** Merchant-centered — uses vocabulary merchants actually use. 7th-grade reading level target.
 
@@ -92,7 +92,7 @@ All four sources agree on the fundamental tone adjustment principle: the same vo
 | Empty state | Uncertain about the product | Informative, welcoming — explain the value |
 | Major milestone | Joyful, relieved | This is when Atlassian's "wink" is appropriate |
 
-**The most common tone mistake** across all systems surveyed: applying brand cheerfulness to error states. MailChimp, Polaris, Carbon, and Atlassian all explicitly prohibit exclamation marks in error and failure states. The user who encountered an error needs information, not sympathy.
+**The most common tone mistake** across all systems surveyed: applying brand cheerfulness to error states. Mailchimp, Polaris, Carbon, and Atlassian all explicitly prohibit exclamation marks in error and failure states. The user who encountered an error needs information, not sympathy.
 
 ---
 

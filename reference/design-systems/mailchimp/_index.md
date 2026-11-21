@@ -22,7 +22,7 @@ When to reference this system: when establishing a voice and tone guide for a ne
 
 | Content Type | Source | Notes |
 |---|---|---|
-| Guidance | https://styleguide.mailchimp.com | Public content style guide |
+| Guidance | https://styleguide.mailchimp.com | Public content style guide. Licence: CC BY-NC 4.0 (footer of the home page, confirmed 2026-11-20). Paraphrase only; credit Mailchimp. |
 | Voice and tone | https://styleguide.mailchimp.com/voice-and-tone/ | Retrieved 2026-05-16 |
 | Grammar and mechanics | https://styleguide.mailchimp.com/grammar-and-mechanics/ | Retrieved 2026-05-16 |
 | Writing for accessibility | https://styleguide.mailchimp.com/writing-for-accessibility/ | Retrieved 2026-05-16 |

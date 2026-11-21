@@ -110,3 +110,22 @@ This audit covers only the three Tier 3 sources identified prior to this audit. 
 - **Tier 2** (design system official doc sites, official GitHub repos, official npm packages): Official public documentation from system maintainers — synthesis-acceptable per AGENTS.md policy
 
 No Tier 1 or Tier 2 compliance issues were identified. Full source map documentation has been added to the two `_index.md` files covering foundations content.
+
+---
+
+## Source-closeness audit: color, tokens, typography, visual quality, voice (V3.5, 2026-11-20)
+
+The standard is the backlog's "Originality and attribution" item: each guide's structure and decision guidance are Sistema's own; close reference to one source is marked where it appears; no passage reproduces a source's wording, structure, or examples closely enough to be recognized, unless quoted and credited.
+
+**Method.** Each guide was rewritten in Sistema's own template (where Sistema stands; options and how to choose; rules; worked example from Sistema's reference project; failure modes; checking). During the rewrite, each passage that leaned on one source was checked against that source's reference notes in `reference/`, and the two fit-review flags were resolved. This was done by the drafting agent, not by an independent reviewer; a reader comparison against the original pages before VF remains worthwhile.
+
+| Guide | Findings | Resolution |
+|---|---|---|
+| Color | Material's tonal-shift table presented as general practice; the four models described in single-system terms | Tonal shift attributed to Material where it appears, and replaced by Sistema's own stop mirroring; the models are a comparison table naming the systems that use each; Stripe credited for contrast-targeted color where the idea first appears; Radix credited for accent-matched grays |
+| Palette generation | Contrast-targeting is Stripe's approach, credited only in the source list | Marked as following Stripe where it first appears; the three rules are Sistema's own (D26) |
+| Tokens | Tier model common to several systems | Named as shared by Atlassian, Material, and Spectrum, not one system's framework; examples are Relay's own |
+| Typography | Fit review 2: Material's five-role set presented as general practice | Already removed in an earlier pass; naming approaches each name the systems that use them; the worked example is Relay's |
+| Visual quality | Built on impeccable's "AI slop" framing, first-order and second-order categories, and some of its deterministic bans (Apache 2.0) | Retitled and restructured around Sistema's craft baseline; the reflex and family framing and the bans credited to impeccable where they appear; the commitment levels moved into the color guide as chroma by color presence |
+| Voice and tone | Fit review 2: "plainspoken" and "genuine" are Mailchimp's named voice traits; verbatim Mailchimp quotes under a CC BY-NC 4.0 licence | Licence confirmed and recorded (tier 1, non-commercial: paraphrase only); the traits credited to Mailchimp in the guide, the rule, and the play; the quotes in the voice and writing guides paraphrased |
+
+**Still to audit:** the other guides, and the plays, opinions, and rules, as the backlog item describes.

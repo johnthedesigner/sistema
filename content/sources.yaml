@@ -72,9 +72,9 @@
   publisher: Mailchimp
   url: https://styleguide.mailchimp.com
   kind: design-system
-  tier: 2
-  license: Not yet recorded
-  note: Believed to be published under a Creative Commons non-commercial license. To confirm.
+  tier: 1
+  license: CC BY-NC 4.0
+  note: Confirmed on the guide's home page (2026-11-20). Non-commercial licence, so Sistema paraphrases only and credits Mailchimp where its ideas are used.
 
 - id: geist
   name: Geist

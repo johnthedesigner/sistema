@@ -101,7 +101,7 @@ Format examples only. Never put critical information in a placeholder — it dis
 Every error message must:
 1. State specifically what went wrong (not generic)
 2. Tell the user how to fix it (actionable)
-3. Not over-apologize (MailChimp, Polaris, Atlassian all prohibit excessive apology)
+3. Not over-apologize (Mailchimp, Polaris, Atlassian all prohibit excessive apology)
 4. Avoid jargon ("invalid" communicates nothing — Polaris)
 5. Be specific: use numbers, dates, and user-provided data where relevant
 
@@ -115,7 +115,7 @@ Every error message must:
 
 ### Tone in errors
 
-Calm, direct, no cheerfulness. MailChimp and Atlassian both prohibit exclamation marks in errors. Carbon: "An economy of words is desirable [in error messages]."
+Calm, direct, no cheerfulness. Mailchimp and Atlassian both prohibit exclamation marks in errors. Carbon: "An economy of words is desirable [in error messages]."
 
 "Sorry, something went wrong" is worse than "Something went wrong." The apology adds noise without adding information.
 

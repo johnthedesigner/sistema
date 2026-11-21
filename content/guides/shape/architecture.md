@@ -51,7 +51,11 @@ full    → 9999px (pill)
 
 **Why named tiers work:** They enforce a limited vocabulary. When a new component needs a radius, the designer or developer picks the tier that matches the component's purpose — not the pixel value that looks right to them. This makes the scale teachable and auditable.
 
-**How to name tiers:** Name for role, not size. `radius-interactive` for buttons and inputs, `radius-container` for cards and dialogs, `radius-subtle` for small inline elements, `radius-pill` for badges and tags. Role-based names survive visual changes; size-based names (`radius-small`, `radius-medium`) become misleading when values change.
+**How to name tiers:** two conventions work, and the choice is the project's.
+- **By role:** `radius-control` for buttons and inputs, `radius-panel` for cards and dialogs, `radius-small` for inline elements, `radius-pill` for chips. Each name says what it's for and survives a change of value.
+- **By size:** `sm`, `md`, `lg`, as in the example above and in Tailwind, with each component family assigned a size in DESIGN.md's Shapes section and in each token's `$description`. This fits projects built on Tailwind or shadcn/ui, where components already speak in sizes.
+
+Either way, components follow the level DESIGN.md assigns them, and the hierarchy holds: small parts below controls, controls below panels, floating layers the roundest. The shape play proposes one convention and the person chooses.
 
 ### Numeric scale (steps)
 
