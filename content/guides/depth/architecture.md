@@ -81,7 +81,7 @@ surface-overlay: tone 28   → tooltip backgrounds
 | Primarily dark mode | Tonal elevation | Shadows are nearly invisible in dark mode |
 | Both modes with consistent vocabulary | Hybrid | Each model covers the other's failure mode |
 | Flat, minimalist aesthetic | Neither — use borders | Elevation suggests depth; some designs are intentionally flat |
-| Data-dense applications | Shadow-based or borders | Tonal layers become visually confusing with many surface types |
+| Data-dense applications | Tone or a light shadow, with lines only where they help follow rows | Many outlined surfaces read as noise; many tonal layers can blur together, so keep the levels few |
 | Rich consumer apps | Hybrid | Users expect physical metaphors for surfaces and modals |
 
 ---
@@ -112,11 +112,13 @@ In dark mode: surface colors become the primary elevation signal. Shadows remain
 
 **Token structure for hybrid:**
 ```
-elevation-surface-base:    light → #ffffff,    dark → tone-10
-elevation-surface-raised:  light → #ffffff,    dark → tone-14  + shadow-subtle
-elevation-surface-overlay: light → #ffffff,    dark → tone-18  + shadow-moderate
-elevation-surface-modal:   light → #ffffff,    dark → tone-22  + shadow-prominent
+surface          light → gray 50,   dark → gray 950
+surface-raised   light → white,     dark → gray 900  + shadow.raised
+surface-featured light → white,     dark → gray 850  + shadow.featured
+surface-overlay  light → white,     dark → gray 800  + shadow.overlay
 ```
+
+In dark themes, step one stop at a time (the color guide's "Stops in a dark theme").
 
 The surface colors do the work in dark mode; the shadows do the work in light mode. The same token names work in both contexts.
 
@@ -148,11 +150,11 @@ Shadow is one of several ways to separate and lift; the others are space, tone, 
 
 - A zone that frames the work (sidebar, toolbar): quiet, by tone.
 - A group of related controls or records: space first; a panel by tone if it needs a boundary.
-- The one item that should lead: strong, by the featured shadow or a block of color, not both.
+- What should lead: strong, by the featured shadow or a block of color, not both.
 - Something above the page: the overlay shadow.
 - Rows of data: a hairline only if the eye needs help following them.
 
-Spectrum 2 states the limit as a rule of thumb: only one element or group should have high attention on a page ([Spectrum](https://spectrum.adobe.com/foundations/attention-hierarchy)).
+Spectrum suggests one high-attention element or group per page as a rule of thumb ([Spectrum](https://spectrum.adobe.com/foundations/attention-hierarchy)).
 
 ---
 

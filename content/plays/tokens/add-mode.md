@@ -30,8 +30,8 @@ A mode replaces some token values while it's active, without changing components
 
 2. **Theme (dark, or light for a dark-first system).**
    - Ask which theme will be primary, and record it as `project.theme_primary`.
-   - Map each color role by tonal shift, using stops from the same ramps. Don't invert values. If a ramp has no usable stop for a role, say so rather than inventing one.
-   - Check every `on-*` pairing and `border-focus` in the new theme with the contrast tool, in one request, for the standard in `sistema.json`. Move any failing role to another stop and check again.
+   - Keep each treatment the same; change only the stops. Text and fills take the mirrored stop (1000 − n); surfaces step one stop at a time (the color guide's "Stops in a dark theme"). Don't invert values. If a ramp has no usable stop, say so.
+   - Check the pairs in the color guide's "Pairs to check" in the new theme with the contrast tool, in one request. Move any failing role to another stop and check again.
    - Write only the changed roles to `tokens/src/color.dark.json`. When adding light to a dark-first system, move the current values to `color.dark.json`, write the light values in `color.json`, and tell the person about the move.
    - Set `project.theme` to `light-dark`.
 

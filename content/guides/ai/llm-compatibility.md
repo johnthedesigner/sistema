@@ -181,52 +181,18 @@ Do not update DESIGN.md for:
 
 ---
 
-## 4 — The living brief pattern
+## 4 — Keeping project state where agents find it
 
-### 4.1 What the living brief is
+An agent starting a new session needs to know what's decided, what's done, and what's open, without being told. Sistema keeps this in three files and one pointer:
 
-The living brief is a compact, per-project state document that describes the current state of a design system in progress — what decisions have been made, what has been implemented, what is still open. It is the document a model reads at the start of a work session to resume context accurately.
-
-**DESIGN.md vs. living brief:**
-
-| | DESIGN.md | Living brief |
+| File | Holds | Changes when |
 |---|---|---|
-| Audience | Consuming the finished system | Building the system |
-| Content | Stable design spec | Evolving state + decisions |
-| Updated when | The design changes | Any session that makes decisions |
-| Format | YAML front matter + prose spec | Structured prose with decision log |
-| Lifetime | Stable artifact | Active project document |
+| `DESIGN.md` | The visual language: roles and how to use them | The design changes |
+| `DECISIONS.md` | Dated decisions, one line each, with the reason | Any session decides something |
+| `sistema.json` | Project settings and workflow progress | A step or approval is recorded |
+| The agent instructions file | A short section pointing to `sistema.json` | Once, at the start |
 
----
-
-### 4.2 Required sections
-
-A living brief must contain:
-
-1. **Project identity** — name, product type, target density, theme (light/dark/both)
-2. **Key decisions** — one summary per concern area (color, type, spacing, shape, motion), written as decisions not descriptions: "We use an 8px base unit with 4 layout-level stops" not "The spacing system"
-3. **Current state** — what exists (token file path, component list), what is stubbed, what is missing
-4. **Open questions** — decisions not yet made; prevents a model from inventing answers
-5. **Decision log** — append-only; each entry: `[date] — [decision] — [brief rationale]`
-
----
-
-### 4.3 Size constraint
-
-**The living brief must fit in under 150 lines.** The intent is that a model can load the living brief at session start alongside the task context and immediately begin productive work. A living brief that requires summarizing before use is too long.
-
-When a decision log grows past ~30 entries, archive the oldest entries to a separate log file and keep the most recent 10–15 in the active brief.
-
----
-
-### 4.4 Integration with plays
-
-Every play that modifies the design system should:
-
-1. **Read the living brief at session start** — confirm scope, confirm existing decisions, identify open questions relevant to the task
-2. **Append to the decision log at session end** — one line per significant decision made during the session
-
-This makes the living brief a reliable source of truth across sessions rather than a document that drifts from actual project state.
+Keep each one short enough to read at the start of a session. Write decisions as decisions ("an 8px control radius, because…"), not descriptions. Record open questions, so an agent doesn't invent answers.
 
 ---
 

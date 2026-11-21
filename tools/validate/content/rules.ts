@@ -290,6 +290,8 @@ export const INTERNAL_HISTORY: Array<{ re: RegExp; what: string }> = [
   { re: /\bthe owner\b/gi, what: '"the owner"' },
   { re: /\b(?:the|Relay's) first run\b/gi, what: '"the first run"' },
   { re: /\bpetrol\b/gi, what: 'a rejected option from a working session' },
+  { re: /\bslice runs?\b/gi, what: '"slice run"' },
+  { re: /\bV\d\.\d+\b/g, what: 'a task number' },
 ]
 
 const internalHistory: Rule = {

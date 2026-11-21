@@ -13,25 +13,23 @@ last_reviewed: 2026-05-13
 
 ## Overview
 
-Shape in a design system is almost exclusively about border radius. It is one of the few visual dimensions that operates as a continuous personality dial — from sharp/precise at one end to rounded/approachable at the other — with no inherent functional meaning. This makes it both powerful and easy to misuse.
+Shape is mostly border radius: a dial from sharp to round with little functional meaning, so it's mainly a matter of character.
 
 ---
 
 ## Border radius as a personality signal
 
-The border radius scale positions a product on a spectrum that users read as personality, not function:
+| Control radius | Tends to read as |
+|---|---|
+| 0px | Architectural, editorial, deliberately stark |
+| 2 to 4px | Crisp |
+| 6 to 10px | Balanced; common across current product interfaces, technical ones included |
+| 12 to 20px | Soft, friendly |
+| Fully round | Playful; common for chips and mobile actions |
 
-| Radius level | Character | Communicates |
-|---|---|---|
-| 0px (sharp) | Precise, formal, architectural | Technical tools, financial platforms, enterprise software |
-| 2–4px (very slight) | Grounded, professional | Most business software; serious without being cold |
-| 8–12px (moderate) | Friendly, approachable | Consumer products, productivity apps, developer tools |
-| 16–24px (pronounced) | Warm, modern, expressive | Social products, creative tools, B2C |
-| Full/pill | Playful, inviting, mobile-native | Interactive actions, badges, tags; used sparingly at system level |
+These are tendencies, not rules; context changes them. Sharp corners don't make a product more serious, and many precise, technical tools use a moderate radius.
 
-This is not a rule — it is a communication framework. Sharp edges in a healthcare app read differently than sharp edges in a code editor; the product context modifies the signal. But the underlying dimension is real: rounding communicates warmth and approachability; sharpness communicates precision and seriousness.
-
-The practical implication: choose a radius level as a product character decision, before designing individual components. Then hold to it consistently. A product that mixes 0px cards with 16px buttons sends conflicting signals — not because either value is wrong, but because they suggest different personalities.
+Choose the control radius as a character decision before designing components, then scale everything else from it (`opinion.radius-by-size`): smaller parts less round, containers more, floating layers most. Radius that doesn't follow size, such as a very round button in a square card, looks inconsistent.
 
 ---
 

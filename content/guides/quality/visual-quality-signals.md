@@ -61,7 +61,7 @@ The opposite problem: a system that avoids every flashy choice and still looks d
 | Trap | What it looks like | Instead |
 |---|---|---|
 | Outlined everything | A border on every panel, card, chip, tooltip, and menu, and dividers inside containers | Separate by tone, space, or shadow; keep borders where the edge is the affordance or helps follow rows |
-| Sharp means serious | Radius of 0 to 3px everywhere because the product is professional or technical | A middle radius scaled by element; most current professional tools are not sharp |
+| Sharp means serious | Radius of 0 to 3px everywhere because the product is professional or technical | A middle radius scaled by element |
 | Gray means professional | Gray with no tint, and the accent removed from everything but one button | A slightly tinted neutral, and the accent where it marks action, selection, and the brand |
 | Even steps everywhere | Page, panel, and menu as equal steps of gray, nothing allowed to lead | Quiet levels plus a featured item or a block of color, by the role of the content |
 
