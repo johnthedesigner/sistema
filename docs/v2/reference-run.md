@@ -113,13 +113,13 @@ The run built all 12 components on shadcn/ui (base-nova on Base UI), with a show
 
 | # | Finding | Done |
 |---|---|---|
-| 41 | Generated components import `cn` from the package directly, bypassing the project's fixed helper in `@/lib/utils`. | **Open.** Add to the scaffold play's "after init" checks. |
-| 42 | A second `shadcn add` stops at an interactive overwrite prompt, which blocks an agent working alone. | **Open.** Name the non-interactive flag in the play (to verify against the CLI first). |
-| 43 | Axe scans taken during an overlay's fade-in report false contrast failures. | **Open.** Scan after animations finish, or with reduced motion on. |
-| 44 | Base UI's combobox hides the rest of the page from screen readers while open, by design, and axe flags `aria-hidden-focus`. The play doesn't say whether a documented exception is allowed. | **Open.** Allow a narrow, documented exception for a library behavior that's correct on purpose, recorded in DECISIONS.md. |
-| 45 | Menus show the focused item by a highlight color. In Relay's dark theme, `surface-hover` equals `surface-overlay`, so the highlight was invisible; the run added an inset ring. | **Open.** A rule or play step: the focused and hovered item must be visible on every surface it appears on. Also check `surface-hover` against `surface-overlay` in `color.scheme`. |
-| 46 | The system has a hover color only for primary, so filled red and gray buttons had none, and "stop if the system lacks a value" was ambiguous. | **Open.** `color.scheme` should define hover and pressed states for every filled role, or say which existing pair to use. |
-| 47 | "Check every new color pairing" gives no way to find the pairings. Easy to miss: text on a selected row, the focus ring on every surface, status dots on their chips. | **Open.** Give the play a pairing checklist by component family. |
+| 41 | Generated components import `cn` from the package directly, bypassing the project's fixed helper in `@/lib/utils`. | **Fixed** (fix pass): the components play checks that each component imports `cn` from the project helper. |
+| 42 | A second `shadcn add` stops at an interactive overwrite prompt, which blocks an agent working alone. | **Fixed** (fix pass): run the CLI non-interactively, checking `--help` for the flags of the installed version, and reapply recorded changes after an overwrite. |
+| 43 | Axe scans taken during an overlay's fade-in report false contrast failures. | **Fixed** (fix pass): scan after animations finish or with reduced motion on. |
+| 44 | Base UI's combobox hides the rest of the page from screen readers while open, by design, and axe flags `aria-hidden-focus`. The play doesn't say whether a documented exception is allowed. | **Fixed** (fix pass): a documented exception is allowed for a library behavior that is correct on purpose, recorded in DECISIONS.md. |
+| 45 | Menus show the focused item by a highlight color. In Relay's dark theme, `surface-hover` equals `surface-overlay`, so the highlight was invisible; the run added an inset ring. | **Fixed** (fix pass): `color.states.visible`, and the dark table gives the menu highlight its own stop. |
+| 46 | The system has a hover color only for primary, so filled red and gray buttons had none, and "stop if the system lacks a value" was ambiguous. | **Fixed** (fix pass): `color.roles.required` asks for a hover value for every filled role used as a button fill. |
+| 47 | "Check every new color pairing" gives no way to find the pairings. Easy to miss: text on a selected row, the focus ring on every surface, status dots on their chips. | **Fixed** (fix pass): the color guide's "Pairs to check", used by the color and components plays. |
 | 48 | Agreeing the component list didn't settle the Assigned status color, which the preview never showed. The run chose neutral gray and flagged it at the approval. | Acceptable. Flagging taste choices at the approval is the right behavior. |
 
 ## Stage 8: revising approved foundations at component review (2026-11-19)
@@ -153,7 +153,7 @@ A fresh run redid Relay's direction with the rewritten play and the specimen too
 | 56 | The direction play's DESIGN.md step assumes DESIGN.md doesn't exist yet. | **Open.** Cover a redo: rewrite Overview, mark the other sections as from the previous direction until `visual-language.design-md` runs again. |
 | 57 | Specimen tool: `content` fields undocumented and unknown keys ignored; no option to tint the neutral toward the accent; nav objects render "[object Object]"; an invalid status kind renders an invisible chip; overlay radius below panel and featured radii (against `shape.radius.hierarchy`); POST ignores `format=html`; the `render` URL drops `c`. | **Open.** Fix as a batch; reject invalid input with a working example. |
 | 58 | Every specimen layout shows a featured card and a brand block side by side. | **Open**, minor after D28: keep as example content, but check the layouts still let one thing lead. |
-| 59 | The light selected-row tint is nearly invisible, and nothing checks faint non-text distinctions. | **Open.** With #45 and #52: a check for state and selection cues against their surface. |
+| 59 | The light selected-row tint is nearly invisible, and nothing checks faint non-text distinctions. | **Fixed** (fix pass): `color.states.visible`; selection is now a neutral step (D30). |
 | 60 | The preview page is heavy (about 40 live renderings) and hard to take in at once. | **Open.** Backlog: one question at a time, lazy renderings, and a cropped render mode. |
 | 61 | The accent seed was chosen by name and eye, and the owner rejected it. | **Fixed** (D27): seeds come from the library's bright middle stops. |
 | 62 | After mixed answers, only the composition shows the real combination; the question blocks keep the agent's proposals. The play doesn't say whether to re-render them. | **Open.** Small: say to re-render the composition after the answers, and label the question blocks as rendered with the proposals. |
@@ -169,16 +169,16 @@ The run wrote DESIGN.md, rebuilt every foundation (violet accent, tinted neutral
 | # | Finding | Done |
 |---|---|---|
 | 67 | Specimen role names (canvas, row-hover, text-tertiary, the dots) don't map onto `color.roles.required`, so "use the stop the composition used" needed a hand-made mapping. | **Open.** Align the specimen's role names with the required roles, or publish the mapping. |
-| 68 | The color guide's emphasis table says dark `surface-subtle` is a step darker than the surface; "Stops in a dark theme" makes it the page. | **Open.** Reconcile the two tables. |
-| 69 | "Hover one stop darker than what it sits on" gives neutral 50 on white, which is nearly invisible. | **Open.** State hover as a minimum visible step, not a stop count. |
-| 70 | The color play's pair list misses component pairs (a checkbox edge on a selected row), and nothing asks for component pairs to be rechecked when a stop changes. | **Open.** With #47. |
-| 71 | No place for white in `palette.json`, and `quality.color.bans` doesn't say which surface "no pure white" means. | **Open.** |
-| 72 | The token check page shows colors only as swatches, so selection and message treatments can't be judged there; the owner couldn't find them. | **Open.** The foundations review should show key uses (a selected row by status chips, a message, a highlighted menu item) in both themes, or send the person to the showcase with directions. |
+| 68 | The color guide's emphasis table says dark `surface-subtle` is a step darker than the surface; "Stops in a dark theme" makes it the page. | **Fixed** (fix pass): both tables name the roles; `surface-subtle` is the page tone used inside a panel in both themes. |
+| 69 | "Hover one stop darker than what it sits on" gives neutral 50 on white, which is nearly invisible. | **Fixed** (fix pass): hover is at least one full stop from every surface it meets, counting white as the step before 50 (so 100 on white). |
+| 70 | The color play's pair list misses component pairs (a checkbox edge on a selected row), and nothing asks for component pairs to be rechecked when a stop changes. | **Fixed** (fix pass): "Pairs to check" includes component pairs, and says to re-check every pair that uses a changed stop. |
+| 71 | No place for white in `palette.json`, and `quality.color.bans` doesn't say which surface "no pure white" means. | **Fixed** (fix pass): `palette.base.white` and `palette.base.black`; the ban applies to the page (`surface`), not white panels on an off-white page. |
+| 72 | The token check page shows colors only as swatches, so selection and message treatments can't be judged there; the owner couldn't find them. | **Fixed** (fix pass): the token check page leads with the colors in use (rows, chips, messages, a menu, buttons, inverse and brand text) in each theme. |
 | 73 | The accent selected row and status-filled messages were right in light and far too heavy in dark. | **Fixed** (D30): quiet states, status as detail, one decision for both themes; specimen selected row now neutral with an accent edge. |
 | 74 | `/raw/opinions/<id>` and `/raw/rules/<id>` return 404; only the full lists exist, and plays name opinions and rules without links. | **Open.** Add per-item routes, or link the plays to anchors in the lists. |
-| 75 | The color play still builds dark feedback containers by mirroring (150 to 850), which produced the deep blocks; it doesn't say containers are for small marks. | **Open.** State the use in the color play and in the containers' descriptions. |
-| 76 | "Selected is a neutral step past hover" has no required role; the run added `surface-selected`. | **Open.** Add it to `color.roles.required`. |
-| 77 | Graying the selection lowered contrast under control edges; the pair list should include control edges on the selected surface. | **Open.** With #47 and #70. |
+| 75 | The color play still builds dark feedback containers by mirroring (150 to 850), which produced the deep blocks; it doesn't say containers are for small marks. | **Fixed** (fix pass): the color play and guide say containers are for small marks, and messages use a neutral surface. |
+| 76 | "Selected is a neutral step past hover" has no required role; the run added `surface-selected`. | **Fixed** (fix pass): `surface-hover` and `surface-selected` are required roles. |
+| 77 | Graying the selection lowered contrast under control edges; the pair list should include control edges on the selected surface. | **Fixed** (fix pass): in "Pairs to check". |
 | 78 | "Or an edge" on messages conflicted with the ban on colored side stripes. | **Fixed:** status color is in the icon and the title only. |
 
 ## Stage 12: components approved, run complete (2026-11-20)
@@ -187,7 +187,7 @@ The run verified the components against the current play, removed leftover divid
 
 | # | Finding | Done |
 |---|---|---|
-| 79 | Contrast failures keep appearing in state pairs (a highlighted destructive item, the focus ring on a highlight, a checkbox edge on a selected row), which no list names. | **Open.** With #47, #70, #77: a pair checklist that includes states. |
-| 80 | The components play asks for shadcn's variables on the token check page, which the token pipeline play generates without mentioning them. | **Open.** Move the requirement to the pipeline play, or say the components play extends the generator. |
+| 79 | Contrast failures keep appearing in state pairs (a highlighted destructive item, the focus ring on a highlight, a checkbox edge on a selected row), which no list names. | **Fixed** (fix pass): "Pairs to check" names the state pairs, and plays set `purpose` per pair. |
+| 80 | The components play asks for shadcn's variables on the token check page, which the token pipeline play generates without mentioning them. | **Fixed** (fix pass): the pipeline play's token check page reads a component library mapping file when one exists; the components play extends the generator. |
 | 81 | Closing Start and resuming Patterns in one session works, but `sistema.json` can't show both; the Start end section's pointer line doesn't fit an app route like the showcase. | **Open.** |
 | 82 | Once only optional plays remain, a workflow has no name for "last required gate passed, optional plays offered", so its closing steps wait. | **Open.** Close the workflow at the last required gate, and list the optional plays as follow-ups. |

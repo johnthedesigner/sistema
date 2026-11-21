@@ -3,7 +3,9 @@
     The color tokens define these semantic roles: primary, on-primary, primary-container,
     on-primary-container, secondary, on-secondary, secondary-container, on-secondary-container,
     surface, surface-raised, surface-overlay, on-surface, on-surface-muted, border, border-focus,
-    error, on-error, success, on-success, warning, on-warning, and the emphasis surfaces surface-subtle,
+    error, on-error, success, on-success, warning, on-warning, the state surfaces surface-hover and
+    surface-selected, a hover value for every filled role that components use as a button fill (at least
+    primary-hover, plus secondary-hover and error-hover when those fills are used), and the emphasis surfaces surface-subtle,
     surface-featured, surface-inverse, on-surface-inverse, surface-brand, and on-surface-brand. When the direction has no second brand
     hue, the secondary roles point to the neutral ramp. A system may add roles (for example info,
     link, border-strong, or feedback containers), as long as DESIGN.md lists each one and what it's for.
@@ -82,6 +84,20 @@
   severity: advisory
   applies_to: tokens/src/color.dark.json and review pages
   sources: [guide.color.architecture#stops-in-a-dark-theme]
+
+- id: color.states.visible
+  statement: >-
+    Hover, selected, and highlighted fills are visibly different from every surface they appear on, and from each
+    other: at least one full stop of the neutral ramp apart, counting white as the step before 50 and black as the
+    step after 950. Check them on the page, on panels, and on menus, in every theme.
+  reason: >-
+    A state one stop from a surface it never meets can still vanish on the surface it does meet: hover at 50 on
+    white panels, or a menu highlight equal to the menu's own color in dark. Contrast checks don't catch these,
+    because no text is involved.
+  layer: sistema-default
+  severity: advisory
+  applies_to: tokens/src/color.json, tokens/src/color.dark.json, and components
+  sources: [guide.color.architecture#emphasis-surfaces]
 
 - id: color.ramps.from-tool
   statement: Primitive ramps come from the palette tool, never from values computed or estimated by hand.

@@ -51,7 +51,7 @@ Besides the surface ladder (surface, raised, overlay), every system Sistema buil
 
 | Role | Light theme, typically | Dark theme, typically |
 |---|---|---|
-| `surface-subtle` | One small step off the surface, from the neutral ramp | One step darker than the surface |
+| `surface-subtle` | A quiet zone or inset well inside a panel: the page tone, or one stop past it | The same: the page tone used inside a panel |
 | `surface-featured` | The surface color; it leads by lift (the depth guide's featured shadow) | One step lighter than the surface, plus the featured shadow |
 | `surface-inverse` with `on-surface-inverse` | A near-black from the neutral ramp, with light text | A near-white, with dark text |
 | `surface-brand` with `on-surface-brand` | A deep stop of the primary ramp, deep enough for light text | The same, or a step lighter, still with light text |
@@ -60,6 +60,8 @@ How to choose the stops:
 
 - **Quiet levels take small steps.** Neighboring stops near white (and near black in dark themes) are close on purpose; pick the subtle surface from them, not from the middle of the ramp. In a dark theme, quiet levels are one stop apart (see "Stops in a dark theme" below).
 - **Emphasis takes big steps.** The inverse and brand surfaces sit far from the page so they read as blocks, not as another level.
+- **States must be visible where they're used.** Hover, selected, and highlighted fills sit at least one full stop from every surface they appear on (white counts as the step before 50), and differ from each other (`color.states.visible`). Hover at 50 on white panels is too faint; use 100. Selection is a neutral step past hover, with the accent only as a detail (`opinion.quiet-states`).
+- **Containers are for small marks.** Feedback and accent containers (`*-container`) fill chips and badges. Messages and banners sit on a neutral surface with the status color in the icon and title (`opinion.status-as-detail`); in a dark theme the mirrored containers are deep, saturated blocks.
 - **Check every pairing.** Each `on-*` role, and any muted text you put on these surfaces, goes to the contrast tool like any other pair.
 - **Shadows on color.** A shadow on a brand surface reads differently from the same shadow on a neutral one; Fluent adjusts shadow strength by the surface's lightness for this reason ([Fluent](https://fluent2.microsoft.design/elevation)).
 
@@ -245,13 +247,33 @@ On ramps from Sistema's palette tool, text and fills mirror cleanly, but surface
 
 | Role | Light theme | Dark theme |
 |---|---|---|
-| Page | 50 | 950 |
-| Panel | white | 900 |
-| Hover | one stop darker than what it sits on | one stop lighter than what it sits on |
-| Featured | white, on the featured shadow | 850, plus the featured shadow |
-| Menus and dialogs | white, on the overlay shadow | 800, plus the overlay shadow |
+| Page (`surface`) | 50 | 950 |
+| Panel (`surface-raised`) | white | 900 |
+| Quiet zone or well (`surface-subtle`) | 50, the page tone | 950, the page tone |
+| Featured (`surface-featured`) | white, on the featured shadow | 850, plus the featured shadow |
+| Menus and dialogs (`surface-overlay`) | white, on the overlay shadow | 800, plus the overlay shadow |
+| Hover (`surface-hover`) | 100: one full stop past white panels | one stop lighter than the panel, and distinct from the menu (750 on menus) |
+| Selected (`surface-selected`) | 150: one stop past hover | one stop past hover |
 
 The dark steps are still larger than the light ones (about 0.045 against 0.012) because the ramp has no finer stop at that end, and a little extra helps where shadows barely show. The order of strength is the same in both themes: panels lift least, then the featured item, then floating layers.
+
+### Pairs to check
+
+Most contrast failures in Sistema's reference runs were not in the role table but in states and components: text on a selected row, a checkbox edge on the selected fill, a destructive item on a menu highlight, the focus ring on a highlight. Check these pairs in every theme, with the contrast tool's `purpose` set to what each pair is for:
+
+| Where | Foreground | Background | Purpose |
+|---|---|---|---|
+| Every surface (page, panel, subtle, featured, menu, inverse, brand) | each text tone used on it, links, feedback text | the surface | text |
+| Same surfaces | control edges, the focus ring, icons that carry meaning | the surface | ui |
+| Hover, selected, and highlight fills | the text, muted text, links, and control edges that sit on them | the state fill | text or ui |
+| Menus | each item's text on the highlight, including destructive items | the highlight | text |
+| Filled buttons, and their hover | the button's text and icon | the fill | text |
+| Chips and badges | the word, and the dot beside it | the container | text; the dot informational when the word carries the status |
+| Messages | the title and icon in the status color | the message surface | text |
+| Checkboxes, switches, radios | the edge when off, the fill when on | every surface they sit on, including selected rows | ui |
+| Dividers and decorative edges | the line | the surface | informational |
+
+When a stop changes later, re-check every pair that uses it, including these.
 
 ---
 

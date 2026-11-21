@@ -65,10 +65,12 @@ The JSON files in `tokens/src/` are the only place token values are written. Eve
 8. **Build `sistema-review/token-check.html`** from the same compile script, so `npm run tokens` regenerates it whenever tokens change. It loads the compiled CSS by a relative path and shows:
    - the workflow outline strip at the top;
    - every color role as a labeled swatch with its value and the primitive it refers to, and each ramp in `palette.json` as a continuous strip;
+   - **the colors in use,** before the swatches: a few small compositions built only from the role tokens, so the person judges treatments rather than chips of color. At least a table row at rest, hovered, and selected next to status chips; an inline message for each status; a menu with a highlighted and a destructive item; the primary button and its hover; and text on the inverse and brand surfaces. Shown in each theme by the same switch;
    - every type role as a live specimen, every radius as a box at that radius, and every spacing step as a bar of that width;
    - next to each color role, whether it matches the value shown in the approved style preview, and for each one that differs, why;
    - a section "Approved but not yet tokenized" listing direction values (from the DESIGN.md Overview) whose category has no tokens yet because its play was skipped;
    - a switch for each kind of mode the system has (theme, density, motion), so the person can see every token in each mode;
+   - any variables a component library maps onto the roles (for example shadcn's), once the components play adds its mapping file; the generator reads that file when it exists;
    - at the end, the line naming the `continue` URL from `sistema.json`.
 
 9. Show the evidence: the compile output, the compiled file paths, the files outside `tokens/` you changed, the build result, and a summary of what `token-check.html` shows.

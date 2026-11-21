@@ -9,7 +9,8 @@
 - id: quality.color.bans
   statement: >-
     No opacity-derived container colors. Primary and secondary have distinct hues.
-    No pure black or pure white default surface. The neutral ramp carries hue temperature.
+    The page (the `surface` role) is not pure black or pure white; raised panels may be white on an off-white
+    page. The neutral ramp carries hue temperature.
   reason: Each of these is a reflex that weakens the system and is hard to notice later.
   layer: sistema-default
   severity: advisory

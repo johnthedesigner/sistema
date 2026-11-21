@@ -15,7 +15,8 @@ knowledge:
   - guide.accessibility.floor#5-semantic-structure-and-aria
   - guide.tokens.architecture#tier-3-component-tokens-scoped-overrides
   - guide.visual-language.overview#the-craft-baseline
-rules: [tokens.usage.no-raw-values, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.reduced-motion, accessibility.focus-not-lost, quality.review.outline, components.busy.keep-focus, components.toast.scope, components.css.one-utility-per-property, quality.craft.borders-have-a-job, quality.craft.nested-radius, quality.craft.quiet-states, quality.craft.status-as-detail, quality.craft.both-themes, quality.craft.type-weights, quality.craft.one-icon-set, quality.craft.motion, quality.craft.emphasis-scarce]
+  - guide.color.architecture#pairs-to-check
+rules: [color.states.visible, tokens.usage.no-raw-values, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.reduced-motion, accessibility.focus-not-lost, quality.review.outline, components.busy.keep-focus, components.toast.scope, components.css.one-utility-per-property, quality.craft.borders-have-a-job, quality.craft.nested-radius, quality.craft.quiet-states, quality.craft.status-as-detail, quality.craft.both-themes, quality.craft.type-weights, quality.craft.one-icon-set, quality.craft.motion, quality.craft.emphasis-scarce]
 evidence: The component foundation and why, the list of components built, the showcase route, an automated accessibility scan with zero violations in every theme, and a passing build.
 overrides: []
 last_reviewed: 2026-11-20
@@ -45,13 +46,14 @@ The tokens are compiled and wired into the app (`tokens.pipeline`). This play bu
    | `--destructive` | `error` |
    | `--border`, `--input`, `--ring` | `border`, the input border (`border` or `border-strong`), `border-focus` |
 
-   shadcn derives `--radius-sm` to `--radius-4xl` from one `--radius`. Set each level the components use to the system's radius tokens directly, so the hierarchy holds. Add shadcn's variables to the token check page, record the mapping in DECISIONS.md, and if a role has no match, say so rather than inventing a value.
+   shadcn derives `--radius-sm` to `--radius-4xl` from one `--radius`. Set each level the components use to the system's radius tokens directly, so the hierarchy holds. Add shadcn's variables to the token check page by extending its generator (from `tokens.pipeline`) to read the mapping file, record the mapping in DECISIONS.md, and if a role has no match, say so rather than inventing a value.
 
    **After `shadcn init`, check what it changed.** The CLI does more than add components:
    - It may add its own font (for example Geist) as `--font-sans` in the root layout. Restore the project's approved typefaces.
    - It writes default `:root` and `.dark` color values and `@theme` names that can collide with role names (`--color-primary`, `--color-border`). Replace its values with the mapping above, and keep one definition per name.
    - Its `dark:` variant follows a `.dark` class. Point it at the project's theme switch (for example `[data-theme="dark"]` and the system setting).
-   - Its `cn` helper uses tailwind-merge, which treats custom text utilities (`text-body`, `text-label`) as colors and drops them next to a text color. Register the project's type role names with tailwind-merge as font sizes, and check that `cn("text-body text-on-surface")` keeps both.
+   - Its `cn` helper uses tailwind-merge, which treats custom text utilities (`text-body`, `text-label`) as colors and drops them next to a text color. Register the project's type role names with tailwind-merge as font sizes, and check that `cn("text-body text-on-surface")` keeps both. Generated components must import `cn` from that helper (`@/lib/utils`), not from the package; check each component you add.
+   - Adding components later stops at an overwrite prompt when a file exists. Run the CLI non-interactively (check `npx shadcn add --help` for the yes and overwrite flags of the installed version), and after an overwrite, reapply the changes recorded in DECISIONS.md.
 
    Record which primitives the style uses (Base UI or Radix) and which style preset, in DECISIONS.md.
 
@@ -77,8 +79,9 @@ The tokens are compiled and wired into the app (`tokens.pipeline`). This play bu
 6. **Build the showcase:** a route in the app (for example `/sistema-review/components`) that shows every component in each variant and state, with a theme switch. Put the workflow outline strip at the top.
 
 7. **Verify:**
-   - Check every new color pairing with the contrast tool, batched (one POST takes up to 200 pairs).
-   - Run an automated accessibility scan (for example axe) on the showcase in every theme. If you use Playwright, run it with a fixed, small number of workers (for example `--workers=2`), so a slow machine doesn't look like flaky tests.
+   - Check every pair in the color guide's "Pairs to check" that the components use, with the contrast tool, batched (one POST takes up to 200 pairs), in every theme, with `purpose` set for each pair. States are where most failures are: text and control edges on hover, selected, and highlight fills, destructive menu items, and the focus ring on each.
+   - Check that hover, selected, and highlight fills are visible on every surface they appear on (`color.states.visible`), including inside menus.
+   - Run an automated accessibility scan (for example axe) on the showcase in every theme, with each overlay open. Scan after animations finish, or with reduced motion on, or fades report false contrast failures. If the scan flags a library behavior that is correct on purpose (for example a combobox hiding the rest of the page from screen readers while open), you may keep it as a documented exception: name the rule, the component, and why, in DECISIONS.md. If you use Playwright, run it with a fixed, small number of workers (for example `--workers=2`), so a slow machine doesn't look like flaky tests.
    - Check by keyboard that focus rings render, in a screenshot.
    - Run the build.
 
