@@ -364,11 +364,11 @@ function workflowEnd(workflow: Workflow, ctx: RenderContext, next: Workflow | un
   return [
     '## When this workflow is done',
     '',
-    'After the last approval, close the workflow clearly. The person should come away knowing they have finished.',
+    'Close the workflow after the last approval, once any optional plays after it have been run or declined. Offer those optional plays in the same message as the thanks for the approval, so the person isn\'t asked twice. The person should come away knowing they have finished.',
     '',
     `1. **Land it.** Tell the person they have completed "${workflow.title}". In a few sentences, say what their project now has, naming the files and decisions this workflow produced, and where to see it (the review pages). Show the final outline with every step done. Make this the main message.`,
     entry
-      ? `2. **Update the state and pointers.** In \`sistema.json\`, set \`continue\` to ${entry} (keeping its \`c\` parameter if it has one), \`workflow\` to \`session\`, and \`milestone\` to \`maintain\`. Replace the pointer line in DECISIONS.md, DESIGN.md, the review pages, and the Sistema section of the agent instructions file with exactly: \`This project follows Sistema. "${workflow.title}" is finished. For later design system work, fetch the URL in sistema.json "continue".\``
+      ? `2. **Update the state and pointers.** In \`sistema.json\`, set \`continue\` to ${entry} (keeping its \`c\` parameter if it has one), \`workflow\` to \`session\`, and \`milestone\` to \`maintain\`. Replace the pointer line in DECISIONS.md, DESIGN.md, the review pages (the files in \`sistema-review/\` and any review route in the app, such as the component showcase), and the Sistema section of the agent instructions file with exactly: \`This project follows Sistema. "${workflow.title}" is finished. For later design system work, fetch the URL in sistema.json "continue".\` If the person goes straight on to another workflow in the same session, that workflow sets \`workflow\` and \`continue\` again; the finished workflow stays recorded by its completed steps, and a line in DECISIONS.md.`
       : '2. **Update the pointers.** Remove `continue` from `sistema.json`, and update the Sistema section in the agent instructions file and the pointer lines in DECISIONS.md, DESIGN.md, and the review pages to say this workflow is finished.',
     later.length
       ? `3. **Then, briefly, mention what they can do later.** These are options for any time, not next steps:\n${later.join('\n')}\n\n   Say they can ask their agent to work on the design system whenever they want one. Don't ask whether to start one now. If the person asks to, start it.`
@@ -393,7 +393,7 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
     [
       '## First: is this a resumed run?',
       '',
-      'If `sistema.json` exists in the project root, this is a resumed run, whatever the person said ("continue", "pick up where I left off", or anything else). Read it, show the outline below with each step\'s status, and continue from the first step that is not complete or skipped. If a gate is waiting, ask for that approval first. Do not start other work until the workflow is finished or the person says to leave it.',
+      'If `sistema.json` exists in the project root and its `workflow` is this one, or its `steps` already list plays from this workflow, this is a resumed run, whatever the person said ("continue", "pick up where I left off", or anything else). (A `sistema.json` left by an earlier workflow alone doesn\'t make this a resume: start this workflow\'s outline from its first play.) Read it, show the outline below with each step\'s status, and continue from the first step that is not complete or skipped. If a gate is waiting, ask for that approval first. Do not start other work until the workflow is finished or the person says to leave it.',
     ].join('\n'),
     [
       '## Outline',
@@ -408,10 +408,10 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
       '## How to run it',
       '',
       '1. Find the first play in the outline that is not marked complete or skipped in `sistema.json` `steps`.',
-      `2. If \`sistema.json\` \`routing\` maps that play to a different one, run that play instead. Every play is at ${ctx.base}/raw/plays/<id>.`,
+      `2. If \`sistema.json\` \`routing\` maps that play to a different one, run that play instead. Every play is at ${ctx.base}/raw/plays/<id>, and each opinion or rule a play names is at ${ctx.base}/raw/opinions/<id> or ${ctx.base}/raw/rules/<id>.`,
       "3. Fetch the play's instructions from its URL and follow them exactly.",
       "4. If the play's outputs already exist and meet its checks, record it as complete with that evidence and move on.",
-      '5. When a play\'s evidence is shown, record it in `sistema.json` and continue. Before an optional play, tell the person in one sentence what it gives them and ask whether they want it now. Say it can also be added later. If they decline, record it as skipped.',
+      '5. When a play\'s evidence is shown, record it in `sistema.json` and continue. Before an optional play, tell the person in one sentence what it gives them and ask whether they want it now. Say it can also be added later. If the play starts by asking the person something (for example, which pages to build), fetch it first and put that question in the same message, so one answer covers both. If they decline, record it as skipped. While optional plays are offered and not yet answered, the workflow stays open: `continue` stays on this workflow.',
       '6. At an approval, stop. Set the play before it to `in-progress`, ask the person to review, and continue only after they approve. Then record the gate and mark the play complete. Tell the person they can stop at any approval and pick up later in any new session.',
       '7. Set `milestone` to the milestone of the next unfinished play.',
       `8. Before ending any session, check \`sistema.json\` against the schema at ${stateSchemaUrl(ctx.base)} and fix anything that doesn't match.`,
@@ -419,7 +419,7 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
     [
       '## State: sistema.json',
       '',
-      'Use exactly this shape. Only play IDs go in `steps`. Status is one of `pending`, `in-progress` (started and waiting at an approval or on an answer from the person), `complete`, or `skipped`. `milestone` is one of `direction`, `foundations`, `patterns`, or `maintain`. Work done outside a play goes in DECISIONS.md, not in `steps`.',
+      'Use exactly this shape. Only play IDs go in `steps`. Status is one of `pending`, `in-progress` (started and waiting at an approval or on an answer from the person), `complete`, or `skipped`. `milestone` is one of `direction`, `foundations`, `patterns`, or `maintain`. Work done outside a play goes in DECISIONS.md, not in `steps`. A gate with `withdrawn` is not approved: a change reopened the steps before it (`project.revise`), and it needs approving again.',
       '',
       '```json',
       stateExample(workflow, ctx),

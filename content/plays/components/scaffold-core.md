@@ -21,7 +21,7 @@ evidence: The component foundation and why, the list of components built, the sh
 overrides: []
 last_reviewed: 2026-11-20
 ---
-The tokens are compiled and wired into the app (`tokens.pipeline`). This play builds the first components on them. It does not change token values. If a component needs a value the system doesn't have, stop and say which play adds it.
+The tokens are compiled and wired into the app (`tokens.pipeline`). This play builds the first components on them. It does not change token values. If a component needs a value the system doesn't have, stop and say which play adds it. If the person asks to change a foundation value during the review ("fewer borders", "rounder"), run `{{sistema_url}}/raw/plays/project.revise` for that change, then return to this review.
 
 1. **Read the system:** DESIGN.md (Components, and Do's and Don'ts), `tokens/src/`, the compiled token CSS, `sistema.json`, and DECISIONS.md. Note the product's density and its first screens, from the positioning statement.
 

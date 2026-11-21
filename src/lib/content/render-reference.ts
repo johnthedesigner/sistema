@@ -86,6 +86,17 @@ export function renderOpinions(c: Catalog): string {
   return parts.join('\n\n') + '\n'
 }
 
+/** One opinion, for /raw/opinions/<id>. */
+export function renderOpinion(o: Catalog['opinions'][number]): string {
+  const body = o.body.replace(/^## /gm, '### ')
+  return `# ${o.title} (\`${o.id}\`)\n\n${o.default}\n\n${body}${o.rules.length ? `\n\nRules: ${o.rules.join(', ')}` : ''}\n\nTo override it, record the override in DECISIONS.md, naming the opinion.\n`
+}
+
+/** One rule, for /raw/rules/<id>. */
+export function renderRuleItem(r: Catalog['rules'][number]): string {
+  return `# Rule ${r.id}\n\n${renderRule(r)}\nWhere values depend on the accessibility standard, use the values for the standard in \`sistema.json\` \`project.a11y_standard\`.\n`
+}
+
 export function renderRules(c: Catalog): string {
   const parts = [
     '# Sistema rules',
@@ -105,6 +116,7 @@ function howAgentsUseSistema(base: string): string {
     `- To start a design system, or bring Sistema to an existing one, fetch ${workflowUrl(base, 'workflow.start')} and follow it.`,
     `- For ongoing work (components, themes, audits, reviews, planning), fetch ${workflowUrl(base, 'workflow.session')} and follow it.`,
     '- If `sistema.json` exists in the project root, read it first and fetch the URL in its `continue` field before doing anything else.',
+    `- Each play is at ${base}/raw/plays/<id>, each opinion at ${base}/raw/opinions/<id>, and each rule at ${base}/raw/rules/<id>.`,
     '- Use the palette and contrast tools for any value they calculate. Never estimate those values.',
     '- Sistema links may carry a `c` parameter: an anonymous usage ID. Keep it on the URLs you fetch and on `continue`. It counts how plays and tools are used and identifies no one.',
     `- Check \`sistema.json\` against the schema at ${stateSchemaUrl(base)} before ending a session.`,

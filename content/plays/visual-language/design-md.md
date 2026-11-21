@@ -35,8 +35,10 @@ DESIGN.md is the reference every agent in the repo reads before touching the int
    - **Components:** the component families this product will need first, from its positioning and density, with one line on how each uses the roles above. This is a plan, not a spec.
    - **Do's and Don'ts:** six to ten specific rules drawn from the direction's exclusions and the quality bans. Each one should be checkable by reading code.
 
-4. **Name roles, not values.** Later plays read these role names and must use them. Where the direction left a decision open, write it as `Provisional: <what is undecided>. Set by <play id>.`
+4. **State each decision once,** in the section it belongs to (the border approach under Elevation & Depth, for example), and refer to that section elsewhere instead of repeating it. A later change then has one place to update.
 
-5. **Add the pointer line** right after the front matter (or at the top, if there is none yet), if it is not there yet: `<!-- This project follows Sistema. To continue, fetch the URL in sistema.json "continue". -->`
+5. **Name roles, not values.** Later plays read these role names and must use them. Where the direction left a decision open, write it as `Provisional: <what is undecided>. Set by <play id>.`
 
-6. Show the evidence: list each section with its first line, and every provisional item.
+6. **Add the pointer line** right after the front matter (or at the top, if there is none yet), if it is not there yet: `<!-- This project follows Sistema. To continue, fetch the URL in sistema.json "continue". -->`
+
+7. Show the evidence: list each section with its first line, and every provisional item.

@@ -11,8 +11,9 @@ routes:
   audit-component: { title: Audit a component, plays: [components.audit] }
   audit-accessibility: { title: Audit accessibility, plays: [accessibility.audit] }
   audit-token-coverage: { title: Audit token use, plays: [tokens.coverage-audit] }
+  change-a-decision: { title: Change an approved direction or foundation, plays: [project.revise] }
   review-the-system: { title: Review the system, plays: [project.review] }
   plan-next-iteration: { title: Plan the next round, plays: [project.plan] }
-last_reviewed: 2026-11-15
+last_reviewed: 2026-11-20
 ---
 Use this after Start (and Patterns, if it ran) for ongoing work. Each session begins by orienting, then follows one route. `bring-in-existing-colors` also covers moving a Tailwind color config into the system.

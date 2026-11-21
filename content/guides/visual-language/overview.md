@@ -89,6 +89,8 @@ How far the accent reaches beyond actions and focus.
 | Brand | The accent also marks the navigation's current item and selected rows | Most products; recognizably theirs without competing with status |
 | Tinted | A deep accent block carries the navigation, and the page takes a faint accent tint | Products where the brand is part of the experience, consumer apps, marketing |
 
+Color presence sets where the accent appears in the chrome. It doesn't decide the emphasis surfaces: whether a screen has a brand block is the emphasis map's call, under any presence. Selection is a neutral step in every option, with the accent only as a detail (`opinion.quiet-states`).
+
 The accent itself is a separate choice. If the project already has a brand color, use it. If not, propose one from Sistema's palette library (`{{sistema_url}}/palettes/library.json`): a colorful palette (not one of the grays), at one of its bright middle stops, 400 to 600, where the hue is at its most saturated. Those stops already sit on an even contrast curve and render well across the whole ramp, while a seed picked by eye or by name often turns muddy or dull. Show two or three of them as the options. Check the proposal against the category default (the first-order reflex in the quality guide), and keep it apart from the status hues if status matters.
 
 ### Warm or cool

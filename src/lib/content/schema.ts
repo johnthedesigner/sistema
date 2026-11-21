@@ -280,7 +280,15 @@ export const SistemaState = z
     gates: z
       .record(
         z.string().regex(slug),
-        z.object({ date: z.iso.date(), by: z.string().min(1), note: z.string().optional() }).strict(),
+        z
+          .object({
+            date: z.iso.date(),
+            by: z.string().min(1),
+            note: z.string().optional(),
+            /** Set by project.revise when a change reopens the steps before this approval. */
+            withdrawn: z.object({ date: z.iso.date(), reason: z.string().min(1) }).strict().optional(),
+          })
+          .strict(),
       )
       .default({}),
     routing: z.record(PlayId, PlayId).default({}),
