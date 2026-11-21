@@ -1,6 +1,6 @@
 ---
-title: "Typography architecture"
-description: "Density first, type roles, scale construction, legibility, and how type relates to the spacing system."
+title: "Typography"
+description: "How Sistema builds type: one typeface set well, a scale from the type scale tool, role names the person chooses, legibility from the rules, and how type fits the spacing system."
 topic: typography
 sources:
   - { source: material, url: "https://m3.material.io/styles/typography" }
@@ -17,16 +17,29 @@ sources:
   - { source: practical-typography, url: "https://practicaltypography.com/typography-in-ten-minutes.html" }
   - { source: practical-typography, url: "https://practicaltypography.com/body-text.html" }
   - { source: practical-typography, url: "https://practicaltypography.com/line-spacing.html" }
-last_reviewed: 2026-11-17
+related:
+  - guide.tokens.architecture
+  - guide.spacing.layout
+last_reviewed: 2026-11-20
 ---
 
-# Typography architecture
+# Typography
 
-## Overview
+## Where Sistema stands
 
-Typography decisions in a design system are upstream of most other visual decisions. The scale determines spatial cadence. The role taxonomy determines how hierarchy is communicated. Line height and measure affect how every component with text feels to use. Getting these right means fewer corrections cascading through the rest of the system.
+Type carries most of an interface's hierarchy, so it's set early and set carefully. Sistema's defaults:
 
-This document covers the structural decisions that shape a type system — not specific font choices, which are a downstream concern, but the architecture that makes type choices work at scale.
+- **One typeface, set well** (`opinion.one-typeface-set-well`): a good sans in two or three weights, medium for labels and emphasis, tighter tracking at large sizes, tabular figures for data. A second face only with a reason.
+- **A scale from the type scale tool,** built from a base size and a ratio. Steps may be hand-tuned where the ratio lands badly, and each tuned step is recorded with its reason.
+- **Roles on top of the scale.** Components use roles (`body`, `label`, `heading`), each with its own size, line height, weight, and tracking. How the roles are named is the person's choice.
+- **Legibility from the rules.** Minimums that every project must meet come from its accessibility standard, through the rules registry. The ranges on this page are guidance.
+
+Which typeface is a taste question, asked at the direction with the options set on the product's own screens.
+
+```specimen
+type-scale base=13 ratio=major-second down=2 up=5 roles=label:-1,body:0,heading:1,title:4,metric:5
+Relay's scale: base 13px, ratio 1.125 (a major second), with its roles. Set here in this site's typeface; Relay uses Atkinson Hyperlegible Next. Relay's overline is hand-tuned to 11px, because the tool's step below the label is 10px.
+```
 
 ---
 
@@ -135,6 +148,18 @@ Long-form content (docs, articles, chat messages) is often styled differently fr
 
    Propose one, say why, and let the person choose. It's a matter of judgment, not a rule.
 
+## Choosing a typeface
+
+The direction offers about three typefaces suited to the product, each set on the product's own screen. What to look for:
+
+- **Figures.** For data, tabular figures (every digit the same width) so columns line up, and digits that are hard to confuse.
+- **Distinct letter shapes.** `1`, `l`, and `I`, and `0` and `O`, should differ clearly where codes, IDs, or names are read quickly.
+- **x-height.** A larger x-height reads bigger at small sizes, which matters in dense interfaces; it also changes how big a given size looks (see "X-height and apparent size").
+- **Weights.** At least regular and medium (often semibold) that are clearly different at small sizes.
+- **Availability.** Loadable from Google Fonts or a font CDN, or licensed for the project, with the weights it needs.
+
+A second face needs a job the first can't do: a display face for a marketing site, a monospace for code. Tabular figures usually cover IDs and times in a product interface, so a monospace is often unnecessary.
+
 ### Two tiers, whatever the names
 
 Sistema's token model has two tiers (opinion `two-tiers`), and that holds for type too. The convention decides how the size scale is named. On top of it, the product's roles (`body`, `label`, `heading-lg`, and so on) are semantic tokens that point at sizes and set weight, line height, and tracking. Rule `typography.roles.distinct` applies to those roles.
@@ -227,7 +252,7 @@ Typography and spacing are not independent. Every decision in the type scale has
 
 **Scale steps and component height:** Interactive components (buttons, form fields, select controls) have a minimum height that should relate to the type scale. A button using `label-large` text at 14px/20px line height needs enough vertical padding to meet the project's minimum target size (rule `accessibility.target-size`). For example, reaching the WCAG 2.5.5 (AAA) size takes 14px + (2 × 15px padding) = 44px, where the 15px padding is a spacing system value. When the type scale changes, the component height tokens that reference it may also need adjustment.
 
-**Spacing and type density:** A dense type scale (small steps, small base) requires a proportionally tighter spacing scale. A system with 12px body text and an 8px base spacing unit feels correct; the same spacing unit with 18px body text feels compressed. The key ratio: base spacing should be roughly 50–75% of the body text line height. If body text has a 24px line height, the base spacing unit of 12–16px works well.
+**Spacing and type density:** A dense type scale (small steps, small base) wants proportionally tighter spacing. The spacing scale's base unit is 4px in every Sistema project (the spacing guide); type doesn't change the base, it changes which steps the components use. As a check, the gap between related blocks of text usually lands near half to three quarters of the body line height: with a 20px line height, 12 or 16px. If the common gaps are far outside that, the spacing steps chosen for text are too loose or too tight for the type.
 
 **Type and layout columns:** Measure (line length) constrains column width. If optimal measure for your body text is 45–75 characters, and body text is 16px in a regular-width sans-serif, the optimal column width is roughly 520–680px. Layout columns should be defined to land content containers within this range. Design systems that define content column widths separately from the type system often produce column widths that are too wide (90+ characters per line) or too narrow (35 characters per line) for the specified body size.
 
@@ -243,3 +268,38 @@ Typography and spacing are not independent. Every decision in the type scale has
 | Line height | Specified per role? | Always. One global value is wrong for both ends of the scale |
 | Variable fonts | 4+ weights needed? | Yes: consider variable font. 2–3 weights: load static files |
 | Spacing relationship | 8px grid? | Verify body line height is a multiple of the grid base; adjust either if not |
+
+## Rules
+
+The typography rules are listed at the end of this page and at `{{sistema_url}}/raw/rules`. Minimum sizes and line heights depend on the project's accessibility standard and live only in the rules registry.
+
+## Worked example: Relay
+
+Relay is a dense dispatch board: job numbers, times, and technicians' initials are read at small sizes all day.
+
+- **Typeface.** The direction offered Inter, IBM Plex Sans (proposed for its distinct figures and letter shapes), and Atkinson Hyperlegible Next. The person chose Atkinson, a face designed for legibility, at weights 400, 500, and 600. No second face: tabular figures cover job numbers and times.
+- **Scale.** The type scale tool at base 13px and ratio 1.125: label 12, body and data 13, heading 15, title 21, metric 23. The overline is hand-tuned to 11px, because the tool's next step down is 10px, too small for anything people need to read; the tuning is recorded in the token's description.
+- **Roles and names.** Relay uses shadcn/ui on Tailwind, so the size scale takes Tailwind's magnitude names (`size.sm`, `size.base`) and the roles are their own tokens (`type.body`, `type.label`, `type.overline`, `type.metric`), each with a line height, weight, and tracking. The compiled roles become utilities (`text-body`), and tabular figures are part of the `data` and `metric` roles.
+- **Spacing.** Body text at 13px with a line height of about 1.5 sits on a 4px spacing scale; controls are 28px tall and table rows 36px.
+
+## Failure modes
+
+- **Too many sizes.** More than about eight sizes in a product interface, or one-off sizes in components, so hierarchy stops reading.
+- **A display face in a dense tool,** or a second face with no job.
+- **Weight as the only hierarchy,** with bold everywhere, so nothing stands out.
+- **Steps too small at the bottom,** where a ratio produces a 9 or 10px size that ends up on real text.
+- **One global line height,** too loose for headings and sometimes too tight for small labels.
+- **Proportional figures in tables,** so numbers don't line up.
+
+## Checking the work
+
+- **The type scale tool** reports each step's size and suggested line height and flags sizes below the project's small-text note.
+- **The type specimen** on the token check page shows every role in the real typeface, in every theme.
+- **The text spacing check** (rule `typography.text-spacing`): text still fits when line height, paragraph, letter, and word spacing are increased as the standard describes.
+- **Read a real screen** at the product's density, and check that hierarchy reads without color.
+
+## Plays
+
+- `typography.scale` builds the scale and the roles.
+- `visual-language.direction` asks the type question and records the typeface.
+
