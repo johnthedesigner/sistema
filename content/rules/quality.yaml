@@ -18,12 +18,12 @@
   sources: [guide.quality.visual-quality-signals#32-color-token-bans]
 
 - id: quality.color.commitment-level
-  statement: Surface and neutral chroma match the commitment level recorded in the direction.
+  statement: Surface and neutral chroma match the color presence (its commitment level) recorded in the direction.
   reason: The commitment level is the product's decision about how much color it carries. Tokens that drift from it contradict the approved direction.
   layer: sistema-default
   severity: advisory
   applies_to: surface, surface-raised, surface-overlay, border, and the neutral ramp
-  sources: [guide.quality.visual-quality-signals#4-oklch-color-commitment-levels]
+  sources: [guide.color.architecture#how-much-color]
 
 - id: quality.review.compare-visually
   statement: >-

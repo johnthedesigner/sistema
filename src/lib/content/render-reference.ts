@@ -2,6 +2,7 @@
  * Plain-text renderers for guides, opinions, rules, the agents page, and
  * llms.txt. Every URL is absolute (built from ctx.base).
  */
+import { specimensToText } from '../guide-specimen'
 import type { Catalog } from './load'
 import type { FileFormat, Guide } from './parse'
 import { fileRawUrl, guideRawUrl, opinionsUrl, sourcesUrl, playUrl, renderRule, renderTools, rulesUrl, stateSchemaUrl, workflowUrl } from './render'
@@ -32,7 +33,7 @@ export function renderCredits(credits: Credit[], sources: Map<string, SourceEntr
 }
 
 export function renderGuideRaw(guide: Guide, sources: Map<string, SourceEntry> = new Map()): string {
-  const body = guide.body.replace(/^# .*\n+/, '')
+  const body = specimensToText(guide.body.replace(/^# .*\n+/, ''))
   const credits = renderCredits(guide.sources, sources)
   return [`# ${guide.title}`, guide.description, `Last reviewed: ${guide.last_reviewed}`, ...(guide.note ? [guide.note] : []), body, ...(credits ? [credits] : [])].join('\n\n') + '\n'
 }

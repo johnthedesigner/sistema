@@ -166,8 +166,10 @@ export function buildSpecimen(raw: SpecimenInput = {}): SpecimenResult {
     c.canvas = separation === 'line' ? white : s('neutral', 50)
     c.surface = white
     c['surface-subtle'] = separation === 'line' ? s('neutral', 50) : s('neutral', 50)
-    c['surface-hover'] = s('neutral', 150)
-    c['row-hover'] = s('neutral', 50)
+    // States sit a full stop from what they're on (color.states.visible): white
+    // panels hover at 100, selection one stop past at 150.
+    c['surface-hover'] = s('neutral', 100)
+    c['row-hover'] = s('neutral', 100)
     c['surface-overlay'] = white
     // Emphasis: the featured surface lifts much further than a panel (see shadows).
     c['surface-featured'] = white
@@ -191,7 +193,7 @@ export function buildSpecimen(raw: SpecimenInput = {}): SpecimenResult {
     c['on-accent-subtle'] = s('accent', 750)
     c.link = s('accent', 600)
     c.focus = s('accent', 500)
-    c['selected-row'] = s('neutral', 100) // neutral, a step past hover; the accent is the edge (quality.craft.quiet-states)
+    c['selected-row'] = s('neutral', 150) // neutral, a step past hover; the accent is the edge (quality.craft.quiet-states)
     for (const [k, ramp] of [['success', 'green'], ['warning', 'amber'], ['error', 'red'], ['info', 'blue']] as const) {
       c[`${k}-container`] = s(ramp, 150)
       c[`on-${k}-container`] = s(ramp, 750)
@@ -215,7 +217,8 @@ export function buildSpecimen(raw: SpecimenInput = {}): SpecimenResult {
     c.canvas = s('neutral', 950)
     c.surface = separation === 'line' ? s('neutral', 950) : s('neutral', 900)
     c['surface-subtle'] = s('neutral', 950)
-    c['surface-hover'] = s('neutral', 850)
+    // Menus sit at 800, so their highlight is 750; rows on 900 panels hover at 850.
+    c['surface-hover'] = s('neutral', 750)
     c['row-hover'] = s('neutral', 850)
     c['surface-overlay'] = s('neutral', 800)
     c['surface-featured'] = s('neutral', 850)
@@ -263,7 +266,7 @@ export function buildSpecimen(raw: SpecimenInput = {}): SpecimenResult {
   if (presence === 'quiet') {
     c['nav-bg'] = c['surface-subtle']
     c['nav-text'] = c['text-secondary']
-    c['nav-selected'] = c['surface-hover']
+    c['nav-selected'] = c['row-hover']
     c['on-nav-selected'] = c.text
   } else if (presence === 'brand') {
     c['nav-bg'] = c['surface-subtle']

@@ -16,8 +16,8 @@ knowledge:
   - guide.color.architecture#pairs-to-check
   - guide.color.architecture#neutral-palette-design
   - guide.color.architecture#emphasis-surfaces
-  - guide.color.primitive-ramp-scalability#how-ramps-feed-the-semantic-layer
-  - guide.quality.visual-quality-signals#4-oklch-color-commitment-levels
+  - guide.color.architecture#how-ramps-feed-the-semantic-layer
+  - guide.color.architecture#how-much-color
 rules: [color.ramps.from-tool, color.preview.ramp-strips, color.roles.required, color.states.visible, color.contrast.text, color.contrast.large-text, color.contrast.ui, color.dark.tonal-shift, color.dark.surface-steps, quality.color.first-order-reflex, quality.color.bans, quality.color.commitment-level, quality.craft.text-tones, quality.craft.accent-for-meaning, tokens.naming.role]
 evidence: A contrast table with one row per on-* pairing and the border-focus pairing, in every theme, each showing the ratio from the contrast tool and the required value. Every required pairing passes.
 overrides: [color_direction, color_mode]

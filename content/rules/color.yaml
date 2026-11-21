@@ -106,7 +106,7 @@
   severity: blocking
   applies_to: every primitive ramp used for semantic roles
   checked_by: [tool.palette]
-  sources: [guide.color.primitive-ramp-scalability#the-sistema-palette-api]
+  sources: [guide.color.architecture#why-ramps]
 
 - id: color.existing.consent
   statement: >-
