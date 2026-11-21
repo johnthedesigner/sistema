@@ -87,7 +87,7 @@ The Relay run came out technically sound but dated and noisy, because the visual
 
 ## Task V3.5: Guide rewrites (color, tokens, typography, quality signals)
 
-**Status:** not started
+**Status:** in progress: outlines for owner review in `docs/v2/guides-outline.md` (2026-11-20)
 
 Outline each guide in the plan 9.1 structure first, for owner review. Then draft, with worked examples taken from the reference project. Run the source-closeness audit on these four as part of the rewrite: mark close references where they appear, and rewrite or credit the two passages found in fit review 2. Add live specimens to the human pages: real ramps, rendered type scales, and radius and elevation side by side.
 
