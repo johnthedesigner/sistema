@@ -314,7 +314,9 @@ function siteCss(sp: Specimen): string {
 .site-head{position:relative;z-index:1}
 .site-head .wrap{display:flex;align-items:center;gap:28px;height:68px}
 .site-head .logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:${b + 3}px;letter-spacing:-0.01em}
-.site-head nav{display:flex;gap:24px;color:var(--text-secondary);font-weight:500}
+.site-head nav{display:flex;gap:16px;color:var(--text-secondary);font-weight:500}
+.site-head nav a{padding:6px 10px;border-radius:var(--r-control)}
+.site-head nav a.on{background:var(--nav-selected);color:var(--on-nav-selected)}
 .site-head .right{margin-left:auto;display:flex;gap:10px;align-items:center}
 ${tinted ? '.site-head{background:var(--nav-bg);color:var(--on-nav-selected)}.site-head nav{color:var(--nav-text)}.site-head .logo .mark{background:var(--on-nav-selected)}.site-head .logo .mark:after{background:var(--nav-bg)}.site-head .btn.secondary{background:transparent;color:var(--on-nav-selected);border-color:rgb(255 255 255 / .3);box-shadow:none}' : ''}
 .display{font-family:var(--display);font-weight:600;letter-spacing:-0.035em;line-height:1.04}
@@ -327,8 +329,9 @@ ${tinted ? '.site-head{background:var(--nav-bg);color:var(--on-nav-selected)}.si
 `
 }
 
-function siteHead(name: string, links: string[], right: string): string {
-  return `<header class="site-head"><div class="wrap"><a class="logo"><span class="mark"></span>${esc(name)}</a><nav>${links.map(l => `<a>${esc(l)}</a>`).join('')}</nav><div class="right">${right}</div></div></header>`
+/** The site header. A link whose text appears in `current` is marked as where you are. */
+function siteHead(name: string, links: string[], right: string, current = ''): string {
+  return `<header class="site-head"><div class="wrap"><a class="logo"><span class="mark"></span>${esc(name)}</a><nav>${links.map(l => `<a${current && current.includes(l) ? ' class="on" aria-current="page"' : ''}>${esc(l)}</a>`).join('')}</nav><div class="right">${right}</div></div></header>`
 }
 
 function siteFoot(name: string, blurb: string): string {
@@ -505,7 +508,7 @@ const renderArticle: Render = (sp, content, title) => {
   const art = (seed: number, bg: string) => `<svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block;background:var(--${bg})" aria-hidden="true">
 <circle cx="${120 + seed * 40}" cy="120" r="80" style="fill:var(--image-accent)" opacity=".85"/><rect x="${210 - seed * 20}" y="40" width="120" height="120" rx="12" style="fill:var(--image-ink)" opacity=".9"/><circle cx="${300 + seed * 10}" cy="60" r="22" style="fill:var(--canvas)"/></svg>`
   const body = `
-${siteHead(C.product, C.links, `<span class="field" style="width:200px">${icon('search')}Search</span><a class="btn primary">Subscribe</a>`)}
+${siteHead(C.product, C.links, `<span class="field" style="width:200px">${icon('search')}Search</span><a class="btn primary">Subscribe</a>`, C.category)}
 <header class="ahead"><span class="kicker">${esc(C.category)}</span><h1 class="display">${esc(C.title)}</h1><p class="lead">${esc(C.dek)}</p>
 <div class="byline"><span class="avatar">AK</span><b>${esc(C.author)}</b><span>·</span><span>${esc(C.date)}</span><span>·</span><span>${esc(C.read)}</span></div></header>
 <figure class="hero-fig"><div class="art">${art(1, 'image-2')}</div><figcaption>The morning board at a regional distributor, 6:40 a.m.</figcaption></figure>
