@@ -62,6 +62,7 @@ export const TOOL_DOCS: Record<ToolName, ToolDoc> = {
         '  Repeat fg, bg, and label for more pairs (up to 50); they pair by position. Pass the project\'s standard exactly as sistema.json project.a11y_standard has it. Without one, checks use WCAG 2.2 AA.',
         `POST ${base}/api/contrast  {"standard": "wcag-2.2 AA", "pairs": [{"foreground", "background", "label"}, ...]}  (up to 200 pairs)`,
         'Returns: {"standard", "level", "results": [{"label", "ratio": 5.81, "checks": {"text": {"rule", "required", "pass"}, "large_text": {...}, "ui": {...}}}, ...]}  (same order; an invalid pair gets {"error"}; a check the standard does not set is left out)',
+        'Each pair may set "purpose" (in GET, repeat purpose=, paired by position): text, large_text, or ui returns only that check; informational returns the ratio with no checks, for boundaries no standard requires, such as a decorative divider or a status dot beside its word. Without it, every check is returned.',
       ].join('\n'),
   },
   type_scale: {

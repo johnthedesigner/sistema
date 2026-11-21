@@ -67,9 +67,18 @@ export interface ColorOut {
   mapped?: true
 }
 
+/**
+ * What a pair is for. A check name limits the checks to that one; `informational`
+ * reports the ratio with no checks, for boundaries no standard requires (a
+ * decorative divider, a status dot beside its word). Omitted: every check.
+ */
+export const PURPOSES = ['text', 'large_text', 'ui', 'informational'] as const
+export type Purpose = (typeof PURPOSES)[number]
+
 export type PairResult =
   | {
       label?: string
+      purpose?: Purpose
       foreground: ColorOut
       background: ColorOut
       ratio: number
@@ -80,8 +89,11 @@ export type PairResult =
 const colorOut = ({ hex, oklch, mapped }: ParsedColor): ColorOut => (mapped ? { hex, oklch, mapped: true } : { hex, oklch })
 
 /** Check one pair. Passing is judged on the unrounded ratio; WCAG doesn't round up. */
-export function checkPair(foreground: unknown, background: unknown, standard: string, level: string, label?: string, rules = contrastRules()): PairResult {
+export function checkPair(foreground: unknown, background: unknown, standard: string, level: string, label?: string, rules = contrastRules(), purposeRaw?: unknown): PairResult {
   const lab = typeof label === 'string' && label ? { label } : {}
+  if (purposeRaw !== undefined && purposeRaw !== null && purposeRaw !== '' && !(PURPOSES as readonly unknown[]).includes(purposeRaw))
+    return { ...lab, error: `"purpose" must be one of: ${PURPOSES.join(', ')} (got ${JSON.stringify(purposeRaw)}).` }
+  const purpose = (purposeRaw || undefined) as Purpose | undefined
   const fg = parseColor(foreground)
   if (!fg.ok) return { ...lab, error: `Invalid foreground color. ${fg.error}` }
   const bg = parseColor(background)
@@ -89,9 +101,10 @@ export function checkPair(foreground: unknown, background: unknown, standard: st
   const exact = wcagContrast(fg.color.hex, bg.color.hex)
   const checks: Partial<Record<CheckName, Check>> = {}
   for (const [name, id] of Object.entries(CONTRAST_CHECKS) as Array<[CheckName, string]>) {
+    if (purpose && purpose !== name) continue
     const rule = rules.find(r => r.id === id)
     const required = rule ? requiredRatio(rule, standard, level) : null
     if (required !== null) checks[name] = { rule: id, required, pass: exact >= required }
   }
-  return { ...lab, foreground: colorOut(fg.color), background: colorOut(bg.color), ratio: Math.round(exact * 100) / 100, checks }
+  return { ...lab, ...(purpose ? { purpose } : {}), foreground: colorOut(fg.color), background: colorOut(bg.color), ratio: Math.round(exact * 100) / 100, checks }
 }

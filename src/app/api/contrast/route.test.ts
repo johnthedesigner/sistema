@@ -103,3 +103,19 @@ describe('/api/contrast POST', () => {
     expect(bad.status).toBe(400)
   })
 })
+
+describe('purpose', () => {
+  it('limits checks to one, or none for informational', async () => {
+    const { POST } = await import('./route')
+    const req = new Request('http://x/api/contrast', { method: 'POST', body: JSON.stringify({ pairs: [
+      { foreground: '#767676', background: '#fff', purpose: 'ui' },
+      { foreground: '#eeeeee', background: '#fff', purpose: 'informational' },
+      { foreground: '#000', background: '#fff', purpose: 'nonsense' },
+    ] }) })
+    const body = await (await POST(req as never)).json()
+    expect(Object.keys(body.results[0].checks)).toEqual(['ui'])
+    expect(body.results[1].checks).toEqual({})
+    expect(body.results[1].ratio).toBeGreaterThan(1)
+    expect(body.results[2].error).toMatch(/purpose/)
+  })
+})

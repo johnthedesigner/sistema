@@ -23,7 +23,7 @@ export function GET(request: Request) {
         does: 'WCAG contrast ratios for color pairs, with pass or fail for text, large text, and UI components under the standard you name (default WCAG 2.2 AA).',
         get: u('/api/contrast?fg=<color>&bg=<color>&label=<name>&standard=<standard>'),
         example: u('/api/contrast?fg=%23FFFFFF&bg=%231F5FD1&label=on-primary&standard=wcag-2.2%20AA'),
-        post: { url: u('/api/contrast'), body: '{"standard": "wcag-2.2 AA", "pairs": [{"foreground", "background", "label"}]}' },
+        post: { url: u('/api/contrast'), body: '{"standard": "wcag-2.2 AA", "pairs": [{"foreground", "background", "label", "purpose"}]}' },
         limits: LIMITS.contrast,
         docs: u('/reference/tools#contrast'),
       },

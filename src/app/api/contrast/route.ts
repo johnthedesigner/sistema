@@ -7,7 +7,8 @@ import { LIMITS } from '@/lib/tools/limits'
 /**
  * Contrast (tool-apis.md section 2).
  *   GET  /api/contrast?fg=<color>&bg=<color>[&fg=..&bg=..][&label=..][&standard=wcag-2.2&level=AA]   up to 50 pairs
- *   POST /api/contrast { standard?, level?, pairs: [{ foreground, background, label? }] }             up to 200 pairs
+ *   POST /api/contrast { standard?, level?, pairs: [{ foreground, background, label?, purpose? }] }   up to 200 pairs
+ * purpose: text | large_text | ui (only that check) or informational (the ratio, no checks).
  *   POST /api/contrast { standard?, level?, foreground, background }                                   one pair
  * Always returns { standard, level, defaulted?, results: [...] }. In a batch, an invalid pair gets
  * { error } in its slot; a request with one pair that fails returns 400.
@@ -16,7 +17,7 @@ const MAX_GET_PAIRS = LIMITS.contrast.get_pairs
 const MAX_POST_PAIRS = LIMITS.contrast.post_pairs
 const EXAMPLE = '/api/contrast?fg=%23FFFFFF&bg=%231F5FD1&standard=wcag-2.2&level=AA'
 
-type PairInput = { foreground: unknown; background: unknown; label?: unknown }
+type PairInput = { foreground: unknown; background: unknown; label?: unknown; purpose?: unknown }
 
 function respond(request: Request, pairs: PairInput[], standardRaw: unknown, levelRaw: unknown, max: number, bodyId?: unknown) {
   const track = (status: number, extra: Record<string, unknown> = {}) =>
@@ -37,7 +38,7 @@ function respond(request: Request, pairs: PairInput[], standardRaw: unknown, lev
   if (pairs.length > max) return fail(`At most ${max} pairs per request.`)
   const std = chooseStandard(standardRaw, levelRaw)
   if (!std.ok) return fail(std.error)
-  const results = pairs.map(p => checkPair(p.foreground, p.background, std.standard, std.level, typeof p.label === 'string' ? p.label : undefined))
+  const results = pairs.map(p => checkPair(p.foreground, p.background, std.standard, std.level, typeof p.label === 'string' ? p.label : undefined, undefined, p.purpose))
   if (results.length === 1 && 'error' in results[0]) return fail(results[0].error)
   const failing = results.filter(r => 'checks' in r && Object.values(r.checks).some(c => c && !c.pass)).length
   track(200, { standard: std.standard, level: std.level, defaulted: std.defaulted, invalid: results.filter(r => 'error' in r).length, failing })
@@ -49,12 +50,13 @@ export function GET(request: NextRequest) {
   const fgs = q.getAll('fg')
   const bgs = q.getAll('bg')
   const labels = q.getAll('label')
+  const purposes = q.getAll('purpose')
   if (fgs.length !== bgs.length) {
     const error = `Each "fg" needs a matching "bg", in order (got ${fgs.length} fg and ${bgs.length} bg).`
     trackToolCall(request, 'contrast', { status: 400, error })
     return badRequest(error, EXAMPLE)
   }
-  const pairs = fgs.map((fg, i) => ({ foreground: fg, background: bgs[i], label: labels[i] }))
+  const pairs = fgs.map((fg, i) => ({ foreground: fg, background: bgs[i], label: labels[i], purpose: purposes[i] }))
   return respond(request, pairs, q.get('standard') ?? undefined, q.get('level') ?? undefined, MAX_GET_PAIRS)
 }
 
@@ -73,7 +75,7 @@ export async function POST(request: NextRequest) {
     const pairs = b.pairs.map(p => (typeof p === 'object' && p !== null ? p : {}) as PairInput)
     return respond(request, pairs, b.standard, b.level, MAX_POST_PAIRS, b.c)
   }
-  return respond(request, [{ foreground: b.foreground, background: b.background, label: b.label }], b.standard, b.level, 1, b.c)
+  return respond(request, [{ foreground: b.foreground, background: b.background, label: b.label, purpose: b.purpose }], b.standard, b.level, 1, b.c)
 }
 
 export const OPTIONS = options
