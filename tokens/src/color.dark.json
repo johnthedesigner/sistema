@@ -1,0 +1,188 @@
+{
+  "color": {
+    "surface": {
+      "$type": "color",
+      "$value": "{palette.neutral.950}"
+    },
+    "surface-raised": {
+      "$type": "color",
+      "$value": "{palette.neutral.900}"
+    },
+    "surface-overlay": {
+      "$type": "color",
+      "$value": "{palette.neutral.800}"
+    },
+    "surface-subtle": {
+      "$type": "color",
+      "$value": "{palette.neutral.950}"
+    },
+    "surface-featured": {
+      "$type": "color",
+      "$value": "{palette.neutral.850}"
+    },
+    "surface-hover": {
+      "$type": "color",
+      "$value": "{palette.neutral.850}"
+    },
+    "surface-selected": {
+      "$type": "color",
+      "$value": "{palette.neutral.800}"
+    },
+    "surface-highlight": {
+      "$type": "color",
+      "$value": "{palette.neutral.750}"
+    },
+    "surface-inverse": {
+      "$type": "color",
+      "$value": "{palette.neutral.150}"
+    },
+    "on-surface-inverse": {
+      "$type": "color",
+      "$value": "{palette.neutral.850}"
+    },
+    "on-surface": {
+      "$type": "color",
+      "$value": "{palette.neutral.50}"
+    },
+    "on-surface-muted": {
+      "$type": "color",
+      "$value": "{palette.neutral.350}"
+    },
+    "on-surface-faint": {
+      "$type": "color",
+      "$value": "{palette.neutral.400}"
+    },
+    "on-surface-disabled": {
+      "$type": "color",
+      "$value": "{palette.neutral.600}"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{palette.neutral.750}"
+    },
+    "border-strong": {
+      "$type": "color",
+      "$value": "{palette.neutral.500}"
+    },
+    "border-focus": {
+      "$type": "color",
+      "$value": "{palette.accent.400}"
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "{palette.accent.450}"
+    },
+    "primary-hover": {
+      "$type": "color",
+      "$value": "{palette.accent.400}"
+    },
+    "on-primary": {
+      "$type": "color",
+      "$value": "{palette.accent.950}"
+    },
+    "primary-container": {
+      "$type": "color",
+      "$value": "{palette.accent.800}"
+    },
+    "on-primary-container": {
+      "$type": "color",
+      "$value": "{palette.accent.250}"
+    },
+    "link": {
+      "$type": "color",
+      "$value": "{palette.accent.400}"
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "{palette.neutral.300}"
+    },
+    "secondary-hover": {
+      "$type": "color",
+      "$value": "{palette.neutral.250}"
+    },
+    "on-secondary": {
+      "$type": "color",
+      "$value": "{palette.neutral.950}"
+    },
+    "secondary-container": {
+      "$type": "color",
+      "$value": "{palette.neutral.800}"
+    },
+    "on-secondary-container": {
+      "$type": "color",
+      "$value": "{palette.neutral.250}"
+    },
+    "error": {
+      "$type": "color",
+      "$value": "{palette.red.400}"
+    },
+    "error-hover": {
+      "$type": "color",
+      "$value": "{palette.red.350}"
+    },
+    "on-error": {
+      "$type": "color",
+      "$value": "{palette.red.950}"
+    },
+    "error-container": {
+      "$type": "color",
+      "$value": "{palette.red.850}"
+    },
+    "on-error-container": {
+      "$type": "color",
+      "$value": "{palette.red.250}"
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "{palette.amber.400}"
+    },
+    "on-warning": {
+      "$type": "color",
+      "$value": "{palette.amber.950}"
+    },
+    "warning-container": {
+      "$type": "color",
+      "$value": "{palette.amber.850}"
+    },
+    "on-warning-container": {
+      "$type": "color",
+      "$value": "{palette.amber.250}"
+    },
+    "success": {
+      "$type": "color",
+      "$value": "{palette.green.400}"
+    },
+    "on-success": {
+      "$type": "color",
+      "$value": "{palette.green.950}"
+    },
+    "success-container": {
+      "$type": "color",
+      "$value": "{palette.green.850}"
+    },
+    "on-success-container": {
+      "$type": "color",
+      "$value": "{palette.green.250}"
+    },
+    "info": {
+      "$type": "color",
+      "$value": "{palette.blue.400}"
+    },
+    "on-info": {
+      "$type": "color",
+      "$value": "{palette.blue.950}"
+    },
+    "info-container": {
+      "$type": "color",
+      "$value": "{palette.blue.850}"
+    },
+    "on-info-container": {
+      "$type": "color",
+      "$value": "{palette.blue.250}"
+    },
+    "brand-yellow-subtle": {
+      "$type": "color",
+      "$value": "{palette.yellow.900}"
+    }
+  }
+}

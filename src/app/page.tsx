@@ -94,7 +94,7 @@ export default function Home() {
                 className="flex flex-col gap-2 p-4 rounded-radius-lg border no-underline"
                 style={{
                   borderColor: i === 0 ? 'var(--color-primary)' : 'var(--color-border)',
-                  background: i === 0 ? '#0070FF' : 'var(--color-surface)',
+                  background: i === 0 ? 'var(--color-primary)' : 'var(--color-surface-raised)',
                   color: i === 0 ? 'white' : 'inherit',
                   minHeight: 120,
                 }}

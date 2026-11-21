@@ -141,7 +141,7 @@ Keep `--limit` at 25 or lower (1 for single pages), scrape subsections separatel
 `tools/` scripts run under tsx and can import `src/lib` modules directly. `tools/generate-palette-library.ts` imports `generatePalette`, so the library and the API share one algorithm. Don't copy algorithms into scripts. `toGamut` needs two arguments: `toGamut('rgb', 'oklch')`.
 
 ### Site token pipeline
-`style-dictionary.config.mjs` builds `tokens/primitive/` and `tokens/semantic/` into `src/styles/tokens/generated.css` and `tokens.mjs` (`npm run tokens`). `color.dark-*` names compile into the `[data-theme="dark"]` block. These are the site's v1 tokens; V3 moves them to the method's layout.
+The site follows Sistema (`sistema.json`, DECISIONS.md, DESIGN.md at the root). Token sources are DTCG JSON in `tokens/src/`; `npm run tokens` (`style-dictionary.config.mjs`) compiles them to `src/styles/tokens/generated.css` (dark under `[data-theme="dark"]` and the system setting), `src/styles/tokens/tailwind-theme.json` (read by `tailwind.config.ts`), DESIGN.md's front matter, and `sistema-review/token-check.html` (built by `tools/token-check.mjs`). `palette.json` is never output. Old class names (`canvas`, `surface` as a panel, `surface-sunken`) are aliased until the site restructure moves pages to the roles.
 
 ### Client components
 Next.js pre-renders client components, so `window`, `document`, `localStorage`, and `sessionStorage` are undefined at build time. Read them in `useEffect` (or behind a `mounted` flag), never during render.

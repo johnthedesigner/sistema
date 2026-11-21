@@ -166,7 +166,7 @@ export function ContrastChecker({ table }: { table: ContrastTable }) {
       {/* Preview + ratio */}
       <div
         className="rounded-radius-lg border border-border overflow-hidden"
-        style={{ background: bgValid ? bg : 'var(--color-surface)' }}
+        style={{ background: bgValid ? bg : 'var(--color-surface-raised)' }}
       >
         {/* Text preview */}
         <div className="px-6 py-8">

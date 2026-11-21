@@ -1,0 +1,259 @@
+{
+  "color": {
+    "surface": {
+      "$type": "color",
+      "$value": "{palette.neutral.50}",
+      "$description": "The page."
+    },
+    "surface-raised": {
+      "$type": "color",
+      "$value": "{palette.base.white}",
+      "$description": "Panels and cards, on the page."
+    },
+    "surface-overlay": {
+      "$type": "color",
+      "$value": "{palette.base.white}",
+      "$description": "Menus, popovers, dialogs, toasts."
+    },
+    "surface-subtle": {
+      "$type": "color",
+      "$value": "{palette.neutral.50}",
+      "$description": "Quiet zones and inset areas inside panels."
+    },
+    "surface-featured": {
+      "$type": "color",
+      "$value": "{palette.base.white}",
+      "$description": "The featured item, such as the prompt box; leads by its shadow."
+    },
+    "surface-hover": {
+      "$type": "color",
+      "$value": "{palette.neutral.100}",
+      "$description": "Hover on panels and menus."
+    },
+    "surface-selected": {
+      "$type": "color",
+      "$value": "{palette.neutral.150}",
+      "$description": "Selected items; add a blue detail."
+    },
+    "surface-highlight": {
+      "$type": "color",
+      "$value": "{palette.neutral.100}",
+      "$description": "The highlighted item in menus and lists on surface-overlay."
+    },
+    "surface-inverse": {
+      "$type": "color",
+      "$value": "{palette.neutral.850}",
+      "$description": "A dark block on the light page."
+    },
+    "on-surface-inverse": {
+      "$type": "color",
+      "$value": "{palette.neutral.50}",
+      "$description": "Text on surface-inverse. Light: surface-inverse 15.22:1."
+    },
+    "surface-brand": {
+      "$type": "color",
+      "$value": "{palette.accent.600}",
+      "$description": "A block of brand blue."
+    },
+    "on-surface-brand": {
+      "$type": "color",
+      "$value": "{palette.base.white}",
+      "$description": "Text on surface-brand. Light: surface-brand 6.95:1."
+    },
+    "on-surface": {
+      "$type": "color",
+      "$value": "{palette.neutral.850}",
+      "$description": "Main text. Light: surface-highlight 14.18:1, surface 15.22:1, surface-raised 15.74:1."
+    },
+    "on-surface-muted": {
+      "$type": "color",
+      "$value": "{palette.neutral.600}",
+      "$description": "Secondary text. Light: surface-highlight 6.26:1, surface 6.72:1, surface-raised 6.95:1."
+    },
+    "on-surface-faint": {
+      "$type": "color",
+      "$value": "{palette.neutral.550}",
+      "$description": "Captions and metadata. Light: surface 5.34:1, surface-raised 5.52:1."
+    },
+    "on-surface-disabled": {
+      "$type": "color",
+      "$value": "{palette.neutral.400}",
+      "$description": "Disabled text."
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{palette.neutral.200}",
+      "$description": "Table rows and dividers that help follow content."
+    },
+    "border-strong": {
+      "$type": "color",
+      "$value": "{palette.neutral.500}",
+      "$description": "Form fields and secondary buttons. Moved from 450 so edges pass on selected fills."
+    },
+    "border-focus": {
+      "$type": "color",
+      "$value": "{palette.accent.500}",
+      "$description": "The focus ring."
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "{palette.accent.550}",
+      "$description": "Main actions and the current section."
+    },
+    "primary-hover": {
+      "$type": "color",
+      "$value": "{palette.accent.650}",
+      "$description": "Hover on primary."
+    },
+    "on-primary": {
+      "$type": "color",
+      "$value": "{palette.base.white}",
+      "$description": "Text on primary. Light: primary 5.53:1, primary-hover 8.54:1."
+    },
+    "primary-container": {
+      "$type": "color",
+      "$value": "{palette.accent.150}",
+      "$description": "Small marks such as chips."
+    },
+    "on-primary-container": {
+      "$type": "color",
+      "$value": "{palette.accent.750}",
+      "$description": "Text on primary-container. Light: primary-container 9.92:1."
+    },
+    "link": {
+      "$type": "color",
+      "$value": "{palette.accent.600}",
+      "$description": "Links, including small text."
+    },
+    "secondary": {
+      "$type": "color",
+      "$value": "{palette.neutral.750}",
+      "$description": "Secondary filled actions (no second brand hue)."
+    },
+    "secondary-hover": {
+      "$type": "color",
+      "$value": "{palette.neutral.850}",
+      "$description": "Hover on secondary."
+    },
+    "on-secondary": {
+      "$type": "color",
+      "$value": "{palette.base.white}",
+      "$description": "Text on secondary. Light: secondary 12.17:1."
+    },
+    "secondary-container": {
+      "$type": "color",
+      "$value": "{palette.neutral.150}",
+      "$description": "Neutral chips."
+    },
+    "on-secondary-container": {
+      "$type": "color",
+      "$value": "{palette.neutral.750}",
+      "$description": "Text on secondary-container. Light: secondary-container 9.91:1."
+    },
+    "error": {
+      "$type": "color",
+      "$value": "{palette.red.600}",
+      "$description": "Error text and destructive actions."
+    },
+    "error-hover": {
+      "$type": "color",
+      "$value": "{palette.red.700}",
+      "$description": "Hover on error fills."
+    },
+    "on-error": {
+      "$type": "color",
+      "$value": "{palette.base.white}",
+      "$description": "Text on error. Light: error 6.93:1."
+    },
+    "error-container": {
+      "$type": "color",
+      "$value": "{palette.red.150}",
+      "$description": "Error chips."
+    },
+    "on-error-container": {
+      "$type": "color",
+      "$value": "{palette.red.750}",
+      "$description": "Text on error-container. Light: error-container 9.97:1."
+    },
+    "warning": {
+      "$type": "color",
+      "$value": "{palette.amber.650}",
+      "$description": "Warning text and icons."
+    },
+    "on-warning": {
+      "$type": "color",
+      "$value": "{palette.base.white}",
+      "$description": "Text on warning. Light: warning 8.54:1."
+    },
+    "warning-container": {
+      "$type": "color",
+      "$value": "{palette.amber.150}",
+      "$description": "Warning chips."
+    },
+    "on-warning-container": {
+      "$type": "color",
+      "$value": "{palette.amber.750}",
+      "$description": "Text on warning-container. Light: warning-container 9.93:1."
+    },
+    "success": {
+      "$type": "color",
+      "$value": "{palette.green.600}",
+      "$description": "Success text and icons."
+    },
+    "on-success": {
+      "$type": "color",
+      "$value": "{palette.base.white}",
+      "$description": "Text on success. Light: success 6.94:1."
+    },
+    "success-container": {
+      "$type": "color",
+      "$value": "{palette.green.150}",
+      "$description": "Success chips."
+    },
+    "on-success-container": {
+      "$type": "color",
+      "$value": "{palette.green.750}",
+      "$description": "Text on success-container. Light: success-container 9.97:1."
+    },
+    "info": {
+      "$type": "color",
+      "$value": "{palette.blue.600}",
+      "$description": "Info text and icons."
+    },
+    "on-info": {
+      "$type": "color",
+      "$value": "{palette.base.white}",
+      "$description": "Text on info. Light: info 6.92:1."
+    },
+    "info-container": {
+      "$type": "color",
+      "$value": "{palette.blue.150}",
+      "$description": "Info chips."
+    },
+    "on-info-container": {
+      "$type": "color",
+      "$value": "{palette.blue.750}",
+      "$description": "Text on info-container. Light: info-container 9.95:1."
+    },
+    "brand-yellow": {
+      "$type": "color",
+      "$value": "{palette.base.brand-yellow}",
+      "$description": "Logo and brand moments only; never text, never status."
+    },
+    "brand-red": {
+      "$type": "color",
+      "$value": "{palette.base.brand-red}",
+      "$description": "Logo and brand moments only; never errors."
+    },
+    "brand-blue": {
+      "$type": "color",
+      "$value": "{palette.base.brand-blue}",
+      "$description": "The logo blue, for the logo and brand moments; buttons and links use primary and link."
+    },
+    "brand-yellow-subtle": {
+      "$type": "color",
+      "$value": "{palette.yellow.100}",
+      "$description": "A soft yellow wash for brand moments; never status."
+    }
+  }
+}

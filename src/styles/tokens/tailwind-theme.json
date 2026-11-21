@@ -1,0 +1,169 @@
+{
+  "colors": {
+    "surface": "var(--color-surface)",
+    "surface-raised": "var(--color-surface-raised)",
+    "surface-overlay": "var(--color-surface-overlay)",
+    "surface-subtle": "var(--color-surface-subtle)",
+    "surface-featured": "var(--color-surface-featured)",
+    "surface-hover": "var(--color-surface-hover)",
+    "surface-selected": "var(--color-surface-selected)",
+    "surface-highlight": "var(--color-surface-highlight)",
+    "surface-inverse": "var(--color-surface-inverse)",
+    "on-surface-inverse": "var(--color-on-surface-inverse)",
+    "surface-brand": "var(--color-surface-brand)",
+    "on-surface-brand": "var(--color-on-surface-brand)",
+    "on-surface": "var(--color-on-surface)",
+    "on-surface-muted": "var(--color-on-surface-muted)",
+    "on-surface-faint": "var(--color-on-surface-faint)",
+    "on-surface-disabled": "var(--color-on-surface-disabled)",
+    "border": "var(--color-border)",
+    "border-strong": "var(--color-border-strong)",
+    "border-focus": "var(--color-border-focus)",
+    "primary": "var(--color-primary)",
+    "primary-hover": "var(--color-primary-hover)",
+    "on-primary": "var(--color-on-primary)",
+    "primary-container": "var(--color-primary-container)",
+    "on-primary-container": "var(--color-on-primary-container)",
+    "link": "var(--color-link)",
+    "secondary": "var(--color-secondary)",
+    "secondary-hover": "var(--color-secondary-hover)",
+    "on-secondary": "var(--color-on-secondary)",
+    "secondary-container": "var(--color-secondary-container)",
+    "on-secondary-container": "var(--color-on-secondary-container)",
+    "error": "var(--color-error)",
+    "error-hover": "var(--color-error-hover)",
+    "on-error": "var(--color-on-error)",
+    "error-container": "var(--color-error-container)",
+    "on-error-container": "var(--color-on-error-container)",
+    "warning": "var(--color-warning)",
+    "on-warning": "var(--color-on-warning)",
+    "warning-container": "var(--color-warning-container)",
+    "on-warning-container": "var(--color-on-warning-container)",
+    "success": "var(--color-success)",
+    "on-success": "var(--color-on-success)",
+    "success-container": "var(--color-success-container)",
+    "on-success-container": "var(--color-on-success-container)",
+    "info": "var(--color-info)",
+    "on-info": "var(--color-on-info)",
+    "info-container": "var(--color-info-container)",
+    "on-info-container": "var(--color-on-info-container)",
+    "brand-yellow": "var(--color-brand-yellow)",
+    "brand-red": "var(--color-brand-red)",
+    "brand-blue": "var(--color-brand-blue)",
+    "brand-yellow-subtle": "var(--color-brand-yellow-subtle)"
+  },
+  "fontSize": {
+    "display": [
+      "var(--type-display-size)",
+      {
+        "lineHeight": "var(--type-display-line-height)",
+        "letterSpacing": "var(--type-display-tracking)",
+        "fontWeight": "var(--type-display-weight)"
+      }
+    ],
+    "heading-xl": [
+      "var(--type-heading-xl-size)",
+      {
+        "lineHeight": "var(--type-heading-xl-line-height)",
+        "letterSpacing": "var(--type-heading-xl-tracking)",
+        "fontWeight": "var(--type-heading-xl-weight)"
+      }
+    ],
+    "heading-lg": [
+      "var(--type-heading-lg-size)",
+      {
+        "lineHeight": "var(--type-heading-lg-line-height)",
+        "letterSpacing": "var(--type-heading-lg-tracking)",
+        "fontWeight": "var(--type-heading-lg-weight)"
+      }
+    ],
+    "heading-md": [
+      "var(--type-heading-md-size)",
+      {
+        "lineHeight": "var(--type-heading-md-line-height)",
+        "letterSpacing": "var(--type-heading-md-tracking)",
+        "fontWeight": "var(--type-heading-md-weight)"
+      }
+    ],
+    "heading-sm": [
+      "var(--type-heading-sm-size)",
+      {
+        "lineHeight": "var(--type-heading-sm-line-height)",
+        "letterSpacing": "var(--type-heading-sm-tracking)",
+        "fontWeight": "var(--type-heading-sm-weight)"
+      }
+    ],
+    "body-lg": [
+      "var(--type-body-lg-size)",
+      {
+        "lineHeight": "var(--type-body-lg-line-height)",
+        "letterSpacing": "var(--type-body-lg-tracking)",
+        "fontWeight": "var(--type-body-lg-weight)"
+      }
+    ],
+    "body": [
+      "var(--type-body-size)",
+      {
+        "lineHeight": "var(--type-body-line-height)",
+        "letterSpacing": "var(--type-body-tracking)",
+        "fontWeight": "var(--type-body-weight)"
+      }
+    ],
+    "body-sm": [
+      "var(--type-body-sm-size)",
+      {
+        "lineHeight": "var(--type-body-sm-line-height)",
+        "letterSpacing": "var(--type-body-sm-tracking)",
+        "fontWeight": "var(--type-body-sm-weight)"
+      }
+    ],
+    "label": [
+      "var(--type-label-size)",
+      {
+        "lineHeight": "var(--type-label-line-height)",
+        "letterSpacing": "var(--type-label-tracking)",
+        "fontWeight": "var(--type-label-weight)"
+      }
+    ],
+    "caption": [
+      "var(--type-caption-size)",
+      {
+        "lineHeight": "var(--type-caption-line-height)",
+        "letterSpacing": "var(--type-caption-tracking)",
+        "fontWeight": "var(--type-caption-weight)"
+      }
+    ],
+    "code": [
+      "var(--type-code-size)",
+      {
+        "lineHeight": "var(--type-code-line-height)",
+        "letterSpacing": "var(--type-code-tracking)",
+        "fontWeight": "var(--type-code-weight)"
+      }
+    ]
+  },
+  "borderRadius": {
+    "radius-none": "var(--radius-none)",
+    "radius-sm": "var(--radius-sm)",
+    "radius-md": "var(--radius-md)",
+    "radius-lg": "var(--radius-lg)",
+    "radius-xl": "var(--radius-xl)",
+    "radius-full": "var(--radius-full)"
+  },
+  "boxShadow": {
+    "control": "var(--shadow-control)",
+    "raised": "var(--shadow-raised)",
+    "featured": "var(--shadow-featured)",
+    "overlay": "var(--shadow-overlay)"
+  },
+  "spacing": {
+    "control-height": "var(--layout-control-height)",
+    "control-height-sm": "var(--layout-control-height-sm)",
+    "panel-padding": "var(--layout-panel-padding)",
+    "gap": "var(--layout-gap)",
+    "section-gap": "var(--layout-section-gap)",
+    "gutter": "var(--layout-gutter)",
+    "reading-width": "var(--layout-reading-width)",
+    "container": "var(--layout-container)"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "radius": {
+    "none": {
+      "$type": "dimension",
+      "$value": "0px",
+      "$description": "Edges that meet other edges."
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "6px",
+      "$description": "Checkboxes, tags, items inside menus."
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "8px",
+      "$description": "Buttons, fields, the control radius."
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "12px",
+      "$description": "Panels, cards, code blocks."
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$description": "The featured item and floating layers."
+    },
+    "full": {
+      "$type": "dimension",
+      "$value": "9999px",
+      "$description": "Chips, badges, avatars."
+    }
+  },
+  "shadow": {
+    "control": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px",
+          "color": "rgba(14, 16, 20, 0.06)"
+        }
+      ],
+      "$description": "Filled buttons."
+    },
+    "raised": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0px",
+          "spread": "0px",
+          "color": "rgba(14, 16, 20, 0)"
+        }
+      ],
+      "$description": "Panels: none, they separate by tone."
+    },
+    "featured": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "2px",
+          "spread": "0px",
+          "color": "rgba(14, 16, 20, 0.04)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "6px",
+          "blur": "16px",
+          "spread": "-4px",
+          "color": "rgba(14, 16, 20, 0.08)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "24px",
+          "blur": "48px",
+          "spread": "-12px",
+          "color": "rgba(14, 16, 20, 0.12)"
+        }
+      ],
+      "$description": "The featured item."
+    },
+    "overlay": {
+      "$type": "shadow",
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "0px",
+          "blur": "0px",
+          "spread": "1px",
+          "color": "rgba(14, 16, 20, 0.06)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "8px",
+          "spread": "-2px",
+          "color": "rgba(14, 16, 20, 0.08)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "16px",
+          "blur": "32px",
+          "spread": "-8px",
+          "color": "rgba(14, 16, 20, 0.16)"
+        }
+      ],
+      "$description": "Menus, popovers, dialogs, toasts."
+    }
+  }
+}

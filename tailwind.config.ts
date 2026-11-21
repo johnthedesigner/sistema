@@ -16,6 +16,8 @@ for (const [name, data] of Object.entries(_lib)) {
   )
 }
 
+import tokenTheme from './src/styles/tokens/tailwind-theme.json'
+
 const config: Config = {
   content: [
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
@@ -27,50 +29,17 @@ const config: Config = {
         // Pre-generated OKLCH palette — bg-base-blue-200, text-base-purple-650, etc.
         ...baseColors,
 
-        // Canvas (page background)
-        canvas:           'var(--color-canvas)',
+        // Roles from tokens/src, compiled by `npm run tokens`.
+        ...tokenTheme.colors,
 
-        // Surfaces
-        surface:          'var(--color-surface)',
-        'surface-raised': 'var(--color-surface-raised)',
-        'surface-overlay':'var(--color-surface-overlay)',
-        'surface-sunken': 'var(--color-surface-sunken)',
-
-        // Text on surfaces
-        'on-surface':        'var(--color-on-surface)',
-        'on-surface-muted':  'var(--color-on-surface-muted)',
-        'on-surface-subtle': 'var(--color-on-surface-subtle)',
-
-        // Borders
-        border:           'var(--color-border)',
-        'border-strong':  'var(--color-border-strong)',
-        'border-focus':   'var(--color-border-focus)',
-
-        // Brand
-        'brand-yellow':    'var(--color-brand-yellow)',
-        'brand-yellow-50': 'var(--color-brand-yellow-50)',
-        'brand-red':       'var(--color-brand-red)',
-        'brand-blue-50':   'var(--color-brand-blue-50)',
-
-        // Primary
-        primary:              'var(--color-primary)',
-        'on-primary':         'var(--color-on-primary)',
-        'primary-container':  'var(--color-primary-container)',
-        'on-primary-container':'var(--color-on-primary-container)',
-
-        // Secondary
-        secondary:              'var(--color-secondary)',
-        'on-secondary':         'var(--color-on-secondary)',
-        'secondary-container':  'var(--color-secondary-container)',
-        'on-secondary-container':'var(--color-on-secondary-container)',
-
-        // Semantic states
-        error:      'var(--color-error)',
-        'on-error': 'var(--color-on-error)',
-        success:    'var(--color-success)',
-        'on-success':'var(--color-on-success)',
-        warning:    'var(--color-warning)',
-        'on-warning':'var(--color-on-warning)',
+        // Legacy class names the current pages use. The site restructure moves pages to
+        // the roles (bg-surface is the page, bg-surface-raised a panel) and removes these.
+        canvas:              'var(--color-surface)',
+        surface:             'var(--color-surface-raised)',
+        'surface-sunken':    'var(--color-surface-subtle)',
+        'on-surface-subtle': 'var(--color-on-surface-faint)',
+        'brand-yellow-50':   'var(--color-brand-yellow-subtle)',
+        'brand-blue-50':     'var(--color-primary-container)',
       },
 
       fontFamily: {
@@ -81,19 +50,10 @@ const config: Config = {
         mono:  ['var(--font-mono)'],
       },
 
-      borderRadius: {
-        'radius-none': 'var(--radius-none)',
-        'radius-sm':   'var(--radius-sm)',
-        'radius-md':   'var(--radius-md)',
-        'radius-lg':   'var(--radius-lg)',
-        'radius-xl':   'var(--radius-xl)',
-        'radius-full': 'var(--radius-full)',
-      },
-
-      boxShadow: {
-        sm: 'var(--shadow-sm)',
-        md: 'var(--shadow-md)',
-      },
+      fontSize: tokenTheme.fontSize as unknown as Record<string, [string, Record<string, string>]>,
+      borderRadius: tokenTheme.borderRadius,
+      boxShadow: { ...tokenTheme.boxShadow, sm: 'var(--shadow-sm)', md: 'var(--shadow-md)' },
+      spacing: tokenTheme.spacing,
     },
   },
   plugins: [require('@tailwindcss/typography')],

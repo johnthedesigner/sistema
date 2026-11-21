@@ -32,6 +32,31 @@
       "status": "complete",
       "date": "2026-11-21",
       "evidence": "VOICE_AND_TONE.md already exists and covers voice, tone by situation, and mechanics; kept."
+    },
+    "color.scheme": {
+      "status": "complete",
+      "date": "2026-11-21",
+      "evidence": "Ramps from the palette tool (accent #0070FF, grays #6D727A) and library feedback ramps; 50 roles light and dark; 110 pairs checked with purposes, all passing WCAG 2.2 AA; border-strong moved 450 to 500 for edges on selected fills; logo colors kept exactly as brand roles."
+    },
+    "typography.scale": {
+      "status": "complete",
+      "date": "2026-11-21",
+      "evidence": "Type scale tool: base 16px, major third. 11 roles; caption hand-tuned 10 to 12px. Inter, Fraunces for headings, JetBrains Mono for code."
+    },
+    "shape.tokens": {
+      "status": "complete",
+      "date": "2026-11-21",
+      "evidence": "Radius none, 6, 8 (controls), 12 (panels), 16 (featured and floating), full. Shadows by role; panels flat (tone separation); stronger dark shadows."
+    },
+    "spacing.tokens": {
+      "status": "complete",
+      "date": "2026-11-21",
+      "evidence": "4px scale; control height 36px, small 28px; panel padding 24px; gap 16px; section gap 64px; reading width 680px; container 1180px."
+    },
+    "tokens.pipeline": {
+      "status": "in-progress",
+      "date": "2026-11-21",
+      "evidence": "Style Dictionary over tokens/src (DTCG): generated.css with dark under [data-theme] and the system setting; Tailwind theme JSON; DESIGN.md front matter; token-check.html. Legacy class names aliased until the restructure. Build passes."
     }
   },
   "gates": {
