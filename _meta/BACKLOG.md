@@ -105,6 +105,14 @@ Excluded unless the owner decides otherwise: paid books and courses (Refactoring
 
   *Owner suggestion, Relay direction review, 2026-11-20.*
 
+- **Fixes from the first one-question-at-a-time preview** (Sistema's own direction, 2026-11-21). The owner's notes:
+  - **The first step isn't clear.** The intro page's most prominent element is "Copy answers", before anything is chosen, so it looks finished or broken. Lead with a clear "Start with question 1" and next and previous buttons between questions; keep "Copy answers" quiet until the questions have been visited.
+  - **Thumbnails are too small to see differences.** Show options large: one at a time with a quick flip between them, or a crop of the part of the page the question changes.
+  - **Later tabs don't follow the choices.** "All together", "Type", and "Color" show only the proposals. They should re-render from the selected options (render URLs built in the page, the chosen typefaces loaded, ramps for the chosen grays).
+  - **The workflow callout is unclear and breaks the header** when expanded. Replace it with a plain progress line, or drop it from this page.
+
+  Apply these in the shared review page template (V3.7).
+
 ## Test coverage
 
 - **Zero test coverage — full audit and baseline needed** — The codebase has no test files of any kind. The only runtime validation is TypeScript's type checker. Areas that warrant coverage: palette generation algorithm (`src/lib/palette.ts` — contrast-targeting math, gamut handling, stop selection); KB and playbook parsing (`src/lib/kb.ts`, `src/lib/playbooks.ts` — markdown parsing, slug extraction, variable detection); API routes (`/api/palette`, `/api/context` — request validation, error handling); sitemap and robots generation; and client-side prompt resolution (`resolveBody`, `extractVariables`, `emptyFallback` in `PlayDetail.tsx` — variable substitution, empty-field fallback text). Suggested stack: Vitest for unit/integration, Playwright for critical UI paths (copy prompt, examples modal, color mode selector persistence). *Identified 2026-05-17.* **In progress 2026-11-14:** v2 Task V0.2 adds the test runner and content checks. V2 adds tool tests.

@@ -15,6 +15,7 @@ Inferred, not asked: the accessibility standard (WCAG 2.2 AA, from the first log
 2026-11-21 | Small-text links | The color step sets a link color that passes contrast at small sizes (owner).
 2026-11-21 | Reduced motion | Supported, as the accessibility rule requires (owner).
 2026-11-21 | Direction scope | The logo colors stay, and blue #0070FF stays the interface accent; the direction asks the other questions (owner).
+2026-11-21 | Direction answers | Brand color, grays tinted toward blue (proposed warm), 8px with round chips, tone separation, Inter with Fraunces headings (owner).
 2026-11-21 | Moved from LIVING_BRIEF.md | The brief's content now lives in DESIGN.md, DECISIONS.md, and sistema.json. Four conflicts were listed for the owner.
 2026-05-14 | Positioning brief (from LIVING_BRIEF.md) | Brand palette locked: blue #0070FF, yellow #FFCC33, red #E60026; light primary, dark on the system setting; WCAG 2.2 AA; Next.js and Tailwind.
 2026-05-14 | First DESIGN.md (from LIVING_BRIEF.md) | Inter and JetBrains Mono; 4px spacing base; radii 4, 8, 12, full; #0070FF fails small text on white, so body links need a darker blue; red never for errors.

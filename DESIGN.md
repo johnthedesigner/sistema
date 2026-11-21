@@ -215,15 +215,15 @@ Sistema's site explains a method for building design systems with an AI agent, f
 - The brand is recognizable without competing with the content.
 - It works as well in dark as in light.
 
-**Direction values** (proposed, waiting for approval):
+**Direction values** (the owner's answers, waiting for approval):
 - How much color: brand.
 - Accent seed: #0070FF (fixed, the brand blue). Brand marks: yellow #FFCC33 and red #E60026, for the logo and brand moments only.
-- Grays: warm, seed #787069.
+- Grays: tinted toward the blue, seed #6D727A (proposed: warm).
 - Control radius 8px; chips fully round.
 - Panels separate by tone.
 - Typefaces: Inter for text and interface; Fraunces for headings.
 - Density: comfortable. Theme: light first, with dark.
-- Rendering: https://sistema-git-v2-jtd-604ef502.vercel.app/api/specimen?accent=%230070FF&neutral=warm&presence=brand&radius=8&chips=pill&separation=tone&density=comfortable&font=Inter&display_font=Fraunces&theme=light&layout=article&format=html
+- Rendering: https://sistema-git-v2-jtd-604ef502.vercel.app/api/specimen?accent=%230070FF&neutral=tinted&presence=brand&radius=8&chips=pill&separation=tone&density=comfortable&font=Inter&display_font=Fraunces&theme=light&layout=article&format=html
 - Role stops: surface gray 50; surface-raised white; surface-hover gray 100; surface-selected gray 150; surface-inverse gray 850; surface-brand blue 600; on-surface gray 850; on-surface-muted gray 600; border gray 200; border-strong gray 450; border-focus blue 500; primary blue 550; primary-hover blue 650; primary-container blue 150; link blue 600.
 
 **What stands out:**
