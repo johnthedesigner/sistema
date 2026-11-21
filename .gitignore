@@ -8,3 +8,6 @@ playwright-report/
 *.log
 raw-scrape/
 .next/
+
+# Check builds (npm run build:check), kept apart from the dev server
+.next-check/

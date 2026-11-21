@@ -7,6 +7,7 @@
     "dev:tunnel": "node tools/dev-tunnel.mjs",
     "prebuild": "npm run -s check:content -- --strict-all",
     "build": "next build",
+    "build:check": "NEXT_DIST_DIR=.next-check npm run build && git checkout -q -- next-env.d.ts",
     "postbuild": "npm run -s check:content -- --output-only --strict",
     "start": "next start",
     "lint": "eslint .",

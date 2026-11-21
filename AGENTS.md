@@ -64,7 +64,7 @@ Sistema-authored content is not versioned (decision D4). Edit files in place and
 
 7. The app reads content at build time through `loadCatalog()` (`src/lib/content/load.ts`). There's no runtime filesystem access.
 8. `{{sistema_url}}` is resolved once, on the server, by `resolveSistemaUrl` (`src/lib/placeholders.ts`), called from the loaders. Pages and `/raw` output never contain it, and client components must not resolve it again. The origin comes from `resolveSiteUrl` (`src/lib/site-url.ts`): explicit `NEXT_PUBLIC_SITE_URL`, then the Vercel preview URL, then `https://sistema.johnthedesigner.com`.
-9. `npm run build` must pass before any task is complete. It runs the content check with every rule blocking (prebuild) and the output checks (postbuild).
+9. `npm run build` must pass before any task is complete. It runs the content check with every rule blocking (prebuild) and the output checks (postbuild). While a dev server is running, use `npm run build:check` instead: it builds into `.next-check`, so it doesn't break the dev server's `.next`.
 
 ## Bringing in a new source (mandatory process)
 

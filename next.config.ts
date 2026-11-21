@@ -3,6 +3,9 @@ import type { NextConfig } from 'next'
 import { resolveSiteUrl } from './src/lib/site-url'
 
 const nextConfig: NextConfig = {
+  // `npm run build:check` builds into .next-check, so a check build never
+  // overwrites the files a running `next dev` serves from .next.
+  distDir: process.env.NEXT_DIST_DIR || '.next',
   // One origin per build, inlined for server and client alike. Prompt text is
   // resolved against it on the server (src/lib/placeholders.ts).
   env: {
