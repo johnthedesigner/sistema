@@ -5,13 +5,23 @@
 **Phase:** v2 Phase 3 (Reference project, guides, and site). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-3.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
 **Last completed task:** V3.4 — Aesthetic baseline, emphasis, and the specimen tool (with V3.3: Relay through Patterns, components approved)
-**Next task:** V3.5 — Guide rewrites. Before it, consider a short fix pass on the open reference-run findings (#40–#47, #49–#50, #52, #55–#77), especially redoing an approved step (#49, #55) and the specimen tool batch (#57, #67).
+**Next task:** V3.5 — Guide rewrites (finding #27 moves there). The reference-run fix pass is done; only #27 and #60 (backlog) remain open. Relay's page examples and system reference are running.
 **Blockers:** none. Open item: PostHog key missing from the Vercel Preview environment (owner, later; needed before V3.7)
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
 ---
 
 ## Session log
+
+### 2026-11-20 — V3.4 fix pass on the reference-run findings
+
+**What was done:**
+- Contrast tool: per-pair `purpose` (one check, or informational).
+- Color: `surface-hover`, `surface-selected`, and button hovers required; `color.states.visible`; the color guide's "Pairs to check"; white in `palette.base`; the white ban scoped to the page; the dark table names roles; the token check page shows colors in use.
+- Components play: `cn` import, non-interactive `shadcn add`, axe timing, documented exceptions, pair checks with states.
+- Specimen tool: content checked against the layout, `content_fields`, `token_roles`, `neutral=tinted`, floating layers as round as featured, `c` kept in render URLs.
+- Workflows: `project.revise` and the session route "Change an approved direction or foundation"; gates can be `withdrawn`; workflows stay open while optional plays are offered, and the offer asks the play's first question; resume detection fixed; per-item `/raw/opinions/<id>` and `/raw/rules/<id>`.
+- Findings now open: #27 (V3.5) and #60 (backlog).
 
 ### 2026-11-20 — V3.4: Relay re-run approved; D27 to D30
 
