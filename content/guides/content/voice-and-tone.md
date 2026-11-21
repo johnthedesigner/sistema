@@ -20,7 +20,7 @@ Read this before establishing a voice guide for a design system. Reference the t
 
 ---
 
-## 1 — Voice vs. tone
+## 1 Voice vs. tone
 
 **Voice** is the consistent character behind all your writing. Brand-constant — it does not change based on context or channel.
 
@@ -30,11 +30,11 @@ Every production system surveyed — Mailchimp, Polaris, Carbon, Atlassian — m
 
 ---
 
-## 2 — Sistema's voice baseline
+## 2 Sistema's voice baseline
 
 Sistema's baseline has four traits. The first two, plainspoken and genuine, are Mailchimp's own names for two of its voice traits ([Mailchimp Content Style Guide](https://styleguide.mailchimp.com/voice-and-tone/), CC BY-NC 4.0); the same qualities appear, in other words, in Polaris, Carbon, and Atlassian. The last two, helpful and direct, are Sistema's summary of what all four guides ask for. These are the minimum: a product's voice meets them before any brand-specific traits are added.
 
-### 2.1 — Plainspoken
+### 2.1 Plainspoken
 
 Mailchimp describes this trait as stripping away jargon and filler so clarity comes first. Carbon puts it this way: "Use everyday language, not jargon. And choose short words to make the reading faster, rather than long, impressive-sounding words."
 
@@ -42,19 +42,19 @@ This means: write at the level of the reader, not the level of your expertise. D
 
 **What it is NOT:** condescension. Plainspoken means trusting the reader with information. It means removing friction, not removing content.
 
-### 2.2 — Genuine
+### 2.2 Genuine
 
 Mailchimp grounds this trait in understanding its customers from experience, rather than claiming it. Polaris: prioritize human-sounding language, read copy aloud to check. Carbon: "Keep the tone friendly, human, and inviting."
 
 Genuine means writing what you mean. No hollow affirmations. No excessive apology. No corporate hedging. Users distinguish between a system trying to help them and one performing helpfulness.
 
-### 2.3 — Helpful, not entertaining
+### 2.3 Helpful, not entertaining
 
 Mailchimp ranks being clear above being entertaining. Polaris: lean content — "find the shortest, clearest way to give merchants only the info they need." Atlassian: "Satisfy by meeting expectations — deliver practical answers without unnecessary flourish."
 
 Humor and personality are welcome when the moment is light. They are wrong when the user is confused, frustrated, or has just lost something. Clarity comes first; personality second.
 
-### 2.4 — Direct
+### 2.4 Direct
 
 Polaris: "Start sentences with verbs so they feel like actionable instructions." Carbon: "Be succinct, and keep sentences as short and simple as possible." Atlassian: "Practical with a wink — getting to the point and being direct and concise."
 
@@ -62,7 +62,7 @@ Say the thing. Cut the preamble. Verb-first. No announcements before information
 
 ---
 
-## 3 — Brand-specific voice traits
+## 3 Brand-specific voice traits
 
 These traits differentiate one product's voice from the cross-system baseline. They are additive — they layer on top of the baseline, not replace it.
 
@@ -78,7 +78,7 @@ The lesson from surveying these systems: brand-specific traits are 1–3 additio
 
 ---
 
-## 4 — Tone adjustment by context
+## 4 Tone adjustment by context
 
 All four sources agree on the fundamental tone adjustment principle: the same voice expresses differently depending on what the user is experiencing.
 
@@ -96,7 +96,7 @@ All four sources agree on the fundamental tone adjustment principle: the same vo
 
 ---
 
-## 5 — The human test
+## 5 The human test
 
 Read the copy aloud. Does it sound like something a real person at this company would say to a real user?
 
@@ -106,7 +106,7 @@ If yes: ship it. If not: rewrite it.
 
 ---
 
-## 6 — When establishing a voice guide
+## 6 When establishing a voice guide
 
 1. Start from the baseline (section 2). Every principle here applies.
 2. Identify 1–3 brand-specific traits that differentiate this voice from the generic baseline. Name them precisely.

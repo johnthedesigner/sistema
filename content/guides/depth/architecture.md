@@ -17,7 +17,7 @@ last_reviewed: 2026-05-13
 
 ## Overview
 
-Depth and elevation communicate the vertical structure of a UI — which layers are above others, which surfaces are interactive, and how far apart layers are in the Z-axis. Two fundamentally different models exist. The choice between them (or a hybrid) depends on your product's visual language and the complexity of its surface vocabulary.
+Depth shows what sits above what: panels on the page, menus above panels, dialogs above everything. There are two ways to show it, shadow and tone, and most products with light and dark themes combine them.
 
 ---
 

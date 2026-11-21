@@ -21,7 +21,7 @@ Reference this document when writing or auditing copy for any specific UI contex
 
 ---
 
-## 1 — Buttons and primary actions
+## 1 Buttons and primary actions
 
 ### The rule: verb + noun
 
@@ -53,7 +53,7 @@ Carbon: "Determining whether something is important or special is highly subject
 
 ---
 
-## 2 — Navigation labels
+## 2 Navigation labels
 
 Navigation labels are destinations (nouns), not actions (verbs). Polaris makes this explicit: use nouns for destinations, verbs for buttons.
 
@@ -67,7 +67,7 @@ Keep to 1–2 words. Atlassian: "Minimize question marks. Use action verbs [only
 
 ---
 
-## 3 — Form labels and helper text
+## 3 Form labels and helper text
 
 ### Labels
 
@@ -94,7 +94,7 @@ Format examples only. Never put critical information in a placeholder — it dis
 
 ---
 
-## 4 — Error messages
+## 4 Error messages
 
 ### Requirements (across all four sources)
 
@@ -130,7 +130,7 @@ Calm, direct, no cheerfulness. Mailchimp and Atlassian both prohibit exclamation
 
 ---
 
-## 5 — Empty states
+## 5 Empty states
 
 An empty state should tell the user three things, in order:
 1. What will appear here
@@ -148,7 +148,7 @@ Avoid: "Nothing here yet" with no guidance. "No data available" (meaningless).
 
 ---
 
-## 6 — Confirmation dialogs
+## 6 Confirmation dialogs
 
 Confirmation dialogs appear before consequential actions. They must communicate:
 1. What will happen
@@ -170,7 +170,7 @@ Polaris on destructive action warnings: describe the consequence, not just the q
 
 ---
 
-## 7 — Terms of politeness
+## 7 Terms of politeness
 
 Carbon specifically addresses this: "avoid 'please' and 'thank you' in a UI — they can be inappropriate or offensive in some cultural contexts." Use these terms only when the user is being genuinely inconvenienced, not as default filler.
 
@@ -180,7 +180,7 @@ Carbon specifically addresses this: "avoid 'please' and 'thank you' in a UI — 
 
 ---
 
-## 8 — Progressive disclosure
+## 8 Progressive disclosure
 
 Show only what the user needs at the current step. Polaris: "Focus on the one thing merchants need to know or do next. Break multi-part tasks into digestible steps."
 

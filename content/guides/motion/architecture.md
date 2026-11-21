@@ -12,7 +12,7 @@ last_reviewed: 2026-05-13
 
 ## Overview
 
-Motion in a design system is infrastructure, not decoration. A motion system defines the easing curves and duration ranges that all animations reference — ensuring that transitions across the product feel consistent and intentional rather than each component doing its own thing. When done well, motion is nearly invisible: users experience the UI as responsive and alive without noticing the animations themselves.
+A motion system defines the durations and easing curves every animation uses, so transitions feel consistent. Done well, people notice the interface responding, not the animation.
 
 ---
 

@@ -19,7 +19,7 @@ This document specifies what `sistema-review/style-preview.html` contains and ho
 
 ---
 
-## 1 — What style-preview.html is
+## 1 What style-preview.html is
 
 One HTML file that shows the visual direction in a form a person can judge by looking: the taste questions with their options rendered on the product's own content, the chosen options together as a composition, the color ramps, the type, and the "What stands out" list. It is a decision page, not a prototype of a screen and not a component library.
 
@@ -29,7 +29,7 @@ Every rendering of components on the page comes from the specimen tool, so every
 
 ---
 
-## 2 — Required sections
+## 2 Required sections
 
 The page contains these seven sections in this order.
 
@@ -77,7 +77,7 @@ Per kind of screen the product has, which content plays which role: featured, su
 
 ---
 
-## 3 — Technical requirements
+## 3 Technical requirements
 
 - **One file.** All styles in a `<style>` block. External resources: one font stylesheet for the chosen typefaces, and the specimen tool's renderings, embedded as iframes of its `render` URLs (or saved alongside and embedded from there). If a typeface can't be loaded, the page says which font is shown instead.
 - **Opens from the file system.** No build step and no server of its own.
@@ -87,7 +87,7 @@ Per kind of screen the product has, which content plays which role: featured, su
 
 ---
 
-## 4 — What the review means
+## 4 What the review means
 
 Approving `style-preview.html` confirms the direction: the answer to each taste question, the composition, and the "What stands out" list. The foundation plays (color, type, shape and elevation, spacing) build from it, not from the brief directly.
 

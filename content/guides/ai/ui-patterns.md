@@ -16,7 +16,7 @@ This document covers UI patterns specific to products that incorporate AI-genera
 
 ---
 
-## 1 — Chat and conversation interfaces
+## 1 Chat and conversation interfaces
 
 ### 1.1 Visual differentiation of message sources
 
@@ -62,7 +62,7 @@ Non-negotiables:
 
 ---
 
-## 2 — Streaming and generative states
+## 2 Streaming and generative states
 
 ### 2.1 The typing / generation indicator
 
@@ -109,7 +109,7 @@ Optional but recommended: briefly fade in the action affordances (copy, feedback
 
 ---
 
-## 3 — Confidence and uncertainty signals
+## 3 Confidence and uncertainty signals
 
 ### 3.1 When to signal uncertainty
 
@@ -154,7 +154,7 @@ Do not rely on color alone to make this distinction.
 
 ---
 
-## 4 — Prompt and input UX
+## 4 Prompt and input UX
 
 ### 4.1 The input area
 
@@ -190,7 +190,7 @@ For products where context management matters (file attachments, selected text, 
 
 ---
 
-## 5 — Error states
+## 5 Error states
 
 ### 5.1 Error taxonomy
 
@@ -218,7 +218,7 @@ Retry behavior:
 
 ---
 
-## 6 — Feedback mechanisms
+## 6 Feedback mechanisms
 
 ### 6.1 Per-response feedback
 

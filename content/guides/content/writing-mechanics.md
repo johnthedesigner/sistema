@@ -19,7 +19,7 @@ Writing mechanics are the decisions that create surface-level consistency across
 
 ---
 
-## 1 — Capitalization
+## 1 Capitalization
 
 ### Sentence case everywhere in UI
 
@@ -49,7 +49,7 @@ Carbon: "All caps has been shown to be slower to read as individual letter shape
 
 ---
 
-## 2 — Punctuation
+## 2 Punctuation
 
 ### Periods
 
@@ -100,7 +100,7 @@ Do not use "--" as an em dash substitute.
 
 ---
 
-## 3 — Numbers
+## 3 Numbers
 
 All four sources default to numerals over spelled-out numbers in UI copy.
 
@@ -112,7 +112,7 @@ All four sources default to numerals over spelled-out numbers in UI copy.
 
 ---
 
-## 4 — Grammar conventions
+## 4 Grammar conventions
 
 ### Active voice
 
@@ -144,7 +144,7 @@ These words invalidate users who find the task difficult. They add no informatio
 
 ---
 
-## 5 — Inclusive language and accessibility
+## 5 Inclusive language and accessibility
 
 ### Directional language
 
@@ -173,7 +173,7 @@ Use "they/them/their" for unknown or unspecified gender (Mailchimp, Atlassian, C
 
 ---
 
-## 6 — The lean content rule
+## 6 The lean content rule
 
 Every word must justify its place. Before publishing any UI copy:
 

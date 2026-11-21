@@ -19,7 +19,7 @@ Sections marked as guidance are recommendations with their context, not requirem
 
 ---
 
-## 1 — Color contrast
+## 1 Color contrast
 
 ### 1.1 Text contrast (WCAG 1.4.3 — AA)
 
@@ -69,7 +69,7 @@ The WCAG formula overstates perceived contrast for near-dark color pairs. A toke
 
 ---
 
-## 2 — Keyboard navigation
+## 2 Keyboard navigation
 
 ### 2.1 All interactive elements must be keyboard-reachable (WCAG 2.1.1 — A)
 
@@ -108,7 +108,7 @@ Note: trapping focus *within* a modal dialog is correct and required behavior. W
 
 ---
 
-## 3 — Focus visibility
+## 3 Focus visibility
 
 ### 3.1 Focus indicator must be visible (WCAG 2.4.7 — AA)
 
@@ -157,7 +157,7 @@ html {
 
 ---
 
-## 4 — Touch and pointer targets
+## 4 Touch and pointer targets
 
 ### 4.1 Interactive targets must be at minimum 24×24 CSS px (WCAG 2.5.8 — AA)
 
@@ -185,7 +185,7 @@ Use padding to expand the interactive area without changing visual size. For exa
 
 ---
 
-## 5 — Semantic structure and ARIA
+## 5 Semantic structure and ARIA
 
 ### 5.1 Semantic HTML first (WCAG 4.1.2 — A)
 
@@ -244,7 +244,7 @@ Required state attributes:
 
 ---
 
-## 6 — Motion
+## 6 Motion
 
 ### 6.1 Respect `prefers-reduced-motion` (non-negotiable)
 
@@ -266,7 +266,7 @@ See the Motion architecture guide for the full motion system specification.
 
 ---
 
-## 7 — Text readability
+## 7 Text readability
 
 ### 7.1 Body text size (guidance, not WCAG)
 

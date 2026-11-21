@@ -20,7 +20,7 @@ Use this document when making structural decisions about token architecture, fil
 
 ---
 
-## 1 — Token naming for LLM comprehension
+## 1 Token naming for LLM comprehension
 
 ### 1.1 Semantic names over abbreviations
 
@@ -88,7 +88,7 @@ Gaps in token coverage are gaps in LLM control.
 
 ---
 
-## 2 — File structure for context window efficiency
+## 2 File structure for context window efficiency
 
 ### 2.1 Each file must be independently useful
 
@@ -120,7 +120,7 @@ Structure files as: constraint or decision first → rationale → detail → ex
 
 ---
 
-## 3 — DESIGN.md as the primary AI brief
+## 3 DESIGN.md as the primary AI brief
 
 ### 3.1 What DESIGN.md is for
 
@@ -181,7 +181,7 @@ Do not update DESIGN.md for:
 
 ---
 
-## 4 — Keeping project state where agents find it
+## 4 Keeping project state where agents find it
 
 An agent starting a new session needs to know what's decided, what's done, and what's open, without being told. Sistema keeps this in three files and one pointer:
 
@@ -196,7 +196,7 @@ Keep each one short enough to read at the start of a session. Write decisions as
 
 ---
 
-## 5 — Structuring component documentation for LLM consumption
+## 5 Structuring component documentation for LLM consumption
 
 ### 5.1 Per-component document structure
 

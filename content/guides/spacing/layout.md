@@ -16,13 +16,13 @@ last_reviewed: 2026-05-13
 
 ## Overview
 
-A spacing system is a scale with a shared base unit that components and layouts consume to maintain proportional relationships across the UI. Its value is not any particular set of values — it is the discipline of enforcing a single coordinate system so that spacing decisions don't require per-element negotiation.
+A spacing system is one scale, built on one base unit, that every component and layout uses. Its value is the consistency, not any particular numbers.
 
 ---
 
 ## Base unit: 4px vs. 8px
 
-Most production design systems use either 4px or 8px as the base grid unit. Both are practical. The choice matters less than using one consistently.
+Most systems use a 4px or 8px base. Both work; using one consistently matters more. Sistema defaults to 4px.
 
 **4px base** (Radix, Material, Atlassian): More granular. Enables steps at 4, 8, 12, 16, 20, 24px — the tighter values (4px, 8px, 12px) are useful for component-internal spacing (icon gaps, badge padding, button icon margins) where 8px is often too large. A 4px base generates more usable steps without requiring half-steps or arbitrary values.
 
