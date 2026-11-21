@@ -1,6 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { buildSpecimen, type SpecimenInput } from '@/lib/specimen'
 import { renderSpecimenHtml, type SpecimenContent } from '@/lib/specimen-html'
+import { CONTENT_DEFAULTS, validateContent } from '@/lib/specimen-content'
+import { TOKEN_ROLES } from '@/lib/specimen-roles'
 import { SITE_URL } from '@/lib/site-url'
 import { badRequest, CORS_HEADERS, json, options, readJson, trackToolCall } from '@/lib/tools/http'
 
@@ -16,11 +18,12 @@ import { badRequest, CORS_HEADERS, json, options, readJson, trackToolCall } from
 const EXAMPLE = '/api/specimen?accent=%231E6B5C&neutral=warm&presence=brand&radius=10&separation=tone&density=comfortable&font=Figtree'
 const KEYS = ['accent', 'neutral', 'presence', 'radius', 'chips', 'separation', 'density', 'font', 'display_font', 'theme', 'layout'] as const
 
-function renderUrl(input: Record<string, unknown>, content?: SpecimenContent): string {
+function renderUrl(input: Record<string, unknown>, content?: SpecimenContent, c?: unknown): string {
   const q = new URLSearchParams()
   for (const k of KEYS) if (input[k] !== undefined && input[k] !== '') q.set(k, String(input[k]))
   if (content) q.set('content', JSON.stringify(content))
   q.set('format', 'html')
+  if (typeof c === 'string' && c) q.set('c', c)
   return `${SITE_URL}/api/specimen?${q.toString()}`
 }
 
@@ -29,12 +32,23 @@ function respond(request: Request, raw: SpecimenInput, content: SpecimenContent 
   const status = result.ok ? 200 : 400
   trackToolCall(request, 'specimen', { c, status, format: format ?? 'json', ...raw, content: content ? 'custom' : undefined })
   if (!result.ok) return badRequest(result.error, EXAMPLE)
+  const layout = result.specimen.input.layout
+  if (content) {
+    const err = validateContent(layout, content as Record<string, unknown>)
+    if (err) return badRequest(err, EXAMPLE)
+  }
   if (format === 'html') {
     return new NextResponse(renderSpecimenHtml(result.specimen, content as Record<string, unknown> | undefined), {
       headers: { ...CORS_HEADERS, 'Content-Type': 'text/html; charset=utf-8' },
     })
   }
-  return json({ ...result.specimen, render: renderUrl(result.specimen.input, content) })
+  const roles = Object.fromEntries(
+    Object.entries(TOKEN_ROLES).flatMap(([token, specimenRole]) => {
+      const role = result.specimen.colors[specimenRole]
+      return role ? [[token, { ...role, specimen_role: specimenRole }]] : []
+    }),
+  )
+  return json({ ...result.specimen, token_roles: roles, content_fields: CONTENT_DEFAULTS[layout], render: renderUrl(result.specimen.input, content, c) })
 }
 
 function parseContent(raw: unknown): SpecimenContent | undefined | string {
@@ -61,7 +75,7 @@ export function GET(request: NextRequest) {
     const v = q.get(k)
     if (v !== null) raw[k] = k === 'radius' ? (v === '' ? undefined : Number(v)) : v
   }
-  return respond(request, raw as SpecimenInput, content, q.get('format') ?? undefined)
+  return respond(request, raw as SpecimenInput, content, q.get('format') ?? undefined, q.get('c') ?? undefined)
 }
 
 export async function POST(request: NextRequest) {
@@ -72,7 +86,7 @@ export async function POST(request: NextRequest) {
   const b = body as Record<string, unknown>
   const content = parseContent(b.content)
   if (typeof content === 'string') return badRequest(content, EXAMPLE)
-  return respond(request, b as SpecimenInput, content, b.format, b.c)
+  return respond(request, b as SpecimenInput, content, b.format ?? request.nextUrl.searchParams.get('format') ?? undefined, b.c ?? request.nextUrl.searchParams.get('c') ?? undefined)
 }
 
 export const OPTIONS = options

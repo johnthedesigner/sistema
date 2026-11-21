@@ -624,3 +624,12 @@ export const LAYOUT_RENDERERS: Record<string, Render> = {
   article: renderArticle,
   shop: renderShop,
 }
+
+/** Placeholder content per layout: the fields `content` may replace. */
+export const LAYOUT_CONTENT: Record<string, Record<string, unknown>> = {
+  dashboard: DASHBOARD,
+  record: RECORD,
+  marketing: MARKETING,
+  article: ARTICLE,
+  shop: SHOP,
+}

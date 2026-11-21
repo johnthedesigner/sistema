@@ -23,7 +23,7 @@ evidence: A contrast table with one row per on-* pairing and the border-focus pa
 overrides: [color_direction, color_mode]
 last_reviewed: 2026-11-20
 ---
-1. From the DESIGN.md Overview "Direction values", take the color presence, the commitment level, the seeds, and the ramp stops the approved composition used for each role, and read the emphasis map. From `sistema.json`, take the theme and the accessibility standard. If this play is run on its own, use `color_direction` and `color_mode` when given.
+1. From the DESIGN.md Overview "Direction values", take the color presence, the commitment level, the seeds, and the ramp stops the approved composition used for each role (the specimen response's `token_roles`, which names them as the roles below), and read the emphasis map. From `sistema.json`, take the theme and the accessibility standard. If this play is run on its own, use `color_direction` and `color_mode` when given.
 
 2. **Choose the color model** that fits the product, using the decision framework in the color guide. Record the choice and the reason.
 

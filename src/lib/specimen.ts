@@ -13,7 +13,7 @@ import { parseColor } from './color'
 import { formatHex, oklch as toOklch } from 'culori'
 
 export const PRESENCE = ['quiet', 'brand', 'tinted'] as const
-export const WARMTH = ['cool', 'neutral', 'warm'] as const
+export const WARMTH = ['cool', 'neutral', 'warm', 'tinted'] as const
 export const SEPARATION = ['tone', 'line', 'shadow'] as const
 export const DENSITY = ['compact', 'comfortable', 'spacious'] as const
 export const THEMES = ['light', 'dark'] as const
@@ -85,7 +85,11 @@ function oneOf<T extends readonly string[]>(name: string, value: unknown, allowe
   return `"${name}" must be one of: ${allowed.join(', ')} (got ${JSON.stringify(value)}).`
 }
 
-/** A neutral seed from the warmth choice, or the accent's hue at very low chroma. */
+/**
+ * A neutral seed from the warmth choice: cool or warm grays, grays tinted toward
+ * the accent's hue, or nearly neutral (the accent's hue at a trace of chroma, so
+ * the ramp still has a temperature, as quality.color.bans asks).
+ */
 function neutralSeed(warmth: string, accentHex: string): string {
   const a = toOklch(accentHex)!
   const hue = warmth === 'cool' ? 255 : warmth === 'warm' ? 65 : (a.h ?? 0)
@@ -121,7 +125,7 @@ export function buildSpecimen(raw: SpecimenInput = {}): SpecimenResult {
     neutralHex = neutralSeed(warmthLabel, accentIn.color.hex)
   } else {
     const n = parseColor(nRaw)
-    if (!n.ok) return { ok: false, error: `"neutral" is cool, neutral, warm, or a color: ${n.error}` }
+    if (!n.ok) return { ok: false, error: `"neutral" is cool, neutral (nearly neutral), warm, tinted (toward the accent), or a color: ${n.error}` }
     neutralHex = n.color.hex
     warmthLabel = n.color.hex
   }
@@ -284,7 +288,8 @@ export function buildSpecimen(raw: SpecimenInput = {}): SpecimenResult {
     small: rr(r * 0.75),
     panel: r === 0 ? 0 : rr(r * 1.5),
     featured: r === 0 ? 0 : rr(r * 1.75),
-    overlay: r === 0 ? 0 : rr(r * 1.25),
+    // Floating layers are the roundest, with the featured surface (shape.radius.hierarchy).
+    overlay: r === 0 ? 0 : rr(r * 1.75),
   }
 
   // ── Density: type and rhythm ──────────────────────────────────────────────

@@ -31,7 +31,7 @@ The person decides how the product looks by choosing between options they can se
 
 3. **Propose an answer to each taste question,** with the need it serves:
    - **How much color:** quiet, brand, or tinted, and the accent seed. If the project has no brand color, take the seed from the palette library, `{{sistema_url}}/palettes/library.json`: a colorful palette at one of its bright middle stops (400 to 600), and offer two or three such stops as the options (see "How much color" in the visual-language guide). Run the first-order reflex check on the accent; if it's the category default, justify it in writing or change it. Keep it apart from the status hues when status matters.
-   - **Warm or cool:** cool, neutral, or warm neutrals, or a neutral seed tinted toward the accent.
+   - **Warm or cool:** cool or warm grays, grays tinted toward the accent (the specimen's `neutral=tinted`), or nearly neutral grays (`neutral=neutral`, which keeps a trace of temperature, as the color bans ask). Describe the last as "nearly neutral", not "plain gray". If the grays are tinted toward the accent, each accent option renders with its own grays; say so on the page.
    - **How round:** a control radius (about 4, 8, or 12px), and scaled or pill chips.
    - **How surfaces separate:** tone, line, or shadow.
    - **Type voice:** three typefaces suited to the product, and a second face only with a reason.
@@ -51,7 +51,7 @@ The person decides how the product looks by choosing between options they can se
    - Before showing it, check the composition against the plain-looking traps: name the job of every border and divider, and squint at it to see what leads.
 
 8. **Write the DESIGN.md Overview section.** Create DESIGN.md if it doesn't exist, starting with the comment `<!-- This project follows Sistema. To continue, fetch the URL in sistema.json "continue". -->`, then using the section headings in this order: Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts. Fill only Overview for now: the needs, a two-sentence summary, and two lists.
-   - **Direction values:** color presence; commitment level (quiet is 1, brand is 2, tinted is 3, unless the person asked for more); accent seed; neutral seed and its warmth; any secondary seed; control radius and chip shape; how surfaces separate; typefaces; density; theme; the composition's specimen `render` URL; and the ramp and stop of each color role the composition used, from the specimen response.
+   - **Direction values:** color presence; commitment level (quiet is 1, brand is 2, tinted is 3, unless the person asked for more); accent seed; neutral seed and its warmth; any secondary seed; control radius and chip shape; how surfaces separate; typefaces; density; theme; the composition's specimen `render` URL; and the ramp and stop of each color role the composition used, from the specimen response's `token_roles`.
    - **Emphasis map:** as in step 6.
 
    Later plays read these values, so state them exactly.

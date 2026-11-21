@@ -31,15 +31,15 @@ describe('buildSpecimen', () => {
     for (const role of Object.values(r.specimen.colors)) expect(role.from).toMatch(/^(white|(accent|neutral|red|amber|green|blue) \d{2,3})$/)
   })
 
-  it('scales radius by element: chip ≤ control ≤ overlay ≤ panel ≤ featured', () => {
+  it('scales radius by element: chip ≤ control ≤ panel ≤ featured ≤ overlay', () => {
     for (const radius of [0, 3, 8, 12, 20]) {
       const r = buildSpecimen({ radius })
       if (!r.ok) throw new Error(r.error)
       const x = r.specimen.radius
       expect(x.chip).toBeLessThanOrEqual(x.control)
-      expect(x.control).toBeLessThanOrEqual(x.overlay)
-      expect(x.overlay).toBeLessThanOrEqual(x.panel)
+      expect(x.control).toBeLessThanOrEqual(x.panel)
       expect(x.panel).toBeLessThanOrEqual(x.featured)
+      expect(x.featured).toBeLessThanOrEqual(x.overlay)
     }
   })
 
@@ -129,5 +129,27 @@ describe('/api/specimen', () => {
     const bad = await POST(new NextRequest('http://localhost/api/specimen', { method: 'POST', body: JSON.stringify({ density: 'roomy' }) }))
     expect(bad.status).toBe(400)
     expect((await bad.json()).example).toContain('/api/specimen?')
+  })
+})
+
+describe('specimen fix pass', () => {
+  it('keeps floating layers at least as round as panels', async () => {
+    const { buildSpecimen } = await import('./specimen')
+    const r = buildSpecimen({ radius: 8 })
+    if (!r.ok) throw new Error(r.error)
+    expect(r.specimen.radius.overlay).toBeGreaterThanOrEqual(r.specimen.radius.panel)
+  })
+  it('tints the neutral toward the accent', async () => {
+    const { buildSpecimen } = await import('./specimen')
+    const r = buildSpecimen({ accent: '#7B43E6', neutral: 'tinted' })
+    if (!r.ok) throw new Error(r.error)
+    expect(r.specimen.input.neutral).toBe('tinted')
+  })
+  it('rejects content that does not fit the layout', async () => {
+    const { validateContent } = await import('./specimen-content')
+    expect(validateContent('operations', { nav: [{ label: 'Board' }] })).toMatch(/content\.nav\[0\]/)
+    expect(validateContent('operations', { statuses: { Late: 'accent' } })).toMatch(/one of/)
+    expect(validateContent('operations', { navigation: ['x'] })).toMatch(/isn't a field/)
+    expect(validateContent('operations', { nav: ['Board'], statuses: { Late: 'warning' }, table: { rows: [['a', 'b']] } })).toBeNull()
   })
 })
