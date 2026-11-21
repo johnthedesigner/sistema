@@ -18,7 +18,7 @@
   layer: sistema-default
   severity: advisory
   applies_to: tokens/src/typography.json
-  sources: [guide.quality.visual-quality-signals#2-the-ai-slop-test]
+  sources: [guide.quality.visual-quality-signals#reflexes]
 
 - id: typography.fonts.self-hosted
   statement: Typefaces are served by the project (font files in the repo, or downloaded at build time), with only the weights the roles use.

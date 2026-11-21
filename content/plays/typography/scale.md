@@ -16,7 +16,7 @@ knowledge:
   - guide.typography.architecture#choosing-an-approach
   - guide.typography.architecture#two-tiers-whatever-the-names
   - guide.typography.architecture#legibility
-  - guide.quality.visual-quality-signals#2-the-ai-slop-test
+  - guide.quality.visual-quality-signals#reflexes
 rules: [typography.line-height.by-role, typography.line-height.body, typography.roles.distinct, typography.fonts.self-hosted, tokens.source.dtcg, tokens.naming.role]
 evidence: A table of every type role (size, weight, line height, letter spacing, and purpose), any change from the approved preview, how the typefaces are loaded, and tokens/src/typography.json.
 overrides: [typography_direction]

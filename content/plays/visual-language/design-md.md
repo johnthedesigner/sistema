@@ -14,7 +14,7 @@ knowledge:
   - guide.tokens.architecture#the-tier-model
   - guide.visual-language.overview#the-craft-baseline
   - guide.visual-language.overview#ways-to-separate-and-lift
-  - guide.quality.visual-quality-signals#3-absolute-bans-for-design-system-token-decisions
+  - guide.quality.visual-quality-signals#token-bans
 rules: [visual-language.design-md.roles-not-values, tokens.naming.role, color.roles.required, quality.craft.borders-have-a-job]
 evidence: DESIGN.md with all eight sections in the specification's order, each filled from the approved direction, naming roles rather than values, with any open decision marked as provisional and the play that will settle it.
 overrides: []

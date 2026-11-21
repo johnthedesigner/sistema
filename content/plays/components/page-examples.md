@@ -11,7 +11,7 @@ produces: []
 tools: []
 knowledge:
   - guide.spacing.layout#the-scale-as-a-unified-system
-  - guide.quality.visual-quality-signals#2-the-ai-slop-test
+  - guide.quality.visual-quality-signals#reflexes
 rules: [tokens.usage.no-raw-values, spacing.never-arbitrary, content.voice.baseline]
 evidence: The page routes, screenshots of each page in every theme at desktop, tablet, and phone width, the list of gaps, and a passing build.
 overrides: []

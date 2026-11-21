@@ -4,7 +4,7 @@
   layer: sistema-default
   severity: advisory
   applies_to: the primary seed
-  sources: [guide.quality.visual-quality-signals#21-first-order-reflexes-category-obvious-choices]
+  sources: [guide.quality.visual-quality-signals#first-order-reflexes-category-obvious-choices]
 
 - id: quality.color.bans
   statement: >-
@@ -15,7 +15,7 @@
   layer: sistema-default
   severity: advisory
   applies_to: color tokens
-  sources: [guide.quality.visual-quality-signals#32-color-token-bans]
+  sources: [guide.quality.visual-quality-signals#color-token-bans]
 
 - id: quality.color.commitment-level
   statement: Surface and neutral chroma match the color presence (its commitment level) recorded in the direction.
@@ -50,7 +50,7 @@
   layer: sistema-default
   severity: advisory
   applies_to: tokens/src/shape.json, components
-  sources: [guide.quality.visual-quality-signals#3-absolute-bans-for-design-system-token-decisions]
+  sources: [guide.quality.visual-quality-signals#token-bans]
 
 - id: quality.craft.borders-have-a-job
   statement: >-
@@ -61,7 +61,7 @@
   layer: sistema-default
   severity: advisory
   applies_to: tokens/src/shape.json, components, and review pages
-  sources: [guide.visual-language.overview#the-craft-baseline, guide.quality.visual-quality-signals#23-plain-looking-traps]
+  sources: [guide.visual-language.overview#the-craft-baseline, guide.quality.visual-quality-signals#plain-looking-traps]
 
 - id: quality.craft.accent-for-meaning
   statement: >-

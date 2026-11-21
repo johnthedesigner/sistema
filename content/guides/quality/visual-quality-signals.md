@@ -1,180 +1,131 @@
 ---
-title: "Visual quality signals"
-description: "Signs of generic, AI-default design in token and style decisions, and how to correct them."
+title: "Visual quality"
+description: "How Sistema checks that a system looks deliberate and current: the craft baseline, reflexes and predictable families, plain-looking traps, token bans, and review in both themes."
 topic: quality
 sources:
   - { source: impeccable, url: "https://github.com/pbakaus/impeccable" }
-  - { source: nngroup-hierarchy, url: "https://www.nngroup.com/articles/visual-hierarchy-ux-definition/" }
   - { source: anthropic-frontend-design, url: "https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md" }
-note: "These quality criteria are interpreted through the lens of design system building: token value decisions, component style defaults, and visual language establishment. They are NOT about individual UI implementation choices. Apply them when generating token values, writing component specs, or evaluating visual direction artifacts."
-last_reviewed: 2026-05-15
+  - { source: nngroup-hierarchy, url: "https://www.nngroup.com/articles/visual-hierarchy-ux-definition/" }
+related:
+  - guide.visual-language.overview
+  - guide.color.architecture
+last_reviewed: 2026-11-20
 ---
 
-# Visual quality signals
+# Visual quality
 
-## How to use this document
+## Where Sistema stands
 
-This document gives AI agents the vocabulary to evaluate whether design system decisions — token values, component defaults, visual direction — are specific and intentional versus generic defaults. It applies at the point where values are chosen, not after code is written.
+A design system can pass every functional check and still look generic, dated, or noisy. Sistema guards against that in two ways:
 
-Read this document before any step that generates token values or establishes visual language. The quality signals here describe failure modes that are invisible to functional correctness checks but immediately visible to a trained designer.
+- **A craft baseline it sets by default:** hierarchy before lines, neutral ground with one accent, text in tones, radius by size, elevation by role, quiet states, status as detail, one decision for both themes. These are opinions with reasons and advisory rules, described in the visual-language guide.
+- **Checks for the choices that make a system look like every other one:** reflexes, predictable families, plain-looking traps, and a short list of token bans. They are on this page.
 
----
+The checks are advisory (`opinion.quality-signals-advisory`). They name a likely problem; they don't decide taste. A deliberate choice can win, as long as it's made for a reason the product supports and recorded in DECISIONS.md.
 
-## 1 — The AI slop problem in design systems
+## Reflexes
 
-AI agents generating design system tokens face a structural bias toward safe, category-obvious choices. The bias is not random — it clusters around specific defaults that appear frequently in training data:
+When an agent (or a person in a hurry) picks values, it reaches for what it has seen most: the category's obvious choices. Each is fine on its own. Together they produce a system that could belong to any product. The framing of first-order reflexes and second-order families follows impeccable, an agent skill for frontend design quality ([impeccable](https://github.com/pbakaus/impeccable)), adapted here to token decisions.
 
-- **Surface colors**: near-white with slight warm or cool tint (e.g., `#F8F9FA`, `#FAFAFA`)
-- **Primary colors**: medium blue (`#3B82F6`, `#2563EB`, `#0070F3`)
-- **Border radius**: 6–8px on all components uniformly
-- **Typography**: Inter or Roboto, regular weight body, semi-bold headings
-- **Shadows**: `0 1px 3px rgba(0,0,0,0.1)` on cards
-- **Type hierarchy**: size-only differentiation, no weight or tracking variation
+### First-order reflexes (category-obvious choices)
 
-These defaults are not wrong in isolation. The problem is that they are the output of a system trained to minimize conflict, not to make specific aesthetic decisions. The result reads as "designed by AI" — not because the values are bad, but because they bear no relationship to the product's specific character.
-
-**The test:** Could these token values have come from any SaaS product? If yes, the design system has no visual identity.
-
----
-
-## 2 — The AI slop test
-
-Apply this test to generated token values before accepting them.
-
-### 2.1 — First-order reflexes (category-obvious choices)
-
-These are the most common AI defaults — the first thing a model reaches for in each category:
-
-| Category | First-order reflex | Signal |
+| Category | The reflex | Why it's a problem |
 |---|---|---|
-| Primary color | Medium blue (hue 220–240°, medium saturation) | Acceptable for generic B2B; wrong for everything else |
-| Surface color | `#FAFAFA` or `#F8F9FA` (warm near-white) | Signals "default React app" |
-| Border radius | 6–8px applied uniformly to all components | No radius hierarchy = no shape language |
-| Shadow | `0 1px 3px rgba(0,0,0,0.1)` | Zero elevation personality |
-| Type weight | 400 body, 600 heading | No weight variation = flat hierarchy |
-| Neutral | 9-stop gray ramp with no hue tinting | Zero brand reinforcement in neutral space |
+| Accent | Medium blue for any product, or the category's color (green for health, violet for developer tools) | Chosen because it's familiar, not because it serves this product |
+| Page | A default near-white, unrelated to the grays | The surface has no relationship to the rest of the palette |
+| Radius | One radius on everything | No sense of which things are small, large, or floating |
+| Shadow | One small shadow on every card | Elevation that says nothing about what floats or leads |
+| Type | One weight for body and one for headings, hierarchy by size alone | Flat hierarchy, especially in dense views |
+| Grays | A gray ramp with no temperature | Nothing ties the chrome to the accent |
 
-**A token set containing more than two of these simultaneously fails the first-order reflex test.**
+More than two of these together is a strong sign the values were defaulted, not chosen (`quality.color.first-order-reflex` covers the accent).
 
-### 2.2 — Second-order traps (predictable aesthetic families)
+### Predictable families
 
-These avoid first-order reflexes but land in a different predictable pocket — usually one that has been popularized by a specific tool or aesthetic trend:
+Avoiding the first reflexes often lands in a second, equally predictable pocket: a whole look popularized by a tool or a trend.
 
-| Trap | What it looks like |
+| Family | What it looks like |
 |---|---|
-| "Dark sophisticated" | Near-black surface (`#0F0F0F`), muted gold or amber accent, elevated shadows everywhere |
-| "Startup clean" | Pure white surface, bright blue or violet primary, heavy use of `font-weight: 700` |
-| "Editorial luxury" | Serif display font, black-and-white palette with one warm accent, excessive tracking on uppercase labels |
-| "Brutalist minimal" | High-contrast black/white, monospace everywhere, border-only buttons, zero radius |
-| "Friendly SaaS" | Rounded corners (12–16px), pastel primaries, generous padding, illustrated empty states |
+| Dark and moody | Near-black surfaces, a muted gold or amber accent, shadows everywhere |
+| Startup bright | Pure white, bright blue or violet, heavy bold weights |
+| Editorial luxury | A serif display face, black and white with one warm accent, widely tracked capitals |
+| Brutalist | High-contrast black and white, monospace everywhere, outlined buttons, no radius |
+| Friendly app | Large radii, pastel accents, generous padding, illustrated empty states |
 
-**Second-order traps are not wrong as aesthetic directions. They are a problem when chosen without connecting to the specific product's context.** A product positioned as "precise and technical" that outputs "dark sophisticated" tokens has not been positioned — it has been aesthetically assigned.
+None of these is wrong as a direction. They are a problem when they arrive without a reason in the product's needs: a precise, technical product that comes out dark and moody has been assigned a look, not given one. The direction's taste questions exist so the person chooses with the options in front of them.
 
-### 2.3 — Plain-looking traps
+## Plain-looking traps
 
-These are the opposite pocket: a system that avoids every flashy reflex and still looks dated, because "serious" or "functional" was read as a style. They are easy to miss, because each choice looks defensible on its own.
+The opposite pocket: a system that avoids every flashy reflex and still looks dated, because "serious" or "functional" was read as a style. Each choice looks defensible alone, which is why they're easy to miss.
 
 | Trap | What it looks like | Instead |
 |---|---|---|
 | Outlined everything | A border on every panel, card, chip, tooltip, and menu, and dividers inside containers | Separate by tone, space, or shadow; keep borders where the edge is the affordance or helps follow rows |
 | Sharp means serious | Radius of 0 to 3px everywhere because the product is professional or technical | A middle radius scaled by element; most current professional tools are not sharp |
-| Gray means professional | Neutral gray with no tint, and the accent removed from everything but one button | A slightly tinted neutral, and the accent where it marks action, selection, and the brand |
-| Even steps everywhere | Page, panel, and menu as three equal steps of gray, nothing allowed to lead | Quiet levels plus one featured item or a block of color, by the role of the content |
+| Gray means professional | Gray with no tint, and the accent removed from everything but one button | A slightly tinted neutral, and the accent where it marks action, selection, and the brand |
+| Even steps everywhere | Page, panel, and menu as equal steps of gray, nothing allowed to lead | Quiet levels plus a featured item or a block of color, by the role of the content |
 
-Check a review page for these by naming the function of each border and divider, and by squinting at it: if nothing leads, or the lines are what you see first, the trap has caught it.
+To check a review page for these, name the job of every border and divider, and squint at it. If nothing leads, or the lines are what you see first, a trap has caught it.
 
----
+## Token bans
 
-## 3 — Absolute bans for design system token decisions
+A few patterns are ruled out whatever the direction, because they are structural errors or reflexes that survive review because they're hard to name. Several match impeccable's deterministic checks.
 
-These patterns are banned regardless of the aesthetic direction. They indicate either a structural error in the token system or a reflexive default that survives review because it's hard to name.
+- **A thick colored side stripe as decoration or as the main status signal** (`border-left: 4px solid` on callouts and cards). A thin edge that marks a selected row, beside its fill and checkbox, is a state detail, not this pattern.
+- **Gradient text as the default heading style.** Decoration standing in for typographic hierarchy.
+- **Glass surfaces as the default** (blur with translucent panels). Allowed as a deliberate choice; ruled out as a reflex.
+- **One card style for every kind of content,** with the same padding, radius, and shadow regardless of density or importance.
+- **Color as the only signal of a state** (hover, selected, error). Pair it with a shape, icon, label, or edge.
 
-### 3.1 — Token-level bans
+### Color token bans
 
-- **Side-stripe accents as a design pattern** — applying `border-left: 4px solid [primary]` as a component style token. This is a 2012 UI pattern that signals no intentional surface depth approach.
-- **Gradient text as a default** — `background-clip: text` gradient fills as the primary heading style. This is decoration substituting for typographic hierarchy.
-- **Glassmorphism defaults** — `backdrop-filter: blur(20px)` with semi-transparent surfaces as the standard surface treatment. Not banned as a deliberate choice; banned as a reflex.
-- **Identical card grids** — all card components sharing the same padding, radius, shadow, and border. Cards should have differentiated density levels for different content types.
-- **Modal-first interactions** — defaulting all confirmations, secondary content, and contextual information to modal dialogs. Not a token decision per se, but a pattern that the component token system should not be architected to encourage.
-- **Color-only state signaling** — using only color to communicate interactive state (hover, selected, error). Always pair color with at least one other signal (border, icon, label, shape).
+- **No opacity-derived colors** (`primary/10` as a container). Every color is a token pointing at a ramp stop, so it can be checked and themed.
+- **Primary and secondary with distinct hues.** Two roles that differ only in lightness read as one.
+- **No pure black or pure white page.** The page (`surface`) is an off-white or off-black; white panels on an off-white page are fine.
+- **Grays with some temperature.** Cool, warm, or tinted toward the accent; a gray with none reads clinical.
 
-### 3.2 — Color token bans
+The checkable parts are in `quality.color.bans` and `quality.shape.bans`.
 
-- **Hardcoded opacity-derived colors** — `rgba(primary, 0.1)` as a container color. Container colors must be specific token values, not calculated opacity reductions of the primary.
-- **Same hue for primary and secondary** — primary and secondary role colors that differ only in lightness. They must carry distinct hues.
-- **Pure black or pure white as a surface token** — `#000000` or `#FFFFFF` for default background surfaces. Production surfaces are off-black or off-white with intentional hue temperature.
-- **Neutral ramp without hue temperature** — a gray ramp that contains no chromatic influence from the brand. Neutral palettes should have slight hue affinity with the primary color.
+## Color amount
 
----
+How colorful surfaces and grays may be depends on the color presence the direction chose (quiet, brand, or tinted). The color guide's "How much color" gives the range for each, and `quality.color.commitment-level` checks the tokens against it.
 
-## 4 — OKLCH color commitment levels
+## Review in both themes
 
-This framework establishes how much chromatic presence a design system's color palette should have. The level is driven by the product's brand stance and is a deliberate decision, not a default.
+Most quality problems show at a glance, if you look in the right way:
 
-Apply this framework when generating color tokens. The level must match the positioning brief.
+- **Squint at a real screen,** or blur it. The thing that needs action and the primary button should read first, the content next, the chrome last ([NN/g](https://www.nngroup.com/articles/visual-hierarchy-ux-definition/)). If a panel, a selection, or the lines read first, a step is too strong.
+- **Look at light and dark side by side.** A treatment tuned in light can turn loud in dark: an accent selection becomes a saturated band, a status-filled message becomes a heavy block. Change the treatment, not only the dark value (`opinion.both-themes`).
+- **Ask whether the screen could belong to any product.** If it could, go back to the needs and the taste questions.
 
-**About the numbers.** Chroma here is OKLCH chroma, on the same scale the palette tool reports (0 is gray; the most saturated sRGB colors reach about 0.37). The ranges are Sistema's starting guidance for each level, not values from a published standard: use them to place a palette, and record a reason when you go outside them.
+## Rules
 
-### Level 1 — Restrained
+The quality rules are listed at the end of this page and at `{{sistema_url}}/raw/rules`. All are advisory.
 
-**Chroma budget:** about 0 to 0.015 for surface and neutral tokens; about 0.08 to 0.16 for primary action colors.
+## Worked example: Relay
 
-**Character:** Color is functional, not expressive. Surfaces read as neutral. The primary color appears only at interactive elements. Neutrals may carry a faint temperature (warm or cool, at very low chroma) so they aren't a dead gray, but no hue you'd name at a glance.
+Relay's first run was technically sound: every contrast pair passed and the accessibility checker found nothing. The owner judged the result "more MS Office than Linear". Every plain-looking trap was present: an outline on every panel, chip, tooltip, and divider; radii of 2 to 8px; near-gray with a dark teal accent only on buttons; and page, panel, and menu as even steps of gray. The cause was in Sistema: the visual-language guide had turned "utilitarian" into a style, and the agent answered the taste questions itself.
 
-**Appropriate for:** Dense data tools, medical/financial applications, enterprise admin interfaces, developer tools where color carries semantic meaning (error/success/warning) and must not be decorative.
+The re-run asked the person each question with options rendered on Relay's own board. The result separates panels by shadow with no outlines, keeps borders on fields and table rows where they have a job, uses an 8px control radius scaled up to 14px for floating layers, tints the grays toward a violet accent, and lets the job that needs a technician lead.
 
-**Token signal:** surface backgrounds have chroma below about 0.01, and borders below about 0.02. Only primary and semantic role colors go above about 0.05.
+Review in both themes then found two treatments that only worked in light: an accent-filled selected row and status-filled messages. Both became neutral, with the color as a detail, in both themes.
 
-### Level 2 — Committed
+## Failure modes
 
-**Chroma budget:** about 0.01 to 0.03 for surfaces; about 0.12 to 0.20 for primary; moderate hue presence in the neutral ramp.
+- **Treating the checks as taste rules,** and rejecting a deliberate, recorded choice because it matches a family.
+- **Checking values in isolation.** Each value passes; together they're a reflex or a trap.
+- **Reviewing only in light,** or only the swatches, not a screen.
+- **Fixing a trap by swapping in a family:** removing every outline and adding glass and gradients instead.
 
-**Character:** Color is clearly intentional but not dominant. Surfaces have warmth or coolness. The neutral ramp has a consistent hue temperature that reinforces the primary. Hovering over the page, you can name a color temperature.
+## Checking the work
 
-**Appropriate for:** Most SaaS products, productivity tools with expressive branding, consumer-facing web applications with moderate personality.
+- **The reflex count** on the proposed tokens, and the accent against the category default.
+- **The trap check** on every review page: the job of each border, and the squint test.
+- **The bans** against the token files.
+- **Light and dark side by side** on the showcase and the page examples.
 
-**Token signal:** surface backgrounds have chroma of about 0.01 to 0.03. The neutral ramp has a consistent hue affinity with the primary. Secondary colors are meaningfully distinct from the primary.
+## Plays
 
-### Level 3 — Full palette
-
-**Chroma budget:** about 0.03 to 0.06 for surfaces; about 0.15 to 0.25 for primary; expressive secondary and accent colors.
-
-**Character:** Color is a primary design element. Multiple distinct hues are in simultaneous use. Surface colors have clear personality. The system has a chromatic signature that persists even in muted contexts.
-
-**Appropriate for:** Consumer apps with strong brand personality, marketing sites, creative tools, products where visual delight is a core value proposition.
-
-**Token signal:** surface backgrounds have chroma of about 0.03 to 0.06. Multiple chromatic roles (primary, secondary, accent) use distinct hues with intentional harmonic relationships. Container and surface-raised colors carry visible hue.
-
-### Level 4 — Drenched
-
-**Chroma budget:** about 0.06 and up for surfaces; the highest in-gamut chroma for primaries; high saturation across the system.
-
-**Character:** Color is a dominant, assertive presence. Backgrounds are saturated. Contrasts are high-chroma. The product makes a strong color statement that cannot be missed.
-
-**Appropriate for:** Bold brand experiences, special-purpose marketing pages, products where visual intensity is part of the brand promise. Requires exceptional care with accessibility — WCAG must be verified for every surface pairing.
-
-**Token signal:** surface backgrounds have chroma of about 0.06 or more. Must verify every text/background pairing manually. Dark mode at this level typically cannot use standard tonal shift logic — requires complete re-specification.
-
----
-
-## 5 — Applying these signals in plays
-
-### When generating color tokens:
-1. Identify the appropriate OKLCH commitment level from the positioning brief before choosing any value.
-2. Run the first-order reflex check on the proposed primary color: is it medium-blue or near-white? If so, justify it explicitly or choose differently.
-3. Verify that surface, neutral, and container colors are consistent with the commitment level.
-4. Check against the color token bans list.
-
-### When generating type scale tokens:
-1. Check that weight, size, and tracking vary across roles — not just size alone.
-2. Verify that the type choices don't fall into a second-order trap (e.g., "editorial luxury" serif + all-caps labels when the product is a dense data tool).
-
-### When generating shape tokens:
-1. Check that radius is not uniform across all components — there must be a hierarchy (inline elements use smaller radius than containers).
-2. Verify the radius personality matches the positioning brief.
-3. Check against the side-stripe ban — if the system defaults to border-left accents, reconsider the surface depth approach.
-
-### When reviewing a style-preview.html artifact:
-Ask: could these visual decisions have come from any product, or do they reflect specific choices made for this product? If the answer is "any product," return the artifact with specific questions about what should be different.
-
-Then check it against the plain-looking traps (2.3): name the function of every border and divider on the page, and squint at the composition to see what leads.
+- `visual-language.direction` runs the reflex and trap checks on the proposal.
+- `color.scheme`, `typography.scale`, and `shape.tokens` check their tokens against the bans.
+- `components.scaffold-core` and `components.page-examples` review in both themes.

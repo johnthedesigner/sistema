@@ -16,8 +16,8 @@ knowledge:
   - guide.visual-language.overview#emphasis-contrast-that-follows-importance
   - guide.visual-language.overview#failure-modes
   - guide.visual-language.style-tile-format#2-required-sections
-  - guide.quality.visual-quality-signals#21-first-order-reflexes-category-obvious-choices
-  - guide.quality.visual-quality-signals#23-plain-looking-traps
+  - guide.quality.visual-quality-signals#first-order-reflexes-category-obvious-choices
+  - guide.quality.visual-quality-signals#plain-looking-traps
 rules: [visual-language.style-tile.sections, visual-language.style-tile.self-contained, color.ramps.from-tool, color.preview.ramp-strips, quality.review.outline, quality.color.first-order-reflex, quality.color.bans, color.contrast.text, shape.radius.hierarchy, quality.craft.borders-have-a-job, quality.craft.emphasis-scarce]
 evidence: sistema-review/style-preview.html with all seven sections, every taste question shown as rendered options, and every color from a palette tool ramp; the DESIGN.md Overview section with the direction values and the emphasis map; and the person's explicit approval, with their answer to each question.
 overrides: []

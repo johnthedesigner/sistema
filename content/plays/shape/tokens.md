@@ -19,7 +19,7 @@ knowledge:
   - guide.depth.architecture#the-hybrid-approach
   - guide.depth.architecture#emphasis-and-separation
   - guide.visual-language.overview#ways-to-separate-and-lift
-  - guide.quality.visual-quality-signals#3-absolute-bans-for-design-system-token-decisions
+  - guide.quality.visual-quality-signals#token-bans
 rules: [shape.radius.hierarchy, quality.shape.bans, tokens.source.dtcg, tokens.naming.role, quality.craft.elevation-by-role, quality.craft.nested-radius, quality.craft.borders-have-a-job]
 evidence: The radius scale with the component families mapped to each level, the shadows by role with how each theme shows them, where borders are used and the job each does, any change from the approved preview, and tokens/src/shape.json.
 overrides: [shape_direction]
