@@ -1,0 +1,34 @@
+import { Meta, Story } from "@storybook/addon-docs/blocks"
+import * as T from "./Tokens.stories"
+
+<Meta title="Foundations/Tokens" />
+
+# Tokens
+
+Relay's tokens are written once in `tokens/src/` and compiled with `npm run tokens`. Every value on this page is read at runtime from the compiled CSS custom properties, so it follows the Theme toolbar and any recompile. Code uses the role tokens only; the ramps are the primitive tier and are never used directly.
+
+## Color roles
+
+<Story of={T.Colors} />
+
+## Ramps
+
+The accent (violet 550, `#7B43E6` seed) and the violet-tinted neutral come from Sistema's palette tool; red, amber, green, and blue come from its library.
+
+<Story of={T.ColorRamps} />
+
+## Type roles
+
+Atkinson Hyperlegible Next. Size / weight / line height / tracking.
+
+<Story of={T.Type} />
+
+## Radius and shadow
+
+<Story of={T.RadiusAndShadow} />
+
+## Spacing
+
+A 4px base with compact steps, and the layout aliases pages use.
+
+<Story of={T.SpacingSteps} />

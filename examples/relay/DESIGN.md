@@ -129,7 +129,7 @@ spacing:
   control-height: 28px
   row-height: 36px
 ---
-<!-- This project follows Sistema. "Start a design system" is finished. For later design system work, fetch the URL in sistema.json "continue". -->
+<!-- This project follows Sistema. "Build the patterns" is finished. For later design system work, fetch the URL in sistema.json "continue". -->
 # Relay design system
 
 ## Overview
@@ -351,7 +351,7 @@ In Tailwind, the levels replace the default `rounded-xs` to `rounded-xl`. shadcn
 
 ## Components
 
-The components are built on shadcn/ui (style base-nova, Base UI primitives), copied into `src/components/ui/` and edited to these roles. Import them from `@/components/ui`. Shared styles (focus ring, control frame, floating layer, list item) live in `src/components/ui/styles.ts`, and shadcn's variables map to role tokens in `src/styles/shadcn-theme.css`. Review them all at `/sistema-review/components`.
+The components are built on shadcn/ui (style base-nova, Base UI primitives), copied into `src/components/ui/` and edited to these roles. Import them from `@/components/ui`. Shared styles (focus ring, control frame, floating layer, list item) live in `src/components/ui/styles.ts`, and shadcn's variables map to role tokens in `src/styles/shadcn-theme.css`. Review them all at `/sistema-review/components`. The team reference is Storybook (`npm run storybook`, port 6006): every component with its variants, states, and when-to-use notes, the tokens read from the compiled CSS, the page examples, and the direction.
 
 - **Button** (`primary`, `secondary`, `ghost`, `destructive`). Primary is for the one main action on a screen or dialog and has `shadow-control`. Secondary is a `border-strong` edge on `surface-raised`, for other actions. Ghost is for low-emphasis and icon-only actions. Destructive is `error` text with an `error` edge, for cancel and remove.
 - **Text field** (`Input`, `Textarea`, `Label`, `TextField`): any typed value. The field has a `border-strong` edge, and an error gives the `error` edge plus the message.

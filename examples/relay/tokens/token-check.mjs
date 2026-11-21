@@ -27,8 +27,8 @@ const OUTLINE = [
   ['Then: Build the patterns', [
     ['done', '1. Scaffold the core components'],
     ['done gate', '◆ components-approved'],
-    ['', '2. Page examples (optional)'],
-    ['', '3. System reference (optional)'],
+    ['done', '2. Page examples'],
+    ['done', '3. System reference (Storybook)'],
   ]],
 ];
 
@@ -149,7 +149,7 @@ td.st{max-width:420px}
 </style>
 </head>
 <body>
-<!-- This project follows Sistema. "Start a design system" is finished. For later design system work, fetch the URL in sistema.json "continue". -->
+<!-- This project follows Sistema. "Build the patterns" is finished. For later design system work, fetch the URL in sistema.json "continue". -->
 <div class="page">
 <nav class="outline" aria-label="Where this review sits">${outline}</nav>
 <div class="bar-top"><div><h1>${esc(sistema.project.name)} token check</h1><p class="sub">Every token compiled from tokens/src/ by <code>npm run tokens</code>, shown with the compiled CSS. Use the switch to see each theme. Approved 2026-11-20 (foundations-approved). Kept up to date by every compile.</p></div>
@@ -172,7 +172,7 @@ td.st{max-width:420px}
 
 <section><h2>Approved but not yet tokenized</h2><p class="sub">Every category in the direction has tokens. Nothing is waiting for a skipped play. Motion has no tokens; the direction set none.</p></section>
 
-<p class="cont">This project follows Sistema. &ldquo;Start a design system&rdquo; is finished. For later design system work, fetch the URL in sistema.json "continue": <code>${esc(sistema.continue)}</code></p>
+<p class="cont">This project follows Sistema. &ldquo;Build the patterns&rdquo; is finished. For later design system work, fetch the URL in sistema.json "continue": <code>${esc(sistema.continue)}</code></p>
 </div>
 <script>
 (function(){var b=document.querySelectorAll('.switch button');function set(t){if(t)document.documentElement.setAttribute('data-theme',t);else document.documentElement.removeAttribute('data-theme');b.forEach(function(x){x.setAttribute('aria-pressed',String(x.getAttribute('data-t')===t))});}

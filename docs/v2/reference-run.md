@@ -204,3 +204,8 @@ The run built Today's board and Job detail from the real components and tokens, 
 | 86 | The emphasis map needs a featured surface, but the core set had none, so "no new styles" couldn't be followed on the pages. | **Fixed:** the core set includes the panel variants the emphasis map uses; pages may build emphasis surfaces from their tokens and list them as gaps. |
 | 87 | Page examples were checked at desktop and 768px only, which hid the missing phone navigation. | **Fixed:** desktop, 768px, and 390px, including how navigation works at each width. |
 | 88 | The reference play said "It is not Storybook" with no reason given. | **Fixed** (D31): both options, the person chooses. |
+| 89 | Storybook's preview body font and its white docs blocks made stories differ from the app; its docs pages stay light in dark mode. | **Fixed:** the reference play names both and says how to match the app. |
+| 90 | "Read token values from the CSS" can't cover ramps, which the pipeline keeps out of CSS. | **Fixed:** read ramps from `palette.json`. |
+| 91 | The Storybook CLI adds extras (addons, example stories, a config rewrite, a further setup command) the play didn't address. | **Fixed:** keep what serves the play, remove the rest, and list it. |
+
+The run is complete: all three gates owner-approved, page examples built, Storybook reference published, Patterns closed (Relay commit ab6d479). `examples/relay/` holds this state.

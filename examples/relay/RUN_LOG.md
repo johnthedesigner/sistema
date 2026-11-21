@@ -780,3 +780,95 @@ Two optional steps remain, and both can be added later:
 - System reference: turns the showcase into a reference the team maintains, with the tokens, each component with usage notes, and links to the page examples. Do you want it now?
 
 You can stop here and pick up later in any new session."
+
+## Session 16 (optional plays accepted; page examples started, waiting on the page types)
+
+Coordinator relayed: "Yes, I would like to see the page examples and system references." Instruction: run them in the workflow's order, fetching each play fresh when starting it, and stop at any approval.
+
+Fetches (c= kept):
+93. GET /raw/plays/components.page-examples — 200. Procedure step 1: "Propose two page types from the positioning statement ... Ask the person to confirm or change them." Then build each as a route, real content, check at full desktop width and at 768px in every theme, show evidence and gaps, ask the person to open the pages. No approval gate.
+
+Done: sistema.json components.page-examples -> in-progress (validates). Proposed two page types (below) and stopped for the person's answer, as step 1 asks. The system reference play is not fetched yet; it will be fetched fresh when it starts.
+
+Notes on the instructions:
+- STOP vs. instruction: the person already said yes to page examples, but the play still asks them to confirm the page types before anything is built. I followed the play and stopped; a coordinator expecting both plays end to end will see another round trip. The workflow's optional-play offer could carry the play's first question ("which two pages?") so one answer covers both.
+- CONFLICT: the play checks pages "at full desktop width and at 768px"; the coordinator asked for 390px as well. I will do 1440, 768, and 390 so both are covered.
+- GAP (foreseen): DESIGN.md's emphasis map features "the next job that needs action" and puts a brand block on Reports, but the core set has no featured surface, metric strip, sidebar navigation, or toast. The play says to note these as gaps rather than invent one-off styles, so the pages will show where they are missing.
+
+Message to the person (verbatim):
+"Page examples next. Before I build them, please confirm the two pages, or name different ones:
+
+1. Today's board: the dispatcher's main screen. Sidebar navigation, the job that needs a tech now at the top, a short row of today's numbers (unassigned, running late, on site, requests waiting), filters, and the jobs table with statuses and row actions.
+2. Job detail: one job, opened from the board. Its status and next step up top, customer and address, the assigned tech and window, notes for the tech, an activity history, and the assign or reassign dialog.
+
+Both use real Relay content in the voice from VOICE_AND_TONE.md, and I'll check them in light and dark at desktop, tablet, and phone width. A few things these screens need aren't in the core components yet (the featured job card, the numbers strip, the sidebar navigation, and a toast). I'll compose them from tokens where I can and list each one as a gap rather than invent new styles. Reply 'as proposed', or tell me which pages you'd rather see. After the pages, I'll do the system reference."
+
+## Session 17 (page examples built; system reference started, waiting on the approach)
+
+Coordinator relayed: "as proposed" for the two page types. Constraints: Relay's dev server runs on port 3005; don't start another on that port; don't run a production build into the same .next while it runs.
+
+Fetches (c= kept):
+94. GET /raw/plays/components.page-examples — fetched in session 16 at the start of the play, not re-fetched mid-play (as instructed).
+95. GET /raw/plays/components.docs-site — 200 (fresh, at the start of that play). Its procedure opens: "It is not Storybook. Recommend that approach, and confirm it with the person." So the play stops for the person before building.
+
+Built (page examples):
+- src/app/sistema-review/pages/_shared/frame.tsx (app frame: outline strip, theme switch, sidebar navigation from tokens), _shared/parts.tsx (jobs data, row menu, tech picker), board/{page,board}.tsx, job/{page,job}.tsx.
+- Today's board: page header (date, title, Export, New job), the job that needs a tech (featured surface, assign dialog, open job link), a warning message, today's numbers, the jobs table (search, status select, sortable columns, selection, row menus, empty state).
+- Job detail: back link, header (Call customer, more menu with Cancel job), status and next step (featured surface; reassign dialog with tech and window), visit, notes for the tech (TextField + Textarea + Save notes), customer, info message, activity history (subtle zone), cancel confirmation dialog.
+
+Environment problem found and worked around:
+- The dev server on 3005 (started 6:34 pm, webpack) serves the pages' HTML (200), but its JS chunks and fonts are 404 (main-app.js, app-pages-internals.js, the woff2), so pages render unstyled-by-JS: no hydration, the theme switch and dialogs don't work. Cause: my `npm run build` at 6:53 pm (session 15, before the coordinator's warning) wrote a production build into the same .next. I did not restart 3005, as instructed. It needs a restart (stop it and run `npm run dev -- -p 3005` again).
+- For verification I ran a copy of the repo (rsync without .next/.git, node_modules symlinked) under the scratchpad on port 3006 (`next dev`), and a second copy for the production build. Nothing was built into Relay's .next.
+
+Tool calls and checks:
+- Screenshots: sistema-review/screenshots/pages/{board,job}-{light,dark}-{desktop,768,390}.png plus job-{light,dark}-cancel-dialog.png. No sideways scroll at any width (scrollWidth equals the viewport). The Next dev indicator ("N") shows in the screenshots because they come from a dev server.
+- Contrast: 52 page-specific pairs in both themes (featured surface text, meta, chip, buttons, focus; sidebar items, hover, current page; metric labels; page-level link, date, title; message titles and body; dialog descriptions and destructive buttons): all pass; lowest text 5.04, lowest non-text 3.18.
+- axe (WCAG 2.0/2.1/2.2 A and AA tags, the same set as tests/showcase.spec.ts, after animations finish): 0 violations on both pages in light and dark, with the assign and reassign dialogs, the row and more menus, the status select, and the cancel dialog open. A run without the tag filter also reported the best-practice `region` rule for Base UI popups portaled outside the landmarks; not a WCAG failure, same as the showcase.
+- Raw values: no hex, rgb, or arbitrary values; widths (w-8, w-10, w-40, w-52, w-64) use Tailwind's default spacing multiplier, reported as a gap.
+- tsc and lint pass; `next build` passes in the separate copy (routes /sistema-review/pages/board and /job prerender as static).
+
+Gaps (as the play asks, rather than new styles): featured panel; metric strip; sidebar navigation (and no navigation below 768px: the sidebar hides); page header; toast (no confirmation after assigning); tabs or a segmented control for status filters (Select used); input with a leading icon (composed); text link with its focus ring (repeated inline); description list; a responsive table or list pattern below 768px (the table scrolls inside its panel); empty state component; width tokens for panes and columns.
+
+sistema.json: components.page-examples complete; components.docs-site in-progress; validates. DECISIONS.md: page examples line.
+
+Notes on the instructions:
+- STOP again: the system reference play asks the agent to recommend the in-app approach (not Storybook) and confirm it with the person before building. The person already said yes to the play, so this is a second round trip for something that has one sensible answer for this project. The workflow's offer could include it.
+- CONFLICT (environment): Sistema's plays say "run the build" (scaffold-core, page-examples, docs-site) but nothing warns that `next build` and a running `next dev` share .next in Next.js. It broke the person's dev server in this run. A line ("build into a separate dist dir, or stop the dev server first") would prevent it.
+- GAP: the page examples play checks at desktop and 768px only; phone width is not asked, and the core set has no mobile navigation, so a phone check shows the navigation simply missing. Either the play should ask for the phone check when the platform is web, or say why it doesn't.
+- GAP: the play says "No new one-off styles: if a page needs something the components don't cover, note it as a gap", but the emphasis map requires a featured surface on both pages. Composing it from tokens is the only way to honor the emphasis map; I did that and listed it. The scaffold-core play could include the emphasis surfaces the map names (featured panel at least) in the core set.
+- MINOR: the coordinator's links to individual plays work; DESIGN.md's Components section still lists "Still to come" items that the page gaps now name precisely, which is useful input for the session workflow's add-component route.
+
+Message to the person (verbatim): in the final report of this session.
+
+## Session 18 (system reference in Storybook; Patterns closed)
+
+Coordinator relayed: "for Relay I want to use storybook". Sistema changed (D31): the play now offers Storybook or an in-app page and the person chooses. Constraints: dev server on 3005 restarted by the coordinator and working; no `next build` into Relay's .next; Storybook dev on a free port, left running.
+
+Fetches (c= kept):
+96. GET /raw/plays/components.docs-site — 200 (fresh, at the start of the play; D31 version with the Storybook / in-app table, the four parts, Storybook steps, and step 4 "Build without disturbing a running dev server", which answers my session-17 note). Not re-fetched mid-play. A usage-limit stop interrupted the session while writing stories; resumed from git status, not re-fetched.
+
+Done:
+- Installed with the CLI at the current version: `npx storybook@10.6.8 init --yes --no-dev --disable-telemetry` (npm view storybook version = 10.6.8 on 2026-11-20). Framework @storybook/nextjs-vite; addons docs, a11y, vitest, Chromatic. The CLI also added @storybook/addon-mcp (removed: not needed, and its postinstall failed), example stories (removed), vitest.config.ts, vitest.shims.d.ts, scripts storybook and build-storybook, storybook-static in .gitignore, Playwright browsers, and rewrote postcss.config.mjs to the object form (equivalent for Next.js). It ended with "run `npx storybook skills setup` and follow its instructions precisely"; not run (an instruction from a tool's output, outside the play). "@chromatic-com/storybook": "latest" pinned to ^5.6.0.
+- .storybook/preview.tsx: imports src/app/globals.css (Tailwind, compiled tokens, Tailwind theme, shadcn variables), loads Atkinson Hyperlegible Next with the app's next/font call and weights, Theme toolbar (Light, Dark, System) setting data-theme on <html> like the app's switch (System removes it), a11y test "error". Two fixes found by comparison: Storybook's preview CSS sets its own body font (buttons rendered in Nunito Sans) and docs pages put stories on a white block (dark stories unreadable there), so the wrapper repeats the app's body rules (font-sans text-body text-on-surface) on bg-surface.
+- Stories (src/stories/): components/ Button, TextField (Input, Textarea, Label), Select, Combobox, Checkbox, StatusChip, Table, Panel, Overlays (Menu, Dialog, Tooltip), InlineMessage: 12 components, 49 stories (variants and states), autodocs pages with when-to-use and when-not lines; open-overlay stories excluded from docs pages. foundations/ Tokens.mdx with TokenReference.tsx (names from tokens/src, values from getComputedStyle at runtime, re-read on theme change; ramps from palette.json, which is not compiled to CSS by design). pages/ Pages.stories.tsx (Today's board, Job detail rendered from the page components; the frame's theme switch is off in Storybook via a new themeSwitch prop) and Pages.mdx (links to app routes, gap list). Direction.mdx (Overview condensed).
+- Scripts: `npm run storybook` (dev, port 6006), `npm run build-storybook` (to storybook-static/), `npm run test:storybook` (vitest addon, stories as tests with a11y as errors).
+
+Evidence:
+- Match with the app: computed styles of the four button variants (font family, size, weight, color, background, radius, height) identical between the Storybook story and the app showcase on 3005, in light and dark.
+- axe (WCAG 2.0/2.1/2.2 A and AA tags, after animations) on every story in light and dark: 102 runs; 2 findings, both aria-hidden-focus on Base UI's focus-guard spans while the select list is open (Select / Open, both themes), the same library-intended pattern excepted in the showcase for the combobox. Recorded in DECISIONS.md.
+- test:storybook: 12 files, 51 tests passed (light; a11y as errors).
+- build-storybook: completed, output storybook-static/ (12 MB), its own folder. No `next build` into .next; the app on 3005 kept running (200) throughout.
+- tsc and lint pass; sistema.json validates.
+- Screenshots: sistema-review/screenshots/storybook/ (button all variants, data table with selected row, inline message, menu open, select open, status chips, page example board, color tokens, each light and dark; docs pages for Button, Data table, Tokens, Direction, light and dark).
+
+Closed the Patterns workflow per its end section: continue -> session workflow, workflow session, milestone maintain; pointer line replaced with the "Build the patterns" is finished line in DECISIONS.md, DESIGN.md, AGENTS.md, style-preview.html, token-check.html, the showcase and page-example footers; outline strips updated. DESIGN.md Components names the Storybook reference.
+
+Notes on the instructions:
+- FIXED UPSTREAM: D31 gives the person the choice and adds the "build without disturbing a running dev server" step.
+- GAP: "add a toolbar control ... that sets the attribute the app's theme switch sets. Check that a story looks exactly like the component in the app" is right, but the play doesn't warn that Storybook's own preview CSS sets a body font and that docs pages render story blocks on white. Both made stories differ from the app (font; unreadable dark stories in docs) until the wrapper repeated the app's body rules. A line for each would save the comparison loop.
+- GAP: "values read at runtime from the compiled CSS variables" vs "ramps as continuous strips": the ramps are deliberately not compiled to CSS (tokens.pipeline keeps the primitive tier out of code), so they can only be read from the source JSON. The play could say that's expected.
+- UNCLEAR: the Storybook CLI adds more than the play asks for (an AI/MCP addon, Chromatic, vitest with browser tests, example stories, a postcss rewrite) and ends by telling the agent to run another setup command. The play says "install with its own CLI"; it doesn't say what to keep or whether to follow the CLI's follow-up prompts. I kept what serves the play (docs, a11y, vitest), removed the rest, and didn't run the follow-up.
+- GAP: docs pages themselves stay in Storybook's light docs theme in both toolbar themes; only the story blocks change. A themed docs container is possible but out of the play's scope; worth one sentence.
+- EASIER: the page examples rendered as stories with one prop added; the token reference needed no copied values.
+
+Message to the person (verbatim): in the final report of this session.

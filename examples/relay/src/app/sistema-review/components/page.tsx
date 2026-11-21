@@ -8,8 +8,8 @@ const STEPS: { label: string; state: "done" | "current" | "waiting" | "pending" 
   { label: "Start a design system ✓", state: "done" },
   { label: "1 Scaffold the core components ✓", state: "done" },
   { label: "◆ components-approved ✓", state: "done" },
-  { label: "2 Page examples (optional)", state: "pending" },
-  { label: "3 System reference (optional)", state: "pending" },
+  { label: "2 Page examples ✓", state: "done" },
+  { label: "3 System reference (Storybook) ✓", state: "done" },
 ]
 
 const STEP_STYLE = {
@@ -50,7 +50,7 @@ export default function ComponentShowcasePage() {
         <Showcase />
       </main>
       <footer className="px-page-gutter py-section-gap text-data text-on-surface-muted">
-        This project follows Sistema. &ldquo;Start a design system&rdquo; is finished; &ldquo;Build the patterns&rdquo; is in progress. For later design system work, fetch the URL in sistema.json &ldquo;continue&rdquo;.
+        This project follows Sistema. &ldquo;Build the patterns&rdquo; is finished. For later design system work, fetch the URL in sistema.json &ldquo;continue&rdquo;.
       </footer>
     </div>
   )

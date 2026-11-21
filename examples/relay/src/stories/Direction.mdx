@@ -1,0 +1,25 @@
+import { Meta } from "@storybook/addon-docs/blocks"
+
+<Meta title="Direction" />
+
+# Relay's visual direction
+
+Relay is a dispatch dashboard for a small HVAC and plumbing company, used all day on desktop. Its screens must make the job that needs action the first thing a dispatcher sees, keep status the strongest color on screen, let long rows be followed without heavy lines, and keep job numbers and times legible at small sizes.
+
+**In two sentences:** Relay is a quiet, near-neutral work surface where panels sit lightly lifted on soft shadows, the job that needs a dispatcher right now is lifted further, and status color does the shouting. Violet appears only where you act or have selected something, and lines only where you click, type, or follow a row, all set in one highly legible typeface.
+
+| Question | Answer (approved 2026-11-20) |
+| --- | --- |
+| How much color | Quiet: the accent on the main button, checkboxes, focus, links, selection details, and the brand block only |
+| Accent | Violet 550 from Sistema's palette library (`#7B43E6` seed) |
+| Grays | Tinted faintly toward the accent |
+| Corners | 8px controls, 12px panels, 14px featured and floating layers; scaled status chips |
+| Panels | Lifted on a soft shadow, no outlines |
+| Type | Atkinson Hyperlegible Next, tabular figures for data |
+| Density and theme | Dense; light and dark, light first |
+
+**One decision for both themes:** selection is a gray step with an accent detail, messages are neutral wells with the status color in the icon and title, and dark values translate the same decisions.
+
+**Emphasis map:** on the board, the job that needs a tech is featured, the sidebar and filters are quiet, and there is no brand block; on a job, its status and next step are featured; Reports carries the one brand block. Toasts are the only inverse surface.
+
+The full direction is in `DESIGN.md` (Overview) and `sistema-review/style-preview.html`; decisions and exceptions are in `DECISIONS.md`.

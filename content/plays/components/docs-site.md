@@ -33,11 +33,11 @@ If the workflow's offer of this play already asked which one, use that answer.
    - **Pages:** the page examples, embedded or linked.
    - **Direction:** the DESIGN.md Overview, condensed.
 
-   Never copy token values into the reference; read them from the CSS. Import the real components.
+   Never copy token values into the reference; read them from the CSS. The raw ramps are the exception: the token pipeline keeps them out of the CSS on purpose, so read them from `tokens/src/palette.json`. Import the real components.
 
 2. **Storybook:**
-   - Install it with its own CLI for the project's framework, using the current version and its docs (for Next.js, the Next.js framework package). Don't pin a version from memory.
-   - In the preview configuration, import the same global styles and compiled token CSS the app imports, load the same fonts, and add a toolbar control for every theme and mode that sets the attribute the app's theme switch sets. Check that a story looks exactly like the component in the app, in every theme.
+   - Install it with its own CLI for the project's framework, using the current version and its docs (for Next.js, the Next.js framework package). Don't pin a version from memory. The CLI adds more than this play needs (example stories, extra addons, sometimes a rewritten config file, and a closing suggestion to run another setup command): keep what serves the four parts, the accessibility checks, and the story tests, remove the rest, and list what you removed or changed.
+   - In the preview configuration, import the same global styles and compiled token CSS the app imports, load the same fonts, and add a toolbar control for every theme and mode that sets the attribute the app's theme switch sets. Check that a story looks exactly like the component in the app, in every theme. Two known differences: Storybook's preview sets its own body font, and its docs pages show stories on a white block. Give the story wrapper the app's page background and body styles. Storybook's docs pages themselves keep their own light theme when the toolbar is set to dark; only the story blocks follow it. Say so on the token docs page, or theme the docs pages to match.
    - Write a story file per component with a story for each variant and state, and set the component docs to generate from them. Put the when-to-use lines in each component's docs page.
    - Write the token, page, and direction sections as docs pages. Page examples can be stories that render the page components, if they don't depend on the app's routing; otherwise link to them.
    - Add the accessibility addon, and check every story in every theme.

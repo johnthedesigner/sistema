@@ -1,8 +1,8 @@
 {
   "sistema": "2",
-  "workflow": "patterns",
-  "continue": "https://sistema-git-v2-jtd-604ef502.vercel.app/raw/workflows/patterns?c=internal-1882ecfe-477f-46e6-92ce-5f1c6ec43eab",
-  "milestone": "patterns",
+  "workflow": "session",
+  "continue": "https://sistema-git-v2-jtd-604ef502.vercel.app/raw/workflows/session?c=internal-1882ecfe-477f-46e6-92ce-5f1c6ec43eab",
+  "milestone": "maintain",
   "project": {
     "name": "Relay",
     "a11y_standard": "wcag-2.2 AA",
@@ -68,6 +68,16 @@
       "status": "complete",
       "date": "2026-11-20",
       "evidence": "12 core components (shadcn/ui base-nova, Base UI) on the approved tokens; showcase /sistema-review/components in light, dark, system; 128 component pairs + 150 role pairs pass wcag-2.2 AA (contrast tool); axe zero violations in every theme with overlays open; build passes. Approved by the owner."
+    },
+    "components.page-examples": {
+      "status": "complete",
+      "date": "2026-11-20",
+      "evidence": "Today's board (/sistema-review/pages/board) and Job detail (/sistema-review/pages/job) from the real components, real Relay content; screenshots light and dark at 1440, 768, 390 (no sideways scroll); axe 0 WCAG violations with dialogs, menus, select open; 52 page pairs pass wcag-2.2 AA; build passes (separate copy); 14 gaps listed."
+    },
+    "components.docs-site": {
+      "status": "complete",
+      "date": "2026-11-20",
+      "evidence": "Storybook 10.6.8 (@storybook/nextjs-vite, CLI init) chosen by the person: 12 component docs pages with when-to-use lines and 49 stories, token docs reading CSS variables, page examples as stories, direction page; app globals.css and next/font, Theme toolbar setting data-theme; story styles match the app in both themes; axe (WCAG tags) on every story in light and dark, vitest story tests 51/51; build-storybook to storybook-static."
     }
   },
   "gates": {

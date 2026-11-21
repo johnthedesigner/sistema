@@ -5,7 +5,7 @@
 **Phase:** v2 Phase 3 (Reference project, guides, and site). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-3.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
 **Last completed task:** V3.4 — Aesthetic baseline, emphasis, and the specimen tool (with V3.3: Relay through Patterns, components approved)
-**Next task:** V3.5 — Guide rewrites (finding #27 moves there). The reference-run fix pass is done; only #27 and #60 (backlog) remain open. Relay's page examples and system reference are running.
+**Next task:** V3.5 — Guide rewrites (finding #27 moves there). The reference-run fix pass is done; only #27 and #60 (backlog) remain open. Relay is complete through Patterns: page examples and a Storybook reference (D31); examples/relay/ updated.
 **Blockers:** none. Open item: PostHog key missing from the Vercel Preview environment (owner, later; needed before V3.7)
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
