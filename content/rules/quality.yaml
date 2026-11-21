@@ -18,8 +18,8 @@
   sources: [guide.quality.visual-quality-signals#color-token-bans]
 
 - id: quality.color.commitment-level
-  statement: Surface and neutral chroma match the color presence (its commitment level) recorded in the direction.
-  reason: The commitment level is the product's decision about how much color it carries. Tokens that drift from it contradict the approved direction.
+  statement: Surface and neutral chroma match how much color the direction chose (quiet, brand, or tinted).
+  reason: How much color is the product's decision. Tokens that drift from it contradict the approved direction.
   layer: sistema-default
   severity: advisory
   applies_to: surface, surface-raised, surface-overlay, border, and the neutral ramp
@@ -66,7 +66,7 @@
 - id: quality.craft.accent-for-meaning
   statement: >-
     The accent appears on the primary action, selection, focus, links, and the brand emphasis surfaces, and
-    as far beyond them as the direction's color presence allows. Status colors are the only other color in the chrome.
+    as far beyond them as the direction's answer on how much color allows. Other colors in the chrome carry meaning, such as status.
   reason: Color spent on decoration stops signaling what can be acted on, and competes with status.
   layer: sistema-default
   severity: advisory
@@ -170,10 +170,10 @@
 - id: quality.craft.emphasis-scarce
   statement: >-
     Strong emphasis (the featured surface, brand and inverse blocks) is applied by the role of the content, as the
-    emphasis map in DESIGN.md records, and kept rarer than the quiet levels, so it still stands out. Quiet levels
+    DESIGN.md records for each kind of screen, and kept rarer than ordinary panels and zones, so it still stands out. Ordinary panels and zones
     (page, zones, panels) differ by small steps.
   reason: If every level differs by the same amount, or everything is featured, nothing leads.
   layer: sistema-default
   severity: advisory
   applies_to: review pages, page examples, and components
-  sources: [guide.visual-language.overview#emphasis-contrast-that-follows-importance]
+  sources: [guide.visual-language.overview#emphasis]

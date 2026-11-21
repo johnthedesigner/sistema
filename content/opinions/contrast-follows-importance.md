@@ -2,10 +2,10 @@
 id: opinion.contrast-follows-importance
 title: "Contrast follows importance"
 group: craft
-default: "Most levels separate quietly; a few things separate strongly, chosen by the role of the content and recorded in the emphasis map, not by how deeply they're nested."
+default: "Most levels separate quietly; a few things separate strongly, chosen by the role of the content and recorded in DESIGN.md for each kind of screen, not by how deeply they're nested."
 description: "When to use: deciding what stands out on a screen and how strongly."
 rules: ["quality.craft.emphasis-scarce"]
-guides: ["guide.visual-language.overview#emphasis-contrast-that-follows-importance"]
+guides: ["guide.visual-language.overview#emphasis"]
 last_reviewed: 2026-11-20
 ---
 
@@ -19,4 +19,4 @@ A tool so uniform in its content that nothing should lead, such as a plain data 
 
 ## If you override it
 
-Leave the emphasis roles unused in the emphasis map. They still exist in the tokens.
+Leave the emphasis roles out of DESIGN.md's "What stands out" list. They still exist in the tokens.

@@ -13,7 +13,7 @@ knowledge:
   - guide.tokens.architecture#naming-principles
   - guide.tokens.architecture#the-tier-model
   - guide.visual-language.overview#the-craft-baseline
-  - guide.visual-language.overview#ways-to-separate-and-lift
+  - guide.visual-language.overview#ways-to-separate
   - guide.quality.visual-quality-signals#token-bans
 rules: [visual-language.design-md.roles-not-values, tokens.naming.role, color.roles.required, quality.craft.borders-have-a-job]
 evidence: DESIGN.md with all eight sections in the specification's order, each filled from the approved direction, naming roles rather than values, with any open decision marked as provisional and the play that will settle it.
@@ -27,7 +27,7 @@ DESIGN.md is the reference every agent in the repo reads before touching the int
 2. **Read the specification** for the section order and what each section covers: `{{sistema_url}}/raw/files/design-md#sections`.
 
 3. **Write each section after Overview,** in the specification's order. Keep Overview as it is.
-   - **Colors:** the color roles the system will have (from rule `color.roles.required`, including the emphasis surfaces, plus any the preview introduced), what each is for, and which pairs go together. Say how color is used: where it appears, where it doesn't, and what it never signals on its own. Point to the emphasis map in Overview for where the emphasis surfaces go.
+   - **Colors:** the color roles the system will have (from rule `color.roles.required`, including the emphasis surfaces, plus any the preview introduced), what each is for, and which pairs go together. Say how color is used: where it appears, where it doesn't, and what it never signals on its own. Point to the "What stands out" list in Overview for where the emphasis surfaces go.
    - **Typography:** the type roles by name, using the names the approved preview used (the type scale play may rename them to follow the project's naming convention), what each is for, the typeface choices, and how hierarchy is built: by weight, size, or both.
    - **Layout:** the base spacing unit, the density, how spacing scales from inside components to between page sections, and the main grid or container rules.
    - **Elevation & Depth:** which layers float (menus, dialogs, toasts), what the featured surface uses, how quiet zones and panels separate (the direction's answer), and whether depth is shown with shadows, surface tone, or both, in each theme. List where borders are used and the job each does.

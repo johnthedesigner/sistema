@@ -18,14 +18,14 @@ knowledge:
   - guide.depth.architecture#shadow-color
   - guide.depth.architecture#the-hybrid-approach
   - guide.depth.architecture#emphasis-and-separation
-  - guide.visual-language.overview#ways-to-separate-and-lift
+  - guide.visual-language.overview#ways-to-separate
   - guide.quality.visual-quality-signals#token-bans
 rules: [shape.radius.hierarchy, quality.shape.bans, tokens.source.dtcg, tokens.naming.role, quality.craft.elevation-by-role, quality.craft.nested-radius, quality.craft.borders-have-a-job]
 evidence: The radius scale with the component families mapped to each level, the shadows by role with how each theme shows them, where borders are used and the job each does, any change from the approved preview, and tokens/src/shape.json.
 overrides: [shape_direction]
 last_reviewed: 2026-11-20
 ---
-1. **Read the direction:** the control radius, chip shape, and how surfaces separate in the DESIGN.md Overview "Direction values", the emphasis map, the shape and surface specimens in `sistema-review/style-preview.html`, the DESIGN.md Shapes and Elevation & Depth sections if they exist, and the theme in `sistema.json`. If this play runs on its own, use `shape_direction` when given.
+1. **Read the direction:** the control radius, chip shape, and how surfaces separate in the DESIGN.md Overview "Direction values", the "What stands out" list, the shape and surface specimens in `sistema-review/style-preview.html`, the DESIGN.md Shapes and Elevation & Depth sections if they exist, and the theme in `sistema.json`. If this play runs on its own, use `shape_direction` when given.
 
 2. **Choose the radius approach** from the shape guide: a named scale, numeric steps, or a global factor. Start from the direction's control radius and scale from it: chips and small parts smaller, panels larger, the featured surface and floating layers largest, as the approved composition showed. Then map each component family to a level. Use the full radius only where the direction calls for it (for example pill chips).
 

@@ -11,7 +11,7 @@ last_reviewed: 2026-11-20
 
 ## Why
 
-A design system with two themes makes each decision twice unless it's careful. When a treatment is tuned in light and its dark value is filled in by mirroring stops, the two drift: a selection tint that is soft in light becomes a saturated band in dark, and a message fill becomes a heavy block. Deciding the treatment once ("selection is a neutral step with an accent edge") and translating it keeps both themes saying the same thing. Reviewing components in both themes side by side catches what translation misses.
+When a treatment is tuned in light and its dark value is filled in mechanically, the two drift. A tint that is soft in light can become a saturated band in dark. Deciding the treatment once and translating it keeps both themes saying the same thing. Reviewing in both themes side by side catches what translation misses.
 
 ## When you'd choose otherwise
 

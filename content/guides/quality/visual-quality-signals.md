@@ -88,7 +88,7 @@ The checkable parts are in `quality.color.bans` and `quality.shape.bans`.
 
 ## Color amount
 
-How colorful surfaces and grays may be depends on the color presence the direction chose (quiet, brand, or tinted). The color guide's "How much color" gives the range for each, and `quality.color.commitment-level` checks the tokens against it.
+How colorful surfaces and grays may be depends on how much color the direction chose (quiet, brand, or tinted). The color guide's "How much color" gives the range for each, and `quality.color.commitment-level` checks the tokens against it.
 
 ## Review in both themes
 

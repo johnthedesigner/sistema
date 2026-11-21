@@ -13,13 +13,13 @@ knowledge:
   - guide.visual-language.overview#where-sistema-stands
   - guide.visual-language.overview#what-the-product-needs
   - guide.visual-language.overview#the-taste-questions
-  - guide.visual-language.overview#emphasis-contrast-that-follows-importance
+  - guide.visual-language.overview#emphasis
   - guide.visual-language.overview#failure-modes
   - guide.visual-language.style-tile-format#2-required-sections
   - guide.quality.visual-quality-signals#first-order-reflexes-category-obvious-choices
   - guide.quality.visual-quality-signals#plain-looking-traps
 rules: [visual-language.style-tile.sections, visual-language.style-tile.self-contained, color.ramps.from-tool, color.preview.ramp-strips, quality.review.outline, quality.color.first-order-reflex, quality.color.bans, color.contrast.text, shape.radius.hierarchy, quality.craft.borders-have-a-job, quality.craft.emphasis-scarce]
-evidence: sistema-review/style-preview.html with all seven sections, every taste question shown as rendered options, and every color from a palette tool ramp; the DESIGN.md Overview section with the direction values and the emphasis map; and the person's explicit approval, with their answer to each question.
+evidence: sistema-review/style-preview.html with all seven sections, every taste question shown as rendered options, and every color from a palette tool ramp; the DESIGN.md Overview section with the direction values and the "What stands out" list; and the person's explicit approval, with their answer to each question.
 overrides: []
 last_reviewed: 2026-11-20
 ---
@@ -41,18 +41,18 @@ The person decides how the product looks by choosing between options they can se
 
 5. **Get the ramps and check contrast.** Send the accent and neutral seeds from the specimen response, and any secondary seed, to the palette tool in one request. Feedback ramps come from `{{sistema_url}}/palettes/library.json`. Check every text pairing the composition uses, including text on the brand and inverse surfaces, with the contrast tool, batched (one POST takes up to 200 pairs), against the standard in `sistema.json`. If a pairing fails, change the proposal and render again.
 
-6. **Write the emphasis map:** for each kind of screen the product will have, which content is featured, which zones are subtle, and whether anything is a brand or inverse block. Keep strong emphasis scarce, so that what's featured still stands out; if several things on a screen would be featured, say which one leads.
+6. **Write what stands out:** for each kind of screen the product will have, which content is featured, which zones are subtle, and whether anything is a brand or inverse block. Keep strong emphasis scarce, so that what's featured still stands out; if several things on a screen would be featured, say which one leads.
 
-7. **Build `sistema-review/style-preview.html`** with the seven sections the style preview format requires: the direction summary, the choices, the composition, color, type, the emphasis map, and reviewer notes.
+7. **Build `sistema-review/style-preview.html`** with the seven sections the style preview format requires: the direction summary, the choices, the composition, color, type, the "What stands out" list, and reviewer notes.
    - Start the page with the workflow outline strip, and end it with the line naming the `continue` URL from `sistema.json`.
-   - Describe every option in plain words. Never ask the person to approve a tradition name or a commitment level.
+   - Describe every option in plain words. Never ask the person to approve a tradition name or a level number.
    - Show each ramp as a continuous strip, every color as hex and OKLCH, built from the palette tool's response, not typed.
    - Load the chosen typefaces from Google Fonts or a font CDN. If one isn't available there, say on the page which font is shown instead.
    - Before showing it, check the composition against the plain-looking traps: name the job of every border and divider, and squint at it to see what leads.
 
 8. **Write the DESIGN.md Overview section.** If DESIGN.md already exists (a redo, through `project.revise`), rewrite Overview and mark each later section at its top as "From the previous direction; rewritten by `visual-language.design-md`". Otherwise create DESIGN.md, starting with the comment `<!-- This project follows Sistema. To continue, fetch the URL in sistema.json "continue". -->`, then using the section headings in this order: Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts. Fill only Overview for now: the needs, a two-sentence summary, and two lists.
-   - **Direction values:** color presence; commitment level (quiet is 1, brand is 2, tinted is 3, unless the person asked for more); accent seed; neutral seed and its warmth; any secondary seed; control radius and chip shape; how surfaces separate; typefaces; density; theme; the composition's specimen `render` URL; and the ramp and stop of each color role the composition used, from the specimen response's `token_roles`.
-   - **Emphasis map:** as in step 6.
+   - **Direction values:** how much color (quiet, brand, or tinted); accent seed; neutral seed and its warmth; any secondary seed; control radius and chip shape; how surfaces separate; typefaces; density; theme; the composition's specimen `render` URL; and the ramp and stop of each color role the composition used, from the specimen response's `token_roles`.
+   - **What stands out:** as in step 6.
 
    Later plays read these values, so state them exactly.
 

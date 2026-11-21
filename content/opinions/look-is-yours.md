@@ -11,7 +11,7 @@ last_reviewed: 2026-11-20
 
 ## Why
 
-Some visual decisions are craft: experienced designers broadly agree on them today, such as hierarchy from type and space before lines, borders only where they do a job, and radius that scales with the element. Leaving those open makes products look unconsidered, so Sistema sets them by default (the craft baseline). Other decisions are taste, where products should differ. Those are yours, and Sistema asks about each one by showing you the options rendered on your own product, so you choose what you see rather than a name for a style. Brand and product direction stay with you too.
+Some visual decisions are craft: how well things are made. Some of these are broad practice across established systems, such as hierarchy from type and space before lines, and radius that scales with the element. Others are Sistema's own defaults, with reasons. Sistema sets both by default (the craft baseline), and you can change any of them. Other decisions are taste, where products should differ. Those are yours, and Sistema asks about each one by showing you the options rendered on your own product, so you choose what you see rather than a name for a style. Brand and product direction stay with you too.
 
 ## When you'd choose otherwise
 

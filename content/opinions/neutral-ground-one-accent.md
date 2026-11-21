@@ -2,7 +2,7 @@
 id: opinion.neutral-ground-one-accent
 title: "Neutral ground, one accent, color for meaning"
 group: craft
-default: "Surfaces and chrome are near-neutral with a slight tint; the accent marks the primary action, selection, focus, and links; status colors are the only other color."
+default: "Surfaces and chrome are near-neutral with a slight tint; the accent marks the primary action, selection, focus, and links; other colors carry meaning, such as status or data."
 description: "When to use: deciding where the accent color appears and how colorful the chrome is."
 rules: ["quality.craft.accent-for-meaning", "quality.color.commitment-level"]
 guides: ["guide.visual-language.overview#the-craft-baseline", "guide.visual-language.overview#how-much-color"]
@@ -19,4 +19,4 @@ The brand is part of the experience, as in consumer, entertainment, or marketing
 
 ## If you override it
 
-Answer the color question with a stronger option. The direction records it, and the accent review rule follows the recorded presence.
+Answer the color question with a stronger option. The direction records it, and the accent review rule follows that answer.

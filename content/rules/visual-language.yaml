@@ -18,7 +18,7 @@
     loaded that way, the page says which font is shown instead. Every color is shown as hex and OKLCH.
   reason: >-
     It must open from the file system for review. The person must see the typeface they are approving,
-    or know they aren't. OKLCH makes the commitment level visible.
+    or know they aren't. OKLCH makes the amount of color visible.
   layer: sistema-default
   severity: advisory
   applies_to: sistema-review/style-preview.html

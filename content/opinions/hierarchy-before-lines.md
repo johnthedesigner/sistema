@@ -5,7 +5,7 @@ group: craft
 default: "Borders and dividers are used only where they do a job: marking where to click or type, or helping the eye follow rows of data. Panels, cards, chips, tooltips, and menus separate by tone, space, or shadow."
 description: "When to use: deciding where borders and dividers go, and how panels separate from the page."
 rules: ["quality.craft.borders-have-a-job"]
-guides: ["guide.visual-language.overview#the-craft-baseline", "guide.visual-language.overview#ways-to-separate-and-lift", "guide.spacing.layout#space-before-lines"]
+guides: ["guide.visual-language.overview#the-craft-baseline", "guide.visual-language.overview#ways-to-separate", "guide.spacing.layout#space-before-lines"]
 last_reviewed: 2026-11-20
 ---
 

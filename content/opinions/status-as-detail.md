@@ -11,11 +11,13 @@ last_reviewed: 2026-11-20
 
 ## Why
 
-A status color is a signal, and a signal works best small. A colored icon and title on a neutral panel says "error" or "done" as clearly as a filled block, without turning every notice into an alarm or pulling the eye away from the work. Small marks like chips can take a tinted fill because they are small. In a dark theme, large status fills become deep, saturated blocks, so this keeps messages calm in both themes.
+A colored icon and title on a neutral panel says "error" or "done" clearly, without turning every notice into an alarm. In a dark theme, large status fills become deep, saturated blocks; this keeps messages calm in both themes.
+
+This is Sistema's default, not settled practice. Atlassian, Polaris, and Material use tinted message backgrounds, which work well, especially in light themes. Small marks like chips take a tinted fill either way.
 
 ## When you'd choose otherwise
 
-A blocking alert that must interrupt, such as data loss or a security warning, can take a filled block, used rarely enough to keep its force.
+You prefer tinted messages, as many systems do: check them in every theme. A blocking alert, such as data loss, can take a filled block, used rarely enough to keep its force.
 
 ## If you override it
 

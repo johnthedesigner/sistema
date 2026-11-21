@@ -63,7 +63,7 @@ The tokens are compiled and wired into the app (`tokens.pipeline`). This play bu
 
    Note each change in DECISIONS.md, so later updates of a component can reapply it.
 
-3. **Choose the core set.** Propose the components the product's first screens need, usually 8 to 12. A typical set is button, text field, select, checkbox, switch, tag or badge, inline message, panel or card, menu, dialog, tooltip, and a table for data-heavy products. Include the panel variants the emphasis map in DESIGN.md uses (a featured panel, a brand block), so pages don't have to compose them by hand. Agree on the list with the person.
+3. **Choose the core set.** Propose the components the product's first screens need, usually 8 to 12. A typical set is button, text field, select, checkbox, switch, tag or badge, inline message, panel or card, menu, dialog, tooltip, and a table for data-heavy products. Include the panel variants DESIGN.md's "What stands out" list uses (a featured panel, a brand block), so pages don't have to compose them by hand. Agree on the list with the person.
 
 4. **Set up the structure:** one folder (for example `src/components/ui/`) with one file per component or per small family, and an `index.ts` that exports every public component. Put the shared focus ring style in one place, so every component uses the same one.
 
@@ -74,7 +74,7 @@ The tokens are compiled and wired into the app (`tokens.pipeline`). This play bu
    - Both themes: build and review each component in light and dark side by side. If a treatment works in only one theme, change the treatment, not just the dark value.
    - Medium weight for labels, tabular figures for numbers, one icon set, nested radius following the outer radius.
    - Short, eased-out motion on floating layers only, none on menus opened from the keyboard many times a day.
-   - Featured, brand, and inverse surfaces only where the emphasis map puts them.
+   - Featured, brand, and inverse surfaces only where the "What stands out" list puts them.
 
 6. **Build the showcase:** a route in the app (for example `/sistema-review/components`) that shows every component in each variant and state, with a theme switch. Put the workflow outline strip at the top.
 

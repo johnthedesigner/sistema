@@ -1,6 +1,6 @@
 ---
 title: "Visual language"
-description: "How Sistema sets a product's look: a contemporary craft baseline every project starts from, the taste questions the person answers by seeing options on their own product, and emphasis that follows importance."
+description: "How Sistema sets a product's look: a baseline of good practice, questions about the look answered by seeing options on the product itself, and emphasis that follows importance."
 topic: visual-language
 sources:
   - { source: linear, url: "https://linear.app/now/how-we-redesigned-the-linear-ui" }
@@ -12,6 +12,9 @@ sources:
   - { source: fluent, url: "https://fluent2.microsoft.design/layout" }
   - { source: polaris, url: "https://cdn.jsdelivr.net/npm/@shopify/polaris-tokens@9.4.2/dist/esm/src/themes/base/color.mjs" }
   - { source: material, url: "https://m3.material.io/styles/color/roles" }
+  - { source: primer, url: "https://github.com/primer/design/blob/main/content/foundations/typography.mdx" }
+  - { source: carbon, url: "https://carbondesignsystem.com/elements/typography/overview/" }
+  - { source: atlassian, url: "https://atlassian.design/foundations/typography" }
   - { source: nngroup-hierarchy, url: "https://www.nngroup.com/articles/visual-hierarchy-ux-definition/" }
   - { source: comeau-shadows, url: "https://www.joshwcomeau.com/css/designing-shadows/" }
   - { source: rauno-interaction, url: "https://rauno.me/craft/interaction-design" }
@@ -31,173 +34,177 @@ last_reviewed: 2026-11-20
 
 ## Where Sistema stands
 
-A product's look comes from two kinds of decision, and Sistema treats them differently.
+A product's look comes from two kinds of decision:
 
-- **Craft** is what experienced product designers broadly agree on today: hierarchy from type and space before lines, borders only where they do a job, radius that scales with the element, quiet elevation, one accent used for meaning. Sistema holds these as a baseline every project starts from (the `craft` opinions). A project can override any of them, and records why.
-- **Taste** is where products should differ: how much color, warm or cool, how round, how surfaces separate, the voice of the type, density. Sistema asks the person about each one, and shows the options rendered on their own product, so they choose what they see rather than a name for a style.
+- **Craft:** how well things are made. Sistema starts every project from a baseline, and the project can override any part of it.
+- **Taste:** where products should differ, such as how much color, how round, which typeface. The person decides, by choosing between options shown on their own product.
 
-"Functional" means no styling that is purely decorative. It does not mean bare. A style earns its place by doing something for the person using the product: showing what matters, what can be clicked, what belongs together, what the product is, or how a moment should feel. Color, depth, a distinctive typeface, and a bold block of brand color can all be functional. Removing everything removable leaves a word-processor document, not a calm interface.
-
-The baseline is not "look like Linear". It's a set of principles several current systems share, each credited where it's described. Linear's redesign held most of its brand hue out of the chrome and pushed content contrast up ([Linear](https://linear.app/now/how-we-redesigned-the-linear-ui)); Vercel's Geist ties radius and shadow to a small set of elevation roles ([Geist](https://vercel.com/geist/materials)); Radix Themes expresses taste as a few parameters that restyle every component ([Radix](https://www.radix-ui.com/themes/docs/components/theme)); Spectrum 2 keeps high-attention treatments to one element or group per page ([Spectrum](https://spectrum.adobe.com/foundations/attention-hierarchy)).
+"Functional" means nothing purely decorative. It doesn't mean bare. Color, depth, a distinctive typeface, or a block of brand color can all do a job.
 
 ## The craft baseline
 
-Each item is an opinion with its reasons, when you'd choose otherwise, and how to override it. The checkable parts are advisory review rules, so a deliberate choice can win.
+### Broad practice
 
-| Item | In short | Opinion |
+Several established systems and published research share these. Sistema applies them by default.
+
+| Practice | In short | Seen in |
 |---|---|---|
-| Hierarchy before lines | Type, space, and tone carry hierarchy. A border is used where the edge is the affordance (fields, selects, checkboxes, secondary buttons) or helps the eye follow data. | `opinion.hierarchy-before-lines` |
-| Neutral ground, one accent | Surfaces and chrome are near-neutral with a slight tint. The accent marks the primary action, selection, focus, and links. Status colors are the only other color. | `opinion.neutral-ground-one-accent` |
-| Text in tones | Three or four text tones from the neutral ramp, never pure black. Secondary text carries much of the hierarchy. | `opinion.text-tones` |
-| Radius by size | Small elements smaller, containers larger, floating layers largest; a nested radius is the outer radius minus the padding. | `opinion.radius-by-size` |
-| Elevation for what floats and what leads | Menus, popovers, dialogs, toasts, and the featured item get soft, layered shadows. Ordinary panels sit on the page. | `opinion.elevation-by-role` |
-| One typeface, set with care | A well-made sans, medium weight for labels and emphasis, tighter tracking at large sizes, tabular figures for data. | `opinion.one-typeface-set-well` |
-| Consistent rhythm | A 4px grid, one control height per density, aligned edges, generous outer spacing even when the inside is dense. | `opinion.consistent-rhythm` |
-| Quiet states | Hover is a small tone change, pressed a little more, focus a crisp ring with an offset, selected a neutral step stronger than hover with an accent detail. | `opinion.quiet-states` |
-| Status as detail | Messages and banners sit on a neutral surface; the status color is in the icon and the title. Tinted fills are for small marks such as chips. | `opinion.status-as-detail` |
-| One decision for both themes | Each treatment (what is gray, what carries color, how strong a selection is) is decided once and works in light and dark. Dark values translate it; they don't change it. | `opinion.both-themes` |
-| One icon set | One set, its stroke matched to the text weight. | `opinion.one-icon-set` |
-| Short motion | Short, eased-out transitions on state changes and floating layers only. | `opinion.short-motion` |
-| Contrast follows importance | Most levels separate quietly; a few separate strongly, chosen by the role of the content. | `opinion.contrast-follows-importance` |
+| Hierarchy before lines | Type, space, and tone carry hierarchy. Borders mark edges people interact with, or help the eye follow data. | Fluent, Linear, NN/g |
+| Text in tones | Three or four text colors from the grays, not pure black. | Material, Primer, Radix |
+| Radius by size | Small elements less round, containers more, floating layers most. A nested radius follows its container. | Apple, Geist, Radix |
+| Elevation by role | Menus, dialogs, and other floating layers get shadows; ordinary panels sit flat. | Fluent, Geist, Material |
+| One typeface, set well | One family, a few weights, tighter tracking at large sizes, tabular figures for data. | Carbon, Geist, Primer |
+| Consistent rhythm | A small spacing unit, one control height per density, aligned edges. | Atlassian, Carbon, Material |
+| One icon set | One set, its stroke matched to the text. | Carbon, Material, Primer |
+| Short motion | Brief, eased transitions on state changes and floating layers. | Carbon, Material, Emil Kowalski |
+| Contrast follows importance | Most things separate quietly; a few stand out strongly. | NN/g, Spectrum |
 
-Several of these are starting points that a taste answer moves. "Neutral ground, one accent" is where the color question starts; the person can take it a long way. The radius default sits in the middle and the roundness question moves it.
+### Sistema's defaults
+
+Good products also do these differently. They are where Sistema starts, with the reason, and the project can change them.
+
+| Default | In short | Why |
+|---|---|---|
+| Neutral ground, one accent | Near-neutral surfaces; the accent on actions, selection, focus, and links. | Color reads as a signal when it's scarce. Products where the brand is the experience go further. |
+| Quiet states | Hover a small tone change, selection a gray step with an accent detail, focus a clear ring. | States happen constantly. Accent-filled selection is common too, and suits products where selection should be prominent. |
+| Status as detail | Messages on a neutral surface, with the status color in the icon and title. | Calmer, and it holds up in dark themes. Tinted message backgrounds are also common and fine. |
+| One decision for both themes | Decide each treatment once; dark values translate it. | A treatment tuned only in light often turns loud in dark. |
+
+Each item is an opinion with its reasons and how to override it, at `{{sistema_url}}/raw/opinions`.
 
 ## What the product needs
 
-Start from what the screens must do, not from a style word. A brief that says "utilitarian" describes a goal: status must stand out, rows must be easy to follow, controls must be obvious, nothing should compete with the work. None of that calls for sharp corners or an outline on every surface. Linear, Vercel's dashboard, and Stripe's dashboard are all utilitarian, and none look like that.
+Start from what the screens must do, not from a style word. "Utilitarian" or "premium" describes a goal, not a look.
 
-Write the needs as plain statements, for example:
+Write three to five plain needs. For example:
 
-- The thing that needs action now (the next job, the failed payment) must be the first thing seen.
-- People scan long lists all day, so rows must be easy to follow without heavy lines.
-- Status is the main signal, so status colors must be the strongest color on screen.
-- The brand matters on the marketing pages, much less inside the tool.
+- A dashboard: the item that needs action is seen first; status is the strongest color.
+- A shopping app: the product photo leads; the buy button is never in doubt.
+- A publication: long text is comfortable to read; navigation stays out of the way.
 
-Each taste question below is then answered by asking which option serves these needs, and the proposal says so in those words.
+Each taste question is then answered by the option that best serves these needs.
 
 ## The taste questions
 
-Each question is shown, never only described. The options are rendered on the product's own content (its navigation, a row of its records, its status chips, a button pair, a field, a menu) with the specimen tool, so every option is rendered the same way and only the decision differs. The agent proposes one option per question and says why, in terms of what the product needs. The person picks.
+Each question is shown, not described. The options are drawn on the product's own content by the specimen tool, so only the decision differs. The agent proposes one option per question, with the need it serves. The person picks.
 
 ### How much color
 
-How far the accent reaches beyond actions and focus.
-
-| Option | What the person sees | Suits |
+| Option | What you see | Suits |
 |---|---|---|
-| Quiet | Almost all neutral; color only on the main button, selection, and status | Dense tools where status must be the strongest signal |
-| Brand | The accent also marks the navigation's current item and selected rows | Most products; recognizably theirs without competing with status |
-| Tinted | A deep accent block carries the navigation, and the page takes a faint accent tint | Products where the brand is part of the experience, consumer apps, marketing |
+| Quiet | Mostly neutral; color on the main action, selection, and status | Tools where content or status should lead |
+| Brand | The accent also marks where you are, such as the current page | Most products |
+| Tinted | Large areas of brand color, such as the navigation or page background | Products where the brand is part of the experience |
 
-Color presence sets where the accent appears in the chrome. It doesn't decide the emphasis surfaces: whether a screen has a brand block is the emphasis map's call, under any presence. Selection is a neutral step in every option, with the accent only as a detail (`opinion.quiet-states`).
-
-The accent itself is a separate choice. If the project already has a brand color, use it. If not, propose one from Sistema's palette library (`{{sistema_url}}/palettes/library.json`): a colorful palette (not one of the grays), at one of its bright middle stops, 400 to 600, where the hue is at its most saturated. Those stops already sit on an even contrast curve and render well across the whole ramp, while a seed picked by eye or by name often turns muddy or dull. Show two or three of them as the options. Check the proposal against the category default (the first-order reflex in the quality guide), and keep it apart from the status hues if status matters.
+**The accent.** Use the brand color if there is one. If not, choose from Sistema's palette library, `{{sistema_url}}/palettes/library.json`. Its palettes are hand-picked hues chosen to look good, so they make a safe start. Show two or three. Avoid the category's obvious color unless there's a reason, and keep the accent apart from status colors when status matters.
 
 ### Warm or cool
 
-The temperature of the neutral ramp, which sets every surface, border, and gray text. Show the same screen with cool, neutral, and warm grays. Cool reads technical and crisp; warm reads softer and more editorial; neutral is the quietest. The neutral can also be tinted toward the accent, which makes the whole interface feel of a piece.
+The grays set every surface and border. Cool grays read crisp, warm grays softer. Grays tinted toward the accent tie the interface together. Nearly neutral is the quietest.
 
 ### How round
 
-The radius of controls, with every other radius scaled from it (chips smaller, panels larger, floating layers largest). Show about 4px, 8px, and 12px on buttons, fields, and a panel, and pills as a separate option for chips. Sharpness doesn't mean seriousness: most current professional tools sit in the middle.
+Show a few control radii, such as 4, 8, and 12px, with everything else scaled from it. Show fully round chips as a separate option.
 
 ### How surfaces separate
 
-How quiet zones and panels separate from the page. This is the quiet level; strong emphasis is handled by the emphasis roles below.
+How panels stand off the page:
 
-| Option | What the person sees |
+| Option | What you see |
 |---|---|
-| Tone | No outlines; panels a shade lighter than the page |
-| Line | Fine outlines on panels, on a white page |
-| Shadow | Panels lifted with a soft shadow |
+| Tone | No outlines; panels a shade different from the page |
+| Line | Fine outlines |
+| Shadow | A soft lift |
 
-### Type voice
+### Typeface
 
-Show three typefaces chosen for the product, each setting the same heading, a row of data, and a label. Choose for the product's character and its text: a dense tool needs clear figures and a compact width; a reading product needs comfortable text and can take a more expressive display face. A second face (for display or for code) needs a reason.
+Show three typefaces suited to the product, each setting the same heading, data, and label. A dense tool needs clear figures and a compact width. A reading product needs comfortable text. Add a second face only with a reason.
 
 ### Density and theme
 
-These usually come from Start (`sistema.json`). If the person is unsure about density, show the same table at compact, comfortable, and spacious row heights. If the theme is light and dark, show the chosen options in both.
+Usually set at the start. If density is open, show the same screen at a few spacings. With light and dark themes, show every choice in both.
 
-## Emphasis: contrast that follows importance
+## Emphasis
 
-In a well-designed product the contrast between levels is not uniform. Most structural zones separate from the page only slightly, so the page reads as one calm field. One thing, such as the job in progress or the plan to choose, stands out much more, through lift, tone, or color. A footer or a key band can be a saturated block of brand color. The variation follows the role the content plays.
+Contrast should follow importance. Most zones separate from the page only slightly. A few things stand out much more: the main action, a featured item, a promotion, a key number. If everything is emphasized, nothing is ([NN/g](https://www.nngroup.com/articles/visual-hierarchy-ux-definition/)). Spectrum suggests one high-attention element or group per page ([Spectrum](https://spectrum.adobe.com/foundations/attention-hierarchy)).
 
-A real product is less like an essay (title, heading, paragraph) and more like a large restaurant menu: whole pages, sections, promotions, mains against sides, food against drink. A single even ladder of levels can't guide attention through that on purpose; it reads as noise, or, stripped back, as a document. Research says the same: hierarchy comes from contrast between an element and its context, and if everything is contrasted, nothing stands out ([NN/g](https://www.nngroup.com/articles/visual-hierarchy-ux-definition/)). Spectrum 2 states it as a rule of thumb: one element or group with high attention per page ([Spectrum](https://spectrum.adobe.com/foundations/attention-hierarchy)).
+### Surfaces for emphasis
 
-### Emphasis surfaces
+Every system Sistema builds has these color roles beside the ordinary surfaces (`color.roles.required`):
 
-Every system Sistema builds has these color roles, alongside the ordinary surface ladder (`color.roles.required`):
-
-| Role | What it's for |
+| Role | For |
 |---|---|
-| `surface-subtle` | A quiet zone: a sidebar, a toolbar band, an inset well |
-| `surface-featured` | What should lead on the screen, lifted further than a panel |
-| `surface-inverse` | A dark block on a light page (or the reverse): a quote, a newsletter band, a toast |
-| `surface-brand` | A saturated block in the brand color: a key metric, a promotion, a footer band |
+| `surface-subtle` | A quiet zone: a sidebar, a toolbar, an inset area |
+| `surface-featured` | The item that should lead, lifted further than a panel |
+| `surface-inverse` | A dark block on a light page, or the reverse: a toast, a quote, a band |
+| `surface-brand` | A block of brand color: a key number, a promotion, a footer |
 
-Each has its own text roles and is checked for contrast like any other pairing. Polaris names surfaces by prominence rather than depth and has brand and inverse families ([Polaris tokens](https://cdn.jsdelivr.net/npm/@shopify/polaris-tokens@9.4.2/dist/esm/src/themes/base/color.mjs)); Material has inverse surfaces and containers ([Material](https://m3.material.io/styles/color/roles)).
+Polaris and Material have similar roles ([Polaris tokens](https://cdn.jsdelivr.net/npm/@shopify/polaris-tokens@9.4.2/dist/esm/src/themes/base/color.mjs), [Material](https://m3.material.io/styles/color/roles)). A product that never needs one simply doesn't use it.
 
-These roles are opinionated parts of the foundation, not questions. Asking a person to approve semantic roles one by one is the wrong level of detail. The color and depth plays choose their values from the direction, and the person sees the result on the composition in the review page. A product that never uses one simply doesn't apply it.
+### Ways to separate
 
-### Ways to separate and lift
-
-The system offers a small set of treatments, each with its tokens, and each screen chooses one per context from the role of the content, not from how deeply it's nested:
-
-| Treatment | Quiet | Strong |
+| Means | Quiet | Strong |
 |---|---|---|
-| Space | A larger gap between groups | A section break with generous space above |
-| Tone | `surface-subtle` against the surface | An inset well, or a tinted container |
-| Hairline | A hairline rule between rows | A control border |
-| Shadow | A soft lift (only when the project separates panels by shadow) | The featured shadow |
-| Color block | An accent-tinted container | `surface-brand` or `surface-inverse` |
+| Space | A larger gap | A section break |
+| Tone | A subtle surface | An inset area or tinted container |
+| Line | A hairline between rows | A control border |
+| Shadow | A soft lift | The featured shadow |
+| Color | A tinted container | A brand or inverse block |
 
-Space is the first tool; Fluent's layout guidance makes the same point: spacing creates sections "without having to use lines" ([Fluent](https://fluent2.microsoft.design/layout)). The depth guide covers shadow strength, light sources, and dark themes.
+Space comes first. Fluent makes the same point: spacing creates sections without lines ([Fluent](https://fluent2.microsoft.design/layout)).
 
-### The emphasis map
+### What stands out on each screen
 
-The direction records, per kind of screen, which content plays which role, for example: "the job in progress is featured; the sidebar is subtle; the daily total is a brand block; nothing is inverse." DESIGN.md states it once, in the Overview's direction values. Page and component work reads it instead of deciding emphasis screen by screen. Without real screens it's a first guess, and it's revised when they exist.
+DESIGN.md records, for each kind of screen, what is featured, what is quiet, and whether there's a brand or inverse block. Page and component work follows it. It's a first guess until real screens exist.
 
-## Design traditions as vocabulary
+## Design traditions
 
-Traditions such as Swiss typography, Dieter Rams' functionalism, Scandinavian design, editorial layout, or brutalism are useful words for explaining why an option suits a product ("a strict grid and type-led hierarchy, as in Swiss design"). They are never what the person approves, and they don't decide values on their own. The first Relay run showed why: "functionalist" was read as "minimal radius and outlines", and the result looked dated. If a tradition comes up, take the specific principle that serves the product's needs and show it as an option.
+Swiss typography, functionalism, editorial layout, or brutalism can explain why an option suits a product. They don't set values on their own, and they are never what the person approves. Take the specific principle that serves the product, and show it as an option.
 
 ## Rules
 
-The direction is checked against these rules:
-
 - `visual-language.style-tile.sections` and `visual-language.style-tile.self-contained`: what the direction page contains.
-- `quality.color.first-order-reflex` and `quality.color.bans`: the accent and neutral choices.
-- `shape.radius.hierarchy`: radius scaled by element.
-- The craft review rules, `quality.craft.*`, advisory: borders with a job, text tones, elevation by role, scarce emphasis, quiet states, weights, and motion.
+- `quality.color.first-order-reflex` and `quality.color.bans`: the accent and the grays.
+- `shape.radius.hierarchy`: radius by size.
+- `quality.craft.*`: the craft baseline, advisory.
 
 ## Worked example: Relay
 
-Relay is a dispatch dashboard for a small field-service company: dispatchers use it all day on desktop to assign jobs, track status, and handle requests. Its brief said "utilitarian".
+Relay is a dispatch board for a field-service company, used all day on desktop.
 
-The first run translated that into a style: "Functionalist primary, Swiss secondary, commitment level 1", radius from 2 to 8px, and outlines on panels, chips, tooltips, menus, and dividers. Every value was defensible on its own, and the result looked dated and noisy. The owner's review: too many borders, outlines, and dividers.
+**Needs.** The job that needs a technician is seen first. Status is the strongest color. Long lists stay easy to follow.
 
-With the questions, the same brief becomes needs first: the next unassigned job must be the first thing seen; status is the strongest signal; dispatchers follow long lists all day. Those point to quiet color (brand at most, so status stays strongest), separation by tone rather than lines, a middle radius, a compact sans with tabular figures, and an emphasis map in which the job in progress is featured. Each option is then shown on Relay's own jobs list before anyone approves it.
+**Proposals and answers.** For each question the agent showed three options on Relay's own board and proposed one:
+
+| Question | Proposed | Chosen |
+|---|---|---|
+| How much color | Brand | Quiet |
+| Accent | Purple from the library | Violet from the library |
+| Grays | Tinted toward the accent | Tinted toward the accent |
+| How round | 8px, round chips | 8px, chips scaled from it |
+| Separation | Tone | Shadow |
+| Typeface | IBM Plex Sans | Atkinson Hyperlegible Next |
+
+**What stands out.** On the board, the job that needs a technician is featured, the sidebar is quiet, and there's no brand block. Reports get a brand block for the day's key number.
 
 ## Failure modes
 
-- **A style word instead of needs.** "Precise", "professional", or "utilitarian" turned straight into sharp corners, gray, and outlines.
-- **Answering the taste questions for the person.** The agent picks every option and shows only the result, so the person approves a page rather than choices.
-- **Codewords on the review page.** "Level 2, Swiss" instead of the rendered options in plain words.
-- **Even steps everywhere.** Page, panel, and menu as three equal steps of gray, and nothing allowed to lead.
-- **Everything featured.** Several featured cards and brand blocks on one screen, so none leads.
-- **Options that differ in more than one thing.** If the roundness options also change color, the person can't tell what they're choosing.
+- **A style word instead of needs.** "Professional" turned straight into sharp corners, gray, and outlines.
+- **Deciding for the person.** Every option picked and only the result shown.
+- **Style labels instead of options.** Asking someone to approve "Swiss" rather than what they can see.
+- **Even steps everywhere.** Page, panel, and menu as equal steps of gray, so nothing leads.
+- **Everything emphasized.** Several featured items and brand blocks competing on one screen.
+- **Options that differ in more than one thing.** The person can't tell what they're choosing.
 
 ## Checking the work
 
-- Squint at the composition (or blur it): the featured item and the primary action should be what reads first, then the content, with the chrome last ([NN/g](https://www.nngroup.com/articles/visual-hierarchy-ux-definition/)).
-- Every border and divider on the page has a job you can name.
-- Each taste question was shown with its options rendered on the product's content, and the person picked.
-- The proposal for each question names the product need it serves.
-- The emphasis map is in DESIGN.md, and the composition follows it.
+- Squint at the screen. The main action and the featured item read first, the chrome last.
+- Every border has a job you can name.
+- Each taste question was shown as options on the product, and the person chose.
+- Each proposal names the need it serves.
 
 ## Plays
 
-- `visual-language.direction` sets the direction and asks the taste questions.
-- `visual-language.design-md` writes DESIGN.md from the approved direction.
-- `color.scheme`, `shape.tokens`, and `spacing.tokens` build the foundations from it.
+- `visual-language.direction` asks the taste questions.
+- `visual-language.design-md` writes DESIGN.md from the answers.
+- `color.scheme`, `shape.tokens`, and `spacing.tokens` build on them.

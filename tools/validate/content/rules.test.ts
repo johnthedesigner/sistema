@@ -138,3 +138,13 @@ describe('review.last-reviewed', () => {
     expect(ids(corpus({ contentFiles: [dated('2026-01-01')] }), 'review.last-reviewed')).toHaveLength(0)
   })
 })
+
+describe('content.internal-history', () => {
+  it('flags decision numbers, the owner, and the example project outside a worked example', () => {
+    const contentFiles = [
+      { path: 'content/guides/a/x.md', text: '---\ntitle: X\n---\n## Where\nAs D27 says, the owner liked it. Relay too. XYZ D65 is fine.\n\n## Worked example: Relay\nRelay chose violet.\n\n## Plays\nRelay again' },
+    ]
+    const v = ids(corpus({ contentFiles }), 'content.internal-history')
+    expect(v.map(x => x.line)).toEqual([5, 5, 5, 11])
+  })
+})

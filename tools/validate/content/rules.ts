@@ -282,6 +282,40 @@ const missingTitles: Rule = {
   },
 }
 
+/** Phrases that belong to Sistema's own history, not to user-facing content (docs/v2/content-principles.md). */
+export const INTERNAL_HISTORY: Array<{ re: RegExp; what: string }> = [
+  { re: /\bD(?!65\b)\d{1,2}\b/g, what: 'a decision number' },
+  { re: /\bfindings? #?\d+/gi, what: 'a finding number' },
+  { re: /\breference runs?\b/gi, what: '"reference run"' },
+  { re: /\bthe owner\b/gi, what: '"the owner"' },
+  { re: /\b(?:the|Relay's) first run\b/gi, what: '"the first run"' },
+  { re: /\bpetrol\b/gi, what: 'a rejected option from a working session' },
+]
+
+const internalHistory: Rule = {
+  id: 'content.internal-history',
+  level: 'content',
+  description: "User-facing content keeps Sistema's history internal: no decision or finding numbers, reviews, or runs, and the example project only in a guide's worked example (docs/v2/content-principles.md).",
+  check(corpus) {
+    const out: Omit<Violation, 'rule' | 'level'>[] = []
+    for (const f of (corpus.contentFiles ?? []).filter(f => /\.(md|ya?ml)$/.test(f.path) && !f.path.endsWith('sources.yaml'))) {
+      for (const { re, what } of INTERNAL_HISTORY)
+        for (const m of matches(f.text, re)) out.push({ file: f.path, line: lineOf(f.text, m.index), message: `${what} ("${m[0]}"): keep Sistema's history in docs/v2` })
+      // The example project may appear only in a guide's "Worked example" section or a specimen block.
+      const isGuide = f.path.startsWith('content/guides/')
+      let inExample = false
+      let inSpecimen = false
+      f.text.split('\n').forEach((line, i) => {
+        const h = line.match(/^##\s+(.*)/)
+        if (h) inExample = isGuide && /^worked example/i.test(h[1])
+        if (/^```/.test(line)) inSpecimen = !inSpecimen && /^```specimen/.test(line)
+        if (/\bRelay\b/.test(line) && !inExample && !inSpecimen) out.push({ file: f.path, line: i + 1, message: 'names the example project outside a worked example section' })
+      })
+    }
+    return out
+  },
+}
+
 const stalePrinciplesPath: Rule = {
   id: 'content.stale-path',
   level: 'content',
@@ -367,6 +401,7 @@ export const SOURCE_RULES: Rule[] = [
   missingTitles,
   universalThresholds,
   stalePrinciplesPath,
+  internalHistory,
   reviewDue,
 ]
 

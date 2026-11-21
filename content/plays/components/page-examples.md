@@ -19,7 +19,7 @@ last_reviewed: 2026-11-20
 ---
 1. **Propose two page types** from the positioning statement, for example a dashboard with navigation, a table, and summary figures; a detail view; or a settings page with forms. Ask the person to confirm or change them.
 
-2. **Build each page as a route** (for example `/sistema-review/pages/<name>`) from the real components. No new one-off styles: if a page needs something the components don't cover, note it as a gap. The emphasis surfaces the emphasis map names (a featured item, a brand block) are tokens, not new styles: build them from those tokens and note in the gap list that they have no component yet.
+2. **Build each page as a route** (for example `/sistema-review/pages/<name>`) from the real components. No new one-off styles: if a page needs something the components don't cover, note it as a gap. The emphasis surfaces the "What stands out" list names (a featured item, a brand block) are tokens, not new styles: build them from those tokens and note in the gap list that they have no component yet.
 
 3. **Write real content** for the product: names, numbers, and messages a user of this product would see, in the voice of VOICE_AND_TONE.md if it exists. No placeholder text.
 

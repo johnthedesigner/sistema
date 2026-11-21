@@ -5,7 +5,7 @@ group: craft
 default: "One well-made sans, used across a narrow range of sizes, with medium weight for labels and emphasis, slightly tighter tracking at large sizes, and tabular figures for data."
 description: "When to use: choosing typefaces and weights."
 rules: ["quality.craft.type-weights"]
-guides: ["guide.visual-language.overview#the-craft-baseline", "guide.visual-language.overview#type-voice"]
+guides: ["guide.visual-language.overview#the-craft-baseline", "guide.visual-language.overview#typeface"]
 last_reviewed: 2026-11-20
 ---
 

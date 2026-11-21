@@ -101,15 +101,15 @@ Polaris names surfaces by prominence and has brand and inverse families in both 
 
 How far the accent reaches is the first taste question at the direction (the visual-language guide shows the options). Each answer sets how colorful the surfaces and grays may be. The numbers are OKLCH chroma, on the scale the palette tool reports (0 is gray; the most saturated screen colors reach about 0.37). They are Sistema's starting guidance, not limits, and the rule `quality.color.commitment-level` checks the tokens against the answer the person chose.
 
-| Presence | Where the accent appears | Surfaces and grays | Accent |
+| Answer | Where the accent appears | Surfaces and grays | Accent |
 |---|---|---|---|
-| Quiet (level 1) | The main button, checkboxes, focus, links | Up to about 0.015 | About 0.08 to 0.16 |
-| Brand (level 2) | Also the navigation's current item | About 0.01 to 0.03, with the grays leaning toward the accent | About 0.12 to 0.20 |
-| Tinted (level 3) | A deep accent block carries the navigation; the page takes a faint tint | About 0.03 to 0.06 | About 0.15 to 0.25, often with a second hue |
+| Quiet | The main button, checkboxes, focus, links | Up to about 0.015 | About 0.08 to 0.16 |
+| Brand | Also the navigation's current item | About 0.01 to 0.03, with the grays leaning toward the accent | About 0.12 to 0.20 |
+| Tinted | A deep accent block carries the navigation; the page takes a faint tint | About 0.03 to 0.06 | About 0.15 to 0.25, often with a second hue |
 
-A fourth level, color as the dominant presence (saturated backgrounds), suits some marketing and brand pages. Sistema uses it only when the person asks, and it needs every pair checked by hand: the usual dark mirroring stops working at that strength.
+A fourth option, color as the dominant element (saturated backgrounds), suits some marketing and brand pages. Sistema uses it only when the person asks, and it needs every pair checked by hand: the usual dark mirroring stops working at that strength.
 
-Selection is a neutral step under every presence, and whether a screen has a brand block is the emphasis map's decision, not the presence's.
+Selection is a neutral step under every answer, and whether a screen has a brand block is decided per screen in DESIGN.md's "What stands out" list.
 
 ### Choosing the accent
 
@@ -253,7 +253,7 @@ Relay is a dispatch board for a trades business. Status has to be the strongest 
 
 - **The contrast tool,** with every pair in "Pairs to check", in every theme, and `purpose` set per pair.
 - **State visibility** (`color.states.visible`): hover, selected, and highlighted fills against every surface they appear on.
-- **Chroma against the presence** the direction chose (`quality.color.commitment-level`).
+- **Chroma against how much color** the direction chose (`quality.color.commitment-level`).
 - **Squint at a screen in each theme,** or blur it. Status and the primary action should read first, quiet panels last. If a panel or a selection reads before status, a step is too big.
 - **The token check page** shows the colors in use (rows, chips, messages, a menu) in each theme, not only as swatches.
 

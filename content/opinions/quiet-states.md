@@ -11,11 +11,13 @@ last_reviewed: 2026-11-20
 
 ## Why
 
-States happen constantly. Loud hover effects and heavy selection make a busy screen busier. A small, consistent change tells people what will happen without competing with the content, and a crisp focus ring keeps keyboard use clear.
+States happen constantly. A small, consistent change tells people what will happen without competing with the content, and a clear focus ring keeps keyboard use easy.
+
+The gray selection is Sistema's default, not settled practice. Many good products fill selection with the accent, which suits places where selection should be prominent. A gray step stays calm in light and dark, and leaves color to status.
 
 ## When you'd choose otherwise
 
-A touch-first or playful product where states should feel more physical.
+Selection should be prominent (a file browser, a mail list), or a touch-first or playful product where states should feel more physical.
 
 ## If you override it
 

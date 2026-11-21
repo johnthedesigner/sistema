@@ -53,6 +53,8 @@ Sistema-authored content is not versioned (decision D4). Edit files in place and
 
 ## Rules for content
 
+First, read `docs/v2/content-principles.md`: short and plain, the three-product test, how strong each claim is, no Sistema history or made-up jargon in user-facing content, and Relay only in worked examples. The content check flags the obvious slips (`content.internal-history`).
+
 1. **Run `npm run uses -- <id>` before changing anything structural** (renaming an ID, removing a section heading, changing a contract). It lists every play, workflow, rule, opinion, guide, and text mention that refers to it.
 2. **Never restate a rule value** (contrast ratios, target sizes, line-height or text-size minimums). Plays may not quote them at all. Guides may quote one only on a line that names its standard. The build enforces this.
 3. **Agent-facing URLs** are written `{{sistema_url}}/raw/...`. Never write a bare `/raw/` or `/api/` path, and never hardcode a domain. Every `/raw` link must be a route the site serves.
