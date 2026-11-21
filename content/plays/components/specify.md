@@ -10,6 +10,11 @@ requires: [tokens/src/color.json, "project:a11y-standard"]
 produces: []
 tools: []
 knowledge:
+  - guide.components.architecture#anatomy
+  - guide.components.architecture#states-and-variants
+  - guide.components.architecture#accessibility-by-component-family
+  - guide.components.architecture#api-and-naming
+  - guide.components.architecture#documenting-a-component
   - guide.tokens.architecture#naming-principles
   - guide.accessibility.floor#2-keyboard-navigation
   - guide.accessibility.floor#5-semantic-structure-and-aria

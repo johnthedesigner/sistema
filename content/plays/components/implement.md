@@ -10,6 +10,8 @@ requires: [style-dictionary.config.mjs, "project:stack", "project:a11y-standard"
 produces: []
 tools: [contrast]
 knowledge:
+  - guide.components.architecture#tokens-in-components
+  - guide.components.architecture#accessibility-by-component-family
   - guide.accessibility.floor#3-focus-visibility
   - guide.accessibility.floor#4-touch-and-pointer-targets
   - guide.accessibility.floor#6-motion

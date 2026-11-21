@@ -95,7 +95,7 @@ Outline each guide in the plan 9.1 structure first, for owner review. Then draft
 
 ## Task V3.6: Components guide
 
-**Status:** in progress: outline for owner review in `docs/v2/components-guide-outline.md` (2026-11-21)
+**Status:** draft for owner review (2026-11-21). Outline approved; sources brought in (WAI-ARIA APG, Base UI, Radix Primitives, React Aria); `guide.components.architecture` drafted; component plays cite it.
 
 Write the components guide the capability model calls for before Patterns is considered complete. Use the scope from V3.0, examples from V3.3, and the component lessons from the slice runs. Outline first, owner review.
 

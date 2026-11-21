@@ -10,6 +10,9 @@ requires: [style-dictionary.config.mjs, "gate:foundations-approved", "project:st
 produces: ["project:component-library"]
 tools: [contrast]
 knowledge:
+  - guide.components.architecture#choosing-a-foundation
+  - guide.components.architecture#states-and-variants
+  - guide.components.architecture#accessibility-by-component-family
   - guide.accessibility.floor#2-keyboard-navigation
   - guide.accessibility.floor#3-focus-visibility
   - guide.accessibility.floor#5-semantic-structure-and-aria

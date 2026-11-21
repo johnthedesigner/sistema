@@ -10,6 +10,7 @@ requires: ["project:component-library"]
 produces: []
 tools: []
 knowledge:
+  - guide.components.architecture#documenting-a-component
   - guide.tokens.architecture#the-tier-model
 rules: [tokens.usage.no-raw-values, quality.craft.both-themes]
 evidence: The reference (Storybook, or the in-app route) with its four sections, rendering from the compiled tokens and the real components in every theme, an accessibility check of each component, and a passing build of the reference.

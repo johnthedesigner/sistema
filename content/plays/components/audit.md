@@ -10,6 +10,8 @@ requires: [tokens/src/color.json]
 produces: []
 tools: [contrast]
 knowledge:
+  - guide.components.architecture#accessibility-by-component-family
+  - guide.components.architecture#failure-modes
   - guide.tokens.architecture#the-tier-model
   - guide.accessibility.floor#how-to-use-this-document
 rules: [tokens.usage.no-raw-values, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.focus-not-lost]
