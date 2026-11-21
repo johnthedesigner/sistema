@@ -20,9 +20,7 @@ last_reviewed: 2026-11-20
 
 ## Where Sistema stands
 
-A token system is a contract: design decisions live in one place, and components read them by name. When the contract holds, changing the accent or adding a dark theme means editing token files, not components.
-
-Sistema's defaults:
+Tokens keep design decisions in one place. Components read them by name, so changing the accent or adding a dark theme means editing tokens, not components.
 
 - **Two tiers.** Primitives (the raw palette and scales) and roles (what each value is for). A third tier, component tokens, only when a component must vary independently of the roles.
 - **Role names, never values** (`tokens.naming.role`). `on-surface-muted`, not `gray-600`.
@@ -31,21 +29,19 @@ Sistema's defaults:
 
 ## The tier model
 
-Most mature systems organize tokens in tiers, because different values change at different rates and for different reasons. Atlassian, Material, and Adobe Spectrum all separate raw values from decisions in some form; they differ in how many tiers they keep and what they call them.
+Most systems separate raw values from decisions. Atlassian, Material, and Spectrum all do, with different numbers of tiers and names.
 
 ### Tier 1: primitives
 
-Raw values named for what they are: every ramp stop (`palette.accent.550`), every spacing step, every radius. Only the role tier uses them. A component that reads a primitive is coupled to a value instead of a decision.
+Raw values named for what they are: ramp stops (`palette.accent.550`), spacing steps, radii. Only roles use them.
 
 ### Tier 2: roles
 
-Names for decisions: `surface`, `on-surface`, `primary`, `border-focus`, `space.gap`, `radius.control`. Each role points to a primitive. Components read roles and nothing else, so a component survives any palette change as long as the role still means the same thing. Light and dark are two assignments of the same roles.
+Names for decisions: `surface`, `primary`, `border-focus`, `space.gap`, `radius.control`. Each points to a primitive. Components read only roles. Light and dark are two assignments of the same roles.
 
 ### Tier 3: component tokens (scoped overrides)
 
-Per-component names (`button.background`, `dialog.scrim`) that point to roles by default and are overridden only where a component must differ. Most systems don't need them at first. Add them when several themes or brands need one component to look different, or when others will theme the library. If a component can be styled entirely from roles, skip this tier.
-
-Adding tiers past three ("sub-components", "variants") grows maintenance faster than value.
+Per-component names (`button.background`) that point to roles and change only where a component must differ. Add them when several themes or brands need one component to differ, or when others will theme the library. Otherwise skip them. More than three tiers costs more than it gives.
 
 ## What every system needs
 
@@ -62,15 +58,15 @@ Motion and z-index are added when there are real decisions to record, not as emp
 
 ### Name for role, not value
 
-`on-surface-muted` survives a rebrand and says what it's for. `gray-600` does neither, and becomes a lie when the value changes. Mixing the two in one tier (`primary` beside `blue-500`) is the usual failure.
+`on-surface-muted` says what it's for and survives a rebrand. `gray-600` does neither. Don't mix the two in one tier.
 
 ### Use a consistent structure
 
-Pick one structure per tier and hold it. Category, then role, then modifier (`color.on-surface-muted`, `space.gap`) suits roles. Component tokens add the property and state (`button.background-hover`).
+One structure per tier. Roles: category, role, modifier (`color.on-surface-muted`). Component tokens add property and state (`button.background-hover`).
 
 ### Communicate the pairing
 
-Color works in pairs: a surface and what sits on it. Make the pair visible in the names (`surface-brand` and `on-surface-brand`), so the text role for any surface is obvious without looking it up. Material's `on-*` convention does this; `background` and `foreground` pairs do too.
+Name a surface and its text as a pair (`surface-brand`, `on-surface-brand`), as Material's `on-*` convention does.
 
 ### Avoid encoding values in names
 
@@ -80,7 +76,7 @@ How type roles are named is a taste choice, covered in the typography guide.
 
 ## Modes: theme, density, and motion
 
-A mode replaces some token values while it's active, without changing components. Systems commonly treat three kinds separately:
+A mode swaps some token values without changing components. Three kinds are common:
 
 | Kind | Typical modes | Changes | Examples |
 |---|---|---|---|
@@ -167,7 +163,7 @@ shadcn-theme   --primary: var(--color-primary);
 button.tsx     className="bg-primary text-on-primary"
 ```
 
-The palette is the primitive tier and isn't emitted as CSS, so nothing outside the roles can reach a raw stop. `npm run tokens` compiles the sources, regenerates DESIGN.md's front matter, and rebuilds the token check page. When the person later asked for a gray selected row, the change was one new role (`surface-selected`) pointing at two stops, and every component picked it up.
+The palette isn't emitted as CSS, so only roles reach a stop. `npm run tokens` compiles the sources, updates DESIGN.md's front matter, and rebuilds the token check page. Adding a gray selected row later took one new role (`surface-selected`), and every component picked it up.
 
 ## Common failure modes
 

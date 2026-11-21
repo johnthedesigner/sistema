@@ -16,16 +16,16 @@ last_reviewed: 2026-11-20
 
 ## Where Sistema stands
 
-A design system can pass every functional check and still look generic, dated, or noisy. Sistema guards against that in two ways:
+A system can pass every functional check and still look generic, dated, or noisy. Sistema guards against that with:
 
-- **A craft baseline it sets by default:** hierarchy before lines, neutral ground with one accent, text in tones, radius by size, elevation by role, quiet states, status as detail, one decision for both themes. These are opinions with reasons and advisory rules, described in the visual-language guide.
-- **Checks for the choices that make a system look like every other one:** reflexes, predictable families, plain-looking traps, and a short list of token bans. They are on this page.
+- **The craft baseline** (see the visual-language guide).
+- **The checks on this page:** reflexes, predictable families, plain-looking traps, and a few bans.
 
-The checks are advisory (`opinion.quality-signals-advisory`). They name a likely problem; they don't decide taste. A deliberate choice can win, as long as it's made for a reason the product supports and recorded in DECISIONS.md.
+The checks are advisory (`opinion.quality-signals-advisory`). They flag a likely problem; they don't decide taste. A deliberate choice, recorded in DECISIONS.md with its reason, wins.
 
 ## Reflexes
 
-When an agent (or a person in a hurry) picks values, it reaches for what it has seen most: the category's obvious choices. Each is fine on its own. Together they produce a system that could belong to any product. The framing of first-order reflexes and second-order families follows impeccable, an agent skill for frontend design quality ([impeccable](https://github.com/pbakaus/impeccable)), adapted here to token decisions.
+Picking values in a hurry means reaching for the obvious. Each obvious choice is fine alone. Together they make a system that could belong to any product. The idea of first-order reflexes and second-order families comes from impeccable, an agent skill for frontend design quality ([impeccable](https://github.com/pbakaus/impeccable)).
 
 ### First-order reflexes (category-obvious choices)
 
@@ -42,7 +42,7 @@ More than two of these together is a strong sign the values were defaulted, not 
 
 ### Predictable families
 
-Avoiding the first reflexes often lands in a second, equally predictable pocket: a whole look popularized by a tool or a trend.
+Avoiding the obvious often lands in a second predictable place: a whole look made popular by a tool or trend.
 
 | Family | What it looks like |
 |---|---|
@@ -52,11 +52,11 @@ Avoiding the first reflexes often lands in a second, equally predictable pocket:
 | Brutalist | High-contrast black and white, monospace everywhere, outlined buttons, no radius |
 | Friendly app | Large radii, pastel accents, generous padding, illustrated empty states |
 
-None of these is wrong as a direction. They are a problem when they arrive without a reason in the product's needs: a precise, technical product that comes out dark and moody has been assigned a look, not given one. The direction's taste questions exist so the person chooses with the options in front of them.
+None is wrong as a direction. They're a problem when they arrive without a reason in the product's needs.
 
 ## Plain-looking traps
 
-The opposite pocket: a system that avoids every flashy reflex and still looks dated, because "serious" or "functional" was read as a style. Each choice looks defensible alone, which is why they're easy to miss.
+The opposite problem: a system that avoids every flashy choice and still looks dated, because "serious" was read as a style.
 
 | Trap | What it looks like | Instead |
 |---|---|---|
@@ -69,9 +69,9 @@ To check a review page for these, name the job of every border and divider, and 
 
 ## Token bans
 
-A few patterns are ruled out whatever the direction, because they are structural errors or reflexes that survive review because they're hard to name. Several match impeccable's deterministic checks.
+A few patterns are ruled out whatever the direction. Several match impeccable's automated checks.
 
-- **A thick colored side stripe as decoration or as the main status signal** (`border-left: 4px solid` on callouts and cards). A thin edge that marks a selected row, beside its fill and checkbox, is a state detail, not this pattern.
+- **A thick colored side stripe as decoration or as the main status signal.** A thin edge that is one of several cues for a state is fine.
 - **Gradient text as the default heading style.** Decoration standing in for typographic hierarchy.
 - **Glass surfaces as the default** (blur with translucent panels). Allowed as a deliberate choice; ruled out as a reflex.
 - **One card style for every kind of content,** with the same padding, radius, and shadow regardless of density or importance.
@@ -92,11 +92,9 @@ How colorful surfaces and grays may be depends on how much color the direction c
 
 ## Review in both themes
 
-Most quality problems show at a glance, if you look in the right way:
-
-- **Squint at a real screen,** or blur it. The thing that needs action and the primary button should read first, the content next, the chrome last ([NN/g](https://www.nngroup.com/articles/visual-hierarchy-ux-definition/)). If a panel, a selection, or the lines read first, a step is too strong.
-- **Look at light and dark side by side.** A treatment tuned in light can turn loud in dark: an accent selection becomes a saturated band, a status-filled message becomes a heavy block. Change the treatment, not only the dark value (`opinion.both-themes`).
-- **Ask whether the screen could belong to any product.** If it could, go back to the needs and the taste questions.
+- **Squint at a real screen.** What needs action reads first, content next, chrome last ([NN/g](https://www.nngroup.com/articles/visual-hierarchy-ux-definition/)). If panels or lines read first, a step is too strong.
+- **Compare light and dark side by side.** A treatment tuned in light can turn loud in dark. Change the treatment, not only the dark value (`opinion.both-themes`).
+- **Ask whether the screen could belong to any product.** If so, go back to the needs.
 
 ## Rules
 
@@ -104,11 +102,9 @@ The quality rules are listed at the end of this page and at `{{sistema_url}}/raw
 
 ## Worked example: Relay
 
-Relay's first run was technically sound: every contrast pair passed and the accessibility checker found nothing. The owner judged the result "more MS Office than Linear". Every plain-looking trap was present: an outline on every panel, chip, tooltip, and divider; radii of 2 to 8px; near-gray with a dark teal accent only on buttons; and page, panel, and menu as even steps of gray. The cause was in Sistema: the visual-language guide had turned "utilitarian" into a style, and the agent answered the taste questions itself.
+Relay is a dispatch board. An early version passed every functional check but showed all four plain-looking traps: an outline on every panel, chip, and menu; small radii everywhere; near-gray with the accent only on buttons; and equal steps of gray.
 
-The re-run asked the person each question with options rendered on Relay's own board. The result separates panels by shadow with no outlines, keeps borders on fields and table rows where they have a job, uses an 8px control radius scaled up to 14px for floating layers, tints the grays toward a violet accent, and lets the job that needs a technician lead.
-
-Review in both themes then found two treatments that only worked in light: an accent-filled selected row and status-filled messages. Both became neutral, with the color as a detail, in both themes.
+The current version separates panels by shadow, keeps borders on fields and table rows where they help, uses an 8px control radius scaled up for larger elements, tints the grays toward a violet accent, and lets the job that needs a technician lead. In both themes, selection and messages are gray with color as a detail.
 
 ## Failure modes
 

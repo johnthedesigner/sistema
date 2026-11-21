@@ -32,11 +32,7 @@ Blue, green, and yellow from the palette library. Stops with the same number hav
 
 ## How to use this document
 
-This document specifies a complete algorithm for generating bespoke color shade palettes from one or more seed hex colors. It is intended to be machine-executable: a developer or LLM with this document and a color math library can implement the algorithm without additional research.
-
-The output is a set of shade arrays — 19 stops per color, indexed 50–950 — where each stop has a predictable contrast ratio against white and against black. This predictability is the primary design goal: it enables cross-hue interchangeability for accessible UI. If `blue-600` meets a contrast target, then so does `green-600`, because both stops were selected by the same contrast criterion.
-
-For how to map these generated primitives to semantic roles (primary, surface, on-surface, etc.), see the Color architecture guide.
+This is a full specification: with it and a color library, a developer can reimplement the tool. For how stops become roles, see the color guide.
 
 ---
 
