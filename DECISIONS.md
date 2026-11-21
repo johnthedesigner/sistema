@@ -1,4 +1,4 @@
-This project follows Sistema. To continue, fetch the URL in sistema.json "continue".
+This project follows Sistema. "Start a design system" is finished. For later design system work, fetch the URL in sistema.json "continue".
 
 # Decisions
 
@@ -15,6 +15,7 @@ Inferred, not asked: the accessibility standard (WCAG 2.2 AA, from the first log
 2026-11-21 | Small-text links | The color step sets a link color that passes contrast at small sizes (owner).
 2026-11-21 | Reduced motion | Supported, as the accessibility rule requires (owner).
 2026-11-21 | Direction scope | The logo colors stay, and blue #0070FF stays the interface accent; the direction asks the other questions (owner).
+2026-11-21 | Foundations approved | Tokens in tokens/src, compiled by npm run tokens; pages move to the roles in the site restructure (owner).
 2026-11-21 | Direction answers | Brand color, grays tinted toward blue (proposed warm), 8px with round chips, tone separation, Inter with Fraunces headings (owner).
 2026-11-21 | Moved from LIVING_BRIEF.md | The brief's content now lives in DESIGN.md, DECISIONS.md, and sistema.json. Four conflicts were listed for the owner.
 2026-05-14 | Positioning brief (from LIVING_BRIEF.md) | Brand palette locked: blue #0070FF, yellow #FFCC33, red #E60026; light primary, dark on the system setting; WCAG 2.2 AA; Next.js and Tailwind.

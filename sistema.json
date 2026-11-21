@@ -1,8 +1,8 @@
 {
   "sistema": "2",
-  "workflow": "start",
-  "continue": "https://sistema-git-v2-jtd-604ef502.vercel.app/raw/workflows/start",
-  "milestone": "foundations",
+  "workflow": "session",
+  "continue": "https://sistema-git-v2-jtd-604ef502.vercel.app/raw/workflows/session",
+  "milestone": "maintain",
   "project": {
     "name": "Sistema",
     "a11y_standard": "wcag-2.2 AA",
@@ -54,7 +54,7 @@
       "evidence": "4px scale; control height 36px, small 28px; panel padding 24px; gap 16px; section gap 64px; reading width 680px; container 1180px."
     },
     "tokens.pipeline": {
-      "status": "in-progress",
+      "status": "complete",
       "date": "2026-11-21",
       "evidence": "Style Dictionary over tokens/src (DTCG): generated.css with dark under [data-theme] and the system setting; Tailwind theme JSON; DESIGN.md front matter; token-check.html. Legacy class names aliased until the restructure. Build passes."
     }
@@ -64,6 +64,10 @@
       "date": "2026-11-21",
       "by": "owner",
       "note": "Brand color, grays tinted toward blue, 8px with round chips, tone separation, Inter with Fraunces headings."
+    },
+    "foundations-approved": {
+      "date": "2026-11-21",
+      "by": "owner"
     }
   },
   "routing": {}
