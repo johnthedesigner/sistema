@@ -40,9 +40,12 @@ function fail(file: string, issues: Array<{ path: string; message: string }>): n
 
 const cache = new Map<string, Catalog>()
 
-/** Load every play, workflow, rule, opinion, and guide under <root>/content. Cached per root. */
+/**
+ * Load every play, workflow, rule, opinion, and guide under <root>/content.
+ * Cached per root, except under `next dev`, so content edits show without a restart.
+ */
 export function loadCatalog(root: string = process.cwd()): Catalog {
-  const hit = cache.get(root)
+  const hit = process.env.NODE_ENV === 'development' ? undefined : cache.get(root)
   if (hit) return hit
 
   const rel = (abs: string) => path.relative(root, abs).split(path.sep).join('/')
