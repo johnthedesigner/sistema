@@ -23,37 +23,37 @@ evidence: sistema-review/style-preview.html with all seven sections, every taste
 overrides: []
 last_reviewed: 2026-11-20
 ---
-The person decides how the product looks by choosing between options they can see, rendered on their own product. You propose an answer to each question and say why; you don't answer for them. No token files are written here, but every color on the page comes from the palette tool, so what the person approves is what the color play uses.
+The person chooses the look by picking between options drawn on their own product. You propose an answer to each question and say why. No tokens are written here, but every color comes from the palette tool, so what the person approves is what the color play uses.
 
-1. Read `sistema.json` for the theme, density, and accessibility standard. Read the positioning statement in DECISIONS.md, and any existing brand material that `project.assess` found. Existing brand colors or typefaces are fixed points: use them, and ask only the questions they leave open.
+1. **Read the project:** `sistema.json` (theme, density, accessibility standard), the positioning statement in DECISIONS.md, and any brand material `project.assess` found. Existing brand colors and typefaces are fixed; ask only what they leave open.
 
-2. **Write what the product needs:** three to five plain statements about what its screens must do, from the positioning (see "What the product needs" in the visual-language guide). Don't turn a style word into a style: "utilitarian" means status must stand out and rows must be easy to follow, not sharp corners and outlines.
+2. **Write what the product needs:** three to five plain statements about what its screens must do (the visual-language guide, "What the product needs"). Translate style words into needs, not looks.
 
 3. **Propose an answer to each taste question,** with the need it serves:
-   - **How much color:** quiet, brand, or tinted, and the accent seed. If the project has no brand color, take the seed from the palette library, `{{sistema_url}}/palettes/library.json`: a colorful palette at one of its bright middle stops (400 to 600), and offer two or three such stops as the options (see "How much color" in the visual-language guide). Run the first-order reflex check on the accent; if it's the category default, justify it in writing or change it. Keep it apart from the status hues when status matters.
-   - **Warm or cool:** cool or warm grays, grays tinted toward the accent (the specimen's `neutral=tinted`), or nearly neutral grays (`neutral=neutral`, which keeps a trace of temperature, as the color bans ask). Describe the last as "nearly neutral", not "plain gray". If the grays are tinted toward the accent, each accent option renders with its own grays; say so on the page.
-   - **How round:** a control radius (about 4, 8, or 12px), and scaled or pill chips.
+   - **How much color:** quiet, brand, or tinted. For the accent, use the brand color, or offer two or three palettes from `{{sistema_url}}/palettes/library.json`, taking each palette's bright middle stop (400 to 600) as the seed. Avoid the category's obvious color unless you can say why, and keep the accent apart from status colors.
+   - **Warm or cool:** cool, warm, tinted toward the accent (`neutral=tinted`), or nearly neutral (`neutral=neutral`). If grays follow the accent, each accent option has its own grays; say so.
+   - **How round:** a control radius (about 4, 8, or 12px), and scaled or fully round chips.
    - **How surfaces separate:** tone, line, or shadow.
-   - **Type voice:** three typefaces suited to the product, and a second face only with a reason.
+   - **Typeface:** three suited to the product. A second face only with a reason.
    - **Density and theme:** only if `sistema.json` leaves them open.
 
-4. **Render the options with the specimen tool.** For each question, render each option with that one setting changed and every other setting at your proposed answers. Use the layout closest to the product, and pass the product's own content (its navigation, a page title, a featured record, a few rows with real statuses, a few metrics) so the person sees their product, not placeholders. Then render the composition, all proposed answers together, in every theme in `sistema.json`. Use the `render` URL each response returns.
+4. **Render the options** with the specimen tool. For each question, change only that setting; keep the rest at your proposals. Use the layout closest to the product and pass its real content (navigation, a title, a featured item, a few rows, a few numbers). Then render all proposals together, in every theme. Use each response's `render` URL.
 
-5. **Get the ramps and check contrast.** Send the accent and neutral seeds from the specimen response, and any secondary seed, to the palette tool in one request. Feedback ramps come from `{{sistema_url}}/palettes/library.json`. Check every text pairing the composition uses, including text on the brand and inverse surfaces, with the contrast tool, batched (one POST takes up to 200 pairs), against the standard in `sistema.json`. If a pairing fails, change the proposal and render again.
+5. **Get the ramps and check contrast.** Send the seeds from the specimen response to the palette tool in one request; feedback ramps come from the library. Check every text pair the rendering uses with the contrast tool, batched, against the project's standard. If a pair fails, change the proposal and render again.
 
-6. **Write what stands out:** for each kind of screen the product will have, which content is featured, which zones are subtle, and whether anything is a brand or inverse block. Keep strong emphasis scarce, so that what's featured still stands out; if several things on a screen would be featured, say which one leads.
+6. **Write what stands out:** for each kind of screen, what is featured, what is quiet, and whether there's a brand or inverse block. Keep strong emphasis rare; if several things compete, say which leads.
 
-7. **Build `sistema-review/style-preview.html`** with the seven sections the style preview format requires: the direction summary, the choices, the composition, color, type, the "What stands out" list, and reviewer notes.
-   - Start the page with the workflow outline strip, and end it with the line naming the `continue` URL from `sistema.json`.
-   - Describe every option in plain words. Never ask the person to approve a tradition name or a level number.
-   - Show each ramp as a continuous strip, every color as hex and OKLCH, built from the palette tool's response, not typed.
-   - Load the chosen typefaces from Google Fonts or a font CDN. If one isn't available there, say on the page which font is shown instead.
-   - Before showing it, check the composition against the plain-looking traps: name the job of every border and divider, and squint at it to see what leads.
+7. **Build `sistema-review/style-preview.html`** with the sections the style preview format requires.
+   - Start with the workflow outline strip; end with the line naming the `continue` URL.
+   - Describe every option in plain words. Never ask anyone to approve a style label or a number.
+   - Show ramps as continuous strips, colors as hex and OKLCH, from the palette tool's response.
+   - Load the typefaces from Google Fonts or a font CDN, or say which font is shown instead.
+   - Before showing it, check against the plain-looking traps: name each border's job, and squint to see what leads.
 
-8. **Write the DESIGN.md Overview section.** If DESIGN.md already exists (a redo, through `project.revise`), rewrite Overview and mark each later section at its top as "From the previous direction; rewritten by `visual-language.design-md`". Otherwise create DESIGN.md, starting with the comment `<!-- This project follows Sistema. To continue, fetch the URL in sistema.json "continue". -->`, then using the section headings in this order: Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts. Fill only Overview for now: the needs, a two-sentence summary, and two lists.
-   - **Direction values:** how much color (quiet, brand, or tinted); accent seed; neutral seed and its warmth; any secondary seed; control radius and chip shape; how surfaces separate; typefaces; density; theme; the composition's specimen `render` URL; and the ramp and stop of each color role the composition used, from the specimen response's `token_roles`.
-   - **What stands out:** as in step 6.
+8. **Write the DESIGN.md Overview.** If DESIGN.md exists (a redo, through `project.revise`), rewrite Overview and mark each later section "From the previous direction; rewritten by `visual-language.design-md`". Otherwise create DESIGN.md with the comment `<!-- This project follows Sistema. To continue, fetch the URL in sistema.json "continue". -->` and the headings Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts. Fill only Overview: the needs, a two-sentence summary, and:
+   - **Direction values:** how much color; accent seed; gray seed and warmth; any second seed; control radius and chip shape; separation; typefaces; density; theme; the rendering's `render` URL; and each color role's ramp and stop, from the specimen's `token_roles`.
+   - **What stands out:** from step 6.
 
    Later plays read these values, so state them exactly.
 
-9. **Ask for approval.** Summarize the proposal in five bullets and name the three or four choices that took the most judgment. Ask the person to open `sistema-review/style-preview.html` and, for each question, pick an option or say "as proposed". Re-render and revise until they approve. When the answers differ from your proposals, render the composition again with the person's answers, and label each question's options as drawn with the proposed answers for the other questions. If the person is unsure of an answer until they see it ("I may not want this once I see it"), render the composition both ways at the approval. Don't continue without an explicit approval. Record their answer to each question in the evidence. Tell them they can stop here and pick up later in any new session.
+9. **Ask for approval.** Summarize in five bullets and name the three or four hardest calls. Ask the person to open the page and, for each question, pick an option or say "as proposed". If their answers differ from your proposals, render all the answers together again, and label each question's options as drawn with your proposals. If they're unsure until they see it, render both ways. Don't continue without explicit approval. Record each answer in the evidence. Tell them they can stop and resume in any new session.

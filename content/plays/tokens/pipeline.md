@@ -19,11 +19,11 @@ evidence: The compile command's successful output, the list of compiled files, e
 overrides: []
 last_reviewed: 2026-11-15
 ---
-The JSON files in `tokens/src/` are the only place token values are written. Everything this play produces is generated from them.
+Token values are written only in `tokens/src/`. Everything here is generated from them.
 
-1. **List the sources.** Note every JSON file in `tokens/src/`. Some may not exist yet if earlier plays were skipped. Compile what is there.
+1. **List the sources** in `tokens/src/`. Compile what's there; skipped plays leave gaps.
 
-2. **Pick the output path** from the stack and folder layout. For Next.js with a `src/` folder, use `src/styles/tokens/`. Without one, use `styles/tokens/`. For other stacks, follow the project's layout. Ask one question only if it is unclear.
+2. **Pick the output path:** `src/styles/tokens/` for Next.js with `src/`, otherwise `styles/tokens/`, or the project's own layout.
 
 3. **Write `style-dictionary.config.mjs`** for Style Dictionary v5:
    - Source: every JSON file in `tokens/src/`. Files named `<category>.<mode>.json` are modes, not defaults. `palette.json` is the primitive tier: role tokens refer to it, but it isn't output as custom properties or Tailwind utilities, so code can only use roles.
@@ -34,9 +34,9 @@ The JSON files in `tokens/src/` are the only place token values are written. Eve
      - `motion.reduced.json` goes under `@media (prefers-reduced-motion: reduce)` and under `[data-motion="reduced"]`.
 
      Fail the compile if a mode file names a token the defaults don't have, or if two kinds of mode change the same token.
-   - Add `"tokens": "node style-dictionary.config.mjs"` to `package.json` scripts. Install `style-dictionary` as a dev dependency if it is missing. If the install is blocked, ask the person to approve it or run it, and continue once it is in place.
+   - Add `"tokens": "node style-dictionary.config.mjs"` to the scripts, and install `style-dictionary` as a dev dependency if needed. If the install is blocked, ask the person.
 
-4. **Compile.** Run `npm run tokens`. If it fails, find the cause and fix it before going on. Do not skip a failed compile.
+4. **Compile** with `npm run tokens`. Fix any failure before going on.
 
 5. **Wire the CSS in.** Import the compiled CSS from the global stylesheet, and check the import path against the real folder layout.
    - **Tailwind 4:** generate a second file with an `@theme inline reference { ... }` block that maps each role token to its custom property, for example `--color-primary: var(--color-primary);`. Expose role tokens only, not primitive ramps. Map the other categories to Tailwind's namespaces: type roles to `--text-<role>` (with `--text-<role>--line-height`, `--text-<role>--font-weight`, and `--text-<role>--letter-spacing`), font families to `--font-<name>`, radii to `--radius-<level>`, spacing steps to `--spacing-<step>`, and shadows to `--shadow-<level>`. `reference` stops Tailwind from re-declaring the variables, which would make each one refer to itself. Also add `--color-*: initial;` in an `@theme` block, so Tailwind's default palette is removed and only the system's colors exist, unless the person wants to keep it.
@@ -44,7 +44,7 @@ The JSON files in `tokens/src/` are the only place token values are written. Eve
    - A type role that also needs a font family or a text transform (a mono data style, an uppercase overline) can't be expressed by a `--text-<role>` variable alone. Generate a utility for it with `@utility` (for example `text-overline`) that sets every property the role needs.
    - After building, search the compiled CSS for any custom property that refers to itself (`--x: var(--x)`) and fix the cause.
 
-6. **Replace old sources.** If DECISIONS.md lists old sources to replace (for example, a Tailwind theme block or hard-coded values in components), point them at the role tokens now, so nothing still uses the old values. If the person chose to keep old names (for example, existing Tailwind utilities like `bg-brand-500`), define those names as aliases of the new tokens instead of rewriting their uses. Change only what that list names. Keep a list of every file outside `tokens/` you change. Then run the app's build. It must pass.
+6. **Replace old sources** that DECISIONS.md lists (a Tailwind theme block, hard-coded values) by pointing them at roles. If the person kept old names (such as `bg-brand-500`), make them aliases of the new tokens. Change only what the list names, and keep a list of every file outside `tokens/` you change. Then run the app's build without disturbing a running dev server.
 
 7. **Regenerate DESIGN.md front matter.** Write the token values from `tokens/src/` into DESIGN.md's YAML front matter, using the keys and value types in `{{sistema_url}}/raw/files/design-md#front-matter`. In short:
 
@@ -60,12 +60,12 @@ The JSON files in `tokens/src/` are the only place token values are written. Eve
      <level>: <px>
    ```
 
-   Generate it from the same script, so it can't drift. Add a comment saying it is generated and must not be edited. Do not change the body sections.
+   Generate it from the same script, with a comment saying it's generated. Don't change the body.
 
-8. **Build `sistema-review/token-check.html`** from the same compile script, so `npm run tokens` regenerates it whenever tokens change. It loads the compiled CSS by a relative path and shows:
+8. **Build `sistema-review/token-check.html`** from the same script, so it regenerates with the tokens. Keep any hand-written notes (such as why a value differs from the preview) in a data file the script reads. The page loads the compiled CSS by a relative path and shows:
    - the workflow outline strip at the top;
    - every color role as a labeled swatch with its value and the primitive it refers to, and each ramp in `palette.json` as a continuous strip;
-   - **the colors in use,** before the swatches: a few small compositions built only from the role tokens, so the person judges treatments rather than chips of color. At least a table row at rest, hovered, and selected next to status chips; an inline message for each status; a menu with a highlighted and a destructive item; the primary button and its hover; and text on the inverse and brand surfaces. Shown in each theme by the same switch;
+   - **the colors in use,** before the swatches, built only from role tokens: a row at rest, hovered, and selected beside status chips; a message per status; a menu with a highlighted and a destructive item; the primary button and its hover; text on the inverse and brand surfaces;
    - every type role as a live specimen, every radius as a box at that radius, and every spacing step as a bar of that width;
    - next to each color role, whether it matches the value shown in the approved style preview, and for each one that differs, why;
    - a section "Approved but not yet tokenized" listing direction values (from the DESIGN.md Overview) whose category has no tokens yet because its play was skipped;
