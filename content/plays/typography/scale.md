@@ -22,7 +22,7 @@ evidence: A table of every type role (size, weight, line height, letter spacing,
 overrides: [typography_direction]
 last_reviewed: 2026-11-15
 ---
-1. **Read the direction:** the typographic character and typefaces in the DESIGN.md Overview "Direction values", the type specimens in `sistema-review/style-preview.html`, the role names in the DESIGN.md Typography section if it exists, and the density in `sistema.json`. If this play runs on its own, use `typography_direction` when given. If no typeface was chosen, ask.
+1. **Read the direction:** the typographic character and typefaces in the DESIGN.md Overview "Direction values", the type specimens in `sistema-review/visual-direction.html`, the role names in the DESIGN.md Typography section if it exists, and the density in `sistema.json`. If this play runs on its own, use `typography_direction` when given. If no typeface was chosen, ask.
 
 2. **Choose the scale approach** from the guide: modular, hand-tuned, or the middle path. Record the choice and the reason.
 

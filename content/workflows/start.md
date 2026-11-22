@@ -7,7 +7,7 @@ sequence:
   - project.assess
   - visual-language.direction
   - gate: direction-approved
-    prompt: Open sistema-review/style-preview.html and approve the visual direction, or say what to change.
+    prompt: Open sistema-review/visual-direction.html and approve the visual direction, or say what to change.
   - visual-language.design-md
   - content.voice-and-tone?
   - color.scheme

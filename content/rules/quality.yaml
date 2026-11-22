@@ -37,8 +37,9 @@
 
 - id: quality.review.outline
   statement: >-
-    Every review page starts with the workflow outline as a strip: each step and approval with its
-    status, and the current step highlighted.
+    Every review page says where it sits in the workflow: the visual direction page with a plain progress
+    line, other review pages with the workflow outline as a strip (each step and approval with its status,
+    the current step highlighted).
   reason: The person should always see where this review sits in the whole process.
   layer: sistema-default
   severity: advisory

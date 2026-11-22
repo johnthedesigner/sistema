@@ -27,6 +27,13 @@ Items discovered during development or piloting that are not urgent enough to fi
 
 - **Site-wide audit for AI writing patterns** — The VOICE_AND_TONE.md now defines a set of structural patterns to avoid (the "not just X — it's Y" family, contrast-first framing, ends-on-a-negative constructions, and others). The KB landing page descriptions have been cleaned, but the rest of the site has not been audited against this standard. Pages to check: home page subhead and credibility callout, playbook index and individual play descriptions (`PLAY_DESCRIPTIONS` in `playbooks/[slug]/page.tsx`, `PLAY_OUTPUTS` in `playbooks/page.tsx`), campaign descriptions (sourced from campaign markdown files), guide page body copy, sources page item descriptions, and KB category page copy at the system and file level. *Rule codified 2026-05-17.*
 
+## Framing and expectations in content
+
+- **"Worked example" reads as jargon, and the sections don't set expectations** (owner, 2026-11-22). The term appears with little explanation, as if readers should already know it. What the sections actually mean: Sistema worked through a complete, hypothetical project (Relay) to show what using Sistema looks like and what it produces, and guides and the specimen tool use pieces of that project to make concepts concrete. None of that comes across. Fix:
+  - Introduce the example project once, plainly, where readers first meet it (and link there from each guide), saying what it is, why it exists, and how to read it: one illustration, not a recommendation.
+  - Rename the sections to say what they hold (for example "Example: Relay, a dispatch board" or "How this looks in a real project").
+  - The deeper lesson for the content principles: every section's heading and first line should tell the reader what kind of content it is and how to use it (rule, option, example, reference), so they know how to interpret what follows. Don't rely on a label the reader has to decode.
+
 ## Originality and attribution
 
 - **Audit the guides (and plays, opinions, rules) for how closely they follow their sources** — Most guide text was drafted by AI from the reference material, while the owner focused on the method. The owner doesn't know the original sources well enough to judge whether any passage would read as copied from them. The standard to hold:

@@ -19,4 +19,4 @@ You're adopting an existing brand whose values are fixed. The direction already 
 
 ## If you override it
 
-Values come first and the direction is written to fit them. The style preview still gets built, so you can see whether they hang together.
+Values come first and the direction is written to fit them. The visual direction page still gets built, so you can see whether they hang together.

@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Visual direction</title>
+<!--
+  Sistema's visual direction page (visual-language.direction).
+  Copy this file to sistema-review/visual-direction.html and replace only the JSON in
+  <script id="sistema-data">. The page draws every rendering from the specimen tool,
+  and the ramps and contrast from the palette and contrast tools, for the options the
+  person picks. The template is served at /templates/visual-direction.html on the
+  Sistema site. For agents: the "continue" value in the data is the URL to fetch to
+  carry on; it isn't shown to the person.
+-->
+<style>
+:root{--bg:#f6f6f4;--panel:#fff;--hover:#efeeea;--fg:#1c1b1a;--mut:#5d5a56;--faint:#77736e;--line:#e3e0da;--acc:#1163d8;--accs:#e4eefd;--onacc:#fff;--ok:#1c7c3a;--onok:#fff;--r:10px;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#151413;--panel:#1e1d1b;--hover:#292826;--fg:#f1efeb;--mut:#aaa59e;--faint:#8c877f;--line:#35322e;--acc:#6ca6ff;--accs:#17253b;--onacc:#0a1424;--ok:#4cc172;--onok:#06210f;color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--acc)}button,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.top{background:var(--panel);box-shadow:inset 0 -1px 0 var(--line)}
+.top .in{padding:10px 24px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.top b{font-weight:600}.top span{color:var(--faint);font-size:14px}
+.steps{display:flex;gap:4px;flex-wrap:wrap;margin:0;padding:10px 24px;list-style:none;background:var(--panel);box-shadow:inset 0 -1px 0 var(--line)}
+.steps button{border:0;background:transparent;padding:5px 10px;border-radius:99px;font-size:13.5px;color:var(--mut);cursor:pointer}
+.steps button[aria-current=step]{background:var(--accs);color:var(--fg);font-weight:500}
+.steps .done{color:var(--acc);margin-left:4px}
+main{padding:24px}
+.read{max-width:66ch}
+h1{font-size:30px;line-height:1.15;margin:0 0 14px;font-weight:650;letter-spacing:-.01em}
+h2{font-size:24px;line-height:1.2;margin:0 0 6px;font-weight:650}
+h3{font-size:16px;margin:24px 0 8px}
+.mut{color:var(--mut)}.small{font-size:13.5px}.faint{color:var(--faint)}
+.card{background:var(--panel);border-radius:var(--r);padding:16px 18px}
+.context{background:transparent;box-shadow:inset 0 0 0 1px var(--line);border-radius:var(--r);padding:14px 16px;margin-top:28px;font-size:14.5px;color:var(--mut)}
+.context b{color:var(--fg);font-weight:600}
+ol.how{padding-left:20px;margin:0}ol.how li{margin:8px 0}
+ul{margin:0;padding-left:20px}li{margin:4px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 18px;border-radius:8px;border:1px solid var(--line);background:var(--panel);cursor:pointer;font-weight:500}
+.btn.primary{background:var(--acc);color:var(--onacc);border-color:var(--acc)}
+.btn.ok{background:var(--ok);color:var(--onok);border-color:var(--ok)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+/* Question screens: controls on the left, the preview filling the rest. */
+.q{display:grid;grid-template-columns:minmax(280px,340px) 1fr;gap:24px;align-items:start}
+.q .left{position:sticky;top:16px}
+.opts{display:grid;gap:8px;margin:16px 0}
+.opts button{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:10px 12px;cursor:pointer}
+.opts button[aria-pressed=true]{border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
+.opts .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.opts .desc{display:block;font-size:13.5px;color:var(--mut);margin-top:2px}
+.pill{font-size:11.5px;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.pill.rec{background:var(--accs);color:var(--acc)}
+.pill.sel{background:var(--ok);color:var(--onok)}
+.reccard{background:var(--accs);border-radius:8px;padding:10px 12px;font-size:14px}
+.choose{margin-top:12px;width:100%}
+.preview{background:var(--panel);border-radius:var(--r);padding:8px}
+.pbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:2px 4px 8px;flex-wrap:wrap}
+.pbar label{font-size:13px;color:var(--mut)}
+.pbar select{border:1px solid var(--line);border-radius:6px;background:var(--bg);padding:4px 8px;font-size:13.5px}
+.frame{position:relative;overflow:hidden;border-radius:6px;background:var(--bg)}
+.frame iframe{position:absolute;left:0;top:0;width:1280px;border:0;transform-origin:0 0}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.ramp{margin:0 0 12px}.strip{display:flex;height:32px;border-radius:6px;overflow:hidden}.strip span{flex:1}
+table{border-collapse:collapse;width:100%;font-size:14px}td,th{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+textarea{width:100%;min-height:96px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--fg);padding:10px;font:15px/1.5 system-ui,sans-serif}
+pre.answers{background:var(--panel);border-radius:8px;padding:14px;white-space:pre-wrap;font:14px/1.6 ui-monospace,Menlo,monospace;margin:0}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:8px;font-size:14.5px;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+@media (max-width:900px){.q{grid-template-columns:1fr}.q .left{position:static}.grid2{grid-template-columns:1fr}h1{font-size:26px}main{padding:16px}.steps,.top .in{padding-left:16px;padding-right:16px}}
+@media (prefers-reduced-motion:no-preference){.opts button,.btn{transition:background .15s,border-color .15s}}
+</style>
+</head>
+<body>
+<script type="application/json" id="sistema-data">
+{
+  "project": "Example",
+  "sistema": "https://sistema.johnthedesigner.com",
+  "progress": "Start a design system: setting the visual direction",
+  "continue": "",
+  "standard": "wcag-2.2 AA",
+  "summary": "Replace this data block with the project's direction.",
+  "needs": [],
+  "themes": ["light", "dark"],
+  "specimen": { "layout": "operations", "layouts": ["operations"], "content": {}, "base": {} },
+  "questions": [],
+  "stands": [],
+  "notes": [],
+  "fontNote": "",
+  "examples": []
+}
+</script>
+<header class="top"><div class="in"><b id="t-project"></b><span id="t-progress"></span></div></header>
+<ol class="steps" id="steps" aria-label="Sections"></ol>
+<main id="view" tabindex="-1"></main>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script>
+(function () {
+  var D = JSON.parse(document.getElementById('sistema-data').textContent)
+  var Q = D.questions
+  var answers = {}, viewing = {}, visited = {}
+  Q.forEach(function (q) { answers[q.id] = q.proposed })
+  var layouts = (D.specimen.layouts && D.specimen.layouts.length) ? D.specimen.layouts : [D.specimen.layout]
+  var layout = D.specimen.layout
+  var LAYOUT_NAMES = { operations: 'List with status', dashboard: 'Dashboard', record: 'Detail page', marketing: 'Home page', article: 'Reading page', shop: 'Shop' }
+  var screens = ['intro'].concat(Q.map(function (q) { return q.id }), ['together', 'send'])
+  var current = 'intro'
+  var note = ''
+  var esc = function (s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;') }
+  var same = function (a, b) { return JSON.stringify(a) === JSON.stringify(b) }
+  var opt = function (q, v) { return q.options.filter(function (o) { return same(o.value, v) })[0] }
+  var letter = function (i) { return String.fromCharCode(65 + i) }
+  var ICON_COPY = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M5 15V6a2 2 0 0 1 2-2h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
+  var ICON_CHECK = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+
+  document.getElementById('t-project').textContent = D.project + ': visual direction'
+  document.getElementById('t-progress').textContent = D.progress
+  document.title = D.project + ' · Visual direction'
+
+  function params(over) {
+    var p = Object.assign({}, D.specimen.base)
+    Q.forEach(function (q) { var v = answers[q.id]; if (Array.isArray(q.param)) q.param.forEach(function (k) { p[k] = v[k] }); else p[q.param] = v })
+    return Object.assign(p, over || {})
+  }
+  function contentFor(l) { return (D.specimen.contents && D.specimen.contents[l]) || (l === D.specimen.layout ? D.specimen.content : null) }
+  function renderUrl(p) {
+    var u = new URLSearchParams()
+    Object.keys(p).forEach(function (k) { u.set(k, String(p[k])) })
+    u.set('layout', layout)
+    var c = contentFor(layout)
+    if (c) u.set('content', JSON.stringify(c))
+    u.set('format', 'html')
+    return D.sistema + '/api/specimen?' + u
+  }
+  function optUrl(q, v) { var over = {}; if (Array.isArray(q.param)) q.param.forEach(function (k) { over[k] = v[k] }); else over[q.param] = v; return renderUrl(params(over)) }
+  function frame(src, label) { return '<div class="frame" data-frame><iframe title="' + esc(label) + '" src="' + esc(src) + '"></iframe></div>' }
+  function fit() {
+    document.querySelectorAll('[data-frame]').forEach(function (f) {
+      if (!f.clientWidth) return
+      var s = f.clientWidth / 1280
+      var tall = f.closest('.q') ? Math.max(360, window.innerHeight - f.getBoundingClientRect().top - 32) : 520 * s
+      var h = Math.round(tall / s)
+      var ifr = f.querySelector('iframe')
+      ifr.style.height = h + 'px'; ifr.style.transform = 'scale(' + s + ')'
+      f.style.height = Math.round(h * s) + 'px'
+    })
+  }
+  window.addEventListener('resize', fit)
+
+  function steps() {
+    document.getElementById('steps').innerHTML = screens.map(function (s) {
+      var label = s === 'intro' ? 'How this works' : s === 'together' ? 'All together' : s === 'send' ? 'Give your answers' : (Q.findIndex(function (q) { return q.id === s }) + 1) + '. ' + Q.filter(function (q) { return q.id === s })[0].short
+      var done = visited[s] && s !== 'intro' && s !== 'send' ? '<span class="done" aria-label="visited">✓</span>' : ''
+      return '<li><button type="button" data-go="' + s + '"' + (s === current ? ' aria-current="step"' : '') + '>' + esc(label) + done + '</button></li>'
+    }).join('')
+  }
+  function navButtons() {
+    var i = screens.indexOf(current)
+    var prev = i > 0 ? '<button class="btn" type="button" data-go="' + screens[i - 1] + '">Back</button>' : '<span></span>'
+    var next = i < screens.length - 1 ? '<button class="btn primary" type="button" data-go="' + screens[i + 1] + '">' + (current === 'intro' ? 'Start with question 1' : 'Next') + '</button>' : ''
+    return '<div class="nav">' + prev + next + '</div>'
+  }
+  function layoutPicker() {
+    if (layouts.length < 2) return ''
+    return '<label>Show it on <select data-layout>' + layouts.map(function (l) { return '<option value="' + l + '"' + (l === layout ? ' selected' : '') + '>' + esc(LAYOUT_NAMES[l] || l) + (contentFor(l) ? '' : ' (sample content)') + '</option>' }).join('') + '</select></label>'
+  }
+
+  function intro() {
+    return '<div class="read"><h1>Choose the look for ' + esc(D.project) + '</h1>' +
+      '<h3 style="margin-top:0">How this works</h3><ol class="how">' +
+      '<li>Answer ' + Q.length + ' questions. Each shows a few options on ' + esc(D.project) + '’s own screen. Flip between them and choose one. The recommended option is selected to start with.</li>' +
+      '<li>See all your choices together, in light and dark.</li>' +
+      '<li>Copy your answers and give them to your agent, which builds the design system from them.</li></ol>' +
+      navButtons() +
+      '<div class="context"><b>What the agent knows about ' + esc(D.project) + '</b><p style="margin:6px 0 8px">' + esc(D.summary) + '</p>' +
+      (D.needs.length ? '<ul>' + D.needs.map(function (n) { return '<li>' + esc(n) + '</li>' }).join('') + '</ul>' : '') + '</div></div>'
+  }
+
+  function optionButtons(q) {
+    var v = viewing[q.id]
+    return q.options.map(function (x, i) {
+      var tags = (same(x.value, answers[q.id]) ? '<span class="pill sel">Selected</span> ' : '') + (same(x.value, q.proposed) ? '<span class="pill rec">Recommended</span>' : '')
+      return '<button type="button" data-view="' + i + '" aria-pressed="' + same(x.value, v) + '"><span class="row"><b>' + letter(i) + '. ' + esc(x.label) + '</b><span>' + tags + '</span></span><span class="desc">' + esc(x.desc) + '</span></button>'
+    }).join('')
+  }
+  function chooseButton(q) {
+    var i = q.options.indexOf(opt(q, viewing[q.id]))
+    return same(viewing[q.id], answers[q.id]) ? '<p class="small mut" style="margin:12px 0 0">Option ' + letter(i) + ' is selected.</p>' : '<button class="btn primary choose" type="button" data-choose="' + i + '">Select ' + letter(i) + '</button>'
+  }
+  function question(q) {
+    if (viewing[q.id] === undefined) viewing[q.id] = answers[q.id]
+    var idx = q.options.indexOf(opt(q, viewing[q.id]))
+    var frames = q.options.map(function (x, i) { return '<div data-opt="' + i + '"' + (i === idx ? '' : ' hidden') + '>' + frame(optUrl(q, x.value), q.title + ': ' + x.label) + '</div>' }).join('')
+    return '<div class="q"><div class="left">' +
+      '<p class="small faint" style="margin:0 0 4px">Question ' + (Q.indexOf(q) + 1) + ' of ' + Q.length + '</p>' +
+      '<h2>' + esc(q.title) + '</h2><p class="mut" style="margin:0">' + esc(q.help) + '</p>' +
+      '<div class="opts" role="group" aria-label="Options; use the arrow keys to flip">' + optionButtons(q) + '</div>' +
+      '<div class="reccard"><b>Recommended: ' + esc(opt(q, q.proposed).label) + '.</b> ' + esc(q.why) + '</div>' +
+      '<div id="choose">' + chooseButton(q) + '</div>' + navButtons() + '</div>' +
+      '<div class="preview"><div class="pbar"><span class="small mut" id="pname">' + letter(idx) + '. ' + esc(opt(q, viewing[q.id]).label) + '</span>' + layoutPicker() + '<a class="small" id="pfull" target="_blank" rel="noopener" href="' + esc(optUrl(q, viewing[q.id])) + '">Open full size</a></div>' + frames + '</div></div>'
+  }
+  function flipTo(q, i) {
+    viewing[q.id] = q.options[i].value
+    document.querySelector('.opts').innerHTML = optionButtons(q)
+    document.querySelectorAll('[data-opt]').forEach(function (f) { f.hidden = +f.dataset.opt !== i })
+    document.getElementById('choose').innerHTML = chooseButton(q)
+    document.getElementById('pname').textContent = letter(i) + '. ' + q.options[i].label
+    document.getElementById('pfull').href = optUrl(q, q.options[i].value)
+    fit()
+  }
+
+  function together() {
+    var frames = (D.themes || ['light']).map(function (t) { return '<div><p class="small mut" style="margin:0 0 6px">' + (t === 'dark' ? 'Dark' : 'Light') + '</p>' + frame(renderUrl(params({ theme: t })), 'All together, ' + t) + '</div>' }).join('')
+    var chosen = Q.map(function (q) { var c = same(answers[q.id], q.proposed); return '<tr><td>' + esc(q.title) + '</td><td><b>' + esc(opt(q, answers[q.id]).label) + '</b>' + (c ? ' <span class="small faint">(recommended)</span>' : ' <span class="small faint">(recommended: ' + esc(opt(q, q.proposed).label) + ')</span>') + '</td></tr>' }).join('')
+    var stands = (D.stands || []).map(function (s) { return '<tr><td>' + esc(s.screen) + '</td><td>' + esc(s.featured) + '</td><td>' + esc(s.quiet) + '</td><td>' + esc(s.block) + '</td></tr>' }).join('')
+    return '<div class="pbar" style="padding:0 0 12px"><h2 style="margin:0">All together</h2>' + layoutPicker() + '</div><p class="mut" style="margin-top:0">Your choices at once. The content is arranged by role; real hierarchy is settled once there are real screens.</p>' +
+      '<div class="grid2">' + frames + '</div>' +
+      '<h3>Your choices</h3><table>' + chosen + '</table>' +
+      '<h3>Color</h3><div id="ramps" class="mut small">Loading ramps from the palette tool…</div>' +
+      '<details style="margin-top:10px"><summary class="small">Roles and contrast</summary><div id="roles" class="small mut">Loading…</div></details>' +
+      '<h3>Type</h3><div id="type"></div>' +
+      (stands ? '<h3>What stands out on each screen</h3><p class="small mut">A first guess, revised when real screens exist.</p><table><tr><th>Screen</th><th>Featured</th><th>Quiet</th><th>Brand or inverse block</th></tr>' + stands + '</table>' : '') +
+      ((D.notes || []).length ? '<h3>Notes</h3><ul class="mut">' + D.notes.map(function (n) { return '<li>' + esc(n) + '</li>' }).join('') + '</ul>' : '') + navButtons()
+  }
+
+  var EXAMPLES = (D.examples && D.examples.length) ? D.examples : ['Make the accent a little darker.', 'Try the warm grays with the 12px corners.', 'Show the home page in dark before I decide.', 'Keep the second typeface for headings only.']
+  function send() {
+    return '<div class="read"><h2>Give these answers to your agent</h2><p class="mut">Copy them, then paste them into your agent’s session. Add anything else you want changed first.</p>' +
+      '<pre class="answers" id="ans"></pre>' +
+      '<label for="note" class="small mut" style="display:block;margin:16px 0 6px">Anything else to change (optional)</label><textarea id="note"></textarea>' +
+      '<div class="nav"><button class="btn" type="button" data-go="together">Back</button><button class="btn primary" type="button" id="copy">' + ICON_COPY + 'Copy answers</button></div></div>'
+  }
+  function answerText() {
+    var lines = Q.map(function (q, i) { var p = same(answers[q.id], q.proposed); return (i + 1) + '. ' + q.title + ' ' + opt(q, answers[q.id]).label + (p ? ' (as recommended)' : '') })
+    return 'Visual direction answers for ' + D.project + ':\n' + lines.join('\n') + (note.trim() ? '\nAlso: ' + note.trim() : '')
+  }
+  var cycle
+  function startPlaceholders() {
+    var n = document.getElementById('note'), i = 0
+    var set = function () { n.placeholder = 'For example: ' + EXAMPLES[i % EXAMPLES.length]; i++ }
+    set(); clearInterval(cycle); cycle = setInterval(function () { if (!document.body.contains(n)) return clearInterval(cycle); if (!n.value) set() }, 3500)
+  }
+
+  function loadColor() {
+    var p = params({ theme: 'light', layout: layout })
+    var post = function (path, body) { return fetch(D.sistema + path, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) }).then(function (r) { return r.json() }) }
+    Promise.all([post('/api/specimen', p), post('/api/specimen', Object.assign({}, p, { theme: 'dark' }))]).then(function (res) {
+      var L = res[0], Dk = res[1]
+      post('/api/palette', { colors: { accent: L.seeds.accent, neutral: L.seeds.neutral } }).then(function (pal) {
+        var el = document.getElementById('ramps'); if (!el) return
+        el.innerHTML = Object.keys(pal.palettes).map(function (k) { var r = pal.palettes[k]; return '<div class="ramp"><div class="small mut">' + (k === 'accent' ? 'Accent' : 'Grays') + ' · seed ' + esc(r.seed) + '</div><div class="strip">' + Object.keys(r.stops).map(function (s) { var x = r.stops[s]; return '<span style="background:' + x.hex + '" title="' + s + ' ' + x.hex + ' ' + x.oklch + '"></span>' }).join('') + '</div></div>' }).join('')
+      })
+      var c = function (s, k) { return s.colors[k] && s.colors[k].hex }, pairs = []
+      ;[['light', L], ['dark', Dk]].forEach(function (t) {
+        var s = t[1]
+        ;[['Text on page', 'text', 'canvas'], ['Text on panel', 'text', 'surface'], ['Secondary text on panel', 'text-secondary', 'surface'], ['Link on page', 'link', 'canvas'], ['Button label', 'on-primary', 'primary'], ['Text on selected', 'text', 'selected-row'], ['Text on brand block', 'on-brand', 'surface-brand'], ['Text on inverse', 'on-inverse', 'surface-inverse']].forEach(function (x) { pairs.push({ label: x[0] + ' (' + t[0] + ')', foreground: c(s, x[1]), background: c(s, x[2]), purpose: 'text' }) })
+        pairs.push({ label: 'Focus ring on page (' + t[0] + ')', foreground: c(s, 'focus'), background: c(s, 'canvas'), purpose: 'ui' })
+      })
+      post('/api/contrast', { standard: D.standard || 'wcag-2.2 AA', pairs: pairs }).then(function (con) {
+        var el = document.getElementById('roles'); if (!el) return
+        var roles = Object.keys(L.token_roles).map(function (k) { var a = L.token_roles[k], b = Dk.token_roles[k] || {}; return '<tr><td><code>' + k + '</code></td><td><span class="sw" style="background:' + a.hex + '"></span>' + a.hex + ' · ' + esc(a.from) + '</td><td><span class="sw" style="background:' + b.hex + '"></span>' + (b.hex || '') + ' · ' + esc(b.from || '') + '</td></tr>' }).join('')
+        var rows = con.results.map(function (r) { var ck = Object.values(r.checks)[0]; return '<tr><td>' + esc(r.label) + '</td><td>' + r.ratio + ':1</td><td>' + (ck ? (ck.pass ? 'Passes' : '<b>Fails</b>') : '') + '</td></tr>' }).join('')
+        el.innerHTML = '<table><tr><th>Role</th><th>Light</th><th>Dark</th></tr>' + roles + '</table><h3>Contrast (' + esc(con.standard + ' ' + con.level) + ')</h3><table>' + rows + '</table>'
+      })
+    }).catch(function () { var el = document.getElementById('ramps'); if (el) el.textContent = 'The tools could not be reached. Check your connection.' })
+    var f = params({}), fonts = [f.font, f.display_font].filter(Boolean).filter(function (x, i, a) { return a.indexOf(x) === i })
+    if (fonts.length) { var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?' + fonts.map(function (x) { return 'family=' + encodeURIComponent(x).replace(/%20/g, '+') + ':wght@400;500;600' }).join('&') + '&display=swap'; document.head.appendChild(l) }
+    var t = document.getElementById('type')
+    if (t) t.innerHTML = '<div class="card"><p style="font-family:\'' + esc(f.display_font || f.font) + '\';font-size:36px;line-height:1.1;margin:0 0 10px;font-weight:600">' + esc(D.project) + ', set in your choice</p><p style="font-family:\'' + esc(f.font) + '\';font-size:17px;max-width:62ch;margin:0">The quick brown fox jumps over the lazy dog. Figures: 0123456789, IDs like JOB-20417, and times like 10:40 am.</p><p class="small mut" style="margin:10px 0 0">Headings: ' + esc(f.display_font || f.font) + '. Text: ' + esc(f.font) + '.' + (D.fontNote ? ' ' + esc(D.fontNote) : '') + '</p></div>'
+  }
+
+  function show(s, focus) {
+    current = s; visited[s] = true
+    var v = document.getElementById('view'), q = Q.filter(function (x) { return x.id === s })[0]
+    v.innerHTML = s === 'intro' ? intro() : s === 'together' ? together() : s === 'send' ? send() : question(q)
+    steps(); fit()
+    if (s === 'together') loadColor()
+    if (s === 'send') {
+      var n = document.getElementById('note'); n.value = note
+      document.getElementById('ans').textContent = answerText()
+      n.addEventListener('input', function () { note = n.value; document.getElementById('ans').textContent = answerText() })
+      startPlaceholders()
+    }
+    if (focus) v.focus()
+  }
+  function toast(text) { var t = document.getElementById('toast'); t.textContent = text; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(function () { t.hidden = true }, 3500) }
+  function fallback(text) { var t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select(); var ok = false; try { ok = document.execCommand('copy') } catch (e) {} t.remove(); return ok }
+
+  document.addEventListener('change', function (e) {
+    if (!e.target.matches('[data-layout]')) return
+    layout = e.target.value; show(current); var sel = document.querySelector('[data-layout]'); if (sel) sel.focus()
+  })
+  document.addEventListener('click', function (e) {
+    var g = e.target.closest('[data-go]')
+    if (g) { show(g.dataset.go, true); window.scrollTo(0, 0); return }
+    var q = Q.filter(function (x) { return x.id === current })[0]
+    var vw = e.target.closest('[data-view]')
+    if (vw && q) { flipTo(q, +vw.dataset.view); document.querySelector('[data-view="' + vw.dataset.view + '"]').focus(); return }
+    var ch = e.target.closest('[data-choose]')
+    if (ch && q) { answers[q.id] = q.options[+ch.dataset.choose].value; flipTo(q, +ch.dataset.choose); steps(); return }
+    var cp = e.target.closest('#copy')
+    if (cp) {
+      var text = answerText()
+      var done = function (ok) {
+        if (ok) { cp.classList.remove('primary'); cp.classList.add('ok'); cp.innerHTML = ICON_CHECK + 'Copied'; toast('Paste it into your agent’s session.') }
+        else toast('Copy didn’t work. Select the answers above and copy them.')
+        clearTimeout(done.t); done.t = setTimeout(function () { if (document.body.contains(cp)) { cp.classList.remove('ok'); cp.classList.add('primary'); cp.innerHTML = ICON_COPY + 'Copy answers' } }, 4000)
+      }
+      if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { done(true) }, function () { done(fallback(text)) })
+      else done(fallback(text))
+    }
+  })
+  document.addEventListener('keydown', function (e) {
+    var b = e.target.closest && e.target.closest('[data-view]')
+    if (!b || ['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft'].indexOf(e.key) < 0) return
+    var q = Q.filter(function (x) { return x.id === current })[0]
+    var i = (+b.dataset.view + (e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : -1) + q.options.length) % q.options.length
+    flipTo(q, i); document.querySelector('[data-view="' + i + '"]').focus(); e.preventDefault()
+  })
+  show('intro')
+})()
+</script>
+</body>
+</html>

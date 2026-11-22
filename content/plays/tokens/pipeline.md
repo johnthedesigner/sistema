@@ -67,7 +67,7 @@ Token values are written only in `tokens/src/`. Everything here is generated fro
    - every color role as a labeled swatch with its value and the primitive it refers to, and each ramp in `palette.json` as a continuous strip;
    - **the colors in use,** before the swatches, built only from role tokens: a row at rest, hovered, and selected beside status chips; a message per status; a menu with a highlighted and a destructive item; the primary button and its hover; text on the inverse and brand surfaces;
    - every type role as a live specimen, every radius as a box at that radius, and every spacing step as a bar of that width;
-   - next to each color role, whether it matches the value shown in the approved style preview, and for each one that differs, why;
+   - next to each color role, whether it matches the value shown in the approved visual direction page, and for each one that differs, why;
    - a section "Approved but not yet tokenized" listing direction values (from the DESIGN.md Overview) whose category has no tokens yet because its play was skipped;
    - a switch for each kind of mode the system has (theme, density, motion), so the person can see every token in each mode;
    - any variables a component library maps onto the roles (for example shadcn's), once the components play adds its mapping file; the generator reads that file when it exists;

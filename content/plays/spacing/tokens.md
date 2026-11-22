@@ -23,7 +23,7 @@ evidence: The base unit, every step with its value, the layout aliases with what
 overrides: []
 last_reviewed: 2026-11-20
 ---
-1. **Read the project:** density in `sistema.json`, the DESIGN.md Layout section if it exists, the type scale in `tokens/src/typography.json` if it exists (spacing should fit the body line height), and the spacing shown in `sistema-review/style-preview.html`.
+1. **Read the project:** density in `sistema.json`, the DESIGN.md Layout section if it exists, the type scale in `tokens/src/typography.json` if it exists (spacing should fit the body line height), and the spacing shown in `sistema-review/visual-direction.html`.
 
 2. **Choose the base unit** from the spacing guide: 4px or 8px. Then choose the steps for the product's density, starting from the guide's step sets by density. Record the choice and the reason.
 

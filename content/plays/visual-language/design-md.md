@@ -22,7 +22,7 @@ last_reviewed: 2026-11-20
 ---
 DESIGN.md is the reference every agent in the repo reads before touching the interface. This play writes its body. The token values arrive later, in front matter generated from `tokens/src/` by the token pipeline, so the body names roles and explains how to use them. It does not repeat hex codes or pixel values.
 
-1. **Read the approved direction:** the DESIGN.md Overview and its "Direction values", `sistema-review/style-preview.html`, the positioning statement in DECISIONS.md, and `sistema.json` for theme and density.
+1. **Read the approved direction:** the DESIGN.md Overview and its "Direction values", `sistema-review/visual-direction.html`, the positioning statement in DECISIONS.md, and `sistema.json` for theme and density.
 
 2. **Read the specification** for the section order and what each section covers: `{{sistema_url}}/raw/files/design-md#sections`.
 

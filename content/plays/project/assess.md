@@ -25,14 +25,14 @@ If the project has `LIVING_BRIEF.md` (an older Sistema state file) and no `siste
    - `package.json` and any framework config, for the stack and build tools
    - Token sources: `tokens/`, any `*.tokens.json`, a Tailwind config `theme` or `@theme` block, and CSS or SCSS files that define custom properties
    - Three to five component files, to see how values are used today
-   - The `sistema-review/` folder, and older review pages at the root (`style-preview.html`, `token-check.html`)
+   - The `sistema-review/` folder, and older review pages at the root (`visual-direction.html`, `token-check.html`)
 
 2. **Classify each Start output.** Make a table with one row per output and one of three statuses:
 
    | Output | Status | Where it is now |
    |---|---|---|
    | DESIGN.md Overview section | | |
-   | sistema-review/style-preview.html | | |
+   | sistema-review/visual-direction.html | | |
    | tokens/src/color.json | | |
    | tokens/src/typography.json | | |
    | tokens/src/shape.json | | |

@@ -30,7 +30,7 @@ last_reviewed: 2026-11-22
   "continue": "{{sistema_url}}/raw/workflows/start",
   "milestone": "foundations",
   "project": { "name": "Harbor", "a11y_standard": "wcag-2.2 AA", "theme": "light-dark", "theme_primary": "light", "density": "dense", "platform": "web" },
-  "steps": { "visual-language.direction": { "status": "complete", "date": "2026-11-20", "evidence": "Style preview approved." } },
+  "steps": { "visual-language.direction": { "status": "complete", "date": "2026-11-20", "evidence": "Visual direction page approved." } },
   "gates": { "direction-approved": { "date": "2026-11-20", "by": "owner" } },
   "routing": {}
 }

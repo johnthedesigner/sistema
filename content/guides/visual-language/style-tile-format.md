@@ -1,46 +1,45 @@
 ---
-title: "Style preview format"
-description: "The page where the person chooses the look: built from Sistema's template, one question at a time, with the choices together, color, type, and what stands out, and the answers copied back to the agent."
+title: "The visual direction page"
+description: "The page where the person sets the visual direction: built from Sistema's template, one question at a time, with the choices together, color, type, and what stands out, and the answers given back to the agent."
 topic: visual-language
 sources:
   - { source: designer-skills, url: "https://github.com/julianoczkowski/designer-skills/tree/main/design-brief" }
   - { source: anthropic-frontend-design, url: "https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md" }
   - { source: impeccable, url: "https://github.com/pbakaus/impeccable" }
   - { source: nngroup-hierarchy, url: "https://www.nngroup.com/articles/visual-hierarchy-ux-definition/" }
-note: "The style preview is where the person chooses the look, by seeing options on their own product, before any token values are written."
+note: "The visual direction page is where the person chooses the look, by seeing options on their own product, before any token values are written."
 last_reviewed: 2026-11-22
 ---
 
-# Style preview format
+# The visual direction page
 
 ## Purpose of this document
 
-What `sistema-review/style-preview.html` contains, how it's built, and what approving it means. The `visual-language.direction` play writes it.
+What `sistema-review/visual-direction.html` contains, how it's built, and what approving it means. The `visual-language.direction` play writes it.
 
-## 1 What style-preview.html is
+## 1 What visual-direction.html is
 
 One page where the person answers the taste questions by looking. Every rendering comes from the specimen tool, drawn on the product's own content, so options differ only in the decision.
 
-**Build it from Sistema's template,** `{{sistema_url}}/templates/style-preview.html`. Save it as `sistema-review/style-preview.html` and replace only the JSON in `<script id="sistema-data">`. The template draws the renderings, ramps, roles, and contrast from Sistema's tools for whatever the person picks, so later sections always follow their choices.
+**Build it from Sistema's template,** `{{sistema_url}}/templates/visual-direction.html`. Save it as `sistema-review/visual-direction.html` and replace only the JSON in `<script id="sistema-data">`. The template draws the renderings, ramps, roles, and contrast from Sistema's tools for whatever the person picks, so later sections always follow their choices.
 
 ## 2 Required sections
 
 The template shows these in order. The data block supplies the content.
 
-### Section 1: Start here
+### Section 1: How this works
 
-- What the product needs: three to five plain statements.
-- A two-sentence summary of the direction.
-- Two or three things it won't look like.
 - How to answer, and a clear first step.
+- Below it, quieter: what the agent knows about the product (`summary`) and what its screens need (`needs`).
 
 ### Section 2: The questions
 
 One screen per taste question (`questions` in the data):
 
 - The question in plain words, and what it changes.
-- Two or three options, each the product's screen with only that setting changed, large enough to judge. The person flips between them and chooses one.
-- The proposal, chosen to start with, and the reason in terms of the product's needs.
+- Two or three options, each the product's screen with only that setting changed, filling most of the window. The person flips between them and selects one.
+- The recommended option, selected to start with, and the reason in terms of the product's needs.
+- A choice of page type to preview on (`specimen.layouts`), with the product's content for each where the data gives it (`specimen.contents`).
 
 ### Section 3: All together
 
@@ -51,9 +50,9 @@ One screen per taste question (`questions` in the data):
 - **What stands out on each screen** (`stands`): what is featured, what is quiet, and any brand or inverse block. A first guess.
 - **Notes** (`notes`): the hardest calls, anything assumed, and any contrast problem and what changed.
 
-### Section 4: Send your answers
+### Section 4: Give your answers
 
-The person's answers as text, a box for anything else, and a button that copies both, to paste back to the agent.
+The person's answers as text, a box for anything else (with cycling examples, `examples`), and a button that copies both, to paste into the agent's session.
 
 ## 3 Technical requirements
 
@@ -61,6 +60,7 @@ The person's answers as text, a box for anything else, and a button that copies 
 - **The data block only.** Don't edit the template's code or styles; improvements go into the template.
 - **Options differ in one thing.** If one answer depends on another (grays tinted toward the accent), say so in the question's `help`.
 - **Plain words.** No style labels or level numbers.
+- **The `continue` URL** goes in the data for agents; the page doesn't show it.
 
 ## 4 What the review means
 
