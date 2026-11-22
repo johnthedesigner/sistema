@@ -29,6 +29,25 @@ describe('mcp content tools', () => {
     const routed = nextStep(c, 'start', { steps: { 'project.assess': { status: 'complete' }, 'visual-language.direction': { status: 'complete' }, 'visual-language.design-md': { status: 'complete' }, 'content.voice-and-tone': { status: 'skipped' } }, gates: { 'direction-approved': {} }, routing: { 'color.scheme': 'color.map-existing' } })
     expect(routed.ok && routed.text).toMatch(/existing colors|map/i)
   })
+  it('next_step leads a first call with how the workflow runs, written for the MCP server', () => {
+    const first = nextStep(c, 'start', {})
+    const text = first.ok ? first.text : ''
+    expect(text).toMatch(/## How to run it/)
+    expect(text).toMatch(/`next_step` tool/)
+    expect(text).not.toMatch(/Fetch the play's instructions/)
+    expect(text).not.toMatch(/If you cannot fetch URLs/)
+    expect(text).toMatch(/call next_step again/)
+    const later = nextStep(c, 'start', { workflow: 'start', steps: { 'project.assess': { status: 'complete' } } })
+    expect(later.ok && later.text).not.toMatch(/## How to run it/)
+    const session = nextStep(c, 'session', {})
+    expect(session.ok && session.text).toMatch(/`read` tool/)
+  })
+  it('read names the MCP tools in plays, and the state section is addressable', () => {
+    const play = read(c, 'color.scheme')
+    expect(play.ok && play.text).toMatch(/Call the Sistema MCP server's `palette`/)
+    const state = read(c, 'workflow.start#state-sistemajson')
+    expect(state.ok && state.text).toMatch(/"sistema": "2"/)
+  })
   it('sectionOf stops at the next heading of the same level', () => {
     expect(sectionOf('## A\nx\n### B\ny\n## C\nz', 'a')).toBe('## A\nx\n### B\ny')
   })

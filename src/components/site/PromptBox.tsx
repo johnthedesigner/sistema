@@ -16,10 +16,10 @@ const WORK = 'workflow.session'
 /** What to ask an agent that has the MCP server connected. */
 function mcpPrompt(o: PromptOption): string {
   const route = o.prompt.split('\n').slice(1).join('\n')
-  if (o.kind === 'route' || o.id === WORK) return `Use the Sistema MCP server's session prompt and follow it.${route ? `\n${route}` : ''}`
+  if (o.kind === 'route' || o.id === WORK) return `Use the Sistema MCP server: call next_step for the "session" workflow and follow it.${route ? `\n${route}` : ''}`
   if (o.id.startsWith('workflow.')) {
     const name = o.id.replace(/^workflow\./, '').replace(/\.existing$/, '')
-    return `Use the Sistema MCP server's ${name} prompt and follow it.`
+    return `Use the Sistema MCP server: call next_step for the "${name}" workflow and follow it.`
   }
   return `Use the Sistema MCP server: read "${o.id}" and follow it.`
 }

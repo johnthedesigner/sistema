@@ -11,6 +11,8 @@ export interface RenderContext {
   base: string // site origin, no trailing slash
   plays: Map<string, Play>
   rules: Map<string, Rule>
+  /** 'mcp' when the text is served through the MCP server: name its tools instead of URLs to fetch. */
+  channel?: 'mcp'
 }
 
 // ─── URLs ───────────────────────────────────────────────────────────────────
@@ -98,10 +100,13 @@ export function renderToolSummary(tools: ToolName[]): string {
   return `## Tools\n\nThis workflow uses Sistema's ${list} ${names.length === 1 ? 'tool' : 'tools'}. Each play shows how to call the ones it needs. Use them. Never compute or estimate their results yourself.`
 }
 
-export function renderTools(base: string, tools: ToolName[]): string {
+export function renderTools(base: string, tools: ToolName[], channel?: 'mcp'): string {
   if (tools.length === 0) return ''
   const blocks = tools.map(t => `**${TOOL_DOCS[t].title}**\n\n\`\`\`\n${TOOL_DOCS[t].usage(base)}\n\`\`\``)
-  return `## Tools\n\nUse these tools. Never compute or estimate their results yourself.\n\n${blocks.join('\n\n')}`
+  const how = channel === 'mcp'
+    ? `Call the Sistema MCP server's ${tools.map(t => `\`${t}\``).join(', ')} ${tools.length === 1 ? 'tool' : 'tools'}. Each takes the same input as the POST body below and returns the same result. Never compute or estimate their results yourself.`
+    : 'Use these tools. Never compute or estimate their results yourself.'
+  return `## Tools\n\n${how}\n\n${blocks.join('\n\n')}`
 }
 
 // ─── state tokens ───────────────────────────────────────────────────────────
@@ -169,7 +174,7 @@ export function renderPlay(play: Play, ctx: RenderContext): string {
 
   parts.push(`## Procedure\n\n${play.body}`)
 
-  const tools = renderTools(ctx.base, play.tools)
+  const tools = renderTools(ctx.base, play.tools, ctx.channel)
   if (tools) parts.push(tools)
 
   if (play.rules.length) {
@@ -302,8 +307,11 @@ export function routePlays(workflow: Workflow, plays: Map<string, Play>): Play[]
 }
 
 /** Starter for a route workflow (workflow.session): orient, then one route per goal. */
+const TELEMETRY = " If the URL you fetched this from has a `c` parameter, keep it on `continue` and record it in `sistema.json` as `telemetry.id`. It is an anonymous usage ID: Sistema counts how its workflows, plays, and tools are used, and records nothing about the person or the project's code."
+
 function renderRoutesStarter(workflow: Workflow, ctx: RenderContext): string {
   const url = workflowUrl(ctx.base, workflow.id)
+  const mcp = ctx.channel === 'mcp'
   const start = workflow.start_with ? ctx.plays.get(workflow.start_with) : undefined
   const tools = [...new Set(routePlays(workflow, ctx.plays).flatMap(p => p.tools))]
   const routeLines = Object.entries(workflow.routes ?? {}).flatMap(([name, route]) => {
@@ -328,7 +336,7 @@ function renderRoutesStarter(workflow: Workflow, ctx: RenderContext): string {
       '## How to run it',
       '',
       ...(start ? [`1. Run ${start.title} (\`${start.id}\`). It reads the system's state, confirms the goal with the person, and picks a route. If the person's message already says what they want (for example, "I want to add a component: a date picker"), treat that as the goal and confirm it rather than asking again.`] : ['1. Ask the person for the goal of this session, and pick the route that fits. If their message already says what they want, confirm it rather than asking again.']),
-      '2. Run the route\'s plays in order. Fetch each from its URL and follow it exactly.',
+      mcp ? "2. Run the route's plays in order. Get each with the Sistema MCP server's `read` tool (its ID) and follow it exactly." : '2. Run the route\'s plays in order. Fetch each from its URL and follow it exactly.',
       "3. When a play's evidence is shown, record it in `sistema.json` `steps` (this replaces the record of that play's previous run) and add its line to DECISIONS.md.",
       '4. After each play, show one progress line, for example `add-component 1 of 2: specification done, implementation next`.',
       "5. When the route is done, say so, and ask whether there is another goal for this session. If there is, confirm it and pick its route. If no route fits a goal, say so, and agree with the person how to proceed outside Sistema's plays.",
@@ -337,10 +345,10 @@ function renderRoutesStarter(workflow: Workflow, ctx: RenderContext): string {
     [
       '## State: sistema.json',
       '',
-      `Set \`workflow\` to \`${workflowSlug(workflow.id)}\` and \`milestone\` to \`maintain\`. Keep \`continue\` at this workflow's URL, ${url}: this workflow is the standing entry point for design system work, so the Sistema section in the agent instructions file keeps pointing here. If the URL you fetched this from has a \`c\` parameter, keep it on \`continue\` and record it in \`sistema.json\` as \`telemetry.id\`. It is an anonymous usage ID: Sistema counts how its workflows, plays, and tools are used, and records nothing about the person or the project's code. Only play IDs go in \`steps\`. Work done outside a play goes in DECISIONS.md.`,
+      `Set \`workflow\` to \`${workflowSlug(workflow.id)}\` and \`milestone\` to \`maintain\`. Keep \`continue\` at this workflow's URL, ${url}: this workflow is the standing entry point for design system work, so the Sistema section in the agent instructions file keeps pointing here.${mcp ? '' : TELEMETRY} Only play IDs go in \`steps\`. Work done outside a play goes in DECISIONS.md.`,
     ].join('\n'),
     ...(tools.length ? [renderToolSummary(tools)] : []),
-    `If you cannot fetch URLs, use the full version, which includes every play: ${workflowFullUrl(ctx.base, workflow.id)}`,
+    ...(mcp ? [] : [`If you cannot fetch URLs, use the full version, which includes every play: ${workflowFullUrl(ctx.base, workflow.id)}`]),
   ]
   return parts.join('\n\n') + '\n'
 }
@@ -384,6 +392,7 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
   const tools = [...new Set(steps.flatMap(s => s.play.tools))]
   const next = workflow.continue_with ? workflows?.get(workflow.continue_with) : undefined
   const url = workflowUrl(ctx.base, workflow.id)
+  const mcp = ctx.channel === 'mcp'
 
   const parts = [
     `# ${workflow.title}`,
@@ -408,8 +417,15 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
       '## How to run it',
       '',
       '1. Find the first play in the outline that is not marked complete or skipped in `sistema.json` `steps`.',
-      `2. If \`sistema.json\` \`routing\` maps that play to a different one, run that play instead. Every play is at ${ctx.base}/raw/plays/<id>, and each opinion or rule a play names is at ${ctx.base}/raw/opinions/<id> or ${ctx.base}/raw/rules/<id>.`,
-      "3. Fetch the play's instructions from its URL and follow them exactly.",
+      ...(mcp
+        ? [
+            "2. If `sistema.json` `routing` maps that play to a different one, run that play instead. The Sistema MCP server's `next_step` tool does both: pass it this workflow and the contents of `sistema.json`, and it returns the play to run, or the approval that is waiting. Read any opinion, rule, or guide a play names with its `read` tool.",
+            "3. Follow the play exactly.",
+          ]
+        : [
+            `2. If \`sistema.json\` \`routing\` maps that play to a different one, run that play instead. Every play is at ${ctx.base}/raw/plays/<id>, and each opinion or rule a play names is at ${ctx.base}/raw/opinions/<id> or ${ctx.base}/raw/rules/<id>.`,
+            "3. Fetch the play's instructions from its URL and follow them exactly.",
+          ]),
       "4. If the play's outputs already exist and meet its checks, record it as complete with that evidence and move on.",
       '5. When a play\'s evidence is shown, record it in `sistema.json` and continue. Before an optional play, tell the person in one sentence what it gives them and ask whether they want it now. Say it can also be added later. If the play starts by asking the person something (for example, which pages to build), fetch it first and put that question in the same message, so one answer covers both. If they decline, record it as skipped. While optional plays are offered and not yet answered, the workflow stays open: `continue` stays on this workflow.',
       '6. At an approval, stop. Set the play before it to `in-progress`, ask the person to review, and continue only after they approve. Then record the gate and mark the play complete. Tell the person they can stop at any approval and pick up later in any new session.',
@@ -425,11 +441,11 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
       stateExample(workflow, ctx),
       '```',
       '',
-      `\`continue\` is this workflow's URL: ${url}. The first play also adds a short Sistema section to the project's AGENTS.md or CLAUDE.md that points to it, so a new session finds its way back. If that section is missing when you resume, add it as \`project.assess\` describes. If the URL you fetched this from has a \`c\` parameter, keep it on \`continue\` and record it in \`sistema.json\` as \`telemetry.id\`. It is an anonymous usage ID: Sistema counts how its workflows, plays, and tools are used, and records nothing about the person or the project's code.`,
+      `\`continue\` is this workflow's URL: ${url}. The first play also adds a short Sistema section to the project's AGENTS.md or CLAUDE.md that points to it, so a new session finds its way back. If that section is missing when you resume, add it as \`project.assess\` describes.${mcp ? '' : TELEMETRY}`,
     ].join('\n'),
     ...(tools.length ? [renderToolSummary(tools)] : []),
     workflowEnd(workflow, ctx, next, workflows),
-    `If you cannot fetch URLs, use the full version, which includes every play: ${workflowFullUrl(ctx.base, workflow.id)}`,
+    ...(mcp ? [] : [`If you cannot fetch URLs, use the full version, which includes every play: ${workflowFullUrl(ctx.base, workflow.id)}`]),
   ]
   return parts.join('\n\n') + '\n'
 }

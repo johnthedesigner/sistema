@@ -6,8 +6,11 @@
 import type { Catalog } from '@/lib/content/load'
 import { buildContext } from '@/lib/content/context'
 import { headingSlug } from '@/lib/content/parse'
-import { renderPlay, renderWorkflowStarter, workflowSteps } from '@/lib/content/render'
+import { renderPlay, renderWorkflowStarter, workflowSlug, workflowSteps, type RenderContext } from '@/lib/content/render'
 import { renderFileRaw, renderGuideRaw, renderOpinion, renderRuleItem } from '@/lib/content/render-reference'
+
+/** Render as the MCP server serves it: tools named instead of URLs to fetch. */
+export const mcpContext = (c: Catalog): RenderContext => ({ ...buildContext(c), channel: 'mcp' })
 
 export const KINDS = ['play', 'workflow', 'guide', 'rule', 'opinion', 'file'] as const
 export type Kind = (typeof KINDS)[number]
@@ -72,7 +75,7 @@ export function sectionOf(markdown: string, anchor: string): string | null {
 export function read(c: Catalog, id: string, section?: string): { ok: true; text: string } | { ok: false; error: string } {
   const [ref, hash] = id.split('#')
   const anchor = section ?? hash
-  const ctx = buildContext(c)
+  const ctx = mcpContext(c)
   let text: string | undefined
   if (c.playById.has(ref)) text = renderPlay(c.playById.get(ref)!, ctx)
   else if (c.workflowById.has(ref)) text = renderWorkflowStarter(c.workflowById.get(ref)!, ctx, c.workflowById)
@@ -87,6 +90,7 @@ export function read(c: Catalog, id: string, section?: string): { ok: true; text
 }
 
 interface State {
+  workflow?: string
   steps?: Record<string, { status?: string }>
   gates?: Record<string, { withdrawn?: unknown }>
   routing?: Record<string, string>
@@ -101,20 +105,26 @@ export function nextStep(c: Catalog, workflowId: string, state: State = {}): { o
   const id = workflowId.startsWith('workflow.') ? workflowId : `workflow.${workflowId}`
   const workflow = c.workflowById.get(id)
   if (!workflow) return { ok: false, error: `No workflow "${workflowId}". Workflows: ${c.workflows.map(w => w.id).join(', ')}.` }
-  const ctx = buildContext(c)
+  const ctx = mcpContext(c)
+  const slug = workflowSlug(workflow.id)
   if (!workflow.sequence) {
     const start = workflow.start_with ? c.playById.get(workflow.start_with) : undefined
-    return start ? { ok: true, text: `This workflow starts with ${start.id}, then follows one route.\n\n${renderPlay(start, ctx)}` } : { ok: false, error: `${id} has no sequence.` }
+    if (!start) return { ok: false, error: `${id} has no sequence.` }
+    return { ok: true, text: `${renderWorkflowStarter(workflow, ctx, c.workflowById)}\n---\n\nStart with ${start.id}, then follow one route.\n\n${renderPlay(start, ctx)}` }
   }
   const settled = (pid: string) => ['complete', 'skipped'].includes(state.steps?.[pid]?.status ?? '')
   const approved = (gate: string) => !!state.gates?.[gate] && !state.gates[gate].withdrawn
   const { steps } = workflowSteps(workflow, c.playById)
+  // A first call, with no record of this workflow yet: lead with how the workflow runs (outline, state, approvals).
+  const fresh = state.workflow !== slug && !steps.some(s => state.steps?.[s.play.id])
+  const intro = fresh ? `${renderWorkflowStarter(workflow, ctx, c.workflowById)}\n---\n\nRead the above once: it is how this workflow runs. Now the first step.\n\n` : ''
+  const after = `\n\n---\n\nWhen this play's evidence is shown, record it in \`sistema.json\` in exactly the shape the workflow sets out (read "workflow.${slug}#state-sistemajson" if you don't have it), show the progress line, and call next_step again with the updated file.`
   for (const s of steps) {
     if (!settled(s.play.id)) {
       const pid = state.routing?.[s.play.id] ?? s.play.id
       const play = c.playById.get(pid) ?? s.play
       const optional = s.optional ? 'This step is optional: ask the person whether they want it now, and record it as skipped if not.\n\n' : ''
-      return { ok: true, text: `Step ${s.number} of ${steps.length} in "${workflow.title}".\n\n${optional}${renderPlay(play, ctx)}` }
+      return { ok: true, text: `${intro}Step ${s.number} of ${steps.length} in "${workflow.title}".\n\n${optional}${renderPlay(play, ctx)}${after}` }
     }
     for (const g of s.gateAfter) {
       if (!approved(g.gate)) return { ok: true, text: `Waiting for the person's approval: ${g.gate}.\n\n${g.prompt}\n\nRecord it in sistema.json "gates" when they approve, then call next_step again.` }

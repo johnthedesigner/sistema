@@ -32,7 +32,7 @@ Read each package's current docs and a minimal working example, and record which
 
 ## Task V4.1: The MCP route
 
-**Status:** not started
+**Status:** done (2026-11-22).
 
 Build the route with the fixed tool surface (capability-model section 6): `search`, `read`, `next_step`, `palette`, `contrast`, `type_scale`, and `specimen` (D33), plus one MCP prompt per workflow. Tools call the same modules the APIs use. Record `tool_call` and fetch events through the visit ID in the server URL (D13).
 
@@ -40,15 +40,15 @@ Build the route with the fixed tool surface (capability-model section 6): `searc
 
 ## Task V4.2: Connect page and the prompt box toggle
 
-**Status:** not started
+**Status:** done (2026-11-22). Owner approved the connect page, the prompt box switch, and the For agents corner button.
 
 A connect page with setup for each client, and the "Prompt or MCP server" toggle above the prompt box (site-structure.md section 2). Show the page to the owner in the browser.
 
-- [ ] Owner approves the connect page; it passes the checks at desktop and phone width
+- [x] Owner approves the connect page; it passes the checks at desktop and phone width
 
 ## Task V4.3: Client tests
 
-**Status:** not started
+**Status:** in progress.
 
 Run `workflow.start` through the MCP server in at least two clients, to the direction approval, and record what differs from the paste-in run.
 

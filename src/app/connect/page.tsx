@@ -18,8 +18,8 @@ export default function ConnectPage() {
       </div>
       <Section title="Then ask your agent" raised>
         <ul className={listClass}>
-          <li>“Start a design system with Sistema.” The agent uses the server’s <code>start</code> prompt and follows it, as with the copied prompt.</li>
-          <li>In Claude Code, the workflows also appear as commands: <code>/mcp__sistema__start</code>, <code>/mcp__sistema__patterns</code>, and <code>/mcp__sistema__session</code>.</li>
+          <li>“Start a design system with Sistema.” The agent calls the server’s <code>next_step</code> tool, which walks it through the workflow one step at a time. The prompt box’s “Use the MCP server” option gives you the exact words.</li>
+          <li>Clients that list a server’s prompts show the workflows too. In Claude Code they are commands: <code>/mcp__sistema__start</code>, <code>/mcp__sistema__patterns</code>, and <code>/mcp__sistema__session</code>.</li>
           <li>Ask about anything: “What does Sistema say about dark mode surfaces?” uses the server’s search and read tools.</li>
         </ul>
       </Section>

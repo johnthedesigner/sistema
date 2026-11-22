@@ -13,9 +13,8 @@ import { NextRequest } from 'next/server'
 import { createMcpHandler } from 'mcp-handler'
 import { z } from 'zod'
 import { loadCatalog } from '@/lib/content/load'
-import { buildContext } from '@/lib/content/context'
 import { renderWorkflowStarter, workflowSlug } from '@/lib/content/render'
-import { KINDS, nextStep, read, search } from '@/lib/mcp/content'
+import { KINDS, mcpContext, nextStep, read, search } from '@/lib/mcp/content'
 import { trackEvent } from '@/lib/tools/http'
 import { POST as palettePost } from '@/app/api/palette/route'
 import { POST as contrastPost } from '@/app/api/contrast/route'
@@ -162,7 +161,7 @@ const handler = createMcpHandler(
       async args => viaApi(specimenPost, '/api/specimen', args),
     )
 
-    const ctx = buildContext(catalog)
+    const ctx = mcpContext(catalog)
     for (const w of catalog.workflows) {
       server.registerPrompt(
         workflowSlug(w.id),
