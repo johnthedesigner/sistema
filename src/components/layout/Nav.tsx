@@ -2,7 +2,7 @@
 
 /**
  * Site navigation (site-structure.md section 1): Get started, Guides, Reference,
- * and Tools, with For agents and GitHub on the right. The current section is
+ * and Tools, with search and GitHub on the right. The current section is
  * marked in blue (DESIGN.md: blue marks where you are).
  */
 import Link from 'next/link'
@@ -103,9 +103,6 @@ export function Nav() {
               <SearchIcon />
               <span className="font-mono text-caption text-on-surface-faint">⌘K</span>
             </button>
-            <Link href="/agents" aria-current={pathname.startsWith('/agents') ? 'page' : undefined} className={`${item(pathname.startsWith('/agents'))} hidden md:inline-flex no-underline`}>
-              For agents
-            </Link>
             <a href="https://github.com/johnthedesigner/sistema" aria-label="Sistema on GitHub" className={`${item(false)} hidden md:inline-flex`}>
               <GitHubIcon />
             </a>
@@ -125,7 +122,7 @@ export function Nav() {
               <Link key={l.href} href={l.href} className={`flex items-center min-h-11 text-body text-on-surface no-underline ${focusRing}`}>{l.label}</Link>
             ))}
             <div className="h-px bg-border my-2" />
-            {[...LINKS, { label: 'For agents', href: '/agents' }].map(l => (
+            {LINKS.map(l => (
               <Link key={l.href} href={l.href} className={`flex items-center min-h-11 text-body no-underline ${pathname.startsWith(l.href) ? 'text-link' : 'text-on-surface'} ${focusRing}`}>{l.label}</Link>
             ))}
           </nav>

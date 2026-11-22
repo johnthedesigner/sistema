@@ -46,7 +46,7 @@ export default async function WorkflowPage({ params }: { params: Promise<{ id: s
 
             <PromptBox single={{ id: workflow.id, kind: 'workflow', label: workflow.title, prompt: workflowPrompt(workflow.id) }} label={`Prompt for ${workflow.title}`} />
             <p className="text-[12.5px] text-on-surface-muted mt-3 m-0">
-              Paste it into Claude Code, Cursor, or another coding agent, in your project folder. If the run stops, say &ldquo;keep going&rdquo; in a new session. The agent finds its place from your repo.
+              If the run stops, say &ldquo;keep going&rdquo; in a new session. The agent finds its place from your repo.
             </p>
 
             <h2 className="font-serif font-medium mt-12 mb-4" style={{ fontSize: 22 }}>
