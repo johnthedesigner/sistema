@@ -32,14 +32,51 @@ export function Eyebrow({ children }: { children: ReactNode }) {
 }
 
 /**
- * One line for agents at the top of a page: where its plain-text version is,
- * and the index. URLs are absolute (agent-facing text never uses bare paths).
+ * Where agents find a page's plain text, without putting agent text in front of
+ * people. A <link rel="alternate"> (React hoists it into <head>) for tools that
+ * look there, and a corner button whose panel stays in the HTML, so fetch tools
+ * that convert HTML to text read it while people see it only when they open it.
+ * Uses the Popover API: Escape and clicking outside close it, with no script.
+ * URLs are absolute (agent-facing text never uses bare paths).
  */
 export function AgentNote({ raw }: { raw?: string }) {
+  const page = raw ? `${SITE_URL}${raw}` : undefined
+  const index = `${SITE_URL}/llms.txt`
+  const link = 'block font-mono text-caption leading-snug text-link break-all no-underline hover:underline'
   return (
-    <p className="font-mono text-caption text-on-surface-faint m-0 mb-5 break-words">
-      For agents: {raw ? <>plain text at {`${SITE_URL}${raw}`} · </> : null}index at {`${SITE_URL}/llms.txt`}
-    </p>
+    <>
+      <link rel="alternate" type="text/markdown" href={page ?? index} title="Plain text for agents" />
+      <button
+        type="button"
+        popoverTarget="agent-note"
+        aria-label="For agents"
+        className="fixed z-30 right-4 bottom-4 md:right-6 md:bottom-6 inline-flex items-center gap-2 h-control-height-sm px-3 rounded-radius-full bg-surface-overlay shadow-overlay text-caption text-on-surface-muted hover:text-on-surface focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus print:hidden"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M8 6l-6 6 6 6M16 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        <span className="hidden sm:inline">For agents</span>
+      </button>
+      <div
+        id="agent-note"
+        popover="auto"
+        className="m-0 inset-auto right-4 bottom-16 md:right-6 md:bottom-[72px] w-[min(360px,calc(100vw-32px))] rounded-radius-xl bg-surface-overlay shadow-overlay p-4 text-on-surface"
+      >
+        <p className="text-label m-0 mb-1">For agents</p>
+        <p className="text-body-sm text-on-surface-muted m-0 mb-3">Agents read Sistema as plain text. Give your agent these links, or connect the MCP server.</p>
+        {page && (
+          <p className="m-0 mb-2">
+            <span className="block text-caption text-on-surface-faint">This page</span>
+            <a href={page} className={link}>{page}</a>
+          </p>
+        )}
+        <p className="m-0 mb-3">
+          <span className="block text-caption text-on-surface-faint">Index of everything</span>
+          <a href={index} className={link}>{index}</a>
+        </p>
+        <Link href="/connect" className="text-caption text-link no-underline hover:underline">Connect the MCP server</Link>
+      </div>
+    </>
   )
 }
 

@@ -5,7 +5,7 @@ export function EntryHeader({ eyebrow, title, lead, raw }: { eyebrow: string; ti
   return (
     <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-8 md:pt-12">
       <AgentNote raw={raw} />
-      <p className="text-caption uppercase tracking-[0.06em] text-on-surface-faint m-0 mt-6 mb-2">{eyebrow}</p>
+      <p className="text-caption uppercase tracking-[0.06em] text-on-surface-faint m-0 mb-2">{eyebrow}</p>
       <h1 className="text-heading-xl font-serif m-0 max-w-[20ch]">{title}</h1>
       <p className="text-body-lg text-on-surface-muted mt-4 mb-0 max-w-[62ch]">{lead}</p>
     </div>
