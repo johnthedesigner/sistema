@@ -3,10 +3,13 @@
 /**
  * The theme switch in the footer's bottom row (DECISIONS.md, 2026-11-21).
  * System follows the operating system (the CSS media query in generated.css);
- * Light and Dark set data-theme on <html>. Nothing is stored (the privacy page
- * promises no browser storage), so a choice lasts for the visit.
+ * Light and Dark set data-theme on <html>. The choice is kept in localStorage
+ * under `sistema-theme` (the privacy page says so); THEME_SCRIPT applies it before
+ * the first paint, so a reload doesn't flash the other theme.
  */
 import { useEffect, useState } from 'react'
+
+import { THEME_KEY } from '@/lib/theme'
 
 type Theme = 'system' | 'light' | 'dark'
 const OPTIONS: Theme[] = ['system', 'light', 'dark']
@@ -24,6 +27,10 @@ export function ThemeSwitch() {
     setTheme(t)
     if (t === 'system') document.documentElement.removeAttribute('data-theme')
     else document.documentElement.setAttribute('data-theme', t)
+    try {
+      if (t === 'system') localStorage.removeItem(THEME_KEY)
+      else localStorage.setItem(THEME_KEY, t)
+    } catch {}
   }
 
   return (

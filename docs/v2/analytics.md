@@ -65,7 +65,7 @@ All events are anonymous (`$process_person_profile: false`). Server events use `
 - **No personal data:** no names, emails, or IP addresses. Tool inputs (colors, ratios, role names) are recorded, since they carry no privacy risk and show what people build (owner, 2026-11-18).
 - **IP addresses:** in PostHog, set *Settings > Project > General > IP data capture* to discard. (The browser option `ip: false` no longer has any effect.) PostHog derives location from the IP before discarding it, and all of that location data is kept (owner, 2026-11-18).
 - **Server events** are sent from Vercel's servers, so they carry no visitor IP.
-- **A plain-language note on the site** says what's collected, that nothing is stored on the device, and how the ID travels. The site footer links to it, and the agents page mentions it.
+- **A plain-language note on the site** says what's collected, that nothing identifying is stored on the device (the only stored item is the footer's theme choice, `sistema-theme` in localStorage, owner 2026-11-22), and how the ID travels. The site footer links to it, and the agents page mentions it.
 - **No opt-out** (owner, 2026-11-18). Projects can't opt out, and there's no browser opt-out. The privacy safeguard is the constraint itself: nothing on the device and no linking across visits. Requests without `c` are counted with a random ID.
 - **Not chosen: PostHog's cookieless mode.** It stores nothing on the device, but it needs a project setting and links visits on PostHog's servers through a hash. That works against "no tracking across visits." Memory-only storage is simpler and clearly within the constraint.
 
@@ -92,7 +92,7 @@ All events are anonymous (`$process_person_profile: false`). Server events use `
 - **Tests:**
   - `c` survives from a copied prompt through a `/raw` fetch into a tool URL.
   - No event payload contains an IP address.
-  - The browser code writes nothing to cookies or storage, checked in a real browser with Playwright.
+  - The analytics code writes nothing to cookies or storage, checked in a real browser with Playwright. (The theme switch stores one non-identifying setting.)
 - **Owner's PostHog settings:** discard IP data, keep location lookup on, and build the dashboards (section 8).
 
 ## 7. Questions for the owner

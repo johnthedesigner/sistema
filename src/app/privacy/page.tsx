@@ -17,14 +17,15 @@ export default function PrivacyPage() {
         <div style={{ maxWidth: 720 }}>
           <PageHeader
             eyebrow="Privacy"
-            title="Sistema counts how it's used, without storing anything on your device"
+            title="Sistema counts how it's used, without tracking you"
             lead="Sistema records anonymous usage so it can see which workflows, plays, and tools help, and where people get stuck. It doesn't know who you are."
           />
 
-          <SectionTitle>Nothing is stored on your device</SectionTitle>
+          <SectionTitle>Nothing that identifies you is stored</SectionTitle>
           <P>
-            The site sets no cookies and writes nothing to your browser&apos;s storage. Each visit gets a random ID that lives only in the
-            open page. When you reload or close the tab, it&apos;s gone, so one visit is never linked to another.
+            The site sets no cookies. The only thing it writes to your browser&apos;s storage is your theme choice (system, light, or
+            dark), if you pick one in the footer, so it stays the same when you come back. Each visit gets a random ID that lives only in
+            the open page. When you reload or close the tab, it&apos;s gone, so one visit is never linked to another.
           </P>
 
           <SectionTitle>The ID travels with a copied prompt</SectionTitle>

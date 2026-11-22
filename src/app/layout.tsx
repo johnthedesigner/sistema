@@ -5,6 +5,7 @@ import { SiteFooter } from '@/components/layout/Footer'
 import { Analytics } from '@vercel/analytics/next'
 import { PostHogProvider } from '@/components/providers/PostHogProvider'
 import { SITE_URL } from '@/lib/site-url'
+import { THEME_SCRIPT } from '@/lib/theme'
 import '../styles/globals.css'
 
 const inter = Inter({
@@ -75,6 +76,9 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className="bg-canvas text-on-surface font-sans text-body antialiased min-h-screen flex flex-col">
         <PostHogProvider>
           <Nav />
