@@ -15,7 +15,7 @@
 
 ## Task V4.0: Versions and API check
 
-**Status:** not started
+**Status:** done (2026-11-22). D32 and D33.
 
 Verify the current packages and their APIs before writing code. Checked 2026-11-22:
 
@@ -28,13 +28,13 @@ Verify the current packages and their APIs before writing code. Checked 2026-11-
 
 Read each package's current docs and a minimal working example, and record which to use and why in `docs/v2/decisions.md`.
 
-- [ ] Versions and APIs confirmed; the decision recorded
+- [x] Versions and APIs confirmed; the decision recorded
 
 ## Task V4.1: The MCP route
 
 **Status:** not started
 
-Build the route with the fixed tool surface (capability-model section 6): `search`, `read`, `next_step`, `palette`, `contrast`, `type_scale` (and decide whether `specimen` joins it), plus one MCP prompt per workflow. Tools call the same modules the APIs use. Record `tool_call` and fetch events through the visit ID in the server URL (D13).
+Build the route with the fixed tool surface (capability-model section 6): `search`, `read`, `next_step`, `palette`, `contrast`, `type_scale`, and `specimen` (D33), plus one MCP prompt per workflow. Tools call the same modules the APIs use. Record `tool_call` and fetch events through the visit ID in the server URL (D13).
 
 - [ ] Every tool works through an MCP client and matches its API's output; tests cover each
 
