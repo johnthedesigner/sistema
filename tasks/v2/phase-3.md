@@ -127,8 +127,8 @@ Run Sistema on the site: `project.migrate-brief` on the root `LIVING_BRIEF.md` (
 
 ## Task V3.9: Housekeeping and gate check
 
-**Status:** done except the gate (2026-11-22): `docs/v2/retro-phase-3.md`, AGENTS.md, `tasks/v2/phase-4.md` (MCP package versions checked), session log archived to `logs/v2-phase-3.md`.
+**Status:** done (2026-11-22); gate approved by the owner the same day, with analytics delivery confirmed in PostHog: `docs/v2/retro-phase-3.md`, AGENTS.md, `tasks/v2/phase-4.md` (MCP package versions checked), session log archived to `logs/v2-phase-3.md`.
 
 Retro (`docs/v2/retro-phase-3.md`), AGENTS.md updates, `tasks/v2/phase-4.md` (the MCP server: verify `mcp-handler`, SDK, and Zod versions first), and archive the session log to `logs/v2-phase-3.md`.
 
-- [ ] Gate (plan 15, Phase 3): the owner approves the guides and the site structure, and the reference project passes all checks at each milestone. Owner approves.
+- [x] Gate (plan 15, Phase 3): the owner approves the guides and the site structure, and the reference project passes all checks at each milestone. Owner approves.
