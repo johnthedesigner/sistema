@@ -22,6 +22,8 @@ const nextConfig: NextConfig = {
     '/api/type-scale': ['./content/rules/color.yaml', './content/rules/typography.yaml'],
     // /raw with a visit ID renders at request time, so it needs the content files.
     '/raw-with-id/**': ['./content/**/*'],
+    // The MCP server reads content and the palette library at request time.
+    '/mcp': ['./content/**/*', './public/palettes/library.json'],
   },
 }
 

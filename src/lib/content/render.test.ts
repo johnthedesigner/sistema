@@ -34,7 +34,7 @@ function mustPlay(id: string, fm: string, body?: string): Play {
 }
 
 const assess = mustPlay('project.assess', 'kind: orient\nproduces: [sistema.json, "project:a11y-standard"]')
-const direction = mustPlay('visual-language.direction', 'requires: ["project:a11y-standard"]\nproduces: ["design-md#overview", style-preview.html]')
+const direction = mustPlay('visual-language.direction', 'requires: ["project:a11y-standard"]\nproduces: ["design-md#overview", visual-direction.html]')
 const voice = mustPlay('content.voice-and-tone', 'produces: [VOICE_AND_TONE.md]')
 const scheme = mustPlay(
   'color.scheme',
@@ -75,7 +75,7 @@ sequence:
   - project.assess
   - visual-language.direction
   - gate: direction-approved
-    prompt: Review style-preview.html and approve the visual direction.
+    prompt: Review visual-direction.html and approve the visual direction.
   - content.voice-and-tone?
   - color.scheme
 continue_with: workflow.patterns
@@ -164,7 +164,7 @@ describe('workflow rendering', () => {
     expect(out.indexOf('## First: is this a resumed run?')).toBeLessThan(out.indexOf('## Outline'))
     // Outline: plays numbered, grouped by milestone, with URLs and gates in place.
     expect(out).toMatch(/ 2\. Title visual-language\.direction: .+\n {4}https:\/\/sistema\.example\/raw\/plays\/visual-language\.direction/)
-    expect(out).toContain('   ◆ Approval (direction-approved): Review style-preview.html')
+    expect(out).toContain('   ◆ Approval (direction-approved): Review visual-direction.html')
     expect(out).toContain(' 3. Title content.voice-and-tone (optional)')
     // State: exact shape, continue URL, schema link.
     expect(out).toContain(`"continue": "${BASE}/raw/workflows/start"`)

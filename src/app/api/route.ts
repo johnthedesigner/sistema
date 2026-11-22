@@ -17,6 +17,7 @@ export function GET(request: Request) {
     colors: 'hex (#1F5FD1 or #15D), rgb(31 95 209), or oklch(0.52 0.19 261), URL-encoded in GET requests (# is %23)',
     docs: u('/reference/tools'),
     agents: u('/raw/agents'),
+    mcp: { url: u('/mcp'), about: 'The same tools and content as an MCP server (Streamable HTTP): search, read, next_step, palette, contrast, type_scale, specimen, and a prompt per workflow.' },
     tools: [
       {
         name: 'contrast',
