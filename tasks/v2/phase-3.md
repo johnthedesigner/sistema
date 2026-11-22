@@ -119,11 +119,11 @@ Instrument the new pages with the V2 analytics events (`prompt_selected`). Also 
 
 ## Task V3.8: Sistema on its own site
 
-**Status:** mostly done inside V3.7 (2026-11-21): the brief migrated with the owner's four answers, the direction and foundations approved, tokens in `tokens/src` with the new pipeline, and DESIGN.md with eight sections. Left: confirm the checks below and record the run as material for explaining the method.
+**Status:** done (2026-11-22). Run recorded in `docs/v2/site-run.md`. Open: about 250 raw pixel values in older pages, for the deferred layout pass.
 
 Run Sistema on the site: `project.migrate-brief` on the root `LIVING_BRIEF.md` (dry run in V1.15), with the owner settling the four conflicts, then the plays that move the site's tokens into the method's layout (DTCG under `tokens/src/`, spacing tokens, generated DESIGN.md front matter). Record the run as material for explaining the method.
 
-- [ ] The site has a valid `sistema.json`, DECISIONS.md, and DESIGN.md with eight sections; its tokens pass the checks
+- [x] The site has a valid `sistema.json`, DECISIONS.md, and DESIGN.md with eight sections; its tokens pass the checks
 
 ## Task V3.9: Housekeeping and gate check
 
