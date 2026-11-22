@@ -82,6 +82,15 @@ export function PromptBox({
 
   return (
     <div>
+      <div role="group" aria-label="How to use Sistema" className="inline-flex p-1 mb-4 rounded-radius-lg bg-surface-hover">
+        {(['prompt', 'mcp'] as const).map(m => (
+          <button key={m} type="button" aria-pressed={mode === m} onClick={() => switchMode(m)}
+            className="h-control-height px-4 rounded-radius-md text-label text-on-surface-muted hover:text-on-surface aria-pressed:bg-surface-raised aria-pressed:text-on-surface aria-pressed:shadow-control transition-colors motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-border-focus">
+            {m === 'prompt' ? 'Paste a prompt' : 'Use the MCP server'}
+          </button>
+        ))}
+      </div>
+
       {!single && suggestions.length > 0 && (
         <div role="group" aria-label="What do you want to do?" className="flex flex-wrap gap-2 mb-3">
           {suggestions.map(o => (
@@ -98,17 +107,6 @@ export function PromptBox({
         </div>
       )}
 
-      <div className="flex items-center justify-between gap-3 mb-2 flex-wrap">
-        <div role="group" aria-label="How to use Sistema" className="inline-flex p-0.5 rounded-radius-md bg-surface-hover">
-          {(['prompt', 'mcp'] as const).map(m => (
-            <button key={m} type="button" aria-pressed={mode === m} onClick={() => switchMode(m)}
-              className="h-7 px-3 rounded-radius-sm text-caption text-on-surface-muted aria-pressed:bg-surface-raised aria-pressed:text-on-surface aria-pressed:shadow-control focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-border-focus">
-              {m === 'prompt' ? 'Prompt' : 'MCP server'}
-            </button>
-          ))}
-        </div>
-        {mode === 'mcp' && <Link href="/connect" className="text-caption text-link">Connect the MCP server first</Link>}
-      </div>
       <div className="rounded-radius-xl bg-surface-featured shadow-featured p-3 md:p-4">
         <label htmlFor={boxId} className="sr-only">{label}</label>
         <textarea
@@ -123,6 +121,12 @@ export function PromptBox({
           <p className="text-caption text-on-surface-faint m-0">
             {mode === 'mcp' ? 'Ask this in your agent, with the Sistema MCP server connected.' : 'Paste into Claude Code, Cursor, or another coding agent, in your project folder.'}
           </p>
+          <div className="flex items-center gap-2 flex-wrap">
+          {mode === 'mcp' && (
+            <Link href="/connect" className="inline-flex items-center h-control-height px-4 rounded-radius-md border border-border-strong bg-surface-raised text-on-surface text-label no-underline hover:bg-surface-hover transition-colors motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus">
+              Connect the MCP server
+            </Link>
+          )}
           <button
             type="button"
             onClick={copy}
@@ -134,6 +138,7 @@ export function PromptBox({
             </svg>
             Copy prompt
           </button>
+          </div>
         </div>
         <p role="status" aria-live="polite" className="text-caption text-on-surface-muted m-0 mt-1 min-h-[1.2em] text-right">{status}</p>
       </div>
