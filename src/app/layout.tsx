@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { Inter, Fraunces, JetBrains_Mono } from 'next/font/google'
 import { Nav } from '@/components/layout/Nav'
 import { SiteFooter } from '@/components/layout/Footer'
-import { ThemeDebugToggle } from '@/components/dev/ThemeDebugToggle'
 import { Analytics } from '@vercel/analytics/next'
 import { PostHogProvider } from '@/components/providers/PostHogProvider'
 import { SITE_URL } from '@/lib/site-url'
@@ -73,27 +72,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}
     >
-      <head>
-        {/* Runs before paint — sets data-theme="dark" when the OS is in dark mode */}
-        <script dangerouslySetInnerHTML={{ __html: `
-          (function(){
-            var override=sessionStorage.getItem('debug-theme');
-            if(override==='dark'){
-              document.documentElement.setAttribute('data-theme','dark');
-            } else if(!override && window.matchMedia('(prefers-color-scheme:dark)').matches){
-              document.documentElement.setAttribute('data-theme','dark');
-            }
-          })();
-        `}} />
-      </head>
-      <body className="bg-canvas text-on-surface antialiased min-h-screen flex flex-col">
+      <body className="bg-canvas text-on-surface font-sans text-body antialiased min-h-screen flex flex-col">
         <PostHogProvider>
           <Nav />
           <div className="flex-1">{children}</div>
           <SiteFooter />
-          {process.env.NODE_ENV === 'development' && <ThemeDebugToggle />}
           <Analytics />
         </PostHogProvider>
       </body>

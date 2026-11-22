@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { SistemaLogo } from '@/components/logos/SistemaLogo'
+import { ThemeSwitch } from './ThemeSwitch'
 
 function JohnTheDesignerMark({ size = 16 }: { size?: number }) {
   const w = Math.round(size * (90 / 41))
@@ -17,8 +18,9 @@ const FOOTER_NAV = [
     label: 'Get started',
     links: [
       { label: 'How Sistema works', href: '/how-it-works' },
-      { label: 'Start a design system', href: '/workflows/start' },
-      { label: 'Work on my system', href: '/workflows/session' },
+      { label: 'Start a design system', href: '/start' },
+      { label: 'Bring Sistema to an existing system', href: '/existing' },
+      { label: 'Work on my system', href: '/work' },
       { label: 'All plays', href: '/plays' },
     ],
   },
@@ -26,17 +28,18 @@ const FOOTER_NAV = [
     label: 'Learn',
     links: [
       { label: 'Guides', href: '/guides' },
+      { label: 'Reference', href: '/reference' },
       { label: 'Opinions', href: '/reference/opinions' },
       { label: 'Rules', href: '/reference/rules' },
       { label: 'For agents', href: '/agents' },
     ],
   },
   {
-    label: 'Resources',
+    label: 'Tools',
     links: [
-      { label: 'Palette tool', href: '/tools/palette' },
-      { label: 'Contrast checker', href: '/tools/contrast' },
-      { label: 'Type scale calculator', href: '/tools/type-scale' },
+      { label: 'Palette', href: '/tools/palette' },
+      { label: 'Contrast', href: '/tools/contrast' },
+      { label: 'Type scale', href: '/tools/type-scale' },
       { label: 'Specimen', href: '/tools/specimen' },
       { label: 'Sources', href: '/sources' },
       { label: 'Privacy', href: '/privacy' },
@@ -44,33 +47,26 @@ const FOOTER_NAV = [
   },
 ]
 
+const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus rounded-radius-sm'
+
 export function SiteFooter() {
   return (
-    <footer style={{ background: '#0E1116' }}>
+    <footer className="bg-surface-raised mt-section-gap">
       <div className="max-w-[1180px] mx-auto px-5 md:px-10">
-
-        {/* Brand */}
-        <div className="pt-14 md:pt-20 pb-10 md:pb-14 border-b border-white/[0.08]">
-          <SistemaLogo height={64} />
-          <p className="mt-5 font-serif font-normal m-0 text-white/40 text-[16px] leading-[1.6] max-w-[420px]">
-            Structured plays and grounded reference material for AI-assisted design system work.
-          </p>
-        </div>
-
-        {/* Nav columns */}
-        <div className="py-10 md:py-14 grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-16 border-b border-white/[0.08]">
+        <div className="pt-12 pb-10 grid grid-cols-1 md:grid-cols-[1.2fr_repeat(3,1fr)] gap-10">
+          <div>
+            <SistemaLogo height={44} />
+            <p className="mt-4 m-0 text-body-sm text-on-surface-muted max-w-[300px]">
+              A method and tools for building a design system with your AI coding agent, in your own repository.
+            </p>
+          </div>
           {FOOTER_NAV.map(section => (
             <div key={section.label}>
-              <p className="font-mono m-0 mb-5 text-[10.5px] tracking-[0.12em] uppercase text-white/30">
-                {section.label}
-              </p>
-              <ul className="list-none p-0 m-0 flex flex-col gap-3">
+              <p className="m-0 mb-3 text-label text-on-surface">{section.label}</p>
+              <ul className="list-none p-0 m-0 flex flex-col gap-2">
                 {section.links.map(link => (
                   <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="no-underline transition-colors text-[14px] text-white/50 hover:text-white/90"
-                    >
+                    <Link href={link.href} className={`no-underline text-body-sm text-on-surface-muted hover:text-on-surface ${focusRing}`}>
                       {link.label}
                     </Link>
                   </li>
@@ -79,24 +75,14 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-
-        {/* Bottom strip */}
-        <div className="py-6 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
-          <a
-            href="https://johnthedesigner.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 no-underline transition-colors text-white/35 hover:text-white/65"
-          >
+        <div className="py-5 flex flex-wrap items-center gap-x-5 gap-y-3 shadow-[inset_0_1px_0_var(--color-border)]">
+          <a href="https://johnthedesigner.com" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 no-underline text-caption text-on-surface-muted hover:text-on-surface ${focusRing}`}>
             <JohnTheDesignerMark size={14} />
-            <span className="font-mono text-[11px]">Built by John the Designer</span>
+            Built by John the Designer
           </a>
-          <span className="hidden sm:inline text-white/20 text-[11px]">·</span>
-          <span className="font-mono text-[11px] text-white/20">
-            Public beta
-          </span>
+          <span className="text-caption text-on-surface-faint">Public beta</span>
+          <div className="ml-auto"><ThemeSwitch /></div>
         </div>
-
       </div>
     </footer>
   )

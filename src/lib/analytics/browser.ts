@@ -37,6 +37,11 @@ export function promptForCopy(body: string, id: string): string {
   return withVisitId(body, c, SITE_URL)
 }
 
+/** A suggestion or route in the prompt box was chosen. */
+export function trackPromptSelected(kind: string, id: string) {
+  send('prompt_selected', { kind, id, c: getVisitId() })
+}
+
 const timers = new Map<string, ReturnType<typeof setTimeout>>()
 const seen = new Set<string>()
 
