@@ -4,14 +4,21 @@
 
 **Phase:** v2 Phase 3 (Reference project, guides, and site). See `docs/v2/ROADMAP.md` and `tasks/v2/phase-3.md`.
 **Branch:** `v2`. All work commits here. Nothing merges to `main` until Task VF.
-**Last completed task:** V3.5 — Guide rewrites (color, tokens, typography, visual quality), with content principles adopted
-**Next task:** V3.6 — Components guide (outline for owner review).
+**Last completed task:** V3.7 — Site restructure (with V3.6, the components guide)
+**Next task:** V3.8 — confirm Sistema-on-its-own-site checks and record the run; then V3.9 housekeeping and the Phase 3 gate.
 **Blockers:** none. Open item: PostHog key missing from the Vercel Preview environment (owner, later; needed before V3.7)
 **Notes:** `v2` is pushed. Preview: https://sistema-git-v2-jtd-604ef502.vercel.app. CI is green. `v1-baseline` tag marks `main` before v2 (setup A for the V5 comparison). Production domain: https://sistema.johnthedesigner.com. Commit messages start with the task ID (`V0.1: ...`).
 
 ---
 
 ## Session log
+
+### 2026-11-21 to 2026-11-22 — V3.6 components guide; V3.7 site restructure
+
+**What was done:**
+- V3.6: components guide (foundation choice, anatomy, states and variants, tokens, accessibility by family from the WAI-ARIA APG, API and naming, documentation), with Base UI, Radix Primitives, React Aria, and the APG brought in as sources. Approved.
+- V3.7, in the owner's swapped order: `LIVING_BRIEF.md` migrated; Sistema's own direction (brand color, grays tinted toward blue, 8px, tone, Inter with Fraunces) and foundations approved; new DTCG tokens and pipeline; navigation, prompt box, footer theme switch (stored in localStorage, privacy page updated), home, entry pages, all pages on the role tokens, play/workflow/guide/file pages; the visual direction page template replacing the style preview, revised twice from the owner's notes.
+- Deferred at the owner's request: headline, content and layout tweaks; "worked example" framing (backlog).
 
 ### 2026-11-20 to 2026-11-21 — V3.5: guide rewrites and content principles
 

@@ -103,7 +103,7 @@ Write the components guide the capability model calls for before Patterns is con
 
 ## Task V3.7: Site restructure
 
-**Status:** not started
+**Status:** done (2026-11-22). Built in the swapped order the owner chose: Sistema's own direction and foundations first (approved 2026-11-21), then the navigation, prompt box, footer theme switch (stored), home page, entry pages (/start, /existing, /work), every page on the role tokens, play, workflow, guide, and file format pages, and the shared visual direction page template. Content, layout, and headline tweaks are deferred to later passes, at the owner's request.
 
 Build the approved IA (`docs/v2/site-structure.md`):
 - the navigation
@@ -115,11 +115,11 @@ Build the approved IA (`docs/v2/site-structure.md`):
 
 Instrument the new pages with the V2 analytics events (`prompt_selected`). Also redesign the review pages plays produce (style preview, token check, comparison pages), per BACKLOG "Review pages": quieter and easier to read, Sistema's frame around the project's own tokens, from a shared template. Show the main pages to the owner at each step, as visual milestones.
 
-- [ ] Owner approves the site structure in the browser; every page passes the checks at desktop and phone width
+- [x] Owner approves the site structure in the browser; every page passes the checks at desktop and phone width
 
 ## Task V3.8: Sistema on its own site
 
-**Status:** not started
+**Status:** mostly done inside V3.7 (2026-11-21): the brief migrated with the owner's four answers, the direction and foundations approved, tokens in `tokens/src` with the new pipeline, and DESIGN.md with eight sections. Left: confirm the checks below and record the run as material for explaining the method.
 
 Run Sistema on the site: `project.migrate-brief` on the root `LIVING_BRIEF.md` (dry run in V1.15), with the owner settling the four conflicts, then the plays that move the site's tokens into the method's layout (DTCG under `tokens/src/`, spacing tokens, generated DESIGN.md front matter). Record the run as material for explaining the method.
 
