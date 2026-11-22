@@ -37,7 +37,7 @@ The template shows these in order. The data block supplies the content.
 One screen per taste question (`questions` in the data):
 
 - The question in plain words, and what it changes.
-- Two or three options, each the product's screen with only that setting changed, filling most of the window. The person flips between them and selects one.
+- Two or three options, each the product's screen with only that setting changed, filling most of the window. Clicking an option shows and selects it; the selected option is outlined.
 - The recommended option, selected to start with, and the reason in terms of the product's needs.
 - A choice of page type to preview on (`specimen.layouts`), with the product's content for each where the data gives it (`specimen.contents`).
 

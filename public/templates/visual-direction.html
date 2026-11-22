@@ -52,9 +52,7 @@ ul{margin:0;padding-left:20px}li{margin:4px 0}
 .opts .desc{display:block;font-size:13.5px;color:var(--mut);margin-top:2px}
 .pill{font-size:11.5px;padding:2px 8px;border-radius:99px;white-space:nowrap}
 .pill.rec{background:var(--accs);color:var(--acc)}
-.pill.sel{background:var(--ok);color:var(--onok)}
 .reccard{background:var(--accs);border-radius:8px;padding:10px 12px;font-size:14px}
-.choose{margin-top:12px;width:100%}
 .preview{background:var(--panel);border-radius:var(--r);padding:8px}
 .pbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:2px 4px 8px;flex-wrap:wrap}
 .pbar label{font-size:13px;color:var(--mut)}
@@ -101,7 +99,8 @@ pre.answers{background:var(--panel);border-radius:8px;padding:14px;white-space:p
   var Q = D.questions
   var answers = {}, viewing = {}, visited = {}
   Q.forEach(function (q) { answers[q.id] = q.proposed })
-  var layouts = (D.specimen.layouts && D.specimen.layouts.length) ? D.specimen.layouts : [D.specimen.layout]
+  var ALL_LAYOUTS = ['operations', 'dashboard', 'record', 'marketing', 'article', 'shop']
+  var layouts = (D.specimen.layouts && D.specimen.layouts.length) ? D.specimen.layouts : ALL_LAYOUTS
   var layout = D.specimen.layout
   var LAYOUT_NAMES = { operations: 'List with status', dashboard: 'Dashboard', record: 'Detail page', marketing: 'Home page', article: 'Reading page', shop: 'Shop' }
   var screens = ['intro'].concat(Q.map(function (q) { return q.id }), ['together', 'send'])
@@ -169,7 +168,7 @@ pre.answers{background:var(--panel);border-radius:8px;padding:14px;white-space:p
   function intro() {
     return '<div class="read"><h1>Choose the look for ' + esc(D.project) + '</h1>' +
       '<h3 style="margin-top:0">How this works</h3><ol class="how">' +
-      '<li>Answer ' + Q.length + ' questions. Each shows a few options on ' + esc(D.project) + '’s own screen. Flip between them and choose one. The recommended option is selected to start with.</li>' +
+      '<li>Answer ' + Q.length + ' questions. Each shows a few options on ' + esc(D.project) + '’s own screen. Click an option to see it and select it. The recommended option is selected to start with.</li>' +
       '<li>See all your choices together, in light and dark.</li>' +
       '<li>Copy your answers and give them to your agent, which builds the design system from them.</li></ol>' +
       navButtons() +
@@ -180,31 +179,28 @@ pre.answers{background:var(--panel);border-radius:8px;padding:14px;white-space:p
   function optionButtons(q) {
     var v = viewing[q.id]
     return q.options.map(function (x, i) {
-      var tags = (same(x.value, answers[q.id]) ? '<span class="pill sel">Selected</span> ' : '') + (same(x.value, q.proposed) ? '<span class="pill rec">Recommended</span>' : '')
-      return '<button type="button" data-view="' + i + '" aria-pressed="' + same(x.value, v) + '"><span class="row"><b>' + letter(i) + '. ' + esc(x.label) + '</b><span>' + tags + '</span></span><span class="desc">' + esc(x.desc) + '</span></button>'
+      var tags = same(x.value, q.proposed) ? '<span class="pill rec">Recommended</span>' : ''
+      return '<button type="button" data-view="' + i + '" aria-pressed="' + same(x.value, answers[q.id]) + '"><span class="row"><b>' + letter(i) + '. ' + esc(x.label) + '</b><span>' + tags + '</span></span><span class="desc">' + esc(x.desc) + '</span></button>'
     }).join('')
   }
-  function chooseButton(q) {
-    var i = q.options.indexOf(opt(q, viewing[q.id]))
-    return same(viewing[q.id], answers[q.id]) ? '<p class="small mut" style="margin:12px 0 0">Option ' + letter(i) + ' is selected.</p>' : '<button class="btn primary choose" type="button" data-choose="' + i + '">Select ' + letter(i) + '</button>'
-  }
   function question(q) {
-    if (viewing[q.id] === undefined) viewing[q.id] = answers[q.id]
+    viewing[q.id] = answers[q.id]
     var idx = q.options.indexOf(opt(q, viewing[q.id]))
     var frames = q.options.map(function (x, i) { return '<div data-opt="' + i + '"' + (i === idx ? '' : ' hidden') + '>' + frame(optUrl(q, x.value), q.title + ': ' + x.label) + '</div>' }).join('')
     return '<div class="q"><div class="left">' +
       '<p class="small faint" style="margin:0 0 4px">Question ' + (Q.indexOf(q) + 1) + ' of ' + Q.length + '</p>' +
       '<h2>' + esc(q.title) + '</h2><p class="mut" style="margin:0">' + esc(q.help) + '</p>' +
-      '<div class="opts" role="group" aria-label="Options; use the arrow keys to flip">' + optionButtons(q) + '</div>' +
+      '<div class="opts" role="group" aria-label="Options; the selected one is outlined">' + optionButtons(q) + '</div>' +
       '<div class="reccard"><b>Recommended: ' + esc(opt(q, q.proposed).label) + '.</b> ' + esc(q.why) + '</div>' +
-      '<div id="choose">' + chooseButton(q) + '</div>' + navButtons() + '</div>' +
+      navButtons() + '</div>' +
       '<div class="preview"><div class="pbar"><span class="small mut" id="pname">' + letter(idx) + '. ' + esc(opt(q, viewing[q.id]).label) + '</span>' + layoutPicker() + '<a class="small" id="pfull" target="_blank" rel="noopener" href="' + esc(optUrl(q, viewing[q.id])) + '">Open full size</a></div>' + frames + '</div></div>'
   }
+  // Clicking an option selects it; the outline shows the selection.
   function flipTo(q, i) {
     viewing[q.id] = q.options[i].value
+    answers[q.id] = q.options[i].value
     document.querySelector('.opts').innerHTML = optionButtons(q)
     document.querySelectorAll('[data-opt]').forEach(function (f) { f.hidden = +f.dataset.opt !== i })
-    document.getElementById('choose').innerHTML = chooseButton(q)
     document.getElementById('pname').textContent = letter(i) + '. ' + q.options[i].label
     document.getElementById('pfull').href = optUrl(q, q.options[i].value)
     fit()
@@ -297,8 +293,6 @@ pre.answers{background:var(--panel);border-radius:8px;padding:14px;white-space:p
     var q = Q.filter(function (x) { return x.id === current })[0]
     var vw = e.target.closest('[data-view]')
     if (vw && q) { flipTo(q, +vw.dataset.view); document.querySelector('[data-view="' + vw.dataset.view + '"]').focus(); return }
-    var ch = e.target.closest('[data-choose]')
-    if (ch && q) { answers[q.id] = q.options[+ch.dataset.choose].value; flipTo(q, +ch.dataset.choose); steps(); return }
     var cp = e.target.closest('#copy')
     if (cp) {
       var text = answerText()
