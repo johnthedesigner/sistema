@@ -1,6 +1,6 @@
 # AGENTS.md — Sistema
 
-> **v2 overhaul in progress (branch `v2`).** Start every session with `SESSION_LOG.md` "Current State", then `docs/v2/ROADMAP.md` and the current `tasks/v2/phase-N.md`. The plan is `docs/v2/SISTEMA_PLAN.md`, amended by `docs/v2/capability-model.md` and `docs/v2/PLAN_CORRECTIONS.md`. This file is updated at the end of each v2 phase (last: V2.9).
+> **v2 overhaul in progress (branch `v2`).** Start every session with `SESSION_LOG.md` "Current State", then `docs/v2/ROADMAP.md` and the current `tasks/v2/phase-N.md`. The plan is `docs/v2/SISTEMA_PLAN.md`, amended by `docs/v2/capability-model.md` and `docs/v2/PLAN_CORRECTIONS.md`. This file is updated at the end of each v2 phase (last: V3.9).
 
 ## What this repository is
 
@@ -37,7 +37,7 @@ _meta/                BACKLOG.md, LICENSE_AUDIT.md, PENDING_SOURCES.md (older v1
 logs/                 Archived session logs
 ```
 
-The root `DESIGN.md` and `LIVING_BRIEF.md` describe the site's own v1 design system. V3 runs Sistema on the site and replaces them.
+The site follows Sistema itself: `sistema.json`, DECISIONS.md, and DESIGN.md at the root describe its design system (V3.8). `LIVING_BRIEF.md` is kept for reference only.
 
 ## The content model
 
@@ -147,7 +147,10 @@ The site follows Sistema (`sistema.json`, DECISIONS.md, DESIGN.md at the root). 
 Next.js pre-renders client components, so `window`, `document`, `localStorage`, and `sessionStorage` are undefined at build time. Read them in `useEffect` (or behind a `mounted` flag), never during render.
 
 ### Page layout
-Pages use `Container` (`max-w-[1180px] mx-auto px-5 md:px-10`). The body background is the canvas token; raised content uses `bg-surface`. Full-bleed sections break out at `<main>` level and re-contain inside. Pages must not scroll sideways at 390px.
+Pages use `Container` (`max-w-[1180px] mx-auto px-5 md:px-10`). The page background is `surface`; raised content (cards, panels) uses `surface-raised` and separates by tone, without outlines. Headings use Fraunces (`font-serif`), text uses Inter. Use the type roles (`text-body`, `text-label`, `text-heading-md`) and the shared components in `src/components/site/` rather than pixel values. Full-bleed sections break out at `<main>` level and re-contain inside. Pages must not scroll sideways at 390px.
+
+### Review page templates
+The visual direction page is one file, `public/templates/visual-direction.html`, served at `/templates/visual-direction.html`. Plays copy it and replace only its JSON data block; improvements go into the template. Sistema's own `sistema-review/visual-direction.html` is the reference rendering.
 
 ### Logo
 `src/components/Logo.tsx` exports `Logo` (symbol, aspect 172/192) and `Wordmark` (symbol plus "Sistema" in Fraunces).

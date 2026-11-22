@@ -127,7 +127,7 @@ Run Sistema on the site: `project.migrate-brief` on the root `LIVING_BRIEF.md` (
 
 ## Task V3.9: Housekeeping and gate check
 
-**Status:** not started
+**Status:** done except the gate (2026-11-22): `docs/v2/retro-phase-3.md`, AGENTS.md, `tasks/v2/phase-4.md` (MCP package versions checked), session log archived to `logs/v2-phase-3.md`.
 
 Retro (`docs/v2/retro-phase-3.md`), AGENTS.md updates, `tasks/v2/phase-4.md` (the MCP server: verify `mcp-handler`, SDK, and Zod versions first), and archive the session log to `logs/v2-phase-3.md`.
 
