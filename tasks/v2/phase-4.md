@@ -8,7 +8,7 @@
 - 194 tests, 0 violations.
 
 **Carried from V3:**
-- **Analytics delivery** is still unconfirmed: add the PostHog variables to Vercel's Preview environment, rerun the tagged check, and confirm in PostHog. The MCP route records the same events, so confirm this first.
+- **Analytics delivery** (checked 2026-11-22): the Preview build now has the PostHog key. A real-browser run on the preview sent `$pageview`, `prompt_copied`, and navigation events under one `internal-` visit ID, and PostHog answered 200; nothing was written to storage. Server-side events were triggered with ID `internal-d75e8b05-3e0e-4555-936a-e768b7e4b463` (`/raw` with the ID carried into every link, `/llms.txt`, contrast, palette). Left: the owner confirms in PostHog that the server events arrived, filtering `c` by that ID (expect `env: preview`, `internal: true`).
 - **Platform scope** (BACKLOG): decide the web-first statement before the connect page and launch copy describe who Sistema is for.
 - **Deferred site tweaks:** headline, content and layout passes, about 250 raw pixel values in older pages, and the "worked example" framing (BACKLOG).
 - **Guides due for review** (the content check lists nine), and the source-closeness audit for the guides V3.5 didn't cover.

@@ -13,4 +13,8 @@
 
 ## Session log
 
+### 2026-11-22 — Analytics delivery check
+
+- Preview build has the PostHog key (set as a public Config variable). Browser events reach PostHog (200) under one `internal-` ID; no storage written. Server events triggered with `internal-d75e8b05-3e0e-4555-936a-e768b7e4b463`; the owner confirms them in PostHog.
+
 Phase 3 entries are archived in `logs/v2-phase-3.md`.
