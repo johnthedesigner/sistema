@@ -27,7 +27,7 @@ export function Markdown({ children }: { children: string }) {
       return <Tag id={headingSlug(text(c))} className="scroll-mt-24">{c}</Tag>
     }
   return (
-    <div className="prose prose-sm max-w-none prose-headings:font-semibold prose-a:text-primary prose-code:before:content-none prose-code:after:content-none prose-code:bg-surface prose-code:px-1 prose-code:py-0.5 prose-code:rounded-radius-sm prose-pre:bg-surface prose-pre:text-on-surface prose-pre:border prose-pre:border-border">
+    <div className="prose max-w-none prose-headings:font-serif prose-headings:font-semibold prose-h2:text-heading-lg prose-h3:text-heading-sm prose-h3:font-sans prose-p:text-body prose-li:text-body prose-a:text-link prose-a:no-underline hover:prose-a:underline prose-code:before:content-none prose-code:after:content-none prose-code:bg-surface-hover prose-code:px-1 prose-code:py-0.5 prose-code:rounded-radius-sm prose-code:font-normal prose-pre:bg-surface-raised prose-pre:text-on-surface prose-pre:rounded-radius-lg prose-th:text-label prose-th:font-sans prose-td:text-body-sm">
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ h2: heading('h2'), h3: heading('h3'), h4: heading('h4'), pre: Pre }}>
         {children}
       </ReactMarkdown>

@@ -31,7 +31,7 @@ export default function OpinionsPage() {
                 <p className="text-[13.5px] text-on-surface-muted m-0 -mt-2 mb-4">{OPINION_GROUP_LABELS[group].intro}</p>
                 <div className="flex flex-col gap-2">
                   {items.map(o => (
-                    <details key={o.id} id={o.id} className="group border border-border rounded-radius-lg bg-surface scroll-mt-24">
+                    <details key={o.id} id={o.id} className="group rounded-radius-lg bg-surface-raised scroll-mt-24">
                       <summary className="cursor-pointer list-none p-4">
                         <span className="block text-[15px] font-semibold text-on-surface">{o.title}</span>
                         <span className="block text-[13.5px] text-on-surface-muted mt-1 leading-[1.5]"><Inline text={o.default} /></span>

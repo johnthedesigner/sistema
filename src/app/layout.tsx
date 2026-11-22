@@ -79,7 +79,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>
-      <body className="bg-canvas text-on-surface font-sans text-body antialiased min-h-screen flex flex-col">
+      <body className="bg-surface text-on-surface font-sans text-body antialiased min-h-screen flex flex-col">
         <PostHogProvider>
           <Nav />
           <div className="flex-1">{children}</div>

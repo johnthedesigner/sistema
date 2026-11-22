@@ -1,6 +1,6 @@
 export function DesignMdCallout() {
   return (
-    <div className="flex items-start gap-3 border border-border rounded-radius-lg px-4 py-3 bg-surface text-sm">
+    <div className="flex items-start gap-3 rounded-radius-lg px-4 py-3 bg-surface-raised text-sm">
       <span className="text-on-surface-muted mt-0.5 flex-shrink-0">ℹ</span>
       <p className="text-on-surface-muted">
         <strong className="text-on-surface font-medium">What is DESIGN.md?</strong>{' '}

@@ -25,7 +25,7 @@ export default function RulesPage() {
         >
           <div className="flex gap-2 flex-wrap mt-5">
             {topics.map(t => (
-              <a key={t} href={`#${t}`} className="inline-flex items-center h-[28px] px-3 rounded-full border border-border bg-surface text-[12.5px] text-on-surface no-underline hover:border-border-strong">
+              <a key={t} href={`#${t}`} className="inline-flex items-center h-[28px] px-3 rounded-full border border-border bg-surface-raised text-[12.5px] text-on-surface no-underline hover:border-border-strong">
                 {TOPIC_LABELS[t]}
               </a>
             ))}
@@ -43,7 +43,7 @@ export default function RulesPage() {
                 {c.rules
                   .filter(r => r.id.startsWith(`${t}.`))
                   .map(r => (
-                    <div key={r.id} id={r.id} className="border border-border rounded-radius-lg p-4 bg-surface scroll-mt-24">
+                    <div key={r.id} id={r.id} className=" rounded-radius-lg p-4 bg-surface-raised scroll-mt-24">
                       <div className="flex items-center gap-2 flex-wrap mb-2">
                         <code className="font-mono text-[12.5px] text-on-surface">{r.id}</code>
                         <Chip>{r.severity === 'blocking' ? 'required' : 'advisory'}</Chip>
@@ -71,7 +71,7 @@ export default function RulesPage() {
                         </div>
                       )}
                       {(citedBy(r.id).length > 0 || opinionsFor(r.id).length > 0) && (
-                        <p className="text-[12px] text-on-surface-subtle m-0 mt-3 leading-[1.6]">
+                        <p className="text-[12px] text-on-surface-faint m-0 mt-3 leading-[1.6]">
                           {citedBy(r.id).length > 0 && (
                             <>
                               Used by{' '}

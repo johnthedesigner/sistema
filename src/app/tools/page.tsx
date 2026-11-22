@@ -59,7 +59,7 @@ export default function ToolsPage() {
             Computational tools for design system work.
           </h1>
           <p
-            className="text-on-surface-muted font-serif font-normal m-0"
+            className="text-on-surface-muted m-0"
             style={{ maxWidth: 620, fontSize: 15, lineHeight: 1.55 }}
           >
             Each tool has a page you can use and an API that plays call, so agents get exact values instead of estimates.
@@ -68,7 +68,7 @@ export default function ToolsPage() {
 
         <div className="flex flex-col gap-4">
           {TOOLS.map(tool => (
-            <div key={tool.slug} className="relative border border-border rounded-radius-lg bg-surface group">
+            <div key={tool.slug} className="relative rounded-radius-lg bg-surface-raised group">
               <Link href={tool.href} className="absolute inset-0 z-0" aria-label={tool.title} />
 
               <div className="p-5 md:p-6 relative z-10 pointer-events-none">
@@ -80,8 +80,8 @@ export default function ToolsPage() {
                     {tool.title}
                   </h2>
                   {tool.api && (
-                    <div className="flex items-center gap-2 shrink-0 pointer-events-auto">
-                      <span className="font-mono text-[11px] text-on-surface-muted bg-surface-sunken border border-border px-2 py-0.5 rounded">
+                    <div className="hidden md:flex items-center gap-2 shrink-0 pointer-events-auto">
+                      <span className="font-mono text-[11px] text-on-surface-muted bg-surface-subtle px-2 py-0.5 rounded break-all">
                         {tool.api}
                       </span>
                     </div>
@@ -95,7 +95,7 @@ export default function ToolsPage() {
                 <div className="flex items-center gap-3">
                   <Link
                     href={`/plays/${tool.playRef}`}
-                    className="pointer-events-auto inline-flex items-center h-[26px] px-2.5 text-[11.5px] font-mono border border-border rounded bg-surface-sunken text-on-surface-muted hover:text-on-surface hover:bg-surface transition-colors no-underline"
+                    className="pointer-events-auto inline-flex items-center h-[26px] px-2.5 text-[11.5px] font-mono border border-border rounded bg-surface-subtle text-on-surface-muted hover:text-on-surface hover:bg-surface-raised transition-colors no-underline"
                   >
                     {tool.playRef}
                   </Link>

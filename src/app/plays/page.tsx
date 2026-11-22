@@ -22,7 +22,7 @@ export default function PlaysPage() {
         >
           <div className="flex gap-2 flex-wrap mt-5">
             {workflows.map(w => (
-              <Link key={w.id} href={workflowHref(w.id)} className="inline-flex items-center gap-1.5 h-[30px] px-3 rounded-full border border-border bg-surface text-[12.5px] font-medium text-on-surface no-underline hover:border-border-strong">
+              <Link key={w.id} href={workflowHref(w.id)} className="inline-flex items-center gap-1.5 h-[30px] px-3 rounded-full border border-border bg-surface-raised text-[12.5px] font-medium text-on-surface no-underline hover:border-border-strong">
                 {w.title} <ArrowRight size={11} />
               </Link>
             ))}

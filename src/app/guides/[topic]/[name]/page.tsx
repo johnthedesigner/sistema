@@ -35,7 +35,7 @@ export default async function GuidePage({ params }: { params: Promise<{ topic: s
       <Container>
         <nav className="flex items-center gap-2 text-[12.5px] text-on-surface-muted mb-4">
           <Link href="/guides" className="no-underline text-on-surface-muted hover:text-on-surface">Guides</Link>
-          <span className="text-on-surface-subtle">/</span>
+          <span className="text-on-surface-faint">/</span>
           <Link href={`/guides#${guide.topic}`} className="no-underline text-on-surface-muted hover:text-on-surface">{TOPIC_LABELS[guide.topic]}</Link>
         </nav>
         <AgentNote raw={`/raw/guides/${topic}/${name}`} />
@@ -45,10 +45,10 @@ export default async function GuidePage({ params }: { params: Promise<{ topic: s
             <h1 className="font-serif font-medium text-on-surface m-0 mb-3 text-[28px] md:text-[40px]" style={{ lineHeight: 1.1, letterSpacing: '-0.02em' }}>
               {guide.title}
             </h1>
-            <p className="text-on-surface-muted font-serif m-0 mb-2" style={{ fontSize: 16, lineHeight: 1.55, maxWidth: 680 }}>
+            <p className="text-on-surface-muted m-0 mb-2" style={{ fontSize: 16, lineHeight: 1.55, maxWidth: 680 }}>
               {guide.description}
             </p>
-            <p className="text-[12px] text-on-surface-subtle m-0 mb-6">Last reviewed {guide.last_reviewed}</p>
+            <p className="text-[12px] text-on-surface-faint m-0 mb-6">Last reviewed {guide.last_reviewed}</p>
             {guide.note && (
               <p className="text-[13px] leading-[1.55] text-on-surface-muted border-l-2 pl-3 mb-6" style={{ borderColor: 'var(--color-brand-yellow)' }}>
                 {guide.note}

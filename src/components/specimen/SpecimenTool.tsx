@@ -125,7 +125,7 @@ function Frame({ url, title, onOpen }: { url: string; title: string; onOpen: () 
     return () => ro.disconnect()
   }, [])
   return (
-    <div ref={box} className="group relative w-full overflow-hidden rounded-radius-lg bg-surface-sunken" style={{ height: H * scale }}>
+    <div ref={box} className="group relative w-full overflow-hidden rounded-radius-lg bg-surface-subtle" style={{ height: H * scale }}>
       <iframe
         src={url}
         title={title}
@@ -138,7 +138,7 @@ function Frame({ url, title, onOpen }: { url: string; title: string; onOpen: () 
         aria-label={`Open ${title} full size`}
         className="absolute inset-0 flex items-end justify-end p-3 opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
       >
-        <span className="rounded-full bg-on-surface px-3 py-1.5 text-[13px] text-surface">Open full size</span>
+        <span className="rounded-full bg-on-surface px-3 py-1.5 text-[13px] text-surface-raised">Open full size</span>
       </button>
     </div>
   )
@@ -261,7 +261,7 @@ export function SpecimenTool() {
             key={l.value}
             onClick={() => set('layout', l.value)}
             aria-pressed={p.layout === l.value}
-            className={`h-8 rounded-full px-3.5 transition-colors ${p.layout === l.value ? 'bg-on-surface text-surface' : 'bg-surface-sunken text-on-surface hover:bg-border'}`}
+            className={`h-8 rounded-full px-3.5 transition-colors ${p.layout === l.value ? 'bg-on-surface text-surface-raised' : 'bg-surface-subtle text-on-surface hover:bg-border'}`}
           >
             {l.label}
           </button>
@@ -271,8 +271,8 @@ export function SpecimenTool() {
         <label className="flex flex-col gap-1.5 text-[13px] text-on-surface-muted">
           Brand color
           <span className="flex items-center gap-2">
-            <input type="color" value={p.accent} onChange={e => set('accent', e.target.value.toUpperCase())} className="h-9 w-10 cursor-pointer rounded-radius-sm border border-border bg-surface p-0.5" />
-            <input value={p.accent} onChange={e => set('accent', e.target.value)} className="h-9 w-full rounded-radius-sm border border-border bg-surface px-2.5 font-mono text-[13px] text-on-surface" />
+            <input type="color" value={p.accent} onChange={e => set('accent', e.target.value.toUpperCase())} className="h-9 w-10 cursor-pointer rounded-radius-sm border border-border bg-surface-raised p-0.5" />
+            <input value={p.accent} onChange={e => set('accent', e.target.value)} className="h-9 w-full rounded-radius-sm border border-border bg-surface-raised px-2.5 font-mono text-[13px] text-on-surface" />
           </span>
         </label>
         {CHOICES.map(c => (
@@ -282,7 +282,7 @@ export function SpecimenTool() {
               value={p[c.key]}
               disabled={compare === c.key}
               onChange={e => set(c.key, e.target.value)}
-              className="h-9 rounded-radius-sm border border-border bg-surface px-2 text-[14px] text-on-surface disabled:opacity-50"
+              className="h-9 rounded-radius-sm border border-border bg-surface-raised px-2 text-[14px] text-on-surface disabled:opacity-50"
             >
               {c.options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
             </select>
@@ -296,7 +296,7 @@ export function SpecimenTool() {
           <button
             key={c.key || 'none'}
             onClick={() => setCompare(c.key)}
-            className={`h-8 rounded-full px-3.5 transition-colors ${compare === c.key ? 'bg-on-surface text-surface' : 'bg-surface-sunken text-on-surface hover:bg-border'}`}
+            className={`h-8 rounded-full px-3.5 transition-colors ${compare === c.key ? 'bg-on-surface text-surface-raised' : 'bg-surface-subtle text-on-surface hover:bg-border'}`}
           >
             {c.label}
           </button>

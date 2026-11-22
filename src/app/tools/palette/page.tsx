@@ -45,11 +45,11 @@ export default function PalettePage() {
             OKLCH palettes, one seed at a time.
           </h1>
           <p
-            className="text-on-surface-muted font-serif font-normal m-0"
+            className="text-on-surface-muted m-0"
             style={{ fontSize: 15, lineHeight: 1.55, fontVariationSettings: "'opsz' 32" }}
           >
             22 palettes generated with the same contrast curve and colorfulness rules as the{' '}
-            <Link href="/plays/color.scheme" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken">
+            <Link href="/plays/color.scheme" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-subtle">
               color.scheme
             </Link>{' '}
             play. Click any swatch to copy its hex.

@@ -15,8 +15,8 @@ export function ArrowRight({ size = 12 }: { size?: number }) {
 export function Chip({ children, style }: { children: ReactNode; style?: { bg: string; color: string; border: string } }) {
   return (
     <span
-      className={`inline-flex items-center h-[22px] px-2 rounded-full text-[11.5px] font-medium border ${style ? '' : 'border-border bg-surface-sunken text-on-surface-muted'}`}
-      style={style ? { background: style.bg, color: style.color, borderColor: style.border } : undefined}
+      className={`inline-flex items-center h-[22px] px-2.5 rounded-radius-full text-caption font-medium ${style ? '' : 'bg-secondary-container text-on-secondary-container'}`}
+      style={style ? { background: style.bg, color: style.color } : undefined}
     >
       {children}
     </span>
@@ -28,7 +28,7 @@ export function MilestoneChip({ milestone }: { milestone: Milestone }) {
 }
 
 export function Eyebrow({ children }: { children: ReactNode }) {
-  return <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted m-0 mb-2.5">{children}</p>
+  return <p className="text-caption uppercase tracking-[0.06em] text-on-surface-faint m-0 mb-2">{children}</p>
 }
 
 /**
@@ -37,7 +37,7 @@ export function Eyebrow({ children }: { children: ReactNode }) {
  */
 export function AgentNote({ raw }: { raw?: string }) {
   return (
-    <p className="font-mono text-[11px] leading-[1.5] text-on-surface-subtle m-0 mb-5 break-words">
+    <p className="font-mono text-caption text-on-surface-faint m-0 mb-5 break-words">
       For agents: {raw ? <>plain text at {`${SITE_URL}${raw}`} · </> : null}index at {`${SITE_URL}/llms.txt`}
     </p>
   )
@@ -47,26 +47,20 @@ export function PageHeader({ eyebrow, title, lead, children }: { eyebrow?: React
   return (
     <div className="mb-8">
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-      <h1 className="font-serif font-medium text-on-surface m-0 text-[28px] md:text-[36px]" style={{ lineHeight: 1.1, letterSpacing: '-0.02em' }}>
-        {title}
-      </h1>
-      {lead && (
-        <p className="text-on-surface-muted font-serif font-normal m-0 mt-3.5" style={{ fontSize: 16, lineHeight: 1.55, maxWidth: 680, fontVariationSettings: "'opsz' 32" }}>
-          {lead}
-        </p>
-      )}
+      <h1 className="font-serif text-heading-lg md:text-heading-xl text-on-surface m-0">{title}</h1>
+      {lead && <p className="text-body-lg text-on-surface-muted m-0 mt-3 max-w-[62ch]">{lead}</p>}
       {children}
     </div>
   )
 }
 
 export function Container({ children }: { children: ReactNode }) {
-  return <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-6 md:pt-10 pb-20">{children}</div>
+  return <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-8 md:pt-12 pb-20">{children}</div>
 }
 
 export function SectionTitle({ children, id }: { children: ReactNode; id?: string }) {
   return (
-    <h2 id={id} className="font-serif font-medium m-0 mb-4" style={{ fontSize: 22, letterSpacing: '-0.01em' }}>
+    <h2 id={id} className="font-serif text-heading-md m-0 mb-4">
       {children}
     </h2>
   )
@@ -74,7 +68,7 @@ export function SectionTitle({ children, id }: { children: ReactNode; id?: strin
 
 export function CardLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <Link href={href} className="block border border-border rounded-radius-lg p-4 no-underline hover:border-border-strong transition-colors bg-surface">
+    <Link href={href} className="block rounded-radius-lg p-5 no-underline bg-surface-raised hover:bg-surface-hover transition-colors motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus">
       {children}
     </Link>
   )
@@ -82,7 +76,7 @@ export function CardLink({ href, children }: { href: string; children: ReactNode
 
 export function RailBox({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="border border-border rounded-radius-lg p-4">
+    <div className="rounded-radius-lg bg-surface-raised p-4">
       <Eyebrow>{title}</Eyebrow>
       {children}
     </div>
@@ -93,11 +87,10 @@ export function RailLink({ href, children }: { href: string; children: ReactNode
   return (
     <Link
       href={href}
-      className="flex items-center justify-between gap-3 py-1.5 text-[13px] no-underline text-on-surface hover:text-primary transition-colors"
-      style={{ borderBottom: '1px dashed var(--color-border)' }}
+      className="flex items-center justify-between gap-3 py-1.5 text-body-sm no-underline text-on-surface hover:text-link transition-colors motion-reduce:transition-none rounded-radius-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus"
     >
       <span className="min-w-0">{children}</span>
-      <span className="text-on-surface-subtle shrink-0">
+      <span className="text-on-surface-faint shrink-0">
         <ArrowRight />
       </span>
     </Link>
@@ -110,7 +103,7 @@ export function Inline({ text }: { text: string }) {
     <>
       {text.split(/(`[^`]+`)/).map((part, i) =>
         part.startsWith('`') && part.endsWith('`') ? (
-          <code key={i} className="font-mono text-[0.92em] bg-surface-sunken px-1 rounded-radius-sm">{part.slice(1, -1)}</code>
+          <code key={i} className="font-mono text-[0.92em] bg-surface-hover px-1 rounded-radius-sm">{part.slice(1, -1)}</code>
         ) : (
           part
         ),

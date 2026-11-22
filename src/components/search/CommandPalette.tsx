@@ -10,10 +10,10 @@ const TYPE_CONFIG: Record<SearchEntryType, { label: string; bg: string; color: s
   play: { label: 'play', bg: 'var(--color-primary-container)', color: 'var(--color-on-primary-container)' },
   guide: { label: 'guide', bg: 'var(--stage-5-bg)', color: 'var(--stage-5-text)' },
   opinion: { label: 'opinion', bg: 'var(--stage-1-bg)', color: 'var(--stage-1-text)' },
-  rule: { label: 'rule', bg: 'var(--color-surface-sunken)', color: 'var(--color-on-surface-muted)' },
-  file: { label: 'file format', bg: 'var(--color-surface-sunken)', color: 'var(--color-on-surface-muted)' },
-  source: { label: 'source', bg: 'var(--color-surface-sunken)', color: 'var(--color-on-surface-muted)' },
-  tool: { label: 'tool', bg: 'var(--color-brand-yellow-50)', color: 'var(--color-on-surface-muted)' },
+  rule: { label: 'rule', bg: 'var(--color-surface-subtle)', color: 'var(--color-on-surface-muted)' },
+  file: { label: 'file format', bg: 'var(--color-surface-subtle)', color: 'var(--color-on-surface-muted)' },
+  source: { label: 'source', bg: 'var(--color-surface-subtle)', color: 'var(--color-on-surface-muted)' },
+  tool: { label: 'tool', bg: 'var(--color-brand-yellow-subtle)', color: 'var(--color-on-surface-muted)' },
 }
 
 function TypeBadge({ type }: { type: SearchEntryType }) {
@@ -124,8 +124,8 @@ export function CommandPalette({ open, onClose }: Props) {
       onClick={onClose}
     >
       <div
-        className="w-full max-w-[560px] rounded-radius-xl border border-border bg-surface-raised overflow-hidden"
-        style={{ boxShadow: 'var(--shadow-md)' }}
+        className="w-full max-w-[560px] rounded-radius-xl bg-surface-raised overflow-hidden"
+        style={{ boxShadow: 'var(--shadow-overlay)' }}
         onClick={e => e.stopPropagation()}
       >
         {/* Input row */}
@@ -147,7 +147,7 @@ export function CommandPalette({ open, onClose }: Props) {
               clear
             </button>
           ) : (
-            <kbd className="font-mono text-[11px] text-on-surface-subtle border border-border rounded px-1.5 py-0.5">
+            <kbd className="font-mono text-[11px] text-on-surface-faint border border-border rounded px-1.5 py-0.5">
               esc
             </kbd>
           )}
@@ -176,7 +176,7 @@ export function CommandPalette({ open, onClose }: Props) {
                     <button
                       className="w-full flex items-center gap-3 px-4 py-2.5 text-left transition-colors"
                       style={{
-                        background: isActive ? 'var(--color-surface-sunken)' : 'transparent',
+                        background: isActive ? 'var(--color-surface-subtle)' : 'transparent',
                         borderLeft: isActive ? '2px solid var(--color-primary)' : '2px solid transparent',
                       }}
                       onMouseEnter={() => setActiveIndex(i)}
@@ -193,7 +193,7 @@ export function CommandPalette({ open, onClose }: Props) {
                           </p>
                         )}
                       </div>
-                      <span className="shrink-0 font-mono text-[11px] text-on-surface-subtle">
+                      <span className="shrink-0 font-mono text-[11px] text-on-surface-faint">
                         {entry.meta}
                       </span>
                     </button>
@@ -205,16 +205,16 @@ export function CommandPalette({ open, onClose }: Props) {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center gap-4 px-4 h-[34px] border-t border-border bg-surface-sunken">
-          <span className="flex items-center gap-1.5 font-mono text-[11px] text-on-surface-subtle">
+        <div className="flex items-center gap-4 px-4 h-[34px] border-t border-border bg-surface-subtle">
+          <span className="flex items-center gap-1.5 font-mono text-[11px] text-on-surface-faint">
             <kbd className="px-1 border border-border rounded text-[10px]">↑↓</kbd>
             navigate
           </span>
-          <span className="flex items-center gap-1.5 font-mono text-[11px] text-on-surface-subtle">
+          <span className="flex items-center gap-1.5 font-mono text-[11px] text-on-surface-faint">
             <kbd className="px-1 border border-border rounded text-[10px]">↵</kbd>
             open
           </span>
-          <span className="ml-auto font-mono text-[11px] text-on-surface-subtle">
+          <span className="ml-auto font-mono text-[11px] text-on-surface-faint">
             {indexLoaded.current ? `${entries.length} indexed` : 'loading…'}
           </span>
         </div>

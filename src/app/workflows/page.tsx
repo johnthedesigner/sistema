@@ -22,7 +22,7 @@ export default function WorkflowsPage() {
           {workflows.map(w => (
             <CardLink key={w.id} href={workflowHref(w.id)}>
               <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-[11.5px] text-on-surface-subtle">{workflowPlayIds(w).length} plays</span>
+                <span className="font-mono text-[11.5px] text-on-surface-faint">{workflowPlayIds(w).length} plays</span>
                 <ArrowRight size={13} />
               </div>
               <p className="text-[16px] font-semibold text-on-surface m-0 mb-2">{w.title}</p>

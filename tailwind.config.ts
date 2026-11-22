@@ -32,14 +32,6 @@ const config: Config = {
         // Roles from tokens/src, compiled by `npm run tokens`.
         ...tokenTheme.colors,
 
-        // Legacy class names the current pages use. The site restructure moves pages to
-        // the roles (bg-surface is the page, bg-surface-raised a panel) and removes these.
-        canvas:              'var(--color-surface)',
-        surface:             'var(--color-surface-raised)',
-        'surface-sunken':    'var(--color-surface-subtle)',
-        'on-surface-subtle': 'var(--color-on-surface-faint)',
-        'brand-yellow-50':   'var(--color-brand-yellow-subtle)',
-        'brand-blue-50':     'var(--color-primary-container)',
       },
 
       fontFamily: {
@@ -52,7 +44,7 @@ const config: Config = {
 
       fontSize: tokenTheme.fontSize as unknown as Record<string, [string, Record<string, string>]>,
       borderRadius: tokenTheme.borderRadius,
-      boxShadow: { ...tokenTheme.boxShadow, sm: 'var(--shadow-sm)', md: 'var(--shadow-md)' },
+      boxShadow: tokenTheme.boxShadow,
       spacing: tokenTheme.spacing,
     },
   },

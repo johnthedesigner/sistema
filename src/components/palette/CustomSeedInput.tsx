@@ -86,7 +86,7 @@ export function CustomSeedInput() {
   }
 
   return (
-    <div className="border border-border rounded-radius-xl p-6 mb-10">
+    <div className="bg-surface-raised rounded-radius-xl p-6 mb-10">
       <h2 className="text-sm font-semibold text-on-surface mb-1">Generate from a custom seed</h2>
       <p className="text-sm text-on-surface-muted mb-4">
         Enter any hex color to generate a 19-stop palette using the same contrast-targeting algorithm.
@@ -96,7 +96,7 @@ export function CustomSeedInput() {
         {/* Hex swatch / color picker */}
         <label
           className="self-stretch aspect-square min-h-9 rounded-radius-sm border border-border shrink-0 overflow-hidden relative cursor-pointer"
-          style={{ backgroundColor: isValid ? inputHex : 'var(--color-surface-sunken)' }}
+          style={{ backgroundColor: isValid ? inputHex : 'var(--color-surface-subtle)' }}
           title="Click to pick a color"
         >
           <input
@@ -161,7 +161,7 @@ export function CustomSeedInput() {
               style={{ display: 'grid', gridTemplateColumns: '64px repeat(19, minmax(3rem, 1fr))', columnGap: 2, rowGap: 6, alignItems: 'center' }}
             >
               {/* Header row: empty name cell + stop labels */}
-              <div style={{ position: 'sticky', left: 0, background: 'var(--color-canvas)', zIndex: 1, alignSelf: 'stretch', padding: ".5rem 0" }} />
+              <div style={{ position: 'sticky', left: 0, background: 'var(--color-surface)', zIndex: 1, alignSelf: 'stretch', padding: ".5rem 0" }} />
               {STOPS.map(stop => (
                 <div key={stop} className="text-center">
                   <span className="text-[10px] text-on-surface-muted font-mono">{stop}</span>
@@ -169,7 +169,7 @@ export function CustomSeedInput() {
               ))}
 
               {/* Palette row: name cell + swatches */}
-              <div className="pr-1" style={{ position: 'sticky', left: 0, background: 'var(--color-canvas)', zIndex: 1 }}>
+              <div className="pr-1" style={{ position: 'sticky', left: 0, background: 'var(--color-surface)', zIndex: 1 }}>
                 <span className="text-sm text-on-surface font-medium leading-tight block truncate">{resultName}</span>
                 <span className="text-xs text-on-surface-muted font-mono">{result.seed}</span>
               </div>
@@ -190,7 +190,7 @@ export function CustomSeedInput() {
 
           {/* Format selector + copy */}
           <div className="flex items-center gap-3 flex-wrap mt-4">
-            <div className="flex items-center gap-1 bg-surface rounded-radius-lg p-1">
+            <div className="flex items-center gap-1 bg-surface-raised rounded-radius-lg p-1">
               <FormatTab label="CSS Variables" value="css" current={format} onClick={setFormat} />
               <FormatTab label="Tailwind Config" value="tailwind" current={format} onClick={setFormat} />
               <FormatTab label="Figma Variables" value="figma" current={format} onClick={setFormat} />

@@ -23,14 +23,14 @@ export default function TypeScalePage() {
             Type scale calculator.
           </h1>
           <p
-            className="text-on-surface-muted font-serif font-normal m-0 max-w-xl"
+            className="text-on-surface-muted m-0 max-w-xl"
             style={{ fontSize: 15, lineHeight: 1.55 }}
           >
             Pick a base size and ratio to explore how a modular scale distributes across sizes.
             Use these values to inform the{' '}
             <Link
               href="/plays/typography.scale"
-              className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken"
+              className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-subtle"
             >
               typography.scale
             </Link>{' '}

@@ -10,7 +10,7 @@ import type { GuideSpecimen } from '@/lib/guide-specimen'
 
 const Frame = ({ children, caption }: { children: React.ReactNode; caption?: string }) => (
   <figure className="not-prose my-6">
-    <div className="rounded-radius-md border border-border bg-surface p-3 md:p-4 overflow-hidden">{children}</div>
+    <div className="rounded-radius-md border border-border bg-surface-raised p-3 md:p-4 overflow-hidden">{children}</div>
     {caption && <figcaption className="text-[12.5px] text-on-surface-muted mt-2 leading-[1.5]">{caption}</figcaption>}
   </figure>
 )

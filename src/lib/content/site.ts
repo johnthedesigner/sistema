@@ -16,11 +16,13 @@ export const MILESTONE_LABELS: Record<Milestone, string> = {
 }
 
 /** Chip colors per milestone, from the site's stage tokens. */
+const NEUTRAL_CHIP = { bg: 'var(--color-secondary-container)', color: 'var(--color-on-secondary-container)', border: 'transparent' }
+/** Milestones are neutral chips: color is kept for action, focus, and status (DESIGN.md). */
 export const MILESTONE_CHIP: Record<Milestone, { bg: string; color: string; border: string }> = {
-  direction: { bg: 'var(--stage-1-bg)', color: 'var(--stage-1-text)', border: 'var(--stage-1-border)' },
-  foundations: { bg: 'var(--stage-3-bg)', color: 'var(--stage-3-text)', border: 'var(--stage-3-border)' },
-  patterns: { bg: 'var(--stage-4-bg)', color: 'var(--stage-4-text)', border: 'var(--stage-4-border)' },
-  maintain: { bg: 'var(--stage-6-bg)', color: 'var(--stage-6-text)', border: 'var(--stage-6-border)' },
+  direction: NEUTRAL_CHIP,
+  foundations: NEUTRAL_CHIP,
+  patterns: NEUTRAL_CHIP,
+  maintain: NEUTRAL_CHIP,
 }
 
 export const TOPIC_LABELS: Record<Topic, string> = {

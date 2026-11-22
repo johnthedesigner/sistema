@@ -27,7 +27,7 @@ export default function ReferencePage() {
           {items.map(i => (
             <CardLink key={i.href} href={i.href}>
               <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-[11.5px] text-on-surface-subtle">{i.meta}</span>
+                <span className="font-mono text-[11.5px] text-on-surface-faint">{i.meta}</span>
                 <ArrowRight size={13} />
               </div>
               <p className="text-[15px] font-semibold text-on-surface m-0 mb-1.5">{i.title}</p>

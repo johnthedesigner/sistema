@@ -109,11 +109,11 @@ export function TypeScaleCalculator() {
               max={LIMITS.base[1]}
               value={base}
               onChange={e => setBase(Math.max(LIMITS.base[0], Math.min(LIMITS.base[1], parseInt(e.target.value) || DEFAULTS.base)))}
-              className="w-20 h-9 px-3 border border-border rounded-radius-md bg-surface text-on-surface text-[14px] font-mono focus:outline-none focus:border-primary transition-colors"
+              className="w-20 h-9 px-3 border border-border-strong rounded-radius-md bg-surface-raised text-on-surface text-[14px] font-mono focus:outline-none focus:border-primary transition-colors"
             />
             <span className="text-[13px] text-on-surface-muted font-mono">px</span>
           </div>
-          <p className="text-[11.5px] text-on-surface-subtle mt-1.5 m-0">
+          <p className="text-[11.5px] text-on-surface-faint mt-1.5 m-0">
             Typically 16px for body text
           </p>
         </div>
@@ -135,7 +135,7 @@ export function TypeScaleCalculator() {
                   setRatioName(e.target.value)
                 }
               }}
-              className="flex-1 h-9 px-3 border border-border rounded-radius-md bg-surface text-on-surface text-[13px] focus:outline-none focus:border-primary transition-colors appearance-none"
+              className="flex-1 h-9 px-3 border border-border-strong rounded-radius-md bg-surface-raised text-on-surface text-[13px] focus:outline-none focus:border-primary transition-colors appearance-none"
             >
               {Object.entries(RATIOS).map(([name, value]) => (
                 <option key={name} value={name}>
@@ -155,7 +155,7 @@ export function TypeScaleCalculator() {
                 placeholder="e.g. 1.35"
                 value={customRatio}
                 onChange={e => setCustomRatio(e.target.value)}
-                className="w-28 h-9 px-3 border border-border rounded-radius-md bg-surface text-on-surface text-[14px] font-mono focus:outline-none focus:border-primary transition-colors"
+                className="w-28 h-9 px-3 border border-border-strong rounded-radius-md bg-surface-raised text-on-surface text-[14px] font-mono focus:outline-none focus:border-primary transition-colors"
               />
             </div>
           )}
@@ -170,13 +170,13 @@ export function TypeScaleCalculator() {
             id="scale-names"
             value={names}
             onChange={e => setNames(e.target.value as Naming)}
-            className="w-full sm:w-auto h-9 px-3 border border-border rounded-radius-md bg-surface text-on-surface text-[13px] focus:outline-none focus:border-primary transition-colors appearance-none"
+            className="w-full sm:w-auto h-9 px-3 border border-border-strong rounded-radius-md bg-surface-raised text-on-surface text-[13px] focus:outline-none focus:border-primary transition-colors appearance-none"
           >
             {NAMING.map(n => (
               <option key={n} value={n}>{NAMING_LABELS[n]}</option>
             ))}
           </select>
-          <p className="text-[11.5px] text-on-surface-subtle mt-1.5 m-0">
+          <p className="text-[11.5px] text-on-surface-faint mt-1.5 m-0">
             Follow your component library&apos;s convention if it has one. The typography guide&apos;s &ldquo;Naming type&rdquo; section explains the choice.
           </p>
         </div>
@@ -184,30 +184,30 @@ export function TypeScaleCalculator() {
 
       {/* Scale table */}
       <div>
-        <div className="border border-border rounded-radius-lg overflow-hidden">
+        <div className="bg-surface-raised rounded-radius-lg overflow-hidden">
           {/* Table header */}
-          <div className="grid grid-cols-[72px_56px_64px_64px] sm:grid-cols-[72px_56px_64px_64px_1fr] gap-0 border-b border-border bg-surface-sunken px-4 sm:px-5 py-2.5">
-            <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-on-surface-subtle">Token</span>
-            <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-on-surface-subtle">px</span>
-            <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-on-surface-subtle">rem</span>
-            <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-on-surface-subtle">Line-h</span>
-            <span className="hidden sm:block font-mono text-[10px] tracking-[0.1em] uppercase text-on-surface-subtle">Notes</span>
+          <div className="grid grid-cols-[72px_56px_64px_64px] sm:grid-cols-[72px_56px_64px_64px_1fr] gap-0 border-b border-border bg-surface-subtle px-4 sm:px-5 py-2.5">
+            <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-on-surface-faint">Token</span>
+            <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-on-surface-faint">px</span>
+            <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-on-surface-faint">rem</span>
+            <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-on-surface-faint">Line-h</span>
+            <span className="hidden sm:block font-mono text-[10px] tracking-[0.1em] uppercase text-on-surface-faint">Notes</span>
           </div>
           {/* Rows — reversed so display is at top */}
           {[...stops].reverse().map(stop => (
             <div
               key={stop.step}
-              className="grid grid-cols-[72px_56px_64px_64px] sm:grid-cols-[72px_56px_64px_64px_1fr] gap-0 border-b border-border last:border-0 px-4 sm:px-5 py-3 items-center hover:bg-surface-sunken transition-colors"
+              className="grid grid-cols-[72px_56px_64px_64px] sm:grid-cols-[72px_56px_64px_64px_1fr] gap-0 border-b border-border last:border-0 px-4 sm:px-5 py-3 items-center hover:bg-surface-subtle transition-colors"
             >
               <span className="font-mono text-[13px] text-primary">text-{stop.name}</span>
               <span className="font-mono text-[13px] text-on-surface">{stop.px}</span>
               <span className="font-mono text-[12px] text-on-surface-muted">{stop.rem}</span>
               <span className="font-mono text-[12px] text-on-surface-muted">{stop.line_height}</span>
-              {stop.notes && <span className="col-span-full sm:col-span-1 pt-1 sm:pt-0 text-[12px] text-on-surface-subtle">{stop.notes.join(' ')}</span>}
+              {stop.notes && <span className="col-span-full sm:col-span-1 pt-1 sm:pt-0 text-[12px] text-on-surface-faint">{stop.notes.join(' ')}</span>}
             </div>
           ))}
         </div>
-        <p className="text-[11.5px] text-on-surface-subtle mt-3 m-0">
+        <p className="text-[11.5px] text-on-surface-faint mt-3 m-0">
           Line heights are starting suggestions from the typography guide, with body text (the base size) at the body range. The{' '}
           <span className="font-mono text-[11px] bg-surface-raised border border-border rounded px-1 py-0.5">typography.scale</span>{' '}
           play sets the final value for each role.
@@ -217,13 +217,13 @@ export function TypeScaleCalculator() {
       {/* Output */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-1 border border-border rounded-radius-md p-0.5 bg-surface-sunken">
+          <div className="flex items-center gap-1 border border-border rounded-radius-md p-0.5 bg-surface-subtle">
             <button
               onClick={() => setTab('css')}
               className={[
                 'h-7 px-3 rounded text-[12px] font-medium transition-colors',
                 tab === 'css'
-                  ? 'bg-surface text-on-surface shadow-sm'
+                  ? 'bg-surface-raised text-on-surface shadow-control'
                   : 'text-on-surface-muted hover:text-on-surface',
               ].join(' ')}
             >
@@ -234,7 +234,7 @@ export function TypeScaleCalculator() {
               className={[
                 'h-7 px-3 rounded text-[12px] font-medium transition-colors',
                 tab === 'dtcg'
-                  ? 'bg-surface text-on-surface shadow-sm'
+                  ? 'bg-surface-raised text-on-surface shadow-control'
                   : 'text-on-surface-muted hover:text-on-surface',
               ].join(' ')}
             >
@@ -243,19 +243,19 @@ export function TypeScaleCalculator() {
           </div>
           <button
             onClick={copy}
-            className="flex items-center gap-1.5 h-8 px-3 border border-border rounded-radius-md text-[12px] font-medium text-on-surface-muted hover:text-on-surface hover:bg-surface-sunken transition-colors"
+            className="flex items-center gap-1.5 h-8 px-3 border border-border rounded-radius-md text-[12px] font-medium text-on-surface-muted hover:text-on-surface hover:bg-surface-subtle transition-colors"
           >
             {copied ? <CheckIcon /> : <CopyIcon />}
             {copied ? 'Copied' : 'Copy'}
           </button>
         </div>
-        <pre className="bg-surface-sunken border border-border rounded-radius-lg p-5 text-[12px] font-mono text-on-surface-muted leading-[1.7] overflow-x-auto m-0 whitespace-pre-wrap">
+        <pre className="bg-surface-subtle rounded-radius-lg p-5 text-[12px] font-mono text-on-surface-muted leading-[1.7] overflow-x-auto m-0 whitespace-pre-wrap">
           {tab === 'css'
             ? `:root {\n${cssOutput}\n}`
             : dtcgOutput}
         </pre>
         {tab === 'dtcg' && (
-          <p className="text-[11.5px] text-on-surface-subtle mt-3 m-0">
+          <p className="text-[11.5px] text-on-surface-faint mt-3 m-0">
             DTCG JSON is a starting point for the{' '}
             <span className="font-mono text-[11px] bg-surface-raised border border-border rounded px-1 py-0.5">typography.scale</span>{' '}
             play, which adds weights, letter spacing, and the product&apos;s roles.
@@ -264,13 +264,13 @@ export function TypeScaleCalculator() {
       </div>
 
       {/* API callout */}
-      <div className="border border-border rounded-radius-lg p-5 bg-surface-raised">
+      <div className=" rounded-radius-lg p-5 bg-surface-raised">
         <p className="font-mono text-[11px] tracking-[0.1em] uppercase text-on-surface-muted mb-2 m-0">
           For agents
         </p>
         <p className="text-[13px] text-on-surface-muted leading-[1.5] m-0 mb-2">
           The same scale as an API. The{' '}
-          <code className="font-mono text-[12px] bg-surface border border-border rounded px-1 py-0.5 text-on-surface">typography.scale</code>{' '}
+          <code className="font-mono text-[12px] bg-surface-raised border border-border rounded px-1 py-0.5 text-on-surface">typography.scale</code>{' '}
           play calls it, with the project&apos;s roles and standard.
         </p>
         <p className="font-mono text-[12px] text-on-surface m-0 break-all">{apiUrl}</p>

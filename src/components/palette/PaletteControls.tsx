@@ -66,7 +66,7 @@ function PaletteGridRow({ name, palette, format, copiedKey, onCopy }: {
 
   return (
     <>
-      <div className="flex flex-col justify-center pr-1" style={{ position: 'sticky', left: 0, background: 'var(--color-canvas)', zIndex: 1, alignSelf: 'stretch', padding: ".5rem 0" }}>
+      <div className="flex flex-col justify-center pr-1" style={{ position: 'sticky', left: 0, background: 'var(--color-surface)', zIndex: 1, alignSelf: 'stretch', padding: ".5rem 0" }}>
         <span className="text-sm text-on-surface font-medium capitalize leading-tight">{name}</span>
         <CopyButton
           label={format === 'figma' ? 'export' : 'copy'}
@@ -110,7 +110,7 @@ export function PaletteControls({ library }: { library: Record<string, PaletteRe
   return (
     <>
       <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center gap-1 bg-surface rounded-radius-lg p-1">
+        <div className="flex items-center gap-1 bg-surface-raised rounded-radius-lg p-1">
           <FormatTab label="CSS Variables" value="css" current={format} onClick={setFormat} />
           <FormatTab label="Tailwind Config" value="tailwind" current={format} onClick={setFormat} />
           <FormatTab label="Figma Variables" value="figma" current={format} onClick={setFormat} />
@@ -144,7 +144,7 @@ export function PaletteControls({ library }: { library: Record<string, PaletteRe
           style={{ display: 'grid', gridTemplateColumns: GRID_COLS, columnGap: 2, rowGap: 8, alignItems: 'center' }}
         >
           {/* Header row: empty name cell + stop labels */}
-          <div style={{ position: 'sticky', left: 0, background: 'var(--color-canvas)', zIndex: 1 }} />
+          <div style={{ position: 'sticky', left: 0, background: 'var(--color-surface)', zIndex: 1 }} />
           {STOPS.map(stop => (
             <div key={stop} className="text-center">
               <span className="text-[10px] text-on-surface-muted font-mono">{stop}</span>

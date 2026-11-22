@@ -69,7 +69,7 @@ function ColorInput({
           type="color"
           value={valid ? value : '#000000'}
           onChange={e => onChange(e.target.value)}
-          className="w-10 h-10 rounded-radius-md border border-border cursor-pointer bg-surface p-0.5 shrink-0"
+          className="w-10 h-10 rounded-radius-md border border-border cursor-pointer bg-surface-raised p-0.5 shrink-0"
           aria-label={`${label} color picker`}
         />
         <input
@@ -79,7 +79,7 @@ function ColorInput({
           onChange={e => onChange(normalizeInput(e.target.value))}
           maxLength={7}
           placeholder="#000000"
-          className="flex-1 min-w-0 h-10 px-3 font-mono text-[13px] border rounded-radius-md bg-surface text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
+          className="flex-1 min-w-0 h-10 px-3 font-mono text-[13px] border border-border-strong rounded-radius-md bg-surface-raised text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
           style={{ borderColor: valid ? 'var(--color-border)' : 'var(--color-error)' }}
           spellCheck={false}
         />
@@ -124,7 +124,7 @@ export function ContrastChecker({ table }: { table: ContrastTable }) {
         {/* Swap button */}
         <button
           onClick={() => { setFg(bg); setBg(fg) }}
-          className="shrink-0 h-10 w-10 flex items-center justify-center border border-border rounded-radius-md bg-surface text-on-surface-muted hover:bg-surface-sunken transition-colors mb-[0px]"
+          className="shrink-0 h-10 w-10 flex items-center justify-center border border-border rounded-radius-md bg-surface-raised text-on-surface-muted hover:bg-surface-subtle transition-colors mb-[0px]"
           aria-label="Swap foreground and background"
         >
           <svg width={14} height={14} viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -142,7 +142,7 @@ export function ContrastChecker({ table }: { table: ContrastTable }) {
           <select
             value={standard}
             onChange={e => setStandard(e.target.value)}
-            className="w-full h-10 px-3 border border-border rounded-radius-md bg-surface text-on-surface text-[13px] focus:outline-none focus:border-primary appearance-none"
+            className="w-full h-10 px-3 border border-border-strong rounded-radius-md bg-surface-raised text-on-surface text-[13px] focus:outline-none focus:border-primary appearance-none"
           >
             {Object.keys(table).map(s => (
               <option key={s} value={s}>{STANDARD_LABELS[s] ?? s}</option>
@@ -154,7 +154,7 @@ export function ContrastChecker({ table }: { table: ContrastTable }) {
           <select
             value={activeLevel}
             onChange={e => setLevel(e.target.value)}
-            className="w-full h-10 px-3 border border-border rounded-radius-md bg-surface text-on-surface text-[13px] focus:outline-none focus:border-primary appearance-none"
+            className="w-full h-10 px-3 border border-border-strong rounded-radius-md bg-surface-raised text-on-surface text-[13px] focus:outline-none focus:border-primary appearance-none"
           >
             {levels.map(l => (
               <option key={l} value={l}>{l}</option>
@@ -165,7 +165,7 @@ export function ContrastChecker({ table }: { table: ContrastTable }) {
 
       {/* Preview + ratio */}
       <div
-        className="rounded-radius-lg border border-border overflow-hidden"
+        className="bg-surface-raised rounded-radius-lg overflow-hidden"
         style={{ background: bgValid ? bg : 'var(--color-surface-raised)' }}
       >
         {/* Text preview */}
@@ -222,9 +222,9 @@ export function ContrastChecker({ table }: { table: ContrastTable }) {
       </div>
 
       {/* Criteria grid */}
-      <div className="border border-border rounded-radius-lg overflow-hidden divide-y divide-border">
+      <div className="bg-surface-raised rounded-radius-lg overflow-hidden divide-y divide-border">
         {/* Header */}
-        <div className="grid grid-cols-[1fr_80px_80px] gap-4 px-4 py-2 bg-surface-sunken">
+        <div className="grid grid-cols-[1fr_80px_80px] gap-4 px-4 py-2 bg-surface-subtle">
           <span className="font-mono text-[10.5px] tracking-[0.1em] uppercase text-on-surface-muted">Criterion</span>
           <span className="font-mono text-[10.5px] tracking-[0.1em] uppercase text-on-surface-muted text-right">Needs</span>
           <span className="font-mono text-[10.5px] tracking-[0.1em] uppercase text-on-surface-muted text-right">Result</span>
@@ -234,19 +234,19 @@ export function ContrastChecker({ table }: { table: ContrastTable }) {
           const threshold = required[c.key]
           if (threshold === undefined) {
             return (
-              <div key={c.key} className="grid grid-cols-[1fr_80px_80px] gap-4 items-center px-4 py-3 bg-surface">
+              <div key={c.key} className="grid grid-cols-[1fr_80px_80px] gap-4 items-center px-4 py-3 bg-surface-raised">
                 <div>
                   <p className="text-[13.5px] text-on-surface font-medium m-0">{c.label}</p>
                   <p className="text-[11.5px] text-on-surface-muted m-0">{STANDARD_LABELS[standard] ?? standard} sets no requirement for this</p>
                 </div>
-                <span className="font-mono text-[11px] text-on-surface-subtle text-right">—</span>
-                <span className="font-mono text-[11px] text-on-surface-subtle text-right">—</span>
+                <span className="font-mono text-[11px] text-on-surface-faint text-right">—</span>
+                <span className="font-mono text-[11px] text-on-surface-faint text-right">—</span>
               </div>
             )
           }
           const passes = ratio !== null ? ratio >= threshold : null
           return (
-            <div key={c.key} className="grid grid-cols-[1fr_80px_80px] gap-4 items-center px-4 py-3 bg-surface">
+            <div key={c.key} className="grid grid-cols-[1fr_80px_80px] gap-4 items-center px-4 py-3 bg-surface-raised">
               <div>
                 <p className="text-[13.5px] text-on-surface font-medium m-0">{c.label}</p>
                 <p className="text-[11.5px] text-on-surface-muted m-0">{c.sublabel} · <span className="font-mono">{c.rule}</span></p>
@@ -254,7 +254,7 @@ export function ContrastChecker({ table }: { table: ContrastTable }) {
               <span className="font-mono text-[11px] font-semibold text-on-surface-muted text-right">{threshold}:1</span>
               <div className="flex justify-end">
                 {passes === null ? (
-                  <span className="font-mono text-[11px] text-on-surface-subtle">—</span>
+                  <span className="font-mono text-[11px] text-on-surface-faint">—</span>
                 ) : passes ? (
                   <span className="inline-flex items-center gap-1 font-mono text-[11px] font-semibold" style={{ color: '#2C7900' }}>
                     <svg width={12} height={12} viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -277,7 +277,7 @@ export function ContrastChecker({ table }: { table: ContrastTable }) {
       </div>
 
       {/* API callout */}
-      <div className="flex flex-col sm:flex-row sm:items-center gap-3 rounded-radius-md border border-border bg-surface-sunken px-4 py-3.5">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 rounded-radius-md border border-border bg-surface-subtle px-4 py-3.5">
         <div className="flex-1 min-w-0">
           <p className="text-[12.5px] font-semibold text-on-surface mb-0.5">Use this in your AI prompts</p>
           <p className="text-[12px] text-on-surface-muted m-0 leading-[1.45] font-mono break-all">
@@ -291,7 +291,7 @@ export function ContrastChecker({ table }: { table: ContrastTable }) {
             navigator.clipboard.writeText(cmd)
           }}
           disabled={!bothValid}
-          className="shrink-0 inline-flex items-center h-[30px] px-3 text-[12px] font-medium border border-border rounded-radius-md text-on-surface bg-surface hover:bg-surface transition-colors disabled:opacity-40"
+          className="shrink-0 inline-flex items-center h-[30px] px-3 text-[12px] font-medium border border-border rounded-radius-md text-on-surface bg-surface-raised hover:bg-surface-raised transition-colors disabled:opacity-40"
         >
           Copy
         </button>

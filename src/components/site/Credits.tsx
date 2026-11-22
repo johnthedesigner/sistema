@@ -31,7 +31,7 @@ export function Credits({ credits, sources }: { credits: Credit[]; sources: Map<
               <span className="text-on-surface-muted">: </span>
               {urls.map((u, i) => (
                 <span key={u}>
-                  {i > 0 && <span className="text-on-surface-subtle">, </span>}
+                  {i > 0 && <span className="text-on-surface-faint">, </span>}
                   <a href={u} target="_blank" rel="noopener noreferrer" className="text-on-surface-muted underline underline-offset-2 break-all">{shortUrl(u)}</a>
                 </span>
               ))}

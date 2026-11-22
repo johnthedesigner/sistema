@@ -23,18 +23,18 @@ export default function ToolsReferencePage() {
         />
         <div className="flex flex-col gap-4 max-w-[860px]">
           {Object.entries(TOOL_DOCS).map(([name, doc]) => (
-            <section key={name} id={name} className="border border-border rounded-radius-lg p-4 bg-surface">
+            <section key={name} id={name} className=" rounded-radius-lg p-4 bg-surface-raised">
               <div className="flex items-baseline justify-between gap-3 mb-2">
                 <h2 className="text-[16px] font-semibold m-0">{doc.title}</h2>
                 <Link href={PAGES[name]} className="text-[12.5px] text-primary">Open the tool</Link>
               </div>
-              <pre className="font-mono text-[12px] leading-[1.6] bg-surface-sunken rounded-radius-md p-3 m-0 overflow-x-auto whitespace-pre-wrap">{doc.usage(SITE_URL)}</pre>
+              <pre className="font-mono text-[12px] leading-[1.6] bg-surface-subtle rounded-radius-md p-3 m-0 overflow-x-auto whitespace-pre-wrap">{doc.usage(SITE_URL)}</pre>
             </section>
           ))}
-          <section className="border border-border rounded-radius-lg p-4 bg-surface">
+          <section className=" rounded-radius-lg p-4 bg-surface-raised">
             <h2 className="text-[16px] font-semibold m-0 mb-2">sistema.json schema</h2>
             <p className="text-[13px] text-on-surface-muted m-0 mb-2">The JSON Schema agents check sistema.json against before ending a session.</p>
-            <pre className="font-mono text-[12px] bg-surface-sunken rounded-radius-md p-3 m-0 overflow-x-auto">{stateSchemaUrl(SITE_URL)}</pre>
+            <pre className="font-mono text-[12px] bg-surface-subtle rounded-radius-md p-3 m-0 overflow-x-auto">{stateSchemaUrl(SITE_URL)}</pre>
           </section>
         </div>
       </Container>

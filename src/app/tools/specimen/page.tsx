@@ -23,13 +23,13 @@ export default function SpecimenPage() {
           >
             See a choice before you make it.
           </h1>
-          <p className="text-on-surface-muted font-serif font-normal m-0" style={{ fontSize: 15, lineHeight: 1.55 }}>
+          <p className="text-on-surface-muted m-0" style={{ fontSize: 15, lineHeight: 1.55 }}>
             The same product screen, rendered from a few visual choices with Sistema&apos;s craft baseline applied: quiet panels,
             one featured item that stands out, a block of brand color, and borders only where they show what can be clicked or typed in.
             Pick a choice to compare and every option appears side by side. The{' '}
             <Link
               href="/plays/visual-language.direction"
-              className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken"
+              className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-subtle"
             >
               visual-language.direction
             </Link>{' '}

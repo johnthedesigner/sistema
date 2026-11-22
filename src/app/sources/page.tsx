@@ -51,11 +51,11 @@ export default function SourcesPage() {
                         <p className="text-[12.5px] text-on-surface-muted m-0 mt-2 leading-[1.5]">
                           <span className="text-on-surface">License:</span> {s.license}
                         </p>
-                        <p className="text-[12px] text-on-surface-subtle m-0 mt-1 leading-[1.5]">{TIER_LABELS[s.tier]}</p>
-                        {s.note && <p className="text-[12px] text-on-surface-subtle m-0 mt-1 leading-[1.5]">{s.note}</p>}
+                        <p className="text-[12px] text-on-surface-faint m-0 mt-1 leading-[1.5]">{TIER_LABELS[s.tier]}</p>
+                        {s.note && <p className="text-[12px] text-on-surface-faint m-0 mt-1 leading-[1.5]">{s.note}</p>}
                       </div>
                       <div className="min-w-0">
-                        <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-on-surface-subtle m-0 mb-1">Used in</p>
+                        <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-on-surface-faint m-0 mb-1">Used in</p>
                         {uses.length ? (
                           <ul className="m-0 p-0 list-none text-[13px] leading-[1.7]">
                             {uses.map(u => (

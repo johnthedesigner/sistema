@@ -28,15 +28,15 @@ export default function ContrastCheckerPage() {
               WCAG contrast, calculated exactly.
             </h1>
             <p
-              className="text-on-surface-muted font-serif font-normal m-0"
+              className="text-on-surface-muted m-0"
               style={{ fontSize: 15, lineHeight: 1.55 }}
             >
               Check any foreground and background pair against the standard your project follows. The required values come from Sistema&apos;s rules. The{' '}
-              <Link href="/plays/color.scheme" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken">
+              <Link href="/plays/color.scheme" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-subtle">
                 color.scheme
               </Link>
               {' '}and{' '}
-              <Link href="/plays/accessibility.audit" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-sunken">
+              <Link href="/plays/accessibility.audit" className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface no-underline hover:bg-surface-subtle">
                 accessibility.audit
               </Link>
               {' '}plays run the same checks through <span className="font-mono text-[13px] bg-surface-raised border border-border rounded px-1.5 py-0.5 text-on-surface break-all">GET {SITE_URL}/api/contrast</span>.
