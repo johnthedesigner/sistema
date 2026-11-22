@@ -21,6 +21,7 @@ const FOOTER_NAV = [
       { label: 'Start a design system', href: '/start' },
       { label: 'Bring Sistema to an existing system', href: '/existing' },
       { label: 'Work on my system', href: '/work' },
+      { label: 'Connect the MCP server', href: '/connect' },
       { label: 'All plays', href: '/plays' },
     ],
   },

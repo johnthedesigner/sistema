@@ -36,7 +36,7 @@ Read each package's current docs and a minimal working example, and record which
 
 Build the route with the fixed tool surface (capability-model section 6): `search`, `read`, `next_step`, `palette`, `contrast`, `type_scale`, and `specimen` (D33), plus one MCP prompt per workflow. Tools call the same modules the APIs use. Record `tool_call` and fetch events through the visit ID in the server URL (D13).
 
-- [ ] Every tool works through an MCP client and matches its API's output; tests cover each
+- [x] Every tool works through an MCP client and matches its API's output; tests cover each
 
 ## Task V4.2: Connect page and the prompt box toggle
 

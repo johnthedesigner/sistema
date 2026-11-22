@@ -16,6 +16,7 @@ const GET_STARTED = [
   { label: 'Start a design system', href: '/start', desc: 'From nothing to an approved, checked token system.' },
   { label: 'Bring Sistema to an existing system', href: '/existing', desc: 'Keeps what you have; fills the gaps.' },
   { label: 'Work on my system', href: '/work', desc: 'Components, themes, audits, and what’s next.' },
+  { label: 'Connect the MCP server', href: '/connect', desc: 'Use Sistema inside your agent.' },
   { label: 'All plays', href: '/plays', desc: 'Every step, by topic.' },
 ]
 const LINKS = [
@@ -23,7 +24,7 @@ const LINKS = [
   { label: 'Reference', href: '/reference' },
   { label: 'Tools', href: '/tools' },
 ]
-const START_PATHS = ['/how-it-works', '/start', '/existing', '/work', '/plays', '/workflows']
+const START_PATHS = ['/how-it-works', '/start', '/existing', '/work', '/connect', '/plays', '/workflows']
 
 const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus'
 const item = (active: boolean) =>

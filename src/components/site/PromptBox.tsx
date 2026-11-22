@@ -6,11 +6,23 @@
  * below, dimmed until "Work on my system" or a route is chosen. One option and no
  * suggestions on workflow and play pages.
  */
+import Link from 'next/link'
 import { useId, useState } from 'react'
 import type { PromptOption } from '@/lib/content/prompts'
 import { promptForCopy, trackPromptSelected } from '@/lib/analytics/browser'
 
 const WORK = 'workflow.session'
+
+/** What to ask an agent that has the MCP server connected. */
+function mcpPrompt(o: PromptOption): string {
+  const route = o.prompt.split('\n').slice(1).join('\n')
+  if (o.kind === 'route' || o.id === WORK) return `Use the Sistema MCP server's session prompt and follow it.${route ? `\n${route}` : ''}`
+  if (o.id.startsWith('workflow.')) {
+    const name = o.id.replace(/^workflow\./, '').replace(/\.existing$/, '')
+    return `Use the Sistema MCP server's ${name} prompt and follow it.`
+  }
+  return `Use the Sistema MCP server: read "${o.id}" and follow it.`
+}
 
 export function PromptBox({
   suggestions = [],
@@ -29,16 +41,24 @@ export function PromptBox({
   const all = single ? [single] : [...suggestions, ...routes]
   const [selected, setSelected] = useState(initial ?? all[0]?.id)
   const current = all.find(o => o.id === selected) ?? all[0]
-  const [text, setText] = useState(current?.prompt ?? '')
+  const [mode, setMode] = useState<'prompt' | 'mcp'>('prompt')
+  const textFor = (o: PromptOption | undefined, m: 'prompt' | 'mcp') => (o ? (m === 'mcp' ? mcpPrompt(o) : o.prompt) : '')
+  const [text, setText] = useState(textFor(current, 'prompt'))
   const [status, setStatus] = useState('')
   const boxId = useId()
   const routesActive = selected === WORK || selected?.startsWith('route.')
 
   function choose(o: PromptOption) {
     setSelected(o.id)
-    setText(o.prompt)
+    setText(textFor(o, mode))
     setStatus('')
     trackPromptSelected(o.kind, o.id)
+  }
+
+  function switchMode(m: 'prompt' | 'mcp') {
+    setMode(m)
+    setText(textFor(current, m))
+    setStatus('')
   }
 
   async function copy() {
@@ -78,6 +98,17 @@ export function PromptBox({
         </div>
       )}
 
+      <div className="flex items-center justify-between gap-3 mb-2 flex-wrap">
+        <div role="group" aria-label="How to use Sistema" className="inline-flex p-0.5 rounded-radius-md bg-surface-hover">
+          {(['prompt', 'mcp'] as const).map(m => (
+            <button key={m} type="button" aria-pressed={mode === m} onClick={() => switchMode(m)}
+              className="h-7 px-3 rounded-radius-sm text-caption text-on-surface-muted aria-pressed:bg-surface-raised aria-pressed:text-on-surface aria-pressed:shadow-control focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-border-focus">
+              {m === 'prompt' ? 'Prompt' : 'MCP server'}
+            </button>
+          ))}
+        </div>
+        {mode === 'mcp' && <Link href="/connect" className="text-caption text-link">Connect the MCP server first</Link>}
+      </div>
       <div className="rounded-radius-xl bg-surface-featured shadow-featured p-3 md:p-4">
         <label htmlFor={boxId} className="sr-only">{label}</label>
         <textarea
@@ -90,7 +121,7 @@ export function PromptBox({
         />
         <div className="flex items-center justify-between gap-3 mt-2 flex-wrap">
           <p className="text-caption text-on-surface-faint m-0">
-            Paste into Claude Code, Cursor, or another coding agent, in your project folder.
+            {mode === 'mcp' ? 'Ask this in your agent, with the Sistema MCP server connected.' : 'Paste into Claude Code, Cursor, or another coding agent, in your project folder.'}
           </p>
           <button
             type="button"
