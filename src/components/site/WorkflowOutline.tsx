@@ -58,7 +58,7 @@ export function RoutesOutline({ id }: { id: string }) {
   return (
     <div className="grid gap-3 sm:grid-cols-2">
       {Object.entries(workflow.routes ?? {}).map(([slug, route]) => (
-        <div key={slug} className="rounded-radius-lg bg-surface-raised p-5">
+        <div key={slug} className="rounded-radius-lg bg-surface-subtle p-5">
           <p className="text-heading-sm m-0 mb-2">{route.title}</p>
           <ol className="m-0 pl-5 list-decimal text-body-sm text-on-surface-muted">
             {route.plays.map(pid => (
