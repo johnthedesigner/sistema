@@ -19,7 +19,7 @@ knowledge:
   - guide.quality.visual-quality-signals#first-order-reflexes-category-obvious-choices
   - guide.quality.visual-quality-signals#plain-looking-traps
 rules: [visual-language.style-tile.sections, visual-language.style-tile.self-contained, color.ramps.from-tool, color.preview.ramp-strips, quality.review.outline, quality.color.first-order-reflex, quality.color.bans, color.contrast.text, shape.radius.hierarchy, quality.craft.borders-have-a-job, quality.craft.emphasis-scarce]
-evidence: sistema-review/style-preview.html with all seven sections, every taste question shown as rendered options, and every color from a palette tool ramp; the DESIGN.md Overview section with the direction values and the "What stands out" list; and the person's explicit approval, with their answer to each question.
+evidence: sistema-review/style-preview.html built from the template, every taste question shown as rendered options, and every color from a palette tool ramp; the DESIGN.md Overview section with the direction values and the "What stands out" list; and the person's explicit approval, with their answer to each question.
 overrides: []
 last_reviewed: 2026-11-20
 ---
@@ -43,12 +43,7 @@ The person chooses the look by picking between options drawn on their own produc
 
 6. **Write what stands out:** for each kind of screen, what is featured, what is quiet, and whether there's a brand or inverse block. Keep strong emphasis rare; if several things compete, say which leads.
 
-7. **Build `sistema-review/style-preview.html`** with the sections the style preview format requires.
-   - Start with the workflow outline strip; end with the line naming the `continue` URL.
-   - Describe every option in plain words. Never ask anyone to approve a style label or a number.
-   - Show ramps as continuous strips, colors as hex and OKLCH, from the palette tool's response.
-   - Load the typefaces from Google Fonts or a font CDN, or say which font is shown instead.
-   - Before showing it, check against the plain-looking traps: name each border's job, and squint to see what leads.
+7. **Build `sistema-review/style-preview.html` from the template,** `{{sistema_url}}/templates/style-preview.html`. Save it and replace only the JSON in `<script id="sistema-data">`: the project's name, `sistema` (the Sistema URL you're fetching from), `progress`, `continue`, `standard`, `summary`, `needs`, `not`, `themes`, `specimen` (the layout, the product's content, and the settings fixed for every option, such as the accent when it's a brand color), `questions` (for each: `id`, `short`, `title`, `help`, `param` (the specimen setting, or a list of them), `proposed`, `why`, and `options` with `value`, `label`, `desc`), `stands`, `notes`, and `fontNote`. The template renders the options, the combination, ramps, roles, and contrast from Sistema's tools as the person chooses. Before showing it, open it, check every rendering loads, and check against the plain-looking traps.
 
 8. **Write the DESIGN.md Overview.** If DESIGN.md exists (a redo, through `project.revise`), rewrite Overview and mark each later section "From the previous direction; rewritten by `visual-language.design-md`". Otherwise create DESIGN.md with the comment `<!-- This project follows Sistema. To continue, fetch the URL in sistema.json "continue". -->` and the headings Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts. Fill only Overview: the needs, a two-sentence summary, and:
    - **Direction values:** how much color; accent seed; gray seed and warmth; any second seed; control radius and chip shape; separation; typefaces; density; theme; the rendering's `render` URL; and each color role's ramp and stop, from the specimen's `token_roles`.
@@ -56,4 +51,4 @@ The person chooses the look by picking between options drawn on their own produc
 
    Later plays read these values, so state them exactly.
 
-9. **Ask for approval.** Summarize in five bullets and name the three or four hardest calls. Ask the person to open the page and, for each question, pick an option or say "as proposed". If their answers differ from your proposals, render all the answers together again, and label each question's options as drawn with your proposals. If they're unsure until they see it, render both ways. Don't continue without explicit approval. Record each answer in the evidence. Tell them they can stop and resume in any new session.
+9. **Ask for approval.** Summarize in five bullets and name the three or four hardest calls. Ask the person to open the page, go through the questions, and paste back the answers it copies. If their answers differ from your proposals, render all the answers together again, and label each question's options as drawn with your proposals. If they're unsure until they see it, render both ways. Don't continue without explicit approval. Record each answer in the evidence. Tell them they can stop and resume in any new session.

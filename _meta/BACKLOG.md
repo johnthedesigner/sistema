@@ -113,6 +113,8 @@ Excluded unless the owner decides otherwise: paid books and courses (Refactoring
 
   Apply these in the shared review page template (V3.7).
 
+  **Done (V3.7, 2026-11-22):** `public/templates/style-preview.html`, a data-driven template served at `/templates/style-preview.html`: a clear first step, one question per screen with large renderings and instant flips, "All together" built from the chosen options (renderings, ramps, roles, contrast, chosen fonts), and the answers copied at the end. The direction play and the style preview format use it. The token check page still comes from each project's compile script.
+
 ## Test coverage
 
 - **Zero test coverage — full audit and baseline needed** — The codebase has no test files of any kind. The only runtime validation is TypeScript's type checker. Areas that warrant coverage: palette generation algorithm (`src/lib/palette.ts` — contrast-targeting math, gamut handling, stop selection); KB and playbook parsing (`src/lib/kb.ts`, `src/lib/playbooks.ts` — markdown parsing, slug extraction, variable detection); API routes (`/api/palette`, `/api/context` — request validation, error handling); sitemap and robots generation; and client-side prompt resolution (`resolveBody`, `extractVariables`, `emptyFallback` in `PlayDetail.tsx` — variable substitution, empty-field fallback text). Suggested stack: Vitest for unit/integration, Playwright for critical UI paths (copy prompt, examples modal, color mode selector persistence). *Identified 2026-05-17.* **In progress 2026-11-14:** v2 Task V0.2 adds the test runner and content checks. V2 adds tool tests.

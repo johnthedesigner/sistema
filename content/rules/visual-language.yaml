@@ -1,8 +1,9 @@
 - id: visual-language.style-tile.sections
   statement: >-
-    sistema-review/style-preview.html contains all seven sections: direction summary, the choices (each taste
-    question shown as options rendered on the product's content), the composition, color, type, the emphasis
-    map, and reviewer notes.
+    sistema-review/style-preview.html is built from Sistema's template and has its four sections: start here
+    (needs, summary, what it won't look like), one screen per taste question with options rendered on the
+    product's content, all together (the choices in every theme, color, type, what stands out, notes), and
+    sending the answers.
   reason: The person approving the direction needs to see every decision, as it would look, before values are generated from it.
   layer: sistema-default
   severity: blocking
@@ -13,9 +14,9 @@
 
 - id: visual-language.style-tile.self-contained
   statement: >-
-    The style preview is one file. The only external resources allowed are one stylesheet link to Google
-    Fonts or a font CDN for the chosen typefaces, and the specimen tool's renderings. If a typeface can't be
-    loaded that way, the page says which font is shown instead. Every color is shown as hex and OKLCH.
+    The style preview is one file. The only external resources allowed are Sistema's tools (specimen,
+    palette, contrast) and Google Fonts for the chosen typefaces. If a typeface can't be loaded that way, the
+    page says which font is shown instead. Every color is shown as hex and OKLCH.
   reason: >-
     It must open from the file system for review. The person must see the typeface they are approving,
     or know they aren't. OKLCH makes the amount of color visible.
