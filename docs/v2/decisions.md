@@ -116,3 +116,11 @@ Approved by the owner, with:
 | # | Decision | Detail |
 |---|---|---|
 | D38 | Plan the harness, don't run it | Owner: Sistema is a side project, and the spend isn't worth the risk yet. v2 goes to launch without tests that cost money to run (behavior tests, the three-way comparison, tool evaluations by agent runs). Phase 5 leaves the harness designed and ready to run, and revisits it if Sistema draws enough attention or usage. The plan's Phase 5 gate (pass rates recorded, tool decisions from evidence) changes accordingly; the revised gate is in `tasks/v2/phase-5.md`. |
+
+## 2026-11-23 — Phase 5 decisions
+
+| # | Decision | Detail |
+|---|---|---|
+| D39 | Harness plan approved | `docs/v2/harness-plan.md` is the plan to pick up when usage justifies the spend (D38). Not built, not run. |
+| D40 | Build the validator and dark mode mapping | Owner's call, without the evaluation runs plan 10.5 asked for (D38). Both reuse what exists: the rules registry for every required value, the color guide's dark stops (D29) as the specimen already applies them, and the contrast tool's checks. Built as tools with APIs (GET and POST), MCP tools, and pages, named in the plays that need them. |
+| D41 | Web first, said plainly | "Sistema is built for web products first, with React and Tailwind as the default path. Other web stacks work with more of your agent's judgment. For native apps, the direction, foundations, and tokens apply. Components and checks are web-only for now." On how-it-works, and in `project.assess`. Broadening (a phone specimen, native token outputs, an Expo reference project) stays in the backlog. |

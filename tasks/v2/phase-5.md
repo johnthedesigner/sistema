@@ -12,11 +12,11 @@
 
 ## Task V5.0: Harness plan, ready to run
 
-**Status:** written (2026-11-23); waiting for the owner's approval.
+**Status:** done (2026-11-23). Approved by the owner (D39).
 
 A written design, `docs/v2/harness-plan.md`, built from the V4.3 manual runs: how it runs an agent on a fresh project copy (`claude -p`, `codex exec`, and the API), how it answers as the person, how it scores a run (automatic checks: files exist, state shape, required tools called, contrast passes; owner checks: does it look intended), spending caps per run and per batch, how its traffic is marked internal (D13), the cases (plan 12.4 setups A to C plus skills, plan 10.5 candidates, the D25 variety briefs), and a cost estimate per batch. Not built, not run.
 
-- [ ] Owner approves the plan
+- [x] Owner approves the plan
 
 ## Task V5.1: Site claims check
 
@@ -28,19 +28,20 @@ Read every page and agent-facing text for claims about results: pass rates, reli
 
 ## Task V5.2: Tool candidates
 
-**Status:** not started
+**Status:** in progress. Owner chose to build both (D40).
 
-The token validator and dark mode mapping (plan 10.5) were to be decided by evaluation runs, which D38 sets aside. Recommendation: build neither before launch; revisit with the harness. Owner decides.
+The token validator and dark mode mapping (plan 10.5) were to be decided by evaluation runs, which D38 sets aside. Recommendation was to build neither; the owner chose both (D40). Each gets an API (GET and POST), an MCP tool, a page, tests, and a place in the plays that need it.
 
-- [ ] Decision recorded
+- [x] Decision recorded
+- [ ] Both tools built, tested, and named in their plays; pages approved by the owner
 
 ## Task V5.3: Platform scope
 
-**Status:** not started
+**Status:** done (2026-11-23). D41: on how-it-works ("Who it's for") and in `project.assess`.
 
 Decide the web-first statement (BACKLOG "Platform scope"), so the launch copy says who Sistema is for, and place it on the site.
 
-- [ ] Owner approves the statement and where it appears
+- [x] Owner approves the statement and where it appears
 
 ## Task V5.4: Deferred site work
 

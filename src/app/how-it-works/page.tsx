@@ -15,6 +15,12 @@ If your team needs a design tool such as Figma to be the source of truth, Sistem
 
 Everything Sistema writes is plain markdown, JSON, and the DTCG token format, so you can take it anywhere.
 
+## Who it's for
+
+Sistema is built for web products first, with React and Tailwind as the default path. Other web stacks work with more of your agent's judgment.
+
+For native apps, the direction, foundations, and tokens apply. Components and checks are web-only for now.
+
 ## Milestones
 
 **Direction.**

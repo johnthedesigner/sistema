@@ -53,7 +53,7 @@ If the project has `LIVING_BRIEF.md` (an older Sistema state file) and no `siste
    - Light theme, dark theme, or both? If both, which is primary?
    - Web, mobile, or both? One team or several? Roughly how many components: under 20, 20 to 60, or more? (Platform goes in `sistema.json`; team size and component count go in the positioning statement.)
    - Which accessibility standard and level must it meet? Help the person choose for their use case. WCAG 2.2 AA fits most web products. Section 508 or EN 301 549 applies where the law requires it. Some audiences call for AAA criteria. Record the choice exactly, for example `wcag-2.2 AA`.
-   - What stack is it built on? Sistema's default path is web with React and Tailwind; other stacks are supported more loosely.
+   - What stack is it built on? Sistema is built for web products first, with React and Tailwind as the default path; other web stacks need more of your judgment. For a native app, say plainly that the direction, foundations, and tokens apply, but the component plays and checks are web-only for now, and record that in the positioning statement.
    - Is a component library planned or in use (shadcn/ui, Radix Themes, Material UI, Carbon)? Record it as `project.component_library`; later plays follow its naming. "Not decided yet" is fine.
 
    **If the project already has colors,** tell the person nothing changes without their choice. The color play will show their colors beside a few options, and they decide per hue: keep them exactly, keep them and complete the ramps, or use them as seeds for new ramps. Don't ask them to choose now.
