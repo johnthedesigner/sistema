@@ -20,6 +20,9 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     '/api/contrast': ['./content/rules/color.yaml'],
     '/api/type-scale': ['./content/rules/color.yaml', './content/rules/typography.yaml'],
+    // The validator and dark mode tools read the color, token, typography, and spacing rules at request time.
+    '/api/validate': ['./content/rules/*.yaml'],
+    '/api/dark-mode': ['./content/rules/color.yaml'],
     // /raw with a visit ID renders at request time, so it needs the content files.
     '/raw-with-id/**': ['./content/**/*'],
     // The MCP server reads content and the palette library at request time.
