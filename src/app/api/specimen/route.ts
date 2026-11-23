@@ -48,7 +48,12 @@ function respond(request: Request, raw: SpecimenInput, content: SpecimenContent 
       return role ? [[token, { ...role, specimen_role: specimenRole }]] : []
     }),
   )
-  return json({ ...result.specimen, token_roles: roles, content_fields: CONTENT_DEFAULTS[layout], render: renderUrl(result.specimen.input, content, c) })
+  // Fields the content left out render the placeholder product's words: name them, so a render never mixes two products unnoticed.
+  const placeholder = Object.keys(CONTENT_DEFAULTS[layout] ?? {}).filter(k => !content || !(k in content))
+  const notes = placeholder.length
+    ? [...result.specimen.notes, `${content ? 'These content fields still show placeholder content from another product' : 'This render shows placeholder content from another product'}: ${placeholder.join(', ')}. Fill them with the product's own words before showing it to the person.`]
+    : result.specimen.notes
+  return json({ ...result.specimen, notes, token_roles: roles, content_fields: CONTENT_DEFAULTS[layout], placeholder_fields: placeholder, render: renderUrl(result.specimen.input, content, c) })
 }
 
 function parseContent(raw: unknown): SpecimenContent | undefined | string {

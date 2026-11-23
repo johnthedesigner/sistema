@@ -130,6 +130,16 @@ describe('/api/specimen', () => {
     expect(bad.status).toBe(400)
     expect((await bad.json()).example).toContain('/api/specimen?')
   })
+
+  it('names the content fields still showing placeholder words', async () => {
+    const { CONTENT_DEFAULTS } = await import('./specimen-content')
+    const partial = await (await POST(new NextRequest('http://localhost/api/specimen', { method: 'POST', body: JSON.stringify({ content: { product: 'Tidy' } }) }))).json()
+    expect(partial.placeholder_fields).not.toContain('product')
+    expect(partial.placeholder_fields.length).toBeGreaterThan(0)
+    expect(partial.notes.join(' ')).toMatch(/placeholder content from another product/)
+    const full = await (await POST(new NextRequest('http://localhost/api/specimen', { method: 'POST', body: JSON.stringify({ content: CONTENT_DEFAULTS.operations }) }))).json()
+    expect(full.placeholder_fields).toEqual([])
+  })
 })
 
 describe('specimen fix pass', () => {

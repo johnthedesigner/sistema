@@ -37,7 +37,7 @@ The person chooses the look by picking between options drawn on their own produc
    - **Typeface:** three suited to the product. A second face only with a reason.
    - **Density and theme:** only if `sistema.json` leaves them open.
 
-4. **Render the options** with the specimen tool. For each question, change only that setting; keep the rest at your proposals. Use the layout closest to the product and pass its real content (navigation, a title, a featured item, a few rows, a few numbers). Then render all proposals together, in every theme. Use each response's `render` URL.
+4. **Render the options** with the specimen tool. For each question, change only that setting; keep the rest at your proposals. Use the layout closest to the product and pass its real content for every field in the response's `content_fields` (navigation, a title, a featured item, a few rows, a few numbers). Fields you leave out show another product's words: fill them until `placeholder_fields` is empty. Then render all proposals together, in every theme. Use each response's `render` URL.
 
 5. **Get the ramps and check contrast.** Send the seeds from the specimen response to the palette tool in one request; feedback ramps come from the library. Check every text pair the rendering uses with the contrast tool, batched, against the project's standard. If a pair fails, change the proposal and render again.
 

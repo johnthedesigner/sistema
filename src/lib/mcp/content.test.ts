@@ -16,6 +16,8 @@ describe('mcp content tools', () => {
     const sec = read(c, 'guide.color.architecture#pairs-to-check')
     expect(sec.ok && sec.text).toMatch(/^#+ Pairs to check/)
     expect(read(c, 'nope').ok).toBe(false)
+    const near = read(c, 'guide.visual-language#emphasis')
+    expect(!near.ok && near.error).toMatch(/Did you mean "guide\.visual-language\.overview"/)
   })
   it('next_step walks the workflow and stops at approvals', () => {
     const first = nextStep(c, 'start', {})

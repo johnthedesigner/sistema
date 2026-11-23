@@ -48,11 +48,11 @@ A connect page with setup for each client, and the "Prompt or MCP server" toggle
 
 ## Task V4.3: Client tests
 
-**Status:** in progress.
+**Status:** done (2026-11-22). Claude Code and Codex reached the direction approval; findings in `docs/v2/mcp-client-tests.md`.
 
 Run `workflow.start` through the MCP server in at least two clients, to the direction approval, and record what differs from the paste-in run.
 
-- [ ] Two clients reach the direction approval; findings fixed or logged
+- [x] Two clients reach the direction approval; findings fixed or logged
 
 ## Task V4.4: Agent Skills (small follow-on)
 

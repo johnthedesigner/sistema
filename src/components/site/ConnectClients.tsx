@@ -9,7 +9,8 @@ import { useEffect, useState } from 'react'
 import { getVisitId } from '@/lib/analytics/browser'
 
 const CLIENTS: Array<{ name: string; where: string; code: (url: string) => string; lang: string }> = [
-  { name: 'Claude Code', where: 'Run in your terminal, in your project folder:', code: url => `claude mcp add --transport http sistema ${url}`, lang: 'shell' },
+  { name: 'Claude Code', where: 'Run in your terminal, in your project folder:', code: url => `claude mcp add --transport http sistema "${url}"`, lang: 'shell' },
+  { name: 'Codex', where: 'Run in your terminal:', code: url => `codex mcp add sistema --url "${url}"`, lang: 'shell' },
   { name: 'Cursor', where: 'Add to ~/.cursor/mcp.json (or .cursor/mcp.json in the project):', code: url => JSON.stringify({ mcpServers: { sistema: { url } } }, null, 2), lang: 'json' },
   { name: 'VS Code', where: 'Add to .vscode/mcp.json in the project:', code: url => JSON.stringify({ servers: { sistema: { type: 'http', url } } }, null, 2), lang: 'json' },
   { name: 'Windsurf', where: 'Add to ~/.codeium/windsurf/mcp_config.json:', code: url => JSON.stringify({ mcpServers: { sistema: { serverUrl: url } } }, null, 2), lang: 'json' },

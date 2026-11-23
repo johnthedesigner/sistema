@@ -8,9 +8,11 @@
 |---|---|---|
 | Claude Code 2.1.156, run 1 | local build | Reached the approval, with the wrong state shape and a hand-built review page (findings 1 to 3) |
 | Claude Code 2.1.156, run 2 | preview, after the fixes | Reached the approval. State in the right shape, the review page working, every rendering loading |
-| Codex CLI 0.133 | | Not run: the client's sign-in had expired |
+| Codex CLI 0.171, after the fixes | preview | Reached the approval. State in the right shape with the visit ID, the template downloaded and only its data replaced, the outline shown. One problem with the renders (finding 8) |
 
-Run 2: 46 turns over two sessions, about $2.15. 19 specimen renders, palette, contrast, and two guide sections through `read`.
+Claude Code run 2: 46 turns over two sessions, about $2.15. 19 specimen renders, palette, contrast, and two guide sections through `read`.
+
+Codex: two sessions, 2.6 million input tokens (most cached). About 35 specimen renders, many of them repeats, and nine guide sections through `read`.
 
 ## Findings
 
@@ -21,6 +23,12 @@ Run 2: 46 turns over two sessions, about $2.15. 19 specimen renders, palette, co
 5. **The visit ID never reached `sistema.json`.** It's in the server URL, which the agent doesn't see. *Fixed:* `next_step` asks the agent to record it when the URL has one and the state doesn't.
 6. **One "transport dropped" error** during a burst of nine parallel specimen calls on the preview. The agent retried and it succeeded. *Logged:* watch for it in Phase 5; if it recurs, check the function's concurrency and duration on Vercel.
 7. **The outline wasn't shown after the first play,** only a progress line at the approval. *Logged:* same as the paste-in runs; it may need a stronger line in `project.assess`.
+
+8. **Codex filled only some content fields, so its renders mixed Tidy's chores with the placeholder product's shipments.** Nothing told it which fields were left. *Fixed:* the specimen response lists `placeholder_fields` and adds a note naming them; the direction play says to fill every field until the list is empty.
+9. **Codex guessed guide IDs** (`guide.visual-language#emphasis` for `guide.visual-language.overview`). It recovered through search. *Fixed:* a failed `read` suggests the IDs that start with what was asked for.
+10. **Codex in non-interactive mode blocks every MCP call** until the server's tools are approved (`default_tools_approval_mode = "approve"` for the server). Interactive Codex asks the person. *Logged:* client behavior; nothing to change in Sistema.
+11. **The connect page's Claude Code command failed in zsh,** because the unquoted `?` in the server URL is a wildcard there. *Fixed:* the URL is quoted, and Codex's command is added.
+12. **Codex repeated a rejected font three times** (Nunito Sans, not in the list). The error lists the fonts it accepts. *Logged.*
 
 ## Compared with the paste-in run
 

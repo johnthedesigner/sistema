@@ -83,7 +83,11 @@ export function read(c: Catalog, id: string, section?: string): { ok: true; text
   else if (c.ruleById.has(ref)) text = renderRuleItem(c.ruleById.get(ref)!)
   else if (c.opinionById.has(ref)) text = renderOpinion(c.opinionById.get(ref)!)
   else if (c.fileById.has(ref)) text = renderFileRaw(c.fileById.get(ref)!, c.sourceById)
-  if (text === undefined) return { ok: false, error: `No item "${ref}". Use search to find IDs, such as "color.scheme", "workflow.start", "guide.color.architecture", or "opinion.quiet-states".` }
+  if (text === undefined) {
+    const near = items(c).map(i => i.id).filter(i => i.startsWith(`${ref}.`))
+    if (near.length) return { ok: false, error: `No item "${ref}". Did you mean ${near.map(i => `"${i}"`).join(', ')}?` }
+    return { ok: false, error: `No item "${ref}". Use search to find IDs, such as "color.scheme", "workflow.start", "guide.color.architecture", or "opinion.quiet-states".` }
+  }
   if (!anchor) return { ok: true, text }
   const part = sectionOf(text, anchor)
   return part ? { ok: true, text: part } : { ok: false, error: `"${ref}" has no section "${anchor}".` }
