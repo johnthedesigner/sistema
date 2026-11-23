@@ -16,6 +16,7 @@ import { loadCatalog } from '@/lib/content/load'
 import { renderWorkflowStarter, workflowSlug } from '@/lib/content/render'
 import { KINDS, mcpContext, nextStep, read, search } from '@/lib/mcp/content'
 import { trackEvent } from '@/lib/tools/http'
+import { validVisitId } from '@/lib/analytics/ids'
 import { POST as palettePost } from '@/app/api/palette/route'
 import { POST as contrastPost } from '@/app/api/contrast/route'
 import { POST as typeScalePost } from '@/app/api/type-scale/route'
@@ -93,7 +94,12 @@ const handler = createMcpHandler(
       async ({ workflow, state }) => {
         track('next_step', { workflow })
         const r = nextStep(catalog, workflow, (state ?? {}) as Parameters<typeof nextStep>[2])
-        return r.ok ? text(r.text) : text(r.error, true)
+        if (!r.ok) return text(r.error, true)
+        // The visit ID is in the server URL, which the agent never sees: hand it over for sistema.json.
+        const req = current.getStore()
+        const c = req ? validVisitId(new URL(req.url).searchParams.get('c')) : null
+        const recorded = (state as { telemetry?: { id?: unknown } } | undefined)?.telemetry?.id
+        return text(c && recorded !== c ? `${r.text}\n\nIn \`sistema.json\`, set \`telemetry.id\` to \`${c}\`. It is the anonymous usage ID this server was connected with: Sistema counts how its workflows, plays, and tools are used, and records nothing about the person or the project's code.` : r.text)
       },
     )
 
