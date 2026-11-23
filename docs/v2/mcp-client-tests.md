@@ -28,6 +28,7 @@ Codex: two sessions, 2.6 million input tokens (most cached). About 35 specimen r
 10. **Codex in non-interactive mode blocks every MCP call** until the server's tools are approved (`default_tools_approval_mode = "approve"` for the server). Interactive Codex asks the person. *Logged:* client behavior; nothing to change in Sistema.
 11. **The connect page's Claude Code command failed in zsh,** because the unquoted `?` in the server URL is a wildcard there. *Fixed:* the URL is quoted, and Codex's command is added.
 12. **Codex repeated a rejected font three times** (Nunito Sans, not in the list). The error lists the fonts it accepts. *Logged.*
+13. **Codex's review page had no page type picker.** It kept `"layouts": ["operations"]` from the template's sample data, and the picker only shows with two or more types. Found by the owner. *Fixed:* the sample data leaves `layouts` out, and the play says to leave it out so all six are offered.
 
 ## Compared with the paste-in run
 
