@@ -94,6 +94,27 @@ export const TOOL_DOCS: Record<ToolName, ToolDoc> = {
         'Returns: {"input", "seeds", "colors": {"<role>": {"hex", "from": "neutral 50"}}, "token_roles": {"<color.roles.required name>": {"hex", "from", "specimen_role"}}, "radius", "type", "space", "shadows", "notes", "content_fields", "placeholder_fields", "render": "<URL of the rendered page>"}. placeholder_fields lists the content fields still showing placeholder words; fill them before showing a render. token_roles names each color by the role the project\'s tokens will use, so the color play can take the same stop. Add format=html to get the page itself. Pass c (your visit ID) and the render URL keeps it. To compare options, show two or three render URLs side by side, changing one choice at a time.',
       ].join('\n'),
   },
+  validate: {
+    title: 'Token validator',
+    usage: base =>
+      [
+        `POST ${base}/api/validate  {"files": {"color.json": {...}, "color.dark.json": {...}, "palette.json": {...}, "typography.json": {...}, "spacing.json": {...}}, "standard": "wcag-2.2 AA"}`,
+        `GET ${base}/api/validate?files=<URL-encoded JSON of the same files object>&standard=<standard>`,
+        '  Send every file in tokens/src/ as it is, keyed by file name; a mode file such as color.dark.json holds that mode\'s overrides. Pass the project\'s standard exactly as sistema.json has it. Up to 20 files, 512 KB.',
+        'Returns: {"standard", "level", "themes", "summary": {"blocking_failures", "advisory_failures", "passed"}, "checks": [{"rule", "severity", "pass", "message", "items"?}]}. It checks the DTCG format and aliases, the required color roles, contrast for every pair the roles imply in every theme, mode files, dark surface steps, visible states, type line heights, the spacing base unit, and role names. Fix every blocking failure; record any advisory one you keep, and why, in DECISIONS.md.',
+      ].join('\n'),
+  },
+  dark_mode: {
+    title: 'Dark mode mapping',
+    usage: base =>
+      [
+        `POST ${base}/api/dark-mode  {"files": {"color.json": {...}, "palette.json": {...}}, "standard": "wcag-2.2 AA"}`,
+        `POST ${base}/api/dark-mode  {"roles": {"surface": "neutral.50", "surface-raised": "white", "on-surface": "neutral.850", ...}, "colors": {"neutral": "<seed>", "accent": "<seed>"}, "standard": "wcag-2.2 AA"}`,
+        `GET ${base}/api/dark-mode?roles=<URL-encoded JSON>&colors=<URL-encoded JSON>&standard=<standard>`,
+        '  Give the light theme\'s roles as ramp stops (from color.json and palette.json, or as "<ramp>.<stop>" with the seeds). Surfaces step one stop at a time from the dark end, brand surfaces keep their stops, everything else mirrors (n to 1000 - n), and values not on a ramp are kept as they are.',
+        'Returns: {"roles": {"<role>": {"light", "dark", "how", "hex"}}, "tokens": <a color.dark.json to save>, "pairs": [{"foreground", "background", "purpose", "light": {"ratio", "pass"}, "dark": {"ratio", "pass"}, "suggestion"?}], "notes"}. Save tokens as tokens/src/color.dark.json, apply each suggestion for a failing pair or choose another stop, and check the result with the token validator.',
+      ].join('\n'),
+  },
 }
 
 /** For workflow starters: name the tools without their full usage, which each play carries. */

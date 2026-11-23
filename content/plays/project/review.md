@@ -8,7 +8,7 @@ milestone: maintain
 entry: true
 requires: [DECISIONS.md]
 produces: []
-tools: []
+tools: [validate]
 knowledge:
   - guide.tokens.architecture#common-failure-modes
 rules: [project.state.valid, visual-language.design-md.roles-not-values, visual-language.direction.changes-propagate]
@@ -20,7 +20,7 @@ Run this at the end of a cycle of work or before a release.
 
 1. **Read the records:** DESIGN.md, DECISIONS.md, `sistema.json`, and any reports in `docs/audits/`.
 
-2. **Read the system:** the token files, the component folder, and the showcase or reference route.
+2. **Read the system:** the token files, the component folder, and the showcase or reference route. Send every file in `tokens/src/` to the token validator with the project's standard, and include its failures in the report.
 
 3. **Answer four questions:**
    - **Drift:** where does the code differ from what the records say? Give each with the record and the code location.

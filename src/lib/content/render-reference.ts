@@ -130,7 +130,7 @@ export function renderAgents(c: Catalog, base: string): string {
     '# Sistema, for agents',
     "Sistema is a method and a set of tools for building a design system in a project's repository. Work is organized as workflows made of plays. Each play has a procedure, the rules it applies, and the evidence it must show before it's done.",
     howAgentsUseSistema(base),
-    renderTools(base, ['palette', 'contrast', 'type_scale', 'specimen']),
+    renderTools(base, ['palette', 'contrast', 'type_scale', 'specimen', 'validate', 'dark_mode']),
     `## More\n\n- Every tool, as JSON: ${base}/api\n- Every workflow, play, and guide: ${base}/llms.txt\n- Opinions: ${opinionsUrl(base)}\n- Rules: ${rulesUrl(base)}\n- The MCP server: ${base}/mcp\n- Agent Skills, one per workflow, if the person wants them installed: ${c.workflows.map(w => `${base}/skills/${skillName(w.id)}.zip`).join(', ')}. Unzip into the project's skills folder, such as \`.claude/skills/\`.`,
   ].join('\n\n') + '\n'
 }

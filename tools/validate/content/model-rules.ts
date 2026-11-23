@@ -97,6 +97,8 @@ const TOOL_WORDS: Record<string, RegExp> = {
   contrast: /\bcontrast\b/i,
   type_scale: /\btype[ _-]?scale\b/i,
   specimen: /\bspecimen\b/i,
+  validate: /\btoken validator\b/i,
+  dark_mode: /\bdark mode tool\b/i,
 }
 
 // ─── rules ──────────────────────────────────────────────────────────────────

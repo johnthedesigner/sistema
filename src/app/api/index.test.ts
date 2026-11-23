@@ -5,13 +5,15 @@ import { GET as contrast } from './contrast/route'
 import { GET as palette } from './palette/route'
 import { GET as typeScale } from './type-scale/route'
 import { GET as specimen } from './specimen/route'
+import { GET as validate } from './validate/route'
+import { GET as darkMode } from './dark-mode/route'
 
-const HANDLERS: Record<string, (r: NextRequest) => Response | Promise<Response>> = { contrast, palette, type_scale: typeScale, specimen }
+const HANDLERS: Record<string, (r: NextRequest) => Response | Promise<Response>> = { contrast, palette, type_scale: typeScale, specimen, validate, dark_mode: darkMode }
 
 describe('/api index', () => {
   it('lists every tool with absolute URLs, limits, and docs', async () => {
     const body = await index(new Request('http://x/api')).json()
-    expect(body.tools.map((t: { name: string }) => t.name)).toEqual(['contrast', 'palette', 'type_scale', 'specimen'])
+    expect(body.tools.map((t: { name: string }) => t.name)).toEqual(['contrast', 'palette', 'type_scale', 'specimen', 'validate', 'dark_mode'])
     for (const t of body.tools) {
       for (const url of [t.get, t.example, t.post.url, t.docs]) expect(url, t.name).toMatch(/^https?:\/\//)
       expect(t.limits).toBeTruthy()

@@ -8,7 +8,7 @@ milestone: foundations
 entry: true
 requires: [tokens/src/color.json, "project:stack"]
 produces: [style-dictionary.config.mjs, sistema-review/token-check.html]
-tools: []
+tools: [validate]
 knowledge:
   - guide.tokens.architecture#the-tier-model
   - guide.tokens.architecture#dark-mode-at-the-token-level
@@ -21,7 +21,7 @@ last_reviewed: 2026-11-15
 ---
 Token values are written only in `tokens/src/`. Everything here is generated from them.
 
-1. **List the sources** in `tokens/src/`. Compile what's there; skipped plays leave gaps.
+1. **List the sources** in `tokens/src/`, and send them all to the token validator with the project's standard. Fix every blocking failure before compiling. Compile what's there; skipped plays leave gaps.
 
 2. **Pick the output path:** `src/styles/tokens/` for Next.js with `src/`, otherwise `styles/tokens/`, or the project's own layout.
 

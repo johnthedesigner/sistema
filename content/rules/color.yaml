@@ -12,9 +12,11 @@
   reason: Components and later plays build on these roles. A missing role gets invented ad hoc, and the system drifts.
   layer: sistema-default
   severity: blocking
-  measure: { kind: presence }
+  measure:
+    kind: presence
+    values: [primary, on-primary, primary-hover, primary-container, on-primary-container, secondary, on-secondary, secondary-container, on-secondary-container, surface, surface-raised, surface-overlay, on-surface, on-surface-muted, border, border-focus, error, on-error, success, on-success, warning, on-warning, surface-hover, surface-selected, surface-subtle, surface-featured, surface-inverse, on-surface-inverse, surface-brand, on-surface-brand]
   applies_to: tokens/src/color.json
-  checked_by: [play.color.scheme evidence]
+  checked_by: [play.color.scheme evidence, tool.validate]
   sources: [guide.color.architecture#what-every-color-system-requires, guide.color.architecture#emphasis-surfaces]
 
 - id: color.contrast.text

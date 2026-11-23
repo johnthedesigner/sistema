@@ -6,10 +6,10 @@ import { AgentNote, Container, PageHeader } from '@/components/site/ui'
 
 export const metadata: Metadata = {
   title: 'Tool APIs',
-  description: 'How agents call Sistema’s palette and contrast tools, and where the sistema.json schema lives.',
+  description: 'How agents call Sistema’s tools, and where the sistema.json schema lives.',
 }
 
-const PAGES: Record<string, string> = { palette: '/tools/palette', contrast: '/tools/contrast', type_scale: '/tools/type-scale', specimen: '/tools/specimen' }
+const PAGES: Record<string, string> = { palette: '/tools/palette', contrast: '/tools/contrast', type_scale: '/tools/type-scale', specimen: '/tools/specimen', validate: '/tools/validate', dark_mode: '/tools/dark-mode' }
 
 export default function ToolsReferencePage() {
   return (

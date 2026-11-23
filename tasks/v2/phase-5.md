@@ -28,7 +28,7 @@ Read every page and agent-facing text for claims about results: pass rates, reli
 
 ## Task V5.2: Tool candidates
 
-**Status:** in progress. Owner chose to build both (D40).
+**Status:** built (2026-11-23); pages waiting for the owner's approval. Owner chose to build both (D40). APIs, MCP tools (nine now, about 1,650 tokens per turn), pages at `/tools/validate` and `/tools/dark-mode`, tests, and the color, add-mode, pipeline, and review plays. On the site's own tokens, the validator finds no blocking failures; dark mapping suggests the stops the site chose by hand.
 
 The token validator and dark mode mapping (plan 10.5) were to be decided by evaluation runs, which D38 sets aside. Recommendation was to build neither; the owner chose both (D40). Each gets an API (GET and POST), an MCP tool, a page, tests, and a place in the plays that need it.
 

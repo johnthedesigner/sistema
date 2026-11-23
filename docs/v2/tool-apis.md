@@ -140,3 +140,12 @@ In the published response, these URLs are absolute. `llms.txt` and `/raw/agents`
 1. Approve the conventions (section 1) and the shapes as outlined?
 2. ⚑ Decision A: should contrast default to WCAG 2.2 AA (stated in the response) when no standard is given, or return only the ratio?
 3. ⚑ Decision B: should small type sizes get advisory notes (recommended), or should there be a new minimum-size rule?
+
+## 8. Token validator and dark mode mapping (V5.2, D40)
+
+Built in V5.2, following the conventions above (GET and POST, `badRequest` with a working example, `trackToolCall`, listed in `GET /api`, and an MCP tool each).
+
+- **`/api/validate`** — `POST { files: { "<file name>": <DTCG JSON or its text> }, standard? }`, or `GET ?files=<JSON>`. Up to 20 files, 512 KB. A file named `<name>.<mode>.json` holds that mode's overrides; the mode's kind (theme, density, motion) comes from its name. Returns `{ standard, level, files, themes, tokens, summary: { blocking_failures, advisory_failures, passed }, checks: [{ rule, severity, pass, message, items? }] }`. Checks: `tokens.source.dtcg` (format, types, aliases, cycles), `color.roles.required` (the rule's `measure.values`), contrast for every pair `rolePairs` derives, in every theme (pairs that depend on use, such as destructive menu items, fail as advisory), `tokens.modes.overrides-only`, `tokens.modes.one-kind`, `color.dark.surface-steps`, `color.states.visible`, `typography.line-height.by-role`, `typography.line-height.body` (where the standard sets it), `spacing.scale.base-unit`, and `tokens.naming.role`.
+- **`/api/dark-mode`** — `POST { files: { "color.json", "palette.json" } }` or `{ roles: { "<role>": "<ramp>.<stop>" }, colors?: { "<ramp>": "<seed>" }, palette? }`, or the same as JSON strings in GET. Up to 120 roles. Surfaces take `DARK_SURFACE_STEPS`, brand surfaces keep their stop, values off a ramp are kept as they are, and everything else mirrors (n to 1000 − n). Returns `{ roles: { <role>: { light, dark, how, hex? } }, tokens: <color.dark.json>, pairs: [{ foreground, background, purpose, when?, light?, dark?, suggestion? }], notes }`. A failing dark pair gets the nearest stop on the foreground's ramp that passes.
+- **Pages:** `/tools/validate` and `/tools/dark-mode`, with Sistema's own tokens as the example.
+- **Plays:** `color.scheme` (dark mapping, then the validator), `tokens.add-mode` (both), `tokens.pipeline` and `project.review` (the validator).

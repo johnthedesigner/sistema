@@ -4,7 +4,7 @@ import { SITE_URL } from '@/lib/site-url'
 
 export const metadata: Metadata = {
   title: 'Tools',
-  description: 'Palette, contrast, type scale, and specimen tools for design system work, each with a page and an API.',
+  description: 'Palette, contrast, type scale, specimen, token validator, and dark mode tools for design system work, each with a page and an API.',
   robots: { index: false, follow: false },
 }
 
@@ -40,6 +40,22 @@ const TOOLS = [
     description: 'See how a few visual choices (color presence, warmth, roundness, how panels separate, density, typeface, theme) change a whole product screen, with every option of one choice side by side.',
     playRef: 'visual-language.direction',
     api: `${SITE_URL}/api/specimen`,
+  },
+  {
+    slug: 'validate',
+    href: '/tools/validate',
+    title: 'Token validator',
+    description: "Check DTCG token files against Sistema's rules: the format and aliases, the required color roles, contrast for every pair in every theme, mode files, line heights, and the spacing scale.",
+    playRef: 'tokens.pipeline',
+    api: `${SITE_URL}/api/validate`,
+  },
+  {
+    slug: 'dark-mode',
+    href: '/tools/dark-mode',
+    title: 'Dark mode mapping',
+    description: 'Propose a dark theme from your light color roles, as the color guide describes, with every pair checked in both themes and a passing stop suggested for each failure.',
+    playRef: 'color.scheme',
+    api: `${SITE_URL}/api/dark-mode`,
   },
 ]
 

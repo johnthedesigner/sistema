@@ -15,7 +15,7 @@ async function rpc(method: string, params?: unknown, url = 'http://x/mcp') {
 describe('/mcp', () => {
   it('lists the seven tools and a prompt per workflow', async () => {
     const tools = (await rpc('tools/list')).result.tools.map((t: { name: string }) => t.name)
-    expect(tools.sort()).toEqual(['contrast', 'next_step', 'palette', 'read', 'search', 'specimen', 'type_scale'])
+    expect(tools.sort()).toEqual(['contrast', 'dark_mode', 'next_step', 'palette', 'read', 'search', 'specimen', 'type_scale', 'validate'])
     const prompts = (await rpc('prompts/list')).result.prompts.map((p: { name: string }) => p.name)
     expect(prompts.sort()).toEqual(['patterns', 'session', 'start'])
   })
@@ -34,6 +34,8 @@ describe('/mcp', () => {
       ['contrast', 'contrast', { pairs: [{ foreground: '#767676', background: '#FFFFFF', purpose: 'text' }], standard: 'wcag-2.2 AA' }],
       ['type_scale', 'type-scale', { base: 16, ratio: '1.25', roles: { body: 0 } }],
       ['specimen', 'specimen', { accent: '#3A7D5C', neutral: 'warm', layout: 'record', content: JSON.stringify({ product: 'Tidy' }) }],
+      ['validate', 'validate', { files: JSON.stringify({ 'color.json': { color: { surface: { $type: 'color', $value: '#FFFFFF' }, 'on-surface': { $type: 'color', $value: '#6B7280' } } } }) }],
+      ['dark_mode', 'dark-mode', { roles: JSON.stringify({ surface: 'neutral.50', 'on-surface': 'neutral.850' }), colors: JSON.stringify({ neutral: '#6B7280' }) }],
     ]
     for (const [tool, path, args] of cases) {
       const { POST: api } = await import(`@/app/api/${path}/route`)

@@ -4,7 +4,7 @@
  * from the connect page so usage is counted like /raw and the APIs (D13).
  *
  * Tools: search, read, next_step (content, from src/lib/mcp/content.ts), and
- * palette, contrast, type_scale, specimen, which call the same route handlers
+ * palette, contrast, type_scale, specimen, validate, dark_mode, which call the same route handlers
  * as the HTTP APIs, so every channel returns the same results and errors.
  * Prompts: one per workflow, the same starter the paste-in prompt fetches.
  */
@@ -21,6 +21,8 @@ import { POST as palettePost } from '@/app/api/palette/route'
 import { POST as contrastPost } from '@/app/api/contrast/route'
 import { POST as typeScalePost } from '@/app/api/type-scale/route'
 import { POST as specimenPost } from '@/app/api/specimen/route'
+import { POST as validatePost } from '@/app/api/validate/route'
+import { POST as darkModePost } from '@/app/api/dark-mode/route'
 
 const current = new AsyncLocalStorage<Request>()
 
@@ -175,6 +177,34 @@ const handler = createMcpHandler(
         }),
       },
       async args => viaApi(specimenPost, '/api/specimen', args),
+    )
+
+    server.registerTool(
+      'validate',
+      {
+        title: 'Validate token files',
+        description: "Check the project's DTCG token files against Sistema's rules: format and aliases, required color roles, contrast for every implied pair in every theme, mode files, dark surface steps, visible states, line heights, and the spacing scale.",
+        inputSchema: z.object({
+          files: z.string().describe('Every file in tokens/src/, as a JSON object of file name to file contents, such as {"color.json": {...}, "color.dark.json": {...}, "palette.json": {...}}'),
+          standard: z.string().optional().describe('As in sistema.json project.a11y_standard, such as "wcag-2.2 AA"'),
+        }),
+      },
+      async args => viaApi(validatePost, '/api/validate', args),
+    )
+
+    server.registerTool(
+      'dark_mode',
+      {
+        title: 'Map a dark theme',
+        description: "Propose a dark theme from the light theme's color roles, as the color guide describes, with every pair checked in both themes and a passing stop suggested for each failure. Returns a color.dark.json to save.",
+        inputSchema: z.object({
+          files: z.string().optional().describe('color.json and palette.json, as a JSON object of file name to file contents'),
+          roles: z.string().optional().describe('Instead of files: a JSON object of role to light ramp stop, such as {"surface": "neutral.50", "on-surface": "neutral.850"}'),
+          colors: z.string().optional().describe('With roles: a JSON object of ramp name to seed color, such as {"neutral": "#6B7280"}'),
+          standard: z.string().optional(),
+        }),
+      },
+      async args => viaApi(darkModePost, '/api/dark-mode', args),
     )
 
     const ctx = mcpContext(catalog)

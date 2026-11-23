@@ -7,7 +7,7 @@
 Sistema guides an AI coding agent through building a design system in a person's own repository, with the person's approval at each stage. It has two parts:
 
 - **Content** (`content/`): plays, workflows, rules, opinions, guides, file format pages, and the source list. These are Sistema's own material.
-- **The site** (`src/`): a Next.js app that renders the content for people and, for agents, in three ways: as plain text under `/raw` (paste-in prompts), through the MCP server at `/mcp`, and as Agent Skills at `/skills/<name>.zip`. It also hosts the palette, contrast, type scale, and specimen tools and their APIs.
+- **The site** (`src/`): a Next.js app that renders the content for people and, for agents, in three ways: as plain text under `/raw` (paste-in prompts), through the MCP server at `/mcp`, and as Agent Skills at `/skills/<name>.zip`. It also hosts the palette, contrast, type scale, specimen, token validator, and dark mode tools and their APIs.
 
 Behind both sits **internal reference material** (`reference/`): working notes on the design systems, standards, research, and agent skills Sistema learned from. It is used to write guides. It is never routed or presented as Sistema content.
 
@@ -114,7 +114,7 @@ Limits live in `src/lib/tools/limits.ts` and the type scale's `LIMITS`.
 
 Required values come from the rules registry, never from code. Server code reads them with `rulesFrom` and `ruleValue` (`src/lib/tools/standards.ts`). Pages get them as props built on the server, for example `contrastTable`, and use the browser-safe `valueAtLevel` (`src/lib/tools/levels.ts`).
 
-A tool's calculation lives in one module that the API, the page, and the tests share (`src/lib/palette.ts`, `src/lib/type-scale.ts`, `src/lib/tools/contrast.ts`). `src/lib/tools/consistency.test.ts` checks tool output against WCAG and the registry.
+A tool's calculation lives in one module that the API, the page, the MCP tool, and the tests share (`src/lib/palette.ts`, `src/lib/type-scale.ts`, `src/lib/tools/contrast.ts`, `src/lib/tools/validate.ts`, `src/lib/tools/dark-mode.ts`). The validator and dark mode tools read DTCG files through `src/lib/tools/tokens.ts` and derive contrast pairs from `src/lib/tools/pairs.ts` (the color guide's pairs table); `DARK_SURFACE_STEPS` and the required roles (`color.roles.required` `measure.values`) are tested against their rules' wording. `src/lib/tools/consistency.test.ts` checks tool output against WCAG and the registry.
 
 A rule whose `checked_by` names a tool in a play's contract renders in that play without its values by standard.
 
@@ -155,7 +155,7 @@ The visual direction page is one file, `public/templates/visual-direction.html`,
 
 ### Channels: paste-in, MCP, skills
 The same content reaches agents three ways (D35). `RenderContext.channel` (`src/lib/content/render.ts`) changes only how the text points to things: paste-in names URLs to fetch, `'mcp'` names the server's `next_step` and `read` tools, and `'skill'` names the skill's `references/` files. Change the run loop once in `renderWorkflowStarter`; never fork it per channel.
-- **MCP server** (`src/app/mcp/route.ts`, D32 to D34): `mcp-handler` 2 with `@modelcontextprotocol/server` 2 and zod 4, stateless. The calculation tools call the API route handlers (`viaApi`), and `route.test.ts` checks they return identical results. Keep the tool list short: seven tools cost about 1,240 tokens per turn. `next_step` leads a first call with the workflow's run loop, and hands over the visit ID from the server URL. The copied MCP prompt calls `next_step`, because clients don't let the model call MCP prompts.
+- **MCP server** (`src/app/mcp/route.ts`, D32 to D34): `mcp-handler` 2 with `@modelcontextprotocol/server` 2 and zod 4, stateless. The calculation tools call the API route handlers (`viaApi`), and `route.test.ts` checks they return identical results. Keep the tool list short: nine tools cost about 1,650 tokens per turn. Tool inputs are strings or plain types (JSON as a string where needed), so every client's schema dialect accepts them. `next_step` leads a first call with the workflow's run loop, and hands over the visit ID from the server URL. The copied MCP prompt calls `next_step`, because clients don't let the model call MCP prompts.
 - **Agent Skills** (`src/lib/content/render-skill.ts`, D36): one per workflow, zipped at build time with fflate; front matter is `name` and `description` only. A skill carries its workflow's plays and any play they name.
 - **Test channels in real clients** (`docs/v2/mcp-client-tests.md`): Claude Code (`claude -p --mcp-config ... --strict-mcp-config`, resumed with `--resume`) and Codex (`codex exec -c 'mcp_servers.sistema.url=...' -c 'mcp_servers.sistema.default_tools_approval_mode="approve"'`), each on a fresh copy of a small made-up project, run against the preview so links resolve. Unit tests passed through every problem these runs found.
 - **Sample data and examples are instructions to an agent.** The template's sample JSON and the tool docs' examples get copied as they are; keep them neutral (no single layout, no limits the person didn't choose).

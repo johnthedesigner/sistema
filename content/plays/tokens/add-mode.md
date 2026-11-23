@@ -8,7 +8,7 @@ milestone: maintain
 entry: true
 requires: [tokens/src/color.json, "project:a11y-standard", "project:theme"]
 produces: ["tokens/src/color.dark.json?", "tokens/src/spacing.compact.json?", "tokens/src/typography.compact.json?", "tokens/src/motion.json?", "tokens/src/motion.reduced.json?", sistema-review/tokens.add-mode.html]
-tools: [contrast, type_scale]
+tools: [contrast, type_scale, dark_mode, validate]
 knowledge:
   - guide.tokens.architecture#modes-theme-density-and-motion
   - guide.tokens.architecture#keep-the-kinds-independent
@@ -31,6 +31,7 @@ A mode replaces some token values while it's active, without changing components
 2. **Theme (dark, or light for a dark-first system).**
    - Ask which theme will be primary, and record it as `project.theme_primary`.
    - Keep each treatment the same; change only the stops. Text and fills take the mirrored stop (1000 − n); surfaces step one stop at a time (the color guide's "Stops in a dark theme"). Don't invert values. If a ramp has no usable stop, say so.
+   - Start from the dark mode tool: send `color.json` and `palette.json`, and apply its suggestion for each failing pair, or choose another stop.
    - Check the pairs in the color guide's "Pairs to check" in the new theme with the contrast tool, in one request. Move any failing role to another stop and check again.
    - Write only the changed roles to `tokens/src/color.dark.json`. When adding light to a dark-first system, move the current values to `color.dark.json`, write the light values in `color.json`, and tell the person about the move.
    - Set `project.theme` to `light-dark`.
@@ -47,7 +48,7 @@ A mode replaces some token values while it's active, without changing components
    - For reduced motion, movement (sliding, scaling, parallax) becomes an opacity change or nothing, and durations drop close to zero. A brief fade can stay where it helps show that something changed. Nothing essential may depend on motion.
    - Write only the changed tokens to `tokens/src/motion.reduced.json`, and add `"motion": ["standard", "reduced"]` to `project.modes`.
 
-5. **Keep the modes independent.** A mode file holds only tokens that already exist in the defaults, under the same names, and each token belongs to one kind of mode. If a change would need a new token or a component edit, stop and say why.
+5. **Keep the modes independent.** A mode file holds only tokens that already exist in the defaults, under the same names, and each token belongs to one kind of mode. If a change would need a new token or a component edit, stop and say why. Send every file in `tokens/src/` to the token validator, and fix every blocking failure before compiling.
 
 6. **Compile** with the token pipeline, so the mode is live: the theme under `[data-theme]` with the operating-system fallback, density under `[data-density]`, and reduced motion under the `prefers-reduced-motion` media query and `[data-motion]`.
 

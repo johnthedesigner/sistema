@@ -17,7 +17,7 @@ export function GET(request: Request) {
     colors: 'hex (#1F5FD1 or #15D), rgb(31 95 209), or oklch(0.52 0.19 261), URL-encoded in GET requests (# is %23)',
     docs: u('/reference/tools'),
     agents: u('/raw/agents'),
-    mcp: { url: u('/mcp'), about: 'The same tools and content as an MCP server (Streamable HTTP): search, read, next_step, palette, contrast, type_scale, specimen, and a prompt per workflow.' },
+    mcp: { url: u('/mcp'), about: 'The same tools and content as an MCP server (Streamable HTTP): search, read, next_step, palette, contrast, type_scale, specimen, validate, dark_mode, and a prompt per workflow.' },
     tools: [
       {
         name: 'contrast',
@@ -54,6 +54,24 @@ export function GET(request: Request) {
         post: { url: u('/api/specimen'), body: '{"accent": "#1E6B5C", "presence": "brand", "radius": 10, "content": {"product": "Relay"}}' },
         limits: { radius_px: SPECIMEN_LIMITS.radius, layout: LAYOUTS, presence: PRESENCE, neutral: WARMTH, separation: SEPARATION, density: DENSITY, chips: CHIPS, theme: THEMES, fonts: FONTS, display_fonts: DISPLAY_FONTS },
         docs: u('/reference/tools#specimen'),
+      },
+      {
+        name: 'validate',
+        does: 'Checks a project\'s DTCG token files against Sistema\'s rules: format and aliases, required color roles, contrast for every implied pair in every theme, mode files, dark surface steps, visible states, line heights, and the spacing scale.',
+        get: u('/api/validate?files=<JSON: {"<file name>": <token file>}>&standard=<standard>'),
+        example: u(`/api/validate?files=${encodeURIComponent(JSON.stringify({ 'color.json': { color: { surface: { $type: 'color', $value: '#FFFFFF' }, 'on-surface': { $type: 'color', $value: '#1F2937' } } } }))}`),
+        post: { url: u('/api/validate'), body: '{"files": {"color.json": {...}, "color.dark.json": {...}, "palette.json": {...}}, "standard": "wcag-2.2 AA"}' },
+        limits: LIMITS.validate,
+        docs: u('/reference/tools#validate'),
+      },
+      {
+        name: 'dark_mode',
+        does: 'Proposes a dark theme from the light theme\'s color roles, as the color guide describes (surfaces step one stop, text and fills mirror), with every pair checked in both themes and a passing stop suggested for each failure. Returns a color.dark.json to save.',
+        get: u('/api/dark-mode?roles=<JSON: {"<role>": "<ramp>.<stop>"}>&colors=<JSON: {"<ramp>": "<seed>"}>&standard=<standard>'),
+        example: u(`/api/dark-mode?roles=${encodeURIComponent(JSON.stringify({ surface: 'neutral.50', 'surface-raised': 'white', 'on-surface': 'neutral.850' }))}&colors=${encodeURIComponent(JSON.stringify({ neutral: '#6B7280' }))}`),
+        post: { url: u('/api/dark-mode'), body: '{"files": {"color.json": {...}, "palette.json": {...}}, "standard": "wcag-2.2 AA"}' },
+        limits: LIMITS.dark_mode,
+        docs: u('/reference/tools#dark_mode'),
       },
     ],
   })

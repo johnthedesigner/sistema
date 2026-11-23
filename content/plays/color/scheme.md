@@ -8,7 +8,7 @@ milestone: foundations
 entry: true
 requires: ["design-md#overview", "gate:direction-approved", "project:a11y-standard", "project:theme"]
 produces: [tokens/src/palette.json, tokens/src/color.json, "tokens/src/color.dark.json?"]
-tools: [palette, contrast]
+tools: [palette, contrast, dark_mode, validate]
 knowledge:
   - guide.color.architecture#the-decision-framework
   - guide.color.architecture#dark-mode-the-tonal-shift
@@ -19,7 +19,7 @@ knowledge:
   - guide.color.architecture#how-ramps-feed-the-semantic-layer
   - guide.color.architecture#how-much-color
 rules: [color.ramps.from-tool, color.preview.ramp-strips, color.roles.required, color.states.visible, color.contrast.text, color.contrast.large-text, color.contrast.ui, color.dark.tonal-shift, color.dark.surface-steps, quality.color.first-order-reflex, quality.color.bans, quality.color.commitment-level, quality.craft.text-tones, quality.craft.accent-for-meaning, tokens.naming.role]
-evidence: A contrast table with one row per on-* pairing and the border-focus pairing, in every theme, each showing the ratio from the contrast tool and the required value. Every required pairing passes.
+evidence: A contrast table with one row per on-* pairing and the border-focus pairing, in every theme, each showing the ratio from the contrast tool and the required value. Every required pairing passes. The token validator's summary shows no blocking failures.
 overrides: [color_direction, color_mode]
 last_reviewed: 2026-11-20
 ---
@@ -31,10 +31,12 @@ last_reviewed: 2026-11-20
 
 4. **Assign the roles** in `color.roles.required`, including the emphasis surfaces, from the returned stops. Where the approved composition used a stop for a role, use the same stop; the color guide's "Emphasis surfaces" says how to choose the rest (small steps for quiet levels, big steps for emphasis). Text takes three or four tones from the neutral ramp, and the accent appears only where the color presence allows. State surfaces follow the guide's tables: hover and selected are neutral and must be visible on every surface they appear on (`color.states.visible`), and every filled button role gets a hover value. Feedback and accent containers are for small marks such as chips; say so in their `$description`. If a role must change, for example to pass contrast, list it in the evidence as a change from the approved preview. Write `tokens/src/color.json` as DTCG JSON, with each role referring to its primitive: `{"color": {"<role>": {"$type": "color", "$value": "{palette.primary.600}", "$description": "..."}}}`. Say what the role is for in each `$description`.
 
-5. **Dark theme.** If the theme is `light-dark` or `dark`, assign dark values by tonal shift from the same ramps: text and fills start at the mirrored stop (1000 − n), and surfaces step one stop at a time from 950, as the color guide's "Stops in a dark theme" describes. Write `tokens/src/color.dark.json` with only the roles that change.
+5. **Dark theme.** If the theme is `light-dark` or `dark`, assign dark values by tonal shift from the same ramps: text and fills start at the mirrored stop (1000 − n), and surfaces step one stop at a time from 950, as the color guide's "Stops in a dark theme" describes. Get the starting values from the dark mode tool: send `color.json` and `palette.json`, save its `tokens` as `tokens/src/color.dark.json` with only the roles that change, and apply its suggestion for each failing pair, or choose another stop. Values it keeps because they aren't on a ramp need a dark value chosen by hand.
 
 6. **Verify with the contrast tool.** Send all pairs together; one POST takes up to 200. Check every pair in the color guide's "Pairs to check", in every theme, with `purpose` set for each pair: every `on-*` role (including `on-surface-inverse` and `on-surface-brand`), text and control edges on the hover and selected fills, muted text on the emphasis surfaces, feedback colors used as text, links, and `border-focus` on every surface. Then check the state surfaces against the surfaces they sit on for `color.states.visible`. Find the required values in the rules below, for the standard in `sistema.json`. When a pairing fails, move to a different stop and check again. Do not write a failing pair, and do not estimate a ratio.
 
-7. **Check quality.** Compare the result against the first-order reflex, the color bans, and the chroma range for how much color the person chose (the color guide's "How much color"). Fix what you can. Explain anything you keep on purpose.
+7. **Validate the files.** Send every file in `tokens/src/` to the token validator, with the project's standard. Fix every blocking failure. For an advisory one you keep, record why in DECISIONS.md.
 
-8. Add each pairing's final ratio to its on-* role's `$description`, then show the evidence table.
+8. **Check quality.** Compare the result against the first-order reflex, the color bans, and the chroma range for how much color the person chose (the color guide's "How much color"). Fix what you can. Explain anything you keep on purpose.
+
+9. Add each pairing's final ratio to its on-* role's `$description`, then show the evidence table.

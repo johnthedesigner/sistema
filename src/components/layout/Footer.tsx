@@ -42,6 +42,8 @@ const FOOTER_NAV = [
       { label: 'Contrast', href: '/tools/contrast' },
       { label: 'Type scale', href: '/tools/type-scale' },
       { label: 'Specimen', href: '/tools/specimen' },
+      { label: 'Token validator', href: '/tools/validate' },
+      { label: 'Dark mode', href: '/tools/dark-mode' },
       { label: 'Sources', href: '/sources' },
       { label: 'Privacy', href: '/privacy' },
     ],

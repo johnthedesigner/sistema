@@ -31,7 +31,7 @@ export default function ConnectPage() {
         <ul className={listClass}>
           <li><b className="font-medium text-on-surface">Prompts:</b> one per workflow (start, patterns, session).</li>
           <li><b className="font-medium text-on-surface">Content tools:</b> search, read, and next step, which takes your project’s <code>sistema.json</code> and returns what to do next.</li>
-          <li><b className="font-medium text-on-surface">Calculation tools:</b> palette, contrast, type scale, and specimen, the same as the APIs.</li>
+          <li><b className="font-medium text-on-surface">Calculation tools:</b> palette, contrast, type scale, specimen, token validator, and dark mode mapping, the same as the APIs.</li>
         </ul>
         <p className="text-body-sm text-on-surface-muted mt-4 mb-0">The server can’t see your repository. Your agent reads and writes the project files; the server gives it procedures and calculations.</p>
       </Section>
