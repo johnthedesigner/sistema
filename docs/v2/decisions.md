@@ -110,3 +110,9 @@ Approved by the owner, with:
 | D35 | One text, three channels | Workflow and play text renders for the channel it's delivered through (`RenderContext.channel`): paste-in names URLs to fetch, MCP names `next_step` and `read`, and a skill names its own `references/` files. The content files stay the same. |
 | D36 | Agent Skills | One skill per workflow, `sistema-<workflow>`, built at build time and downloaded from `/skills/<name>.zip`. `SKILL.md` holds the run loop; the workflow's plays, and any play they name, are reference files; tools and guides stay hosted. Front matter uses only `name` and `description`, the fields every client reads. A downloaded skill carries no visit ID, so skill runs are counted only by their tool calls. |
 | D37 | Agent pointers out of the page | The agent line at the top of every page is replaced by a "For agents" corner button whose panel stays in the HTML (fetch tools read it), and a `<link rel="alternate" type="text/markdown">` to the page's plain text. "For agents" leaves the main navigation. Owner's call. |
+
+## 2026-11-23 — No paid test runs before launch
+
+| # | Decision | Detail |
+|---|---|---|
+| D38 | Plan the harness, don't run it | Owner: Sistema is a side project, and the spend isn't worth the risk yet. v2 goes to launch without tests that cost money to run (behavior tests, the three-way comparison, tool evaluations by agent runs). Phase 5 leaves the harness designed and ready to run, and revisits it if Sistema draws enough attention or usage. The plan's Phase 5 gate (pass rates recorded, tool decisions from evidence) changes accordingly; the revised gate is in `tasks/v2/phase-5.md`. |
