@@ -157,6 +157,8 @@ Expected tasks: build the harness with a spending cap, and mark its traffic as i
 
 **Gate:** plan 15, Phase 5 gate.
 
+**Revised by D38 (2026-11-23):** no paid test runs before launch. Phase 5 plans the harness without running it, checks the site's claims against the evidence already in hand, and takes on the deferred site and content work. Tasks and the revised gate are in `tasks/v2/phase-5.md`.
+
 ### V6: Figma export
 
 Run as described in plan 15.
