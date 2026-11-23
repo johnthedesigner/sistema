@@ -12,7 +12,7 @@
 
 ## Task V5.0: Harness plan, ready to run
 
-**Status:** not started
+**Status:** written (2026-11-23); waiting for the owner's approval.
 
 A written design, `docs/v2/harness-plan.md`, built from the V4.3 manual runs: how it runs an agent on a fresh project copy (`claude -p`, `codex exec`, and the API), how it answers as the person, how it scores a run (automatic checks: files exist, state shape, required tools called, contrast passes; owner checks: does it look intended), spending caps per run and per batch, how its traffic is marked internal (D13), the cases (plan 12.4 setups A to C plus skills, plan 10.5 candidates, the D25 variety briefs), and a cost estimate per batch. Not built, not run.
 
@@ -20,11 +20,11 @@ A written design, `docs/v2/harness-plan.md`, built from the V4.3 manual runs: ho
 
 ## Task V5.1: Site claims check
 
-**Status:** not started
+**Status:** done (2026-11-23). The site makes no claims about pass rates or about one way of running Sistema being better. Three lines promised what the agent always does, which the client runs showed it doesn't: how-it-works' "Your agent shows its work" list (now "What the plays ask of your agent", with a note that the approvals are where you catch a miss), the home page's "Every future session finds the system and follows it", and the connect page's "any client that supports MCP". The home page's "Every new screen starts from solid ground" goes to the headline work in V5.4.
 
 Read every page and agent-facing text for claims about results: pass rates, reliability, one way of running Sistema being better than another. Keep only what the tool tests and the client runs show, and say plainly what hasn't been measured.
 
-- [ ] No claim on the site goes past the evidence
+- [x] No claim on the site goes past the evidence
 
 ## Task V5.2: Tool candidates
 

@@ -26,7 +26,7 @@ const LANDS = [
   ['CSS, wired in', 'Your app uses the system from the first commit.'],
   ['DESIGN.md', 'How the system looks and how to use it, for people and agents.'],
   ['A decision log', 'What was decided and why.'],
-  ['A note for your agent', 'Every future session finds the system and follows it.'],
+  ['A note for your agent', 'Points every future session to the system and to where you left off.'],
 ]
 
 const GROWS = [

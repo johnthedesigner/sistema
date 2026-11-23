@@ -7,7 +7,7 @@ import { skillName } from '@/lib/content/render-skill'
 
 export const metadata: Metadata = {
   title: 'Connect the MCP server',
-  description: 'Use Sistema as an MCP server: the same workflows, guides, and tools as the prompts, in any client that supports MCP.',
+  description: 'Use Sistema as an MCP server: the same workflows, guides, and tools as the prompts, in clients that support MCP.',
 }
 
 export default function ConnectPage() {

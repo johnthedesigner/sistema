@@ -46,12 +46,14 @@ After the milestones, design system work becomes routine. Each session starts by
 
 A [workflow](/workflows) is a whole run, such as Start or Work on my system. A play is one step inside it, such as generating the color scheme. You'll mostly use workflows. Each [play](/plays) also has its own page and prompt, for when you need one step on its own.
 
-## Your agent shows its work
+## What the plays ask of your agent
 
-- **It reads before it asks.** If your files answer a question, it doesn't ask you.
-- **It uses tools for anything it can calculate.** Palette ramps and contrast ratios come from Sistema's tools, never from estimates.
-- **It shows evidence before calling a step done.**
-- **It records what it decided.** Decisions and their reasons go in DECISIONS.md, and progress goes in \`sistema.json\`.
+- **Read before asking.** The agent checks your files first and asks only what they don't answer.
+- **Use tools for anything they can calculate.** Palette ramps and contrast ratios come from Sistema's tools. The plays tell the agent never to estimate them.
+- **Show evidence before calling a step done.**
+- **Record what it decided.** Decisions and their reasons go in DECISIONS.md, and progress goes in \`sistema.json\`.
+
+Agents don't always follow instructions exactly. The approvals are where you catch it: each one shows you the result, not the agent's account of it.
 
 ## You see it before you approve it
 
