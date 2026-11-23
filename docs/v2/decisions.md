@@ -101,3 +101,12 @@ Approved by the owner, with:
 | D32 | MCP packages | `mcp-handler` 2.x with `@modelcontextprotocol/server` 2.x (the MCP TypeScript SDK v2, which replaces `@modelcontextprotocol/sdk`) and `zod` 4, on Node 20 or later. It serves the 2026-07-28 MCP spec natively and falls back to stateless Streamable HTTP for older clients, from one Next.js route; no sessions, no Redis. Tools are registered with `registerTool` and full Zod schemas; prompts with `registerPrompt`. OpenTelemetry peers are optional and left out for now. The plan's `@modelcontextprotocol/sdk` 1.x line is not used. |
 | D33 | Specimen joins the MCP tools | The fixed tool surface (capability model section 6) gains `specimen`, since the direction play depends on it: `search`, `read`, `next_step`, `palette`, `contrast`, `type_scale`, `specimen`. |
 
+
+## 2026-11-22 — MCP clients and Agent Skills (V4.2 to V4.4)
+
+| # | Decision | Detail |
+|---|---|---|
+| D34 | The copied MCP prompt calls a tool | Clients don't let the model call an MCP prompt (in Claude Code the person types `/mcp__sistema__start`), so the prompt box's MCP option says "call next_step for the "start" workflow". The server's prompts stay, for clients that list them. `next_step` leads a first call with how the workflow runs. From the V4.3 client tests. |
+| D35 | One text, three channels | Workflow and play text renders for the channel it's delivered through (`RenderContext.channel`): paste-in names URLs to fetch, MCP names `next_step` and `read`, and a skill names its own `references/` files. The content files stay the same. |
+| D36 | Agent Skills | One skill per workflow, `sistema-<workflow>`, built at build time and downloaded from `/skills/<name>.zip`. `SKILL.md` holds the run loop; the workflow's plays, and any play they name, are reference files; tools and guides stay hosted. Front matter uses only `name` and `description`, the fields every client reads. A downloaded skill carries no visit ID, so skill runs are counted only by their tool calls. |
+| D37 | Agent pointers out of the page | The agent line at the top of every page is replaced by a "For agents" corner button whose panel stays in the HTML (fetch tools read it), and a `<link rel="alternate" type="text/markdown">` to the page's plain text. "For agents" leaves the main navigation. Owner's call. |

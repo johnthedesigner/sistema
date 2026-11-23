@@ -1,13 +1,13 @@
 # AGENTS.md — Sistema
 
-> **v2 overhaul in progress (branch `v2`).** Start every session with `SESSION_LOG.md` "Current State", then `docs/v2/ROADMAP.md` and the current `tasks/v2/phase-N.md`. The plan is `docs/v2/SISTEMA_PLAN.md`, amended by `docs/v2/capability-model.md` and `docs/v2/PLAN_CORRECTIONS.md`. This file is updated at the end of each v2 phase (last: V3.9).
+> **v2 overhaul in progress (branch `v2`).** Start every session with `SESSION_LOG.md` "Current State", then `docs/v2/ROADMAP.md` and the current `tasks/v2/phase-N.md`. The plan is `docs/v2/SISTEMA_PLAN.md`, amended by `docs/v2/capability-model.md` and `docs/v2/PLAN_CORRECTIONS.md`. This file is updated at the end of each v2 phase (last: V4.5).
 
 ## What this repository is
 
 Sistema guides an AI coding agent through building a design system in a person's own repository, with the person's approval at each stage. It has two parts:
 
 - **Content** (`content/`): plays, workflows, rules, opinions, guides, file format pages, and the source list. These are Sistema's own material.
-- **The site** (`src/`): a Next.js app that renders the content for people and, as plain text under `/raw`, for agents. It also hosts the palette, contrast, and type scale tools and their APIs.
+- **The site** (`src/`): a Next.js app that renders the content for people and, for agents, in three ways: as plain text under `/raw` (paste-in prompts), through the MCP server at `/mcp`, and as Agent Skills at `/skills/<name>.zip`. It also hosts the palette, contrast, type scale, and specimen tools and their APIs.
 
 Behind both sits **internal reference material** (`reference/`): working notes on the design systems, standards, research, and agent skills Sistema learned from. It is used to write guides. It is never routed or presented as Sistema content.
 
@@ -26,7 +26,8 @@ reference/            Internal reference notes (never routed). See reference/REA
   design-systems/ standards/ foundations/ skills/
 src/
   lib/content/        Schemas (schema.ts), parsers (parse.ts), loader (load.ts), renderers (render*.ts), site helpers (site.ts)
-  app/                Pages and /raw routes; tools and /api
+  app/                Pages and /raw routes; tools and /api; the MCP server (mcp/) and skill downloads (skills/)
+  lib/mcp/            The MCP server's content tools (search, read, next_step)
   components/site/    Shared page components (ui.tsx, Markdown.tsx, Credits.tsx)
 tools/                Scripts with their own package.json
   scrape/             Firecrawl scraper (output to raw-scrape/, gitignored)
@@ -118,7 +119,7 @@ A tool's calculation lives in one module that the API, the page, and the tests s
 A rule whose `checked_by` names a tool in a play's contract renders in that play without its values by standard.
 
 ### Usage analytics
-Design: `docs/v2/analytics.md` (decision D13). Analytics stores nothing on the visitor's device and visits are never linked (the only stored item is the footer's theme choice, `sistema-theme`). One visit ID lives in memory (`src/lib/analytics/browser.ts`), PostHog is started with it (`persistence: 'memory'`, `person_profiles: 'never'`), and copied prompts carry it as `c`. `src/middleware.ts` sends `agent_fetch` for `/raw` and `/llms.txt`, and rewrites `/raw/...?c=` to `/raw-with-id`, which adds `c` to every Sistema URL. Tool routes send `tool_call` through `trackToolCall` (`src/lib/tools/http.ts`), after the response. Server events (`src/lib/analytics/server.ts`) carry no IP; location comes from Vercel headers with `$geoip_disable`. Local builds send nothing unless `ANALYTICS_SEND_IN_DEV=1` (server) or `NEXT_PUBLIC_ANALYTICS_SEND_IN_DEV=1` (browser, at build time). `NEXT_PUBLIC_ANALYTICS_DEBUG=1` turns on PostHog's console logging. PostHog drops browser events from automated browsers (`navigator.webdriver`, or HeadlessChrome in `userAgentData`), so a Playwright check must hide both. Any new agent-facing URL is covered by `withVisitId` only if it starts with the site origin and `/raw` or `/api`. Routes that read files at request time (`/raw-with-id`, the tool APIs) list them in `outputFileTracingIncludes` in `next.config.ts`, with glob keys (`/raw-with-id/**`, not `[...path]`). Without it they work locally and fail on Vercel. Check `.next/server/app/<route>/route.js.nft.json` after a build.
+Design: `docs/v2/analytics.md` (decision D13). Analytics stores nothing on the visitor's device and visits are never linked (the only stored item is the footer's theme choice, `sistema-theme`). One visit ID lives in memory (`src/lib/analytics/browser.ts`), PostHog is started with it (`persistence: 'memory'`, `person_profiles: 'never'`), and copied prompts carry it as `c`. `src/middleware.ts` sends `agent_fetch` for `/raw` and `/llms.txt`, and rewrites `/raw/...?c=` to `/raw-with-id`, which adds `c` to every Sistema URL. Tool routes send `tool_call` through `trackToolCall` (`src/lib/tools/http.ts`), after the response. The MCP route sends `mcp_call` with the visit ID from its own URL (`/mcp?c=`), which the connect page adds. Server events (`src/lib/analytics/server.ts`) carry no IP; location comes from Vercel headers with `$geoip_disable`. Local builds send nothing unless `ANALYTICS_SEND_IN_DEV=1` (server) or `NEXT_PUBLIC_ANALYTICS_SEND_IN_DEV=1` (browser, at build time). `NEXT_PUBLIC_ANALYTICS_DEBUG=1` turns on PostHog's console logging. PostHog drops browser events from automated browsers (`navigator.webdriver`, or HeadlessChrome in `userAgentData`), so a Playwright check must hide both. Any new agent-facing URL is covered by `withVisitId` only if it starts with the site origin and `/raw` or `/api`. Routes that read files at request time (`/raw-with-id`, the tool APIs) list them in `outputFileTracingIncludes` in `next.config.ts`, with glob keys (`/raw-with-id/**`, not `[...path]`). Without it they work locally and fail on Vercel. Check `.next/server/app/<route>/route.js.nft.json` after a build.
 
 ### Work conventions
 All v2 work commits directly to `v2`, with messages starting with the task ID (`V2.3: ...`). Nothing merges to `main` until VF. There are no outside users, so no redirects or compatibility work. Show consequential visual choices as comparison pages, and check every new page in the browser at desktop and phone width before moving on.
@@ -151,6 +152,13 @@ Pages use `Container` (`max-w-[1180px] mx-auto px-5 md:px-10`). The page backgro
 
 ### Review page templates
 The visual direction page is one file, `public/templates/visual-direction.html`, served at `/templates/visual-direction.html`. Plays copy it and replace only its JSON data block; improvements go into the template. Sistema's own `sistema-review/visual-direction.html` is the reference rendering.
+
+### Channels: paste-in, MCP, skills
+The same content reaches agents three ways (D35). `RenderContext.channel` (`src/lib/content/render.ts`) changes only how the text points to things: paste-in names URLs to fetch, `'mcp'` names the server's `next_step` and `read` tools, and `'skill'` names the skill's `references/` files. Change the run loop once in `renderWorkflowStarter`; never fork it per channel.
+- **MCP server** (`src/app/mcp/route.ts`, D32 to D34): `mcp-handler` 2 with `@modelcontextprotocol/server` 2 and zod 4, stateless. The calculation tools call the API route handlers (`viaApi`), and `route.test.ts` checks they return identical results. Keep the tool list short: seven tools cost about 1,240 tokens per turn. `next_step` leads a first call with the workflow's run loop, and hands over the visit ID from the server URL. The copied MCP prompt calls `next_step`, because clients don't let the model call MCP prompts.
+- **Agent Skills** (`src/lib/content/render-skill.ts`, D36): one per workflow, zipped at build time with fflate; front matter is `name` and `description` only. A skill carries its workflow's plays and any play they name.
+- **Test channels in real clients** (`docs/v2/mcp-client-tests.md`): Claude Code (`claude -p --mcp-config ... --strict-mcp-config`, resumed with `--resume`) and Codex (`codex exec -c 'mcp_servers.sistema.url=...' -c 'mcp_servers.sistema.default_tools_approval_mode="approve"'`), each on a fresh copy of a small made-up project, run against the preview so links resolve. Unit tests passed through every problem these runs found.
+- **Sample data and examples are instructions to an agent.** The template's sample JSON and the tool docs' examples get copied as they are; keep them neutral (no single layout, no limits the person didn't choose).
 
 ### Logo
 `src/components/Logo.tsx` exports `Logo` (symbol, aspect 172/192) and `Wordmark` (symbol plus "Sistema" in Fraunces).

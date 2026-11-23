@@ -27,6 +27,21 @@ describe('/mcp', () => {
     const missing = await rpc('tools/call', { name: 'read', arguments: { id: 'nope' } })
     expect(missing.result.isError).toBe(true)
   })
+  it('each calculation tool returns exactly what its API returns', async () => {
+    const { NextRequest } = await import('next/server')
+    const cases: Array<[string, string, Record<string, unknown>]> = [
+      ['palette', 'palette', { colors: { accent: '#3A7D5C' } }],
+      ['contrast', 'contrast', { pairs: [{ foreground: '#767676', background: '#FFFFFF', purpose: 'text' }], standard: 'wcag-2.2 AA' }],
+      ['type_scale', 'type-scale', { base: 16, ratio: 'major-third', roles: { body: 0 } }],
+      ['specimen', 'specimen', { accent: '#3A7D5C', neutral: 'warm', layout: 'record' }],
+    ]
+    for (const [tool, path, args] of cases) {
+      const { POST: api } = await import(`@/app/api/${path}/route`)
+      const direct = await (await api(new NextRequest(`http://x/api/${path}`, { method: 'POST', body: JSON.stringify(args), headers: { 'content-type': 'application/json' } }))).json()
+      const viaMcp = JSON.parse((await rpc('tools/call', { name: tool, arguments: args })).result.content[0].text)
+      expect(viaMcp, tool).toEqual(direct)
+    }
+  })
   it('next_step hands over the visit ID from the server URL until sistema.json has it', async () => {
     const id = 'internal-0b0e9a3c-1f2d-4c5b-9a8e-7d6c5b4a3f21'
     const ask = await rpc('tools/call', { name: 'next_step', arguments: { workflow: 'start' } }, `http://x/mcp?c=${id}`)
