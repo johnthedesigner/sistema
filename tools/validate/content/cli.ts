@@ -41,7 +41,7 @@ export function loadCorpus(includeOutput: boolean): Corpus {
   return {
     referenceFiles: walk('reference', p => /\.(md|json)$/.test(p)),
     // Built pages, plus prerendered /raw route responses (.body files).
-    builtHtml: includeOutput ? walk(`${process.env.NEXT_DIST_DIR || '.next'}/server/app`, p => p.endsWith('.html') || (p.includes('/raw/') && p.endsWith('.body'))) : [],
+    builtHtml: includeOutput ? walk(`${process.env.NEXT_DIST_DIR || '.next'}/server/app`, p => p.endsWith('.html') || ((p.includes('/raw/') || p.includes('/skills/')) && p.endsWith('.body'))) : [],
     contentFiles: walk('content', p => /\.(md|ya?ml)$/.test(p)),
     today: new Date().toISOString().slice(0, 10),
   }

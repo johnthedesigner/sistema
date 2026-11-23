@@ -93,6 +93,14 @@ describe('output.internal-link', () => {
     const v = ids(corpus({ builtHtml }), 'output.internal-link')
     expect(v.map(x => x.message)).toEqual(['links to missing pages: /playbooks/x'])
   })
+  it('counts built skill downloads as pages', () => {
+    const builtHtml = [
+      { path: '.next/server/app/connect.html', text: '<a href="/skills/sistema-start.zip">s</a><a href="/skills/sistema-gone.zip">g</a>' },
+      { path: '.next/server/app/skills/sistema-start.zip.body', text: 'PK' },
+    ]
+    const v = ids(corpus({ builtHtml }), 'output.internal-link')
+    expect(v.map(x => x.message)).toEqual(['links to missing pages: /skills/sistema-gone.zip'])
+  })
 })
 
 describe('content rules', () => {

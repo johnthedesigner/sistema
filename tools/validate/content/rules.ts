@@ -218,8 +218,10 @@ const outputRelativeUrl: Rule = {
   },
 }
 
-/** Site path of a built page: .next/server/app/a/b.html -> /a/b, index.html -> / */
+/** Site path of a built page: .next/server/app/a/b.html -> /a/b, index.html -> /; a built download, skills/x.zip.body -> /skills/x.zip */
 function builtPagePath(file: string): string | null {
+  const download = file.match(/(?:^|\/)server\/app\/(skills\/.+\.zip)\.body$/)
+  if (download) return `/${download[1]}`
   const m = file.match(/(?:^|\/)server\/app\/(.+)\.html$/)
   if (!m) return null
   return m[1] === 'index' ? '/' : `/${m[1]}`

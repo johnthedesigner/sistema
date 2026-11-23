@@ -11,13 +11,18 @@ export interface RenderContext {
   base: string // site origin, no trailing slash
   plays: Map<string, Play>
   rules: Map<string, Rule>
-  /** 'mcp' when the text is served through the MCP server: name its tools instead of URLs to fetch. */
-  channel?: 'mcp'
+  /**
+   * 'mcp' when the text is served through the MCP server: name its tools instead of URLs to fetch.
+   * 'skill' when it is packaged as an Agent Skill: plays are files in the skill's references/ folder.
+   */
+  channel?: 'mcp' | 'skill'
 }
 
 // ─── URLs ───────────────────────────────────────────────────────────────────
 
 export const playUrl = (base: string, id: string) => `${base}/raw/plays/${id}`
+/** Where an agent finds a play: its URL, or its file inside an Agent Skill. */
+export const playRef = (ctx: RenderContext, id: string) => (ctx.channel === 'skill' ? `references/${id}.md` : playUrl(ctx.base, id))
 export const workflowSlug = (id: string) => id.replace(/^workflow\./, '')
 export const workflowUrl = (base: string, id: string) => `${base}/raw/workflows/${workflowSlug(id)}`
 export const workflowFullUrl = (base: string, id: string) => `${workflowUrl(base, id)}/full`
@@ -100,7 +105,7 @@ export function renderToolSummary(tools: ToolName[]): string {
   return `## Tools\n\nThis workflow uses Sistema's ${list} ${names.length === 1 ? 'tool' : 'tools'}. Each play shows how to call the ones it needs. Use them. Never compute or estimate their results yourself.`
 }
 
-export function renderTools(base: string, tools: ToolName[], channel?: 'mcp'): string {
+export function renderTools(base: string, tools: ToolName[], channel?: 'mcp' | 'skill'): string {
   if (tools.length === 0) return ''
   const blocks = tools.map(t => `**${TOOL_DOCS[t].title}**\n\n\`\`\`\n${TOOL_DOCS[t].usage(base)}\n\`\`\``)
   const how = channel === 'mcp'
@@ -259,7 +264,7 @@ export function renderOutline(workflow: Workflow, ctx: RenderContext): string {
     }
     lines.push(
       `${String(s.number).padStart(2)}. ${s.play.title}${s.optional ? ' (optional)' : ''}: ${s.play.description}`,
-      `    ${playUrl(ctx.base, s.play.id)}`,
+      `    ${playRef(ctx, s.play.id)}`,
     )
     for (const g of s.gateAfter) lines.push(`   ◆ Approval (${g.gate}): ${g.prompt}`)
   }
@@ -306,17 +311,22 @@ export function routePlays(workflow: Workflow, plays: Map<string, Play>): Play[]
   })
 }
 
-/** Starter for a route workflow (workflow.session): orient, then one route per goal. */
+/** For skills: where plays and the items they name live. */
+const SKILL_ELSEWHERE = (base: string) =>
+  `Each play is in this skill's \`references/\` folder as \`references/<id>.md\`. If one isn't there, it is at ${base}/raw/plays/<id>. Each opinion or rule a play names is at ${base}/raw/opinions/<id> or ${base}/raw/rules/<id>.`
+
 const TELEMETRY = " If the URL you fetched this from has a `c` parameter, keep it on `continue` and record it in `sistema.json` as `telemetry.id`. It is an anonymous usage ID: Sistema counts how its workflows, plays, and tools are used, and records nothing about the person or the project's code."
 
+/** Starter for a route workflow (workflow.session): orient, then one route per goal. */
 function renderRoutesStarter(workflow: Workflow, ctx: RenderContext): string {
   const url = workflowUrl(ctx.base, workflow.id)
   const mcp = ctx.channel === 'mcp'
+  const skill = ctx.channel === 'skill'
   const start = workflow.start_with ? ctx.plays.get(workflow.start_with) : undefined
   const tools = [...new Set(routePlays(workflow, ctx.plays).flatMap(p => p.tools))]
   const routeLines = Object.entries(workflow.routes ?? {}).flatMap(([name, route]) => {
     const plays = route.plays.map(id => ctx.plays.get(id)!)
-    return [`- ${name} (${route.title}): ${plays.map(p => p.title).join(' → ')}`, ...plays.map(p => `    ${playUrl(ctx.base, p.id)}`)]
+    return [`- ${name} (${route.title}): ${plays.map(p => p.title).join(' → ')}`, ...plays.map(p => `    ${playRef(ctx, p.id)}`)]
   })
 
   const parts = [
@@ -327,7 +337,7 @@ function renderRoutesStarter(workflow: Workflow, ctx: RenderContext): string {
     [
       '## Routes',
       '',
-      ...(start ? [`Start every session with **${start.title}**: ${start.description}`, `    ${playUrl(ctx.base, start.id)}`, ''] : []),
+      ...(start ? [`Start every session with **${start.title}**: ${start.description}`, `    ${playRef(ctx, start.id)}`, ''] : []),
       'Then follow the route that fits the goal:',
       '',
       ...routeLines,
@@ -336,7 +346,11 @@ function renderRoutesStarter(workflow: Workflow, ctx: RenderContext): string {
       '## How to run it',
       '',
       ...(start ? [`1. Run ${start.title} (\`${start.id}\`). It reads the system's state, confirms the goal with the person, and picks a route. If the person's message already says what they want (for example, "I want to add a component: a date picker"), treat that as the goal and confirm it rather than asking again.`] : ['1. Ask the person for the goal of this session, and pick the route that fits. If their message already says what they want, confirm it rather than asking again.']),
-      mcp ? "2. Run the route's plays in order. Get each with the Sistema MCP server's `read` tool (its ID) and follow it exactly." : '2. Run the route\'s plays in order. Fetch each from its URL and follow it exactly.',
+      mcp
+        ? "2. Run the route's plays in order. Get each with the Sistema MCP server's `read` tool (its ID) and follow it exactly."
+        : skill
+          ? `2. Run the route's plays in order. Read each from this skill's file (shown under its title above) and follow it exactly. ${SKILL_ELSEWHERE(ctx.base)}`
+          : '2. Run the route\'s plays in order. Fetch each from its URL and follow it exactly.',
       "3. When a play's evidence is shown, record it in `sistema.json` `steps` (this replaces the record of that play's previous run) and add its line to DECISIONS.md.",
       '4. After each play, show one progress line, for example `add-component 1 of 2: specification done, implementation next`.',
       "5. When the route is done, say so, and ask whether there is another goal for this session. If there is, confirm it and pick its route. If no route fits a goal, say so, and agree with the person how to proceed outside Sistema's plays.",
@@ -345,10 +359,10 @@ function renderRoutesStarter(workflow: Workflow, ctx: RenderContext): string {
     [
       '## State: sistema.json',
       '',
-      `Set \`workflow\` to \`${workflowSlug(workflow.id)}\` and \`milestone\` to \`maintain\`. Keep \`continue\` at this workflow's URL, ${url}: this workflow is the standing entry point for design system work, so the Sistema section in the agent instructions file keeps pointing here.${mcp ? '' : TELEMETRY} Only play IDs go in \`steps\`. Work done outside a play goes in DECISIONS.md.`,
+      `Set \`workflow\` to \`${workflowSlug(workflow.id)}\` and \`milestone\` to \`maintain\`. Keep \`continue\` at this workflow's URL, ${url}: this workflow is the standing entry point for design system work, so the Sistema section in the agent instructions file keeps pointing here.${mcp || skill ? '' : TELEMETRY} Only play IDs go in \`steps\`. Work done outside a play goes in DECISIONS.md.`,
     ].join('\n'),
     ...(tools.length ? [renderToolSummary(tools)] : []),
-    ...(mcp ? [] : [`If you cannot fetch URLs, use the full version, which includes every play: ${workflowFullUrl(ctx.base, workflow.id)}`]),
+    ...(mcp || skill ? [] : [`If you cannot fetch URLs, use the full version, which includes every play: ${workflowFullUrl(ctx.base, workflow.id)}`]),
   ]
   return parts.join('\n\n') + '\n'
 }
@@ -393,6 +407,7 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
   const next = workflow.continue_with ? workflows?.get(workflow.continue_with) : undefined
   const url = workflowUrl(ctx.base, workflow.id)
   const mcp = ctx.channel === 'mcp'
+  const skill = ctx.channel === 'skill'
 
   const parts = [
     `# ${workflow.title}`,
@@ -422,7 +437,12 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
             "2. If `sistema.json` `routing` maps that play to a different one, run that play instead. The Sistema MCP server's `next_step` tool does both: pass it this workflow and the contents of `sistema.json`, and it returns the play to run, or the approval that is waiting. Read any opinion, rule, or guide a play names with its `read` tool.",
             "3. Follow the play exactly.",
           ]
-        : [
+        : skill
+          ? [
+              `2. If \`sistema.json\` \`routing\` maps that play to a different one, run that play instead. ${SKILL_ELSEWHERE(ctx.base)}`,
+              "3. Read the play's file, shown under its title in the outline, and follow it exactly.",
+            ]
+          : [
             `2. If \`sistema.json\` \`routing\` maps that play to a different one, run that play instead. Every play is at ${ctx.base}/raw/plays/<id>, and each opinion or rule a play names is at ${ctx.base}/raw/opinions/<id> or ${ctx.base}/raw/rules/<id>.`,
             "3. Fetch the play's instructions from its URL and follow them exactly.",
           ]),
@@ -441,11 +461,11 @@ export function renderWorkflowStarter(workflow: Workflow, ctx: RenderContext, wo
       stateExample(workflow, ctx),
       '```',
       '',
-      `\`continue\` is this workflow's URL: ${url}. The first play also adds a short Sistema section to the project's AGENTS.md or CLAUDE.md that points to it, so a new session finds its way back. If that section is missing when you resume, add it as \`project.assess\` describes.${mcp ? '' : TELEMETRY}`,
+      `\`continue\` is this workflow's URL: ${url}. The first play also adds a short Sistema section to the project's AGENTS.md or CLAUDE.md that points to it, so a new session finds its way back. If that section is missing when you resume, add it as \`project.assess\` describes.${mcp || skill ? '' : TELEMETRY}`,
     ].join('\n'),
     ...(tools.length ? [renderToolSummary(tools)] : []),
     workflowEnd(workflow, ctx, next, workflows),
-    ...(mcp ? [] : [`If you cannot fetch URLs, use the full version, which includes every play: ${workflowFullUrl(ctx.base, workflow.id)}`]),
+    ...(mcp || skill ? [] : [`If you cannot fetch URLs, use the full version, which includes every play: ${workflowFullUrl(ctx.base, workflow.id)}`]),
   ]
   return parts.join('\n\n') + '\n'
 }

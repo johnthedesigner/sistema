@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { ConnectClients } from '@/components/site/ConnectClients'
 import { EntryHeader, Section, listClass } from '@/components/site/EntryPage'
 import { SITE_URL } from '@/lib/site-url'
+import { loadCatalog } from '@/lib/content/load'
+import { skillName } from '@/lib/content/render-skill'
 
 export const metadata: Metadata = {
   title: 'Connect the MCP server',
@@ -9,6 +11,8 @@ export const metadata: Metadata = {
 }
 
 export default function ConnectPage() {
+  const ORDER = ['workflow.start', 'workflow.patterns', 'workflow.session']
+  const workflows = [...loadCatalog().workflows].sort((a, b) => ORDER.indexOf(a.id) - ORDER.indexOf(b.id))
   return (
     <main>
       <EntryHeader eyebrow="Get started" title="Connect the MCP server" raw="/raw/agents"
@@ -30,6 +34,16 @@ export default function ConnectPage() {
           <li><b className="font-medium text-on-surface">Calculation tools:</b> palette, contrast, type scale, and specimen, the same as the APIs.</li>
         </ul>
         <p className="text-body-sm text-on-surface-muted mt-4 mb-0">The server can’t see your repository. Your agent reads and writes the project files; the server gives it procedures and calculations.</p>
+      </Section>
+      <Section title="Or install Agent Skills" raised>
+        <p className="text-body text-on-surface-muted m-0 mb-4">Skills put the workflows inside your agent without a server. Each skill carries its workflow and plays, and calls the tools on this site. Unzip one into your project’s skills folder (<code>.claude/skills/</code> in Claude Code), then ask your agent to start.</p>
+        <ul className={listClass}>
+          {workflows.map(w => (
+            <li key={w.id}>
+              <a href={`/skills/${skillName(w.id)}.zip`} className="text-link" download>{skillName(w.id)}.zip</a>: {w.title}. {w.description}
+            </li>
+          ))}
+        </ul>
       </Section>
     </main>
   )
