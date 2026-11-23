@@ -9,7 +9,7 @@
 - The `v1-baseline` tag marks `main` before v2.
 
 **Carried from V4:**
-- **Phase 4 gate, clients:** the plan names Claude Code, Cursor, and Claude.ai, plus the MCP Inspector. See the gate record in `SESSION_LOG.md` for what the owner decided.
+- **Cursor's run to the direction approval:** stopped after the first play at the owner's usage limit; include Cursor (with a non-Claude model) in the harness or a comparison run.
 - **Logged findings** (`docs/v2/mcp-client-tests.md`): a dropped connection during nine parallel specimen calls; the outline not always shown after the first play; skill runs carry no visit ID.
 - **Platform scope** (BACKLOG): the web-first statement, and whether a mobile brief joins the variety test.
 - **Deferred site tweaks:** headline, content and layout passes, about 250 raw pixel values, the "worked example" framing (BACKLOG).

@@ -64,13 +64,13 @@ Generate Agent Skills from the same content files, as the content model already 
 
 ## Task V4.5: Housekeeping and gate check
 
-**Status:** housekeeping done (2026-11-23); gate waiting for the owner.
+**Status:** done (2026-11-23). Phase 4 gate approved by the owner.
 
 Gate evidence (plan 15, Phase 4):
 - **Same tool tests as the APIs:** `src/app/mcp/route.test.ts` checks palette, contrast, type scale, and specimen return exactly what their APIs return, and that errors come back as tool errors.
-- **Clients:** Claude Code and Codex reached the direction approval through the server, and Claude Code with a skill (`docs/v2/mcp-client-tests.md`). Cursor, Claude.ai, and the MCP Inspector were not run.
+- **Clients:** Claude Code and Codex reached the direction approval through the server, and Claude Code with a skill. Claude.ai answered through a custom connector (owner). Cursor with Grok 4.7 completed the first play before a usage limit (owner). The MCP Inspector lists every tool and prompt and passes its strict schema check (`docs/v2/mcp-client-tests.md`).
 - **Tool list and context cost:** seven tools, about 1,240 tokens per turn (search 150, read 140, next_step 140, palette 120, contrast 180, type_scale 220, specimen 280).
 
 Retro, AGENTS.md updates, `tasks/v2/phase-5.md`, and the session log archive.
 
-- [ ] Gate (plan 15, Phase 4): owner approves
+- [x] Gate (plan 15, Phase 4): owner approves
