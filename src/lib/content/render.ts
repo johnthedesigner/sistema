@@ -110,7 +110,7 @@ export function renderTools(base: string, tools: ToolName[], channel?: 'mcp' | '
   const blocks = tools.map(t => `**${TOOL_DOCS[t].title}**\n\n\`\`\`\n${TOOL_DOCS[t].usage(base)}\n\`\`\``)
   const how = channel === 'mcp'
     ? `Call the Sistema MCP server's ${tools.map(t => `\`${t}\``).join(', ')} ${tools.length === 1 ? 'tool' : 'tools'}. Each takes the same input as the POST body below and returns the same result. Never compute or estimate their results yourself.`
-    : 'Use these tools. Never compute or estimate their results yourself.'
+    : "Use these tools. Never compute or estimate their results yourself. Call them with something that returns the response unchanged, such as `curl`: a fetch tool that summarizes pages can change or drop the numbers."
   return `## Tools\n\n${how}\n\n${blocks.join('\n\n')}`
 }
 

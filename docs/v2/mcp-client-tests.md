@@ -35,3 +35,12 @@ Codex: two sessions, 2.6 million input tokens (most cached). About 35 specimen r
 - Same plays, same tool results, same approval. The agent called the tools directly instead of building URLs, with fewer formatting errors (one invalid font name, rejected with the allowed list).
 - Permission prompts differ by client: MCP calls are approved once per server, where `curl` calls to the APIs need shell approval.
 - The person can't see the server's tool output the way they can see fetched URLs; the review page is still where they look.
+
+## Agent Skills (V4.4)
+
+`sistema-start`, downloaded from the preview and unzipped into the test project's `.claude/skills/`, run in Claude Code 2.1.156 with no MCP server and the request "Start a design system with Sistema."
+
+- **The skill loaded from the request alone,** and the agent read each play from the skill's `references/` folder. It fetched nothing from the site except the tools, a guide section, and the template.
+- **Reached the direction approval** in two sessions, 30 turns, about $1.05. State in the right shape, the outline shown after the first play, the template downloaded unchanged with only its data replaced, all six page types offered, and every field filled with the product's content.
+- **The agent called the tools through WebFetch,** asking a model to "return the full JSON exactly". A summarizing fetch can change or drop numbers. *Fixed:* in prompt and skill text, the tools section says to call them with something that returns the response unchanged, such as `curl`.
+- `telemetry` stays empty: a downloaded skill carries no visit ID, so skill runs are counted only by their tool calls. *Logged.*

@@ -56,11 +56,11 @@ Run `workflow.start` through the MCP server in at least two clients, to the dire
 
 ## Task V4.4: Agent Skills (small follow-on)
 
-**Status:** not started
+**Status:** done (2026-11-22). One skill per workflow at `/skills/<name>.zip`; checked in Claude Code to the direction approval (`docs/v2/mcp-client-tests.md`).
 
 Generate Agent Skills from the same content files, as the content model already supports.
 
-- [ ] Skills generated and checked in one client
+- [x] Skills generated and checked in one client
 
 ## Task V4.5: Housekeeping and gate check
 
