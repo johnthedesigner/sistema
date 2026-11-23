@@ -32,8 +32,8 @@ describe('/mcp', () => {
     const cases: Array<[string, string, Record<string, unknown>]> = [
       ['palette', 'palette', { colors: { accent: '#3A7D5C' } }],
       ['contrast', 'contrast', { pairs: [{ foreground: '#767676', background: '#FFFFFF', purpose: 'text' }], standard: 'wcag-2.2 AA' }],
-      ['type_scale', 'type-scale', { base: 16, ratio: 'major-third', roles: { body: 0 } }],
-      ['specimen', 'specimen', { accent: '#3A7D5C', neutral: 'warm', layout: 'record' }],
+      ['type_scale', 'type-scale', { base: 16, ratio: '1.25', roles: { body: 0 } }],
+      ['specimen', 'specimen', { accent: '#3A7D5C', neutral: 'warm', layout: 'record', content: JSON.stringify({ product: 'Tidy' }) }],
     ]
     for (const [tool, path, args] of cases) {
       const { POST: api } = await import(`@/app/api/${path}/route`)
@@ -42,11 +42,17 @@ describe('/mcp', () => {
       expect(viaMcp, tool).toEqual(direct)
     }
   })
+  it('next_step takes sistema.json as text, and rejects text that is not one JSON object', async () => {
+    const later = await rpc('tools/call', { name: 'next_step', arguments: { workflow: 'start', state: JSON.stringify({ workflow: 'start', steps: { 'project.assess': { status: 'complete' } } }) } })
+    expect(later.result.content[0].text).toMatch(/Step 2 of/)
+    const bad = await rpc('tools/call', { name: 'next_step', arguments: { workflow: 'start', state: '{not json' } })
+    expect(bad.result.isError).toBe(true)
+  })
   it('next_step hands over the visit ID from the server URL until sistema.json has it', async () => {
     const id = 'internal-0b0e9a3c-1f2d-4c5b-9a8e-7d6c5b4a3f21'
     const ask = await rpc('tools/call', { name: 'next_step', arguments: { workflow: 'start' } }, `http://x/mcp?c=${id}`)
     expect(ask.result.content[0].text).toContain(`set \`telemetry.id\` to \`${id}\``)
-    const has = await rpc('tools/call', { name: 'next_step', arguments: { workflow: 'start', state: { telemetry: { id } } } }, `http://x/mcp?c=${id}`)
+    const has = await rpc('tools/call', { name: 'next_step', arguments: { workflow: 'start', state: JSON.stringify({ telemetry: { id } }) } }, `http://x/mcp?c=${id}`)
     expect(has.result.content[0].text).not.toContain('set `telemetry.id`')
     const none = await rpc('tools/call', { name: 'next_step', arguments: { workflow: 'start' } })
     expect(none.result.content[0].text).not.toContain('set `telemetry.id`')

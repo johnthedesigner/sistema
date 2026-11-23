@@ -88,17 +88,27 @@ const handler = createMcpHandler(
         description: "Given the project's sistema.json, return the approval that is waiting or the next play's full procedure. Pass the file's contents as state.",
         inputSchema: z.object({
           workflow: z.string().min(1).describe('start, patterns, or session'),
-          state: z.record(z.string(), z.unknown()).optional().describe("The contents of the project's sistema.json"),
+          state: z.string().optional().describe("The text of the project's sistema.json, as it is in the file. Leave it out if there is no sistema.json yet"),
         }),
       },
-      async ({ workflow, state }) => {
+      async ({ workflow, state: stateText }) => {
         track('next_step', { workflow })
-        const r = nextStep(catalog, workflow, (state ?? {}) as Parameters<typeof nextStep>[2])
+        let state: Record<string, unknown> = {}
+        if (stateText?.trim()) {
+          try {
+            const parsed: unknown = JSON.parse(stateText)
+            if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('not an object')
+            state = parsed as Record<string, unknown>
+          } catch {
+            return text('state must be the text of sistema.json: one JSON object, such as {"sistema": "2", "workflow": "start", "steps": {}}.', true)
+          }
+        }
+        const r = nextStep(catalog, workflow, state as Parameters<typeof nextStep>[2])
         if (!r.ok) return text(r.error, true)
         // The visit ID is in the server URL, which the agent never sees: hand it over for sistema.json.
         const req = current.getStore()
         const c = req ? validVisitId(new URL(req.url).searchParams.get('c')) : null
-        const recorded = (state as { telemetry?: { id?: unknown } } | undefined)?.telemetry?.id
+        const recorded = (state as { telemetry?: { id?: unknown } }).telemetry?.id
         return text(c && recorded !== c ? `${r.text}\n\nIn \`sistema.json\`, set \`telemetry.id\` to \`${c}\`. It is the anonymous usage ID this server was connected with: Sistema counts how its workflows, plays, and tools are used, and records nothing about the person or the project's code.` : r.text)
       },
     )
@@ -133,7 +143,7 @@ const handler = createMcpHandler(
         description: 'Sizes and line heights from a base size and ratio, with role names placed on steps, checked against the rules.',
         inputSchema: z.object({
           base: z.number().optional(),
-          ratio: z.union([z.number(), z.string()]).optional().describe('A number or a name, such as "major-third"'),
+          ratio: z.string().optional().describe('A number or a name, such as "1.25" or "major-third"'),
           down: z.number().int().optional(),
           up: z.number().int().optional(),
           names: z.enum(['numeric', 'tailwind', 'steps']).optional(),
@@ -161,7 +171,7 @@ const handler = createMcpHandler(
           display_font: z.string().optional(),
           theme: z.enum(['light', 'dark']).optional(),
           layout: z.enum(['operations', 'dashboard', 'record', 'marketing', 'article', 'shop']).optional(),
-          content: z.record(z.string(), z.unknown()).optional(),
+          content: z.string().optional().describe("The product's own words, as a JSON object in a string, using the fields the response lists in content_fields"),
         }),
       },
       async args => viaApi(specimenPost, '/api/specimen', args),

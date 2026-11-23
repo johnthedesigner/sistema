@@ -44,3 +44,9 @@ Codex: two sessions, 2.6 million input tokens (most cached). About 35 specimen r
 - **Reached the direction approval** in two sessions, 30 turns, about $1.05. State in the right shape, the outline shown after the first play, the template downloaded unchanged with only its data replaced, all six page types offered, and every field filled with the product's content.
 - **The agent called the tools through WebFetch,** asking a model to "return the full JSON exactly". A summarizing fetch can change or drop numbers. *Fixed:* in prompt and skill text, the tools section says to call them with something that returns the response unchanged, such as `curl`.
 - `telemetry` stays empty: a downloaded skill carries no visit ID, so skill runs are counted only by their tool calls. *Logged.*
+
+## Gate checks (V4.5)
+
+- **Claude.ai:** the owner added the preview server as a custom connector and asked a question; it worked (2026-11-23).
+- **MCP Inspector 2.16.0** (`--cli`, against the preview): lists the seven tools and three prompts, and a contrast call returns 4.54 for #767676 on white. Its strict schema check gave three portability warnings: `next_step` `state` and `specimen` `content` accepted any value, and `type_scale` `ratio` used a two-type `type` array, which clients mapping to a single-type dialect (Gemini's function declarations) may reject. *Fixed:* all three are strings (the text of `sistema.json`, the content as JSON, the ratio as `"1.25"` or a name), matching what the GET APIs take; the strict check now passes with no warnings.
+
