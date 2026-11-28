@@ -167,15 +167,15 @@ export default function HowItWorksPage() {
       </section>
 
       {/* 3. Four beats, alternating, equal columns */}
-      <section className={`${section} py-16 md:py-24 border-t border-border`}>
-        <div className="max-w-[760px] mx-auto text-center mb-12 md:mb-20">
+      <section className={`${section} py-20 md:py-32 border-t border-border`}>
+        <div className="max-w-[760px] mx-auto text-center mb-16 md:mb-28">
           <Eyebrow>The work, in four beats</Eyebrow>
           <h2 className="text-heading-xl font-serif m-0">Every stage ends with something you can see</h2>
         </div>
-        <div className="grid gap-16 md:gap-28">
+        <div className="grid gap-20 md:gap-40">
           {BEATS.map((b, i) => (
-            <div key={b.title} className="grid gap-8 md:gap-16 items-center md:grid-cols-2">
-              <div className={i % 2 ? 'md:order-2' : ''}>
+            <div key={b.title} className="grid gap-10 md:gap-20 lg:gap-24 items-center md:grid-cols-2">
+              <div className={`md:px-4 lg:px-10 ${i % 2 ? 'md:order-2' : ''}`}>
                 <span className="inline-flex items-center justify-center w-11 h-11 rounded-radius-lg bg-primary-container text-on-primary-container"><b.icon size={22} strokeWidth={1.7} aria-hidden="true" /></span>
                 <p className="text-label text-on-surface-muted m-0 mt-5">Step {i + 1}</p>
                 <h3 className="text-heading-lg font-serif m-0 mt-1">{b.title}</h3>
@@ -211,9 +211,9 @@ export default function HowItWorksPage() {
       </section>
 
       {/* 4. You see it before you approve it */}
-      <section className={`${section} py-16 md:py-24 border-t border-border`}>
-        <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
-          <div>
+      <section className={`${section} py-20 md:py-32 border-t border-border`}>
+        <div className="grid md:grid-cols-2 gap-10 md:gap-20 lg:gap-24 items-center">
+          <div className="md:px-4 lg:px-10">
             <Eyebrow>Approvals</Eyebrow>
             <h2 className="text-heading-xl font-serif m-0">You see it before you approve it</h2>
             <p className="text-body-lg text-on-surface-muted mt-5 mb-0">
@@ -238,9 +238,9 @@ export default function HowItWorksPage() {
       </section>
 
       {/* 5. What lands in your repo */}
-      <section className={`${section} py-16 md:py-24 border-t border-border`}>
-        <div className="grid md:grid-cols-2 gap-10 md:gap-16">
-          <div>
+      <section className={`${section} py-20 md:py-32 border-t border-border`}>
+        <div className="grid md:grid-cols-2 gap-10 md:gap-20 lg:gap-24 items-center">
+          <div className="md:px-4 lg:px-10">
             <Eyebrow>Your repository</Eyebrow>
             <h2 className="text-heading-xl font-serif m-0">Everything lands in your repo, in open formats</h2>
             <p className="text-body-lg text-on-surface-muted mt-5 mb-0">
