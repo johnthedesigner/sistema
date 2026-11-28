@@ -15,6 +15,8 @@ export interface TocItem {
   text: string
   icon?: LucideIcon
   count?: number
+  /** Subitems, shown smaller and indented under their section. */
+  children?: TocItem[]
 }
 
 const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus'
@@ -43,7 +45,7 @@ export function DocPage({
       <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-10 md:pt-14 pb-16">
         <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-body-sm text-on-surface-muted mb-6">
           {crumbs.map((c, i) => (
-            <span key={c.label} className="inline-flex items-center gap-2">
+            <span key={i} className="inline-flex items-center gap-2">
               {i > 0 && <span className="text-on-surface-faint" aria-hidden="true">/</span>}
               {c.href ? <Link href={c.href} className={`no-underline text-on-surface-muted hover:text-on-surface rounded-radius-sm ${focusRing}`}>{c.label}</Link> : <span className="text-on-surface">{c.label}</span>}
             </span>
@@ -61,16 +63,27 @@ export function DocPage({
             {children}
           </div>
           {toc.length > 1 && (
-            <aside className="hidden md:block md:sticky md:top-24 self-start" aria-label="On this page">
+            <aside className="hidden md:block md:sticky md:top-24 self-start max-h-[calc(100vh-8rem)] overflow-y-auto pr-1" aria-label="On this page">
               <p className="text-label text-on-surface m-0 mb-3">On this page</p>
-              <ul className="list-none m-0 p-0 grid gap-1 border-l border-border">
+              <ul className="list-none m-0 p-0 grid gap-3 border-l border-border">
                 {toc.map(t => (
                   <li key={t.id}>
-                    <a href={`#${t.id}`} className={`flex items-center gap-2 -ml-px pl-3 py-1 border-l border-transparent hover:border-border-strong text-body-sm text-on-surface-muted hover:text-on-surface no-underline ${focusRing}`}>
+                    <a href={`#${t.id}`} className={`flex items-center gap-2 -ml-px pl-3 py-0.5 border-l border-transparent hover:border-border-strong text-label text-on-surface hover:text-link no-underline ${focusRing}`}>
                       {t.icon && <t.icon size={14} strokeWidth={1.8} aria-hidden="true" className="shrink-0" />}
                       <span className="flex-1">{t.text}</span>
-                      {t.count !== undefined && <span className="text-caption text-on-surface-faint">{t.count}</span>}
+                      {t.count !== undefined && <span className="text-caption text-on-surface-faint font-normal">{t.count}</span>}
                     </a>
+                    {t.children && t.children.length > 0 && (
+                      <ul className="list-none m-0 mt-1 p-0 grid gap-0.5">
+                        {t.children.map(c => (
+                          <li key={c.id}>
+                            <a href={`#${c.id}`} className={`block -ml-px pl-6 py-0.5 border-l border-transparent hover:border-border-strong text-caption text-on-surface-muted hover:text-on-surface no-underline ${focusRing}`}>
+                              {c.text}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </li>
                 ))}
               </ul>

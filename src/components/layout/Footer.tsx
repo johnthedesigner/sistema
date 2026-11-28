@@ -78,8 +78,13 @@ export function SiteFooter() {
     <footer className={`mt-section-gap transition-colors duration-500 motion-reduce:transition-none ${TONE[tone].bg}`}>
       <div className="max-w-[1180px] mx-auto px-5 md:px-10">
         <div className="pt-14 md:pt-20 pb-10 md:pb-14">
-          {/* The header's lockup without "by JTD", the full width of the content column. */}
-          <SistemaByJtdLogo height={224} withBy={false} onShape={setTone} className="block w-full h-auto" />
+          {/*
+            The header's lockup without "by JTD". With the columns side by side
+            (1.2fr 1fr 1fr 1fr, 2.5rem gaps), it's sized so "Sistema" (x 215.8 of 584 in
+            the artwork) starts at the second column and the icon spans about the
+            first: width = (second column's offset) x 584 / 215.8. Stacked, it's full width.
+          */}
+          <SistemaByJtdLogo height={224} withBy={false} onShape={setTone} className="block w-full h-auto md:w-[calc((((100%_-_7.5rem)*1.2/4.2)_+_2.5rem)*2.7062)]" />
         </div>
         <div className="pb-12 grid grid-cols-1 md:grid-cols-[1.2fr_repeat(3,1fr)] gap-10">
           <p className="m-0 text-body max-w-[300px]">

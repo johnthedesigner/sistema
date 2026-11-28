@@ -24,7 +24,12 @@ export default async function FileFormatPage({ params }: { params: Promise<{ nam
   const c = catalog()
   const file = c.fileById.get(`file.${name}`)
   if (!file) notFound()
-  const toc = headingsOf(file.body).filter(h => h.level === 2)
+  // h2 sections with their h3 subsections.
+  const toc: Array<{ id: string; text: string; children: Array<{ id: string; text: string }> }> = []
+  for (const h of headingsOf(file.body)) {
+    if (h.level === 2) toc.push({ id: h.id, text: h.text, children: [] })
+    else toc[toc.length - 1]?.children.push({ id: h.id, text: h.text })
+  }
 
   return (
     <DocPage
@@ -34,7 +39,7 @@ export default async function FileFormatPage({ params }: { params: Promise<{ nam
       title={file.title}
       lead={file.description}
       meta={`Last reviewed ${file.last_reviewed}`}
-      toc={toc.map(h => ({ id: h.id, text: h.text }))}
+      toc={toc}
     >
       <article className="max-w-[760px]">
         <Markdown>{file.body}</Markdown>

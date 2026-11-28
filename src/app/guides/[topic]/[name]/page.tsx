@@ -4,7 +4,9 @@ import { notFound } from 'next/navigation'
 import { catalog, guideHref, playHref, playsForTopic, ruleHref, TOPIC_LABELS } from '@/lib/content/site'
 import { Credits } from '@/components/site/Credits'
 import { Markdown, headingsOf } from '@/components/site/Markdown'
-import { AgentNote, Container, GITHUB_BLOB, RailBox, RailLink } from '@/components/site/ui'
+import { GITHUB_BLOB } from '@/components/site/ui'
+import { DocPage, type TocItem } from '@/components/site/DocPage'
+import { KindLabel } from '@/components/site/icons'
 
 export const dynamicParams = false
 
@@ -25,93 +27,75 @@ export default async function GuidePage({ params }: { params: Promise<{ topic: s
   if (!guide) notFound()
 
   const body = guide.body.replace(/^# .*\n+/, '')
-  const toc = headingsOf(body).filter(h => h.level === 2)
   const plays = playsForTopic(guide.topic)
   const citing = c.plays.filter(p => p.topic !== guide.topic && p.knowledge.some(k => k.split('#')[0] === guide.id))
   const rules = c.rules.filter(r => r.id.startsWith(`${guide.topic}.`) || r.sources.some(s => s.split('#')[0] === guide.id))
+  const related = guide.related.map(ref => ({ ref, g: c.guideById.get(ref.split('#')[0]) })).filter(x => x.g)
 
+  // h2 sections with their h3 subsections, then the page's own closing sections.
+  const toc: TocItem[] = []
+  for (const h of headingsOf(body)) {
+    if (h.level === 2) toc.push({ id: h.id, text: h.text, children: [] })
+    else toc[toc.length - 1]?.children?.push({ id: h.id, text: h.text })
+  }
+  if (plays.length + citing.length) toc.push({ id: 'plays-that-use-this', text: 'Plays that use this' })
+  if (rules.length) toc.push({ id: 'rules-for-this-topic', text: 'Rules for this topic' })
+  if (related.length) toc.push({ id: 'builds-on', text: 'Builds on' })
+
+  const closing = 'text-heading-md font-serif text-on-surface m-0 mb-3 scroll-mt-24'
   return (
-    <main>
-      <Container>
-        <nav className="flex items-center gap-2 text-[12.5px] text-on-surface-muted mb-4">
-          <Link href="/guides" className="no-underline text-on-surface-muted hover:text-on-surface">Guides</Link>
-          <span className="text-on-surface-faint">/</span>
-          <Link href={`/guides#${guide.topic}`} className="no-underline text-on-surface-muted hover:text-on-surface">{TOPIC_LABELS[guide.topic]}</Link>
-        </nav>
-        <AgentNote raw={`/raw/guides/${topic}/${name}`} />
+    <DocPage
+      crumbs={[{ label: 'Guides', href: '/guides' }, { label: TOPIC_LABELS[guide.topic], href: `/guides#${guide.topic}` }, { label: guide.title }]}
+      raw={`/raw/guides/${topic}/${name}`}
+      eyebrow={<KindLabel kind="guide" label="Guide" />}
+      title={guide.title}
+      lead={guide.description}
+      meta={`Last reviewed ${guide.last_reviewed}`}
+      toc={toc}
+    >
+      <article className="max-w-[760px]">
+        {guide.note && <p className="text-body-sm text-on-surface-muted border-l-2 border-brand-yellow pl-3 mt-0 mb-8">{guide.note}</p>}
+        <Markdown>{body}</Markdown>
 
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_260px] gap-8 md:gap-12">
-          <article className="min-w-0">
-            <h1 className="font-serif font-medium text-on-surface m-0 mb-3 text-[28px] md:text-[40px]" style={{ lineHeight: 1.1, letterSpacing: '-0.02em' }}>
-              {guide.title}
-            </h1>
-            <p className="text-on-surface-muted m-0 mb-2" style={{ fontSize: 16, lineHeight: 1.55, maxWidth: 680 }}>
-              {guide.description}
-            </p>
-            <p className="text-[12px] text-on-surface-faint m-0 mb-6">Last reviewed {guide.last_reviewed}</p>
-            {guide.note && (
-              <p className="text-[13px] leading-[1.55] text-on-surface-muted border-l-2 pl-3 mb-6" style={{ borderColor: 'var(--color-brand-yellow)' }}>
-                {guide.note}
-              </p>
-            )}
-            <Markdown>{body}</Markdown>
-
-            {(plays.length > 0 || citing.length > 0) && (
-              <section className="mt-12 pt-6 border-t border-border">
-                <h2 className="font-serif font-medium m-0 mb-3" style={{ fontSize: 20 }}>Plays that use this</h2>
-                <ul className="m-0 pl-4 list-disc text-[14px] leading-[1.7]">
-                  {[...plays, ...citing].map(p => (
-                    <li key={p.id}>
-                      <Link href={playHref(p.id)} className="text-primary">{p.title}</Link>
-                      <span className="text-on-surface-muted"> · {p.description}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-            {rules.length > 0 && (
-              <section className="mt-8">
-                <h2 className="font-serif font-medium m-0 mb-3" style={{ fontSize: 20 }}>Rules for this topic</h2>
-                <ul className="m-0 pl-4 list-disc text-[14px] leading-[1.7]">
-                  {rules.map(r => (
-                    <li key={r.id}>
-                      <Link href={ruleHref(r.id)} className="font-mono text-[12.5px] text-primary">{r.id}</Link>
-                      <span className="text-on-surface-muted"> · {r.statement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-            {guide.related.length > 0 && (
-              <section className="mt-8">
-                <h2 className="font-serif font-medium m-0 mb-3" style={{ fontSize: 20 }}>Builds on</h2>
-                <ul className="m-0 pl-4 list-disc text-[14px] leading-[1.7]">
-                  {guide.related.map(ref => {
-                    const g = c.guideById.get(ref.split('#')[0])
-                    return g ? (
-                      <li key={ref}>
-                        <Link href={guideHref(ref)} className="text-primary">{g.title}</Link>
-                      </li>
-                    ) : null
-                  })}
-                </ul>
-              </section>
-            )}
-            <Credits credits={guide.sources} sources={c.sourceById} />
-            <p className="mt-8 text-[12.5px]"><a href={`${GITHUB_BLOB}/${guide.file}`} className="text-primary no-underline">Edit on GitHub</a></p>
-          </article>
-
-          {toc.length > 1 && (
-            <aside className="hidden md:block md:sticky md:top-24 self-start">
-              <RailBox title="On this page">
-                {toc.map(h => (
-                  <RailLink key={h.id} href={`#${h.id}`}>{h.text}</RailLink>
-                ))}
-              </RailBox>
-            </aside>
-          )}
-        </div>
-      </Container>
-    </main>
+        {(plays.length > 0 || citing.length > 0) && (
+          <section className="mt-14 pt-8 border-t border-border">
+            <h2 id="plays-that-use-this" className={closing}>Plays that use this</h2>
+            <ul className="m-0 pl-5 list-disc text-body grid gap-1">
+              {[...plays, ...citing].map(p => (
+                <li key={p.id}>
+                  <Link href={playHref(p.id)} className="text-link">{p.title}</Link>
+                  <span className="text-on-surface-muted"> · {p.description}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+        {rules.length > 0 && (
+          <section className="mt-10">
+            <h2 id="rules-for-this-topic" className={closing}>Rules for this topic</h2>
+            <ul className="m-0 pl-5 list-disc text-body grid gap-1">
+              {rules.map(r => (
+                <li key={r.id}>
+                  <Link href={ruleHref(r.id)} className="font-mono text-code text-link">{r.id}</Link>
+                  <span className="text-on-surface-muted"> · {r.statement}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+        {related.length > 0 && (
+          <section className="mt-10">
+            <h2 id="builds-on" className={closing}>Builds on</h2>
+            <ul className="m-0 pl-5 list-disc text-body grid gap-1">
+              {related.map(({ ref, g }) => (
+                <li key={ref}><Link href={guideHref(ref)} className="text-link">{g!.title}</Link></li>
+              ))}
+            </ul>
+          </section>
+        )}
+        <Credits credits={guide.sources} sources={c.sourceById} />
+        <p className="mt-8 text-body-sm"><a href={`${GITHUB_BLOB}/${guide.file}`} className="text-link no-underline">Edit on GitHub</a></p>
+      </article>
+    </DocPage>
   )
 }

@@ -26,7 +26,7 @@ export default function SourcesPage() {
       eyebrow={<CountLabel kind="source" count={c.sources.length} label="sources" />}
       title="Sistema learns from these sources and credits each one"
       lead={<>Sistema&apos;s guides are its own synthesis across many sources. Each guide ends with a &ldquo;Draws on&rdquo; list naming the pages it used. The site doesn&apos;t publish copies of these sources.</>}
-      toc={kinds.map(({ kind, items }) => ({ id: kind, text: SOURCE_KIND_LABELS[kind], count: items.length }))}
+      toc={kinds.map(({ kind, items }) => ({ id: kind, text: SOURCE_KIND_LABELS[kind], count: items.length, children: items.map(s => ({ id: s.id, text: s.name })) }))}
     >
       {kinds.map(({ kind, items }) => (
         <DocSection key={kind} id={kind} title={SOURCE_KIND_LABELS[kind]}>

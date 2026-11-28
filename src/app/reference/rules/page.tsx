@@ -24,7 +24,7 @@ export default function RulesPage() {
       eyebrow={<CountLabel kind="rule" count={c.rules.length} label="rules" />}
       title="The rules plays apply"
       lead="Required rules must pass before a play is done. Advisory rules raise a flag and suggest a fix. Where a value depends on your accessibility standard, the rule lists it for each one, and the agent uses the standard recorded in sistema.json."
-      toc={topics.map(t => ({ id: t, text: TOPIC_LABELS[t], icon: TOPIC_ICONS[t], count: inTopic(t).length }))}
+      toc={topics.map(t => ({ id: t, text: TOPIC_LABELS[t], icon: TOPIC_ICONS[t], count: inTopic(t).length, children: inTopic(t).map(r => ({ id: r.id, text: r.id.slice(t.length + 1) })) }))}
     >
       {topics.map(t => (
         <DocSection key={t} id={t} title={TOPIC_LABELS[t]} icon={TOPIC_ICONS[t]}>
