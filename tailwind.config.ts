@@ -18,6 +18,17 @@ for (const [name, data] of Object.entries(_lib)) {
 
 import tokenTheme from './src/styles/tokens/tailwind-theme.json'
 
+// Role colors are CSS variables holding hex values, so Tailwind can't add an alpha
+// channel to them: `bg-surface-raised/95` would generate nothing. color-mix with
+// Tailwind's <alpha-value> makes every opacity modifier work; at full opacity it's
+// the same color as the variable.
+const roleColors = Object.fromEntries(
+  Object.entries(tokenTheme.colors as Record<string, string>).map(([name, value]) => [
+    name,
+    value.startsWith('var(') ? `color-mix(in srgb, ${value} calc(<alpha-value> * 100%), transparent)` : value,
+  ]),
+)
+
 const config: Config = {
   content: [
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
@@ -30,7 +41,7 @@ const config: Config = {
         ...baseColors,
 
         // Roles from tokens/src, compiled by `npm run tokens`.
-        ...tokenTheme.colors,
+        ...roleColors,
 
       },
 

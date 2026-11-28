@@ -44,7 +44,7 @@ export default async function PlayPage({ params }: { params: Promise<{ id: strin
   return (
     <main>
       <Container>
-        <nav className="flex items-center gap-2 text-[12.5px] text-on-surface-muted mb-4 flex-wrap">
+        <nav className="flex items-center gap-2 text-body-sm text-on-surface-muted mb-4 flex-wrap">
           <Link href="/plays" className="no-underline text-on-surface-muted hover:text-on-surface">Plays</Link>
           <span className="text-on-surface-faint">/</span>
           <Link href={`/plays#${play.topic}`} className="no-underline text-on-surface-muted hover:text-on-surface">{TOPIC_LABELS[play.topic]}</Link>
@@ -60,13 +60,13 @@ export default async function PlayPage({ params }: { params: Promise<{ id: strin
               <Chip>{play.kind}</Chip>
               {play.entry && <Chip>can start here</Chip>}
             </div>
-            <h1 className="font-serif font-medium text-on-surface m-0 mb-3.5 text-[28px] md:text-[36px]" style={{ lineHeight: 1.1, letterSpacing: '-0.02em' }}>
+            <h1 className="font-serif text-heading-xl text-on-surface m-0 mb-3.5">
               {play.title}
             </h1>
-            <p className="text-on-surface-muted m-0 mb-2" style={{ fontSize: 16, lineHeight: 1.55, maxWidth: 640 }}>
+            <p className="text-body-lg text-on-surface-muted m-0 mb-2 max-w-[640px]">
               {play.description}
             </p>
-            <p className="text-[12px] text-on-surface-faint m-0 mb-7">Last reviewed {play.last_reviewed}</p>
+            <p className="text-caption text-on-surface-faint m-0 mb-7">Last reviewed {play.last_reviewed}</p>
 
             <PromptBox single={{ id: play.id, kind: 'workflow', label: play.title, prompt: playPrompt(play.id) }} label={`Prompt for ${play.title}`} />
 
@@ -76,17 +76,17 @@ export default async function PlayPage({ params }: { params: Promise<{ id: strin
             </div>
 
             <div className="mt-6 rounded-radius-lg p-4 bg-surface-raised">
-              <h2 className="text-[14px] font-semibold m-0 mb-1.5">What it shows before it&apos;s done</h2>
-              <p className="text-[13.5px] text-on-surface-muted m-0 leading-[1.55]"><Inline text={play.evidence} /></p>
+              <h2 className="font-serif text-heading-sm m-0 mb-1.5">What it shows before it&apos;s done</h2>
+              <p className="text-body-sm text-on-surface-muted m-0"><Inline text={play.evidence} /></p>
             </div>
 
             {rules.length > 0 && (
               <div className="mt-8">
-                <h2 className="text-[15px] font-semibold m-0 mb-3">Rules it applies</h2>
+                <h2 className="font-serif text-heading-sm m-0 mb-3">Rules it applies</h2>
                 <ul className="m-0 p-0 list-none flex flex-col gap-2">
                   {rules.map(rule => (
-                    <li key={rule.id} className="text-[13.5px] leading-[1.5]">
-                      <Link href={ruleHref(rule.id)} className="font-mono text-[12.5px] text-primary no-underline">{rule.id}</Link>
+                    <li key={rule.id} className="text-body-sm">
+                      <Link href={ruleHref(rule.id)} className="font-mono text-body-sm text-primary no-underline">{rule.id}</Link>
                       <span className="text-on-surface-faint"> · {rule.severity === 'blocking' ? 'required' : 'advisory'}</span>
                       <br />
                       <span className="text-on-surface-muted"><Inline text={rule.statement} /></span>
@@ -97,7 +97,7 @@ export default async function PlayPage({ params }: { params: Promise<{ id: strin
             )}
 
             {play.tools.length > 0 && (
-              <p className="mt-6 text-[13px] text-on-surface-muted">
+              <p className="mt-6 text-body-sm text-on-surface-muted">
                 Tools it uses: {play.tools.map(t => t.replace('_', ' ')).join(', ')}. See <Link href="/reference/tools" className="text-primary">tool details</Link>.
               </p>
             )}
@@ -115,7 +115,7 @@ export default async function PlayPage({ params }: { params: Promise<{ id: strin
                     <div key={w.id} className="mb-2 last:mb-0">
                       <RailLink href={workflowHref(w.id)}>{w.title}</RailLink>
                       {(prev || next) && (
-                        <p className="text-[11.5px] text-on-surface-faint m-0 mt-1 leading-[1.5]">
+                        <p className="text-caption text-on-surface-faint m-0 mt-1">
                           {prev && <>After <Link href={playHref(prev.id)} className="text-on-surface-muted">{prev.title}</Link>. </>}
                           {next && <>Before <Link href={playHref(next.id)} className="text-on-surface-muted">{next.title}</Link>.</>}
                         </p>
@@ -130,16 +130,16 @@ export default async function PlayPage({ params }: { params: Promise<{ id: strin
                 {guideRefs.map(g => (
                   <RailLink key={g.ref} href={guideHref(g.ref)}>
                     {g.title}
-                    {g.section && <span className="block text-[11.5px] text-on-surface-faint font-mono truncate">#{g.section}</span>}
+                    {g.section && <span className="block text-caption text-on-surface-faint font-mono truncate">#{g.section}</span>}
                   </RailLink>
                 ))}
               </RailBox>
             )}
             <RailBox title="Running it">
-              <p className="text-[12.5px] leading-[1.5] text-on-surface-muted m-0 mb-2">
+              <p className="text-body-sm text-on-surface-muted m-0 mb-2">
                 Plays work best inside a workflow, which reads your project state and keeps track of what&apos;s done.
               </p>
-              <a href={`${GITHUB_BLOB}/${play.file}`} className="text-[12.5px] text-primary no-underline">Edit on GitHub</a>
+              <a href={`${GITHUB_BLOB}/${play.file}`} className="text-body-sm text-primary no-underline">Edit on GitHub</a>
             </RailBox>
           </aside>
         </div>
@@ -151,13 +151,13 @@ export default async function PlayPage({ params }: { params: Promise<{ id: strin
 function ContractList({ title, items, empty }: { title: string; items: string[]; empty: string }) {
   return (
     <div className=" rounded-radius-lg p-4 bg-surface-raised">
-      <h2 className="text-[14px] font-semibold m-0 mb-2">{title}</h2>
+      <h2 className="font-serif text-heading-sm m-0 mb-2">{title}</h2>
       {items.length ? (
-        <ul className="m-0 pl-4 list-disc text-[13px] text-on-surface-muted leading-[1.55]">
+        <ul className="m-0 pl-4 list-disc text-body-sm text-on-surface-muted">
           {items.map(i => <li key={i}><Inline text={i} /></li>)}
         </ul>
       ) : (
-        <p className="text-[13px] text-on-surface-muted m-0">{empty}</p>
+        <p className="text-body-sm text-on-surface-muted m-0">{empty}</p>
       )}
     </div>
   )

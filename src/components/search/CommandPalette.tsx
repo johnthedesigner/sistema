@@ -20,7 +20,7 @@ function TypeBadge({ type }: { type: SearchEntryType }) {
   const { label, bg, color } = TYPE_CONFIG[type]
   return (
     <span
-      className="inline-flex items-center shrink-0 h-[20px] px-1.5 rounded font-mono text-[10px] font-medium"
+      className="inline-flex items-center shrink-0 h-[20px] px-1.5 rounded-radius-sm font-mono text-caption font-medium"
       style={{ background: bg, color }}
     >
       {label}
@@ -119,13 +119,13 @@ export function CommandPalette({ open, onClose }: Props) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center px-4"
-      style={{ paddingTop: 'clamp(60px, 15vh, 160px)', background: 'rgba(14,17,22,0.45)' }}
+      className="fixed inset-0 z-50 flex items-start justify-center px-4 bg-surface-inverse/45"
+      style={{ paddingTop: 'clamp(60px, 15vh, 160px)' }}
       onClick={onClose}
     >
       <div
-        className="w-full max-w-[560px] rounded-radius-xl bg-surface-raised overflow-hidden"
-        style={{ boxShadow: 'var(--shadow-overlay)' }}
+        className="w-full max-w-[560px] rounded-radius-xl bg-surface-raised shadow-overlay overflow-hidden"
+        
         onClick={e => e.stopPropagation()}
       >
         {/* Input row */}
@@ -137,32 +137,32 @@ export function CommandPalette({ open, onClose }: Props) {
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder="Search plays, KB entries, tools…"
-            className="flex-1 text-[15px] text-on-surface placeholder-on-surface-muted bg-transparent border-none outline-none"
+            className="flex-1 text-body-sm text-on-surface placeholder-on-surface-muted bg-transparent border-none outline-none"
           />
           {query ? (
             <button
               onClick={() => { setQuery(''); inputRef.current?.focus() }}
-              className="text-[11px] font-mono text-on-surface-muted hover:text-on-surface border border-border rounded px-1.5 py-0.5 transition-colors"
+              className="text-caption font-mono text-on-surface-muted hover:text-on-surface border border-border rounded-radius-sm px-1.5 py-0.5 transition-colors"
             >
               clear
             </button>
           ) : (
-            <kbd className="font-mono text-[11px] text-on-surface-faint border border-border rounded px-1.5 py-0.5">
+            <kbd className="font-mono text-caption text-on-surface-faint border border-border rounded-radius-sm px-1.5 py-0.5">
               esc
             </kbd>
           )}
         </div>
 
         {/* Results */}
-        <div className="overflow-y-auto" style={{ maxHeight: 380 }}>
+        <div className="overflow-y-auto max-h-[380px]">
           {query.length === 0 && (
-            <div className="flex items-center justify-center py-10 text-[13px] text-on-surface-muted">
+            <div className="flex items-center justify-center py-10 text-body-sm text-on-surface-muted">
               Type to search {entries.length > 0 ? `${entries.length} entries` : '…'}
             </div>
           )}
 
           {query.length > 0 && results.length === 0 && (
-            <div className="flex items-center justify-center py-10 text-[13px] text-on-surface-muted">
+            <div className="flex items-center justify-center py-10 text-body-sm text-on-surface-muted">
               No results for &ldquo;{query}&rdquo;
             </div>
           )}
@@ -184,16 +184,16 @@ export function CommandPalette({ open, onClose }: Props) {
                     >
                       <TypeBadge type={entry.type} />
                       <div className="flex-1 min-w-0">
-                        <p className="text-[13.5px] font-medium text-on-surface m-0 truncate">
+                        <p className="text-body-sm font-medium text-on-surface m-0 truncate">
                           {entry.title}
                         </p>
                         {entry.description && (
-                          <p className="text-[12px] text-on-surface-muted m-0 truncate mt-0.5">
+                          <p className="text-caption text-on-surface-muted m-0 truncate mt-0.5">
                             {entry.description}
                           </p>
                         )}
                       </div>
-                      <span className="shrink-0 font-mono text-[11px] text-on-surface-faint">
+                      <span className="shrink-0 font-mono text-caption text-on-surface-faint">
                         {entry.meta}
                       </span>
                     </button>
@@ -206,15 +206,15 @@ export function CommandPalette({ open, onClose }: Props) {
 
         {/* Footer */}
         <div className="flex items-center gap-4 px-4 h-[34px] border-t border-border bg-surface-subtle">
-          <span className="flex items-center gap-1.5 font-mono text-[11px] text-on-surface-faint">
-            <kbd className="px-1 border border-border rounded text-[10px]">↑↓</kbd>
+          <span className="flex items-center gap-1.5 font-mono text-caption text-on-surface-faint">
+            <kbd className="px-1 border border-border rounded-radius-sm text-caption">↑↓</kbd>
             navigate
           </span>
-          <span className="flex items-center gap-1.5 font-mono text-[11px] text-on-surface-faint">
-            <kbd className="px-1 border border-border rounded text-[10px]">↵</kbd>
+          <span className="flex items-center gap-1.5 font-mono text-caption text-on-surface-faint">
+            <kbd className="px-1 border border-border rounded-radius-sm text-caption">↵</kbd>
             open
           </span>
-          <span className="ml-auto font-mono text-[11px] text-on-surface-faint">
+          <span className="ml-auto font-mono text-caption text-on-surface-faint">
             {indexLoaded.current ? `${entries.length} indexed` : 'loading…'}
           </span>
         </div>

@@ -28,7 +28,7 @@ export default async function WorkflowPage({ params }: { params: Promise<{ id: s
   return (
     <main>
       <Container>
-        <nav className="flex items-center gap-2 text-[12.5px] text-on-surface-muted mb-4">
+        <nav className="flex items-center gap-2 text-body-sm text-on-surface-muted mb-4">
           <Link href="/workflows" className="no-underline text-on-surface-muted hover:text-on-surface">Workflows</Link>
           <span className="text-on-surface-faint">/</span>
           <span className="text-on-surface">{workflow.title}</span>
@@ -37,19 +37,19 @@ export default async function WorkflowPage({ params }: { params: Promise<{ id: s
 
         <div className="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-8 md:gap-10">
           <div className="min-w-0">
-            <h1 className="font-serif font-medium text-on-surface m-0 mb-3.5 text-[28px] md:text-[40px]" style={{ lineHeight: 1.1, letterSpacing: '-0.02em' }}>
+            <h1 className="font-serif text-heading-xl text-on-surface m-0 mb-3.5">
               {workflow.title}
             </h1>
-            <p className="text-on-surface-muted m-0 mb-7" style={{ fontSize: 16, lineHeight: 1.55, maxWidth: 640 }}>
+            <p className="text-body-lg text-on-surface-muted m-0 mb-7 max-w-[640px]">
               {workflow.description}
             </p>
 
             <PromptBox single={{ id: workflow.id, kind: 'workflow', label: workflow.title, prompt: workflowPrompt(workflow.id) }} label={`Prompt for ${workflow.title}`} />
-            <p className="text-[12.5px] text-on-surface-muted mt-3 m-0">
+            <p className="text-body-sm text-on-surface-muted mt-3 m-0">
               If the run stops, say &ldquo;keep going&rdquo; in a new session. The agent finds its place from your repo.
             </p>
 
-            <h2 className="font-serif font-medium mt-12 mb-4" style={{ fontSize: 22 }}>
+            <h2 className="font-serif text-heading-sm mt-12 mb-4">
               {workflow.sequence ? 'What happens, in order' : 'Every session starts by checking where things stand'}
             </h2>
             {workflow.sequence ? <Outline id={workflow.id} /> : <Routes id={workflow.id} />}
@@ -64,15 +64,15 @@ export default async function WorkflowPage({ params }: { params: Promise<{ id: s
             {next && (
               <RailBox title="Then continues to">
                 <RailLink href={workflowHref(next.id)}>{next.title}</RailLink>
-                <p className="text-[12px] text-on-surface-muted m-0 mt-2 leading-[1.5]">The agent offers this when the workflow is done.</p>
+                <p className="text-caption text-on-surface-muted m-0 mt-2">The agent offers this when the workflow is done.</p>
               </RailBox>
             )}
             <RailBox title="If your agent can&apos;t fetch URLs">
-              <p className="text-[12.5px] text-on-surface-muted m-0 leading-[1.5]">
+              <p className="text-body-sm text-on-surface-muted m-0">
                 A full version includes every play in one document: <span className="font-mono break-all">{absolute(`/raw/workflows/${id}/full`)}</span>
               </p>
             </RailBox>
-            <a href={`${GITHUB_BLOB}/${workflow.file}`} className="text-[12.5px] text-primary no-underline px-1">Edit on GitHub</a>
+            <a href={`${GITHUB_BLOB}/${workflow.file}`} className="text-body-sm text-primary no-underline px-1">Edit on GitHub</a>
           </aside>
         </div>
       </Container>
