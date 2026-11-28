@@ -61,7 +61,7 @@ D42 and D43: a new `workflow.audit` (read and report, then offer to adopt or fix
 
 ## Task V5.6: Site design
 
-**Status:** not started
+**Status:** built (2026-11-28); waiting for the owner's approval. Home headline and lead, How Sistema works as a landing page, entry pages, Plays top-level, tools index, home cards, Reference on two patterns with nested contents rails, footer, eyebrows, approval cards. Drift audit (`docs/v2/audit-site-2026-11-28.md`): fixes, the pixel pass on non-tool pages, opacity on role colors repaired, new patterns recorded in DESIGN.md, and rule `quality.consistency.system-first`. Tool pages' raw values move to V5.7.
 
 From the owner's notes (review section 7), with comparison pages for consequential choices: the prompt box's spacing; the home page (centered, refined cards with icons, the headline); Plays top-level with a workflows callout (D45); eyebrows in sentence case; play pages (no alternating backgrounds, balanced space); the footer (large interactive logo, colored background); How Sistema works as a landing page; Reference on two page patterns with alphabetical, grouped lists; the tools index cards; the remaining raw pixel values.
 
