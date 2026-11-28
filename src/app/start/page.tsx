@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { PromptBox } from '@/components/site/PromptBox'
-import { EntryHeader, Section, listClass } from '@/components/site/EntryPage'
+import { EntryHeader, EntryLead, Section, listClass } from '@/components/site/EntryPage'
 import { SequenceOutline } from '@/components/site/WorkflowOutline'
 import { promptOptions } from '@/lib/content/prompts'
 
@@ -15,10 +15,8 @@ export default function StartPage() {
     <main>
       <EntryHeader eyebrow="Get started" title="Start a design system" raw="/raw/workflows/start"
         lead="Your agent reads your project, asks what it needs, shows you options for the look, and builds the foundations. It stops twice for your approval." />
-      <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-8 pb-4">
-        <div className="max-w-[760px]"><PromptBox single={start} /></div>
-      </div>
-      <Section title="What happens" raised>
+      <EntryLead><PromptBox single={start} /></EntryLead>
+      <Section title="What happens">
         <SequenceOutline id="workflow.start" />
         <p className="text-body-sm text-on-surface-muted mt-6 mb-0">Afterward, the agent offers to continue to the components.</p>
       </Section>
@@ -32,7 +30,7 @@ export default function StartPage() {
           <li>Then, with options shown on a screen like yours, using your words: how much color, which grays, how round, how panels separate, and which typeface.</li>
         </ul>
       </Section>
-      <Section title="If something goes wrong" raised>
+      <Section title="If something goes wrong">
         <ul className={listClass}>
           <li>If the session ends, start a new one in the same folder. The agent picks up from <code>sistema.json</code>.</li>
           <li>If the agent loses track of Sistema, paste the prompt again.</li>

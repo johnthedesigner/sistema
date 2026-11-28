@@ -35,7 +35,7 @@ export default function PalettePage() {
       <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-8 md:pt-10 pb-20">
       <div className="flex items-start justify-between gap-6 mb-7">
         <div>
-          <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
+          <p className="font-mono text-[11.5px] text-on-surface-muted mb-2.5">
             Tools · Palette library
           </p>
           <h1

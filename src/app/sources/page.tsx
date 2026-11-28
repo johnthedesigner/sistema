@@ -55,7 +55,7 @@ export default function SourcesPage() {
                         {s.note && <p className="text-[12px] text-on-surface-faint m-0 mt-1 leading-[1.5]">{s.note}</p>}
                       </div>
                       <div className="min-w-0">
-                        <p className="font-mono text-[11px] tracking-[0.08em] uppercase text-on-surface-faint m-0 mb-1">Used in</p>
+                        <p className="font-mono text-[11px] text-on-surface-faint m-0 mb-1">Used in</p>
                         {uses.length ? (
                           <ul className="m-0 p-0 list-none text-[13px] leading-[1.7]">
                             {uses.map(u => (

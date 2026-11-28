@@ -12,7 +12,7 @@ export default function TypeScalePage() {
     <main>
       <div className="max-w-[900px] mx-auto px-5 md:px-10 pt-8 md:pt-10 pb-20">
         <div className="mb-8">
-          <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
+          <p className="font-mono text-[11.5px] text-on-surface-muted mb-2.5">
             <Link href="/tools" className="hover:text-on-surface transition-colors no-underline">Tools</Link>
             {' · '}Type Scale
           </p>

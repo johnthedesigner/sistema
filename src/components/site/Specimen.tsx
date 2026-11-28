@@ -16,7 +16,7 @@ const Frame = ({ children, caption }: { children: React.ReactNode; caption?: str
 )
 
 const Label = ({ children }: { children: React.ReactNode }) => (
-  <div className="text-[11px] font-medium uppercase tracking-[0.06em] text-on-surface-muted mb-1.5">{children}</div>
+  <div className="text-[11px] font-medium text-on-surface-muted mb-1.5">{children}</div>
 )
 
 function Ramp({ seeds }: { seeds: string[] }) {

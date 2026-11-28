@@ -120,7 +120,7 @@ export function Nav() {
 
         {mobileOpen && (
           <nav id="mobile-nav" aria-label="Main" className="md:hidden px-5 pb-4 bg-surface-raised">
-            <p className="text-caption text-on-surface-faint m-0 mt-2 mb-1 uppercase tracking-[0.06em]">Get started</p>
+            <p className="text-caption text-on-surface-faint m-0 mt-2 mb-1">Get started</p>
             {GET_STARTED.map(l => (
               <Link key={l.href} href={l.href} className={`flex items-center min-h-11 text-body text-on-surface no-underline ${focusRing}`}>{l.label}</Link>
             ))}

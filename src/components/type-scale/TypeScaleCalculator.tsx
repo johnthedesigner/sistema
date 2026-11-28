@@ -98,7 +98,7 @@ export function TypeScaleCalculator() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Base size */}
         <div>
-          <label htmlFor="base-size" className="block font-mono text-[11px] tracking-[0.1em] uppercase text-on-surface-muted mb-2">
+          <label htmlFor="base-size" className="block font-mono text-[11px] text-on-surface-muted mb-2">
             Base size
           </label>
           <div className="flex items-center gap-2">
@@ -120,7 +120,7 @@ export function TypeScaleCalculator() {
 
         {/* Ratio */}
         <div>
-          <label htmlFor="scale-ratio" className="block font-mono text-[11px] tracking-[0.1em] uppercase text-on-surface-muted mb-2">
+          <label htmlFor="scale-ratio" className="block font-mono text-[11px] text-on-surface-muted mb-2">
             Scale ratio
           </label>
           <div className="flex items-center gap-2">
@@ -163,7 +163,7 @@ export function TypeScaleCalculator() {
 
         {/* Naming */}
         <div className="sm:col-span-2">
-          <label htmlFor="scale-names" className="block font-mono text-[11px] tracking-[0.1em] uppercase text-on-surface-muted mb-2">
+          <label htmlFor="scale-names" className="block font-mono text-[11px] text-on-surface-muted mb-2">
             Step names
           </label>
           <select
@@ -187,11 +187,11 @@ export function TypeScaleCalculator() {
         <div className="bg-surface-raised rounded-radius-lg overflow-hidden">
           {/* Table header */}
           <div className="grid grid-cols-[72px_56px_64px_64px] sm:grid-cols-[72px_56px_64px_64px_1fr] gap-0 border-b border-border bg-surface-subtle px-4 sm:px-5 py-2.5">
-            <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-on-surface-faint">Token</span>
-            <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-on-surface-faint">px</span>
-            <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-on-surface-faint">rem</span>
-            <span className="font-mono text-[10px] tracking-[0.1em] uppercase text-on-surface-faint">Line-h</span>
-            <span className="hidden sm:block font-mono text-[10px] tracking-[0.1em] uppercase text-on-surface-faint">Notes</span>
+            <span className="font-mono text-[10px] text-on-surface-faint">Token</span>
+            <span className="font-mono text-[10px] text-on-surface-faint">px</span>
+            <span className="font-mono text-[10px] text-on-surface-faint">rem</span>
+            <span className="font-mono text-[10px] text-on-surface-faint">Line-h</span>
+            <span className="hidden sm:block font-mono text-[10px] text-on-surface-faint">Notes</span>
           </div>
           {/* Rows — reversed so display is at top */}
           {[...stops].reverse().map(stop => (
@@ -265,7 +265,7 @@ export function TypeScaleCalculator() {
 
       {/* API callout */}
       <div className=" rounded-radius-lg p-5 bg-surface-raised">
-        <p className="font-mono text-[11px] tracking-[0.1em] uppercase text-on-surface-muted mb-2 m-0">
+        <p className="font-mono text-[11px] text-on-surface-muted mb-2 m-0">
           For agents
         </p>
         <p className="text-[13px] text-on-surface-muted leading-[1.5] m-0 mb-2">

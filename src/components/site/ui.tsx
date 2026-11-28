@@ -28,7 +28,7 @@ export function MilestoneChip({ milestone }: { milestone: Milestone }) {
 }
 
 export function Eyebrow({ children }: { children: ReactNode }) {
-  return <p className="text-caption uppercase tracking-[0.06em] text-on-surface-faint m-0 mb-2">{children}</p>
+  return <p className="text-label text-on-surface-muted m-0 mb-2">{children}</p>
 }
 
 /**

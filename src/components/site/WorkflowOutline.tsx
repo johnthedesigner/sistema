@@ -23,7 +23,7 @@ export function SequenceOutline({ id }: { id: string }) {
     <div className="grid gap-8">
       {groups.map(g => (
         <section key={g.milestone}>
-          <p className="text-caption uppercase tracking-[0.06em] text-on-surface-faint m-0 mb-2">{MILESTONE[g.milestone]}</p>
+          <p className="text-caption text-on-surface-faint m-0 mb-2">{MILESTONE[g.milestone]}</p>
           <ol className="m-0 p-0 list-none grid gap-1">
             {g.steps.map(s => (
               <li key={s.play.id}>

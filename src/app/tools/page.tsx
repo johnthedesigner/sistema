@@ -65,7 +65,7 @@ export default function ToolsPage() {
       <div className="max-w-[1180px] mx-auto px-5 md:px-10 pt-8 md:pt-12 pb-20">
 
         <div className="mb-9">
-          <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
+          <p className="font-mono text-[11.5px] text-on-surface-muted mb-2.5">
             Tools · {TOOLS.length} available
           </p>
           <h1

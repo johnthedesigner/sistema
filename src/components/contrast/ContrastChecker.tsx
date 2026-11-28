@@ -60,7 +60,7 @@ function ColorInput({
 
   return (
     <div className="flex-1 min-w-0">
-      <label htmlFor={id} className="block font-mono text-[10.5px] tracking-[0.1em] uppercase text-on-surface-muted mb-2">
+      <label htmlFor={id} className="block font-mono text-[10.5px] text-on-surface-muted mb-2">
         {label}
       </label>
       <div className="flex items-center gap-2">
@@ -138,7 +138,7 @@ export function ContrastChecker({ table }: { table: ContrastTable }) {
       {/* Standard */}
       <div className="flex flex-col sm:flex-row gap-4">
         <label className="flex-1 min-w-0">
-          <span className="block font-mono text-[10.5px] tracking-[0.1em] uppercase text-on-surface-muted mb-2">Standard</span>
+          <span className="block font-mono text-[10.5px] text-on-surface-muted mb-2">Standard</span>
           <select
             value={standard}
             onChange={e => setStandard(e.target.value)}
@@ -150,7 +150,7 @@ export function ContrastChecker({ table }: { table: ContrastTable }) {
           </select>
         </label>
         <label className="sm:w-40">
-          <span className="block font-mono text-[10.5px] tracking-[0.1em] uppercase text-on-surface-muted mb-2">Level</span>
+          <span className="block font-mono text-[10.5px] text-on-surface-muted mb-2">Level</span>
           <select
             value={activeLevel}
             onChange={e => setLevel(e.target.value)}
@@ -225,9 +225,9 @@ export function ContrastChecker({ table }: { table: ContrastTable }) {
       <div className="bg-surface-raised rounded-radius-lg overflow-hidden divide-y divide-border">
         {/* Header */}
         <div className="grid grid-cols-[1fr_80px_80px] gap-4 px-4 py-2 bg-surface-subtle">
-          <span className="font-mono text-[10.5px] tracking-[0.1em] uppercase text-on-surface-muted">Criterion</span>
-          <span className="font-mono text-[10.5px] tracking-[0.1em] uppercase text-on-surface-muted text-right">Needs</span>
-          <span className="font-mono text-[10.5px] tracking-[0.1em] uppercase text-on-surface-muted text-right">Result</span>
+          <span className="font-mono text-[10.5px] text-on-surface-muted">Criterion</span>
+          <span className="font-mono text-[10.5px] text-on-surface-muted text-right">Needs</span>
+          <span className="font-mono text-[10.5px] text-on-surface-muted text-right">Result</span>
         </div>
 
         {CHECKS.map(c => {

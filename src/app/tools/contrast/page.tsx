@@ -17,7 +17,7 @@ export default function ContrastCheckerPage() {
         <div className="max-w-[720px]">
 
           <div className="mb-7">
-            <p className="font-mono text-[11.5px] tracking-[0.12em] uppercase text-on-surface-muted mb-2.5">
+            <p className="font-mono text-[11.5px] text-on-surface-muted mb-2.5">
               <Link href="/tools" className="hover:text-on-surface transition-colors no-underline">Tools</Link>
               {' · '}Contrast checker
             </p>
