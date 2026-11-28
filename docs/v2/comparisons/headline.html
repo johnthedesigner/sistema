@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Home headline options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --page: #FBFBFC; --panel: #FFFFFF; --text: #202329; --muted: #5C626B; --faint: #7A8089; --line: #E6E8EB; --blue: #1163D8; --blue-soft: #DBE9FF; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text); font: 16px/1.55 Inter, system-ui, sans-serif; }
+  header.intro { max-width: 960px; margin: 0 auto; padding: 48px 20px 8px; }
+  header.intro h1 { font: 600 28px/1.2 Fraunces, Georgia, serif; margin: 0 0 8px; }
+  header.intro p { color: var(--muted); margin: 0; max-width: 70ch; }
+  .option { max-width: 1180px; margin: 32px auto; padding: 0 20px; }
+  .label { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; margin: 0 0 12px; }
+  .label b { font-weight: 600; }
+  .label span { color: var(--muted); font-size: 14px; }
+  .tag { font-size: 12px; font-weight: 500; padding: 2px 10px; border-radius: 999px; background: var(--blue-soft); color: #0A3A80; }
+  .hero { background: var(--page); border: 1px solid var(--line); border-radius: 20px; padding: 64px 24px 56px; text-align: center; }
+  .hero h2 { font: 600 clamp(36px, 5.2vw, 64px)/1.05 Fraunces, Georgia, serif; letter-spacing: -0.02em; margin: 0 auto; max-width: 16ch; }
+  .hero p { color: var(--muted); font-size: 19px; line-height: 1.6; margin: 20px auto 0; max-width: 60ch; }
+  .hero .fake { display: inline-flex; gap: 8px; margin-top: 28px; }
+  .hero .fake i { display: inline-block; width: 170px; height: 56px; border-radius: 12px; background: var(--panel); box-shadow: inset 0 0 0 1px var(--line); }
+  .hero .fake i:first-child { box-shadow: inset 0 0 0 2px var(--blue); }
+  .why { color: var(--muted); font-size: 15px; margin: 12px 4px 0; max-width: 80ch; }
+</style>
+</head>
+<body>
+<header class="intro">
+  <h1>Home page headline</h1>
+  <p>Four options in the home page's hero, centered, with the lead below each. The How Sistema works page now leads with "Your agent builds the design system. You approve every stage.", so the home headline shouldn't repeat it. Pick one, or mix a headline with another lead.</p>
+</header>
+
+<section class="option">
+  <div class="label"><b>A. Current</b><span class="tag">Today</span><span>The benefit to the person: solid ground, more time to design.</span></div>
+  <div class="hero">
+    <h2>Firm foundations for AI-built apps. More room to design.</h2>
+    <p>Sistema guides your coding agent through building a design system in your repository, with you approving each stage. Every new screen starts from solid ground, and your time goes to design.</p>
+    <div class="fake"><i></i><i></i><i></i></div>
+  </div>
+  <p class="why">Two sentences make it long at display size, and "firm foundations" is abstract until you know what they are.</p>
+</section>
+
+<section class="option">
+  <div class="label"><b>B. The outcome</b><span>What the person gets: consistency across everything the agent makes.</span></div>
+  <div class="hero">
+    <h2>Every screen your agent builds, on one design system.</h2>
+    <p>Sistema guides your coding agent through building a design system in your own repository. You choose the look and approve each stage, so every new screen starts from the same foundations.</p>
+    <div class="fake"><i></i><i></i><i></i></div>
+  </div>
+  <p class="why">Names the problem it solves (drift between screens) without saying "problem". Concrete, and pairs well with the "Why foundations" section on How Sistema works.</p>
+</section>
+
+<section class="option">
+  <div class="label"><b>C. The action</b><span>What to do: give the agent something to build on.</span></div>
+  <div class="hero">
+    <h2>Give your coding agent a design system to build on.</h2>
+    <p>Sistema walks your agent through the foundations, in your repository, with your approval at each stage. Then every component and page it makes uses them.</p>
+    <div class="fake"><i></i><i></i><i></i></div>
+  </div>
+  <p class="why">Speaks to the person who already uses a coding agent and knows its output drifts. The most direct of the four.</p>
+</section>
+
+<section class="option">
+  <div class="label"><b>D. The current, trimmed</b><span>Keeps today's idea, in one line.</span></div>
+  <div class="hero">
+    <h2>Firm foundations for AI-built apps.</h2>
+    <p>Sistema guides your coding agent through building a design system in your repository, with you approving each stage. Every new screen starts from solid ground, and your time goes to design.</p>
+    <div class="fake"><i></i><i></i><i></i></div>
+  </div>
+  <p class="why">Shorter and calmer at display size, and the lead carries "more room to design". Still abstract.</p>
+</section>
+</body>
+</html>
