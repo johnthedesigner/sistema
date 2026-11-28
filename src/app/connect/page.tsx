@@ -36,7 +36,7 @@ export default function ConnectPage() {
         <p className="text-body-sm text-on-surface-muted mt-4 mb-0">The server can’t see your repository. Your agent reads and writes the project files; the server gives it procedures and calculations.</p>
       </Section>
       <Section title="Or install Agent Skills" raised>
-        <p className="text-body text-on-surface-muted m-0 mb-4">Skills put the workflows inside your agent without a server. Each skill carries its workflow and plays, and calls the tools on this site. Unzip one into your project’s skills folder (<code>.claude/skills/</code> in Claude Code), then ask your agent to start. A skill is a snapshot: download it again to get Sistema's latest plays.</p>
+        <p className="text-body text-on-surface-muted m-0 mb-4">Skills put the workflows inside your agent without a server. Each skill carries its workflow and plays, and calls the tools on this site. Unzip one into your project’s skills folder (<code>.claude/skills/</code> in Claude Code), then ask your agent to start. A skill is a snapshot: download it again to get Sistema&apos;s latest plays.</p>
         <ul className={listClass}>
           {workflows.map(w => (
             <li key={w.id}>
