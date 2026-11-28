@@ -1,6 +1,6 @@
 ---
 id: workflow.session
-title: Work on the system
+title: Update the system
 description: Day-to-day work on an established design system, from adding a component to auditing and planning, each run as a short route that starts by checking the system's current state.
 entry: true
 start_with: project.orient

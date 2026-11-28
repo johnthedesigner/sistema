@@ -16,7 +16,7 @@ export default function WorkflowsPage() {
         <PageHeader
           eyebrow={`${workflows.length} workflows`}
           title="Workflows run the plays in order"
-          lead="Start builds the foundations. Patterns builds components on them. Work on the system handles everything after that. Each one hands off to the next."
+          lead="Start builds the foundations, or Audit takes stock of what you have first. Patterns builds components on them. Update the system handles everything after that. Each one hands off to the next."
         />
         <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
           {workflows.map(w => (

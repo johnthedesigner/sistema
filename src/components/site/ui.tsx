@@ -111,6 +111,28 @@ export function CardLink({ href, children }: { href: string; children: ReactNode
   )
 }
 
+/** A list of linked items in one column, alphabetical by the caller (D45). */
+export function LinkList({ children }: { children: ReactNode }) {
+  return <ul className="list-none m-0 p-0 rounded-radius-lg bg-surface-raised divide-y divide-border overflow-hidden">{children}</ul>
+}
+
+export function LinkListItem({ href, title, description, meta }: { href: string; title: ReactNode; description?: ReactNode; meta?: ReactNode }) {
+  return (
+    <li>
+      <Link href={href} className="group flex items-start gap-4 px-5 py-4 no-underline hover:bg-surface-hover transition-colors motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-border-focus">
+        <span className="min-w-0 flex-1">
+          <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <span className="text-label text-on-surface">{title}</span>
+            {meta}
+          </span>
+          {description && <span className="block text-body-sm text-on-surface-muted mt-1 max-w-[75ch]">{description}</span>}
+        </span>
+        <span className="text-on-surface-faint group-hover:text-on-surface mt-1 shrink-0"><ArrowRight size={13} /></span>
+      </Link>
+    </li>
+  )
+}
+
 export function RailBox({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="rounded-radius-lg bg-surface-raised p-4">

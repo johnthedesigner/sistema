@@ -12,7 +12,7 @@ export const MILESTONE_LABELS: Record<Milestone, string> = {
   direction: 'Direction',
   foundations: 'Foundations',
   patterns: 'Patterns',
-  maintain: 'Work on my system',
+  maintain: 'Update',
 }
 
 /** Chip colors per milestone, from the site's stage tokens. */
@@ -99,9 +99,9 @@ export function guidesForTopic(topic: string): Guide[] {
   return catalog().guides.filter(g => g.topic === topic)
 }
 
-/** Workflows shown first: start, then patterns, then session. */
+/** Workflows in the order a project meets them: start or audit, then patterns, then session. */
 export function orderedWorkflows(): Workflow[] {
-  const order = ['workflow.start', 'workflow.patterns', 'workflow.session']
+  const order = ['workflow.start', 'workflow.audit', 'workflow.patterns', 'workflow.session']
   return [...catalog().workflows].sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id))
 }
 
