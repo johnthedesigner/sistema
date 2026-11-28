@@ -1,4 +1,4 @@
-/** Shared frame for the entry pages (/start, /existing, /work). */
+/** Shared frame for the entry pages (/start, /audit, /update). */
 import { AgentNote } from '@/components/site/ui'
 
 export function EntryHeader({ eyebrow, title, lead, raw }: { eyebrow: string; title: string; lead: string; raw: string }) {

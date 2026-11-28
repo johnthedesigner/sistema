@@ -14,17 +14,20 @@ import { SistemaByJtdLogo } from '@/components/logos/SistemaByJtdLogo'
 const GET_STARTED = [
   { label: 'How Sistema works', href: '/how-it-works', desc: 'Stages, approvals, and what lands in your repo.' },
   { label: 'Start a design system', href: '/start', desc: 'From nothing to an approved, checked token system.' },
-  { label: 'Bring Sistema to an existing system', href: '/existing', desc: 'Keeps what you have; fills the gaps.' },
-  { label: 'Work on my system', href: '/work', desc: 'Components, themes, audits, and what’s next.' },
+  { label: 'Audit what you have', href: '/audit', desc: 'What’s consistent, what fails, what’s missing.' },
+  { label: 'Update my system', href: '/update', desc: 'Document it, add to it, check it, plan.' },
   { label: 'Connect the MCP server', href: '/connect', desc: 'Use Sistema inside your agent.' },
-  { label: 'All plays', href: '/plays', desc: 'Every step, by topic.' },
 ]
 const LINKS = [
+  { label: 'Plays', href: '/plays' },
   { label: 'Guides', href: '/guides' },
   { label: 'Reference', href: '/reference' },
   { label: 'Tools', href: '/tools' },
 ]
-const START_PATHS = ['/how-it-works', '/start', '/existing', '/work', '/connect', '/plays', '/workflows']
+const START_PATHS = ['/how-it-works', '/start', '/audit', '/update', '/connect']
+
+/** Workflow pages sit under Plays. */
+const isActive = (pathname: string, href: string) => pathname.startsWith(href) || (href === '/plays' && pathname.startsWith('/workflows'))
 
 const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus'
 const item = (active: boolean) =>
@@ -92,7 +95,7 @@ export function Nav() {
               )}
             </div>
             {LINKS.map(l => (
-              <Link key={l.href} href={l.href} aria-current={pathname.startsWith(l.href) ? 'page' : undefined} className={`${item(pathname.startsWith(l.href))} no-underline`}>
+              <Link key={l.href} href={l.href} aria-current={isActive(pathname, l.href) ? 'page' : undefined} className={`${item(isActive(pathname, l.href))} no-underline`}>
                 {l.label}
               </Link>
             ))}

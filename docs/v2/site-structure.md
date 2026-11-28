@@ -55,7 +55,7 @@ The owner's idea, refined. One component, used in three places.
 | Home | `/` | Prompt box, then the narrative sections |
 | How Sistema works | `/how-it-works` | Replaces `/guide` |
 | Start a design system | `/start` | Entry page (narrative section 3) |
-| Bring Sistema to an existing system | `/existing` | Entry page |
+| Audit what you have | `/audit` | Entry page (D42) |
 | Work on my system | `/work` | Entry page, with route suggestions |
 | A workflow | `/workflows/[id]` | The outline the agent shows, with approvals marked; prompt box |
 | All plays | `/plays` | Grouped by topic, filterable by milestone |

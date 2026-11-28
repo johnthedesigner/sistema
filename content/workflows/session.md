@@ -14,6 +14,9 @@ routes:
   change-a-decision: { title: Change an approved direction or foundation, plays: [project.revise] }
   review-the-system: { title: Review the system, plays: [project.review] }
   plan-next-iteration: { title: Plan the next round, plays: [project.plan] }
-last_reviewed: 2026-11-20
+  document-the-system: { title: Document the system, plays: [components.docs-site] }
+  build-a-page: { title: Build a page or screen, plays: [components.build-page] }
+  not-sure: { title: "Not sure yet: suggest what to do next", plays: [project.plan] }
+last_reviewed: 2026-11-28
 ---
-Use this after Start (and Patterns, if it ran) for ongoing work. Each session begins by orienting, then follows one route. `bring-in-existing-colors` also covers moving a Tailwind color config into the system.
+Use this after Start (and Patterns, if it ran) for ongoing work. Each session begins by orienting, then follows one route. `bring-in-existing-colors` also covers moving a Tailwind color config into the system. `not-sure` is for when the person doesn't know where to start: orient, then plan.

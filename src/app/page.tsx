@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PromptBox } from '@/components/site/PromptBox'
-import { promptOptions } from '@/lib/content/prompts'
+import { DEFAULT_ROUTE, promptOptions } from '@/lib/content/prompts'
 import { AgentNote } from '@/components/site/ui'
 
 export const metadata: Metadata = {
@@ -54,14 +54,14 @@ export default function Home() {
       </div>
 
       <section className={`${section} pt-6 md:pt-10 pb-16 md:pb-24`}>
-        <h1 className="text-heading-xl md:text-display font-serif text-on-surface m-0 max-w-[16ch]">
+        <h1 className="text-heading-xl md:text-display font-serif text-on-surface m-0 mx-auto max-w-[16ch] text-center">
           Firm foundations for AI-built apps. More room to design.
         </h1>
-        <p className="text-body-lg text-on-surface-muted mt-5 mb-10 max-w-[60ch]">
+        <p className="text-body-lg text-on-surface-muted mt-5 mb-10 mx-auto max-w-[60ch] text-center">
           Sistema guides your coding agent through building a design system in your repository, with you approving each stage. Every new screen starts from solid ground, and your time goes to design.
         </p>
-        <div className="max-w-[760px]">
-          <PromptBox suggestions={suggestions} routes={routes} initial="workflow.start" />
+        <div className="max-w-[820px] mx-auto">
+          <PromptBox suggestions={suggestions} routes={routes} initial="workflow.start" defaultRoute={DEFAULT_ROUTE} center />
         </div>
       </section>
 

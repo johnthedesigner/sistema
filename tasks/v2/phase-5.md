@@ -53,7 +53,7 @@ From the critical review (section 4): "drawn on your own product" becomes what t
 
 ## Task V5.5: Audit workflow and the home page's choices
 
-**Status:** not started
+**Status:** built (2026-11-28); waiting for the owner's approval. `workflow.audit` (`project.assess`, the new `project.audit`, and an approval) continues to `workflow.start`. New session routes: document the system (the default), build a page or screen (new play `components.build-page`), and not sure yet. Home page: start, audit, update as cards, with update's routes as a radio group joined to it; the hero centered; the prompt box's spacing fixed. `/existing` is now `/audit` and `/work` is `/update`; Plays moved to the top navigation.
 
 D42 and D43: a new `workflow.audit` (read and report, then offer to adopt or fix); the home page's choices become start, audit, update, with update's routes as a nested radio group (new routes: not sure yet, build a page or screen, document the system, which is the default). Draft the button copy for the owner.
 

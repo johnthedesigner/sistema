@@ -13,11 +13,11 @@ async function rpc(method: string, params?: unknown, url = 'http://x/mcp') {
 }
 
 describe('/mcp', () => {
-  it('lists the seven tools and a prompt per workflow', async () => {
+  it('lists the tools and a prompt per workflow', async () => {
     const tools = (await rpc('tools/list')).result.tools.map((t: { name: string }) => t.name)
     expect(tools.sort()).toEqual(['contrast', 'dark_mode', 'next_step', 'palette', 'read', 'search', 'specimen', 'type_scale', 'validate'])
     const prompts = (await rpc('prompts/list')).result.prompts.map((p: { name: string }) => p.name)
-    expect(prompts.sort()).toEqual(['patterns', 'session', 'start'])
+    expect(prompts.sort()).toEqual(['audit', 'patterns', 'session', 'start'])
   })
   it('returns the same result as the API, and errors as tool errors', async () => {
     const r = await rpc('tools/call', { name: 'contrast', arguments: { pairs: [{ foreground: '#000000', background: '#FFFFFF' }] } })

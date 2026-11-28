@@ -19,8 +19,8 @@ const FOOTER_NAV = [
     links: [
       { label: 'How Sistema works', href: '/how-it-works' },
       { label: 'Start a design system', href: '/start' },
-      { label: 'Bring Sistema to an existing system', href: '/existing' },
-      { label: 'Work on my system', href: '/work' },
+      { label: 'Audit what you have', href: '/audit' },
+      { label: 'Update my system', href: '/update' },
       { label: 'Connect the MCP server', href: '/connect' },
       { label: 'All plays', href: '/plays' },
     ],
