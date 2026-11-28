@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 const STAGES = [
   ['It learns your project', 'It reads what’s there and asks only what’s missing.'],
-  ['It shows you options', 'How much color, which grays, how round, which typeface: each drawn on your own product.'],
+  ['It shows you options', 'How much color, which grays, how round, which typeface: each shown on a screen like yours, with your words.'],
   ['You choose', 'Pick an option for each question, or ask for changes.'],
   ['It builds the foundations', 'Color, type, shape, and spacing, from Sistema’s tools, checked and compiled.'],
   ['You see the whole system', 'Every token in light and dark, before anything builds on it.'],

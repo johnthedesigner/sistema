@@ -7,7 +7,7 @@ sources:
   - { source: anthropic-frontend-design, url: "https://github.com/anthropics/claude-code/blob/main/plugins/frontend-design/skills/frontend-design/SKILL.md" }
   - { source: impeccable, url: "https://github.com/pbakaus/impeccable" }
   - { source: nngroup-hierarchy, url: "https://www.nngroup.com/articles/visual-hierarchy-ux-definition/" }
-note: "The visual direction page is where the person chooses the look, by seeing options on their own product, before any token values are written."
+note: "The visual direction page is where the person chooses the look, by seeing options on a screen like theirs, before any token values are written."
 last_reviewed: 2026-11-22
 ---
 
@@ -19,7 +19,7 @@ What `sistema-review/visual-direction.html` contains, how it's built, and what a
 
 ## 1 What visual-direction.html is
 
-One page where the person answers the taste questions by looking. Every rendering comes from the specimen tool, drawn on the product's own content, so options differ only in the decision.
+One page where the person answers the taste questions by looking. Every rendering comes from the specimen tool, on a layout like the product's with its own words, so options differ only in the decision.
 
 **Build it from Sistema's template,** `{{sistema_url}}/templates/visual-direction.html`. Save it as `sistema-review/visual-direction.html` and replace only the JSON in `<script id="sistema-data">`. The template draws the renderings, ramps, roles, and contrast from Sistema's tools for whatever the person picks, so later sections always follow their choices.
 

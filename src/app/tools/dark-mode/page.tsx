@@ -22,6 +22,10 @@ export default function DarkModePage() {
         />
         <div className="max-w-[880px] pb-20">
           <DarkModeMapper example={siteTokenFiles(['color.json', 'palette.json'])} standards={standardOptions()} />
+          <section className="mt-10">
+            <h2 className="text-heading-sm font-serif m-0 mb-2">What it reads</h2>
+            <p className="text-body text-on-surface-muted m-0">It reads a light theme built on ramps: roles that point to stops from 50 to 950 in steps of 50, named with Sistema&apos;s roles. Surfaces step down only for Sistema&apos;s surface names (surface, surface-raised, and so on); every other role mirrors. A stop a ramp doesn&apos;t have gets no value or check, and values not on a ramp are kept as they are, so choose those by hand.</p>
+          </section>
           <p className="text-body-sm text-on-surface-muted mt-10 mb-0">
             Agents use the API: <code className="font-mono text-caption">POST {SITE_URL}/api/dark-mode</code> with <code className="font-mono text-caption">{'{"files": {"color.json": {...}, "palette.json": {...}}}'}</code>. See <Link href="/reference/tools#dark_mode" className="text-link">the tool reference</Link>.
           </p>

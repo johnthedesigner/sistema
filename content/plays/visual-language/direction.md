@@ -1,7 +1,7 @@
 ---
 id: visual-language.direction
 title: Set the visual direction
-description: Turn the project's positioning into what the product needs, ask the person the taste questions with options rendered on their own product, and get a visual direction page page approved before any token values are generated.
+description: Turn the project's positioning into what the product needs, ask the person the taste questions with options shown on a screen like theirs, in the product's own words, and get a visual direction page page approved before any token values are generated.
 topic: visual-language
 kind: create
 milestone: direction
@@ -23,7 +23,7 @@ evidence: sistema-review/visual-direction.html built from the template, every ta
 overrides: []
 last_reviewed: 2026-11-20
 ---
-The person chooses the look by picking between options drawn on their own product. You propose an answer to each question and say why. No tokens are written here, but every color comes from the palette tool, so what the person approves is what the color play uses.
+The person chooses the look by picking between options shown on a screen like theirs, with the product's own words. The specimen is a stand-in for the product's screens, not a preview of them: say so if the product already has a UI. You propose an answer to each question and say why. No tokens are written here, but every color comes from the palette tool, so what the person approves is what the color play uses.
 
 1. **Read the project:** `sistema.json` (theme, density, accessibility standard), the positioning statement in DECISIONS.md, and any brand material `project.assess` found. Existing brand colors and typefaces are fixed; ask only what they leave open.
 

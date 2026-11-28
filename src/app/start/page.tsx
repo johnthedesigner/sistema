@@ -29,7 +29,7 @@ export default function StartPage() {
           <li>Light theme, dark theme, or both.</li>
           <li>Web, mobile, or both, and roughly how large the system will be.</li>
           <li>Which accessibility standard it must meet. The agent helps you choose; WCAG 2.2 AA fits most web products.</li>
-          <li>Then, with options drawn on your product: how much color, which grays, how round, how panels separate, and which typeface.</li>
+          <li>Then, with options shown on a screen like yours, using your words: how much color, which grays, how round, how panels separate, and which typeface.</li>
         </ul>
       </Section>
       <Section title="If something goes wrong" raised>

@@ -37,7 +37,7 @@ last_reviewed: 2026-11-20
 A product's look comes from two kinds of decision:
 
 - **Craft:** how well things are made. Sistema starts every project from a baseline, and the project can override any part of it.
-- **Taste:** where products should differ, such as how much color, how round, which typeface. The person decides, by choosing between options shown on their own product.
+- **Taste:** where products should differ, such as how much color, how round, which typeface. The person decides, by choosing between options shown on a screen like theirs.
 
 "Functional" means nothing purely decorative. It doesn't mean bare. Color, depth, a distinctive typeface, or a block of brand color can all do a job.
 
@@ -86,7 +86,7 @@ Each taste question is then answered by the option that best serves these needs.
 
 ## The taste questions
 
-Each question is shown, not described. The options are drawn on the product's own content by the specimen tool, so only the decision differs. The agent proposes one option per question, with the need it serves. The person picks.
+Each question is shown, not described. The specimen tool draws the options on a layout like the product's, with the product's own words, so only the decision differs. It stands in for the product's screens; it doesn't render them. The agent proposes one option per question, with the need it serves. The person picks.
 
 ### How much color
 

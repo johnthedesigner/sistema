@@ -45,11 +45,11 @@ Decide the web-first statement (BACKLOG "Platform scope"), so the launch copy sa
 
 ## Task V5.4: Messaging fixes
 
-**Status:** not started
+**Status:** done (2026-11-28). "Drawn on your own product" reworded on the home page, `/start`, the direction play, the visual language guides, and `opinion.look-is-yours`; the direction play now tells the agent the specimen is a stand-in when the product has a UI. The validator and dark mode pages and tool docs say what they read. The connect page says skills are a snapshot.
 
 From the critical review (section 4): "drawn on your own product" becomes what the specimen does; the validator and dark mode pages and API docs state what they assume; the connect page says skills are a snapshot.
 
-- [ ] No claim on the site or in plays goes past what the tool does
+- [x] No claim on the site or in plays goes past what the tool does
 
 ## Task V5.5: Audit workflow and the home page's choices
 

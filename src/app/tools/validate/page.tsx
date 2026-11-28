@@ -22,6 +22,10 @@ export default function ValidatePage() {
         />
         <div className="max-w-[880px] pb-20">
           <TokenValidator example={siteTokenFiles()} standards={standardOptions()} />
+          <section className="mt-10">
+            <h2 className="text-heading-sm font-serif m-0 mb-2">What it reads</h2>
+            <p className="text-body text-on-surface-muted m-0">It reads token files in Sistema&apos;s shape: DTCG JSON with colors written as strings, color roles named color.&lt;role&gt; from Sistema&apos;s role list, and modes as files named &lt;name&gt;.&lt;mode&gt;.json. Files in another shape get the format and alias checks; the role and contrast checks say what they couldn&apos;t find. Translucent colors aren&apos;t checked.</p>
+          </section>
           <p className="text-body-sm text-on-surface-muted mt-10 mb-0">
             Agents use the API: <code className="font-mono text-caption">POST {SITE_URL}/api/validate</code> with <code className="font-mono text-caption">{'{"files": {...}, "standard": "wcag-2.2 AA"}'}</code>. See <Link href="/reference/tools#validate" className="text-link">the tool reference</Link>.
           </p>
