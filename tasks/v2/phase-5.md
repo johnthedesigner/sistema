@@ -43,15 +43,47 @@ Decide the web-first statement (BACKLOG "Platform scope"), so the launch copy sa
 
 - [x] Owner approves the statement and where it appears
 
-## Task V5.4: Deferred site work
+## Task V5.4: Messaging fixes
 
 **Status:** not started
 
-From the BACKLOG: the home page headline, the content and layout passes, the roughly 250 raw pixel values in older pages (move to type and spacing roles), and the "worked example" framing. Show consequential visual changes in the browser before committing to them.
+From the critical review (section 4): "drawn on your own product" becomes what the specimen does; the validator and dark mode pages and API docs state what they assume; the connect page says skills are a snapshot.
 
-- [ ] Owner approves the headline and the passes; no raw pixel values left outside documented exceptions
+- [ ] No claim on the site or in plays goes past what the tool does
 
-## Task V5.5: Content upkeep
+## Task V5.5: Audit workflow and the home page's choices
+
+**Status:** not started
+
+D42 and D43: a new `workflow.audit` (read and report, then offer to adopt or fix); the home page's choices become start, audit, update, with update's routes as a nested radio group (new routes: not sure yet, build a page or screen, document the system, which is the default). Draft the button copy for the owner.
+
+- [ ] Audit workflow written and checked; home page choices approved by the owner
+
+## Task V5.6: Site design
+
+**Status:** not started
+
+From the owner's notes (review section 7), with comparison pages for consequential choices: the prompt box's spacing; the home page (centered, refined cards with icons, the headline); Plays top-level with a workflows callout (D45); eyebrows in sentence case; play pages (no alternating backgrounds, balanced space); the footer (large interactive logo, colored background); How Sistema works as a landing page; Reference on two page patterns with alphabetical, grouped lists; the tools index cards; the remaining raw pixel values.
+
+- [ ] Each part approved by the owner in the browser, at desktop and phone width
+
+## Task V5.7: Tool pages
+
+**Status:** not started
+
+D46 on all six tools: the shared layout, the standard picker with a line per standard, swatch-led color inputs, how Sistema uses each tool first, and limits stated.
+
+- [ ] All six pages on the principles; approved by the owner
+
+## Task V5.8: Tool capabilities
+
+**Status:** not started
+
+D44: shape detection, object colors, and missing stops in the validator and dark mode; the specimen's phone layout; previews in the person's own app in the direction and existing-colors plays; palette anchoring; translucent colors in contrast. Each with tests and its page and docs updated.
+
+- [ ] Each capability built, tested, and documented
+
+## Task V5.9: Content upkeep
 
 **Status:** not started
 
@@ -59,10 +91,10 @@ Review the guides the content check lists as due, and run the source-closeness c
 
 - [ ] No guides due for review; closeness findings fixed or recorded
 
-## Task V5.6: Housekeeping and gate check
+## Task V5.10: Housekeeping and gate check
 
 **Status:** not started
 
 Retro, AGENTS.md updates, `tasks/v2/phase-6.md`, and the session log archive.
 
-- [ ] Gate (revised by D38): the harness plan approved, site claims match the evidence, the deferred site work done; owner approves
+- [ ] Gate (revised by D38): the harness plan approved, site claims match the evidence, the review's launch work (V5.4 to V5.8) done; owner approves
