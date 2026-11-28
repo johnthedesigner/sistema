@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { ContrastChecker } from '@/components/contrast/ContrastChecker'
 import { ToolPage } from '@/components/tools/ToolPage'
 import { contrastTable } from '@/lib/tools/contrast'
@@ -20,7 +21,7 @@ export default function ContrastPage() {
       how="When a play builds or checks colors, it sends every pair that matters (each text role on each surface, in every theme) to this tool in one request, with the project’s standard. A pair that fails is moved to another stop and checked again before it’s written."
       limits={
         <>
-          <p className="m-0">It measures with WCAG 2.x’s contrast formula, the one the listed standards use. APCA, a candidate for a future WCAG, models perception more closely and isn’t offered here; the <a href="/guides/color/architecture#pairs-to-check" className="text-link">color guide</a> explains the difference.</p>
+          <p className="m-0">It measures with WCAG 2.x’s contrast formula, the one the listed standards use. APCA, a candidate for a future WCAG, models perception more closely and isn’t offered here; the <Link href="/guides/color/architecture#pairs-to-check" className="text-link">color guide</Link> explains the difference.</p>
           <p className="m-0">Colors must be opaque. Text over a translucent overlay or an image isn’t checked: work out the color it lands on first.</p>
           <p className="m-0">Large text follows WCAG’s definition (24px, or bold at 18.66px). The tool can’t see your type, so a play says which check applies to each pair.</p>
         </>
