@@ -262,23 +262,43 @@
     },
     "footer-red": {
       "$type": "color",
-      "$value": "{palette.logo.red-550}",
-      "$description": "The footer while the logo's red shape is hovered. White text on it is 5.54."
+      "$value": "{palette.logo.red-450}",
+      "$description": "The footer while the logo's red shape is hovered. Dark text (on-footer-red) on it is 4.99."
     },
     "footer-yellow": {
       "$type": "color",
-      "$value": "{palette.logo.yellow-150}",
-      "$description": "The footer while the logo's yellow shape is hovered. Dark text (on-footer-yellow) on it is 17.1."
+      "$value": "{palette.logo.yellow-300}",
+      "$description": "The footer while the logo's yellow shape is hovered. Dark text (on-footer-yellow) on it is 9.34."
     },
     "on-footer": {
       "$type": "color",
       "$value": "{palette.base.white}",
-      "$description": "Text on the blue and red footer."
+      "$description": "Text on the blue footer (5.53)."
     },
     "on-footer-yellow": {
       "$type": "color",
       "$value": "{palette.neutral.900}",
       "$description": "Text on the yellow footer."
+    },
+    "on-footer-red": {
+      "$type": "color",
+      "$value": "{palette.neutral.900}",
+      "$description": "Text on the red footer."
+    },
+    "footer-blue-line": {
+      "$type": "color",
+      "$value": "{palette.logo.blue-600}",
+      "$description": "The footer's divider on the blue background: one stop darker, so it stays subtle."
+    },
+    "footer-red-line": {
+      "$type": "color",
+      "$value": "{palette.logo.red-500}",
+      "$description": "The footer's divider on the red background: one stop darker, so it stays subtle."
+    },
+    "footer-yellow-line": {
+      "$type": "color",
+      "$value": "{palette.logo.yellow-350}",
+      "$description": "The footer's divider on the yellow background: one stop darker, so it stays subtle."
     }
   }
 }

@@ -55,7 +55,11 @@
     "footer-red": "var(--color-footer-red)",
     "footer-yellow": "var(--color-footer-yellow)",
     "on-footer": "var(--color-on-footer)",
-    "on-footer-yellow": "var(--color-on-footer-yellow)"
+    "on-footer-yellow": "var(--color-on-footer-yellow)",
+    "on-footer-red": "var(--color-on-footer-red)",
+    "footer-blue-line": "var(--color-footer-blue-line)",
+    "footer-red-line": "var(--color-footer-red-line)",
+    "footer-yellow-line": "var(--color-footer-yellow-line)"
   },
   "fontSize": {
     "display": [

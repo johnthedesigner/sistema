@@ -2,12 +2,15 @@
 
 /**
  * The footer (owner, 2026-11-28): a large logo above the columns, on a solid
- * logo-blue background. Hovering the logo's red or yellow shape turns the footer
- * that color, with a transition; leaving the logo returns it to blue. Blue and red
- * sit one stop darker than the logo so white text passes; yellow is lighter, with
- * dark text (tokens footer-* and on-footer*, DECISIONS.md).
+ * logo-blue background, using the header's lockup. Hovering the logo's red or
+ * yellow shape turns the footer that color, with a transition; the blue shape and
+ * its overlaps, or leaving the logo, return it to blue. Blue sits one stop darker
+ * than the logo so white text passes; red is lighter and yellow darker, with dark
+ * text. The divider is one stop darker than each background (tokens footer-*,
+ * on-footer*, footer-*-line; DECISIONS.md).
  */
 import { useState } from 'react'
+import { SistemaByJtdLogo, type LogoShape } from '@/components/logos/SistemaByJtdLogo'
 import Link from 'next/link'
 import { ThemeSwitch } from './ThemeSwitch'
 
@@ -59,37 +62,23 @@ const FOOTER_NAV = [
   },
 ]
 
-type Tone = 'blue' | 'red' | 'yellow'
-const TONE: Record<Tone, string> = {
-  blue: 'bg-footer-blue text-on-footer',
-  red: 'bg-footer-red text-on-footer',
-  yellow: 'bg-footer-yellow text-on-footer-yellow',
+type Tone = LogoShape
+const TONE: Record<Tone, { bg: string; line: string }> = {
+  blue: { bg: 'bg-footer-blue text-on-footer', line: 'border-footer-blue-line' },
+  red: { bg: 'bg-footer-red text-on-footer-red', line: 'border-footer-red-line' },
+  yellow: { bg: 'bg-footer-yellow text-on-footer-yellow', line: 'border-footer-yellow-line' },
 }
 
 const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current rounded-radius-sm'
 
-/** The logo symbol, with each of its three main shapes reporting hover. The overlaps belong to two shapes, so they don't. */
-function InteractiveSymbol({ onTone, height }: { onTone: (t: Tone) => void; height: number }) {
-  const width = Math.round(height * (172 / 192))
-  return (
-    <svg width={width} height={height} viewBox="0 0 172 192" fill="none" aria-hidden="true" onMouseLeave={() => onTone('blue')} className="shrink-0">
-      <path onMouseEnter={() => onTone('red')} fillRule="evenodd" clipRule="evenodd" d="M69.1123 121.945L42.307 142.588C35.605 147.75 36.994 158.229 44.8092 161.466L115.922 190.922C123.738 194.159 132.13 187.732 131.04 179.343L125.626 137.647L93.1029 151.119C87.4902 153.443 81.0555 150.778 78.7307 145.165L69.1123 121.945Z" fill="#E60026" />
-      <path onMouseEnter={() => onTone('yellow')} fillRule="evenodd" clipRule="evenodd" d="M99.08 40.4036L54.8345 58.7307C49.2218 61.0555 46.5565 67.4902 48.8814 73.1029L59.6381 99.0719C56.5194 99.6809 53.297 100 50 100C22.3858 100 0 77.6142 0 50C0 22.3858 22.3858 0 50 0C74.332 0 94.6045 17.3804 99.08 40.4036Z" fill="#FFCC33" />
-      <path d="M69.1123 121.945L103.478 95.4787C110.2 90.3014 120.005 94.3628 121.098 102.777L125.626 137.647L93.1029 151.119C87.4902 153.443 81.0555 150.778 78.7307 145.165L69.1123 121.945Z" fill="#790083" />
-      <path onMouseEnter={() => onTone('blue')} fillRule="evenodd" clipRule="evenodd" d="M69.1123 121.945L59.6381 99.0719C82.6406 94.58 100 74.3173 100 50C100 46.7177 99.6837 43.5093 99.08 40.4036L126.897 28.8814C132.51 26.5565 138.944 29.2218 141.269 34.8345L171.119 106.897C173.443 112.51 170.778 118.944 165.165 121.269L125.626 137.647L121.098 102.777C120.005 94.3628 110.2 90.3014 103.478 95.4787L69.1123 121.945Z" fill="#0070FF" />
-      <path d="M54.8345 58.7307L99.08 40.4036C99.6837 43.5093 100 46.7177 100 50C100 74.3173 82.6406 94.58 59.6381 99.0719L48.8814 73.1029C46.5565 67.4902 49.2218 61.0555 54.8345 58.7307Z" fill="#2C7900" />
-    </svg>
-  )
-}
-
 export function SiteFooter() {
   const [tone, setTone] = useState<Tone>('blue')
   return (
-    <footer className={`mt-section-gap transition-colors duration-500 motion-reduce:transition-none ${TONE[tone]}`}>
+    <footer className={`mt-section-gap transition-colors duration-500 motion-reduce:transition-none ${TONE[tone].bg}`}>
       <div className="max-w-[1180px] mx-auto px-5 md:px-10">
-        <div className="pt-14 md:pt-20 pb-10 md:pb-14 flex items-center gap-5 md:gap-8">
-          <InteractiveSymbol onTone={setTone} height={112} />
-          <span className="font-serif font-semibold text-[56px] md:text-[96px] leading-none tracking-[-0.02em]" aria-label="Sistema">Sistema</span>
+        <div className="pt-14 md:pt-20 pb-10 md:pb-14">
+          {/* The header's lockup at about twice the footer's earlier size, scaling down to fit narrow screens. */}
+          <SistemaByJtdLogo height={224} byColor="currentColor" onShape={setTone} className="block w-full max-w-[970px] h-auto" />
         </div>
         <div className="pb-12 grid grid-cols-1 md:grid-cols-[1.2fr_repeat(3,1fr)] gap-10">
           <p className="m-0 text-body max-w-[300px]">
@@ -110,7 +99,7 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div className="pt-5 pb-20 md:pb-24 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-current/20">
+        <div className={`pt-5 pb-20 md:pb-24 flex flex-wrap items-center gap-x-5 gap-y-3 border-t transition-colors duration-500 motion-reduce:transition-none ${TONE[tone].line}`}>
           <a href="https://johnthedesigner.com" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 no-underline hover:underline underline-offset-4 text-caption text-current ${focusRing}`}>
             <JohnTheDesignerMark size={14} />
             Built by John the Designer

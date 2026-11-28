@@ -572,18 +572,30 @@
       }
     },
     "logo": {
-      "$description": "Stops from the palette tool seeded with the logo colors (2026-11-28), for the footer. Blue and red step one stop darker than the logo so white text passes; yellow steps lighter, with dark text.",
+      "$description": "Stops from the palette tool seeded with the logo colors, for the footer (owner, 2026-11-28). Blue steps one stop darker than the logo so white text passes; red steps lighter and yellow darker, both with dark text, so each logo shape still shows against its background.",
       "blue-550": {
         "$type": "color",
         "$value": "#1163D8"
       },
-      "red-550": {
+      "red-450": {
         "$type": "color",
-        "$value": "#CA232C"
+        "$value": "#F64C4C"
       },
-      "yellow-150": {
+      "yellow-300": {
         "$type": "color",
-        "$value": "#FFE6A8"
+        "$value": "#E5B93B"
+      },
+      "blue-600": {
+        "$type": "color",
+        "$value": "#0654BE"
+      },
+      "red-500": {
+        "$type": "color",
+        "$value": "#E33238"
+      },
+      "yellow-350": {
+        "$type": "color",
+        "$value": "#D2A82D"
       }
     }
   }

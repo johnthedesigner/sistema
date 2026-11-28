@@ -54,10 +54,14 @@ colors:
   brand-blue: "#0070FF"
   brand-yellow-subtle: "#fff3d3"
   footer-blue: "#1163D8"
-  footer-red: "#CA232C"
-  footer-yellow: "#FFE6A8"
+  footer-red: "#F64C4C"
+  footer-yellow: "#E5B93B"
   on-footer: "#FFFFFF"
   on-footer-yellow: "#171B20"
+  on-footer-red: "#171B20"
+  footer-blue-line: "#0654BE"
+  footer-red-line: "#E33238"
+  footer-yellow-line: "#D2A82D"
 typography:
   display: { fontFamily: "Fraunces", fontSize: 61, fontWeight: 600, lineHeight: 1.05 }
   heading-xl: { fontFamily: "Fraunces", fontSize: 39, fontWeight: 600, lineHeight: 1.15 }
