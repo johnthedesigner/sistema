@@ -112,9 +112,10 @@ export default function HowItWorksPage() {
           <span aria-hidden="true" className="hidden lg:block absolute top-5 left-[10%] w-[60%] h-0.5 bg-primary" />
           {/* Past the fifth stage, dotted and running off the edge of the window: the work keeps going. */}
           <span aria-hidden="true" className="hidden lg:block absolute top-[19px] left-[70%] -right-[50vw] h-1 bg-[radial-gradient(circle,var(--color-primary)_1.5px,transparent_1.75px)] bg-[length:10px_4px] bg-repeat-x" />
-          <span aria-hidden="true" className="lg:hidden absolute left-5 top-5 bottom-5 w-0.5 bg-primary" />
           {BEATS.map((b, i) => (
             <li key={b.title} className="relative flex lg:flex-col lg:items-center gap-4 lg:gap-0 lg:text-center">
+              {/* Narrow screens: each stage draws its line down to the next node (the gap is 2rem); solid through the four stages, dotted from the fourth on. */}
+              <span aria-hidden="true" className={`lg:hidden absolute left-[19px] top-5 h-[calc(100%+2rem)] ${i < 3 ? 'w-0.5 bg-primary' : 'w-1 left-[18px] bg-[radial-gradient(circle,var(--color-primary)_1.5px,transparent_1.75px)] bg-[length:4px_10px] bg-repeat-y'}`} />
               <span className="relative z-10 inline-flex items-center justify-center w-10 h-10 rounded-radius-full bg-surface text-label text-primary ring-2 ring-primary shrink-0">{i + 1}</span>
               <span className="lg:mt-5">
                 <span className="block text-label text-on-surface">{b.title}</span>
@@ -123,6 +124,8 @@ export default function HowItWorksPage() {
             </li>
           ))}
           <li className="relative flex lg:flex-col lg:items-center gap-4 lg:gap-0 lg:text-center">
+            {/* Narrow screens: dotted on past the last stage to the bottom of the hero. */}
+            <span aria-hidden="true" className="lg:hidden absolute left-[18px] top-5 w-1 h-[calc(100%+4rem-1.25rem)] md:h-[calc(100%+6rem-1.25rem)] bg-[radial-gradient(circle,var(--color-primary)_1.5px,transparent_1.75px)] bg-[length:4px_10px] bg-repeat-y" />
             <span className="relative z-10 inline-flex items-center justify-center w-10 h-10 rounded-radius-full bg-primary text-on-primary shrink-0"><Arrow size={18} strokeWidth={2} aria-hidden="true" /></span>
             <span className="lg:mt-5">
               <span className="block text-label text-on-surface">Build on it</span>
