@@ -3,10 +3,10 @@
  * a topic or kind looks the same on every page. Lucide icons, sized by the caller.
  */
 import {
-  Accessibility, BadgeCheck, BookOpen, Bot, Braces, ClipboardList, Component, Eye, FileText, Layers, Library, Lightbulb,
-  MessageSquareText, Palette, Play, Ruler, Scale, Shapes, Type, Waves, Workflow, Wrench, type LucideIcon,
+  Accessibility, BadgeCheck, BookOpen, Bot, Braces, ClipboardList, Component, Contrast, Eye, FileText, Layers, LayoutTemplate, Library, Lightbulb,
+  MessageSquareText, Moon, Palette, Play, Ruler, Scale, Shapes, ShieldCheck, Type, Waves, Workflow, Wrench, type LucideIcon,
 } from 'lucide-react'
-import type { Topic } from '@/lib/content/schema'
+import type { ToolName, Topic } from '@/lib/content/schema'
 
 export const TOPIC_ICONS: Record<Topic, LucideIcon> = {
   project: ClipboardList,
@@ -38,6 +38,15 @@ export const KIND_ICONS = {
 
 export type ItemKind = keyof typeof KIND_ICONS
 
+export const TOOL_ICONS: Record<ToolName, LucideIcon> = {
+  palette: Palette,
+  contrast: Contrast,
+  type_scale: Type,
+  specimen: LayoutTemplate,
+  validate: ShieldCheck,
+  dark_mode: Moon,
+}
+
 /** An icon in a soft square, for group headings and counts. */
 export function IconBadge({ icon: Icon, size = 'md' }: { icon: LucideIcon; size?: 'sm' | 'md' }) {
   const box = size === 'sm' ? 'w-6 h-6' : 'w-8 h-8'
@@ -55,6 +64,17 @@ export function CountLabel({ kind, count, label }: { kind: ItemKind; count: numb
     <span className="inline-flex items-center gap-1.5">
       <Icon size={15} strokeWidth={1.8} aria-hidden="true" />
       {count} {label}
+    </span>
+  )
+}
+
+/** A kind label with its icon, for a single item ("File format"). */
+export function KindLabel({ kind, label }: { kind: ItemKind; label: string }) {
+  const Icon = KIND_ICONS[kind]
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      <Icon size={15} strokeWidth={1.8} aria-hidden="true" />
+      {label}
     </span>
   )
 }

@@ -1,10 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Contrast, LayoutTemplate, Moon, Palette, ShieldCheck, Type, type LucideIcon } from 'lucide-react'
 import { catalog, playHref } from '@/lib/content/site'
 import type { ToolName } from '@/lib/content/schema'
 import { AgentNote, Container, PageHeader } from '@/components/site/ui'
-import { CountLabel, IconBadge } from '@/components/site/icons'
+import { CountLabel, IconBadge, TOOL_ICONS } from '@/components/site/icons'
 
 export const metadata: Metadata = {
   title: 'Tools',
@@ -12,7 +11,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-const ICONS: Record<string, LucideIcon> = { palette: Palette, contrast: Contrast, 'type-scale': Type, specimen: LayoutTemplate, validate: ShieldCheck, 'dark-mode': Moon }
 const NAMES: Record<string, ToolName> = { palette: 'palette', contrast: 'contrast', 'type-scale': 'type_scale', specimen: 'specimen', validate: 'validate', 'dark-mode': 'dark_mode' }
 
 const TOOLS = [
@@ -70,7 +68,7 @@ export default function ToolsPage() {
             const users = plays.filter(p => p.tools.includes(NAMES[tool.slug])).sort((a, b) => a.title.localeCompare(b.title))
             return (
               <div key={tool.slug} className="relative rounded-radius-xl bg-surface-raised p-5 md:p-6 hover:bg-surface-hover transition-colors motion-reduce:transition-none">
-                <IconBadge icon={ICONS[tool.slug]} />
+                <IconBadge icon={TOOL_ICONS[NAMES[tool.slug]]} />
                 <h2 className="text-heading-sm font-serif m-0 mt-4">
                   <Link href={tool.href} className="no-underline text-on-surface after:absolute after:inset-0 after:rounded-radius-xl focus-visible:outline-none focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:outline-border-focus">{tool.title}</Link>
                 </h2>

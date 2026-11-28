@@ -1,39 +1,36 @@
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 import { catalog } from '@/lib/content/site'
-import { AgentNote, ArrowRight, CardLink, Container, PageHeader } from '@/components/site/ui'
+import { AgentNote, Container, LinkList, LinkListItem, PageHeader } from '@/components/site/ui'
+import { CountLabel, KindLabel } from '@/components/site/icons'
 
 export const metadata: Metadata = {
   title: 'Reference',
-  description: "Sistema's opinions, rules, workflows, and tools, for looking things up.",
+  description: "Sistema's opinions, rules, workflows, file formats, tools, and sources, for looking things up.",
 }
 
 export default function ReferencePage() {
   const c = catalog()
-  const items = [
-    { href: '/reference/opinions', title: 'Opinions', meta: `${c.opinions.length} defaults`, desc: 'What Sistema holds by default, why, and when you would choose otherwise.' },
-    { href: '/reference/rules', title: 'Rules', meta: `${c.rules.length} rules`, desc: 'The checkable requirements plays apply, with values for each accessibility standard.' },
-    { href: '/workflows', title: 'Workflows', meta: `${c.workflows.length} workflows`, desc: 'Each workflow in full: its plays in order and where you approve.' },
-    { href: '/plays', title: 'Plays', meta: `${c.plays.length} plays`, desc: 'Every step, with what it needs, what it produces, and what it shows.' },
-    ...c.files.map(f => ({ href: `/reference/files/${f.name}`, title: f.title, meta: 'file format', desc: f.description })),
-    { href: '/reference/tools', title: 'Tool APIs', meta: '2 APIs', desc: 'How agents call the palette and contrast tools.' },
-    { href: '/sources', title: 'Sources', meta: `${c.sources.length} sources`, desc: 'The design systems, standards, and research Sistema learned from, and how each is licensed.' },
+  const items: Array<{ href: string; title: string; meta: ReactNode; desc: string }> = [
+    { href: '/reference/opinions', title: 'Opinions', meta: <CountLabel kind="opinion" count={c.opinions.length} label="opinions" />, desc: 'What Sistema holds by default, why, and when you would choose otherwise.' },
+    { href: '/reference/rules', title: 'Rules', meta: <CountLabel kind="rule" count={c.rules.length} label="rules" />, desc: 'The checkable requirements plays apply, with values for each accessibility standard.' },
+    { href: '/workflows', title: 'Workflows', meta: <CountLabel kind="workflow" count={c.workflows.length} label="workflows" />, desc: 'Each workflow in full: its plays in order and where you approve.' },
+    ...c.files.map(f => ({ href: `/reference/files/${f.name}`, title: f.title, meta: <KindLabel kind="file" label="File format" />, desc: f.description })),
+    { href: '/reference/tools', title: 'Tool APIs', meta: <CountLabel kind="tool" count={6} label="tools" />, desc: 'How agents call each of Sistema’s tools, exactly as the plays give it.' },
+    { href: '/sources', title: 'Sources', meta: <CountLabel kind="source" count={c.sources.length} label="sources" />, desc: 'The design systems, standards, and research Sistema learned from, and how each is licensed.' },
   ]
+  items.sort((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base' }))
   return (
     <main>
       <Container>
         <AgentNote />
-        <PageHeader eyebrow="Reference" title="Look things up" lead="Everything Sistema decides, checks, and runs, in one place." />
-        <div className="grid gap-3" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
-          {items.map(i => (
-            <CardLink key={i.href} href={i.href}>
-              <div className="flex items-center justify-between mb-2">
-                <span className="font-mono text-[11.5px] text-on-surface-faint">{i.meta}</span>
-                <ArrowRight size={13} />
-              </div>
-              <p className="text-[15px] font-semibold text-on-surface m-0 mb-1.5">{i.title}</p>
-              <p className="text-[12.5px] text-on-surface-muted m-0 leading-[1.5]">{i.desc}</p>
-            </CardLink>
-          ))}
+        <PageHeader eyebrow="Reference" title="Look things up" lead="Everything Sistema decides, checks, and writes, in one place. Plays and guides have their own sections in the navigation." />
+        <div className="max-w-[880px] pb-8">
+          <LinkList>
+            {items.map(i => (
+              <LinkListItem key={i.href} href={i.href} title={i.title} description={i.desc} meta={<span className="text-caption text-on-surface-faint">{i.meta}</span>} />
+            ))}
+          </LinkList>
         </div>
       </Container>
     </main>

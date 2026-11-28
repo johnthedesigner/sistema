@@ -32,7 +32,7 @@ last_reviewed: 2026-11-20
 - **Roles on top of the scale.** Components use roles such as `body` and `label`, each with its own size, line height, weight, and tracking. The person chooses how roles are named.
 - **Minimums from the rules.** Required values come from the project's accessibility standard. The ranges on this page are guidance.
 
-Which typeface is a taste question, answered by seeing options on the product.
+Which typeface is a taste question, answered by seeing options on a screen like the product's.
 
 ```specimen
 type-scale base=13 ratio=major-second down=2 up=5 roles=label:-1,body:0,heading:1,title:4,metric:5

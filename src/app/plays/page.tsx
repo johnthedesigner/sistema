@@ -41,7 +41,7 @@ export default function PlaysPage() {
           </ul>
         </section>
 
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-12 max-w-[880px]">
           {activeTopics('plays').map(topic => {
             const inTopic = plays.filter(p => p.topic === topic).sort((a, b) => a.title.localeCompare(b.title))
             return (

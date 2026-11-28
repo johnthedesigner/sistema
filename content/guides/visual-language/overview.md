@@ -1,6 +1,6 @@
 ---
 title: "Visual language"
-description: "How Sistema sets a product's look: a baseline of good practice, questions about the look answered by seeing options on the product itself, and emphasis that follows importance."
+description: "How Sistema sets a product's look: a baseline of good practice, questions about the look answered by seeing options on a screen like the product's, and emphasis that follows importance."
 topic: visual-language
 sources:
   - { source: linear, url: "https://linear.app/now/how-we-redesigned-the-linear-ui" }
@@ -200,7 +200,7 @@ Relay is a dispatch board for a field-service company, used all day on desktop.
 
 - Squint at the screen. The main action and the featured item read first, the chrome last.
 - Every border has a job you can name.
-- Each taste question was shown as options on the product, and the person chose.
+- Each taste question was shown as options on a screen like the product's, and the person chose.
 - Each proposal names the need it serves.
 
 ## Plays
