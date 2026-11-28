@@ -63,11 +63,11 @@ const FOOTER_NAV = [
 ]
 
 type Tone = LogoShape
-/** bg and text for each background; line is one stop darker, for the divider and the lockup's "by JTD". */
-const TONE: Record<Tone, { bg: string; line: string; lineColor: string }> = {
-  blue: { bg: 'bg-footer-blue text-on-footer', line: 'border-footer-blue-line', lineColor: 'var(--color-footer-blue-line)' },
-  red: { bg: 'bg-footer-red text-on-footer-red', line: 'border-footer-red-line', lineColor: 'var(--color-footer-red-line)' },
-  yellow: { bg: 'bg-footer-yellow text-on-footer-yellow', line: 'border-footer-yellow-line', lineColor: 'var(--color-footer-yellow-line)' },
+/** bg and text for each background; line is one stop darker, for the divider. */
+const TONE: Record<Tone, { bg: string; line: string }> = {
+  blue: { bg: 'bg-footer-blue text-on-footer', line: 'border-footer-blue-line' },
+  red: { bg: 'bg-footer-red text-on-footer-red', line: 'border-footer-red-line' },
+  yellow: { bg: 'bg-footer-yellow text-on-footer-yellow', line: 'border-footer-yellow-line' },
 }
 
 const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current rounded-radius-sm'
@@ -78,8 +78,8 @@ export function SiteFooter() {
     <footer className={`mt-section-gap transition-colors duration-500 motion-reduce:transition-none ${TONE[tone].bg}`}>
       <div className="max-w-[1180px] mx-auto px-5 md:px-10">
         <div className="pt-14 md:pt-20 pb-10 md:pb-14">
-          {/* The header's lockup, the full width of the content column. */}
-          <SistemaByJtdLogo height={224} byColor={TONE[tone].lineColor} onShape={setTone} className="block w-full h-auto [&_path]:transition-[fill] [&_path]:duration-500 motion-reduce:[&_path]:transition-none" />
+          {/* The header's lockup without "by JTD", the full width of the content column. */}
+          <SistemaByJtdLogo height={224} withBy={false} onShape={setTone} className="block w-full h-auto" />
         </div>
         <div className="pb-12 grid grid-cols-1 md:grid-cols-[1.2fr_repeat(3,1fr)] gap-10">
           <p className="m-0 text-body max-w-[300px]">
