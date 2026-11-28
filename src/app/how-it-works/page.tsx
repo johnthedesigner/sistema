@@ -92,7 +92,8 @@ export default function HowItWorksPage() {
   return (
     <main>
       {/* 1. Hero, with the work as a timeline that keeps going */}
-      <section className={`${section} pt-14 md:pt-24 pb-16 md:pb-24`}>
+      <section className="overflow-x-clip">
+      <div className={`${section} pt-14 md:pt-24 pb-16 md:pb-24`}>
         <AgentNote raw="/raw/agents" />
         <div className="max-w-[860px] mx-auto text-center">
           <Eyebrow>How Sistema works</Eyebrow>
@@ -109,7 +110,8 @@ export default function HowItWorksPage() {
         <ol className="relative list-none m-0 p-0 mt-16 md:mt-24 grid gap-8 lg:grid-cols-5 lg:gap-4">
           {/* The line: solid through the four stages, then dashed and open past the fifth. */}
           <span aria-hidden="true" className="hidden lg:block absolute top-5 left-[10%] w-[60%] h-0.5 bg-primary" />
-          <span aria-hidden="true" className="hidden lg:block absolute top-5 left-[70%] right-0 border-t-2 border-dashed border-primary" />
+          {/* Past the fifth stage, dotted and running off the edge of the window: the work keeps going. */}
+          <span aria-hidden="true" className="hidden lg:block absolute top-[19px] left-[70%] -right-[50vw] h-1 bg-[radial-gradient(circle,var(--color-primary)_1.5px,transparent_1.75px)] bg-[length:10px_4px] bg-repeat-x" />
           <span aria-hidden="true" className="lg:hidden absolute left-5 top-5 bottom-5 w-0.5 bg-primary" />
           {BEATS.map((b, i) => (
             <li key={b.title} className="relative flex lg:flex-col lg:items-center gap-4 lg:gap-0 lg:text-center">
@@ -128,6 +130,7 @@ export default function HowItWorksPage() {
             </span>
           </li>
         </ol>
+      </div>
       </section>
 
       {/* 2. Why foundations */}
