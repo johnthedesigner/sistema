@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PromptBox } from '@/components/site/PromptBox'
 import { DEFAULT_ROUTE, promptOptions } from '@/lib/content/prompts'
-import { AgentNote } from '@/components/site/ui'
+import { BookMarked, BookOpen, Compass, Play, Wrench, type LucideIcon } from 'lucide-react'
+import { AgentNote, ArrowRight } from '@/components/site/ui'
+import { catalog } from '@/lib/content/site'
 
 export const metadata: Metadata = {
   title: 'Sistema: firm foundations for AI-built apps',
@@ -35,12 +37,17 @@ const GROWS = [
   ['Made for agents', 'Tokens named for their job, tools for what agents would guess, and “done” meaning shown and checked.'],
 ]
 
-const MATERIAL = [
-  ['How it works', 'Stages, approvals, and what lands in your repo.', '/how-it-works'],
-  ['Guides', 'How each foundation works in practice.', '/guides'],
-  ['Opinions', 'Defaults with reasons, and how to override them.', '/reference/opinions'],
-  ['Tools', 'Palette, contrast, type scale, and specimen.', '/tools'],
-]
+/** The site's main sections (the top navigation), as cards. Counts come from the content. */
+function sections(): Array<{ title: string; text: string; href: string; icon: LucideIcon; count?: string; wide?: boolean }> {
+  const c = catalog()
+  return [
+    { title: 'How Sistema works', text: 'The whole story: stages, approvals you can see, and what lands in your repository.', href: '/how-it-works', icon: Compass, wide: true },
+    { title: 'Plays', text: 'Every step Sistema can run, and the workflows that put them in order.', href: '/plays', icon: Play, count: `${c.plays.length} plays, ${c.workflows.length} workflows` },
+    { title: 'Guides', text: 'How each foundation works in practice, with the sources behind it.', href: '/guides', icon: BookOpen, count: `${c.guides.length} guides` },
+    { title: 'Reference', text: 'Opinions with their reasons, the rules plays check, and the files Sistema writes.', href: '/reference', icon: BookMarked, count: `${c.opinions.length} opinions, ${c.rules.length} rules` },
+    { title: 'Tools', text: 'Palette, contrast, type scale, specimen, token validator, and dark mode mapping.', href: '/tools', icon: Wrench, count: '6 tools' },
+  ]
+}
 
 const section = 'max-w-[1180px] mx-auto px-5 md:px-10'
 const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus'
@@ -115,11 +122,20 @@ export default function Home() {
         <p className="text-body-lg text-on-surface-muted m-0 mb-10 max-w-[64ch]">
           AI tools let anyone build working screens quickly. Without decided foundations, each screen invents its own colors and spacing, and the product drifts. Settled foundations don’t narrow what you can design. They free your time for it.
         </p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {MATERIAL.map(([t, d, href]) => (
-            <Link key={href} href={href} className={`block rounded-radius-lg bg-surface-raised p-panel-padding no-underline hover:bg-surface-hover transition-colors motion-reduce:transition-none ${focusRing}`}>
-              <span className="block text-heading-sm text-on-surface">{t}</span>
-              <span className="block text-body-sm text-on-surface-muted mt-1">{d}</span>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {sections().map(({ title, text, href, icon: Icon, count, wide }) => (
+            <Link key={href} href={href} className={`group relative flex flex-col rounded-radius-xl p-6 md:p-7 no-underline transition-colors motion-reduce:transition-none ${focusRing} ${
+              wide ? 'lg:col-span-2 bg-primary-container text-on-primary-container hover:bg-surface-selected' : 'bg-surface-raised hover:bg-surface-hover'
+            }`}>
+              <span aria-hidden="true" className={`inline-flex items-center justify-center w-11 h-11 rounded-radius-lg ${wide ? 'bg-surface-raised text-on-surface' : 'bg-primary-container text-on-primary-container'}`}>
+                <Icon size={22} strokeWidth={1.7} />
+              </span>
+              <span className={`block font-serif text-heading-md mt-5 ${wide ? '' : 'text-on-surface'}`}>{title}</span>
+              <span className={`block text-body mt-2 max-w-[48ch] ${wide ? '' : 'text-on-surface-muted'}`}>{text}</span>
+              <span className={`mt-auto pt-5 flex items-center justify-between text-caption ${wide ? '' : 'text-on-surface-faint'}`}>
+                <span>{count ?? 'Start here'}</span>
+                <span className="transition-transform motion-reduce:transition-none group-hover:translate-x-0.5"><ArrowRight size={14} /></span>
+              </span>
             </Link>
           ))}
         </div>
