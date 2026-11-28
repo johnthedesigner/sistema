@@ -254,6 +254,31 @@
       "$type": "color",
       "$value": "{palette.yellow.100}",
       "$description": "A soft yellow wash for brand moments; never status."
+    },
+    "footer-blue": {
+      "$type": "color",
+      "$value": "{palette.logo.blue-550}",
+      "$description": "The footer's default background. White text on it is 5.53."
+    },
+    "footer-red": {
+      "$type": "color",
+      "$value": "{palette.logo.red-550}",
+      "$description": "The footer while the logo's red shape is hovered. White text on it is 5.54."
+    },
+    "footer-yellow": {
+      "$type": "color",
+      "$value": "{palette.logo.yellow-150}",
+      "$description": "The footer while the logo's yellow shape is hovered. Dark text (on-footer-yellow) on it is 17.1."
+    },
+    "on-footer": {
+      "$type": "color",
+      "$value": "{palette.base.white}",
+      "$description": "Text on the blue and red footer."
+    },
+    "on-footer-yellow": {
+      "$type": "color",
+      "$value": "{palette.neutral.900}",
+      "$description": "Text on the yellow footer."
     }
   }
 }

@@ -570,6 +570,21 @@
         "$type": "color",
         "$value": "#1f0a00"
       }
+    },
+    "logo": {
+      "$description": "Stops from the palette tool seeded with the logo colors (2026-11-28), for the footer. Blue and red step one stop darker than the logo so white text passes; yellow steps lighter, with dark text.",
+      "blue-550": {
+        "$type": "color",
+        "$value": "#1163D8"
+      },
+      "red-550": {
+        "$type": "color",
+        "$value": "#CA232C"
+      },
+      "yellow-150": {
+        "$type": "color",
+        "$value": "#FFE6A8"
+      }
     }
   }
 }

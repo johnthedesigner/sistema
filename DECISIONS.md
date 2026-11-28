@@ -12,6 +12,8 @@ Inferred, not asked: the accessibility standard (WCAG 2.2 AA, from the first log
 
 2026-11-21 | Page background | Left to the new direction's warm or cool question (owner).
 2026-11-21 | Dark mode access | Follows the system setting, with a theme switch in the footer's bottom row (owner).
+2026-11-28 | Footer | A large logo above the columns on a solid background: logo blue by default, red or yellow while that shape of the logo is hovered (owner). Blue and red step one stop darker than the logo (palette.logo.blue-550, red-550) so white text passes (5.53 and 5.54; the logo blue itself is 4.41); yellow steps lighter (yellow-150) with dark text (17.1), since no yellow carries white text. Roles footer-blue, footer-red, footer-yellow, on-footer, on-footer-yellow; the names are kept despite tokens.naming.role, since each is a fixed brand color.
+2026-11-28 | Eyebrows | Sentence case, label size, no capitals (owner).
 2026-11-21 | Small-text links | The color step sets a link color that passes contrast at small sizes (owner).
 2026-11-21 | Reduced motion | Supported, as the accessibility rule requires (owner).
 2026-11-21 | Direction scope | The logo colors stay, and blue #0070FF stays the interface accent; the direction asks the other questions (owner).

@@ -51,6 +51,11 @@
   --color-brand-red: #E60026;
   --color-brand-blue: #0070FF;
   --color-brand-yellow-subtle: #fff3d3;
+  --color-footer-blue: #1163D8;
+  --color-footer-red: #CA232C;
+  --color-footer-yellow: #FFE6A8;
+  --color-on-footer: #FFFFFF;
+  --color-on-footer-yellow: #171B20;
   --radius-none: 0px;
   --radius-sm: 6px;
   --radius-md: 8px;

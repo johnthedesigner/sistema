@@ -1,5 +1,14 @@
+'use client'
+
+/**
+ * The footer (owner, 2026-11-28): a large logo above the columns, on a solid
+ * logo-blue background. Hovering the logo's red or yellow shape turns the footer
+ * that color, with a transition; leaving the logo returns it to blue. Blue and red
+ * sit one stop darker than the logo so white text passes; yellow is lighter, with
+ * dark text (tokens footer-* and on-footer*, DECISIONS.md).
+ */
+import { useState } from 'react'
 import Link from 'next/link'
-import { SistemaLogo } from '@/components/logos/SistemaLogo'
 import { ThemeSwitch } from './ThemeSwitch'
 
 function JohnTheDesignerMark({ size = 16 }: { size?: number }) {
@@ -50,26 +59,49 @@ const FOOTER_NAV = [
   },
 ]
 
-const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus rounded-radius-sm'
+type Tone = 'blue' | 'red' | 'yellow'
+const TONE: Record<Tone, string> = {
+  blue: 'bg-footer-blue text-on-footer',
+  red: 'bg-footer-red text-on-footer',
+  yellow: 'bg-footer-yellow text-on-footer-yellow',
+}
+
+const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current rounded-radius-sm'
+
+/** The logo symbol, with each of its three main shapes reporting hover. The overlaps belong to two shapes, so they don't. */
+function InteractiveSymbol({ onTone, height }: { onTone: (t: Tone) => void; height: number }) {
+  const width = Math.round(height * (172 / 192))
+  return (
+    <svg width={width} height={height} viewBox="0 0 172 192" fill="none" aria-hidden="true" onMouseLeave={() => onTone('blue')} className="shrink-0">
+      <path onMouseEnter={() => onTone('red')} fillRule="evenodd" clipRule="evenodd" d="M69.1123 121.945L42.307 142.588C35.605 147.75 36.994 158.229 44.8092 161.466L115.922 190.922C123.738 194.159 132.13 187.732 131.04 179.343L125.626 137.647L93.1029 151.119C87.4902 153.443 81.0555 150.778 78.7307 145.165L69.1123 121.945Z" fill="#E60026" />
+      <path onMouseEnter={() => onTone('yellow')} fillRule="evenodd" clipRule="evenodd" d="M99.08 40.4036L54.8345 58.7307C49.2218 61.0555 46.5565 67.4902 48.8814 73.1029L59.6381 99.0719C56.5194 99.6809 53.297 100 50 100C22.3858 100 0 77.6142 0 50C0 22.3858 22.3858 0 50 0C74.332 0 94.6045 17.3804 99.08 40.4036Z" fill="#FFCC33" />
+      <path d="M69.1123 121.945L103.478 95.4787C110.2 90.3014 120.005 94.3628 121.098 102.777L125.626 137.647L93.1029 151.119C87.4902 153.443 81.0555 150.778 78.7307 145.165L69.1123 121.945Z" fill="#790083" />
+      <path onMouseEnter={() => onTone('blue')} fillRule="evenodd" clipRule="evenodd" d="M69.1123 121.945L59.6381 99.0719C82.6406 94.58 100 74.3173 100 50C100 46.7177 99.6837 43.5093 99.08 40.4036L126.897 28.8814C132.51 26.5565 138.944 29.2218 141.269 34.8345L171.119 106.897C173.443 112.51 170.778 118.944 165.165 121.269L125.626 137.647L121.098 102.777C120.005 94.3628 110.2 90.3014 103.478 95.4787L69.1123 121.945Z" fill="#0070FF" />
+      <path d="M54.8345 58.7307L99.08 40.4036C99.6837 43.5093 100 46.7177 100 50C100 74.3173 82.6406 94.58 59.6381 99.0719L48.8814 73.1029C46.5565 67.4902 49.2218 61.0555 54.8345 58.7307Z" fill="#2C7900" />
+    </svg>
+  )
+}
 
 export function SiteFooter() {
+  const [tone, setTone] = useState<Tone>('blue')
   return (
-    <footer className="bg-surface-raised mt-section-gap">
+    <footer className={`mt-section-gap transition-colors duration-500 motion-reduce:transition-none ${TONE[tone]}`}>
       <div className="max-w-[1180px] mx-auto px-5 md:px-10">
-        <div className="pt-12 pb-10 grid grid-cols-1 md:grid-cols-[1.2fr_repeat(3,1fr)] gap-10">
-          <div>
-            <SistemaLogo height={44} />
-            <p className="mt-4 m-0 text-body-sm text-on-surface-muted max-w-[300px]">
-              A method and tools for building a design system with your AI coding agent, in your own repository.
-            </p>
-          </div>
+        <div className="pt-14 md:pt-20 pb-10 md:pb-14 flex items-center gap-5 md:gap-8">
+          <InteractiveSymbol onTone={setTone} height={112} />
+          <span className="font-serif font-semibold text-[56px] md:text-[96px] leading-none tracking-[-0.02em]" aria-label="Sistema">Sistema</span>
+        </div>
+        <div className="pb-12 grid grid-cols-1 md:grid-cols-[1.2fr_repeat(3,1fr)] gap-10">
+          <p className="m-0 text-body max-w-[300px]">
+            A method and tools for building a design system with your AI coding agent, in your own repository.
+          </p>
           {FOOTER_NAV.map(section => (
             <div key={section.label}>
-              <p className="m-0 mb-3 text-label text-on-surface">{section.label}</p>
+              <p className="m-0 mb-3 text-label font-semibold">{section.label}</p>
               <ul className="list-none p-0 m-0 flex flex-col gap-2">
                 {section.links.map(link => (
                   <li key={link.href}>
-                    <Link href={link.href} className={`no-underline text-body-sm text-on-surface-muted hover:text-on-surface ${focusRing}`}>
+                    <Link href={link.href} className={`no-underline hover:underline underline-offset-4 text-body-sm text-current ${focusRing}`}>
                       {link.label}
                     </Link>
                   </li>
@@ -78,13 +110,13 @@ export function SiteFooter() {
             </div>
           ))}
         </div>
-        <div className="py-5 flex flex-wrap items-center gap-x-5 gap-y-3 shadow-[inset_0_1px_0_var(--color-border)]">
-          <a href="https://johnthedesigner.com" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 no-underline text-caption text-on-surface-muted hover:text-on-surface ${focusRing}`}>
+        <div className="pt-5 pb-20 md:pb-24 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-current/20">
+          <a href="https://johnthedesigner.com" target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 no-underline hover:underline underline-offset-4 text-caption text-current ${focusRing}`}>
             <JohnTheDesignerMark size={14} />
             Built by John the Designer
           </a>
-          <span className="text-caption text-on-surface-faint">Public beta</span>
-          <div className="ml-auto"><ThemeSwitch /></div>
+          <span className="text-caption">Public beta</span>
+          <div className="ml-auto"><ThemeSwitch onColor /></div>
         </div>
       </div>
     </footer>

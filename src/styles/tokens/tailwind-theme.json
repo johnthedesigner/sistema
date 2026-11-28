@@ -50,7 +50,12 @@
     "brand-yellow": "var(--color-brand-yellow)",
     "brand-red": "var(--color-brand-red)",
     "brand-blue": "var(--color-brand-blue)",
-    "brand-yellow-subtle": "var(--color-brand-yellow-subtle)"
+    "brand-yellow-subtle": "var(--color-brand-yellow-subtle)",
+    "footer-blue": "var(--color-footer-blue)",
+    "footer-red": "var(--color-footer-red)",
+    "footer-yellow": "var(--color-footer-yellow)",
+    "on-footer": "var(--color-on-footer)",
+    "on-footer-yellow": "var(--color-on-footer-yellow)"
   },
   "fontSize": {
     "display": [
