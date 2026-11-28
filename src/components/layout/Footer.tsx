@@ -77,8 +77,8 @@ export function SiteFooter() {
     <footer className={`mt-section-gap transition-colors duration-500 motion-reduce:transition-none ${TONE[tone].bg}`}>
       <div className="max-w-[1180px] mx-auto px-5 md:px-10">
         <div className="pt-14 md:pt-20 pb-10 md:pb-14">
-          {/* The header's lockup at about twice the footer's earlier size, scaling down to fit narrow screens. */}
-          <SistemaByJtdLogo height={224} byColor="currentColor" onShape={setTone} className="block w-full max-w-[970px] h-auto" />
+          {/* The header's lockup, the full width of the content column. */}
+          <SistemaByJtdLogo height={224} byColor="currentColor" onShape={setTone} className="block w-full h-auto" />
         </div>
         <div className="pb-12 grid grid-cols-1 md:grid-cols-[1.2fr_repeat(3,1fr)] gap-10">
           <p className="m-0 text-body max-w-[300px]">
