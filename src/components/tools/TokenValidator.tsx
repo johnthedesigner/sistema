@@ -74,12 +74,10 @@ export function TokenValidator({ example, standards }: { example: TokenFiles; st
         <div className="space-y-3">
           {failing.map((c, i) => <CheckRow key={`f${i}`} c={c} />)}
           {passing.length > 0 && (
-            <details className="rounded-radius-lg bg-surface-raised">
-              <summary className="cursor-pointer px-4 py-3 text-label text-on-surface">{passing.length} checks pass</summary>
-              <div className="px-4 pb-3 space-y-2">
-                {passing.map((c, i) => <CheckRow key={`p${i}`} c={c} quiet />)}
-              </div>
-            </details>
+            <div className="rounded-radius-lg bg-surface-raised px-4 py-3">
+              <p className="text-label text-on-surface m-0 mb-1">{passing.length} checks pass</p>
+              {passing.map((c, i) => <CheckRow key={`p${i}`} c={c} quiet />)}
+            </div>
           )}
         </div>
       )}
