@@ -158,6 +158,21 @@
   applies_to: components
   sources: [guide.visual-language.overview#the-craft-baseline]
 
+- id: quality.consistency.system-first
+  statement: >-
+    Interface work uses the system's type roles and families, color roles, spacing, and components. A style or
+    pattern the system doesn't have, such as a new type treatment, color, or layout, is proposed to the person as a
+    decision, recorded in DECISIONS.md, and added to DESIGN.md before it is used again.
+  reason: >-
+    A design system drifts one small exception at a time: a label set in another face, a one-off color, a layout
+    made once and copied. Each looks harmless alone. Making every new pattern a recorded decision keeps the system
+    the single source, and lets the next screen reuse what was decided.
+  layer: sistema-default
+  severity: blocking
+  applies_to: components, pages, and review pages
+  checked_by: [play.components.audit evidence, play.project.review evidence]
+  sources: [guide.components.architecture#tokens-in-components, guide.visual-language.overview#the-craft-baseline]
+
 - id: quality.craft.motion
   statement: >-
     Transitions are short and eased out, on state changes and floating layers only. Surfaces opened many times

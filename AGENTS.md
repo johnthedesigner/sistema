@@ -150,6 +150,8 @@ Next.js pre-renders client components, so `window`, `document`, `localStorage`, 
 ### Page layout
 Pages use `Container` (`max-w-[1180px] mx-auto px-5 md:px-10`). The page background is `surface`; raised content (cards, panels) uses `surface-raised` and separates by tone, without outlines. Headings use Fraunces (`font-serif`), text uses Inter. Use the type roles (`text-body`, `text-label`, `text-heading-md`) and the shared components in `src/components/site/` rather than pixel values. Full-bleed sections break out at `<main>` level and re-contain inside. Pages must not scroll sideways at 390px.
 
+**The site follows its own system (`quality.consistency.system-first`).** Before adding UI, check DESIGN.md and the shared components: Fraunces is for headings only, labels and small text are Inter roles, colors are role tokens. Nothing one-off (an italic serif label, an ad hoc color, a raw size). A new pattern is a decision: reuse an existing one if it fits; otherwise ask the owner, record it in DECISIONS.md, and add it to DESIGN.md's Components. After a batch of visual changes, check for drift: raw values, families and styles outside the roles, colors outside the tokens, and patterns not yet in DESIGN.md.
+
 ### Review page templates
 The visual direction page is one file, `public/templates/visual-direction.html`, served at `/templates/visual-direction.html`. Plays copy it and replace only its JSON data block; improvements go into the template. Sistema's own `sistema-review/visual-direction.html` is the reference rendering.
 

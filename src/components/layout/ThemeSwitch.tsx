@@ -16,7 +16,7 @@ const OPTIONS: Theme[] = ['system', 'light', 'dark']
 const LABEL: Record<Theme, string> = { system: 'System', light: 'Light', dark: 'Dark' }
 
 /** onColor: for a solid colored background (the footer), where surface tones don't read. */
-export function ThemeSwitch({ onColor }: { onColor?: boolean } = {}) {
+export function ThemeSwitch({ onColor, trackClass = '' }: { onColor?: boolean; trackClass?: string } = {}) {
   const [theme, setTheme] = useState<Theme>('system')
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export function ThemeSwitch({ onColor }: { onColor?: boolean } = {}) {
   }
 
   return (
-    <div role="group" aria-label="Theme" className={`inline-flex p-0.5 rounded-radius-md ${onColor ? 'bg-black/15' : 'bg-surface-hover'}`}>
+    <div role="group" aria-label="Theme" className={`inline-flex p-0.5 rounded-radius-md ${onColor ? trackClass : 'bg-surface-hover'}`}>
       {OPTIONS.map(t => (
         <button
           key={t}
@@ -44,7 +44,7 @@ export function ThemeSwitch({ onColor }: { onColor?: boolean } = {}) {
           onClick={() => choose(t)}
           className={`h-7 px-2.5 rounded-radius-sm text-caption transition-colors motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 ${
             onColor
-              ? 'text-current aria-pressed:bg-white aria-pressed:text-on-surface focus-visible:outline-current'
+              ? 'text-current aria-pressed:bg-surface-raised aria-pressed:text-on-surface focus-visible:outline-current'
               : 'text-on-surface-muted aria-pressed:bg-surface-raised aria-pressed:text-on-surface aria-pressed:shadow-control focus-visible:outline-border-focus'
           }`}
         >

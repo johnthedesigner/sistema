@@ -15,7 +15,7 @@ knowledge:
   - guide.accessibility.floor#3-focus-visibility
   - guide.accessibility.floor#4-touch-and-pointer-targets
   - guide.accessibility.floor#6-motion
-rules: [tokens.usage.no-raw-values, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.reduced-motion, accessibility.focus-not-lost, components.busy.keep-focus, components.toast.scope, components.css.one-utility-per-property]
+rules: [tokens.usage.no-raw-values, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.reduced-motion, accessibility.focus-not-lost, components.busy.keep-focus, components.toast.scope, components.css.one-utility-per-property, quality.consistency.system-first]
 evidence: The component file, its entry in the showcase, the result of an automated accessibility scan with zero violations in every theme, a keyboard walkthrough of each state, and contrast results for any new color pairing.
 overrides: [component]
 last_reviewed: 2026-11-15

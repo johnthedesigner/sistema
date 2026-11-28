@@ -69,8 +69,8 @@ function DriftScreen({ i, label }: { i: number; label: string }) {
   return (
     <div className="w-[116px] p-3 flex flex-col gap-2 text-left" style={d.card}>
       <span style={d.title}>{label}</span>
-      <span className="block h-1.5 w-[80%] rounded-full" style={{ background: d.bar }} />
-      <span className="block h-1.5 w-[60%] rounded-full" style={{ background: d.bar }} />
+      <span className="block h-1.5 w-[80%] rounded-radius-full" style={{ background: d.bar }} />
+      <span className="block h-1.5 w-[60%] rounded-radius-full" style={{ background: d.bar }} />
       <span className="self-start mt-1" style={d.button}>Save</span>
     </div>
   )
@@ -79,9 +79,9 @@ function DriftScreen({ i, label }: { i: number; label: string }) {
 function SystemScreen({ label }: { label: string }) {
   return (
     <div className="w-[116px] p-3 flex flex-col gap-2 text-left rounded-radius-lg bg-surface-raised shadow-control">
-      <span className="font-serif text-label text-on-surface">{label}</span>
-      <span className="block h-1.5 w-[80%] rounded-full bg-surface-selected" />
-      <span className="block h-1.5 w-[60%] rounded-full bg-surface-selected" />
+      <span className="text-label text-on-surface">{label}</span>
+      <span className="block h-1.5 w-[80%] rounded-radius-full bg-surface-selected" />
+      <span className="block h-1.5 w-[60%] rounded-radius-full bg-surface-selected" />
       <span className="self-start mt-1 inline-flex items-center h-7 px-3 rounded-radius-md bg-primary text-on-primary text-caption font-medium">Save</span>
     </div>
   )
@@ -154,7 +154,7 @@ export default function HowItWorksPage() {
           </figure>
           <div className="flex md:flex-col items-center gap-3" aria-hidden="true">
             <span className="flex-1 h-px md:h-auto md:w-px md:min-h-[72px] bg-border" />
-            <span className="inline-flex items-center justify-center w-10 h-10 rounded-radius-full bg-surface text-label text-on-surface-muted font-serif italic">vs</span>
+            <span className="inline-flex items-center justify-center w-10 h-10 rounded-radius-full bg-surface text-label text-on-surface-muted">vs</span>
             <span className="flex-1 h-px md:h-auto md:w-px md:min-h-[72px] bg-border" />
           </div>
           <figure className="m-0 text-center">
@@ -186,8 +186,8 @@ export default function HowItWorksPage() {
                   <figure className="m-0">
                     {/* A stylized session: what the agent finds, then only the questions the files didn't answer. */}
                     <div className="rounded-radius-xl overflow-hidden shadow-featured bg-surface-inverse text-on-surface-inverse">
-                      <div className="flex items-center gap-1.5 px-4 py-3 border-b border-white/10" aria-hidden="true">
-                        <span className="w-2.5 h-2.5 rounded-full bg-white/25" /><span className="w-2.5 h-2.5 rounded-full bg-white/25" /><span className="w-2.5 h-2.5 rounded-full bg-white/25" />
+                      <div className="flex items-center gap-1.5 px-4 py-3 border-b border-on-surface-inverse/10" aria-hidden="true">
+                        <span className="w-2.5 h-2.5 rounded-radius-full bg-on-surface-inverse/25" /><span className="w-2.5 h-2.5 rounded-radius-full bg-on-surface-inverse/25" /><span className="w-2.5 h-2.5 rounded-radius-full bg-on-surface-inverse/25" />
                         <span className="ml-3 text-caption opacity-70">your-project · agent session</span>
                       </div>
                       <div className="p-5 md:p-6 font-mono text-code grid gap-3">

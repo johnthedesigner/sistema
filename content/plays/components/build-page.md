@@ -13,7 +13,7 @@ knowledge:
   - guide.spacing.layout#the-scale-as-a-unified-system
   - guide.components.architecture#tokens-in-components
   - guide.quality.visual-quality-signals#reflexes
-rules: [tokens.usage.no-raw-values, spacing.never-arbitrary, content.voice.baseline]
+rules: [tokens.usage.no-raw-values, spacing.never-arbitrary, content.voice.baseline, quality.consistency.system-first]
 evidence: The page in the app, screenshots at desktop, 768px, and phone width in every theme, the components it uses, any component added for it, and a passing build.
 overrides: [page]
 last_reviewed: 2026-11-28

@@ -14,7 +14,7 @@ knowledge:
   - guide.components.architecture#failure-modes
   - guide.tokens.architecture#the-tier-model
   - guide.accessibility.floor#how-to-use-this-document
-rules: [tokens.usage.no-raw-values, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.focus-not-lost]
+rules: [tokens.usage.no-raw-values, accessibility.target-size, accessibility.focus-visible, accessibility.keyboard, accessibility.name-and-state, accessibility.focus-not-lost, quality.consistency.system-first]
 evidence: A report with a verdict (ready to reuse, needs work, or significant gaps) and each issue with its file and line, the rule it breaks, and a severity, plus contrast results from the tool for every color pairing checked.
 overrides: [component]
 last_reviewed: 2026-11-15

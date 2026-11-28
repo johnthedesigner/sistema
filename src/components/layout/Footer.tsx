@@ -63,11 +63,11 @@ const FOOTER_NAV = [
 ]
 
 type Tone = LogoShape
-/** bg and text for each background; line is one stop darker, for the divider. */
-const TONE: Record<Tone, { bg: string; line: string }> = {
-  blue: { bg: 'bg-footer-blue text-on-footer', line: 'border-footer-blue-line' },
-  red: { bg: 'bg-footer-red text-on-footer-red', line: 'border-footer-red-line' },
-  yellow: { bg: 'bg-footer-yellow text-on-footer-yellow', line: 'border-footer-yellow-line' },
+/** bg and text for each background; line and track are one stop darker, for the divider and the theme switch. */
+const TONE: Record<Tone, { bg: string; line: string; track: string }> = {
+  blue: { bg: 'bg-footer-blue text-on-footer', line: 'border-footer-blue-line', track: 'bg-footer-blue-line' },
+  red: { bg: 'bg-footer-red text-on-footer-red', line: 'border-footer-red-line', track: 'bg-footer-red-line' },
+  yellow: { bg: 'bg-footer-yellow text-on-footer-yellow', line: 'border-footer-yellow-line', track: 'bg-footer-yellow-line' },
 }
 
 const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current rounded-radius-sm'
@@ -111,7 +111,7 @@ export function SiteFooter() {
             Built by John the Designer
           </a>
           <span className="text-caption">Public beta</span>
-          <div className="ml-auto"><ThemeSwitch onColor /></div>
+          <div className="ml-auto"><ThemeSwitch onColor trackClass={TONE[tone].track} /></div>
         </div>
       </div>
     </footer>

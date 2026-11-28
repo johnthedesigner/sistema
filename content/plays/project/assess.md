@@ -70,6 +70,9 @@ If the project has `LIVING_BRIEF.md` (an older Sistema state file) and no `siste
    This project's design system follows Sistema. Before any design system work
    (tokens, colors, type, components, DESIGN.md), read sistema.json and fetch
    the URL in its "continue" field, then follow it.
+   For any interface work, use DESIGN.md's roles and the system's components.
+   A style or pattern the system doesn't have is a decision: propose it,
+   record it in DECISIONS.md, and add it to DESIGN.md before reusing it.
    <!-- sistema:end -->
    ```
 

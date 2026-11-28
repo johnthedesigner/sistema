@@ -169,12 +169,18 @@ Sistema's site explains a method for building design systems with an AI agent, f
 
 ## Components
 
-- Navigation with the current section marked in blue.
-- The prompt box, featured on the home, workflow, and play pages.
-- Guide pages: reading column, "On this page", plays and rules for the topic.
-- Reference lists: filters and tables.
-- Tool pages: controls and a featured result.
-- The command palette, footer with the theme switch.
+- **Navigation** with the current section marked in blue: Get started (a menu), Plays, Guides, Reference, Tools.
+- **The prompt box**, the featured item on the home, entry, workflow, and play pages: equal padding to what you see, the controls a padding's width below the text, "Copied" shown in the button. On the home page, three choice cards (start, audit, update) above it; update opens its routes as a radio group joined to the card by a blue outline and notch, with one route always selected.
+- **Entry pages** (start, audit, update, connect): a hero with room above and below its prompt, then sections separated by space and a hairline, never by alternating backgrounds.
+- **Documentation pages** (Reference, guides, file formats): breadcrumbs, a reading column, and a sticky "On this page" rail with sections in label weight (with counts where they help) and their subitems smaller and indented. Content is laid out as text, not folded away.
+- **Index lists**: one column, alphabetical, in a raised panel with hairlines between rows. Long lists group by topic, each group headed by its icon badge and a count; groups follow the narrative order.
+- **Icons**: one set (Lucide), at a 1.7 to 1.8 stroke. Each topic and each kind of item (play, workflow, guide, rule, opinion, file, source, tool) has one icon, used everywhere it appears. Icon badges sit in a soft blue square. Count labels pair a kind's icon with its number.
+- **Approval cards**: blue (primary container) with the approval check icon.
+- **Status in results**: a colored dot beside a plain label, never colored text.
+- **Landing pages** (How Sistema works): a centered hero; a timeline of the stages, solid through the stages and dotted past the last, running off the edge; alternating rows of text and image in equal columns with generous space; screenshots of real Sistema pages framed with the featured shadow; comparisons in one raised panel with a "vs" divider.
+- **Tool pages**: controls and a featured result.
+- **The command palette**; the "For agents" corner button, whose panel holds the plain-text links.
+- **The footer**: the Sistema lockup across the content width, on a solid logo-color background (blue; red or yellow while that shape is hovered), with the divider and the theme switch track one stop darker than the background.
 
 ## Do's and Don'ts
 
