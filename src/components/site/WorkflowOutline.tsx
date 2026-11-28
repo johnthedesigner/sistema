@@ -3,11 +3,12 @@
  * approvals marked (site-structure.md section 4). Routes workflows list their routes.
  */
 import Link from 'next/link'
+import { BadgeCheck } from 'lucide-react'
 import { workflowSteps } from '@/lib/content/render'
 import type { Milestone } from '@/lib/content/schema'
 import { catalog, playHref } from '@/lib/content/site'
 
-const MILESTONE: Record<Milestone, string> = { direction: 'Direction', foundations: 'Foundations', patterns: 'Patterns', maintain: 'Ongoing' }
+const MILESTONE: Record<Milestone, string> = { direction: 'Direction', foundations: 'Foundations', patterns: 'Patterns', maintain: 'Update' }
 const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus'
 
 export function SequenceOutline({ id }: { id: string }) {
@@ -38,9 +39,12 @@ export function SequenceOutline({ id }: { id: string }) {
                   </span>
                 </Link>
                 {s.gateAfter.map(gate => (
-                  <div key={gate.gate} className="ml-[52px] my-2 rounded-radius-md bg-brand-yellow-subtle px-3 py-2.5">
-                    <span className="block text-label text-on-surface">You approve</span>
-                    <span className="block text-body-sm text-on-surface-muted">{gate.prompt}</span>
+                  <div key={gate.gate} className="ml-[52px] my-2 rounded-radius-md bg-primary-container text-on-primary-container px-3 py-2.5 flex items-start gap-2.5">
+                    <BadgeCheck size={18} strokeWidth={1.8} aria-hidden="true" className="shrink-0 mt-px" />
+                    <span>
+                      <span className="block text-label">You approve</span>
+                      <span className="block text-body-sm">{gate.prompt}</span>
+                    </span>
                   </div>
                 ))}
               </li>

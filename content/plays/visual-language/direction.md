@@ -1,7 +1,7 @@
 ---
 id: visual-language.direction
 title: Set the visual direction
-description: Turn the project's positioning into what the product needs, ask the person the taste questions with options shown on a screen like theirs, in the product's own words, and get a visual direction page page approved before any token values are generated.
+description: Turn the project's positioning into what the product needs, ask the person the taste questions with options shown on a screen like theirs, in the product's own words, and get a visual direction page approved before any token values are generated.
 topic: visual-language
 kind: create
 milestone: direction

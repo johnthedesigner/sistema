@@ -7,11 +7,11 @@ import { AgentNote, ArrowRight } from '@/components/site/ui'
 import { catalog } from '@/lib/content/site'
 
 export const metadata: Metadata = {
-  title: 'Sistema: firm foundations for AI-built apps',
-  description: 'Sistema guides your AI coding agent through building a design system in your repository, with your approval at each stage.',
+  title: 'Sistema: firm foundations for design and code',
+  description: 'Sistema guides your coding agent through building a design system in your own repository, with your approval at each stage, grounded in principles from established design systems, standards, and research.',
   openGraph: {
-    title: 'Sistema: firm foundations for AI-built apps',
-    description: 'Sistema guides your AI coding agent through building a design system in your repository, with your approval at each stage.',
+    title: 'Sistema: firm foundations for design and code',
+    description: 'Sistema guides your coding agent through building a design system in your own repository, with your approval at each stage, grounded in principles from established design systems, standards, and research.',
   },
 }
 
@@ -54,6 +54,7 @@ const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:o
 
 export default function Home() {
   const { suggestions, routes } = promptOptions()
+  const sourceCount = catalog().sources.length
   return (
     <main>
       <div className={`${section} pt-8 md:pt-12`}>
@@ -62,10 +63,15 @@ export default function Home() {
 
       <section className={`${section} pt-6 md:pt-10 pb-16 md:pb-24`}>
         <h1 className="text-heading-xl md:text-display font-serif text-on-surface m-0 mx-auto max-w-[16ch] text-center">
-          Firm foundations for AI-built apps. More room to design.
+          Firm foundations for design and code.
         </h1>
-        <p className="text-body-lg text-on-surface-muted mt-5 mb-10 mx-auto max-w-[60ch] text-center">
-          Sistema guides your coding agent through building a design system in your repository, with you approving each stage. Every new screen starts from solid ground, and your time goes to design.
+        <p className="text-body-lg text-on-surface-muted mt-5 mb-0 mx-auto max-w-[62ch] text-center">
+          Sistema guides your coding agent through building a design system in your own repository, with your approval at each stage. Every decision is written down with its reason, so nothing is lost between sessions, and the work that follows, by hand or with AI, stays on course as the product grows.
+        </p>
+        <p className="text-body-sm text-on-surface-muted mt-4 mb-10 text-center">
+          <Link href="/sources" className={`no-underline text-on-surface-muted hover:text-on-surface rounded-radius-sm ${focusRing}`}>
+            Grounded in principles from {sourceCount} sources, including Material, Carbon, Polaris, Primer, and WCAG 2.2 <span aria-hidden="true">→</span>
+          </Link>
         </p>
         <div className="max-w-[820px] mx-auto">
           <PromptBox suggestions={suggestions} routes={routes} initial="workflow.start" defaultRoute={DEFAULT_ROUTE} center />
