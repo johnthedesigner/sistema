@@ -1,301 +1,110 @@
 'use client'
 
-import { useEffect, useState, useId } from 'react'
+/**
+ * The contrast tool's demonstration (D46). The ratio is computed in the browser
+ * with the same WCAG 2.x formula the API uses; the required values come from the
+ * rules registry for each standard, built on the server (`table`).
+ */
+import { useEffect, useState } from 'react'
 import { trackToolPage } from '@/lib/analytics/browser'
-import { SITE_URL } from '@/lib/site-url'
-import { STANDARD_LABELS } from '@/lib/tools/levels'
+import { standardName } from '@/lib/tools/levels'
 import type { ContrastTable } from '@/lib/tools/contrast'
+import type { Swatch } from '@/lib/tools/swatches'
+import { ColorField, DemoLayout, StandardPicker } from '@/components/tools/ToolControls'
 
-// WCAG 2.x contrast computed client-side — no API round-trip needed for the UI
 function linearize(c: number): number {
   const s = c / 255
   return s <= 0.04045 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4)
 }
-
 function luminance(hex: string): number {
   const h = hex.replace('#', '')
-  const r = parseInt(h.slice(0, 2), 16)
-  const g = parseInt(h.slice(2, 4), 16)
-  const b = parseInt(h.slice(4, 6), 16)
-  return 0.2126 * linearize(r) + 0.7152 * linearize(g) + 0.0722 * linearize(b)
+  return 0.2126 * linearize(parseInt(h.slice(0, 2), 16)) + 0.7152 * linearize(parseInt(h.slice(2, 4), 16)) + 0.0722 * linearize(parseInt(h.slice(4, 6), 16))
 }
-
 function contrast(fg: string, bg: string): number {
-  const l1 = luminance(fg)
-  const l2 = luminance(bg)
-  const lighter = Math.max(l1, l2)
-  const darker = Math.min(l1, l2)
-  return (lighter + 0.05) / (darker + 0.05)
+  const [a, b] = [luminance(fg), luminance(bg)].sort((x, y) => y - x)
+  return (a + 0.05) / (b + 0.05)
 }
+const HEX = /^#[0-9a-fA-F]{6}$/
 
-const HEX_RE = /^#[0-9a-fA-F]{6}$/
-
-function isValidHex(s: string): boolean {
-  return HEX_RE.test(s)
-}
-
-function normalizeInput(s: string): string {
-  const t = s.trim()
-  return t.startsWith('#') ? t : '#' + t
-}
-
-// The three checks the contrast API runs, with the rule each comes from.
+/** The three checks the contrast API runs, with what each covers and the rule it comes from. */
 const CHECKS = [
-  { key: 'text', label: 'Normal text', sublabel: 'Body, labels, interface text', rule: 'color.contrast.text' },
-  { key: 'large_text', label: 'Large text', sublabel: '24px and up, or 18.66px bold and up', rule: 'color.contrast.large-text' },
-  { key: 'ui', label: 'UI components', sublabel: 'Icons, borders, focus rings, controls', rule: 'color.contrast.ui' },
+  { key: 'text', label: 'Normal text', covers: 'Body text, labels, and interface text', rule: 'color.contrast.text' },
+  { key: 'large_text', label: 'Large text', covers: '24px and up, or bold at 18.66px and up', rule: 'color.contrast.large-text' },
+  { key: 'ui', label: 'Interface parts', covers: 'Icons, control edges, and focus rings', rule: 'color.contrast.ui' },
 ] as const
 
-function ColorInput({
-  label,
-  value,
-  onChange,
-}: {
-  label: string
-  value: string
-  onChange: (v: string) => void
-}) {
-  const id = useId()
-  const valid = isValidHex(value)
-
-  return (
-    <div className="flex-1 min-w-0">
-      <label htmlFor={id} className="block font-mono text-[10.5px] text-on-surface-muted mb-2">
-        {label}
-      </label>
-      <div className="flex items-center gap-2">
-        {/* Native color picker — synced to hex input */}
-        <input
-          type="color"
-          value={valid ? value : '#000000'}
-          onChange={e => onChange(e.target.value)}
-          className="w-10 h-10 rounded-radius-md border border-border cursor-pointer bg-surface-raised p-0.5 shrink-0"
-          aria-label={`${label} color picker`}
-        />
-        <input
-          id={id}
-          type="text"
-          value={value}
-          onChange={e => onChange(normalizeInput(e.target.value))}
-          maxLength={7}
-          placeholder="#000000"
-          className="flex-1 min-w-0 h-10 px-3 font-mono text-[13px] border border-border-strong rounded-radius-md bg-surface-raised text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
-          style={{ borderColor: valid ? 'var(--color-border)' : 'var(--color-error)' }}
-          spellCheck={false}
-        />
-      </div>
-    </div>
-  )
-}
-
-/** `table` holds the required ratios from the rules registry, by standard and level (built on the server). */
-export function ContrastChecker({ table }: { table: ContrastTable }) {
-  const [fg, setFg] = useState('#1a1f2e')
-  const [bg, setBg] = useState('#ffffff')
-  const [standard, setStandard] = useState('wcag-2.2')
-  const [level, setLevel] = useState('AA')
-  const levels = Object.keys(table[standard] ?? {})
-  const activeLevel = levels.includes(level) ? level : levels[0]
-  const required = table[standard]?.[activeLevel] ?? {}
+export function ContrastChecker({ table, foregrounds, backgrounds }: { table: ContrastTable; foregrounds: Swatch[]; backgrounds: Swatch[] }) {
+  const options = Object.entries(table).flatMap(([s, levels]) => Object.keys(levels).map(l => `${s} ${l}`))
+  const [fg, setFg] = useState(foregrounds[0]?.hex ?? '#1F2937')
+  const [bg, setBg] = useState('#FFFFFF')
+  const [choice, setChoice] = useState(options.includes('wcag-2.2 AA') ? 'wcag-2.2 AA' : options[0])
+  const [standard, level] = choice.split(' ')
+  const required = table[standard]?.[level] ?? {}
 
   useEffect(() => {
-    trackToolPage('contrast', { foreground: fg, background: bg, standard, level: activeLevel })
-  }, [fg, bg, standard, activeLevel])
+    trackToolPage('contrast', { foreground: fg, background: bg, standard, level })
+  }, [fg, bg, standard, level])
 
-  const fgValid = isValidHex(fg)
-  const bgValid = isValidHex(bg)
-  const bothValid = fgValid && bgValid
-
-  const ratio = bothValid ? contrast(fg, bg) : null
-  const ratioDisplay = ratio !== null ? ratio.toFixed(2) : '—'
-
-  // Summary for the chosen standard. Passing uses the exact ratio; WCAG doesn't round up.
-  const passText = ratio !== null && required.text !== undefined && ratio >= required.text
-  const passLarge = ratio !== null && required.large_text !== undefined && ratio >= required.large_text
-  const ratingLabel = passText ? 'Passes all text' : passLarge ? 'Large text and UI only' : 'Fails'
-  const ratingColor = passText ? '#2C7900' : passLarge ? '#8B6B00' : '#E60026'
+  const valid = HEX.test(fg) && HEX.test(bg)
+  const ratio = valid ? contrast(fg, bg) : null
+  // Passing uses the exact ratio; WCAG doesn't round up.
+  const results = CHECKS.map(c => ({ ...c, needs: required[c.key], pass: ratio !== null && required[c.key] !== undefined ? ratio >= required[c.key]! : null }))
+  const summary = ratio === null ? '' : results.every(r => r.pass !== false) ? 'Passes every check' : results.find(r => r.key === 'large_text')?.pass ? 'Large text and interface parts only' : 'Fails'
 
   return (
-    <div className="space-y-6">
-      {/* Inputs */}
-      <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-end">
-        <ColorInput label="Foreground" value={fg} onChange={setFg} />
-
-        {/* Swap button */}
-        <button
-          onClick={() => { setFg(bg); setBg(fg) }}
-          className="shrink-0 h-10 w-10 flex items-center justify-center border border-border rounded-radius-md bg-surface-raised text-on-surface-muted hover:bg-surface-subtle transition-colors mb-[0px]"
-          aria-label="Swap foreground and background"
-        >
-          <svg width={14} height={14} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 16V4m0 0L3 8m4-4 4 4M17 8v12m0 0 4-4m-4 4-4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-
-        <ColorInput label="Background" value={bg} onChange={setBg} />
-      </div>
-
-      {/* Standard */}
-      <div className="flex flex-col sm:flex-row gap-4">
-        <label className="flex-1 min-w-0">
-          <span className="block font-mono text-[10.5px] text-on-surface-muted mb-2">Standard</span>
-          <select
-            value={standard}
-            onChange={e => setStandard(e.target.value)}
-            className="w-full h-10 px-3 border border-border-strong rounded-radius-md bg-surface-raised text-on-surface text-[13px] focus:outline-none focus:border-primary appearance-none"
-          >
-            {Object.keys(table).map(s => (
-              <option key={s} value={s}>{STANDARD_LABELS[s] ?? s}</option>
-            ))}
-          </select>
-        </label>
-        <label className="sm:w-40">
-          <span className="block font-mono text-[10.5px] text-on-surface-muted mb-2">Level</span>
-          <select
-            value={activeLevel}
-            onChange={e => setLevel(e.target.value)}
-            className="w-full h-10 px-3 border border-border-strong rounded-radius-md bg-surface-raised text-on-surface text-[13px] focus:outline-none focus:border-primary appearance-none"
-          >
-            {levels.map(l => (
-              <option key={l} value={l}>{l}</option>
-            ))}
-          </select>
-        </label>
-      </div>
-
-      {/* Preview + ratio */}
-      <div
-        className="bg-surface-raised rounded-radius-lg overflow-hidden"
-        style={{ background: bgValid ? bg : 'var(--color-surface-raised)' }}
-      >
-        {/* Text preview */}
-        <div className="px-6 py-8">
-          <p
-            className="text-[32px] font-serif font-medium leading-tight m-0 mb-2"
-            style={{ color: fgValid ? fg : 'var(--color-on-surface)' }}
-          >
-            Large text sample
-          </p>
-          <p
-            className="text-[15px] leading-[1.6] m-0"
-            style={{ color: fgValid ? fg : 'var(--color-on-surface)' }}
-          >
-            Normal body text. The quick brown fox jumps over the lazy dog.
-            Used for reading tasks, labels, and interface copy.
-          </p>
-        </div>
-
-        {/* Ratio strip */}
-        <div
-          className="flex flex-col sm:flex-row sm:items-center gap-3 px-6 py-4"
-          style={{ background: 'rgba(0,0,0,0.06)', borderTop: '1px solid rgba(0,0,0,0.08)' }}
-        >
-          <div>
-            <span
-              className="font-mono font-semibold"
-              style={{ fontSize: 28, letterSpacing: '-0.02em', color: fgValid ? fg : 'inherit' }}
-            >
-              {ratioDisplay}
-            </span>
-            <span
-              className="font-mono text-[14px] ml-1.5"
-              style={{ color: fgValid ? fg : 'inherit', opacity: 0.7 }}
-            >
-              : 1
-            </span>
-          </div>
-          {ratio !== null && (
-            <span
-              className="self-start sm:self-auto font-mono text-[11px] font-semibold px-2 py-0.5 rounded"
-              style={{ background: ratingColor, color: '#fff' }}
-            >
-              {ratingLabel}
-            </span>
-          )}
-          <span
-            className="font-mono text-[11px] sm:ml-auto"
-            style={{ color: fgValid ? fg : 'inherit', opacity: 0.5 }}
-          >
-            WCAG contrast ratio
-          </span>
-        </div>
-      </div>
-
-      {/* Criteria grid */}
-      <div className="bg-surface-raised rounded-radius-lg overflow-hidden divide-y divide-border">
-        {/* Header */}
-        <div className="grid grid-cols-[1fr_80px_80px] gap-4 px-4 py-2 bg-surface-subtle">
-          <span className="font-mono text-[10.5px] text-on-surface-muted">Criterion</span>
-          <span className="font-mono text-[10.5px] text-on-surface-muted text-right">Needs</span>
-          <span className="font-mono text-[10.5px] text-on-surface-muted text-right">Result</span>
-        </div>
-
-        {CHECKS.map(c => {
-          const threshold = required[c.key]
-          if (threshold === undefined) {
-            return (
-              <div key={c.key} className="grid grid-cols-[1fr_80px_80px] gap-4 items-center px-4 py-3 bg-surface-raised">
-                <div>
-                  <p className="text-[13.5px] text-on-surface font-medium m-0">{c.label}</p>
-                  <p className="text-[11.5px] text-on-surface-muted m-0">{STANDARD_LABELS[standard] ?? standard} sets no requirement for this</p>
-                </div>
-                <span className="font-mono text-[11px] text-on-surface-faint text-right">—</span>
-                <span className="font-mono text-[11px] text-on-surface-faint text-right">—</span>
-              </div>
-            )
-          }
-          const passes = ratio !== null ? ratio >= threshold : null
-          return (
-            <div key={c.key} className="grid grid-cols-[1fr_80px_80px] gap-4 items-center px-4 py-3 bg-surface-raised">
-              <div>
-                <p className="text-[13.5px] text-on-surface font-medium m-0">{c.label}</p>
-                <p className="text-[11.5px] text-on-surface-muted m-0">{c.sublabel} · <span className="font-mono">{c.rule}</span></p>
-              </div>
-              <span className="font-mono text-[11px] font-semibold text-on-surface-muted text-right">{threshold}:1</span>
-              <div className="flex justify-end">
-                {passes === null ? (
-                  <span className="font-mono text-[11px] text-on-surface-faint">—</span>
-                ) : passes ? (
-                  <span className="inline-flex items-center gap-1 font-mono text-[11px] font-semibold" style={{ color: '#2C7900' }}>
-                    <svg width={12} height={12} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    Pass
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center gap-1 font-mono text-[11px] font-semibold" style={{ color: '#E60026' }}>
-                    <svg width={12} height={12} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-                    </svg>
-                    Fail
-                  </span>
-                )}
+    <DemoLayout
+      controls={
+        <>
+          <ColorField label="Text color" hint="The foreground: text, icons, or edges." value={fg} onChange={setFg} swatches={foregrounds} />
+          <button type="button" onClick={() => { setFg(bg); setBg(fg) }}
+            className="justify-self-start inline-flex items-center gap-2 h-control-height-sm px-3 rounded-radius-md border border-border-strong text-label text-on-surface hover:bg-surface-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus">
+            <svg width={14} height={14} viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 16V4m0 0L3 8m4-4 4 4M17 8v12m0 0 4-4m-4 4-4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            Swap the colors
+          </button>
+          <ColorField label="Background" hint="The surface it sits on." value={bg} onChange={setBg} swatches={backgrounds} />
+          <StandardPicker value={choice} onChange={setChoice} options={options} />
+        </>
+      }
+      output={
+        <div className="grid gap-4">
+          <div className="rounded-radius-xl overflow-hidden shadow-featured" style={{ background: HEX.test(bg) ? bg : undefined, color: HEX.test(fg) ? fg : undefined }}>
+            <div className="px-6 md:px-10 py-10 md:py-14">
+              <p className="text-heading-lg font-serif m-0">Large text, as a heading</p>
+              <p className="text-body m-0 mt-3 max-w-[60ch]">Normal text, as people read it in a paragraph, a label, or a menu. Contrast decides whether it stays readable for people with low vision, and in bright light for everyone.</p>
+              <div className="flex items-center gap-3 mt-6" aria-hidden="true">
+                <span className="inline-flex items-center h-control-height px-4 rounded-radius-md text-label" style={{ boxShadow: 'inset 0 0 0 1.5px currentColor' }}>A control edge</span>
+                <svg width={22} height={22} viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" /><path d="M8 12.5l2.5 2.5L16 9.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </div>
             </div>
-          )
-        })}
-      </div>
+          </div>
 
-      {/* API callout */}
-      <div className="flex flex-col sm:flex-row sm:items-center gap-3 rounded-radius-md border border-border bg-surface-subtle px-4 py-3.5">
-        <div className="flex-1 min-w-0">
-          <p className="text-[12.5px] font-semibold text-on-surface mb-0.5">Use this in your AI prompts</p>
-          <p className="text-[12px] text-on-surface-muted m-0 leading-[1.45] font-mono break-all">
-            GET {SITE_URL}/api/contrast?fg=…&amp;bg=…
-          </p>
+          <div className="rounded-radius-xl bg-surface-raised p-5 md:p-6">
+            <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+              <span className="text-heading-xl font-serif text-on-surface tabular-nums">{ratio !== null ? ratio.toFixed(2) : '—'}<span className="text-heading-sm text-on-surface-muted"> : 1</span></span>
+              <span className="text-body text-on-surface-muted">{summary ? `${summary} for ${standardName(choice)}` : 'Enter two colors'}</span>
+            </div>
+            <ul className="list-none m-0 mt-5 p-0 divide-y divide-border">
+              {results.map(r => (
+                <li key={r.key} className="grid grid-cols-[minmax(0,1fr)_auto] gap-4 items-center py-3">
+                  <span className="min-w-0">
+                    <span className="block text-label text-on-surface">{r.label}</span>
+                    <span className="block text-caption text-on-surface-muted">{r.covers} · <span className="font-mono">{r.rule}</span></span>
+                  </span>
+                  <span className="flex items-center gap-4 text-body-sm">
+                    <span className="text-on-surface-muted tabular-nums">{r.needs !== undefined ? `needs ${r.needs} : 1` : 'not required'}</span>
+                    {r.pass !== null && (
+                      <span className="inline-flex items-center gap-1.5 text-label text-on-surface w-12">
+                        <span aria-hidden="true" className={`inline-block w-2 h-2 rounded-radius-full ${r.pass ? 'bg-success' : 'bg-error'}`} />
+                        {r.pass ? 'Pass' : 'Fail'}
+                      </span>
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <button
-          onClick={() => {
-            if (!bothValid) return
-            const cmd = `${SITE_URL}/api/contrast?fg=${encodeURIComponent(fg)}&bg=${encodeURIComponent(bg)}&standard=${encodeURIComponent(`${standard} ${activeLevel}`)}`
-            navigator.clipboard.writeText(cmd)
-          }}
-          disabled={!bothValid}
-          className="shrink-0 inline-flex items-center h-[30px] px-3 text-[12px] font-medium border border-border rounded-radius-md text-on-surface bg-surface-raised hover:bg-surface-raised transition-colors disabled:opacity-40"
-        >
-          Copy
-        </button>
-      </div>
-    </div>
+      }
+    />
   )
 }
